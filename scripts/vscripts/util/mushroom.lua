@@ -40,7 +40,6 @@ function CreateMushRoom()
 	local trees = GridNav:GetAllTreesAroundPoint(vec, radius, false)
 	for _,tree in pairs(trees) do
 		if RandomInt(1,1000) > change then
-			print("MUSHROOM!!")
 			local item = CreateItem("item_magic_mushroom", nil, nil)
 			local pos = tree:GetAbsOrigin()
 			local drop = CreateItemOnPositionSync(pos, item)
