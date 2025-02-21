@@ -1,0 +1,442 @@
+"DOTAAbilities"
+{
+	"ability_thdots_cirno01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_cirno01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"8"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"29"
+		"precache"
+		{
+			"particle"	"particles/heroes/cirno/ability_cirno_02.vpcf"
+			"particle"	"particles/units/heroes/hero_invoker/invoker_ice_wall_snow_ground.vpcf"
+			"particle"	"particles/heroes/cirno/ability_cirno_04_buff.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_crystalmaiden.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Crystal.CrystalNova"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityCirno.lua"
+				"Function"	"OnCirno01SpellStart"
+				"Caster"	"CASTER"
+				"radius"	"%radius"
+				"icebound_duration"	"%icebound_duration"
+				"debuff_name"	"modifier_thdots_crino01_slowdown"
+				"Duration"	"%slow_duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_crino01_slowdown"
+			{
+				"IsHidden"	"0"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow_movement_pct"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%slow_attackspeed"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"damage"	"70 140 210 280"
+			"radius"
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"slow_duration"	"3"
+			"slow_movement_pct"	"-50"
+			"slow_attackspeed"	"-20"
+			"icebound_duration"	"11"
+		}
+	}
+
+	"ability_thdots_cirno02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_cirno02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCooldown"	"12 10 8 6"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"0"
+		"precache"
+		{
+			"particle"	"particles/heroes/cirno/ability_cirno_02.vpcf"
+			"particle"	"particles/units/heroes/hero_invoker/invoker_ice_wall_snow_ground.vpcf"
+			"particle"	"particles/heroes/cirno/ability_cirno_04_buff.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_crystalmaiden.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityCirno.lua"
+				"Function"	"OnCirno02SpellStart"
+				"Caster"	"CASTER"
+				"radius"	"%radius"
+				"stun_self_duration"	"%stun_self_duration"
+				"stun_enemy_duration"	"%stun_enemy_duration"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_cirno02_bonus_action"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_cirno02_bonus_action"
+			{
+				"Duration"	"0.3"
+				"OverrideAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityCirno.lua"
+						"Function"	"OnCrino02ActionDestroy"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"stun_self_duration"	"1.0"
+			"stun_enemy_duration"	"1.0"
+			"radius"
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
+
+			"damage"
+			{
+				"value"							"30 60 90 120"
+				"special_bonus_unique_cirno_1"	"+25"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_MAGICAL"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+		}
+	}
+
+	"ability_thdots_cirno03"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_cirno03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_3"
+		// "AbilityCooldown"	"15 13 11 9"
+		"AbilityCooldown"	"14 12 10 8"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"29"
+		"AbilityCastRange"	"800"
+		"precache"
+		{
+			"particle"	"particles/heroes/cirno/ability_cirno_02.vpcf"
+			"particle"	"particles/units/heroes/hero_invoker/invoker_ice_wall_snow_ground.vpcf"
+			"particle"	"particles/heroes/cirno/ability_cirno_04_buff.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_crystalmaiden.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityCirno.lua"
+				"Function"	"OnCirno03SpellStart"
+				"Target"	"POINT"
+				"Caster"	"CASTER"
+				"length"	"%length"
+				"width"	"%width"
+				"speed"	"%speed"
+				"tick_interval"	"%tick_interval"
+				"debuff_name"	"modifier_thdots_crino03_slowdown"
+				"Duration"	"%slow_duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_crino03_slowdown"
+			{
+				"IsHidden"	"0"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow_movement_pct"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"damage"	"50 100 150 200"
+			"slow_duration"	"3"
+			"slow_movement_pct"	"-30"
+			"length"
+			{
+				"value"			"800"
+				"affected_by_aoe_increase"	"1"
+			}
+			"width"
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"speed"	"1500"
+			"tick_interval"	"0.1"
+		}
+	}
+
+	"ability_thdots_cirno04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_cirno04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastPoint"	"0.2"
+		"HasScepterUpgrade"			"1"
+		// "AbilityCooldown"	"120 110 100"
+		"AbilityCooldown"	"90 75 60"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"59"
+		"precache"
+		{
+			"particle"	"particles/heroes/cirno/ability_cirno_02.vpcf"
+			"particle"	"particles/heroes/cirno/ability_cirno_04.vpcf"
+			"particle"	"particles/units/heroes/hero_invoker/invoker_ice_wall_snow_ground.vpcf"
+			"particle"	"particles/heroes/cirno/ability_cirno_04_buff.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_crystalmaiden.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_windrunner.vsndevts"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_cirno_sounds.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Cirno.AbilityCirno041"
+				"Target"	"CASTER"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Cirno.AbilityCirno04"
+				"Target"	"CASTER"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_Ancient_Apparition.IceVortexCast"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityCirno.lua"
+				"Function"	"OnCirno04SpellStart"
+				"Caster"	"CASTER"
+				"radius"	"%radius"
+				"duration"	"%duration"
+				"tick_interval"	"%tick_interval"
+				"stack_slow_max"	"%stack_slow_max"
+				"stun_self_duration"	"%stun_self_duration"
+				"stun_enemy_duration"	"%stun_enemy_duration"
+				"debuff_slowdown_name"	"modifier_thdots_crino04_slowdown"
+				"debuff_freeze_name"	"modifier_thdots_crino04_freeze"
+				"freeze_damage"	"%freeze_damage"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_crino04_icon"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_cirno04_bonus_action"
+			{
+				"Duration"	"0.3"
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityCirno.lua"
+						"Function"	"OnCrino04ActionDestroy"
+					}
+				}
+			}
+			"modifier_thdots_crino04_icon"
+			{
+				"Duration"	"%duration"
+				"IsHidden"	"0"
+				"IsPurgable"	"0"
+				"OverrideAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+				"StatusEffectPriority"			"2"
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityCirno.lua"
+						"Function"	"OnCrino04IconDestroy"
+					}
+				}
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_DISABLED"
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"		"%speed_bonus"
+				}
+			}
+			"modifier_thdots_crino04_slowdown"
+			{
+				// "Attributes"		"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"IsHidden"	"0"
+				"Duration"	"%slow_duration"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow_movement_pct"
+				}
+			}
+			"modifier_thdots_crino04_freeze"
+			{
+				"IsHidden"	"0"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"States"
+				{
+					// "MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					// "MODIFIER_STATE_ATTACK_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					// "MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					// "MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_ROOTEDATE_VALUE_ENABLED"
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_FROZEN"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				//"Properties"
+				//{
+				//	"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"-100"
+				//}
+			}
+			"Cirno_wanbaochui_passive"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnAttackLanded"
+				{
+					
+					    "RunScript"
+						{
+							"ScriptFile"	"scripts/vscripts/abilities/abilityCirno.lua"
+							"Function"	"Cirnowanbaochui"
+							"Caster"	"CASTER"
+							"Target"	"TARGET"
+						}
+				    
+				}
+				
+			}
+			"Cirno_wanbaochui_debuff"
+			{
+				"IsDebuff" "1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%intellect_bonus"
+				}
+			}
+			"Cirno_wanbaochui_debuff_ex"
+			{
+				"IsDebuff" "1"
+			}
+		
+		}
+		"AbilityValues"
+		{
+			"damage"	"50 75 100"
+			"duration"	"7"
+			"tick_interval"	"0.5"
+			"slow_duration"	"6"
+			"slow_movement_pct"	"-20"
+			"stack_slow_max"	"5"
+			"freeze_damage"	"200 300 400"
+			"stun_self_duration"	"1.0"
+			"stun_enemy_duration"	"1.0"
+			"intellect_bonus"	"-9"
+			"intellect_duration"	"59"
+			"intellect_stun"	"1.9"
+
+			"speed_bonus"
+			{
+				"value"							"0"
+				"special_bonus_unique_cirno_2"	"+60"
+			}
+			"radius"
+			{
+				"value"							"300"
+				"special_bonus_unique_cirno_3"	"+200"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：+破冰伤害
+	//=================================================================================================================
+	"special_bonus_unique_cirno_1"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：+雪符移速
+	//=================================================================================================================
+	"special_bonus_unique_cirno_2"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：+雪符冰冻范围
+	//=================================================================================================================
+	"special_bonus_unique_cirno_3"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+}

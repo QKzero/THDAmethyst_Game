@@ -1,0 +1,133 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Doctor Doll
+	// =================================================================================================================
+	"item_recipe_doctor_doll"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_doctor_doll"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8126"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"150"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_doctor_doll"
+		"ItemRequirements"
+		{
+			"01"	"item_wind_amulet;item_magic_guide_book"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Doctor Doll
+	// =================================================================================================================
+	"item_doctor_doll"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_doctor_doll"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"15"
+		"AbilityManaCost"	"15"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8127"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1100"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"attack_speed;int"
+		"OnSpellStart"
+		{
+			"Heal"
+			{
+				"Target"	"CASTER"
+				"HealAmount"	"%aid_heal_amount"
+			}
+			// "CreateThinker"
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_item_doctor_doll_aid_decline_health_delay"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_doctor_doll"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+				}
+			}
+			"modifier_item_doctor_doll_aid_decline_health_delay"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"IsHidden"	"0"
+				"Duration"	"15"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"ThinkInterval"	"%aid_decline_health_delay"
+				"OnIntervalThink"
+				{
+					"ApplyModifier"
+					{
+						"Target"	"CASTER"
+						"ModifierName"	"modifier_item_doctor_doll_aid_decline_health"
+					}
+					"RemoveModifier"
+					{
+						"Target"	"CASTER"
+						"ModifierName"	"modifier_item_doctor_doll_aid_decline_health_delay"
+					}
+				}
+			}
+			"modifier_item_doctor_doll_aid_decline_health"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"IsHidden"	"0"
+				"Duration"	"%aid_decline_health_duration"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"ThinkInterval"	"1.0"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_DoctorDoll_DeclineHealth"
+						"DeclineHealthPerSec"	"%aid_decline_health_per_sec"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"	"12"
+			"bonus_intellect"	"6"
+			"aid_heal_amount"	"240"
+			"aid_decline_health_delay"	"10"
+			"aid_decline_health_duration"	"5"
+			"aid_decline_health_per_sec"	"45"
+		}
+	}
+}

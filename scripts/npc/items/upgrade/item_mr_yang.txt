@@ -1,0 +1,187 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Mr.Yang
+	// =================================================================================================================
+	"item_recipe_mr_yang"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_mr_yang"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8153"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"400"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_mr_yang"
+		"ItemRequirements"
+		{
+			"01"	"item_wind_gun;item_paper_mask;item_screw_driver"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Mr.Yang
+	// =================================================================================================================
+	"item_mr_yang"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_mr_yang"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"25"
+		"AbilityManaCost"	"60"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"600"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8154"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"4300"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"str;agi;damage;armor"
+		"ItemAliases"	"internet addiction eliminator;nullifier"
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/items"
+			"particle"	"particles/thd2/items/item_mr_yang.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_MrYang_OnSpellStart"
+				"DeclineIntDebuffName"	"modifier_item_mr_yang_decline_intellect"
+				"SlowdownDebuffName"	"modifier_item_mr_yang_slowdown_debuff"
+				"SlowdownDuration"	"%slowdown_duration"
+				"SlowdownInterval"	"%slowdown_interval"
+			}
+		}
+		"Modifiers"
+		{	
+			"modifier_item_wind_gun_attack"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_WindGun_OnAttack"
+						"PhysicalDamage"	"%physical_damage"
+					}
+				}
+			}
+			"modifier_item_mr_yang"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+				}
+			}
+			"modifier_item_mr_yang_decline_intellect"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				// "IsHidden"		"1"
+				"Duration"	"%decline_intellect_duration"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MANA_BONUS"	"%decline_mana"
+				}
+				"States"
+				{
+					"MODIFIER_STATE_CANNOT_MISS"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"ThinkInterval"	"0.03"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_MrYang_OnIntervalThink"
+					}
+				}
+			}
+			"modifier_item_mr_yang_slowdown_debuff"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"IsHidden"	"1"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				// "Duration"		"%slowdown_duration"
+				"EffectName"	"particles/thd2/items/item_mr_yang.vpcf"
+				"EffectAttachType"	"attach_hitloc"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slowdown_movespeed_percent_once"
+				}
+			}
+			"modifier_item_mr_yang_attack_not_miss"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Duration"	"%decline_intellect_duration"
+				"IsHidden"	"1"
+				"IsPurgable"	"0"
+				"OnAttackStart"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_MrYang_OnAttackStart"
+						"Target"	"TARGET"
+					}
+				}
+			}
+			"modifier_item_mr_yang_attack_not_miss_when"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"IsHidden"	"1"
+				"IsPurgable"	"0"
+				"States"
+				{
+					//电疗附带必中效果
+					// "MODIFIER_STATE_CANNOT_MISS"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"15"
+			"bonus_agility"	"15"
+			"bonus_damage"	"35"
+			"bonus_armor"	"6"
+			"decline_intellect_duration"	"5"
+			"decline_mana"	"-660"
+			"slowdown_movespeed_percent_once"	"-10"
+			"slowdown_duration"	"5.0"
+			"slowdown_interval"	"0.4"
+			"physical_damage"	"50"
+		}
+	}
+}

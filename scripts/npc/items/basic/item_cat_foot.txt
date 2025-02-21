@@ -1,0 +1,45 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// 妖精之刃
+	// =================================================================================================================
+	"item_cat_foot"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_cat_foot"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8019"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"agi"
+		"ItemAliases"	"cat claws"
+		"Modifiers"
+		{
+			"modifier_item_cat_foot"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_agility"	"9"
+		}
+	}
+}

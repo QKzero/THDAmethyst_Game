@@ -1,0 +1,166 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Phoenix Wing
+	// =================================================================================================================
+	"item_recipe_phoenix_wing"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_phoenix_wing"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8104"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"100"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_phoenix_wing"
+		"ItemRequirements"
+		{
+			"01"	"item_wing;item_swimming_suit;item_candle"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Phoenix Wing
+	// =================================================================================================================
+	"item_phoenix_wing"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_phoenix_wing"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8105"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1400"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"armor;health_pool"
+		"ItemAliases"	"radiance"
+		"Modifiers"
+		{
+			"modifier_item_phoenix_wing"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+					"MODIFIER_PROPERTY_EVASION_CONSTANT"	"%bonus_evasion"
+				}
+			}
+			"aura_item_phoenix_wing_burn"
+			{
+				"IsHidden"	"0"
+				"Passive"	"1"
+				// "EffectName" 				"particles/thd2/items/item_phoenix_wing.vpcf"
+				"EffectName" 				"particles/econ/events/ti10/radiance_owner_ti10.vpcf"
+				"EffectAttachType" 			"follow_origin"
+				"EffectRadius"				"%burn_damage_radius"
+				"Target"					"CASTER"
+				//"Aura"	"modifier_item_phoenix_wing_burn"
+				//"Aura_Radius"	"%burn_damage_radius"
+				//"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				//"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+				//"Aura_ApplyToCaster"	"0"
+				"ThinkInterval"  "1"
+				"OnIntervalThink"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_item_phoenix_wing_burn"
+						"Target"
+						{
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+							"Center"	"CASTER"
+							"Radius"	"%burn_damage_radius"
+						}
+					}
+				}
+			}
+			"modifier_item_phoenix_wing_burn"
+			{
+				"IsDebuff"		"1"
+				"IsPurgable"  "0"
+				"RemoveOnDeath"			"1"
+				"Duration"		"1"
+				
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				
+				"EffectName" 				"particles/econ/events/ti10/radiance_ti10.vpcf"
+				"EffectAttachType" 			"follow_origin"
+				"EffectRadius"				"%burn_damage_radius"
+				"Target"					"TARGET"
+				
+				//"ThinkInterval"	"1"
+				//"OnIntervalThink"
+				"OnCreated"	
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"		"ItemAbility_phoenix_wing_burn"
+						"Caster"		"CASTER"
+						"Target"		"TARGET"
+						"damage"			"%burn_damage_per_sec"
+						"damage_percent"	"%burn_damage_per_sec_health_percent"
+					}
+				}
+				//"OnCreated"	
+				//{
+				//	"RunScript"
+				//	{
+				//		"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				//		"Function"		"ItemAbility_phoenix_wing_burn_created"
+				//		"Caster"		"CASTER"
+				//		"Target"		"TARGET"
+				//		"modifier"		"modifier_item_phoenix_wing_burn"
+				//	}
+				//}
+				//"OnDestroy"
+				//{
+				//	"RunScript"
+				//	{
+				//		"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				//		"Function"		"ItemAbility_phoenix_wing_burn_destory"
+				//		"Caster"		"CASTER"
+				//		"Target"		"TARGET"
+				//		"modifier"		"modifier_item_phoenix_wing_burn"
+				//	}
+				//}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"	"10"
+			"bonus_health"	"460"
+			"burn_damage_radius"
+			{
+				"value"	"450"
+				"CalculateSpellDamageTooltip" "0"
+				"affected_by_aoe_increase"	"1"
+			}
+			"burn_damage_per_sec"	"45"
+			"burn_damage_per_sec_health_percent"	"1"
+			"bonus_evasion"			"25"
+		}
+	}
+}

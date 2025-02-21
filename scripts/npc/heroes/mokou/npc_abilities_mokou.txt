@@ -1,0 +1,479 @@
+"DOTAAbilities"
+{
+	"ability_thdots_mokouEx"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_mokouEx"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"	"1"
+		"HasScepterUpgrade"			"1"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"100"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"0"
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/heroes/mouko"
+			"soundfile"	"soundevents/voscripts/game_sounds_vo_doom_bringer.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_doombringer.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_DoomBringer.ScorchedEarthAura"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMokou.lua"
+				"Function"	"OnMokouExSpellStart"
+				"Caster"	"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_thdots_Mokou_ex"
+				"Target"	"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_Mokou_ex"
+			{
+				"Duration"	"%duration"
+			}
+		}
+		"AbilityValues"
+		{
+			"duration"	"14"
+		}
+	}
+
+	"ability_thdots_mokou01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_mokou01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.1"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityManaCost"	"0"
+		"HasScepterUpgrade"			"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"450 500 550 600"
+		"AOERadius"	"%damage_radius"
+		"ID"	"2030"
+		"precache"
+		{
+			"particle"	"particles/heroes/mouko/ability_mokou_01_boom.vpcf"
+			"particle"	"particles/heroes/mouko/ability_mokou_01_boom_g.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_phoenix.vsndevts"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_mokou_sounds.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMokou.lua"
+				"Function"	"OnMokou01SpellStart"
+				"Caster"	"CASTER"
+				"Target"	"POINT"
+			}
+			"DelayedAction"
+			{
+				"Delay"	"0"
+				"Action"
+				{
+					"ApplyModifier"
+					{
+						"Target"	"CASTER"
+						"ModifierName"	"modifier_thdots_Mokou01_think_interval"
+					}
+					"ApplyModifier"
+					{
+						"Target"	"CASTER"
+						"ModifierName"	"modifier_thdots_Mokou01_effect"
+					}
+				}
+			}
+		}
+		"Modifiers"
+		{
+
+			"mokou_wanbaochui"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnKill"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMokou.lua"
+						"Function"		"OnMokouKill"
+					}
+				}
+			}
+			"modifier_thdots_Mokou01_think_interval"
+			{
+				"RemoveOnDeath"	"0"
+				"IsHidden"	"0"
+				"Duration"	"%move_duration"
+				"ThinkInterval"	"0.02"
+				"OverrideAnimation"	"Act_DOTA_CAST_ABILITY_1"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMokou.lua"
+						"Function"	"OnMokou01SpellMove"
+						"Caster"	"CASTER"
+						"MoveSpeed"	"%move_speed"
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+							"Radius"	"%damage_radius"
+						}
+					}
+				}
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_thdots_Mokou01_effect"
+			{
+				"Duration"	"10"
+				"StatusEffectName"	"particles/heroes/mouko/ability_mokou_01_boom_g.vpcf"
+				// 优先级
+				"StatusEffectPriority"	"10"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+			}
+		}
+		"AbilityValues"
+		{
+			"damage_radius"
+			{
+				"value"	"400"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"affected_by_aoe_increase"	"1"
+			}
+			"move_duration"	"1"
+			"move_speed"	"1500"
+			"damage_wanbaochui"	"10"
+			"AbilityCooldown"
+			{
+				"value"	"14"
+				"special_bonus_scepter"	"=4"
+			}
+		}
+		"AbilityDamage"	"200 300 400 500"
+	}
+
+	"ability_thdots_mokou02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_mokou02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		"ID"	"2031"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/mouko/ability_mokou_02_boom.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_ogre_magi.vsndevts"
+		}
+		"Modifiers"
+		{
+			"passive_mokou02_attack"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMokou.lua"
+						"Function"	"OnMokou02SpellStartUnit"
+						"IncreaseSpeed"	"%increase_speed"
+						"IncreaseMaxSpeed"	"%increase_max_speed"
+						"Duration"	"%duration"
+					}
+					"Random"
+					{
+						"Chance"	"%ability_chance_base"
+						"OnSuccess"
+						{
+							"FireSound"
+							{
+								"EffectName"	"Hero_OgreMagi.Fireblast.Target"
+								"Target"	"TARGET"
+							}
+							"RunScript"
+							{
+								"Target"
+								{
+									"Center"	"TARGET"
+									"Radius"	"%damage_radius"
+									"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+									"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_OTHER"
+								}
+								"ScriptFile"	"scripts/vscripts/abilities/abilityMokou.lua"
+								"Function"	"OnMokou02DamageStart"
+								"BounsDamage"	"%bouns_damage"
+							}
+						}
+					}
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_mokou02_speed_up"
+						"Target"	"CASTER"
+					}
+				}
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_mokou02_speed_up"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Duration"	"%duration"
+				"IsHidden"	"1"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"Target"		"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMokou.lua"
+						"Function"		"OnMokou02Created"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"Target"		"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMokou.lua"
+						"Function"		"OnMokou02Destory"
+					}
+				}
+			}
+			"modifier_mokou02_speed_up_counter"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_NONE"
+				"Duration"	"%duration"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%increase_speed"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"increase_speed"	"5 10 15 20"
+			"duration"	"3"
+			"damage_radius"
+			{
+				"value"	"250"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"affected_by_aoe_increase"	"1"
+			}
+			"ability_chance_base"	"18"
+			"bouns_damage"	"45 70 95 120"
+		}
+	}
+	"ability_thdots_mokou03"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_mokou03"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityMokou.lua"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"2"
+		"HasScepterUpgrade"			"1"
+		"AbilitySound"					"Hero_Phoenix.SuperNova.Begin"
+		"precache"
+		{
+			"soundfile"					"soundevents/game_sounds_heroes/game_sounds_phoenix.vsndevts"
+			"particle"					"particles/units/heroes/hero_phoenix/phoenix_supernova_death.vpcf"
+			"particle"					"particles/units/heroes/hero_phoenix/phoenix_supernova_egg.vpcf"
+			"particle"					"particles/units/heroes/hero_phoenix/phoenix_supernova_hit.vpcf"
+			"particle"					"particles/units/heroes/hero_phoenix/phoenix_supernova_radiance.vpcf"
+			"particle"					"particles/units/heroes/hero_phoenix/phoenix_supernova_reborn.vpcf"
+			"particle"					"particles/units/heroes/hero_phoenix/phoenix_supernova_start.vpcf"
+			"particle"					"particles/econ/items/shadow_fiend/sf_fire_arcana/sf_fire_arcana_shadowraze.vpcf"
+		}
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"70 40 20 5"
+		"AbilityDuration"				"7 6 5 4"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration" "7 6 5 4"
+			"aura_radius"		
+			{
+				"value"	"0"
+			}
+			"damage_per_sec"	"0"
+			"tick_interval"		"0.2"
+			"stun_duration"		
+			{
+				"value"			"0"
+			}
+			"max_hero_attacks"	
+			{
+				"value"			"1"
+			}
+			"max_hero_attacks_scepter"	
+			{
+				"value"	"1"
+				"RequiresScepter"	"0"
+			}
+			"cast_range_tooltip_scepter"
+			{
+				"value"			"500"
+				"RequiresScepter"	"1"
+			}
+		}
+	}
+	"ability_thdots_mokou04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_mokou04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCooldown"	"95"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"0"
+		"ID"	"2032"
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/heroes/mouko"
+			"particle"			"particles/thd2/heroes/mouko/ability_mokou_04_wing.vpcf"
+			"soundfile"	"soundevents/voscripts/game_sounds_vo_doom_bringer.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_doombringer.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_DoomBringer.ScorchedEarthAura"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMokou.lua"
+				"Function"	"OnMokou04SpellStart"
+				"Caster"	"CASTER"
+				"BounsDamage"	"%damage_bouns"
+				"CostHp"	"%costhp"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_thdots_Mokou_04"
+				"Target"	"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_Mokou_04"
+			{
+				"Duration"	"%duration"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_speed"
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%health_regen"
+					"MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE"	"%attack_bouns"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"health_regen"	"30 55 80"
+			"move_speed"	"25 35 45"
+			"duration"	"20"
+			"damage_bouns"	"60 120 180"
+			"attack_bouns"	"15 30 45"
+			"costhp"	"25"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：
+	//=================================================================================================================
+	"special_bonus_unique_mokou_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"						"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：凯风快晴+20%
+	//=================================================================================================================
+	"special_bonus_unique_mokou_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"20"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：+300爆炸伤害
+	//=================================================================================================================
+	"special_bonus_unique_mokou_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"300"
+		}
+	}
+}

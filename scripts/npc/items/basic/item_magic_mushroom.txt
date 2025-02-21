@@ -1,0 +1,39 @@
+"DOTAAbilities"
+{
+    "item_magic_mushroom"
+	{
+		"BaseClass"	"item_lua"
+		"AbilityTextureName"	"item_magic_mushroom"	// 图标By 橘橘子
+		"ScriptFile"                    "items/item_magic_mushroom"
+		"ItemDeclarations"        "DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"ItemShareability"		"ITEM_FULLY_SHAREABLE"
+		"Model"	"models/mushroom/mushroom.vmdl"
+		"ModelScale"	"0.5"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"0"
+		"AbilityManaCost"	"0"
+		"AbilityCastRange"	"0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		// "ID"	"8216"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"35"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"health_pool;mana_pool"
+		"AbilityValues"
+		{
+			"bonus_health_regen"	"0.6"
+			"regen_mana"	"50"
+			"cast_range"	"400"
+		}
+	}
+}

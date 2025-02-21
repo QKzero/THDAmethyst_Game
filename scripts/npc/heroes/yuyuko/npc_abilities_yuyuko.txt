@@ -1,0 +1,301 @@
+"DOTAAbilities"
+{
+	"ability_thdots_yuyukoEx"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_yuyukoEx"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetFlags"	"DOTA_UNIT_TARGET_FLAG_INVULNERABLE | DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		// "AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		"MaxLevel"	"1"
+		"ID"	"2021"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/yuyuko/ability_yuyuko_04_effect.vpcf"
+			"particle"	"particles/thd2/heroes/yuyuko/ability_yuyuko_04_effect_a.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_yuyukoEx"
+			{
+				"Duration"	"10.0"
+
+				// "AttachEffect"
+				// {
+				// 	"EffectName" "particles/units/heroes/hero_pugna/pugna_decrepify.vpcf"
+				// 	"EffectAttachType"	"follow_origin"
+				// 	"Target"			"CASTER"
+				// }			
+				"States"
+				{
+					"MODIFIER_STATE_ATTACK_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_DISARMED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+		}
+	}
+
+	"ability_thdots_yuyuko01"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"scripts/vscripts/abilities/abilityyuyuko.lua"
+		"AbilityTextureName"			"custom/ability_thdots_yuyuko01"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"				"975"
+		"AbilityCastPoint"				"0.3"
+		"AbilityDamage"					"75 150 225 300"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_death_prophet/death_prophet_carrion_swarm.vpcf"
+			"particle"	"particles/units/heroes/hero_death_prophet/death_prophet_carrion_swarm_core01.vpcf"
+			"particle"	"particles/units/heroes/hero_death_prophet/death_prophet_carrion_swarm_impact.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_death_prophet.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCooldown"
+			{
+				"value"			"6.0 6.0 6.0 6.0"
+				"special_bonus_unique_yuyuko_3"	"-3.0"
+			}
+			"AbilityManaCost"			"90 105 125 140"
+			"start_radius"
+			{
+				"value"			"110 110 110 110"
+				"affected_by_aoe_increase"	"1"
+			}
+			"end_radius"
+			{
+				"value"			"300 300 300 300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"range"						"810 810 810 810"
+			"speed"						"1100 1100 1100 1100"
+		}
+	}
+
+    "ability_thdots_yuyuko02"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityyuyuko.lua"
+		"AbilityTextureName"	"custom/ability_thdots_yuyuko02"														
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+		"AbilityUnitDamageType"	        "DAMAGE_TYPE_PURE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_Bane.Nightmare"
+		"AbilityCastPoint"				"0"
+		"AbilityCastAnimation"			"Act_DOTA_CAST_ABILITY_2"
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_bane/bane_nightmare.vpcf"
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_bane.vsndevts"
+		}
+		"AbilityValues"
+		{
+		    "AbilityCooldown"				"18 17 16 15"
+			"AbilityManaCost"           "100 110 120 130"
+			"AbilityCastRange"          "400 500 600 700"
+			"AbilityCastPoint"          "0.2"
+			"damage"	"35 40 45 50"
+			"duration"		"4.5 5 5.5 6"
+			"wudi_duration"		"1"
+			"wakeup_damage"
+			{
+				"value"	"100 150 200 250"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+			}
+		}
+	}
+
+	"ability_thdots_yuyuko02_end"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"		"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityyuyuko.lua"
+		"AbilityTextureName"	"touhoutd/thtd_yuyuko_02"	
+		// DOTA_ABILITY_BEHAVIOR_IGNORE_MUTED可以无视眩晕
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_MUTED | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+		"MaxLevel"						"1"
+		"AbilityCastPoint"				"0"
+		"AbilityCastAnimation"		"Act_DOTA_CAST_ABILITY_2"
+	}
+
+	"ability_thdots_yuyuko03"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityyuyuko.lua"
+		"AbilityTextureName"	"custom/ability_thdots_yuyuko03"														
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_HP_REMOVAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"HasShardUpgrade"				"1"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityCastPoint"				"0"
+		"AbilityCastAnimation"			"Act_DOTA_CAST_ABILITY_3"
+		"AbilityCooldown"				"20"
+		"AbilityManaCost"				"150"
+		"IsBreakable"					"1"
+		// Stats
+		// ----------------------------------------------------------------
+		//"AbilityCastRange"				"700"	// 重写了，不需要改了
+		"precache"
+		{
+			"particle"		"particles/heroes/yuyuko/yuyuko_ghost_form_aura.vpcf"
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_necrolyte.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"aura_radius"		// If you change this, also change the AbilityCastRange above
+			{
+				"value"			"700"
+				"affected_by_aoe_increase"	"1"
+			}
+			"aura_damage"
+			{
+				"value"	"1.1 1.7 2.3 2.9" 
+				"special_bonus_unique_yuyuko_2"	"+1.5"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"tick_rate"	"0.2"
+			"trance_reduce_pct"		"30"
+			//Ghost Lead
+			"health_regen"			"2 3 4 5"
+			"mana_regen"			"2 4 6 8"
+			"regen_duration"		"6"
+			"hero_multiplier"		"6"
+			"lyz_heal_duration"
+			{
+				"value"					"5"
+				"RequiresShard"			"1"
+			}
+			"lyz_heal_pct"
+			{
+				"value"					"50"
+				"RequiresShard"			"1"
+			}
+			"lyz_damage_plus"
+			{
+				"value"					"1.5"
+				"RequiresShard"			"1"
+			}
+			"lyz_magic_reduce_pct"
+			{
+				"value"					"-40"
+				"RequiresShard"			"1"
+			}
+		}
+	}
+
+	"ability_thdots_yuyuko04"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityyuyuko.lua"
+		"AbilityTextureName"	"custom/ability_thdots_yuyuko04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// "AbilityCooldown"           "0"
+		"HasScepterUpgrade"	"1"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastPoint"	"2.0"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"AbilityCooldown"	"110"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"180 300 420"
+		"AbilityChannelTime"	"2.0"
+		"ID"	"2022"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/yuyuko/ability_yuyuko_04_effect.vpcf"
+			"particle"	"particles/thd2/heroes/yuyuko/ability_yuyuko_04_effect_a.vpcf"
+			"particle"	"particles/heroes/yuyuko/ability_yuyuko_04_effect_d.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_yuyuko_sounds.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"damage_radius"
+			{
+				"value"			"550"
+				"affected_by_aoe_increase"	"1"
+			}
+			"effect_radius"
+			{
+				"value"			"650"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage_multi"	"0.5 0.6 0.7"
+			"damage_count"	"5 7 9"
+			"damage_count_tips"	"6 8 10"
+		}
+		"OverrideAnimation"	"ACT_DOTA_CHANNEL_ABILITY_4"
+		"AbilityDamage"	"175 225 275"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:-45反魂蝶
+	//=================================================================================================================
+	"special_bonus_unique_yuyuko_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"
+			{
+				"value"	"-30"
+				//"ad_linked_abilities"			"ability_thdots_yuyuko04"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:+1.5%UUZ光环伤害
+	//=================================================================================================================
+	"special_bonus_unique_yuyuko_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1.5"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：-3sUUZ波冷却
+	//=================================================================================================================
+	"special_bonus_unique_yuyuko_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6367"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"value"				"3.0"
+		}
+	}
+}

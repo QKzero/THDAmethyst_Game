@@ -1,0 +1,68 @@
+"DOTAAbilities"
+{
+    "item_recipe_harvest_cradle"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_harvest_cradle"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8213"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"250"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_harvest_cradle"
+		"ItemRequirements"
+		{
+			"01"	"item_good_lunchbox"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	//丰收之摇篮
+	"item_harvest_cradle"
+	{
+		"BaseClass"	"item_lua"
+		"AbilityTextureName"	"item_harvest_cradle"	//图标By 橘橘子
+		"ScriptFile"                    "items/item_harvest_cradle"
+		"ItemDeclarations"        "DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"0"
+		"AbilityManaCost"	"0"
+		"AbilityCastRange"	"0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8214"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"750"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"health_pool;mana_pool"
+		"precache"
+		{
+			// "soundfile"	"soundevents/game_sounds_heroes/game_sounds_antimage.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"bonus_healthregen"	"2.5"
+			"bonus_manaregen"	"1.5"
+			"regen_health"	"200"
+			"regen_mana"	"75"
+			"regen_health_perlevel"	"12"
+			"regen_mana_perlevel"	"9"
+			"duration"	"5"
+		}
+	}
+}

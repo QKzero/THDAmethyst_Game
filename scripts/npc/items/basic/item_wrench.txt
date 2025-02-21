@@ -1,0 +1,45 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Wrench
+	// =================================================================================================================
+	"item_wrench"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_wrench"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8027"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2400"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"damage"
+		"ItemAliases"	"minute spanner"
+		"Modifiers"
+		{
+			"modifier_item_wrench"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"	"36"
+		}
+	}
+}

@@ -1,0 +1,578 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Good Lunchbox
+	// =================================================================================================================
+	"item_recipe_good_lunchbox"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"			"item_recipe_good_lunchbox"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8116"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_good_lunchbox"
+		"ItemRequirements"
+		{
+			"01"	"item_cake;item_juice"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Good Lunchbox
+	// =================================================================================================================
+	"item_good_lunchbox"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_good_lunchbox"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"	"13.0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8117"
+		"ItemQuality"	"component"
+		// "AbilitySharedCooldown"			"lunchbox"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"700"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemRequiresCharges"	"1"
+		"ItemShopTags"	"regen_health;regen_mana"
+		"ItemAliases"	"portable bento;magic wand"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_Lunchbox_OnSpellStart"
+				"Caster"	"CASTER"
+				"RestorePerCharge"	"%restore_per_charge"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_good_lunchbox"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+				}
+			}
+			"aura_item_good_lunchbox_charge"
+			{
+				// "IsHidden"				"1"
+				"Passive"	"1"
+				"Aura"	"modifier_item_good_lunchbox_charge"
+				"Aura_Radius"	"%charge_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO"
+				"Aura_ApplyToCaster"	"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Lunchbox_OnCreated"
+						"Caster"	"CASTER"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Lunchbox_OnDestroy"
+						"Caster"	"CASTER"
+					}
+				}
+			}
+			"modifier_item_good_lunchbox_charge"
+			{
+				"IsHidden"	"1"
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"OnAbilityExecuted"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Good_Lunchbox_Charge"
+						"Caster"	"CASTER"
+						"Target"	"TARGET"
+						"MaxCharges"	"%max_charges"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health_regen"	"2"
+			"bonus_mana_regen"	"1.25"
+			"max_charges"	"10"
+			"charge_radius"
+			{
+				"value"			"1500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"restore_per_charge"	"20"
+		}
+		"ItemDisplayCharges"	"1"
+		// Sound
+		// -------------------------------------------------------------------------------------------------------------
+		"UIPickupSound"	"Item.PickUpRingShop"
+		"UIDropSound"	"Item.DropRingShop"
+		"WorldDropSound"	"Item.DropRingWorld"
+	}
+
+    // =================================================================================================================
+	// Recipe: Better Lunchbox
+	// =================================================================================================================
+	"item_recipe_better_lunchbox"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"			"item_recipe_better_lunchbox"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8118"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_better_lunchbox"
+		"ItemRequirements"
+		{
+			"01"	"item_good_lunchbox;item_cucumber;item_cucumber"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Better Lunchbox
+	// =================================================================================================================
+	"item_better_lunchbox"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_better_lunchbox"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"	"13.0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8119"
+		"ItemQuality"	"component"
+		// "AbilitySharedCooldown"			"lunchbox"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"859"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemRequiresCharges"	"1"
+		"ItemShopTags"	"regen_health;regen_mana;str;agi;int"
+		"ItemAliases"	"delicious bento;magic wand"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_Lunchbox_OnSpellStart"
+				"Caster"	"CASTER"
+				"RestorePerCharge"	"%restore_per_charge"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_better_lunchbox"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_all_stats"
+				}
+			}
+			"aura_item_better_lunchbox_charge"
+			{
+				// "IsHidden"				"1"
+				"Passive"	"1"
+				"Aura"	"modifier_item_better_lunchbox_charge"
+				"Aura_Radius"	"%charge_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO"
+				"Aura_ApplyToCaster"	"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Lunchbox_OnCreated"
+						"Caster"	"CASTER"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Lunchbox_OnDestroy"
+						"Caster"	"CASTER"
+					}
+				}
+			}
+			"modifier_item_better_lunchbox_charge"
+			{
+				"IsHidden"	"1"
+				"OnAbilityExecuted"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Better_Lunchbox_Charge"
+						"Caster"	"CASTER"
+						"Target"	"TARGET"
+						"MaxCharges"	"%max_charges"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health_regen"	"2"
+			"bonus_mana_regen"	"1.25"
+			"bonus_all_stats"	"2"
+			"max_charges"	"15"
+			"charge_radius"
+			{
+				"value"			"1500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"restore_per_charge"	"20"
+		}
+		"ItemDisplayCharges"	"1"
+		// Sound
+		// -------------------------------------------------------------------------------------------------------------
+		"UIPickupSound"	"Item.PickUpRingShop"
+		"UIDropSound"	"Item.DropRingShop"
+		"WorldDropSound"	"Item.DropRingWorld"
+	}
+
+	// =================================================================================================================
+	// Recipe: Best Lunchbox
+	// =================================================================================================================
+	"item_recipe_best_lunchbox"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"			"item_recipe_best_lunchbox"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8120"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_best_lunchbox"
+		"ItemRequirements"
+		{
+			"01"	"item_better_lunchbox;item_cucumber;item_cucumber"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Best Lunchbox
+	// =================================================================================================================
+	"item_best_lunchbox"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_best_lunchbox"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"	"13.0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8121"
+		"ItemQuality"	"component"
+		// "AbilitySharedCooldown"			"lunchbox"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1018"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemRequiresCharges"	"1"
+		"ItemShopTags"	"regen_health;regen_mana;str;agi;int"
+		"ItemAliases"	"luxurious bento;magic wand"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_Lunchbox_OnSpellStart"
+				"Caster"	"CASTER"
+				"RestorePerCharge"	"%restore_per_charge"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_best_lunchbox"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_all_stats"
+				}
+			}
+			"aura_item_best_lunchbox_charge"
+			{
+				// "IsHidden"				"0"
+				"Passive"	"1"
+				"Aura"	"modifier_item_best_lunchbox_charge"
+				"Aura_Radius"	"%charge_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO"
+				"Aura_ApplyToCaster"	"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Lunchbox_OnCreated"
+						"Caster"	"CASTER"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Lunchbox_OnDestroy"
+						"Caster"	"CASTER"
+					}
+				}
+			}
+			"modifier_item_best_lunchbox_charge"
+			{
+				"IsHidden"	"1"
+				"OnAbilityExecuted"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Best_Lunchbox_Charge"
+						"Caster"	"CASTER"
+						"Target"	"TARGET"
+						"MaxCharges"	"%max_charges"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health_regen"	"2"
+			"bonus_mana_regen"	"1.25"
+			"bonus_all_stats"	"4"
+			"max_charges"	"20"
+			"charge_radius"
+			{
+				"value"			"1500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"restore_per_charge"	"20"
+		}
+		"ItemDisplayCharges"	"1"
+	}
+
+	// =================================================================================================================
+	// Recipe: God Lunchbox
+	// =================================================================================================================
+	"item_recipe_god_lunchbox"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"			"item_recipe_god_lunchbox"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8143"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1450"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_god_lunchbox"
+		"ItemRequirements"
+		{
+			"01"	"item_best_lunchbox;item_knife;item_aunt_clothes"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+    // =================================================================================================================
+	// God Lunchbox
+	// =================================================================================================================
+	"item_god_lunchbox"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_god_lunchbox"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE | DOTA_ABILITY_BEHAVIOR_UNRESTRICTED | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"	"13.0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8144"
+		"ItemQuality"	"component"
+		// "AbilitySharedCooldown"			"lunchbox"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"3000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemRequiresCharges"	"1"
+		"ItemShopTags"	"regen_health;regen_mana;str;agi;int;damage;health_pool;armor"
+		"ItemAliases"	"you sure that's enough armor;magic wand"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_God_Lunchbox_OnSpellStart"
+				"Caster"	"CASTER"
+				"RestorePerCharge"	"%restore_per_charge"
+				"MaxCharges"	"%max_charges"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_god_lunchbox"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_all_stats"
+				}
+			}
+			"modifier_item_god_lunchbox_passive"
+			{
+				"AllowIllusionDuplicate"	"0"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnTakeDamage"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_God_Lunchbox_OnTakeDamage"
+						"Caster"	"CASTER"
+						"RestorePerCharge"	"%restore_per_charge"
+						"MaxCharges"	"%max_charges"
+						"Trigger_pct"   "%hp_trigger_pct"
+						"DamageTaken"	"%attack_damage"
+					}
+				}
+			}
+			"aura_item_god_lunchbox_charge"
+			{
+				// "IsHidden"				"0"
+				"Passive"	"1"
+				"Aura"	"modifier_item_god_lunchbox_charge"
+				"Aura_Radius"	"%charge_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO"
+				"Aura_ApplyToCaster"	"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Lunchbox_OnCreated"
+						"Caster"	"CASTER"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Lunchbox_OnDestroy"
+						"Caster"	"CASTER"
+					}
+				}
+			}
+			"modifier_item_god_lunchbox_charge"
+			{
+				"IsHidden"	"1"
+				"OnAbilityExecuted"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_God_Lunchbox_Charge"
+						"Caster"	"CASTER"
+						"Target"	"TARGET"
+						"MaxCharges"	"%max_charges"
+					}
+				}	
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health_regen"	"2"
+			"bonus_mana_regen"	"1.25"
+			"bonus_all_stats"	"12"
+			"max_charges"	"30"
+			"charge_radius"
+			{
+				"value"			"1500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"restore_per_charge"	"40"
+			"hp_trigger_pct"	"40"
+		}
+		"ItemDisplayCharges"	"1"
+	}
+}

@@ -1,0 +1,93 @@
+"DOTAHeroes"
+{
+	"npc_dota_hero_ran"
+	{
+		"override_hero"	"npc_dota_hero_puck"
+		"AbilityLayout"	"6"
+		"Ability1"	"ability_thdots_ran01"
+		"Ability2"	"ability_thdots_ran02"
+		"Ability3"	"ability_thdots_ran03"
+		"Ability4"	"ability_thdots_RanEx"
+		
+		"Ability5"		"generic_hidden"		
+		"Ability6"		"ability_thdots_ran04"
+		"Ability10"		"special_bonus_intelligence_8"
+		"Ability11"		"special_bonus_hp_150"
+		"Ability12"		"special_bonus_unique_ran_2"
+		"Ability13"		"special_bonus_movement_speed_40"
+		"Ability14"		"special_bonus_spell_amplify_12"
+		"Ability15"		"special_bonus_magic_resistance_25"
+		"Ability16"		"special_bonus_armor_30"
+		"Ability17"		"special_bonus_unique_ran_1"
+
+		"Facets"
+		{
+		}
+
+		//"Carry"			"核心"
+		//"Support"			"辅助"
+		//"Nuker"			"爆发"
+		//"Disabler"		"控制"
+		//"Jungler"			"打野"
+		//"Durable"			"耐久"
+		//"Escape"			"逃生"
+		//"LaneSupport"		"对线辅助"
+		//"Pusher"			"推进"
+		//"Initiator"		"先手"
+		//"Role"			"Carry,Support,Nuker,Disabler,Jungler,Durable,Escape,LaneSupport,Pusher,Initiator"
+
+		"Role"				"Carry,Support,Durable,Escape,Pusher"
+		"Rolelevels"		"1,2,2,2,1"
+		"Complexity"	"2"
+
+		"Model"	"models/thd2/ran/ran_mmd.vmdl"
+		"VoiceFile" "soundevents/voscripts/game_sounds_vo_puck.vsndevts"
+
+		"ProjectileSpeed"	"1400"
+		"AttackRange"	"550"
+		// 攻击距离
+		"AttackAnimationPoint"	"0.3"
+		// 攻击前摇
+		"AttackRate"	"1.75"
+		// 攻击速度
+		"ArmorPhysical"	"0"
+		// 物理护甲
+		"AttackDamageMin"	"21"
+		// 最大攻击力
+		"AttackDamageMax"	"36"
+		// 最小攻击力
+		"AttributeBaseStrength"	"18"
+		// 基础力量
+		"AttributeStrengthGain"	"2.2"
+		// 每级增加的力量，力量成长
+		"AttributeBaseAgility"	"18"
+		// 基础敏捷
+		"AttributeAgilityGain"	"2.2"
+		// 每级增加的敏捷，敏捷成长
+		"AttributeBaseIntelligence"	"24"
+		// 基础智力
+		"AttributeIntelligenceGain"	"3.1"
+		// 每级增加的智力，智力成长
+		"MovementSpeed"	"315"
+		// 基础移动速度
+		"MovementTurnRate"	"1.0"
+		// 转身速度
+		"StatusHealth"	"250"
+		// 基础生命值
+		"StatusHealthRegen"	"1.3"
+		// 基础生命恢复
+		"StatusMana"	"80"
+		// 基础魔法值
+		"StatusManaRegen"	"1.1"
+		// 基础魔法恢复
+		"VisionDaytimeRange"	"1050"
+		// 白天视野大小
+		"VisionNighttimeRange"	"700"
+		// 晚上视野大小
+		"DisableWearables"	"1"
+		
+		"Ability7"	"generic_hidden"
+		"Ability8"	"generic_hidden"
+		"Ability9"	"generic_hidden"
+	}
+}

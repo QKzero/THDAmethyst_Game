@@ -1,0 +1,479 @@
+"DOTAAbilities"
+{
+	"ability_thdots_momiji_unit"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_momiji01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_BASIC"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		// Stats
+		// ----------------------------------------------------------------
+		"precache"
+		{
+		}
+		"Modifiers"
+		{
+			"modifier_momiji_special02"
+			{
+				"IsHidden"	"1"
+				"Passive"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE"	"%attack_bouns"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"attack_bouns"	"100"
+		}
+	}
+
+	"ability_thdots_observer_unit"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_TURN"
+		"MaxLevel"	"1"
+		"AbilityCooldown"	"0"
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_item_gem_of_true_sight"
+				"Target"	"CASTER"
+			}
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"2000"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+
+	"ability_thdots_momiji01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_momiji01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityCastPoint"	"0.1"
+		// "HasScepterUpgrade"			"1"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"40"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"100"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_abaddon/abaddon_spawn.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_lycan.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Lycan.SummonWolves"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMomiji.lua"
+				"Function"	"OnMomiji01Spawn"
+				"RegenAmount"	"%regen_amount"
+				"AuraDistance"	"%aura_distance"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_momiji_01_wanbaochui_buff"
+			{
+				"IsHidden"	"1"
+				"IsBuff"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"50"
+				}
+			}
+			"modifier_momiji01_wolf_regen"
+			{
+				"IsHidden"  "0"
+				"IsBuff"	"1"
+				"IsPurgable"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%regen_amount"
+				}
+			}
+		}		
+		"AbilityValues"
+		{
+			"regen_amount"	"12.5"
+			"aura_distance"	"900"
+		}
+	}
+
+	"ability_thdots_momiji02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_momiji02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"25"
+		"AbilityCastRange"	"0"
+		"AOERadius"	"%radius"
+		"precache"
+		{
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_momiji_sounds.vsndevts"
+			"particle"	"particles/econ/courier/courier_trail_05/courier_trail_05.vpcf"
+			"particle"	"particles/heroes/momiji/ping_waypoint_circle.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Momiji.AbilityMomiji02"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMomiji.lua"
+				"Function"	"OnMomiji02Start"
+				"Radius"	"%radius"
+				"Target"	"POINT"
+				"Duration"	"%duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_momiji02_intervalthink"
+			{
+				"Duration"	"%duration"
+				"IsHidden"  "1"
+				"ThinkInterval" "0.03"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMomiji.lua"
+						"Function"	"OnMomiji02IntervalThink"
+						"Radius"	"%radius"
+						"Target"	"POINT"
+					}
+				}
+			}
+			"modifier_momiji02_criticalstrike"
+			{
+				"Duration"	"1"
+				"IsHidden"  "1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE"	"%damage_multi"
+				}
+				"OnAttackLanded"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"	"modifier_momiji02_criticalstrike"
+						"Target"	"ATTACKER"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"700 800 900 1000"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"15"
+			"crit_chance"	"50"
+			"damage_multi"	"140 160 180 200"
+			"AbilityCooldown"
+			{
+				"value"	"25"
+				"special_bonus_unique_momiji_3"	"-10"
+			}
+		}
+	}
+
+	"ability_thdots_momiji02_unit"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_TURN"
+		"MaxLevel"	"4"
+		"AbilityCooldown"	"0"
+		// "OnSpellStart"
+		// {
+		// 	"ApplyModifier"
+		// 	{
+		// 		"ModifierName"	"modifier_item_gem_of_true_sight"
+		// 		"Target"	"CASTER"
+		// 	}
+		// }
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"375 450 525 600"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+
+	}
+
+	// "ability_thdots_momiji03"
+	// {
+	// 	"BaseClass"	"ability_datadriven"
+	// 	"AbilityTextureName"	"custom/ability_thdots_momiji03"
+	// 	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+	// 	"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	// 	"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+	// 	"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+	// 	"MaxLevel"	"4"
+	// 	"AbilityCastPoint"	"0.1"
+	// 	"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+	// 	"AbilityCooldown"	"11 10 9 8"
+	// 	"AbilityManaCost"	"50"
+	// 	// Stats
+	// 	// ----------------------------------------------------------------
+	// 	"AbilityCastRange"	"150"
+	// 	"precache"
+	// 	{
+	// 		"particle"	"particles/units/heroes/hero_sven/sven_storm_bolt_projectile_explosion.vpcf"
+	// 		"soundfile"	"soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts"
+	// 	}
+	// 	"OnSpellStart"
+	// 	{
+	// 		"FireSound"
+	// 		{
+	// 			"EffectName"	"Hero_DragonKnight.DragonTail.Target"
+	// 			"Target"	"CASTER"
+	// 		}
+	// 		"RunScript"
+	// 		{
+	// 			"ScriptFile"	"scripts/vscripts/abilities/abilityMomiji.lua"
+	// 			"Function"	"OnMomiji03Start"
+	// 			"Target"	"TARGET"
+	// 			"Duration"	"%ability_duration"
+	// 		}
+	// 	}
+	// 	"AbilityValues"
+	// 	{
+	// 		"ability_duration"	"2 2.5 3 3.5"
+	// 	}
+	// 	"AbilityDamage"	"60 90 120 150"
+	// }
+	"ability_thdots_momiji03"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityMomiji.lua"
+		"AbilityTextureName"	"custom/ability_thdots_momiji03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES_STRONG"
+		"MaxLevel"	"4"
+		// "HasScepterUpgrade"			"1"
+		"AbilityCastPoint"	"0.1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+		"AbilityCooldown"	"11 10 9 8"
+		"AbilityManaCost"	"50"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"150"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_sven/sven_storm_bolt_projectile_explosion.vpcf"
+			"particle"	"particles/units/heroes/hero_mars/mars_shield_of_mars.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_DragonKnight.DragonTail.Target"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMomiji.lua"
+				"Function"	"OnMomiji03Start"
+				"Target"	"TARGET"
+				"Duration"	"%ability_duration"
+			}
+		}
+		"AbilityValues"
+		{
+			"ability_duration"	"2 2.5 3 3.5"
+			"physical_block"	"40 50 60 70"
+		}
+		"AbilityDamage"	"60 90 120 150"
+	}
+
+	// "ability_thdots_momiji04"
+	// {
+	// 	"BaseClass"	"ability_datadriven"
+	// 	"AbilityTextureName"	"custom/ability_thdots_momiji04"
+	// 	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
+	// 	"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+	// 	// Stats
+	// 	// ----------------------------------------------------------------
+	// 	"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+	// 	"precache"
+	// 	{
+	// 	}
+	// 	"Modifiers"
+	// 	{
+	// 		"passive_momiji04_bonus"
+	// 		{
+	// 			"Passive"	"1"
+	// 			"IsHidden"	"1"
+	// 			"Properties"
+	// 			{
+	// 				"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attack_speed"
+	// 				"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_speed"
+	// 			}
+
+	// 		}
+	// 		"modifier_aura_momiji04_bonus"
+	// 		{
+	// 			"Passive"	"1"
+	// 			"IsPurgable"	"0"
+	// 			"IsHidden"	"1"
+	// 			"Aura"	"modifier_momiji04_bonus"
+	// 			"Aura_Radius"	"%radius"
+	// 			"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+	// 			"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"				
+	// 		}
+	// 		"modifier_momiji04_bonus"
+	// 		{
+	// 			"Properties"
+	// 			{
+	// 				//"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%aura_attack_speed"
+	// 				"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%aura_move_speed"
+	// 			}
+	// 		}
+	// 	}
+	// 	"AbilityValues"
+	// 	{
+	// 		"move_speed"	"10 15 20"
+	// 		"attack_speed"	"10 20 30"
+	// 		"aura_move_speed"	"5 10 15"
+	// 		"aura_attack_speed"	"10 20 30"
+	// 		"radius"	"1000"
+	// 	}
+	// }
+	"ability_thdots_momiji04"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityMomiji.lua"
+		"AbilityTextureName"	"custom/ability_thdots_momiji04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityCooldown"	"110 100 90"
+		"HasScepterUpgrade"			"1"
+		"IsBreakable"					"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_centaur/centaur_stampede_overhead.vpcf"
+			"particle"	"particles/units/heroes/hero_centaur/centaur_stampede.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_centaur.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"move_speed"	"5 10 15"
+			"aura_move_speed"	"5 10 15"
+			"aura_attack_speed"	"20 30 40"
+			"radius"
+			{
+				"value"			"1000"
+				"affected_by_aoe_increase"	"1"
+			}
+			"wanbaochui_duration"
+			{
+				"value"	"3.5 4 4.5"
+				"RequiresScepter"		"1"
+			}
+			"wanbaochui_movement"
+			{
+				"value"	"100"
+				"RequiresScepter"		"1"
+			}
+			"wanbaochui_cooldonw"
+			{
+				"value"	"110 100 90"
+				"RequiresScepter"		"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_momiji_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_momiji_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_momiji_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-10"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:狗花25
+	//=================================================================================================================
+	"special_bonus_unique_momiji_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+}

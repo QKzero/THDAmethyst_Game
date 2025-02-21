@@ -1,0 +1,2060 @@
+
+// Dota Abilities Override File
+#base "npc_neutral_items.txt"
+"DOTAAbilities"
+{
+	"Version"		"1"
+	
+	//这个文件和npc_abilities_custom.txt大同小异，区别就是，这个文件里面的技能名字，不需要自己重新写。
+	//而是直接使用官方原来的技能/物品，例如TA的陷阱：templar_assassin_trap
+	//在这里写的东西，所重写的东西，将会直接覆盖原来的技能效果，未定义的部分，将会保留原来的效果
+
+	//例如重写西瓦的守护
+	//就能将这个RPG种西瓦的CD改为20秒，属性进行如下更改，其他未定义的属性依然保持西瓦原来的效果。
+		//下面这些是用来给商店中移除物品的，如果你想从商店中移除某个物品，就把他前面的//去掉，
+	//"item_blink"					"REMOVE"
+	//"item_ultimate_scepter"			"REMOVE"
+	"item_blades_of_attack"			"REMOVE"
+	"item_broadsword"				"REMOVE"
+	"item_chainmail"				"REMOVE"
+	"item_claymore"					"REMOVE"
+	"item_helm_of_iron_will"		"REMOVE"
+	"item_javelin"					"REMOVE"
+	"item_mithril_hammer"			"REMOVE"
+	"item_platemail"				"REMOVE"
+	"item_quarterstaff"				"REMOVE"
+	"item_recipe_kaya_and_sange"	"REMOVE"
+	"item_kaya"						"REMOVE"
+	"item_aeon_disk"				"REMOVE"
+	"item_recipe_aeon_disk"			"REMOVE"
+	"item_nullifier"				"REMOVE"
+	"item_meteor_hammer"			"REMOVE"
+	"item_recipe_nullifier"			"REMOVE"
+	"item_recipe_yasha_and_kaya"	"REMOVE"
+	"item_yasha_and_kaya"			"REMOVE"
+	"item_kaya_and_sange"			"REMOVE"
+	"item_ring_of_tarrasque"		"REMOVE"
+	"item_recipe_holy_locket"		"REMOVE"
+	"item_holy_locket"				"REMOVE"
+	"item_crown"					"REMOVE"
+	"item_spirit_vessel"			"REMOVE"
+	"item_recipe_spirit_vessel"		"REMOVE"
+	"item_gungir"					"REMOVE"
+	"item_eternal_shroud"			"REMOVE"
+	"item_ring_of_protection"			"REMOVE"
+	"item_stout_shield"			"REMOVE"
+	"item_gauntlets"			"REMOVE"
+	"item_slippers"			"REMOVE"
+	"item_mantle"			"REMOVE"
+	"item_branches"			"REMOVE"
+	"item_belt_of_strength"			"REMOVE"
+	"item_boots_of_elves"			"REMOVE"
+	"item_robe"			"REMOVE"
+	"item_circlet"			"REMOVE"
+	"item_ogre_axe"			"REMOVE"
+	"item_blade_of_alacrity"			"REMOVE"
+	"item_staff_of_wizardry"			"REMOVE"
+	"item_ultimate_orb"			"REMOVE"
+	"item_gloves"			"REMOVE"
+	"item_lifesteal"			"REMOVE"
+	"item_ring_of_regen"			"REMOVE"
+	"item_sobi_mask"			"REMOVE"
+	"item_boots"			"REMOVE"
+	"item_voodoo_mask"			"REMOVE"
+	"item_blitz_knuckles"			"REMOVE"
+	"item_ultimate_scepter"			"REMOVE"
+	//"item_gem"			"REMOVE"
+	//"item_keen_optic"			"REMOVE"		 //只要加了这个就会有中立装备
+		"item_recipe_veil_of_discord"			"REMOVE"
+	"item_veil_of_discord"			"REMOVE"
+	"item_recipe_rod_of_atos"			"REMOVE"
+	"item_rod_of_atos"			"REMOVE"
+	"item_recipe_abyssal_blade"			"REMOVE"
+	"item_abyssal_blade"			"REMOVE"
+	"item_recipe_heavens_halberd"			"REMOVE"
+	"item_heavens_halberd"			"REMOVE"
+	"item_recipe_ring_of_aquila"			"REMOVE"
+	//"item_ring_of_aquila"			"REMOVE"
+	"item_recipe_tranquil_boots"			"REMOVE"
+	"item_tranquil_boots"			"REMOVE"
+	"item_shadow_amulet"			"REMOVE"
+	  "item_recipe_moon_shard"            "REMOVE"
+    "item_moon_shard"           "REMOVE"    
+    "item_enchanted_mango"          "REMOVE"    
+    "item_recipe_travel_boots_2"            "REMOVE"    
+    "item_travel_boots_2"           "REMOVE"    
+    "item_recipe_lotus_orb"         "REMOVE"    
+    "item_lotus_orb"            "REMOVE"    
+    "item_recipe_crimson_guard"         "REMOVE"    
+    "item_crimson_guard"            "REMOVE"    
+    "item_recipe_silver_edge"           "REMOVE"    
+    "item_silver_edge"          "REMOVE"    
+    "item_recipe_octarine_core"         "REMOVE"    
+    "item_octarine_core"            "REMOVE"    
+    "item_recipe_solar_crest"           "REMOVE"    
+    "item_solar_crest"          "REMOVE"    
+    "item_recipe_guardian_greaves"          "REMOVE"    
+    "item_guardian_greaves"         "REMOVE"    
+    "item_recipe_glimmer_cape"          "REMOVE"    
+    "item_glimmer_cape"         "REMOVE"
+    "item_faerie_fire"			"REMOVE"
+    "item_recipe_iron_talon"	"REMOVE"
+    "item_iron_talon"			"REMOVE"
+    "item_recipe_dragon_lance"	"REMOVE"
+    "item_dragon_lance"			"REMOVE"
+    "item_aether_lens"			"REMOVE"
+    "item_hurricane_pike"			"REMOVE"
+    "item_recipe_hurricane_pike"	"REMOVE"
+    "item_infused_raindrop"			"REMOVE"
+    "item_echo_sabre"				"REMOVE"
+    "item_blight_stone"				"REMOVE"
+    "item_blade_mail_axe_pw"		"REMOVE"
+    "item_bloodthorn"				"REMOVE"
+    "item_crimson_robe"				"REMOVE"
+    "item_infused_raindrop"			"REMOVE"
+	"item_cloak"			"REMOVE"
+	"item_talisman_of_evasion"			"REMOVE"
+	//"item_cheese"			"REMOVE"
+	"item_magic_stick"			"REMOVE"
+	"item_recipe_magic_wand"			"REMOVE"
+	"item_magic_wand"			"REMOVE"
+	"item_ghost"			"REMOVE"
+	//"item_clarity"			"REMOVE"
+		"item_refresher_shard"			"REMOVE"  //刷新球碎片
+	"item_recipe_phase_boots"			"REMOVE"
+	"item_phase_boots"			"REMOVE"
+	"item_demon_edge"			"REMOVE"
+	"item_eagle"			"REMOVE"
+	"item_reaver"			"REMOVE"
+	"item_relic"			"REMOVE"
+	"item_hyperstone"			"REMOVE"
+	"item_ring_of_health"			"REMOVE"
+	"item_void_stone"			"REMOVE"
+	"item_mystic_staff"			"REMOVE"
+	"item_energy_booster"			"REMOVE"
+	"item_point_booster"			"REMOVE"
+	"item_vitality_booster"			"REMOVE"
+	"item_recipe_power_treads"			"REMOVE"
+	"item_power_treads"			"REMOVE"
+	"item_recipe_hand_of_midas"			"REMOVE"
+	"item_hand_of_midas"			"REMOVE"
+	"item_recipe_oblivion_staff"			"REMOVE"
+	"item_oblivion_staff"			"REMOVE"
+	"item_recipe_pers"			"REMOVE"
+	"item_pers"			"REMOVE"
+	"item_recipe_poor_mans_shield"			"REMOVE"
+	"item_poor_mans_shield"			"REMOVE"
+	"item_recipe_bracer"			"REMOVE"
+	"item_bracer"			"REMOVE"
+	"item_recipe_wraith_band"			"REMOVE"
+	"item_wraith_band"			"REMOVE"
+	"item_recipe_null_talisman"			"REMOVE"
+	"item_null_talisman"			"REMOVE"
+	"item_recipe_mekansm"			"REMOVE"
+	"item_mekansm"			"REMOVE"
+	"item_recipe_vladmir"			"REMOVE"
+	"item_vladmir"			"REMOVE"
+	//"item_flying_courier"			"REMOVE"
+	"item_recipe_buckler"			"REMOVE"
+	"item_buckler"			"REMOVE"
+	"item_recipe_ring_of_basilius"			"REMOVE"
+	"item_ring_of_basilius"			"REMOVE"
+	"item_recipe_pipe"			"REMOVE"
+	"item_pipe"			"REMOVE"
+	"item_recipe_urn_of_shadows"			"REMOVE"
+	"item_urn_of_shadows"			"REMOVE"
+	"item_recipe_headdress"			"REMOVE"
+	"item_headdress"			"REMOVE"
+	"item_orb_of_corrosion"			"REMOVE"
+	"item_recipe_falcon_blade"			"REMOVE"
+	"item_falcon_blade"			"REMOVE"
+	"item_fluffy_hat"			"REMOVE"
+	//"item_aghanims_shard"			"REMOVE"  //魔晶
+	//"item_wind_waker"			"REMOVE"
+		"item_recipe_monkey_king_bar"			"REMOVE"
+	"item_monkey_king_bar"			"REMOVE"
+	"item_recipe_radiance"			"REMOVE"
+	"item_radiance"			"REMOVE"
+	"item_recipe_butterfly"			"REMOVE"
+	"item_butterfly"			"REMOVE"
+	"item_recipe_greater_crit"			"REMOVE"
+	"item_greater_crit"			"REMOVE"
+	"item_recipe_basher"			"REMOVE"
+	"item_basher"			"REMOVE"
+	"item_recipe_bfury"			"REMOVE"
+	"item_bfury"			"REMOVE"
+	"item_recipe_manta"			"REMOVE"
+	"item_manta"			"REMOVE"
+	"item_recipe_lesser_crit"			"REMOVE"
+	"item_lesser_crit"			"REMOVE"
+	"item_recipe_armlet"			"REMOVE"
+	"item_armlet"			"REMOVE"
+	"item_recipe_invis_sword"			"REMOVE"
+	"item_invis_sword"			"REMOVE"
+	"item_recipe_sange_and_yasha"			"REMOVE"
+	"item_sange_and_yasha"			"REMOVE"
+	"item_recipe_satanic"			"REMOVE"
+	"item_satanic"			"REMOVE"
+	"item_recipe_mjollnir"			"REMOVE"
+	"item_mjollnir"			"REMOVE"
+	"item_recipe_skadi"			"REMOVE"
+	"item_skadi"			"REMOVE"
+	"item_recipe_sange"			"REMOVE"
+	"item_sange"			"REMOVE"
+	"item_recipe_helm_of_the_dominator"			"REMOVE"
+	"item_helm_of_the_dominator"			"REMOVE"
+	"item_recipe_maelstrom"			"REMOVE"
+	"item_maelstrom"			"REMOVE"
+	"item_recipe_desolator"			"REMOVE"
+	"item_desolator"			"REMOVE"
+	"item_recipe_yasha"			"REMOVE"
+	"item_yasha"			"REMOVE"
+	"item_recipe_mask_of_madness"			"REMOVE"
+	"item_mask_of_madness"			"REMOVE"
+	"item_recipe_diffusal_blade"			"REMOVE"
+	"item_recipe_diffusal_blade_2"			"REMOVE"
+	"item_diffusal_blade"			"REMOVE"
+	"item_diffusal_blade_2"			"REMOVE"
+	"item_recipe_ethereal_blade"			"REMOVE"
+	"item_ethereal_blade"			"REMOVE"
+	"item_recipe_soul_ring"			"REMOVE"
+	"item_soul_ring"			"REMOVE"
+	"item_recipe_arcane_boots"			"REMOVE"
+	"item_arcane_boots"			"REMOVE"
+	"item_orb_of_venom"			"REMOVE"
+	"item_recipe_ancient_janggo"			"REMOVE"
+	"item_ancient_janggo"			"REMOVE"
+	"item_recipe_medallion_of_courage"			"REMOVE"
+	"item_medallion_of_courage"			"REMOVE"
+	//"item_smoke_of_deceit"		"REMOVE"
+	//法器？
+		"item_recipe_force_staff"			"REMOVE"
+	"item_force_staff"			"REMOVE"
+	"item_recipe_dagon"			"REMOVE"
+	"item_recipe_dagon_2"			"REMOVE"
+	"item_recipe_dagon_3"			"REMOVE"
+	"item_recipe_dagon_4"			"REMOVE"
+	"item_recipe_dagon_5"			"REMOVE"
+	"item_dagon"			"REMOVE"
+	"item_dagon_2"			"REMOVE"
+	"item_dagon_3"			"REMOVE"
+	"item_dagon_4"			"REMOVE"
+	"item_dagon_5"			"REMOVE"
+	"item_recipe_necronomicon"			"REMOVE"
+	"item_recipe_necronomicon_2"			"REMOVE"
+	"item_recipe_necronomicon_3"			"REMOVE"
+	"item_necronomicon"			"REMOVE"
+	"item_necronomicon_2"			"REMOVE"
+	"item_necronomicon_3"			"REMOVE"
+	"item_recipe_ultimate_scepter"			"REMOVE"
+	//"item_ultimate_scepter"			"REMOVE"
+	"item_ultimate_scepter_2"		"REMOVE"
+	"item_recipe_refresher"			"REMOVE"
+	//"item_refresher"			"REMOVE"
+	"item_recipe_assault"			"REMOVE"
+	"item_assault"			"REMOVE"
+	"item_recipe_heart"			"REMOVE"
+	"item_heart"			"REMOVE"
+	"item_recipe_black_king_bar"			"REMOVE"
+	"item_black_king_bar"			"REMOVE"
+	//"item_aegis"			"REMOVE"
+	"item_recipe_shivas_guard"			"REMOVE"
+	"item_shivas_guard"			"REMOVE"
+	"item_recipe_bloodstone"			"REMOVE"
+	"item_bloodstone"			"REMOVE"
+	"item_recipe_sphere"			"REMOVE"
+	"item_sphere"			"REMOVE"
+	"item_recipe_reflex_energy_regen_booster"			"REMOVE"
+	"item_vanguard"			"REMOVE"
+	"item_recipe_blade_mail"			"REMOVE"
+	"item_blade_mail"			"REMOVE"
+	"item_recipe_soul_booster"			"REMOVE"
+	"item_soul_booster"			"REMOVE"
+	"item_recipe_hood_of_defiance"			"REMOVE"
+	"item_hood_of_defiance"			"REMOVE"
+	"item_recipe_rapier"			"REMOVE"
+	"item_rapier"			"REMOVE"
+	"item_sheepstick"			"REMOVE"
+	"item_recipe_orchid"			"REMOVE"
+	"item_orchid"			"REMOVE"
+	//"item_recipe_cyclone"			"REMOVE"
+	//"item_cyclone"			"REMOVE"
+	//"item_overwhelming_blink"			"REMOVE"
+	//"item_swift_blink"			"REMOVE"
+	//"item_arcane_blink"			"REMOVE"
+	
+	//下面这些应该是dota的互动道具?
+    "item_halloween_candy_corn"			"REMOVE"
+	"item_mystery_hook"			"REMOVE"
+	"item_mystery_arrow"			"REMOVE"
+	"item_mystery_missile"			"REMOVE"
+	"item_mystery_toss"			"REMOVE"
+	"item_mystery_vacuum"			"REMOVE"
+	"item_halloween_rapier"			"REMOVE"
+	"item_greevil_whistle"			"REMOVE"
+	"item_greevil_whistle_toggle"			"REMOVE"
+	"item_present"					"REMOVE"
+	"item_winter_stocking"			"REMOVE"
+	"item_winter_skates"			"REMOVE"
+	"item_winter_cake"			"REMOVE"
+	"item_winter_cookie"			"REMOVE"
+	"item_winter_coco"			"REMOVE"
+	"item_winter_ham"			"REMOVE"
+	"item_winter_kringle"			"REMOVE"
+	"item_winter_mushroom"			"REMOVE"
+	"item_winter_greevil_treat"			"REMOVE"
+	"item_winter_greevil_garbage"			"REMOVE"
+	"item_winter_greevil_chewy"			"REMOVE"
+
+	// 7.33
+	"item_blood_grenade"			"REMOVE"
+	"item_diadem"			"REMOVE"
+	"item_cornucopia"			"REMOVE"
+	"item_pavise"			"REMOVE"
+	"item_disperser"			"REMOVE"
+	"item_harpoon"			"REMOVE"
+
+	"earthshaker_fissure"
+	{
+		"AbilityTextureName"	"custom/ability_thdots_tenshi01"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+		"FightRecapLevel"				"1"
+		//魔晶无效
+		"HasShardUpgrade"               "0"
+		//A杖无效
+		"HasScepterUpgrade"	"0"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1400"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"16.0 15.0 14.0 13.0"
+		"AbilityDuration"				"1.0 1.25 1.5 1.75"
+
+		// Damage.
+		//-------------------------------------------------------------------------------------------------------------
+		//"AbilityDamage"					"120 180 240 300"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"115 130 145 160"		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"fissure_range"
+			{
+				"value"	"1400"
+				"LinkedSpecialBonus"	""
+			}
+			"fissure_duration"			"5 6 7 8"
+			"fissure_radius"			"225"
+			"stun_duration"				"1.0 1.25 1.5 1.75"
+			"fissure_damage"
+			{
+				"value"	"120 180 240 300"
+				"LinkedSpecialBonus"		""
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Courier Burst
+	//=================================================================================================================
+	"courier_burst"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5210"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_MOVEMENT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"120.0"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"			"10"
+			"movement_speed"	"30"
+		}
+		
+		"MaxLevel"		"1"
+	}
+
+
+//=================================================================================================================
+	// Ability: Phantom Assassin's Blur
+	//=================================================================================================================
+	"phantom_assassin_blur"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5192"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityTextureName"	"custom/ability_thdots_koishiex"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"IsGrantedByScepter"			"1"
+		"MaxLevel"	"1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"20"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"650"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.1"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+	
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_evasion"				"20"
+			"duration"			"20"
+			"radius"				"650"
+			"fade_duration"			"0.75"
+			"scepter_cooldown"
+			{
+				"value""20"
+				"RequiresScepter"		"1"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+	"zuus_thundergods_wrath"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5113"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityTextureName"	"custom/ability_thdots_tenshi04"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"2"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
+		"HasScepterUpgrade"	"0"
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"1.0 1.0 1.0 1.0"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"120 110 100"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"200 300 400"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"sight_radius_day"
+			{
+				"value"						"500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"sight_radius_night"
+			{
+				"value"						"500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"sight_duration"		"3.0 3.0 3.0 3.0"
+			"damage"
+			{
+				"value"	"275 425 575"
+				"LinkedSpecialBonus"	""
+			}
+		}
+	}
+	
+
+
+
+
+	//=================================================================================================================
+	// Ability: Juggernaut Omni Slash
+	//=================================================================================================================
+	"juggernaut_omni_slash"
+	{
+		"AbilityTextureName"	"custom/ability_thdots_cirnoex"
+	}
+
+	//=================================================================================================================
+	// Death Prophet: Carrion Swarm
+	//=================================================================================================================
+	//"death_prophet_carrion_swarm"
+	//{
+	//	// General
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"ID"					"5090"											
+	//	"AbilityTextureName"	"custom/ability_thdots_yuyuko01"
+	//	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT"
+	//	"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+	//	"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	//	"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+	//	"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+	//	// Casting
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityCastRange"				"975"
+	//	"AbilityCastPoint"				"0.3"
+	//
+	//	// Time		
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityCooldown"				"6.0 6.0 6.0 6.0"
+	//
+	//	// Damage.
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityDamage"					"75 150 225 300"
+	//
+	//	// Cost
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityManaCost"				"90 105 125 140"		
+	//
+	//	// Special
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityValues"
+	//	{
+	//		"start_radius"				"110 110 110 110"
+	//		"end_radius"				"300 300 300 300"
+	//		"range"						"810 810 810 810"
+	//		"speed"						"1100 1100 1100 1100"
+	//	}
+	//}
+	
+	
+	////=================================================================================================================
+	//// Bane: Nightmare
+	////=================================================================================================================
+	//"bane_nightmare"
+	//{
+	//	// General
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"ID"					"5014"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+	//	"AbilityTextureName"	"custom/ability_thdots_yuyuko02"
+	//	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+	//	"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+	//	"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+	//	"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+	//	"AbilityUnitDamageType"			"DAMAGE_TYPE_HP_REMOVAL"	
+	//	"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
+	//	// Casting
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityCastRange"				"750"
+	//	"AbilityCastPoint"				"0.5 0.5 0.5 0.5"
+	//
+	//	// Time		
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityCooldown"				"15.0 14.0 13.0 12.0"
+	//	"AbilityDuration"				"3.0 4.0 5.0 6.0"
+	//
+	//	// Damage.
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityDamage"					"0 0 0 0"
+	//
+	//	// Cost
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityManaCost"				"120"	
+	//	
+	//	// Stats
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityModifierSupportValue"	"0.5"	// Applies two modifiers
+	//
+	//	// Special
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityValues"
+	//	{
+	//		"nightmare_invuln_time"		"1.0"
+	//		"duration"					"3.0 4.0 5.0 6.0"
+	//		"animation_rate"			"0.2 0.2 0.2 0.2"
+	//		"cast_range_tooltip"		"750"
+	//	}
+	//}
+	
+	//"necrolyte_heartstopper_aura"
+	//{
+	//	// General
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"ID"					"5159"
+	//	"AbilityTextureName"	"custom/ability_thdots_yuyuko03"														
+	//	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
+	//	"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+	//	"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+	//	"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+	//	"HasScepterUpgrade"		"0"
+	//	
+	//	
+	//	// Casting
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityCastRange"				"700"
+	//
+	//	"AbilityValues"
+	//	{
+	//			"aura_radius"		"700"		// If you change this, also change the AbilityCastRange above
+	//			"aura_damage"
+	//			{
+	//				"value""1.1 1.7 2.3 2.9" 
+	//				"DamageTypeTooltip" "DAMAGE_TYPE_NONE"
+	//				"LinkedSpecialBonus"		"special_bonus_unique_necrophos_2"
+	//			}
+	//			"health_regen"	"2 3 4 5"
+	//			"mana_regen"	"2 4 6 8"
+	//			"regen_duration"		"6"
+	//			"hero_multiplier" "6"
+	//	}
+	//}
+
+
+	//=================================================================================================================
+	// Naga Siren: Mirror Image
+	//=================================================================================================================
+	"naga_siren_mirror_image"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5467"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityTextureName"			"custom/ability_thdots_flandre01"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"30.0 26.0 22.0 18.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"40 50 60 70"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"illusion_duration"			"12.0"
+			"outgoing_damage"
+			{
+				"value"	"-82 -76 -70 -64"
+				"LinkedSpecialBonus"		"special_bonus_unique_naga_siren_4"
+			}
+			"outgoing_damage_tooltip"
+			{
+				"value"	"18 24 30 36"
+				"LinkedSpecialBonus"		"special_bonus_unique_naga_siren_4"
+			}
+			"incoming_damage"			"150"
+			"tooltip_incoming_damage_total_pct"			"150"
+			"images_count"
+			{
+				"value"	"3 3 3 3"
+				"LinkedSpecialBonus"        ""
+			}
+			"invuln_duration"			"0.3"
+		}
+	}
+
+	"flandre_vampiric_aura"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"			"skeleton_king_vampiric_aura"													// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityTextureName"			"custom/ability_thdots_flandre03"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		
+		"AbilityValues"
+		{
+			"vampiric_aura_radius"	"60"
+			"vampiric_aura"
+			{
+				"value"	"9 18 27 36"
+				"LinkedSpecialBonus"	""
+			}
+			"damage"			"0"
+		}
+	}
+
+	//=================================================================================================================
+	// Centaur Warchief: Hoof Stomp
+	//=================================================================================================================
+	"centaur_hoof_stomp"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5514"			
+		//"AbilityTextureName"	"custom/ability_thdots_yugi02"
+		"AbilityTextureName"	"touhoutd/thtd_yuugi_01"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Brewmaster.ThunderClap"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"15 14 13 12"
+		"AbilityManaCost"				"90 100 110 120"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"315"
+				"affected_by_aoe_increase"	"1"
+			}
+			"stun_duration"
+			{
+				"value"	"1.2 1.5 1.8 2.1"
+				"LinkedSpecialBonus"			""
+			}
+			"stomp_damage"					"80 140 200 260"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_ATTACK"
+	}
+
+
+
+	//=================================================================================================================
+	// Brewmaster: Thunder Clap
+	//=================================================================================================================
+	"brewmaster_thunder_clap"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5400"							// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityTextureName"	"custom/ability_thdots_yugi02"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_Brewmaster.ThunderClap"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"11.0 9.5 8.0 6.5"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.5"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"90 105 130 150"		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"350 400 450 500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"					"150 225 300 375"
+			"movement_slow"				"30 30 30 30"
+			"attack_speed_slow"			"30 30 30 30"
+			"duration"
+			{
+				"value"	"3.0"
+				"LinkedSpecialBonus"		"special_bonus_unique_brewmaster_3"
+			}
+			"duration_creeps"
+			{
+				"value"	"3.0 3.0 3.0 3.0"
+				"LinkedSpecialBonus"		"special_bonus_unique_brewmaster_3"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Tiny: Toss
+	//=================================================================================================================
+	"tiny_toss"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5107"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_RUNE_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"FightRecapLevel"				"1"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1000 1100 1200 1300"
+		"AbilityCastPoint"				"0"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"12"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"90 100 110 120"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.25"	// generally used for damage only
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"				"1.0"
+			"grab_radius"			"250"
+			"radius"
+			{
+				"value"			"275"
+				"affected_by_aoe_increase"	"1"
+			}
+			"bonus_damage_pct"		"30"
+			"toss_damage"			"150 200 250 300"
+			"charge_restore_time"	"15"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+	//=================================================================================================================
+	// Disruptor: Kinetic Field
+	//=================================================================================================================
+	"disruptor_kinetic_field"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5460"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Disruptor.KineticField"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.05 0.05 0.05 0.05"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"14 13 12 11"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"70 70 70 70"
+		
+		// Cast Range
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"900 900 900 900"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"340"
+				"affected_by_aoe_increase"	"1"
+			}
+			"formation_time"			"0.5 0.5 0.5 0.5"
+			"duration"
+			{
+				"value"	"2.5 3.0 3.5 4.0"
+				"LinkedSpecialBonus"		"special_bonus_unique_disruptor_5"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Night Stalker: Darkness
+	//=================================================================================================================
+	"thd_darkness"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"					    "night_stalker_darkness"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3 0.3 0.3"
+		"AbilityCooldown"				"0 0 0"
+		"AbilityManaCost"				"0 0 0"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"				"20.0 40.0 60.0"
+			"blind_percentage"				"-0"
+		}
+	}
+
+	//=================================================================================================================
+	// Death Prophet: Exorcism
+	//=================================================================================================================
+	"death_prophet_exorcism"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5093"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityTextureName"	"custom/ability_thdots_wriggle02"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
+		"HasScepterUpgrade"	"0"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"FightRecapLevel"				"2"
+
+		"HasScepterUpgrade"			"0"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.2"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"23.0"
+		"AbilityDuration"				"7.5 9.0 10.5 12"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"60 75 90 105"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"450 450 450 450"
+				"affected_by_aoe_increase"	"1"
+			}
+			"spirits"
+			{
+				"value"	"5 8 11 14"
+				"LinkedSpecialBonus"	"special_bonus_unique_death_prophet"
+			}
+			"spirit_speed"			"500 500 500 500"
+			"max_distance"			"600 600 600 600"
+			"give_up_distance"		"600 600 600 600"
+			"min_damage"			"33 36 39 42"
+			"max_damage"			"33 36 39 42"
+			"heal_percent"			"75 75 75 75"
+			"average_damage"		"33 36 39 42"
+			"structure_reduction"	"0"
+			"scepter_movespeed_slow"
+			{
+				"value"	"0"
+				"RequiresScepter"			"1"
+			}
+			"scepter_movespeed_debuff_duration"
+			{
+				"value"	"0.01"
+				"RequiresScepter"			"1"
+			}
+			"scepter_spirit_life_duration"
+			{
+				"value"	"0.1"
+				"RequiresScepter"			"1"
+			}
+			"scepter_spirit_bonus_damage"
+			{
+				"value"	"0"
+				"RequiresScepter"			"1"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"movement_bonus"				"0"
+		}
+	}
+
+	//=================================================================================================================
+	// Riki: Permanent Invisibility
+	//=================================================================================================================
+	// "riki_permanent_invisibility"
+	// {
+	// 	// General
+	// 	//-------------------------------------------------------------------------------------------------------------
+	// 	"ID"					"5145"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+	// 	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	// 	"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+
+	// 	// Time		
+	// 	//-------------------------------------------------------------------------------------------------------------
+	// 	"AbilityCooldown"				"4.0 2.0 1.0"
+
+	// 	// Special
+	// 	//-------------------------------------------------------------------------------------------------------------
+	// 	"AbilityValues"
+	// 	{
+	// 		"fade_time"					"0.5 0.5 0.5"
+	// 		"fade_delay"				"4.0 2.0 1.0"
+	// 		"bonus_health_regen"		"0 0 0"
+	// 	}
+	// }
+
+	//=================================================================================================================
+	// Backdoor Protection
+	//=================================================================================================================
+	"backdoor_protection"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5350"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"						"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"				"900"
+			"activation_time"		"15.0"
+			"regen_rate"			"90"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+	//=================================================================================================================
+	// Backdoor Protection In Base
+	//=================================================================================================================
+	"backdoor_protection_in_base"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5351"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"						"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"activation_time"		"15.0"
+			"regen_rate"			"90"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+	//=================================================================================================================
+	// Quelling Blade
+	//=================================================================================================================
+	"item_quelling_blade"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"11"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		//"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		//"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		//"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityTextureName"			"item_hetongmugongren"
+
+
+		"AbilityCastRange"				"350"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"4"
+		"Model"							"models/props_gameplay/quelling_blade.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		"ItemCost"						"100"
+		"ItemShopTags"					"damage"
+		"ItemQuality"					"component"
+		"ItemAliases"					"qb;quelling blade"
+		"SideShop"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage_bonus"			"12"
+			"damage_bonus_ranged"	"7"
+			"quelling_range_tooltip"			"350"
+			"cast_range_ward"			"450"
+		}
+	}
+	//=================================================================================================================
+	// Raven
+	//=================================================================================================================
+	"item_gem"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"30"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"Model"							"models/props_gameplay/gem01.vmdl"
+		"Effect"						"particles/generic_gameplay/dropped_gem.vpcf"
+		"AbilityTextureName"			"item_yatiangou"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"700"
+		"ItemShopTags"					"see_invis"
+		"ItemQuality"					"component"
+		"ItemAliases"					"gem of true sight"
+		"ItemSellable"					"0"
+		"ItemShareability"				"ITEM_PARTIALLY_SHAREABLE"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemStockMax"					"1"
+		"ItemStockTime"					"600.0"
+		"ItemSupport"					"1"
+		"ItemKillable"					"0"
+		
+		// Sound
+		//-------------------------------------------------------------------------------------------------------------			
+		"UIPickupSound"					"Item.PickUpGemShop"
+		"UIDropSound"					"Item.DropGemShop"
+		"WorldDropSound"				"Item.DropGemWorld"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"1100"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+
+
+	//=================================================================================================================
+	// Clarity
+	//=================================================================================================================
+	"item_clarity"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"38"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"Model"							"models/props_gameplay/clarity.vmdl"		
+		"AbilityTextureName"			"item_hongcha"
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"250"
+		"AbilityCastPoint"				"0.0"	
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"50"
+		"ItemShopTags"					"consumable"
+		"ItemQuality"					"consumable"
+		"ItemAliases"					"clarity;scarlet devil mansion tea"
+		"ItemStackable"					"1"
+		"ItemPermanent"					"0"
+		"ItemInitialCharges"			"1"
+		"SideShop"						"0"
+		"IsTempestDoubleClonable"		"0"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"mana_regen"			"10"
+			"buff_duration"			"25"
+			"range_tooltip"			"250"
+		}
+	}
+
+	//"item_flask"			"REMOVE"
+	
+	//=================================================================================================================
+	// Flask
+	//=================================================================================================================
+	"item_flask"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"39"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"Model"							"models/props_gameplay/salve.vmdl"
+		"AbilityTextureName"			"item_qingcha"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"100"
+		"AbilityCastPoint"				"0.0"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"85"
+		"ItemShopTags"					"consumable"
+		"ItemQuality"					"consumable"
+		"ItemAliases"					"healing salve;hakurei shrine tea"
+		"ItemStackable"					"1"
+		"ItemPermanent"					"0"
+		"ItemInitialCharges"			"1"
+		"IsTempestDoubleClonable"		"0"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"buff_duration"			"10"
+			"health_regen"			"35"
+			"tooltip_range"			"250"
+		}
+	}
+
+	//"item_dust"			"REMOVE"
+	"item_dust"
+	{
+		"AbilityValues"
+		{
+			"duration"			"10"
+			"radius"
+			{
+				"value"			"900"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+	"item_bottle"			"REMOVE"
+	"item_ward_observer"
+	{
+		"ItemStockTime"					"120.0"
+	}
+	//"item_ward_sentry"			"REMOVE"
+	"item_ward_sentry"
+	{
+		"ItemCost"						"80"
+	}
+	"item_tango"			"REMOVE"
+	"item_tango_single"			"REMOVE"
+	//"item_courier"			"REMOVE"
+	//"item_tpscroll"			"REMOVE"
+	//=================================================================================================================
+	// Teleport Scroll
+	//=================================================================================================================
+	"item_tpscroll"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"46"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_NOASSIST | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_BUILDING"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
+		"Model"							"models/props_gameplay/tpscroll01.vmdl"
+		"AbilityTextureName"			"item_tp"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"0"
+		"AbilityCooldown"				"60.0"
+		//"AbilitySharedCooldown"			"teleport"
+		"AbilityChannelTime"			"3.0"
+		"AbilityCastPoint"				"0.0"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		"ItemCost"						"0"
+		"ItemShopTags"					"consumable;tutorial"
+		"ItemQuality"					"consumable"
+		"ItemAliases"					"tp;town portal scroll;ticket to gensokyo"
+		"ItemStackable"					"0"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemPermanent"					"1"
+		"ItemInitialCharges"			"1"
+		"SideShop"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"minimun_distance"		"70"
+			"maximum_distance"		"575"
+			"vision_radius"			"200"
+		}
+	}
+	//"item_recipe_travel_boots"			"REMOVE"
+	//=================================================================================================================
+	// Recipe: Travel Boots
+	//=================================================================================================================
+	"item_recipe_travel_boots"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"47"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"AbilityTextureName"			"item_recipe_bayunjianxi"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"2000"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_travel_boots"
+		"ItemRequirements"
+		{
+			"01"						"item_broom"
+		}
+	}
+	//"item_travel_boots"			"REMOVE"
+	//=================================================================================================================
+	// Travel Boots
+	//=================================================================================================================
+	"item_travel_boots"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"48"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		//"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_BUILDING"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
+		"AbilityTextureName"			"item_bayunjianxi"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		//"AbilityCooldown"				"45.0"
+		//"AbilitySharedCooldown"			"teleport"
+		//"AbilityChannelTime"			"3.0"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		"ItemCost"						"2300"
+		"ItemShopTags"					"teleport;move_speed"
+		"ItemQuality"					"common"
+		"ItemAliases"					"bot;boots of travel"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_movement_speed"	"100"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Sheepstick
+	//=================================================================================================================
+	// "item_recipe_sheepstick"
+	// {
+	// 	// General
+	// 	//-------------------------------------------------------------------------------------------------------------
+	// 	"ID"							"95"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+	// 	"Model"							"models/props_gameplay/recipe.vmdl"
+		
+	// 	// Item Info
+	// 	//-------------------------------------------------------------------------------------------------------------
+	// 	"ItemCost"						"90"	
+	// 	"ItemShopTags"					""
+		
+	// 	// Recipe
+	// 	//-------------------------------------------------------------------------------------------------------------
+	// 	"ItemRecipe"					"1"
+	// 	"ItemResult"					"item_sheepstick"
+	// 	"ItemRequirements"
+	// 	{
+	// 		"01"						"item_sake;item_magic_guide_book;item_gran_grimoire"
+	// 	}
+	// }
+	// "item_recipe_sheepstick"			"REMOVE"
+	// //=================================================================================================================
+	// // Sheepstick
+	// //=================================================================================================================
+	// "item_sheepstick"
+	// {
+	// 	// General
+	// 	//-------------------------------------------------------------------------------------------------------------
+	// 	"ID"							"96"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+	// 	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+	// 	"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+	// 	"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+
+	// 	// Stats
+	// 	//-------------------------------------------------------------------------------------------------------------
+	// 	"AbilityCastRange"				"800"
+	// 	"AbilityCastPoint"				"0.0"
+
+	// 	// Stats		
+	// 	//-------------------------------------------------------------------------------------------------------------
+	// 	"AbilityCooldown"				"60.0"
+
+	// 	// Item Info
+	// 	//-------------------------------------------------------------------------------------------------------------
+	// 	"AbilityManaCost"				"0"
+	// 	"ItemCost"						"4500"
+	// 	"ItemShopTags"					"int;regen_mana;agi;hard_to_tag"
+	// 	"ItemQuality"					"rare"
+	// 	"ItemAliases"					"hex;sheepstick;scythe of vyse"
+	// 	"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+	// 	// Special	
+	// 	//-------------------------------------------------------------------------------------------------------------
+	// 	"AbilityValues"
+	// 	{
+	// 		"bonus_strength"		"0"
+	// 		"bonus_agility"			"0"
+	// 		"bonus_intellect"		"30"
+	// 		"bonus_mana_regen"		"120"
+	// 		"sheep_duration"		"2.5"
+	// 		"sheep_movement_speed"	"100"
+	// 	}
+	// }
+	//=================================================================================================================
+	// Recipe: Cyclone
+	//=================================================================================================================
+	"item_recipe_cyclone"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"99"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"300"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_cyclone"
+		"ItemRequirements"
+		{
+			"01"						"item_sake;item_magic_guide_book;item_rocket_diagram;item_wind_lace"
+		}
+	}
+	
+	//=================================================================================================================
+	// Cyclone
+	//=================================================================================================================
+	"item_cyclone"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"100"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		"AbilityTextureName"			"item_fengmao"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0.0"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"30.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"60"
+		"ItemCost"						"3225"
+		"ItemShopTags"					"int;regen_mana;move_speed;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"cyclone euls;eul's scepter of divinity"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_intellect"		"16"
+			"bonus_mana_regen"		"4.5"
+			"bonus_movement_speed"	"30"
+			"cyclone_duration"		"2.5"
+		}
+	}
+	////=================================================================================================================
+	//// Recipe: Rapier
+	////=================================================================================================================
+	//"item_recipe_rapier"
+	//{
+	//	// General
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"ID"							"132"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+	//
+	//	
+	//	// Item Info
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"ItemCost"						"1599"	
+	//	"ItemShopTags"					""
+	//	
+	//	// Recipe
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"ItemRecipe"					"1"
+	//	"ItemResult"					"item_rapier"
+	//	"ItemRequirements"
+	//	{
+	//		"01"						"item_wrench;item_silver_knife"
+	//	}
+	//}
+	//
+	////=================================================================================================================
+	//// Rapier
+	////=================================================================================================================
+	//"item_rapier"
+	//{
+	//	// General
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"ID"							"133"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+	//	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	//	"Model"							"models/props_gameplay/divine_rapier.vmdl"
+	//	"AbilityTextureName"			"item_hexie"
+	//
+	//	// Item Info
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"ItemCost"						"6999"
+	//	"ItemShopTags"					"damage"
+	//	"ItemQuality"					"epic"
+	//	"ItemAliases"					"divine rapier;concordia"
+	//	"ItemShareability"				"ITEM_NOT_SHAREABLE"
+	//	"ItemSellable"					"0"
+	//	"ItemKillable"					"0"
+	//	"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS | DECLARE_PURCHASES_IN_SPEECH"
+	//	
+	//	// Special	
+	//	//-------------------------------------------------------------------------------------------------------------
+	//	"AbilityValues"
+	//	{
+	//		"bonus_damage"			"399"
+	//	}
+	//}
+	"item_smoke_of_deceit"
+	{
+		"AbilityValues"
+		{
+			"application_radius"
+			{
+				"value"			"900"
+				"affected_by_aoe_increase"	"1"
+			}
+			"visibility_radius"		"900"
+			"bonus_movement_speed"		"5"
+			"duration"				"25.0"
+		}
+	}
+    //=================================================================================================================
+	// Wind Lace
+	//=================================================================================================================
+	"item_wind_lace"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"244"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"	
+		//"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"	
+		"AbilityTextureName"			"item_xierfulingwen"
+		
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"250"
+		"ItemShopTags"					"armor"
+		"ItemQuality"					"component"
+		"ItemAliases"					"wind lace"
+		"ItemPermanent"					"1"
+		//"ItemInitialCharges"			"3"
+		//"ItemRequiresCharges"			"1"
+
+		
+		// Sounden
+		//-------------------------------------------------------------------------------------------------------------			
+		"UIPickupSound"					"Item.PickUpRingShop"
+		"UIDropSound"					"Item.DropRingShop"
+		"WorldDropSound"				"Item.DropRingWorld"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"movement_speed"			"20"
+			"bonus_speed"			"8"
+			"duration"			"5"
+		}
+	}
+
+	//"item_dummy_doll"     "REMOVE"
+	//"item_jinkela"     "REMOVE"
+
+	//"item_yukkuri_stick"	"REMOVE"
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_naga_siren_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"761"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"value"
+			{
+				"value"	"5"
+				"ad_linked_abilities"			"naga_siren_mirror_image"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_naga_siren_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7029"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"value"
+			{
+				"value"	"29"
+				"ad_linked_abilities"			"naga_siren_mirror_image"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}	
+
+	//=================================================================================================================
+	// Ability: Special Bonus：+28魔法恢复
+	//=================================================================================================================
+	"special_bonus_mp_regen_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5915"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"value"				"28"
+		}
+	}
+
+	//=================================================================================================================
+	// Broodmother: Spin Web 修改黑谷山女1技能蜘蛛网
+	//=================================================================================================================
+	"broodmother_spin_web"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilitySound"					"Hero_Broodmother.SpinWebCast"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1000"
+		"AbilityCastPoint"				"0.4"
+		"AbilityCooldown"				"0.0"
+		"AbilityManaCost"				"50"
+		"AbilityCharges"				"2 3 4 5"
+		"AbilityChargeRestoreTime"		"45.0"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"900"
+				"affected_by_aoe_increase"	"1"
+			}
+			"count"					"2 3 4 5"
+			"heath_regen"			"6 8 10 12"
+			"bonus_movespeed"		"25 30 35 40"
+			"max_charges_scepter"
+			{
+				"value"	"6 10 14 18"
+				"RequiresScepter"		"1"
+			}
+			"bonus_movespeed_scepter"
+			{
+				"value"	"35 50 65 80"
+				"RequiresScepter"		"1"
+			}
+			"count_scepter"
+			{
+				"value"	"6 10 14 18"
+				"RequiresScepter"		"1"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+//=================================================================================================================
+// void_spirit: aether_remnant 修改爱莲天生技能
+//=================================================================================================================
+	"void_spirit_aether_remnant"
+	{
+
+     //-------------------------------------------------------------------------------------------------------------
+     "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_VECTOR_TARGETING"
+     "AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+     "AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+     "AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"
+     "MaxLevel"						"1"
+     "AbilityTextureName"			    "lich\lich_ti10_immortal_ability_icon/lich_ti10_immortal_sinister_gaze"
+     "SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+     "SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+     "FightRecapLevel"				"1"
+     "AbilitySound"					"Hero_VoidSpirit.AetherRemnant.Cast"
+
+     // Casting
+     //-------------------------------------------------------------------------------------------------------------
+     "AbilityCastPoint"				"0.3"
+     "AbilityCastRange"				"1000"
+     "precache"
+	 {
+		"particle_folder"	"particles/units/heroes/hero_void_spirit/aether_remnant"
+		"soundfile"	"soundevents/game_sounds_heroes/game_sounds_void_spirit.vsndevts"
+	 }
+     // Time
+     //-------------------------------------------------------------------------------------------------------------
+     "AbilityCooldown"				"10"
+     // Cost
+     //-------------------------------------------------------------------------------------------------------------
+     "AbilityManaCost"				"100"
+
+     // Special
+     //-------------------------------------------------------------------------------------------------------------
+     "AbilityValues"
+     {
+    	"start_radius"				
+		{
+			"value"	"90"
+			"affected_by_aoe_increase"	"1"
+		}
+		"end_radius"				
+		{
+			"value"	"90"
+			"affected_by_aoe_increase"	"1"
+		}
+		"radius"					
+		{
+			"value"		"300"
+			"affected_by_aoe_increase"	"1"
+		}
+    	"projectile_speed"			"900"
+    	"remnant_watch_distance"	"525"
+    	"remnant_watch_radius"		
+		{
+			"value"		"130"
+			"affected_by_aoe_increase"	"1"
+		}
+    	"watch_path_vision_radius"
+		{
+			"value"			"150"
+			"affected_by_aoe_increase"	"1"
+		}
+    	"activation_delay"		"0.2"
+    	"impact_damage"			"0"
+    	"pull_duration"			"1.5"
+    	"pull_destination"		"50"
+    	"duration"				"20.0"
+    	"think_interval"		"0.1"
+     }
+     "AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+     "AbilityCastGestureSlot"		"DEFAULT"
+    }
+	//=================================================================================================================
+	// Roshan: Bash
+	//=================================================================================================================
+	"roshan_bash"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5214"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bash_chance"		"25"
+			"bonus_damage"		"50"
+			"stun_duration"		"1.5"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+
+	//=================================================================================================================
+	// Roshan: Slam
+	//=================================================================================================================
+	"roshan_slam"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5215"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"10.0"
+		"AbilityCastPoint"				"0.47 0.47 0.47 0.47"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"			"350"
+			"slow_duration_hero"	"2.0"
+			"slow_duration_unit"	"4.0"
+			"slow_amount"		"50"
+			"damage"			"70"
+			"damage_growth"		"20"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+	//=================================================================================================================
+	// 修补匠：机械行军 （秋静叶 复写大招）
+	//=================================================================================================================
+	"tinker_march_of_the_machines"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5152"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_VECTOR_TARGETING"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilityDamageType"				"DAMAGE_TYPE_PHYSICAL"	
+		"AbilityTextureName"			"touhoutd/thtd_sizuha_01"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilitySound"					"Ability.Windrun"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"						"3"
+		"IsGrantedByShard"				"0"
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+		"AbilityCastPoint"				"0.53"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60.0"
+
+		// Damage.
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDamage"					"0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"175 200 225"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"collision_radius"		"50"
+			"splash_radius"			"150"
+			"duration"
+			{
+				"value"	"8.0 11.0 14.0"
+				"LinkedSpecialBonus"	"special_bonus_unique_tinker_5"
+			}
+			"speed"					"400"
+			"machines_per_sec"		"15 20 25"
+			"distance"				"1200"
+			"distance_scepter"		"1200"
+			"damage"
+			{
+				"value"	"50 65 80"
+				"LinkedSpecialBonus"	"special_bonus_unique_tinker_2"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
+	// Lone Druid: Summon Spirit Bear
+	//=================================================================================================================
+	"kasen_spirit_bear"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"lone_druid_spirit_bear"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"DisplayAdditionalHeroes"	"1"
+		"AbilitySound"					"Hero_LoneDruid.SpiritBear.Cast"
+		"HasScepterUpgrade"			"1"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.5 0.5 0.5 0.5"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"120.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 75 75 75"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bear_hp"					"800 1000 1200 1400"
+			"bear_regen_tooltip"	"2 3 4 5"
+			"bear_bat"
+			{
+				"value"					"1.75 1.65 1.55 1.45"
+				"special_bonus_unique_lone_druid_10"	"-0.1"
+			}
+			"bear_armor"				"3 4 5 6"
+			"backlash_damage"			"20.0"
+			"bear_movespeed"			
+			{
+				"value"			"315 335 355 375"
+				"special_bonus_unique_lone_druid_11"		"+25"
+
+			}
+			"bear_magic_resistance"
+			{
+				"value"			"33"
+			}
+			"bonus_bear_hp"
+			{
+				"value"					"0"
+				"special_bonus_unique_kasen3_4"		"+1500"
+			}
+			"bonus_bear_armor"
+			{
+				"value"				"0"
+				"special_bonus_unique_lone_druid_2"	"+8"
+			}
+			"damage_gain_per_druid_level"			"5"
+			"hp_gain_per_druid_level"				"90"
+
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	"kasen_holy_persuasion"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"chen_holy_persuasion"													// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilitySound"					"Hero_Chen.HolyPersuasionCast"
+		"HasScepterUpgrade"			"1"
+		"HasShardUpgrade"			"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+		"AbilityCooldown"				"15"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"90 110 130 150"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"max_units"				
+			{
+				"value"			"1 2 3 4"
+				"special_bonus_unique_kasen3_3"			"+2"
+			}
+			"level_req"				"3 4 5 6"
+			"health_min"			
+			{
+				"value"						"700 800 900 1000"
+				"special_bonus_unique_kasen3_4"		"+1500"
+			}
+			"movement_speed_bonus"	"10 20 30 40"
+			"damage_bonus"	
+			{
+				"value"					"4 10 16 22"
+			}
+			"teleport_delay"	
+			{
+				"value"		"6"
+			}
+			"is_martyr"
+			{
+				"value"			"1"
+			}
+			"creep_ability_level"
+			{
+				"value"			"2"
+			}
+
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+	//=================================================================================================================
+	// Aghanims Shard
+	//=================================================================================================================
+	"item_aghanims_shard"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		// "ID"							"100"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityTextureName"			"item_occult_ball"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"2015"
+		"ItemStockTime"					"3.0"
+		"ItemInitialStockTime"			"990.0"
+	}
+}

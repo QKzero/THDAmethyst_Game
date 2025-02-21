@@ -1,0 +1,101 @@
+"DOTAHeroes"
+{
+	"npc_dota_hero_Minoriko"
+	{
+		"override_hero"			"npc_dota_hero_huskar"
+		"AbilityLayout" 		"6"
+		"Ability1"				"ability_thdots_minoriko01" 
+		"Ability2"				"ability_thdots_minoriko02"
+		"Ability3"				"ability_thdots_minoriko03"
+		"Ability4"		"generic_hidden"
+		"Ability5"		"generic_hidden"		
+		"Ability6"				"ability_thdots_minoriko04"
+		"Ability10"		"special_bonus_cooldown_reduction_15"
+		"Ability11"		"special_bonus_exp_boost_20"
+		"Ability12"		"special_bonus_strength_30"
+		"Ability13"		"special_bonus_gold_income_120"
+		"Ability14"		"special_bonus_attack_damage_150"
+		"Ability15"		"special_bonus_unique_minoriko_3"
+		"Ability16"		"special_bonus_cast_range_300"
+		"Ability17"		"special_bonus_unique_minoriko_1"
+
+		"Facets"
+		{
+		}
+
+		//"Carry"			"核心"
+		//"Support"			"辅助"
+		//"Nuker"			"爆发"
+		//"Disabler"		"控制"
+		//"Jungler"			"打野"
+		//"Durable"			"耐久"
+		//"Escape"			"逃生"
+		//"LaneSupport"		"对线辅助"
+		//"Pusher"			"推进"
+		//"Initiator"		"先手"
+		//"Role"			"Carry,Support,Nuker,Disabler,Jungler,Durable,Escape,LaneSupport,Pusher,Initiator"
+
+		"Role"				"Support,Disabler,LaneSupport,Pusher,Initiator"
+		"Rolelevels"		"3,2,3,2,1"
+		"Complexity"	"1"
+		
+		"Model"                 "models/akiminoriko/minoriko.vmdl"
+		"VoiceFile" "soundevents/voscripts/game_sounds_vo_huskar.vsndevts"
+		"ModelScale"                 "0.8"
+		"VersusScale"                 "0.8"
+		"LoadoutScale"                 "0.8"
+
+		//"HeroID"					"113"
+		//"Enabled"					"1"
+			
+		"ProjectileModel"	"particles/econ/items/techies/techies_arcana/techies_base_attack_arcana.vpcf"
+		"AttackAnimationPoint"		"0.3"	
+			//攻击前摇
+		"AttackRate"				"1.7"			
+			//攻击速度
+		"AttackRange"				"500"
+			//攻击距离
+		"ArmorPhysical"				"1"
+			//物理护甲
+		"AttackDamageMin"			"35"
+			//最大攻击力
+		"AttackDamageMax"			"43"
+			//最小攻击力
+			
+		"AttributeBaseStrength"		"22"
+			//基础力量
+		"AttributeStrengthGain"		"2.8"
+			//每级增加的力量，力量成长
+		"AttributeBaseAgility"		"16"
+			//基础敏捷
+		"AttributeAgilityGain"		"2.0"
+			//每级增加的敏捷，敏捷成长
+		"AttributeBaseIntelligence"	"22"
+			//基础智力
+		"AttributeIntelligenceGain"	"3.0"
+			//每级增加的智力，智力成长
+			
+		"MovementSpeed"				"300"
+			//基础移动速度
+		"MovementTurnRate"			"1.0"
+			//转身速度
+		"StatusHealth"				"160"
+			//基础生命值
+		"StatusHealthRegen"			"1.5"
+			//基础生命恢复
+		"StatusMana"				"70"
+			//基础魔法值
+		"StatusManaRegen"			"0.9"
+			//基础魔法恢复
+
+		"VisionDaytimeRange"		"1050"
+			//白天视野大小
+		"VisionNighttimeRange"		"700"
+			//晚上视野大小
+		"DisableWearables"	"1"
+
+		"Ability7"	"generic_hidden"
+		"Ability8"	"generic_hidden"
+		"Ability9"	"generic_hidden"
+	}
+}

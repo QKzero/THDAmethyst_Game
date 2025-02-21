@@ -1,0 +1,124 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: yuetufensuijvren
+	// =================================================================================================================
+	"item_recipe_yuetufensuijvren"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_yuetufensuijvren"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8197"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1000"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_yuetufensuijvren"
+		"ItemRequirements"
+		{
+			"01"	"item_smash_stick;item_pad"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// yuetufensuijvren
+	// =================================================================================================================
+	"item_yuetufensuijvren"
+	{
+		"BaseClass"	"item_lua"
+		"AbilityTextureName"	"item_yuetufensuijvren"
+		"ScriptFile"	"scripts/vscripts/items/item_yuetufensuijvren.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ItemQuality"	"common"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5475"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"damage;str"
+		"ItemAliases"	"pure array hammer;abyssal blade"
+
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_pocket_watch.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_ModifierTarget"
+				"ModifierName"	"modifier_item_yuetufensuijvren_pause"
+				"Blockable"	"1"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_yuetufensuijvren_attack"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_SmashStick_OnAttack"
+						"StunDurationMelee"	"%stun_duration_melee"
+						"StunDurationRanged"	"%stun_duration_ranged"
+						"Chance"	"%stun_chance"
+					}
+				}
+			}
+			"modifier_item_yuetufensuijvren"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCastPoint"		"0.0"
+			"AbilityCooldown"		"45"
+			"AbilityManaCost"		"72"
+			"AbilityCastRange"		"550"
+			"bonus_damage"			"35"
+			"bonus_strength"		"10"
+			"bonus_health_regen"	"10"
+			"bonus_health"			"300"
+			"block"					"60"
+			"percent"				"60"
+			"chance"				"60"
+			"stun_chance_melee"		"30"
+			"stun_chance_ranged"	"15"
+			"stun_duration"			"1.7"
+			"stun_damage"			"150"
+			"cooldown"  			"2.5"
+			"default_buff_duration"	"5"
+			"default_stun_duration"	"2"
+			"speed"					"1200"
+			"status_resist"			"0"
+		}
+	}
+}

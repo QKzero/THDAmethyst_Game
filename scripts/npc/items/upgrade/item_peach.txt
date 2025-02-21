@@ -1,0 +1,108 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Peach
+	// =================================================================================================================
+	"item_recipe_peach"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_peach"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8157"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"930"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_peach"
+		"ItemRequirements"
+		{
+			"01"	"item_candle;item_mushroom;item_mushroom"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Peach
+	// =================================================================================================================
+	"item_peach"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_peach"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8158"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"str;agi;int;evasion"
+		"Modifiers"
+		{
+			"modifier_item_peach"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_EVASION_CONSTANT"	"%bonus_evasion"
+					"MODIFIER_PROPERTY_EXTRA_STRENGTH_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"		"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"		"%bonus_all_stats"
+				}
+			}
+			"modifier_item_peach_speedup"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"IsBuff"	"1"
+				"OnTakeDamage"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Peach_OnTakeDamage"
+						"DamageTaken"	"%attack_damage"
+						"SpeedupModifierName"	"modifier_item_peach_speedup_buff"
+						"TakeDamageTrigger"	"%take_damage_trigger"
+						"SpeedupDuration"	"%speedup_duration"
+						"SpeedupMaxModifierStack"	"%speedup_max_modifier_stack"
+					}
+				}
+			}
+			"modifier_item_peach_speedup_buff"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				// "IsHidden"		"1"
+				"IsBuff"	"1"
+				"Duration"	"%speedup_duration"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%speedup_attackspeed_once"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_evasion"	"25"
+			"bonus_all_stats"	"5"
+			//"bonus_armor"	"5"
+			"take_damage_trigger"	"200"
+			"speedup_duration"	"12"
+			"speedup_attackspeed_once"	"10"
+			"speedup_max_modifier_stack"	"10"
+		}
+	}
+}

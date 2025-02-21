@@ -1,0 +1,331 @@
+"DOTAAbilities"
+{
+	"ability_thdots_rinEx"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/rin/ability_thdots_rin_Ex"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityrin.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate"	"1.5"
+		"MaxLevel"	"1"
+		"AbilityCooldown"	"6.0"
+		"AbilityManaCost"	"25"
+		"AbilityCastRange"	"700"
+		"IsBreakable"				"1"
+		"precache"
+		{
+			"particle"	"particles/heroes/rin/rin_spectre.vpcf"
+			"particle"	"particles/heroes/rin/rin_spectre_explode.vpcf"
+			"particle"	"particles/econ/events/diretide_2020/death_effect/death_dt20_pre.vpcf"
+			"particle"	"particles/heroes/rin/rin_talent_flame.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_rattletrap.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"hp_regen"	"0.5"
+			"limit"		"4"
+			"limit_bonus"	"1"
+			"speed_bonus"	"0.5"
+			"projectile_speed"	"1200"
+			"duration"	"12"
+			"radius"
+			{
+				"value"			"200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"	"25"
+			"stun_duration"	"1"
+		}
+	}
+
+	"ability_thdots_rin01"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/rin/ability_thdots_rin_01"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityrin.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityCooldown"	"10 9 8 7"
+		"AbilityManaCost"	"70 80 90 100"
+		"AbilityCastRange"	"900"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate"	"1.5"
+		"precache"
+		{
+			"particle"	"particles/heroes/rin/rin_01_wheel.vpcf"
+			"particle"	"particles/units/heroes/hero_jakiro/jakiro_liquid_fire_explosion.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_clinkz.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"max_distance"	"900"
+			"projectile_speed"	"1200"
+			"damage"	"80 140 200 260"
+		}
+	}
+
+	"ability_thdots_rin02"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/rin/ability_thdots_rin_02"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityrin.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AnimationPlaybackRate"	"2.5"
+		"AbilityCooldown"	"20"
+		"AbilityManaCost"	"100"
+		"AbilityCastRange"	"300 400 500 600"
+		"precache"
+		{
+			"particle"	"particles/heroes/rin/rin_02.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_elder_titan.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"width"
+			{
+				"value"			"100"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"6"
+			"min_radius"
+			{
+				"value"			"200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"	"100 140 180 220"
+			"shrink_speed"	"100"
+			"reduce_speed"	"40 50 60 70"
+		}
+	}
+
+	"ability_thdots_rin03"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/rin/ability_thdots_rin_03"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityrin.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_3"
+		"AbilityCastPoint"	"0.15"
+		"AnimationPlaybackRate"	"3"
+		"AbilityCooldown"	"12"
+		"AbilityManaCost"	"80"
+		//"AbilityCastRange"	"450 500 550 600"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_monkey_king.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"speed"
+			{
+				"value"	"1200"
+				//"LinkedSpecialBonus"	"special_bonus_unique_rin_3"
+			}
+			"radius"
+			{
+				"value"			"200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"3"
+			"evasion"	"36 48 60 72"
+			"range"		"450 500 550 600"
+		}
+		"AbilityCastRange"	"450 500 550 600"
+	}
+
+	"ability_thdots_rin04"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/rin/ability_thdots_rin_04"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityrin.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCastPoint"	"0.2"
+		"AnimationPlaybackRate"	"2"
+		"AbilityCooldown"	"80 60 40"
+		"MaxLevel"	"3"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_spectre.vsndevts"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_rin_sounds.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"duration"	"4"
+			"aura_radius"
+			{
+				"value"			"700"
+				"affected_by_aoe_increase"	"1"
+			}
+			"radius"
+			{
+				"value"			"200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage_pct"	"15 20 25"
+			"ex_damage_pct"	"12 14 16"
+			"health"	"400 550 700"
+			"move_speed"	"400 450 500"
+			"num"	"6"
+		}
+	}
+
+	"ability_thdots_rin_wbc"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/rin/ability_thdots_rin_wbc"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityrin.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_3"
+		"AbilityCastPoint"	"0.1"
+		"AnimationPlaybackRate"	"3"
+		"AbilityCooldown"	"15"
+		"AbilityManaCost"	"120"
+		"AbilityCastRange"	"1400"
+		"IsGrantedByScepter"        "1"
+		"MaxLevel"	"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_jakiro/jakiro_liquid_fire_explosion.vpcf"
+			"particle"	"particles/heroes/rin/rin_wbc.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_pangolier.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_techies.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"speed"
+			{
+				"value"	"800"
+				//"LinkedSpecialBonus"	"special_bonus_unique_rin_3"
+			}
+			"search_radius"
+			{
+				"value"			"150"
+				"affected_by_aoe_increase"	"1"
+			}
+			"stun_duration"	"1"
+			"max_num"	"10"
+			"radius"
+			{
+				"value"			"200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"path_damage"	"200"
+			"explosion_damage"	"200"
+		}
+	}
+
+	//怨灵体上限+8
+	"special_bonus_unique_rin_1" 
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"8"
+		}
+	}
+
+	//「死灰复燃」被动百分比+6%
+	"special_bonus_unique_rin_2"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"4"
+		}
+	}
+	//每个怨灵额外提供2力量
+	"special_bonus_unique_rin_3"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"2"
+		}
+	}
+	//获得献祭,伤害为当前怨灵数*5
+	"special_bonus_unique_rin_4"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"5"
+		}
+	}
+	//恨灵「Spleen Eater」触碰结界附加锁闭
+	"special_bonus_unique_rin_5"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+	//引爆怨灵体造成的眩晕时间+1秒
+	"special_bonus_unique_rin_6"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+	//怨灵体爆炸伤害+0.5*力量
+	"special_bonus_unique_rin_7"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"0.5"
+		}
+	}
+}

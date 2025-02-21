@@ -1,0 +1,291 @@
+"DOTAAbilities"
+{
+	"ability_thdots_byakuren01"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitybyakuren.lua"
+		"AbilityTextureName"	"touhoutd/thtd_byakuren_01"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES_STRONG"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"15 12.5 10 7.5"
+		"AbilityManaCost"	"95 120 145 170"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"150"
+		"ID"	"2017"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_night_stalker/nightstalker_void_hit.vpcf"
+			"particle"	"particles/units/heroes/hero_abaddon/abaddon_aphotic_shield_explosion.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_luna.vsndevts"
+		}		
+//		"OnSpellStart"
+//		{
+//			"FireSound"
+//			{
+//				"EffectName"	"Hero_Luna.LucentBeam.Target"
+//				"Target"	"TARGET"
+//			}
+//			"RunScript"
+//			{
+//				"Target"
+//				{
+//					"Center"	"TARGET"
+//					"Radius"	"%radius"
+//					"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+//					"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_OTHER"
+//				}
+//				"StunDuration"	"%stun_duration"
+//				"AOEDamage"	"%aoe_damage"
+//				"ScriptFile"	"scripts/vscripts/abilities/abilityByakuren.lua"
+//				"Function"	"OnByakuren01SpellStart"
+//			}
+//		}
+		"AbilityValues"
+		{
+			"stun_duration"	"1.2 1.4 1.6 1.8"
+			"radius"
+			{
+				"value"			"350"
+				"affected_by_aoe_increase"	"1"
+			}
+			"aoe_damage"	"80 120 160 180"
+			"damage"	"125 200 275 350"
+			"cast_range"	"150"
+		}
+	}
+
+	"ability_thdots_byakuren02"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitybyakuren.lua"
+		"AbilityTextureName"	"touhoutd/thtd_byakuren_02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET  | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AnimationPlaybackRate"	"2.0"
+		"AbilityCooldown"	"8 7 6 5"
+		"AbilityManaCost"	"0"
+		"HasScepterUpgrade"	"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"150"
+		"ID"	"2018"
+		"precache"
+		{
+			"particle"	"particles/heroes/byakuren/ability_byakuren_02.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_legion_commander.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"ability_multi"
+			{
+				"value"	"0.1 0.16 0.22 0.28"
+				"CalculateSpellDamageTooltip"	"1"
+				"DamageTypeTooltip"	"DAMAGE_TYPE_MAGICAL"
+			}
+			"mana_cost"	"32"
+			"wanbaochui_radius"
+			{
+				"value"	"350"
+				"RequiresScepter"			"1"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+
+	"ability_thdots_byakuren03"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_byakuren_03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET "
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_3"
+		"AnimationPlaybackRate"	"1.5"
+		"CastFilterRejectCaster"	"1"
+		"AbilityCooldown"	"17 16 15 14"
+		"AbilityManaCost"	"100"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"400 500 600 700"
+		"ID"	"2019"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_leshrac/leshrac_pulse_nova_h.vpcf"
+			"particle"	"particles/heroes/byakuren/ability_byakuren_03.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_weaver.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_templar_assassin.vsndevts"
+			"particle"	"particles/thd2/heroes/byakuren/ability_byakuren_03.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_TemplarAssassin.Trap"
+				"Target"	"TARGET"
+			}
+			"RunScript"
+			{
+				"Target"	"TARGET"
+				"ScriptFile"	"scripts/vscripts/abilities/abilityByakuren.lua"
+				"Function"	"OnByakuren03SpellStart"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"TARGET"
+				"ModifierName"	"modifier_byakuren03_effect"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_byakuren03_byakuren01_cast_range_bonus"
+			}
+		}
+		
+		"Modifiers"
+		{
+			"modifier_byakuren03_effect"
+			{
+				"Duration"	"%duration"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"particles/thd2/heroes/byakuren/ability_byakuren_03.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"	"TARGET"
+					}
+				}
+			}
+			"modifier_byakuren03_byakuren01_cast_range_bonus"
+			{
+				"Duration"	"%duration"
+				"OnOrder"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityByakuren.lua"
+						"Function"	"OnByakuren03Order"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"duration"	"3"
+			"cast_range"	"400"
+		}
+	}
+
+	"ability_thdots_byakuren04"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_byakuren04"
+		"ScriptFile"			"scripts/vscripts/abilities/abilitybyakuren.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"MaxLevel"	"4"
+		"IsBreakable"					"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
+		"ID"	"2020"
+		"precache"
+		{
+			"particle"	"particles/heroes/byakuren/ability_byakuren_04.vpcf"
+			"particle"	"particles/heroes/byakuren/ability_byakuren_04_circle.vpcf"
+			"particle"	"particles/heroes/byakuren/ability_byakuren_04_attack.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"ability_multi"	"1 2 3 4"
+			"radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"health_increase"	"0.1 0.3 0.5 0.7"
+		}
+		"AbilityDamage"	"12 28 44 60"
+	}
+
+	"ability_thdots_byakuren05"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityTextureName"		"touhoutd/thtd_byakuren_04"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"			"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType" 		"SPELL_DISPELLABLE_YES"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_3"
+		"AnimationPlaybackRate"		"1.8"
+		"AbilityType"				"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"					"3"		
+		// Stats
+		//----------------------------------------------------------------
+		"AbilityManaCost"           "100 150 200"
+		"AbilityCastPoint"          "0.2"
+		"AbilityCooldown"           "20"
+		"AbilityCastRange"			"500"
+		
+		// Stats
+		//----------------------------------------------------------------
+		"precache"
+		{
+			"particle"				"particles/units/heroes/hero_doom_bringer/doom_bringer_doom.vpcf"
+		}
+		"OnSpellStart"
+		{
+			
+			"RunScript"
+			{	
+				"Target"				"TARGET"
+				"ScriptFile"			"scripts/vscripts/abilities/abilitybyakuren.lua"
+				"Function"				"OnByakuren05SpellStart"
+				"Duration"				"%debuff_duration"
+			}
+			
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_byakuren05_debuff"
+			{
+				"Duration"			"%debuff_duration"
+				"IsDebuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"EffectName"		"particles/units/heroes/hero_doom_bringer/doom_bringer_doom.vpcf"
+				"EffectAttachType"	"follow_origin"		
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS"	"%debuff_mgical_resistance_decrepify"
+				}
+			}			
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"debuff_duration"	"10"
+			"debuff_mgical_resistance_decrepify"	"-20 -30 -40"
+		}
+    }
+}

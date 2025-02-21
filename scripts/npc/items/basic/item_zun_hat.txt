@@ -1,0 +1,47 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// 贤者之石
+	// =================================================================================================================
+	"item_zun_hat"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_zun_hat"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8007"
+		"ItemQuality"	"secret_shop"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1200"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"health_pool;mana_pool"
+		"ItemAliases"	"zun's hat"
+		"Modifiers"
+		{
+			"modifier_item_zun_hat"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+					"MODIFIER_PROPERTY_MANA_BONUS"	"%bonus_mana"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health"	"175"
+			"bonus_mana"	"175"
+		}
+	}
+}

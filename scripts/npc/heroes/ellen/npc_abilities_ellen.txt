@@ -1,0 +1,353 @@
+// Dota2 Editor
+// Get latest version: https://github.com/zombieJ/nw-dota2editor
+
+"DOTAAbilities"
+{
+	"Version"		"1"
+	"ability_thdots_ellen01"
+	{
+		"BaseClass"	"ability_lua"
+	    //"AbilityTextureName"			"weaver_time_lapse"
+	    "AbilityTextureName"			"arc_warden_spark_wraith"
+			"ScriptFile"	"scripts/vscripts/abilities/abilityellen.lua"
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_ArcWarden.SparkWraith.Activate"
+
+		// "AbilityCastRange"				"2000"
+		"AbilityCastPoint"				"0.3"
+
+		"HasScepterUpgrade"               "1"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCharges"				"2"
+		"AbilityChargeRestoreTime"		"7.0 6.0 5.0 4.0"
+		"AbilityCooldown"				"0.1"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"60"
+
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"particle" 							"particles/econ/items/shadow_demon/sd_ti7_shadow_poison/sd_ti7_golden_immortal_ambient_head_fire_trail.vpcf"
+			"particle"							"particles/world_environmental_fx/artifact_table_underlight.vpcf"
+			"particle"							"particles/units/heroes/hero_arc_warden/arc_warden_wraith_prj.vpcf"
+			"particle"							"particles/units/heroes/hero_keeper_of_the_light/keeper_of_the_light_blinding_light_debuff.vpcf"
+    	}
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"275"
+				"affected_by_aoe_increase"	"1"
+			}
+			"activation_delay"				"1.0"
+			"duration"
+			{
+				"value"	"45 60 75 90"
+				"LinkedSpecialBonus"			"special_bonus_unique_ellen_2"
+			}
+			"wraith_speed"					"350"
+			"spark_damage"					"70 140 210 280"
+			"think_interval"				"0.2"
+			"wraith_vision_radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"wraith_vision_duration"		"3.34"
+			"miss_duration"					"6"
+			"miss"				        	"20"
+			"scepter_bonus_duration"		"0.0"
+			"cast_range"					"900"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	"ability_thdots_ellen02"
+	{
+	"BaseClass"	"ability_lua"
+	"AbilityTextureName"	"keeper_of_the_light_illuminate"
+	"ScriptFile"	"scripts/vscripts/abilities/abilityellen.lua"
+	// General
+	// -------------------------------------------------------------------------------------------------------------
+	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+	"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+	"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+	// Casting
+	// -------------------------------------------------------------------------------------------------------------
+	"AbilityCastPoint"	"0.2"
+	"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+	// Time
+	// -------------------------------------------------------------------------------------------------------------
+	"AbilityCooldown"	"15"
+	// Cost
+	// -------------------------------------------------------------------------------------------------------------
+	"AbilityManaCost"	"80"
+	"precache"
+	{
+		"particle"		"particles/units/heroes/hero_keeper_of_the_light/keeper_dazzling.vpcf"
+		"particle"		"particles/units/heroes/hero_keeper_of_the_light/keeper_dazzling_on.vpcf"
+		"particle"		"particles/units/heroes/hero_puck/puck_phase_shift_c.vpcf"
+		"soundfile"		"soundevents/game_sounds_heroes/game_sounds_keeper_of_the_light.vsndevts"
+	}
+
+	// Special
+	// -------------------------------------------------------------------------------------------------------------
+	"AbilityValues"
+	{
+		"duration"	"4 6 8 10"
+		"damage"	"50 100 150 200"
+		"mana_burn"	"50 80 110 140"
+		"attacks_to_destroy"	"2 3 4 5"
+		"push_duration"	"0.5"
+		"cogs_radius"
+		{
+			"value"			"420"
+			"affected_by_aoe_increase"	"1"
+		}
+		"trigger_distance"	"185"
+		"rotational_speed"	"90"
+		"cogs_num"
+		{
+			"value"	"4"
+			"LinkedSpecialBonus"	"special_bonus_unique_ellen_1"
+		}
+	}
+	"AbilitySound"	"Hero_Rattletrap.Power_Cogs"
+	}
+
+	"ability_thdots_ellen03"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"scripts/vscripts/abilities/abilityellen.lua"
+
+		"AbilityTextureName"			"puck_illusory_orb_merry"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Puck.Illusory_Orb"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.2"
+		// "AbilityCastRange"				"2200"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"12"
+
+
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"80 100 120 140"
+
+		"precache"
+		{
+			"particle"	"particles/econ/items/puck/puck_merry_wanderer/puck_illusory_orb_merry_wanderer_linear_projectile.vpcf"
+			"particle"	"particles/units/heroes/hero_puck/puck_orb_damage.vpcf"
+			"particle"	"particles/generic_gameplay/generic_silenced.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_ellen_sounds.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_puck.vsndevts"
+		}
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"275"
+				"affected_by_aoe_increase"	"1"
+			}
+			"max_distance"				"2200"
+			"orb_speed"					"650"
+			"orb_vision"				"450"
+			"vision_duration"			"3.0"
+			"damage"			        "80 120 160 200"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+   "ability_thdots_ellen03_end"
+   	{
+   	   "BaseClass"						"ability_lua"
+       "ScriptFile"				     	"scripts/vscripts/abilities/abilityellen.lua"
+       "AbilityCooldown"				"0.8"
+       "AbilityTextureName"			    "puck_dream_coil"
+       	"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+        "SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+       "AbilityManaCost"				"20 25 30 35"
+   		// General
+   		//-------------------------------------------------------------------------------------------------------------
+   		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+
+
+
+
+   		// Casting
+   		//-------------------------------------------------------------------------------------------------------------
+   		"AbilityCastPoint"				"0.1"
+
+	"precache"
+	{
+		"particle"	"particles/units/heroes/hero_puck/puck_waning_rift.vpcf"
+		"particle"	"particles/units/heroes/hero_keeper_of_the_light/keeper_of_the_light_blinding_light_aoe.vpcf"
+	}
+    // Special
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilityValues"
+	{
+		"radius"
+		{
+			"value"			"375"
+			"affected_by_aoe_increase"	"1"
+		}
+		"duration"				    "1"
+		"damage"			        "80 120 160 200"
+    	"knockback_duration"	"1"
+    	"knockback_distance"	"375"
+	}
+    	"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+   	}
+
+
+    "ability_thdots_ellen04"
+    	{
+    		// General
+    		//-------------------------------------------------------------------------------------------------------------
+    		"BaseClass"						"ability_lua"
+    		"ScriptFile"					 "scripts/vscripts/abilities/abilityellen.lua"
+    		"AbilityTextureName"			"shadow_demon/immortal/shadow_demon_shadow_poison"
+    		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+    	    "AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+    		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+    		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+    		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+    		"AbilitySound"					"Hero_ShadowDemon.ShadowPoison"
+
+    		// Time
+    		//-------------------------------------------------------------------------------------------------------------
+    		"AbilityCooldown"				"2"
+
+    		// Casting
+    		//-------------------------------------------------------------------------------------------------------------
+    		"AbilityCastPoint"				"0.3"
+
+    		// Cost
+    		//-------------------------------------------------------------------------------------------------------------
+    		"AbilityManaCost"				"85 95 105"
+
+    		// Stats
+    		//-------------------------------------------------------------------------------------------------------------
+    		"AbilityModifierSupportValue"	"0.0" // modifier is damage only.
+
+    		// Precache
+    		//-------------------------------------------------------------------------------------------------------------
+    		"precache"
+    		{
+				"particle"							"particles/econ/items/shadow_demon/sd_ti7_shadow_poison/sd_ti7_shadow_poison_proj.vpcf"
+    			"particle" 							"particles/hero/shadow_demon/shadow_demon_shadow_poison_soul_illusion_blast.vpcf"
+				"particle"							"particles/econ/items/grimstroke/ti9_immortal/gs_ti9_artistry_dmg_steam.vpcf"
+				"particle"							"particles/units/heroes/hero_shadow_demon/shadow_demon_shadow_poison_stackui.vpcf"
+				"particle"							"particles/units/heroes/hero_shadow_demon/shadow_demon_shadow_poison_4stack.vpcf"
+				"particle"							"particles/econ/items/shadow_demon/sd_ti7_shadow_poison/sd_ti7_shadow_poison_kill.vpcf"
+				"soundfile"							"soundevents/game_sounds_heroes/game_sounds_shadow_demon.vsndevts"
+    		}
+
+    		// Special
+    		//-------------------------------------------------------------------------------------------------------------
+    		"AbilityValues"
+    		{
+    			"stack_damage"			"85 115 150"
+    			"radius"
+				{
+					"value"			"225"
+					"affected_by_aoe_increase"	"1"
+				}
+    			"speed"					"1200"
+    			"hit_damage"			"80 115 150"
+    			"linked_pain_dmg_spread_pct" "80 115 150"
+    			"efficient_upwards_limit" "6"
+    			"stack_duration"		 "5"
+    			"cast_range"		 	"1800 2400 3000"
+    		}
+    		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+    	}
+    	"special_bonus_unique_ellen_1"
+         {
+         	"BaseClass"	"special_bonus_undefined"
+         	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityValues"
+         	{
+         		"value"	"2"
+         	}
+        }
+
+    	"special_bonus_unique_ellen_2"
+    	{
+    		"BaseClass"	"special_bonus_undefined"
+    		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+    		"AbilityValues"
+    		{
+    			"value"	"90"
+    		}
+    	}
+
+    	"special_bonus_unique_ellen_3"
+    	{
+    		"BaseClass"	"special_bonus_undefined"
+    		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+    		"AbilityValues"
+    		{
+    			"value"	"0.2"
+    		}
+    	}
+    	"special_bonus_unique_ellen_4"
+    	{
+    		"BaseClass"	"special_bonus_undefined"
+    		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+    		"AbilityValues"
+    		{
+    			"value"	"100"
+    		}
+    	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_strength_100"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+		"SpecialBonusIntrinsicModifier" "modifier_special_bonus_strength"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"value"				"100"
+		}
+	}
+}

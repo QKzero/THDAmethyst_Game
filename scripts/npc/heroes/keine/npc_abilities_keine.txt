@@ -1,0 +1,219 @@
+// Dota2 Editor
+// Get latest version: https://github.com/zombieJ/nw-dota2editor
+
+"DOTAAbilities"
+{
+	"Version"		"1"
+
+	"ability_thdots_keineEx"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_keine_01"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykeine.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"	"1"
+		"HasScepterUpgrade"			"1"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_faceless_void.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"keine_time"	"-15"
+			"percent_time"	"40"
+			"wanbaochui_range"	"99999"
+			"wanbaochui_percent_time"	"25"
+		}
+	}
+
+	"ability_thdots_keineEx2"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"phantom_assassin_phantom_strike"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykeine.lua"
+	}
+
+	"ability_thdots_keine01"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_keine_03"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykeine.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"AnimationPlaybackRate"	"2"
+		"AbilityCooldown"	"50 38 25 12"
+		"AbilityManaCost"	"100"
+		"precache"
+		{
+			"particle"			"particles/units/heroes/hero_oracle/oracle_false_promise_cast.vpcf"
+			"particle"			"particles/units/heroes/hero_oracle/oracle_false_promise_cast_enemy.vpcf"
+			"particle"			"particles/units/heroes/hero_oracle/oracle_false_promise.vpcf"
+			"particle"			"particles/units/heroes/hero_oracle/oracle_false_promise_heal.vpcf"
+			"particle"			"particles/units/heroes/hero_oracle/oracle_false_promise_dmg.vpcf"
+			"particle"			"particles/econ/items/oracle/oracle_ti10_immortal/oracle_ti10_immortal_purifyingflames.vpcf"
+			"soundfile_folder"	"soundevents/game_sounds_heroes/game_sounds_oracle.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"cast_range"
+			{
+				"value"	"600"
+				"LinkedSpecialBonus"	"special_bonus_cast_range_150"
+			}
+			"duration"	"5"
+			"extra"	"50"
+		}
+	}
+
+	"ability_thdots_keine02"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_keine_04"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykeine.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate"	"2"
+		"AbilityCooldown"	"28 24 20 16"
+		"AbilityManaCost"	"100"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_oracle/oracle_purifyingflames_hit.vpcf"
+			"particle"	"particles/units/heroes/hero_oracle/oracle_purifyingflames_cast.vpcf"
+			"particle"	"particles/thd2/items/item_tsundere.vpcf"
+			"particle"	"particles/units/heroes/hero_oracle/oracle_fatesedict.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_oracle.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"cast_range"
+			{
+				"value"	"600"
+				"LinkedSpecialBonus"	"special_bonus_cast_range_150"
+			}
+			"percent_health"	"35"
+			"invincible_duration"	"2"
+			"debuff_duration"	"2"
+		}
+	}
+
+	"ability_thdots_keine03"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/keine/ability_thdots_keine_3"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykeine.lua"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_ALERT_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+		"AnimationPlaybackRate"	"1.5"
+		"AbilityCooldown"	"8"
+		"AbilityManaCost"	"75"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES_STRONG"
+		"IsBreakable"			"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_faceless_void/faceless_void_time_walk_preimage.vpcf"
+			"particle"	"particles/units/heroes/hero_faceless_void/faceless_void_time_walk_slow.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_faceless_void.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"change"
+			{
+				"value"	"20"
+				"LinkedSpecialBonus"	"special_bonus_unique_keine_1"
+			}
+			"cast_range"
+			{
+				"value"	"500 570 640 710"
+				"LinkedSpecialBonus"	"special_bonus_cast_range_150"
+			}
+			"damage"	"50 90 130 170"
+			"attack_bonus"	"1.5"
+			"pass_stun"	"0.6 0.7 0.8 0.9"
+			"act_stun"	"0.9 1.0 1.1 1.2"
+			"disable_time"	"1"
+		}
+	}
+
+	"ability_thdots_keine04"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_keine_02"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykeine.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AnimationPlaybackRate"	"1"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
+		"AbilityCooldown"	"100"
+		"AbilityManaCost"	"100"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_lycan/lycan_shapeshift_cast.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_keine_sounds.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"duration"	"30 35 40"
+			"movement"	"30 40 50"
+			"str_bonus"	"30 45 60"
+		}
+	}
+
+	"special_bonus_unique_keine_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"15"
+		}
+	}
+
+	"special_bonus_unique_keine_2"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	"special_bonus_unique_keine_3"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+	"special_bonus_unique_keine_4"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+}

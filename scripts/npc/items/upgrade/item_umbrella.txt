@@ -1,0 +1,94 @@
+"DOTAAbilities"
+{
+    //长舌头的伞
+	"item_recipe_umbrella"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_umbrella"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		//"ID"	"8110"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"50"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_umbrella"
+		"ItemRequirements"
+		{
+			"01"	"item_bird;item_sailor_suit"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+	"item_umbrella"
+	{
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"item_umbrella"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ScriptFile"                    "items/item_umbrella"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		//"ID"	"8111"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1500"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"health_pool;mana_pool;damage;armor"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_umbrella_attach.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_item_umbrella"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MANA_BONUS"	"%bonus_mana"
+				}
+			}
+			"aura_item_umbrella"
+			{
+				"IsHidden"	"1"
+				"Passive"	"1"
+				"Aura"	"modifier_item_umbrella_aura"
+				"Aura_Radius"	"%aura_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+				"Aura_ApplyToCaster"	"1"
+			}
+			"modifier_item_umbrella_aura"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"EffectName"	"particles/thd2/items/item_umbrella_attach.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Target"	"TARGET"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%aura_bonus_armor"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"bonus_mana"	"250"
+			"aura_radius"
+			{
+				"value"			"1000"
+				"affected_by_aoe_increase"	"1"
+			}
+			// "bonus_armor"	"0"
+			"aura_bonus_armor"	"4"
+		}
+	}
+}

@@ -1,0 +1,45 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// God Hand
+	// =================================================================================================================
+	"item_god_hand"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_god_hand"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8035"
+		"ItemQuality"	"secret_shop"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2100"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"str"
+		"ItemAliases"	"god's right hand"
+		"Modifiers"
+		{
+			"modifier_item_god_hand"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"18"
+		}
+	}
+}

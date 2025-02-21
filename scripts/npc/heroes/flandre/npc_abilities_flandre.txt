@@ -1,0 +1,578 @@
+"DOTAAbilities"
+{
+    "ability_thdots_flandreEx"
+	{
+		"BaseClass"				"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_flandreEx"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		// "AbilityType"		"DOTA_ABILITY_TYPE_HIDDEN"
+		"MaxLevel"	"1"		
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"		"models/flandre_scarlet/flandre_scarlet/flandre_ambient.vpcf"
+		}
+		"Modifiers"
+		{
+			"passive_flandreEx_damaged"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnDealDamage"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityFlandre.lua"
+						"Function"	"OnFlandreExDealDamage"
+						"DealDamage"	"%attack_damage"
+						"IncreaseDamage"	"%increase_damage"
+					}
+				}
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"models/flandre_scarlet/flandre_scarlet/flandre_ambient.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"	"CASTER"
+					}
+				}			
+			}
+		}
+		"AbilityValues"
+		{
+			"increase_damage"	"12"
+		}
+	}
+
+	"ability_thdots_flandre01"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityTextureName"			"custom/ability_thdots_flandre01"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.1"
+			"AbilityCooldown"
+			{
+				"value"								"30 26 22 18"
+				"special_bonus_unique_flandre_5"	"-5"
+			}
+			"AbilityManaCost"	"40 50 60 70"
+
+			"illusion_duration"							"12"
+			"outgoing_damage"
+			{
+				"value"								"18 24 30 36"
+				"special_bonus_unique_flandre_4"	"+29"
+			}
+			"incoming_damage"							"150"
+			"images_count"								"3"
+			"invuln_duration"							"0.3"
+		}
+		
+		// Data driven
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"soundfile"					"soundevents/game_sounds_heroes/game_sounds_naga_siren.vsndevts"
+			"particle"					"particles/units/heroes/hero_siren/naga_siren_mirror_image.vpcf"
+		}
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_mirror_image"
+				"Target"		"CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_mirror_image"
+			{	
+				"Duration"			"%invuln_duration"
+				"IsHidden"			"1"
+				"States"
+				{
+					"MODIFIER_STATE_INVULNERABLE" 			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_LOW_ATTACK_PRIORITY"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_UNSELECTABLE"			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_siren/naga_siren_mirror_image.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"CASTER"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"Hero_NagaSiren.MirrorImage"
+						"Target"		"CASTER"
+					}
+				}
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "scripts/vscripts/abilities/abilityflandre.lua"
+						"Function"      "MirrorImage"
+					}
+				}
+			}
+		}
+	}
+
+	"ability_thdots_flandre02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_flandre_02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"	"4"
+		"ID"	"2028"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/econ/items/bloodseeker/bloodseeker_eztzhok_weapon/bloodseeker_bloodbath_eztzhok_ribbon.vpcf"
+			"particle"	"particles/econ/items/bloodseeker/bloodseeker_eztzhok_weapon/bloodseeker_bloodbath_eztzhok_ribbon_b.vpcf"
+			"particle"	"particles/units/heroes/hero_doom_bringer/doom_infernal_blade_impact.vpcf"
+			"particle"  "particles/econ/items/bloodseeker/bloodseeker_ti7/bloodseeker_ti7_vision.vpcf"
+		}
+		"Modifiers"
+		{
+			"passive_flandre02_attack"
+			{
+				"Passive"	"1"
+				"IsHidden"  "1"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityflandre.lua"
+						"Function"	"OnFlandre02SpellStartUnit"
+						"DecreaseSpeed"	"%decrease_speed"
+						"DecreaseMaxSpeed"	"%decrease_max_speed"
+						"Duration"	"%duration"
+						"ruin_duration"	"%ruin_duration"
+					}
+				}
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_flandre02_slow"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"Target"	"TARGET"
+						"EffectName"	"particles/units/heroes/hero_doom_bringer/doom_infernal_blade_impact.vpcf"
+						"EffectAttachType"	"follow_origin"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%decrease_speed"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%decrease_speed"
+				}
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityflandre.lua"
+						"Function"	"OnFlandre02Destroy"
+						"Target"	"TARGET"
+					}
+				}
+
+			}
+			"modifier_flandre02_ruin"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"ThinkInterval"	"1"
+				"OnIntervalThink"
+				{
+					"AttachEffect"
+					{
+						"Target"	"TARGET"
+						"EffectName"	"particles/econ/items/bloodseeker/bloodseeker_eztzhok_weapon/bloodseeker_bloodbath_eztzhok_ribbon.vpcf"
+						"EffectAttachType"	"follow_origin"
+					}
+				}
+				"OnAttacked"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityflandre.lua"
+						"Function"	"OnFlandre02RuinAttacked"
+						"DamageBonus"	"%ruin_bonus"
+						"DamageTaken"	"%attack_damage"
+						"target"		"TARGET"
+						"attacker"		"ATTACKER"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityFlandre.lua"
+						"Function"	"OnFlandre02RuinDestroy"
+						"Caster"	"CASTER"
+					}
+				}
+			}
+			"modifier_flandre02_slow_nopurge"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Duration"	"%duration"
+				"IsDebuff"	"1"
+				"IsPurgable"	"0"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"Target"	"TARGET"
+						"EffectName"	"particles/units/heroes/hero_doom_bringer/doom_infernal_blade_impact.vpcf"
+						"EffectAttachType"	"follow_origin"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%decrease_speed"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%decrease_speed"
+					//"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"			"-25"		
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityflandre.lua"
+						"Function"	"OnFlandre02Destroy"
+						"Target"	"TARGET"
+					}
+				}
+			}
+			"modifier_flandre02_ruin_nopurge"
+			{
+				"Duration"	"%ruin_duration"
+				"IsDebuff"	"1"
+				"IsPurgable"	"0"
+				"ThinkInterval"	"1"
+				"OnIntervalThink"
+				{
+					"AttachEffect"
+					{
+						"Target"	"TARGET"
+						"EffectName"	"particles/econ/items/bloodseeker/bloodseeker_eztzhok_weapon/bloodseeker_bloodbath_eztzhok_ribbon.vpcf"
+						"EffectAttachType"	"follow_origin"
+					}
+				}
+				"OnAttacked"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityflandre.lua"
+						"Function"	"OnFlandre02RuinAttacked"
+						"DamageBonus"	"%ruin_bonus"
+						"DamageTaken"	"%attack_damage"
+						"target"		"TARGET"
+						"attacker"		"ATTACKER"
+					}
+				}
+			}
+			"modifier_flandre02_ruin_upgrade"
+			{
+
+			}
+		}
+		"AbilityValues"
+		{
+			"decrease_speed"	"-6 -10 -14 -18"
+			"decrease_max_speed"	"3"
+			"bonus_damage"	"20 40 60 80"
+			"duration"	"12"
+			"ruin_bonus"	"9 12 15 18"
+			"ruin_duration"	"24"
+		}
+	}
+
+	"ability_thdots_flandre03"
+	{
+		"BaseClass"				"ability_lua"
+		"ScriptFile"			"scripts/vscripts/abilities/abilityflandre.lua"
+		"AbilityTextureName"	"touhoutd/thtd_flandre_03"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/generic_gameplay/generic_lifesteal.vpcf"
+			"particle"	"particles/units/heroes/hero_doom_bringer/doom_infernal_blade_impact.vpcf"
+		}
+		"AbilityValues"
+		{
+			"lifesteal_percent"	"20 29 38 47"
+		}
+	}
+
+	"ability_thdots_flandre04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_flandre_04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AnimationPlaybackRate"	"1"
+		"HasScepterUpgrade"			"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"ID"	"2029"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_doom_bringer/doom_bringer_ambient.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_flandre_sounds.vsndevts"
+			"particle"	"particles/heroes/flandre/ability_flandre_04_aura.vpcf"
+			"particle"	"particles/thd2/heroes/flandre/ability_flandre_04_buff.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_phantom_assassin.vsndevts"
+			"particle"	"particles/units/heroes/hero_phantom_assassin/phantom_assassin_crit_impact.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_bane.vsndevts"
+			"particle"	"particles/units/heroes/hero_bloodseeker/bloodseeker_bloodrage.vpcf"
+			"particle"	"particles/thd2/heroes/flandre/ability_flandre_04_effect.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"
+			{
+				"value"							"120 110 100"
+				"special_bonus_unique_flandre"	"-30"
+			}
+			"AbilityManaCost"	"150 200 250"
+
+			"ability_duration"	"12"
+			"damage_multi"		"400 500 600"
+			"speed_bonus"		"6 8 10"
+			"ex_speed_bonus"	"0.18 0.24 0.3"
+			"invisible_time"
+			{
+				"value"				"4.95"
+				"RequiresScepter"	"1"
+			}
+			"attack_count"
+			{
+				"value"								"1"
+				"special_bonus_unique_flandre_2"	"+4"
+			}
+		}
+		"OnSpellStart"
+		{
+			// "FireSound"
+			// {
+			// 	"EffectName"	"Voice_Thdots_Flandre.AbilityFlandre04"
+			// 	"Target"	"CASTER"
+			// }
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityFlandre.lua"
+				"Function"	"OnFlandre04SpellStart"
+				"Duration"	"%ability_duration"
+				"Caster"	"CASTER"
+				"AttackCount"	"%attack_count"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_thdots_flandre_04_multi"
+				"Target"	"CASTER"
+			}
+		}
+		"Modifiers"
+		{	
+			"passive_flandre04_Refresh"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnAttackLanded"
+				{
+					"Random"
+					{
+						"Chance"	"0"
+						"OnSuccess"
+						{
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities/abilityFlandre.lua"
+								"Caster"		"CASTER"
+								"Target"		"TARGET"
+								"Function"		"Onflandre04Success"
+							}
+						}
+					}
+				}
+			}
+			"modifier_thdots_flandre_04_multi"
+			{
+				"Duration"	"%ability_duration"
+				"ThinkInterval"	"0.285"
+				"EffectName"	"particles/heroes/flandre/ability_flandre_04_aura.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityFlandre.lua"
+						"Function"	"OnFlandre04EffectRemove"
+						"Caster"	"CASTER"
+					}
+				}
+				"OnKill"
+				{
+					"DelayedAction"
+					{
+						"Delay"	"0.14"
+						"Action"
+						{
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities/abilityFlandre.lua"
+								"Function"	"Onflandre04Kill"
+								"Duration"		"%invisible_time"
+							}
+						}
+					}
+				}
+				"OnIntervalThink"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"particles/thd2/heroes/flandre/ability_flandre_04_buff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"	"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE"	"%damage_multi"
+				}
+				"OnAttackLanded"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_PhantomAssassin.CoupDeGrace"
+						"Target"	"TARGET"
+					}
+					"FireEffect"
+					{
+						"EffectName"	"particles/units/heroes/hero_phantom_assassin/phantom_assassin_crit_impact.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"	"TARGET"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityFlandre.lua"
+						"Function"	"OnFlandre04SpellRemove"
+						"Caster"	"CASTER"
+					}
+				}
+			}
+			"modifier_flandre_04_wanbaochui_buff"
+			{
+				"IsHidden"	"0"
+				"Duration"	"1.4"
+				"IsBuff"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"30"
+				}
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_flandre"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_flandre_2"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_flandre_3"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_flandre_4"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_flandre_5"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_flandre_6"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+}

@@ -1,0 +1,308 @@
+// Dota2 Editor
+// Get latest version: https://github.com/zombieJ/nw-dota2editor
+
+"DOTAAbilities"
+{
+	"Version"		"1"
+
+	"ability_thdots_lettyEx"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_cirno_01"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityletty.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
+		"MaxLevel"	"1"
+		"precache"
+		{
+			"particle"		"particles/econ/items/ancient_apparition/ancient_apparation_ti8/ancient_ice_vortex_ti8_ring_spiral.vpcf"
+			"particle"		"particles/econ/items/crystal_maiden/ti9_immortal_staff/cm_ti9_staff_lvlup_globe.vpcf"
+			"particle"		"particles/econ/items/ancient_apparition/ancient_apparation_ti8/ancient_ice_vortex_ti8_ring_spiral.vpcf"
+		}
+		"AbilityValues"
+		{
+			"active_time"	"3"
+			"armor_bonus"	"3"
+			"resistance_bonus"	"10"
+			"count"	"3"
+			"imcome_damage"	"25"
+			"movement_decrease"		"-33"
+			"cooldown"
+			{
+				"value"	"3"
+				"LinkedSpecialBonus"	"special_bonus_unique_letty_3"
+			}
+			"AbilityCooldown"
+			{
+				"value"	"3"
+				"special_bonus_unique_letty_3"	"=0"
+			}
+		}
+	}
+
+	"ability_thdots_letty01"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"crystal_maiden_freezing_field"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityletty.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.01"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate"	"1"
+		"AbilityManaCost"	"130"
+		"AbilityChannelTime"	"11"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_crystalmaiden/maiden_freezing_field_snow.vpcf"
+			"particle"	"particles/units/heroes/hero_crystalmaiden/maiden_freezing_field_explosion.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_crystalmaiden.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"cast_range"	"650 700 750 800"
+			"damage"	"50 55 60 65"
+			"radius"
+			{
+				"value"			"350 450 550 650"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"11"
+			"cooldown"
+			{
+				"value"	"4"
+				"LinkedSpecialBonus"	"special_bonus_unique_letty_4"
+			}
+			"AbilityCooldown"
+			{
+				"value"	"4"
+				"special_bonus_unique_letty_4"	"=0"
+			}
+		}
+	}
+
+	"ability_thdots_letty02"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"lich_chain_frost"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityletty.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES_STRONG"
+		"AbilityCastPoint"	"0.01"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+		"AnimationPlaybackRate"	"2"
+		"AbilityCooldown"	"14 13 12 11"
+		"AbilityManaCost"	"60"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_lich/lich_chain_frost.vpcf"
+			"particle"	"particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_crystalmaiden.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_lich.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"cast_range"	"900"
+			"number"
+			{
+				"value"	"4"
+				"LinkedSpecialBonus"	"special_bonus_unique_letty_1"
+			}
+			"limit"	"1 3 9 27"
+			"speed"	"800"
+			"damage"	"90 180 270 360"
+			"stun_duration"
+			{
+				"value"	"2"
+				"LinkedSpecialBonus"	"special_bonus_unique_letty_2"
+			}
+		}
+	}
+
+	"ability_thdots_letty03"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_letty_01"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityletty.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"		"particles/generic_gameplay/generic_slowed_cold.vpcf"
+		}
+		"AbilityValues"
+		{
+			"health_bonus"	"150 200 250 300"
+			"duration"	"1.5 2 2.5 3"
+			"damage_perdamage"	"20 30 45 65"
+			"damage_percount"	"4 5 6 7"
+			"decrease_speed"	"-20"
+			"decrease_speed_pc"	"-3 -7 -11 -15"
+			"count_limit"
+			{
+				"value"	"5"
+				"LinkedSpecialBonus"	"special_bonus_unique_letty_7"
+			}
+			//"melee_percent"	"60"
+		}
+	}
+
+	"ability_thdots_letty04"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_letty_02"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityletty.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"HasScepterUpgrade"	"1"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AnimationPlaybackRate"	"2"
+		"AbilityManaCost"	"100 125 150"
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_lich/lich_ice_spire.vpcf"
+			"particle"		"particles/units/heroes/hero_crystalmaiden/maiden_freezing_field_snow.vpcf"
+			"particle"		"particles/generic_gameplay/generic_slowed_cold.vpcf"
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"900 1050 1200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"decrease_mspeed"	"-25"
+			"decrease_aspeed"	"-45"
+			"duration"	"6 6.5 7"
+			"cooldown"
+			{
+				"value"	"95 90 85"
+				"LinkedSpecialBonus"	"special_bonus_unique_letty_6"
+			}
+			"AbilityCooldown"
+			{
+				"value"	"95 90 85"
+				"special_bonus_unique_letty_6"	"-15"
+			}
+			"wanbaochui_radius"
+			{
+				"value"	"99999"
+				"RequiresScepter"	"1"
+			}
+			//"wanbaochui_damage"
+			//{
+			//	"value"	"10"
+			//	"RequiresScepter"	"1"
+			//}		
+			//"wanbaochui_duration"
+			//{
+			//	"value"	"5 6 7"
+			//	"RequiresScepter"	"1"
+			//}
+			//"wanbaochui_cooldown"
+			//{
+			//	"value"	"95 90 85"
+			//	"RequiresScepter"	"1"
+			//}
+		}
+	}
+
+	"special_bonus_unique_letty_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"4"
+		}
+	}
+
+	"special_bonus_unique_letty_2"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	"special_bonus_unique_letty_3"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"-2.9"
+		}
+	}
+
+	"special_bonus_unique_letty_4"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"-3.9"
+		}
+	}
+
+	"special_bonus_unique_letty_5"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+	"special_bonus_unique_letty_6"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"-15"
+		}
+	}
+	"special_bonus_unique_letty_7"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"9994"
+		}
+	}
+	"special_bonus_unique_letty_8"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+}

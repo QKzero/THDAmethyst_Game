@@ -1,0 +1,83 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Banana
+	// =================================================================================================================
+	"item_recipe_touhou_banana"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"			"item_recipe_touhou_banana"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8046"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"780"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_touhou_banana"
+		"ItemRequirements"
+		{
+			"01"	"item_mushroom;item_mushroom"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Banana
+	// =================================================================================================================
+	"item_touhou_banana"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_touhou_banana"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8047"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1150"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"agi;int;str;move_speed"
+		"ItemAliases"	"banana"
+		"Modifiers"
+		{
+			"modifier_item_banana"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_all_stats"
+				}
+			}
+			"modifier_item_banana_bonus_movespeed"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movement_speed_percent_bonus"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_all_stats"	"7"
+			"movement_speed_percent_bonus"	"4"
+		}
+	}
+}

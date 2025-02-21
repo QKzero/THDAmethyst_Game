@@ -1,0 +1,485 @@
+"DOTAAbilities"
+{
+	"ability_thdots_komachi01"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityTextureName"		"custom/ability_thdots_komachi01"
+		"AbilityCastAnimation"      "ACT_DOTA_CAST_ABILITY_1"
+		"HasScepterUpgrade"			"1"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		
+		"AbilityValues"
+		{
+			"AbilityManaCost"			"30"
+			"AbilityCooldown"			"0"
+			"AbilityCastPoint"			"0.1"
+			"AbilityCharges"
+			{
+				"value"					"1 2 3 4"
+				"special_bonus_scepter"	"+3"
+			}
+			"AbilityChargeRestoreTime"
+			{
+				"value"							"10"
+				"special_bonus_unique_komachi"	"-6"
+			}
+			"AbilityCastRange"			"300"
+		}
+		
+		"precache"
+		{
+			"particle"				"particles/heroes/komachi/ability_komachi_01.vpcf"
+			"particle"				"particles/heroes/komachi/ability_komachi_02.vpcf"
+			"soundfile"				"soundevents/thdots_hero_sounds/thdots_nue_sounds.vsndevts"
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_beastmaster.vsndevts"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilityKomachi.lua"
+				"Function"				"OnKomachi01SpellStart"
+				"distance"				"%AbilityCastRange"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_Beastmaster.Wild_Axes"
+				"Target"	"CASTER"
+			}	
+		}	
+
+		"Modifiers"
+		{	
+			"modifier_thdots_komachi_01_02"
+			{
+				"OverrideAnimation" 			"ACT_DOTA_CAST_ABILITY_1"
+				"Duration"						"0.3"				
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"Target"		"CASTER"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityKomachi.lua"
+						"Function"		"Komachi02_FireEffect"
+					}
+					"RunScript"
+					{
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"350"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+						}
+						"ScriptFile"	"scripts/vscripts/abilities/abilityKomachi.lua"
+						"Function"		"Komachi02_AttackLanded"
+					}
+									
+				}
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+    }
+
+    "ability_thdots_komachi02"
+	{
+		"BaseClass"				"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_komachi02"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"IsBreakable"					"1"
+
+		"precache"
+		{
+			"particle"				"particles/heroes/komachi/ability_komachi_02.vpcf"
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_beastmaster.vsndevts"
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_void_spirit.vsndevts"
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_legion_commander.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"ability_chance_base"	"20 30 40 50"
+			"radius"
+			{
+				"value"			"350"
+				"affected_by_aoe_increase"	"1"
+			}
+			"lifesteal_percent"		"12"
+			"damage"
+			{
+				"value"								"95 130 165 200"
+				"special_bonus_unique_komachi_2"	"+90"
+			}
+			"soul_apply"
+			{
+				"value"								"1"
+				"special_bonus_unique_komachi_1"	"+1"
+			}
+		}
+		"Modifiers"
+		{
+			"passive_komachi02_normal_attack"
+			{
+				"Passive"	"1"
+				"IsHidden"			"1"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"						
+						"ScriptFile"	"scripts/vscripts/abilities/abilityKomachi.lua"
+						"Function"		"Komachi02_NormalAttackLanded"
+					}
+				}
+			}
+			"passive_komachi02_attack"
+			{
+				"Passive"	"1"						
+				"OnAttackStart"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"			"passive_komachi02_attack_strike"
+						"Target"				"CASTER"
+					}
+					"RemoveModifier"
+					{
+						"ModifierName"			"passive_komachi02_attack_animation"
+						"Target"				"CASTER"
+					}
+					"Random"
+					{
+						"Chance"	"%ability_chance_base"
+						"OnSuccess"
+						{
+							"ApplyModifier"
+							{
+								"ModifierName"	"passive_komachi02_attack_strike"
+								"Target"		"CASTER"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"passive_komachi02_attack_animation"
+								"Target"		"CASTER"
+							}
+							"FireSound"
+							{
+								"EffectName"	"Hero_Beastmaster.Wild_Axes"
+								"Target"	"CASTER"
+							}
+						}
+					}
+				}				
+			}
+			"passive_komachi02_attack_strike"
+			{
+				"OnAttackLanded"				
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"passive_komachi02_heal"
+						"Target"		"CASTER"
+					}
+					"RunScript"
+					{
+						"Target"		"CASTER"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityKomachi.lua"
+						"Function"		"Komachi02_FireEffect"
+					}
+					"RunScript"
+					{
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+						}
+						"ScriptFile"	"scripts/vscripts/abilities/abilityKomachi.lua"
+						"Function"		"Komachi02_AttackLanded"
+					}
+					"RemoveModifier"
+					{
+						"ModifierName"	"passive_komachi02_attack_strike"
+						"Target"		"CASTER"
+					}
+				}
+			}
+
+			"passive_komachi02_attack_animation"
+			{
+				"RemoveOnDeath"			"1"		
+				"IsHidden"			"1"		
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_TRANSLATE_ACTIVITY_MODIFIERS"	"liandao"
+				}
+			}
+			"passive_komachi02_heal"
+			{
+				"IsHidden"			"1"
+				"OnDealDamage"
+				{
+					"Lifesteal"
+					{
+						"Target"			"ATTACKER"
+						"LifestealPercent"	"%lifesteal_percent"
+					}					
+				}
+				"OnAttackFinished"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"	"passive_komachi02_heal"
+						"Target" 		"CASTER"
+					}
+				}
+			}
+		}
+	}
+
+	"ability_thdots_komachi03"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityTextureName"		"custom/ability_thdots_komachi03"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_3"
+		"SpellDispellableType" 		"SPELL_DISPELLABLE_YES"
+		
+		// Stats
+		//----------------------------------------------------------------
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		
+		"precache"
+		{
+			"particle"				"particles/heroes/komachi/ability_komachi_03.vpcf"
+			"particle"				"particles/heroes/komachi/ability_komachi_03_explosion_2.vpcf"
+			"soundfile"				"soundevents/thdots_hero_sounds/thdots_nue_sounds.vsndevts"
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_abaddon.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityManaCost"	"70 80 90 100"
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"	"18 16 14 12"
+
+			"str_bonus"				"2 4 6 8"
+			"agi_bonus"				"2 4 6 8"
+			"soul_damage"			"20 30 40 50"
+			"soul_percent_damage"
+			{
+				"value"								"2 3 4 5"
+				"special_bonus_unique_komachi_3"	"+1.5"
+			}
+			"max_soul"				"12"
+			"radius"
+			{
+				"value"			"320"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"				"12"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilityKomachi.lua"
+				"Function"				"OnKomachi03SpellStart"
+				"radius"				"%radius"
+				"soul_damage"			"%soul_damage"
+				"soul_percent_damage"	"%soul_percent_damage"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_Abaddon.AphoticShield.Destroy"
+				"Target"	"CASTER"
+			}
+			
+		}	
+
+		"Modifiers"
+		{	
+			"modifier_thdots_komachi_03"
+			{
+				"Passive"		"1"
+				"IsHidden"			"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%str_bonus"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"		"%agi_bonus"
+				}
+			}
+			"modifier_thdots_komachi_03_soul"
+			{
+				"Duration"				"%duration"
+				"IsPurgable"			"1"
+				"IsDebuff"				"1"
+				"RemoveOnDeath"			"1"
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityKomachi.lua"
+						"Function"				"OnKomachi03SpellEffectEnd"
+						
+					}
+				}
+			}
+		}
+    }
+
+    "ability_thdots_komachi04"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityTextureName"		"custom/ability_thdots_komachi04"
+		"AbilityCastAnimation"      "ACT_DOTA_CAST_ABILITY_4"
+		"AbilityType"				"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellDispellableType" 		"SPELL_DISPELLABLE_NO"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		
+		"precache"
+		{			
+			"particle"				"particles/heroes/komachi/ability_komachi_04_start.vpcf"
+			"particle"				"particles/heroes/komachi/ability_komachi_04_blink.vpcf"
+			"particle"				"particles/heroes/komachi/ability_komachi_04_circle.vpcf"
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_abaddon.vsndevts"
+			"soundfile"				"soundevents/thdots_hero_sounds/thdots_komachi_sounds.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityManaCost"	"100"
+			"AbilityCooldown"	"60"
+			"AbilityCastPoint"	"0.2"
+			"AbilityCastRange"	"300"
+			
+			"duration"	"6 9 12"
+			"kill_hp"
+			{
+				"value"								"25"
+				"special_bonus_unique_komachi_4"	"+15"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilityKomachi.lua"
+				"Function"				"OnKomachi04SpellStart"
+				"Target"				"TARGET"
+				"duration"				"%duration"
+				"KillHp"				"%kill_hp"
+			}
+		}	
+
+		"Modifiers"
+		{	
+			"modifier_thdots_komachi_04"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_ATTACK_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"-100"
+				}
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Abaddon.BorrowedTime"
+						"Target"	"TARGET"
+					}
+				}
+				"OnDestroy"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Axe.JungleWeapon.Dunk"
+						"Target"	"TARGET"
+					}
+				}
+			}
+			"modifier_thdots_komachi_04_debuff"
+			{
+				"IsDebuff"		"1"
+				"RemoveOnDeath"			"1"
+				"Duration"		"%duration"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DISABLE_HEALING" "1" 
+				}
+			}
+		}
+    }
+
+    "special_bonus_unique_komachi_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_komachi"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_komachi_2"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_komachi_3"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_komachi_4"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+}

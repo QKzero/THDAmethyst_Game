@@ -1,0 +1,70 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// 替身地藏
+	// =================================================================================================================
+	"item_recipe_tishen"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_tishen"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"300"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_tishen"
+		"ItemRequirements"
+		{
+			"01"	"item_ghostspoon;item_zun_hat"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_tishen"
+	{
+		"BaseClass"						"item_lua"
+		"AbilityTextureName"			"item_tishen"
+		"ItemDeclarations"        		"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"ScriptFile"                    "items/item_tishen"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"		"0.0"
+		"AbilityManaCost"		"0"
+		//"AbilityCastRange"	"0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		//"ID"	"8209"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"3000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"status_resist"
+		"ItemAliases"	"aeon disk"
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_hp"	"250"
+			"bonus_mp"	"250"
+			"status_resist"	"100"
+			"hp_threshold_pct"	"80"
+			"duration"		"0.5"
+			"max_level"		"5"
+			"bonus_all"		"5"
+			"cooldown_init"	"30"
+			"cooldown_add"	"5"
+			"cooldown_max"	"50"
+		}
+	}
+}

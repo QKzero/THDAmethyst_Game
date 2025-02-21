@@ -1,0 +1,337 @@
+"DOTAAbilities"
+{
+	"ability_thdots_kokoro01"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykokoro.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityTextureName"	"custom/ability_thdots_kokoro01"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate"	"1.5"
+		"AbilityCooldown"	"18 16 14 12"
+		"AbilityManaCost"	"80"
+		"AbilityCastRange"	"0"
+		"precache"
+		{
+			"particle"	"particles/heroes/kokoro/kokoro_ability01_step.vpcf"
+			"particle"	"particles/econ/items/spectre/spectre_arcana/spectre_arcana_desolate_slash_target.vpcf"
+			"particle"	"particles/heroes/kokoro/kokoro_mood_icon_red.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_void_spirit.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"cast_range"	"500 600 700 800"
+			"duration"	"1"
+			"damage"	"50 80 110 140"
+			"movespeed"	"30"
+			"movespeed_duraiton"	"4"
+			"you_duration"	"1"
+			"life_steal"	"30"
+			"preattack_damage"	"20 30 40 50"
+			"xi_cast_range"	"400"
+		}
+	}
+
+	"ability_thdots_kokoro02"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykokoro.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityTextureName"	"custom/ability_thdots_kokoro02"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+		"AnimationPlaybackRate"	"1.8"
+		"AbilityCooldown"	"10 9 8 7"
+		"AbilityManaCost"	"80 90 100 110"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_huskar.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts"
+			"particle"	"particles/units/heroes/hero_huskar/huskar_inner_fire.vpcf"
+			"particle"	"particles/units/heroes/hero_huskar/huskar_inner_fire_debuff.vpcf"
+			"particle"	"particles/heroes/kokoro/kokoro_ability02_fireworks.vpcf"
+			"particle"	"particles/heroes/kokoro/kokoro_ability02_fire.vpcf"
+			"particle"	"particles/heroes/kokoro/kokoro_mood_icon_green.vpcf"
+		}
+		"AbilityValues"
+		{
+			"damage"	"65 110 155 200"
+			"slow_duration"	"2"
+			"radius"
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"heal"	"30"
+			"movement_slow"	"-100"
+			"intellect_bonus"	"1"
+		}
+	}
+
+	"ability_thdots_kokoro03"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykokoro.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"AbilityTextureName"	"custom/ability_thdots_kokoro03"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"CastFilterRejectCaster"	"0"
+		"AbilityCastPoint"	"0.1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+		"AnimationPlaybackRate"	"3"
+		"AbilityCooldown"	"18 16 14 12"
+		"AbilityManaCost"	"60"
+		"AbilityCastRange"	"150"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_spirit_breaker/spirit_breaker_greater_bash.vpcf"
+			"particle"	"particles/heroes/kokoro/kokoro_mood_icon_blue.vpcf"
+			"particle"	"particles/econ/events/ti9/blink_dagger_ti9_start_lvl2.vpcf"
+			"particle"	"particles/units/heroes/hero_void_spirit/astral_step/void_spirit_astral_step.vpcf"
+			"particle"	"particles/units/heroes/hero_void_spirit/astral_step/void_spirit_astral_step_impact.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_spirit_breaker.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"knockback_duration"	"0.5"
+			"knockback_distance"	"300 400 500 600"
+			"knockback_height"	"50 100 150 200"
+			"movespeed"	"30"
+			"movespeed_duraiton"	"3"
+			"radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"stun_duration"	"0.5 1 1.5 2"
+			"damage"	"50 80 110 140"
+			"blink_duration"	"2"
+			"you_stun_duration"	"2"
+			"attackspeed"	"30 60 90 120"
+		}
+	}
+
+	"ability_thdots_kokoro04"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykokoro.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityTextureName"	"custom/ability_thdots_kokoro04"
+		// "AbilityCastPoint"	"0.4"
+		// "AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4_END"
+		"AbilityCooldown"	"90 75 60"
+		"AbilityManaCost"	"100 175 250"
+		"AbilityCastRange"	"500"
+		"HasScepterUpgrade"			"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_grimstroke/grimstroke_cast_ink_swell.vpcf"
+			"particle"	"particles/status_fx/status_effect_grimstroke_ink_swell.vpcf"
+			"particle"	"particles/units/heroes/hero_phantom_assassin/phantom_assassin_crit_impact_lv.vpcf"
+			"particle"	"particles/econ/items/phantom_assassin/phantom_assassin_arcana_elder_smith/phantom_assassin_crit_impact_dagger_arcana.vpcf"
+			"particle"	"particles/units/heroes/hero_grimstroke/grimstroke_darkartistry_proj.vpcf"
+			"particle"	"particles/econ/items/juggernaut/jugg_arcana/juggernaut_arcana_v2_trigger.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_phantom_assassin.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"damage"	"0.5 0.7 0.9"
+			"buyback_time"	"20 40 60"
+			"xi_damage"	"100 250 400"
+			"wanbaochui_duraion"	"3 3.75 4.5"
+			"wanbaochui_xi_duration"	"1.5"
+			"life_steal"	"40"
+			"wanbaochui_xi_stun_duration"	"1.5"
+		}
+	}
+
+	"ability_thdots_kokoro04_WBC"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykokoro.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityTextureName"	"custom/ability_thdots_kokoro04"
+		"AbilityCooldown"	"90 75 60"
+		"AbilityManaCost"	"100 175 250"
+		"AbilityCastRange"	"500"
+		"IsGrantedByScepter"			"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_grimstroke/grimstroke_cast_ink_swell.vpcf"
+			"particle"	"particles/status_fx/status_effect_omnislash.vpcf"
+			"particle"	"particles/units/heroes/hero_juggernaut/juggernaut_omni_slash_trail.vpcf"
+			"particle"	"particles/econ/items/juggernaut/jugg_arcana/juggernaut_arcana_v2_omni_slash_tgt_bladekeeper.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_phantom_assassin.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"duration"	"3 3.75 4.5"
+			"xi_duration"	"1.5"
+			"life_steal"	"40"
+			"stun_duration"	"1.5"
+		}
+	}
+
+	"ability_thdots_kokoroEx"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykokoro.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"AbilityTextureName"	"custom/ability_thdots_kokoroEx"
+		"MaxLevel"	"1"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_5"
+		"AnimationPlaybackRate"	"2"
+		"AbilityCooldown"	"160"
+		"AbilityCastRange"	"600"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_grimstroke.vsndevts"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_kokoro_sounds.vsndevts"
+			"particle"	"particles/items4_fx/nullifier_mute_debuff.vpcf"
+			"particle"	"particles/units/heroes/hero_monkey_king/monkey_king_weapon_blur_b_cud.vpcf"
+		}
+		"AbilityValues"
+		{
+			"duration"	"8"
+			"radius"
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+
+	"ability_thdots_kokoroEx_2"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykokoro.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityTextureName"	"custom/ability_thdots_kokoroEx_2"
+		"MaxLevel"	"1"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_6"
+		"AnimationPlaybackRate"	"2"
+		"AbilityCooldown"	"120"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"		"particles/heroes/kokoro/kokoro_buff_mask_effect.vpcf"
+		}
+		"AbilityValues"
+		{
+			"duration"	"8"
+			"stat_bonus"	"50"
+			"strength_bonus"	"0.2"
+			"agility_bonus"	"0.5"
+			"intellect_bonus"	"0.075"
+		}
+	}
+
+	"ability_thdots_kokoro03_release"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitykokoro.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityTextureName"	"custom/ability_thdots_kokoro03_release"
+		"AbilityCastPoint"	"0.2"
+		"MaxLevel"	"1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_7"
+		"precache"
+		{
+			"particle"	"particles/econ/events/ti9/blink_dagger_ti9_start_lvl2.vpcf"
+		}
+	}
+
+	"special_bonus_unique_kokoro_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"5"
+		}
+	}
+
+	"special_bonus_unique_kokoro_2"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"4"
+		}
+	}
+
+	"special_bonus_unique_kokoro_3"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	"special_bonus_unique_kokoro_4"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"130"
+		}
+	}
+
+	"special_bonus_unique_kokoro_5"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	"special_bonus_unique_kokoro_6"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+}

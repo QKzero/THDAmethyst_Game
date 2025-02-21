@@ -1,0 +1,83 @@
+"DOTAAbilities"
+{
+    "item_throwing_knive"
+	{
+		"BaseClass"	             "item_datadriven"
+		"AbilityTextureName"	 "item_throwing_knives"
+		"AbilityBehavior"	     "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	 "DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	 "DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityDamageType"				"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.0"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		//"AbilityCastRange"	"1000"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		// "ID"	"8203"
+		"ItemQuality"	"common"
+		
+		
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"900"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	""
+		// 定义物品是否可以被丢弃，1表示可以丢弃
+		"Modifiers"
+		{
+			"modifier_item_throwing_knives_passive"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"			"1"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"0"
+				"OnAttack"
+				{
+					"Random"
+					{
+						"Chance"	"%RandomchanceValue"
+						"OnSuccess"
+						{
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/items/item_autumn_leaves.lua"
+								"Function"		"OnKnivesRandSucc"
+								"ModifierName"	"modifier_item_throwing_knives_pierce"
+							}
+						}
+					}
+				}
+			}
+			"modifier_item_throwing_knives_pierce"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_CANNOT_MISS"			"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"OnAttackLanded"
+				{
+      				"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_autumn_leaves.lua"
+						"Function"	"OnKnivesPierceLanded"
+						"caster"	"CASTER"
+						"target"	"TARGET"
+						"attacker"	"ATTACKER"
+						"damage"	"%damage"
+						"ModifierName"	"modifier_item_throwing_knives_pierce"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"damage"	"60"
+			"RandomchanceValue"	"30"
+		}
+	}
+}

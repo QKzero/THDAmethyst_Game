@@ -1,0 +1,111 @@
+"DOTAHeroes"
+{
+	"npc_dota_hero_patchouli"
+	{
+		"override_hero"			"npc_dota_hero_invoker"
+		"Model"                 "models/patchouli/patchouli.vmdl"
+		"VoiceFile" "soundevents/voscripts/game_sounds_vo_invoker.vsndevts"
+		"ModelScale"            "1.0"
+		"VersusScale"            "1.0"
+		"LoadoutScale"            "1.0"
+		"AbilityLayout" 		"6"
+		"Ability1"				"ability_thdots_patchouli_fire" 
+		"Ability2"				"ability_thdots_patchouli_water"
+		"Ability3"				"ability_thdots_patchouli_wood"
+		"Ability4"				"ability_thdots_patchouli_metal"
+		"Ability5"				"ability_thdots_patchouli_earth"
+		"Ability6"				"ability_thdots_patchouli_xianzhezhishi"
+		"Ability7"				"ability_thdots_patchouli_fire_fire"
+		"Ability8"				"ability_thdots_patchouli_fire_water"
+		"Ability9"				"ability_thdots_patchouli_fire_wood"
+		"Ability10"				"ability_thdots_patchouli_fire_metal"
+		"Ability11"				"ability_thdots_patchouli_fire_earth"
+		"Ability12"				"ability_thdots_patchouli_water_water"
+		"Ability13"				"ability_thdots_patchouli_water_wood"
+		"Ability14"				"ability_thdots_patchouli_water_metal"
+		"Ability15"				"ability_thdots_patchouli_water_earth"
+		"Ability16"				"ability_thdots_patchouli_wood_wood"
+		"Ability17"				"ability_thdots_patchouli_wood_metal"
+		"Ability18"				"ability_thdots_patchouli_wood_earth"
+		"Ability19"				"ability_thdots_patchouli_metal_metal"
+		"Ability20"				"ability_thdots_patchouli_metal_earth"
+		"Ability21"				"ability_thdots_patchouli_earth_earth"
+		"Ability22"				"special_bonus_unique_patchouli_3"
+		"Ability23"				"special_bonus_unique_patchouli_9"
+		"Ability24"				"special_bonus_unique_patchouli_10"
+		"Ability25"				"special_bonus_unique_patchouli_6"
+		"Ability26"				"special_bonus_unique_patchouli_7"
+		"Ability27"				"special_bonus_unique_patchouli_1"
+		"Ability28"				"special_bonus_unique_patchouli_8"
+		"Ability29"				"special_bonus_spell_amplify_15"
+
+		"Facets"
+		{
+		}
+		
+		"AbilityTalentStart" "22"
+		"AttributePrimary"		"DOTA_ATTRIBUTE_INTELLECT"
+		//"Carry"				"核心"
+		//"Support"				"辅助"
+		//"Nuker"				"爆发"
+		//"Disabler"			"控制"
+		//"Jungler"				"打野"
+		//"Durable"				"耐久"
+		//"Escape"				"逃生"
+		//"LaneSupport"			"对线辅助"
+		//"Pusher"				"推进"
+		//"Initiator"			"先手"
+		//"Role"				"Carry,Support,Nuker,Disabler,Jungler,Durable,Escape,LaneSupport,Pusher,Initiator"
+
+		"Role"					"Carry,Support,Nuker,Disabler,Jungler,Pusher,Initiator"
+		"Rolelevels"			"3,1,3,3,2,1,3"
+		"Complexity"	"3"
+		"ProjectileModel"		"particles/units/heroes/hero_invoker/invoker_base_attack.vpcf"
+		"ProjectileSpeed"		"1000"
+			
+		"AttackAnimationPoint"		"0.2"	
+			//攻击前摇
+		"AttackRate"				"1.7"			
+			//攻击速度
+		"AttackRange"				"600"
+			//攻击距离
+		"ArmorPhysical"				"0"
+			//物理护甲
+		"AttackDamageMin"			"18"
+			//最大攻击力
+		"AttackDamageMax"			"28"
+			//最小攻击力
+			
+		"AttributeBaseStrength"		"19"
+			//基础力量
+		"AttributeStrengthGain"		"1.80"
+			//每级增加的力量，力量成长
+		"AttributeBaseAgility"		"15"
+			//基础敏捷
+		"AttributeAgilityGain"		"1.60"
+			//每级增加的敏捷，敏捷成长
+		"AttributeBaseIntelligence"	"28"
+			//基础智力
+		"AttributeIntelligenceGain"	"3.8"
+			//每级增加的智力，智力成长
+			
+		"MovementSpeed"				"290"
+			//基础移动速度
+		"MovementTurnRate"			"0.8"
+			//转身速度
+		"StatusHealth"				"180"
+			//基础生命值
+		"StatusHealthRegen"			"1.5"
+			//基础生命恢复
+		"StatusMana"				"80"
+			//基础魔法值
+		"StatusManaRegen"			"2"
+			//基础魔法恢复
+
+		"VisionDaytimeRange"		"1050"
+			//白天视野大小
+		"VisionNighttimeRange"		"700"
+			//晚上视野大小
+		"DisableWearables"	"1"
+	}
+}

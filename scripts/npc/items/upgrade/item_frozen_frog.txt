@@ -1,0 +1,126 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Frozen Frog
+	// =================================================================================================================
+	"item_recipe_frozen_frog"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_frozen_frog"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8092"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_frozen_frog"
+		"ItemRequirements"
+		{
+			"01"	"item_frog;item_ice_block;item_ice_block"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Frozen Frog
+	// =================================================================================================================
+	"item_frozen_frog"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_frozen_frog"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8093"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"900"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"attack_speed"
+		"ItemAliases"	"frozen frog;eye of skadi"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_lich/lich_ambient_frost_legs.vpcf"
+			"particle"	"particles/units/heroes/hero_lich/lich_frost_nova.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_item_frozen_frog"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_all_stats"
+				}
+			}
+			"modifier_item_frozen_frog_attack"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"IsHidden"	"1"
+				"Passive"	"1"
+				"RemoveOnDeath"	"0"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	 "Item_frozen_frog_Ability_ModifierTarget"
+						"ModifierName"	"modifier_item_frozen_frog_cold_debuff"
+						"Duration"	 "%cold_duration"
+					}
+				}
+			}
+			"modifier_item_frozen_frog_cold_debuff"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"EffectName"	"particles/units/heroes/hero_lich/lich_ambient_frost_legs.vpcf"
+				"EffectAttachType"	"follow_origin"
+				// "IsHidden"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%cold_movespeed"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%cold_attackspeed"
+					// "MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE"	"%regen_amplify"
+					// "MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_TARGET"	"-99"
+					// "MODIFIER_PROPERTY_TOOLTIP"	"-99"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"	"9"
+			"bonus_damage"	"9"
+			"bonus_all_stats"	"29"
+			"cold_duration"	"2.5"
+			"cold_movespeed"	"-35"
+			"cold_attackspeed"	"-30"
+			"regen_amplify"		"-40"
+		}
+		// Sound
+		// -------------------------------------------------------------------------------------------------------------
+		"UIPickupSound"	"Item.PickUpRingShop"
+		"UIDropSound"	"Item.DropRingShop"
+		"WorldDropSound"	"Item.DropRingWorld"
+	}
+}

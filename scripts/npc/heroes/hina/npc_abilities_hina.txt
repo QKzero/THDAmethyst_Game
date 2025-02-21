@@ -1,0 +1,323 @@
+"DOTAAbilities"
+{
+	"ability_thdots_hinaEx"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityhina.lua"
+		"AbilityTextureName"	"custom/ability_thdots_hinaEx"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
+		"MaxLevel"	"1"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/econ/items/abaddon/abaddon_alliance/abaddon_aphotic_shield_alliance_explosion.vpcf"
+			"particle"	"particles/econ/items/abaddon/abaddon_alliance/abaddon_aphotic_shield_alliance.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_abaddon.vsndevts"
+			"particle"	"soundevents/game_sounds_heroes/game_sounds_wisp.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"health_percent"	"12"
+			"refresh_time"	"12"
+		}
+	}
+
+	"ability_thdots_hina01"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityhina.lua"
+		"AbilityTextureName"	"custom/ability_thdots_hina01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate"	"1.5"
+		"HasScepterUpgrade"	"1"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCooldown"	"15"
+		"AbilityManaCost"	"70 85 100 115"
+		"AbilityCastRange"	"600"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_abaddon/abaddon_aphotic_shield.vpcf"
+			"particle"	"particles/units/heroes/hero_warlock/warlock_fatal_bonds_hit.vpcf"
+			"particle"	"particles/units/heroes/hero_abaddon/abaddon_aphotic_shield_explosion.vpcf"
+			"particle"	"particles/thd2/heroes/merlin/merlin04_thin.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_abaddon.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_wisp.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"duration"	"9"
+			"health"
+			{
+				"value"	"225 375 525 675"
+				"LinkedSpecialBonus"	"special_bonus_unique_hina_1"
+			}
+			"wanbaochui_radius"
+			{
+				"value"	"600"
+				"RequiresScepter"	"1"
+				"affected_by_aoe_increase"	"1"
+			}
+			"wanbaochui_damage"
+			{
+				"value"	"10"
+				"RequiresScepter"	"1"
+			}
+		}
+		"HasScepterUpgrade"	"1"
+	}
+
+	"ability_thdots_hina02"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityhina.lua"
+		"AbilityTextureName"	"custom/ability_thdots_hina02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate"	"1.5"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCooldown"	"25"
+		"AbilityManaCost"	"100"
+		"AbilityCastRange"	"500"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_warlock.vsndevts"
+			"particle"	"particles/units/heroes/hero_warlock/warlock_fatal_bonds_base.vpcf"
+			"particle"	"particles/units/heroes/hero_warlock/warlock_fatal_bonds_hit.vpcf"
+			"particle"	"particles/units/heroes/hero_warlock/warlock_fatal_bonds_icon.vpcf"
+		}
+		"AbilityValues"
+		{
+			"max_targets"
+			{
+				"value"	"5"
+				"LinkedSpecialBonus"	"special_bonus_unique_hina_2"
+			}
+			"link_damage_share_pct"
+			{
+				"value"	"10 15 20 25"
+				"LinkedSpecialBonus"	"special_bonus_imba_warlock_3"
+			}
+			"duration"	"20"
+			"golem_link_radius"
+			{
+				"value"			"300 500 700 900"
+				"affected_by_aoe_increase"	"1"
+			}
+			"golem_link_damage_pct"	"10 15 20 25"
+			"link_search_radius"
+			{
+				"value"			"700"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"	"50 75 100 125"
+		}
+	}
+
+	"ability_thdots_hina03"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityhina.lua"
+		"AbilityTextureName"	"custom/ability_thdots_hina03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate"	"1.5"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCooldown"	"6"
+		"AbilityManaCost"	"70 90 100 120"
+		"AbilityCastRange"	"550"
+		"AOERadius" "%radius"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts"
+			"particle"	"particles/units/heroes/hero_witchdoctor/witchdoctor_maledict_aoe.vpcf"
+			"particle"	"particles/status_fx/status_effect_maledict.vpcf"
+			"particle"	"particles/units/heroes/hero_witchdoctor/witchdoctor_maledict.vpcf"
+		}
+		"AbilityValues"
+		{
+			"duration"	"6"
+			"damage"	"60 100 140 180"
+			"extra_damage"	"17 20 23 26"
+			"radius"	
+			{	
+				"value"							"120"
+				"LinkedSpecialBonus"			"special_bonus_unique_hina_4"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+
+	"ability_thdots_hina05"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityhina.lua"
+		"AbilityTextureName"	"custom/ability_thdots_hina05"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		//"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"MaxLevel"	"1"
+		//"AnimationPlaybackRate"	"1.5"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"30"
+		"AbilityManaCost"	"0"
+		//"AbilityCastRange"	"700"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts"
+			"particle"	"particles/units/heroes/hero_witchdoctor/witchdoctor_maledict_aoe.vpcf"
+			"particle"	"particles/status_fx/status_effect_maledict.vpcf"
+			"particle"	"particles/units/heroes/hero_brewmaster/brewmaster_cyclone.vpcf"
+		}
+		"AbilityValues"
+		{
+			"duration"	"5"
+			"move_speed"	"50"
+			"attack_speed"	"100"
+			"regen"	"20"
+			"buff_duration"	"6"
+		}
+	}
+
+	"ability_thdots_hina04"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityhina.lua"
+		"AbilityTextureName"	"custom/ability_thdots_hina04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityManaCost"	"150 200 250"
+		"AbilityCastRange"	"800"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_nevermore.vsndevts"
+			"particle"	"particles/units/heroes/hero_nevermore/nevermore_requiemofsouls_a.vpcf"
+			"particle"	"particles/units/heroes/hero_nevermore/nevermore_requiemofsouls.vpcf"
+			"particle"	"particles/units/heroes/hero_nevermore/nevermore_requiemofsouls_line.vpcf"
+			"particle"	"particles/econ/items/earthshaker/earthshaker_arcana/earthshaker_arcana_damage.vpcf"
+			"particle"	"particles/econ/items/lion/lion_demon_drain/lion_spell_mana_drain_demon.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_wisp.vsndevts"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_hina_sounds.vsndevts"
+			"particle"	"particles/heroes/hina/hina04.vpcf"
+			"particle"	"particles/heroes/hina/hina04_text.vpcf"
+		}
+		"AbilityValues"
+		{
+			"duration"	"5"
+			"stun_time"	"1.5"
+			"gravitation"	"75 110 145"
+			"damage_absorb"	"30"
+			"end_stun_time"	"3"
+			"radius"
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"relax"	"800"
+			"lines_travel_speed"	"700"
+			"travel_distance"	"800"
+			"lines_starting_width"
+			{
+				"value"			"125"
+				"affected_by_aoe_increase"	"1"
+			}
+			"lines_end_width"
+			{
+				"value"			"200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"min_damage"	"100 200 300"
+			"AbilityCooldown"	
+			{
+				"value"							"100"
+				"special_bonus_unique_hina_5"	"-60"
+			}
+		}
+	}
+
+	"special_bonus_unique_hina_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"200"
+		}
+	}
+
+	"special_bonus_unique_hina_2"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"2"
+		}
+	}
+
+	"special_bonus_unique_hina_3"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+			"armor"	"20"
+			"magical_resistance"	"50"
+		}
+	}
+
+	"special_bonus_unique_hina_4"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"120"
+		}
+	}
+
+	"special_bonus_unique_hina_5"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"-60"
+		}
+	}
+
+	"special_bonus_unique_hina_6"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1300"
+		}
+	}
+}

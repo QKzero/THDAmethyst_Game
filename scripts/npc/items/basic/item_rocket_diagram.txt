@@ -1,0 +1,45 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// 高阶魔法书
+	// =================================================================================================================
+	"item_rocket_diagram"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_rocket_diagram"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8022"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"int"
+		"ItemAliases"	"lunar rocket manual"
+		"Modifiers"
+		{
+			"modifier_item_rocket_diagram"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_intellect"	"9"
+		}
+	}
+}

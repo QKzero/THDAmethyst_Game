@@ -1,0 +1,115 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Horse Blue
+	// =================================================================================================================
+	"item_recipe_horse_blue"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_horse_blue"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8081"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"400"
+		"SideShop"	"1"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_horse_blue"
+		"ItemRequirements"
+		{
+			"01"	"item_broom;item_wind_amulet"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Horse Blue
+	// =================================================================================================================
+	"item_horse_blue"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_horse_blue"
+		// "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityCooldown"	"30"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8082"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1400"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"SideShop"	"1"
+		"ItemShopTags"	"move_speed;attack_speed;agi"
+		"ItemAliases"	"blue llama doll"
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_item_horse_blue_active"
+				"Target" 		"CASTER"
+				"Duration"		"%duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_horse_blue"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					//"MODIFIER_PROPERTY_MOVESPEED_BONUS_UNIQUE"	"%bonus_movement_speed"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_UNIQUE"	"%bonus_movement_speed"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+				}
+			}
+			"modifier_item_horse_blue_active"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+				}
+				"OnTakeDamage"
+				// "%attack_damage" is set to the damage value after mitigation
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityitem.lua"
+						"Function"	"item_horse_blue_active"
+						"Caster"	"CASTER"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_movement_speed"	"45"
+			"bonus_attack_speed"	"20"
+			"bonus_intellect"	"8"
+			"bonus_mana_regen"	"10"
+			"duration"	"10"
+		}
+		"Model"	"models/props_gameplay/boots_of_speed.vmdl"
+	}
+}

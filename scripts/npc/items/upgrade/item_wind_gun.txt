@@ -1,0 +1,100 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Wind Gun
+	// =================================================================================================================
+	"item_recipe_wind_gun"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_wind_gun"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8050"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_wind_gun"
+		"ItemRequirements"
+		{
+			//"01"	"item_cat_ear;item_sailor_suit;item_quelling_blade"
+			"01"	"item_knife;item_wind_amulet;item_quelling_blade"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Wind Gun
+	// =================================================================================================================
+	"item_wind_gun"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_wind_gun"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8051"
+		"ItemQuality"	"common"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"agi;armor"
+		"Modifiers"
+		{
+			"modifier_item_wind_gun_attack"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_WindGun_OnAttack"
+						"PhysicalDamage"	"%physical_damage"
+					}
+				}
+			}
+			"modifier_item_wind_gun"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					// "MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					// "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+					// "MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_hp_regen"
+					// "MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"		"%bonus_mana_regen"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+				}
+			}
+		}
+		// 定义物品是否可以被丢弃，1表示可以丢弃
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"	"8"
+			"bonus_attack_speed"	"12"
+			// "bonus_hp_regen"	"5"
+			// "bonus_mana_regen"		"1.75"
+			// "bonus_agility"	"6"
+			// "bonus_armor"	"4"
+			"physical_damage"	"30"
+		}
+	}
+}

@@ -1,0 +1,117 @@
+"DOTAAbilities"
+{
+	"item_recipe_repentancestick"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_repentancestick"
+		"ItemCost"	"0"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_repentancestick"
+		"ItemRequirements"
+		{
+			"01"	"item_pant;item_pant;item_violin;item_paper_mask"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+	"item_repentancestick"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_repentancestick"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetFlags" "DOTA_UNIT_TARGET_FLAG_NONE"
+		"AbilityUnitDamageType"	 "DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.0"
+		// "AbilityCooldown"	"35"
+		// "AbilityManaCost"	"29"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		// "AbilityCastRange"	"600"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2800"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		// "ItemDeclarations"	"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShopTags"	"attack_speed"
+		// "precache"
+		// {
+		// 	"particle"	"particles/thd2/items/item_rocket.vpcf"
+		// 	"soundevents"	"soundevents/game_sounds_custom.vsndevts"
+		// }
+		// "OnSpellStart"
+		// {
+		// 	"FireSound"
+		// 	{
+		// 		"EffectName"	"DOTA_Item.Orchid.Activate"
+		// 		"Target"  "TARGET"
+		// 	}
+		// 	"RunScript"
+		// 	{
+		// 		"Target"	"TARGET"
+		// 		"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+		// 		"EffectName"	"particles/thd2/items/item_rocket.vpcf"
+		// 		"Function"	"ItemAbility_th_anticaster_Debuff_Add"
+		// 	}
+		// }
+		"Modifiers"
+		{
+			"modifier_item_repentancestick"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS"	"%bonus_magical_armor"
+				}
+			}
+			"modifier_item_repentancestick_attack"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"OnRepentancestickAttackLanded"
+						"Caster"	"CASTER"
+						"Target"	"TARGET"
+						"INTDAMAGE"	"%int_damage"
+						"Duration"	"%repentancestick_duration"
+					}
+					
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"12"
+			"bonus_attack_speed"	"45"
+			"bonus_magical_armor"	"25"
+			"tooltip_resist"	"25"
+			"down_amplidy"	"40"
+			"repentancestick_damage"	"35"
+			"int_damage"	"0.7"
+			"repentancestick_duration"	"5"
+			"stun_duration"	"0.5"
+		}
+		"UIPickupSound"	"Item.PickUpRingShop"
+		"UIDropSound"	"Item.DropRingShop"
+		"WorldDropSound"	"Item.DropRingWorld"
+	}
+}

@@ -1,0 +1,131 @@
+"DOTAAbilities"
+{
+	// =================================================================================================================
+	// Recipe: Quant
+	// =================================================================================================================
+	"item_recipe_quant"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_quant"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8163"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"600"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_quant"
+		"ItemRequirements"
+		{
+			"01"	"item_knife;item_scissors"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Quant
+	// =================================================================================================================
+	"item_quant"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_quant"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8164"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"damage"
+		"ItemAliases"	"titanic oar;crystalys"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_skeletonking.vsndevts"
+			"particle"	"particles/units/heroes/hero_skeletonking/skeleton_king_weapon_blur_critical.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_item_quant"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+				}
+			}
+			"modifier_item_quant_crit_chance"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"0"
+				
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_crit.lua"
+						"Function"	"ItemAbility_Crit_Refresh"
+						"CritModifierName"	"modifier_item_quant_crit"
+						"CritChanceConst"	"%crit_chance"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_crit.lua"
+						"Function"	"ItemAbility_Crit_Recycle"
+					}
+				}
+				"OnAttackStart"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_crit.lua"
+						"Function"	"ItemAbility_Crit_OnAttackStart"
+					}
+				}
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_crit.lua"
+						"Function"	"ItemAbility_Crit_OnAttackLanded"
+					}
+				}
+			}
+			"modifier_item_quant_crit"
+			{
+				"IsHidden"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE"	"%crit_mult"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"	"30"
+			"crit_mult"	"175"
+			"crit_chance"	"20"
+		}
+	}
+
+}

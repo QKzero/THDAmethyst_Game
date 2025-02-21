@@ -1,0 +1,128 @@
+"DOTAAbilities"
+{
+   // =================================================================================================================
+	// Recipe: Dragon Star
+	// =================================================================================================================
+	"item_recipe_dragon_star"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_dragon_star"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8145"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1400"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_dragon_star"
+		"ItemRequirements"
+		{
+			"01"	"item_ice_block;item_knife"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Dragon Star
+	// =================================================================================================================
+	"item_dragon_star"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_dragon_star"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"50"
+		"AbilityManaCost"	"140"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8146"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"4550"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"str;agi;damage"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_dragon_star.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_DragonStar_Stack_Permanent"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_item_dragon_star_buff"
+			}
+			"FireSound"
+			{
+				"Target"	"CASTER"
+				"EffectName" "DOTA_Item.BlackKingBar.Activate"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_dragon_star"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+				}
+			}
+			"modifier_item_dragon_star_buff"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Duration"	"%buff_duration"
+				"EffectName" "particles/thd2/items/item_dragon_star.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"IsBuff"	"1"
+				// "IsHidden"	"1"
+				"ThinkInterval"	"0.03"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_DragonStar_Purge"
+					}
+				}				
+			}
+			"modifier_item_dragon_star_stacks"
+			{
+				//"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Duration"	"-1"
+				"IsHidden"	"1"
+				"IsBuff"	"1"
+				"IsPurgable"	"0"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_all_stats"	"12"
+			"bonus_damage"	"12"
+			"buff_duration"	"6.0"
+		}
+	}
+}

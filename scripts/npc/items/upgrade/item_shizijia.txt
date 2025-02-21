@@ -1,0 +1,118 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: shizijia
+	// =================================================================================================================
+	"item_recipe_shizijia"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_shizijia"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8181"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"700"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_shizijia"
+		"ItemRequirements"
+		{
+			// "01"	"item_candle;item_glue;item_scissors" //更改合成公式，十字架面向酱油，不再提供+20攻击力
+			"01"	"item_candle;item_glue"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// 十字架
+	// =================================================================================================================
+	"item_shizijia"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_shizijia"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING "
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"30"
+		"AbilityManaCost"	"90"
+		"AbilityCastRange"	"700"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8182"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2900"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"health_pool;evasion;damage"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_shizijia.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"		"TARGET"
+				"ModifierName"	"modifier_item_shizijia_barrier"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_shizijia"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_BONUS"			"%bonus_health"
+					// "MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_EVASION_CONSTANT"		"%bonus_evasion"
+				}
+			}
+			"modifier_item_shizijia_barrier"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Duration"	"%barrier_duration"
+				"IsBuff"	"1"
+				"IsPurgable" "1"
+				"EffectName"	"particles/thd2/items/item_shizijia.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_EVASION_CONSTANT"		"%active_evasion"
+				}
+			}
+			"modifier_item_shizijia_barrier_physical_immune"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Duration"	"%barrier_duration"
+				"IsBuff"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_PHYSICAL_DAMAGE_PERCENTAGE"		"0"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health"	"280"
+			"bonus_evasion"	"25"
+			"barrier_duration"	"4"
+			"active_evasion"	"100"
+			// "bonus_damage"	"20"
+		}
+	}
+}

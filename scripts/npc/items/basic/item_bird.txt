@@ -1,0 +1,45 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// 闪耀的宝玉
+	// =================================================================================================================
+	"item_bird"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_bird"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8008"
+		"ItemQuality"	"secret_shop"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"800"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"mana_pool"
+		"ItemAliases"	"birdy"
+		"Modifiers"
+		{
+			"modifier_item_bird"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MANA_BONUS"	"%bonus_mana"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_mana"	"250"
+		}
+	}
+}

@@ -1,0 +1,313 @@
+// Dota2 Editor
+// Get latest version: https://github.com/zombieJ/nw-dota2editor
+
+"DOTAAbilities"
+{
+	"Version"		"1"
+
+	//"ability_thdots_seigaEx"
+	//{
+	//	"BaseClass"	"ability_lua"
+	//	"AbilityTextureName"	"custom/seiga/ability_thdots_seiga_Ex"
+	//	"ScriptFile"	"scripts/vscripts/abilities/abilityseiga.lua"
+	//	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+	//	"CastFilterRejectCaster"	"0"
+	//	"AbilityCooldown"	"3"
+	//	"MaxLevel"	"1"
+	//	"precache"
+	//	{
+	//		"soundfile"	"soundevents/thdots_hero_sounds/thdots_seiga_sounds.vsndevts"
+	//	}
+	//	"AbilityValues"
+	//	{
+	//		"duration"	"0.2"
+	//	}
+	//}
+
+	"ability_thdots_seigaEx"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/seiga/ability_thdots_seiga_Ex"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityseiga.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"CastFilterRejectCaster"	"0"
+		"MaxLevel"	"1"
+		"precache"
+		{
+			"particle"	"particles/econ/events/ti10/portal/portal_open_good.vpcf"
+			"particle"	"particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_explode.vpcf"
+			"particle"	"models/kaku_seiga/kaku_seiga_ambient.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_seiga_sounds.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCooldown"
+			{
+				"value"							"30"
+				"special_bonus_unique_seiga_7"	"-15"
+			}
+			"AbilityManaCost"	"100"
+			"AbilityCastPoint"	"0.2"
+			"AbilityCastRange"	"1000"
+
+			"trigger_distance"		"60"
+			"transport_cooldown"	"3"
+			"exclude_distance"		"200"
+			"duration"				"15"
+
+		}
+	}
+
+	"ability_thdots_seiga01"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_seiga_01"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityseiga.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_BUILDING"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"CastFilterRejectCaster"	"1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate"	"2"
+		"precache"
+		{
+			"particle"		"particles/econ/items/storm_spirit/strom_spirit_ti8/storm_spirit_ti8_overload_ambient.vpcf"
+			"particle"		"particles/units/heroes/hero_grimstroke/grimstroke_darkartistry_dmg_stroke_tgt.vpcf"
+			"particle"		"particles/econ/items/storm_spirit/strom_spirit_ti8/storm_spirit_ti8_overload_gold_ambient.vpcf"
+			"particle"		"particles/units/heroes/hero_grimstroke/grimstroke_base_attack.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"	"24 20 16 12"
+			"AbilityManaCost"	"80"
+			"AbilityCastRange"	"700"
+
+			"target_damage_bonus"
+			{
+				"value"							"20 40 60 80"
+				"special_bonus_unique_seiga_1"	"+60"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"caster_damage_bonus"
+			{
+				"value"							"30 60 90 120"
+				"special_bonus_unique_seiga_1"	"+60"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"attack_bonus"			"0.5"
+			"duration"				"5"
+			"talent_radius"
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+
+	"ability_thdots_seiga02"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_seiga_02"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityseiga.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC "
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+		"AnimationPlaybackRate"	"2"
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_grimstroke/grimstroke_soulchain_marker.vpcf"
+			"particle"		"particles/econ/items/juggernaut/jugg_arcana/juggernaut_arcana_omni_slash_trail_bladekeeper.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"	"24 20 16 12"
+			"AbilityManaCost"	"80 100 120 140"
+			"AbilityCastRange"	"700"
+
+			"duration"				"5"
+			"attack_speed_bonus"	"60 80 100 120"
+			"blink_range"			"350"
+			"attack_intval"			"0.1"
+			"speed"					"750"
+			"melee_percent"			"25"
+		}
+	}
+
+	"ability_thdots_seiga03"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_seiga_03"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityseiga.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES_STRONG"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+		"AnimationPlaybackRate"	"2"
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_bane/bane_enfeeble.vpcf"
+			"particle"		"particles/units/heroes/hero_grimstroke/grimstroke_sfm_ink_swell_reveal.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"
+			{
+				"value"							"18 16 14 12"
+				"special_bonus_unique_seiga_2"	"-6"
+			}
+			"AbilityManaCost"	"100"
+			"AbilityCastRange"	"800"
+
+			"damage"
+			{
+				"value"							"140 170 200 230"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"duration"
+			{
+				"value"							"2 3 4 5"
+				"special_bonus_unique_seiga_6"	""
+			}
+			"stun_duration"		"1.4 1.6 1.8 2.0"
+			"damage_decrease"
+			{
+				"value"							"40 60 80 120"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+			}
+		}
+	}
+
+	"ability_thdots_seiga04"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"wisp/wisp_tether_alt"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityseiga.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
+		"AnimationPlaybackRate"	"1"
+		"precache"
+		{
+			"particle"		"particles/econ/items/windrunner/windranger_arcana/windranger_arcana_item_cyclone.vpcf"
+			"particle"		"particles/units/heroes/hero_wisp/wisp_relocate_teleport.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCooldown"
+			{
+				"value"							"120 100 80"
+				"special_bonus_unique_seiga_3"	"=0"
+			}
+			"AbilityManaCost"			"200"
+			"AbilityChannelTime"		"2 1.5 1"
+			"AbilityCastRange"			"0"
+			"AbilityCharges"
+			{
+				"value"							"0"
+				"special_bonus_unique_seiga_3"	"+2"
+			}
+			"AbilityChargeRestoreTime"	"120 100 80"
+
+			"duration"		"2 1.5 1"
+		}
+	}
+
+	"ability_thdots_seiga05"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"skeleton_king_reincarnation"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityseiga.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"	"1"
+		"IsGrantedByScepter"			"1"
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_grimstroke/grimstroke_ink_over_debuff.vpcf"
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"1000"
+				"affected_by_aoe_increase"	"1"
+			}
+			"illusion_outgoing_damage"	"100"
+			"illusion_speed_bonus"	"20"
+			"duration"	"15"
+			"attacked_limit"	"5"
+		}
+	}
+
+	"special_bonus_unique_seiga_1"
+	{
+		"BaseClass"			"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+	"special_bonus_unique_seiga_2"
+	{
+		"BaseClass"			"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+	"special_bonus_unique_seiga_3"
+	{
+		"BaseClass"			"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+	"special_bonus_unique_seiga_4"
+	{
+		"BaseClass"			"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	"special_bonus_unique_seiga_5"
+	{
+		"BaseClass"			"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	"special_bonus_unique_seiga_6"
+	{
+		"BaseClass"			"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"4"
+		}
+	}
+	"special_bonus_unique_seiga_7"
+	{
+		"BaseClass"			"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+}

@@ -1,0 +1,99 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: ganggenier
+	// =================================================================================================================
+	"item_recipe_ganggenier"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"			"item_recipe_ganggenier"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8183"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"300"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_ganggenier"
+		"ItemRequirements"
+		{
+			"01"	"item_silver_knife;item_paper_mask;item_cat_foot"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// ganggenier
+	// =================================================================================================================
+	"item_ganggenier"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_ganggenier"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8184"
+		"ItemQuality"	"secret_shop"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5300"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"int;regen_health"
+		"Modifiers"
+		{
+			"modifier_item_ganggenier"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"		"1"
+				"IsHidden"		"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"		"%bonus_agility"
+				}
+				
+			}
+			"modifier_item_ganggenier_nomiss"
+			{
+				"Passive"	"1"
+				"IsHidden"		"1"				
+				"RemoveOnDeath"	"0"
+				"States"
+				{
+					"MODIFIER_STATE_CANNOT_MISS"			"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_item_ganggenier_deal_damage"
+			{
+				"Passive"		"1"
+				"IsHidden"		"1"
+				"RemoveOnDeath"	"0"
+				"OnDealDamage"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"DamageDeal"	"%attack_damage"
+						"Function"		"ItemAbility_Ganggenier_OnDealDamage"
+						"IncreaseDamage"	"%bonus_outgoing_damage"
+					}
+				}
+			}			
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"	"60"
+			"bonus_strength"	"10"
+			"bonus_agility"		"10"
+			"bonus_outgoing_damage"		"10"
+			"change"		"100"
+		}
+	}
+}

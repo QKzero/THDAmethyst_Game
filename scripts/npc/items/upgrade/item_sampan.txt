@@ -1,0 +1,148 @@
+"DOTAAbilities"
+{
+	// =================================================================================================================
+	// Recipe: Sampan
+	// =================================================================================================================
+	"item_recipe_sampan"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_sampan"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8165"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1100"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_sampan"
+		"ItemRequirements"
+		{
+			"01"	"item_quant;item_wrench"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Sampan
+	// =================================================================================================================
+	"item_sampan"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_sampan"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8166"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"6000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"damage"
+		"ItemAliases"	"suwako nice boat;daedalus"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_skeletonking.vsndevts"
+			"particle"	"particles/units/heroes/hero_skeletonking/skeleton_king_weapon_blur_critical.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_item_sampan"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+				}
+			}
+			"modifier_item_sampan_crit_chance"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"0"
+				
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_crit.lua"
+						"Function"	"ItemAbility_Crit_Refresh"
+						"CritModifierName"	"modifier_item_sampan_crit"
+						"CritChanceConst"	"%crit_chance"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_crit.lua"
+						"Function"	"ItemAbility_Crit_Recycle"
+					}
+				}
+				"OnAttackStart"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_crit.lua"
+						"Function"	"ItemAbility_Crit_OnAttackStart"
+					}
+				}
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_crit.lua"
+						"Function"	"ItemAbility_Crit_OnAttackLanded"
+					}
+				}
+			}
+			"modifier_item_sampan_crit"
+			{
+				"IsHidden"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE"	"%crit_mult"
+				}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_crit.lua"
+						"Function"		"ItemAbility_Sampan_Crit_Effect"
+						"Flag"			"0"
+					}
+				}
+				"OnAttack"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_crit.lua"
+						"Function"		"ItemAbility_Sampan_Crit_Effect"
+						"Flag"			"1"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"	"85"
+			"crit_mult"	"300"
+			"crit_chance"	"30"
+		}
+	}
+}

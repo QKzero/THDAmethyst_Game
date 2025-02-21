@@ -1,0 +1,1972 @@
+"DOTAAbilities"
+{
+	"ability_thdots_patchouli_xianzhezhishi"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_patchouli_02"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"1"
+		"AbilityManaCost"           "0"
+		"AbilityCastPoint"          "0"
+		"AbilityCooldown"           "0"
+		"IsBreakable"				"1"
+		"precache"
+		{			
+			"particle"				"particles/units/heroes/hero_mirana/mirana_moonlight_owner.vpcf"
+			"particle"				"particles/items_fx/armlet.vpcf"
+			"particle"				"particles/heroes/yumemi/ability_yumemi_04_exolosion.vpcf"
+			"particle"				"particles/econ/items/luna/luna_lucent_ti5/luna_shiled_ambient_moonfall_d.vpcf"
+			"particle"				"particles/econ/courier/courier_wyvern_hatchling/courier_wyvern_anim_firebreath_e.vpcf"
+			"particle"				"particles/econ/courier/courier_cluckles/patchouli_sorcererstone.vpcf"
+			"particle"				"particles/econ/items/monkey_king/arcana/fire/mk_arcana_fire_spring_ring_radial.vpcf"
+			"particle"				"particles/econ/items/invoker/invoker_apex/invoker_sun_strike_beam_immortal1.vpcf"
+			"particle"				"particles/units/heroes/hero_luna/luna_eclipse_cast_moonlight_glow03.vpcf"
+			"particle"				"particles/units/heroes/hero_mirana/mirana_moonlight_ray.vpcf"
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_huskar.vsndevts"
+			"soundfile"				"soundevents/thdots_hero_sounds/thdots_patchouli_sun_sounds.vsndevts"
+			"soundfile"				"soundevents/thdots_hero_sounds/thdots_patchouli_moon_sounds.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{	
+				"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"				"OnPatchouliInvoke"		
+				"ManaCost"				"%mana_cost"
+			}
+		}
+		"Modifiers"
+		{					
+			"modifier_thdots_patchouli_maxlevel"
+			{
+				"RemoveOnDeath"				"0"
+				"IsBuff"		"1"
+				"Passive"	"1"
+				"IsHidden"			"1"
+				"Attributes"		"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"ThinkInterval"		"1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+						"Function"		"OnPatchouliMaxLevel"
+					}
+				}
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"particles/econ/courier/courier_cluckles/patchouli_sorcererstone.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"	"CASTER"
+					}
+				}
+			}	
+			"modifier_thdots_patchouli_xianzhezhishi_add"
+			{	
+				"RemoveOnDeath"				"1"
+				"IsBuff"		"1"
+				"IsPurgable"	"0"
+				"OnCreated"
+				{					
+					"AttachEffect"
+					{
+						"EffectName"	"particles/items_fx/armlet.vpcf"
+						"EffectAttachType"	"follow_overhead"
+						"Target"	"CASTER"						
+					}
+				}
+			}
+			"modifier_thdots_patchouli_xianzhezhishi_add_cd"
+			{	
+				"RemoveOnDeath"				"1"
+				"IsBuff"		"1"
+				"IsPurgable"	"0"
+			}
+			"modifier_thdots_patchouli_sun_moon"
+			{
+				"RemoveOnDeath"				"0"
+				"IsBuff"		"1"
+				"Passive"	"1"
+				"ThinkInterval"	"1"
+				"IsHidden"			"1"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+						"Function"		"OnPatchouliSunMoon"
+					}
+				}
+			}
+			"modifier_thdots_patchouli_xianzhezhishi_sun"
+			{	
+				"RemoveOnDeath"				"1"
+				"IsBuff"		"1"
+				"IsPurgable"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE"	"10"
+				}
+			}
+			"modifier_thdots_patchouli_xianzhezhishi_moon"
+			{	
+				"RemoveOnDeath"				"1"
+				"IsBuff"		"1"
+				"IsPurgable"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"		"-10"
+				}
+			}
+			"modifier_thdots_patchouli_xianzhezhishi_royal_flame"
+			{	
+				"RemoveOnDeath"				"1"
+				"IsBuff"		"1"
+				"Duration"		"2"
+				"IsHidden"			"1"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+						"Function"		"OnPatchouliRoyalFlame"
+						"Damage"	"%damage"
+					}
+					"FireEffect"
+					{
+						"EffectName"	"particles/heroes/yumemi/ability_yumemi_04_exolosion.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"	"CASTER"
+					}	
+					"FireSound"
+					{
+						"EffectName"	"Hero_Huskar.Inner_Fire.Cast"
+						"Target"	"TARGET"
+					}					
+				}
+			}
+			"modifier_thdots_patchouli_xianzhezhishi_moon_divinity"
+			{
+				"RemoveOnDeath"				"1"
+				"IsBuff"		"1"
+				"Duration"		"10"
+				"IsHidden"			"1"
+				
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"particles/units/heroes/hero_mirana/mirana_moonlight_owner.vpcf"
+						"EffectAttachType"	"follow_overhead"
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"1200"
+							"Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"	"DOTA_UNIT_TARGET_HERO"
+						}
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+						"Function"		"OnPatchouliMoonDivinity"
+					}
+
+					"ApplyModifier"
+					{
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"1200"
+							"Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"	"DOTA_UNIT_TARGET_HERO"
+						}
+						"Duration"		"10"
+						"ModifierName"	"modifier_invisible"
+					}
+					"ApplyModifier"
+					{
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"1200"
+							"Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"	"DOTA_UNIT_TARGET_HERO"
+						}
+						"Duration"		"10"
+						"ModifierName"	"modifier_thdots_patchouli_xianzhezhishi_moon_divinity2"
+					}
+				}
+			}
+			"modifier_thdots_patchouli_xianzhezhishi_moon_divinity2"
+			{	
+				"RemoveOnDeath"				"1"
+				"IsBuff"		"1"
+				"IsPurgable"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"		"-25"
+				}
+				
+			}
+		
+			//"modifier_thdots_patchouli_select"
+			//{	
+			//	"RemoveOnDeath"				"0"
+			//	"IsHidden"			"1"
+			//	"OnCreated"
+			//	{
+			//		"RunScript"
+			//		{
+			//			"Target"		"CASTER"
+			//			"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+			//			"Function"		"OnPatchouliSelect"
+			//		}
+			//	}
+			//}
+		}
+		"AbilityValues"
+		{
+			"mana_cost"		"0"
+			"damage"		"20"
+		}
+	}
+
+	"ability_thdots_patchouli_fire"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityTextureName"		"custom/ability_thdots_patchouli_fire"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_1"
+		"MaxLevel"				"7"
+		// Stats
+		//----------------------------------------------------------------
+		"AbilityManaCost"           "0"
+		"AbilityCastPoint"          "0"
+		"AbilityCooldown"           "0"
+		"precache"
+		{}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_patchouli_fire"
+			}
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"				"OnPatchouliAddFire"
+			}
+			"RunScript"
+			{	
+				"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"				"OnPatchouliInvoke"					
+			}
+		}	
+		"Modifiers"
+		{
+			"modifier_thdots_patchouli_fire"
+			{
+				//"Passive"  			"0"
+				"RemoveOnDeath"				"0"
+				"IsHidden" 			"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsPurgable"		"0"
+				"Attributes" 		"MODIFIER_ATTRIBUTE_MULTIPLE | MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE"		"%bonus_damage"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"bonus_damage"			"6 12 18 24 30 36 42"
+		}
+	}
+
+	"ability_thdots_patchouli_water"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityTextureName"		"custom/ability_thdots_patchouli_water"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_1"
+		"MaxLevel"				"7"
+		// Stats
+		//----------------------------------------------------------------
+		"AbilityManaCost"           "0"
+		"AbilityCastPoint"          "0"
+		"AbilityCooldown"           "0"
+		"precache"
+		{}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_patchouli_water"
+			}
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"				"OnPatchouliAddWater"
+			}
+			"RunScript"
+			{	
+				"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"				"OnPatchouliInvoke"					
+			}
+		}	
+		"Modifiers"
+		{
+			"modifier_thdots_patchouli_water"
+			{
+				//"Passive"  			"0"
+				"RemoveOnDeath"				"0"
+				"IsHidden" 			"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsPurgable"		"0"
+				"Attributes" 		"MODIFIER_ATTRIBUTE_MULTIPLE | MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"		"%mana_regen"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"mana_regen"			"2 4 6 8 10 12 14"
+		}
+	}
+
+	"ability_thdots_patchouli_wood"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityTextureName"		"custom/ability_thdots_patchouli_wood"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_1"
+		"MaxLevel"				"7"
+		// Stats
+		//----------------------------------------------------------------
+		"AbilityManaCost"           "0"
+		"AbilityCastPoint"          "0"
+		"AbilityCooldown"           "0"
+		"precache"
+		{}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_patchouli_wood"
+			}
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"				"OnPatchouliAddWood"
+			}
+			"RunScript"
+			{	
+				"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"				"OnPatchouliInvoke"					
+			}
+		}	
+		"Modifiers"
+		{
+			"modifier_thdots_patchouli_wood"
+			{
+				//"Passive"  			"0"
+				"RemoveOnDeath"				"0"
+				"IsHidden" 			"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsPurgable"		"0"
+				"Attributes" 		"MODIFIER_ATTRIBUTE_MULTIPLE | MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"Properties"
+				{
+					
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%health_regen"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"health_regen"			"2 4 6 8 10 12 14"
+		}
+	}
+
+	"ability_thdots_patchouli_metal"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityTextureName"		"custom/ability_thdots_patchouli_metal"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_1"
+		"MaxLevel"				"7"
+		// Stats
+		//----------------------------------------------------------------
+		"AbilityManaCost"           "0"
+		"AbilityCastPoint"          "0"
+		"AbilityCooldown"           "0"
+		"precache"
+		{}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_patchouli_metal"
+			}
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"				"OnPatchouliAddMetal"
+			}
+			"RunScript"
+			{	
+				"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"				"OnPatchouliInvoke"					
+			}
+		}	
+		"Modifiers"
+		{
+			"modifier_thdots_patchouli_metal"
+			{
+				//"Passive"  			"0"
+				"RemoveOnDeath"				"0"
+				"IsHidden" 			"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsPurgable"		"0"
+				"Attributes" 		"MODIFIER_ATTRIBUTE_MULTIPLE | MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"Properties"
+				{
+					
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"bonus_armor"			"2 4 6 8 10 12 14"
+		}
+	}	
+
+	"ability_thdots_patchouli_earth"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityTextureName"		"custom/ability_thdots_patchouli_earth"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_1"
+		"MaxLevel"				"7"
+		// Stats
+		//----------------------------------------------------------------
+		"AbilityManaCost"           "0"
+		"AbilityCastPoint"          "0"
+		"AbilityCooldown"           "0"
+		"precache"
+		{}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_patchouli_earth"
+			}
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"				"OnPatchouliAddEarth"
+			}
+			"RunScript"
+			{	
+				"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"				"OnPatchouliInvoke"					
+			}
+		}	
+		"Modifiers"
+		{
+			"modifier_thdots_patchouli_earth"
+			{
+				//"Passive"  			"0"
+				"RemoveOnDeath"				"0"
+				"IsHidden" 			"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsPurgable"		"0"
+				"Attributes" 		"MODIFIER_ATTRIBUTE_MULTIPLE | MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"Properties"
+				{
+					
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"		"%move_speed"	
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			//"move_speed"			"3 6 9 12 15 18 21"
+			"move_speed"			"1.5 3 4.5 6 7.5 9 10.5"
+		}
+	}
+
+	"ability_thdots_patchouli_fire_fire"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"				"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"						"1"
+		"AbilityTextureName"			"custom/ability_thdots_patchouli_fire_fire"
+
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts"
+			"particle"		"particles/units/heroes/hero_invoker/invoker_forge_spirit_ambient.vpcf"
+			"particle"		"particles/units/heroes/hero_invoker/invoker_forge_spirit_death.vpcf"
+			"particle"		"particles/units/heroes/hero_invoker/invoker_forged_spirit_projectile.vpcf"
+			"model"			"models/heroes/invoker/forge_spirit.vmdl"
+		}
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"30"
+		"AbilityManaCost"				"120"
+		"AbilityCastPoint"	"0.01"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Invoker.ForgeSpirit"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"	"OnPatchouliFireFire"
+				"BonusHealth"	"%bonus_health"
+				"BonusDamage"	"%bonus_damage"
+				"Duration"	"%duration"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_patchouli_fire_fire"
+			{
+				"IsHidden"				"0"	
+				"RemoveOnDeath"		"1"		
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+						"Function"				"OnDestroyPatchouliFireFire"
+						"Target"	"TARGET"
+						"Caster"	"CASTER"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"bonus_health"	"50"
+			"bonus_damage"	"10"
+			"duration"	"60.0"
+		}
+	}
+
+	"ability_thdots_patchouli_fire_fire_unit"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"				"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BUILDING"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"						"1"
+		"AbilityTextureName"			"custom/ability_thdots_patchouli_fire_fire_unit"
+		"IsBreakable"					"1"
+		"precache"
+		{}
+		"Modifiers"
+		{
+			"modifier_thdots_patchouli_fire_fire_unit"
+			{
+				"IsHidden"				"1"		
+				"Passive" "1"		
+				"OnDealDamage"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+						"Function"				"OnPatchouliFireFireUnit"
+						"ExDamage"				"%ex_damage"
+						"DealDamage"			"%attack_damage"
+					}
+				}				
+			}
+		}
+		"AbilityValues"
+		{
+			"ex_damage"			"75"
+		}
+	}
+
+	"ability_thdots_patchouli_fire_water"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_patchouli_fire_water"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.01"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"25"
+		"AbilityManaCost"	"150"
+		"MaxLevel"					"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"700"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_ogre_magi/ogre_magi_ignite_debuff.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_ember_spirit.vsndevts"
+			"particle"	"particles/units/heroes/hero_ogre_magi/ogre_magi_ignite_debuff.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_EmberSpirit.FlameGuard.Loop"
+				"Target"	"TARGET"
+			}
+			"RunScript"
+			{
+				"Target"	"TARGET"				
+				"Duration"	"%duration"
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"	"OnPatchouliFireWater"
+				"Damage"	"%damage"
+				"FireMultiple"	"%fire_multiple"
+				"WaterMultiple"	"%water_multiple"
+				"Radius"	"%radius"
+			}		
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}	
+		}		
+		"Modifiers"
+		{
+			"modifier_thdots_patchouli_fire_water"
+			{
+				"IsDebuff"			"1"
+				"IsPurgable"		"1"
+				"EffectName"	"particles/units/heroes/hero_ogre_magi/ogre_magi_ignite_debuff.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"Target"	"TARGET"
+			}
+		}
+		"AbilityValues"
+		{
+			"duration"	"1.5"
+			"damage"	"55"
+			"radius"
+			{
+				"value"			"450"
+				"affected_by_aoe_increase"	"1"
+			}
+			"fire_multiple"	"15"
+			"water_multiple"	"0.5"
+		}
+	}
+
+	"ability_thdots_patchouli_fire_wood"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_patchouli_fire_wood"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"1"
+		"AbilityCastPoint"	"0.01"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"20"
+		"AbilityManaCost"	"180"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"800"
+		"AOERadius"	"%damage_radius"
+		"precache"
+		{
+			"particle"	"particles/battlepass/healing_campfire_flame.vpcf"
+			"particle"	"particles/heroes/patchouli/fire_wood_char.vpcf"
+			"particle"	"particles/units/heroes/hero_doom_bringer/doom_loadout.vpcf"
+			"particle"	"particles/units/heroes/hero_dragon_knight/dragon_knight_transform_red_flames02.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_jakiro.vsndevts"
+		}
+		"OnSpellStart"
+		{			
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"	"OnPatchouliFireWood"
+				"Duration"	"%duration"
+				"Damage"	"%damage"
+				"FireMultiple"	"%fire_multiple"
+				"WoodMultiple"	"%wood_multiple"
+				"Caster"	"CASTER"
+				"Target"	"POINT"
+				"Radius"	"%damage_radius"
+				"DelayTime"	"%delay_time"
+			}	
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}				
+		}		
+		"AbilityValues"
+		{
+			"damage_radius"
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"3"
+			"damage"	"70"
+			"fire_multiple"	"30"
+			"wood_multiple"	"0.25"
+			"delay_time"	"2.0"
+		}
+
+	}
+
+	"ability_thdots_patchouli_fire_metal"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_patchouli_fire_metal"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.01"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"16"
+		"AbilityManaCost"	"125"
+		"MaxLevel"	"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"700"
+		"precache"
+		{
+			
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_nevermore.vsndevts"
+			"particle"	"particles/econ/items/shadow_fiend/sf_fire_arcana/sf_fire_arcana_shadowraze.vpcf"
+			"particle"	"particles/units/heroes/hero_nyx_assassin/nyx_assassin_mana_burn_msg.vpcf"
+			
+			"particle"		"particles/units/heroes/hero_invoker/invoker_alacrity.vpcf"
+			"particle"		"particles/units/heroes/hero_invoker/invoker_alacrity_buff.vpcf"
+			"particle"		"particles/status_fx/status_effect_alacrity.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Nevermore.ROS_Flames"
+				"Target"	"TARGET"
+			}
+			"FireEffect"
+			{
+				"EffectName"	"particles/econ/items/shadow_fiend/sf_fire_arcana/sf_fire_arcana_shadowraze.vpcf"
+				"EffectAttachType"	"world_origin"
+				"Target"	"TARGET"
+			}
+			"RunScript"
+			{
+				"Target"	"TARGET"
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"	"OnPatchouliFireMetal"
+				"FireMultiple"	"%fire_multiple"
+				"MetalMultiple"	"%metal_multiple"
+				"HealthDamage"	"%health_damage"
+				"ManaDamage"	"%mana_damage"
+				"BaseManaDamage"	"%base_mana_damage"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_patchouli_fire_metal_bonus_damage"
+			{						
+				"IsBuff"			"1"
+				"IsHidden"			"0"	
+				"Duration"	"%duration"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"			"%bonus_damage"					
+				}
+			}
+			"modifier_patchouli_fire_metal_bonus_attack_speed"
+			{						
+				"IsBuff"			"1"
+				"IsHidden"			"0"	
+				"Duration"	"%duration"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"		"%bonus_attack_speed"					
+				}
+			}
+			"modifier_patchouli_fire_metal_effect"
+			{
+				"IsBuff"	"1"
+				"IsHidden"	"1"
+				"StatusEffectName" 		"particles/status_fx/status_effect_alacrity.vpcf" 	   
+				"StatusEffectPriority"  "10"
+				"Duration"	"%duration"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"        "particles/units/heroes/hero_invoker/invoker_alacrity.vpcf"
+						"EffectAttachType"  "follow_overhead"
+						"Target"            "TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"        "particles/units/heroes/hero_invoker/invoker_alacrity_buff.vpcf"
+						"EffectAttachType"  "follow_overhead"
+						"Target"            "TARGET"
+					}
+				}				
+			}
+		}
+		"AbilityValues"
+		{
+			"health_damage"	"0.65"
+			"fire_multiple"	"0.05"
+			"metal_multiple"	"60"
+			"mana_damage"	"-20"
+			"base_mana_damage"	"0.25"
+			"bonus_damage"	"1"
+			"bonus_attack_speed"	"1"
+			"tips_damage"	"15"
+			"tips_attack_speed"	"15"
+			"duration"	"8.0"
+		}
+	}
+
+	"ability_thdots_patchouli_fire_earth"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_patchouli_fire_earth"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AoERadius"						"300"
+		"MaxLevel"				"1"
+		"AbilityCastPoint"	"0.01"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"20"
+		"AbilityManaCost"	"160"
+		"AbilityCastRange"				"650"
+		// Stats
+		// ----------------------------------------------------------------
+		"precache"
+		{			
+			"particle"	"particles/heroes/patchouli/patchouli_volcano.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_batrider.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Batrider.Flamebreak"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"	"OnPatchouliFireEarth"
+				"Duration"	"%duration"
+				"FireMultiple"	"%fire_multiple"
+				"EarthMultiple"	"%earth_multiple"
+				"Caster"	"CASTER"
+				"Radius"	"%radius"
+				"Target"		"POINT"
+				"Damage"	"%damage"
+			}	
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}			
+		}
+		"Modifiers"
+		{
+			"modifier_kinetic_field_datadriven"
+			{
+				"Aura"					"modifier_check_position"
+				"Aura_Radius"			"350"
+				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+				"Aura_Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_BASIC"
+			}
+			"modifier_check_position"
+			{
+				"IsHidden"	"1"
+				"OnUnitMoved"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+						"Function"		"CheckPosition"
+						"Radius"	"%radius"
+						"Duration"	"%duration"
+						"EarthMultiple"	"%earth_multiple"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+						"Function"		"RemoveModifiers"
+					}
+				}
+			}
+			"modifier_kinetic_field_debuff"
+			{
+				"IsHidden"	"1"
+				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE"	"0.1"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"1.2"
+			"fire_multiple"	"40"
+			"earth_multiple"	"0.4"
+			"damage"	"90"
+		}
+	}
+	
+	"ability_thdots_patchouli_water_water"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"				"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AOERadius" 					"300"
+		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"custom/ability_thdots_patchouli_water_water"
+		"MaxLevel"						"1"
+		
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"particle"		"particles/heroes/patchouli/patchouli_water_water.vpcf"
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_morphling.vsndevts"
+		}
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0.01"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"25"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"	
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Morphling.Death"
+				"Target"	"POINT"
+			}
+		 	"RunScript"
+		 	{
+		 		"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"	"OnPatchouliWaterWater"
+				"ExDuration"	"%ex_duration"
+				"Duration"		"%duration"
+				"Target"	"POINT"
+				"Radius"	"%radius"
+		 	}
+		 	"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}
+		} 
+
+		"Modifiers"
+		{			
+			"modifier_patchouli_water_water_debuff"
+			{
+				"IsDebuff"		"1"
+				"IsPurgable"		"0"	
+				"IsHidden"			"1"
+				"RemoveOnDeath"		"1"
+				"States"
+			    {
+			        "MODIFIER_STATE_SILENCED" "MODIFIER_STATE_VALUE_ENABLED"
+			    }
+			}
+			"modifier_patchouli_water_water_debuff_01"
+			{						
+				"IsDebuff"			"1"
+				"IsPurgable"		"0"	
+				"IsHidden"			"1"	
+				"RemoveOnDeath"		"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_slow"					
+				}
+			}
+			"modifier_patchouli_water_water_debuff_02"
+			{						
+				"IsDebuff"			"1"
+				"IsPurgable"		"0"		
+				"IsHidden"			"1"		
+				"RemoveOnDeath"		"1"	
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%water_multiple"					
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"ex_duration"					"0.5"
+			"duration"					"1.5"
+			"water_multiple"	"-5"
+			"move_slow"		"-5"
+		}
+	}
+
+	"ability_thdots_patchouli_water_wood"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"				"ability_datadriven"
+
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"MaxLevel"						"1"
+		"AbilityTextureName"			"custom/ability_thdots_patchouli_water_wood"
+		"AbilityManaCost"           "120"
+        "AbilityCastRange"				"600"
+		"AbilityCastPoint"				"0.01"
+        "AbilityCooldown"           "25"
+
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_treant.vsndevts"
+			"particle"		"particles/units/heroes/hero_keeper_of_the_light/keeper_of_the_light_chakra_magic.vpcf"
+		}
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Treant.LeechSeed.Target"
+				"Target"	"CASTER"
+			}
+			"FireEffect"
+			{
+				"EffectName"			"particles/units/heroes/hero_keeper_of_the_light/keeper_of_the_light_chakra_magic.vpcf"
+				"EffectAttachType"	"start_at_customorigin"
+				"ControlPointEntities"
+				{
+					"CASTER"	"follow_origin"
+					"TARGET"	"follow_origin"
+				}
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliWaterWood"
+				"BaseHealth"	"%base_health"
+				"BaseMana"		"%base_mana"
+				"ExHealth"		"%ex_health"
+				"ExMana"		"%ex_mana"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}
+		}
+		"AbilityValues"
+		{
+			"base_health"	"60"
+			"base_mana"		"60"
+			"ex_health"		"60"
+			"ex_mana"		"60"
+		}
+	}	
+
+	"ability_thdots_patchouli_water_metal"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_patchouli_water_metal"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"1"
+		"AbilityCastPoint"	"0.01"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"30"
+		"AbilityManaCost"	"180"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"700"
+		"AOERadius"	"%damage_radius"
+		"precache"
+		{
+			"particle"	"particles/battlepass/healing_campfire_flame.vpcf"
+			"particle"	"particles/heroes/patchouli/patchouli.vpcf"
+			"particle"	"particles/heroes/patchouli/patchouli_water_metal.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_viper.vsndevts"
+		}
+		"OnSpellStart"
+		{			
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"	"OnPatchouliWaterMetal"
+				"Duration"	"%duration"
+				"Damage"	"%damage"
+				"WaterMultiple"	"%water_multiple"
+				"MetalMultiple"	"%metal_multiple"
+				"Caster"	"CASTER"
+				"Target"	"POINT"
+				"Radius"	"%damage_radius"
+				"ReduceResistance"	"%reduce_resistance"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}	
+			"FireSound"
+			{
+				"EffectName"	"hero_viper.PoisonAttack.Target"
+				"Target"	"CASTER"
+			}				
+		}	
+		"Modifiers"
+		{	
+			"modifier_patchouli_water_metal_debuff"
+			{
+				"IsHidden"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS" "-25"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"damage_radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"5.0"
+			"damage"	"20"
+			"metal_multiple"	"20"
+			"water_multiple"	"3"
+			"reduce_resistance"	"9"
+		}
+	}
+
+	"ability_thdots_patchouli_water_earth"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_patchouli_water_earth"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.01"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"25"
+		"MaxLevel"						"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"100"
+		"AbilityCastRange"	"1700"
+		"HasScepterUpgrade"	"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_invoker/invoker_deafening_blast.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_naga_siren.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_NagaSiren.Riptide.Cast"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"	"OnPatchouliWaterEarth"
+				"Target"	"POINT"
+				"Caster"	"CASTER"
+				"hitbox_radius"	"%hitbox_radius"
+				"knockback_distance"	"%knockback_distance"
+				"knockback_speed"	"%knockback_speed"
+				"knockback_debuff_name"	"modifier_thdots_patchouli_water_earth_knockback"
+				"range"	"%range"
+				"speed"	"%speed"
+				"tick_interval"	"%tick_interval"
+				"ExDistance"	"%ex_distance"
+				"ExRange"		"%ex_range"
+				"BasicDamage"		"%basic_damage"
+				"ExDamage"		"%ex_damage"
+
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_patchouli_water_earth_knockback"
+			{
+				"IsPurgable"	"1"
+				"IsDebuff"	"1"
+				"IsHidden"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_ROOTED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_DISARMED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
+					//"MODIFIER_STATE_SPECIALLY_DENIABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_thdots_patchouli_water_earth_lock"
+			{
+				"IsPurgable"	"0"		
+				"IsDebuff"	"1"		
+				"IsHidden"	"1"		
+			}
+		}
+		"AbilityValues"
+		{
+			"hitbox_radius"
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
+			"knockback_distance"	"100"
+			"knockback_speed"	"300"
+			"range"	"500"
+			"speed"	"1400"
+			"tick_interval"	"0.03"
+			"ex_distance"	"50"
+			"ex_range"	"150"
+			"basic_damage"	"40"
+			"ex_damage"	"40"
+		}		
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+	}
+
+	"ability_thdots_patchouli_wood_wood"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_patchouli_wood_wood"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityCastPoint"	"0.01"
+		"AbilityCooldown"	"16"
+		"AbilityManaCost"	"75"
+		"MaxLevel"					"1"
+		"AbilityCastRange"	"600"
+		// 缓存特效
+		"precache"
+		{
+			"particle"	"particles/heroes/patchouli/wood_wood_allied_wood.vpcf"
+			"soundfile"	"soundevents/game_sounds.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Rune.Haste"
+				"Target"	"TARGET"
+			}
+			
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliWoodWood"
+				"ExDuration"		"%ex_duration"
+				"Duration"		"%duration"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_patchouli_wood_wood_effect"
+			{
+				"IsBuff"	"1"
+				"IsHidden"	"0"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"particles/heroes/patchouli/wood_wood_allied_wood.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"	"TARGET"
+					}
+				}	
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%speed"
+				}
+							
+			}			
+		}
+		"AbilityValues"
+		{
+			"speed"	"60"
+			"ex_duration"	"1"
+			"duration"	"1"
+		}
+	}
+
+	"ability_thdots_patchouli_wood_metal"
+	{
+		"BaseClass"				"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_patchouli_wood_metal"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"		"0.01"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"		"12"
+		"MaxLevel"				"1"		
+		"AbilityManaCost"	"120"
+		"AbilityCastRange"	"1200"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_shredder/shredder_chakram.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_shredder.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"	"OnPatchouliWoodMetal"
+				"Target"	"POINT"
+				"Caster"	"CASTER"
+				"hitbox_radius"	"%hitbox_radius"
+				"range"	"%range"
+				"speed"	"%speed"
+				"tick_interval"	"%tick_interval"
+				"HealRate"		"%heal_rate"
+				"ExDamage"		"%ex_damage"
+				"Damage"		"%damage"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}
+		}		
+		"AbilityValues"
+		{
+			"hitbox_radius"
+			{
+				"value"			"120"
+				"affected_by_aoe_increase"	"1"
+			}
+			"range"	"1200"
+			"speed"	"1600"
+			"tick_interval"	"0.03"
+			"ex_damage"	"50"
+			"damage"	"80"
+			"heal_rate"	"20"
+		}
+	}
+
+	"ability_thdots_patchouli_wood_earth"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_patchouli_wood_earth"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.01"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityManaCost"	"140"
+		"MaxLevel"	"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"700"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_treant/treant_overgrowth_vines.vpcf"
+			"particle"	"particles/units/heroes/hero_ogre_magi/ogre_magi_ignite_debuff.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_nevermore.vsndevts"
+			"particle"	"particles/econ/items/shadow_fiend/sf_fire_arcana/sf_fire_arcana_shadowraze.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Nevermore.ROS_Flames"
+				"Target"	"TARGET"
+			}
+			"RunScript"
+			{
+				"Target"	"TARGET"
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"	"OnPatchouliWoodEarth"
+				"Duration"	"%root_duration"
+				"ExDuration"		"%ex_duration"
+				
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}
+		}
+		"Modifiers"
+		{				
+			"modifier_patchouli_wood_earth_root"
+			{
+				"IsHidden"		"0"
+				"IsDebuff"		"1"
+				"IsPurgable"	"1"
+
+				"States"
+				{
+					"MODIFIER_STATE_ROOTED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"ThinkInterval"	"0.5"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{	
+						"Target"				"TARGET"
+						"Damage"				"%damage"
+						"ExDamage"				"%ex_damage"
+						"ScriptFile"			"scripts/vscripts/abilities/abilitypatchouli.lua"
+						"Function"				"OnPatchouliWoodEarthThink"
+					}	
+				}
+			}			
+		}
+		"AbilityValues"
+		{
+			"root_duration"	"0.7"
+			"ex_duration"	"0.3"
+			"damage"	"20"
+			"ex_damage"		"20"
+			"AbilityCooldown"
+			{
+				"value"	"20"
+				"special_bonus_unique_patchouli_3"	"-5"
+			}
+		}
+	}
+
+	"ability_thdots_patchouli_metal_metal"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"				"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilityTextureName"			"custom/ability_thdots_patchouli_metal_metal"
+		"MaxLevel"					"1"
+		"precache"
+		{
+			"particle"			"particles/units/heroes/hero_siren/naga_siren_riptide_debuff.vpcf"
+			"particle"			"particles/units/heroes/hero_dark_willow/dark_willow_wisp_spell_fear_debuff_detail.vpcf"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_shredder.vsndevts"
+			"soundfile"			"soundevents/thdots_hero_sounds/thdots_patchouli_sounds.vsndevts"
+		}
+		"AbilityCastPoint"				"0.01"
+		"AbilityCooldown"				"35"
+		"AbilityManaCost"				"160"		
+		"AbilityCastRange"				"800"
+		"AbilityValues"
+		{
+			"duration"					"10.0"
+			"MovementDamagePct"			"5"
+			"damage_cap_amount"			"1300"
+			"damage_cap_interval"		"0.25"
+			"reduce_armor"				"-0.1"
+			"ex_movement_damage_pct"		"5"
+		}
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"MetalMetalOnCreated"
+			}
+			//"ApplyModifier"
+			//{
+			//	"ModifierName"	"modifier_patchouli_metal_metal"
+			//	"Target"	"TARGET"
+			//}
+			
+			"FireSound"
+			{
+				"EffectName"	"Hero_Shredder.Chakram.Return"
+				"Target"		"TARGET"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_Shredder.Chakram.Return"
+				"Target"		"TARGET"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_Shredder.Chakram.Return"
+				"Target"		"TARGET"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}
+		}
+		
+		"Modifiers"
+		{
+			"modifier_patchouli_metal_metal"
+			{
+				"Duration"	"%duration"
+				"IsDebuff"	"1"
+				"IsHidden"	"0"
+				"IsPurgable"	"1"
+				//"EffectName"	"particles/units/heroes/hero_dark_willow/dark_willow_wisp_spell_fear_debuff_detail.vpcf"
+				"EffectName"	"particles/units/heroes/hero_dark_willow/dark_willow_wisp_spell_fear_debuff.vpcf"
+				"EffectAttachType"	"attach_origin"			
+				"OnCreated"
+				{
+					//"RunScript"
+					//{
+					//	"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+					//	"Function"		"MetalMetalOnCreated"
+					//}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+						"Function"		"OnPatchouliMetalMetal"
+						"ExDamage"	"%ex_movement_damage_pct"
+						"movement_damage_pct"	"%MovementDamagePct"
+					}
+				}				
+				"ThinkInterval"	"%damage_cap_interval"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+						"Function"		"OnPatchouliMetalMetal"
+						"ExDamage"	"%ex_movement_damage_pct"
+						"movement_damage_pct"	"%MovementDamagePct"
+					}
+				}
+				"OnDestroy"
+				{
+					"RemoveModifier"
+					{
+						"Target"	"TARGET"
+						"ModifierName"	"modifier_patchouli_metal_metal_debuff"
+					}
+				}
+			}
+			"modifier_patchouli_metal_metal_debuff"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"IsDebuff"	"1"
+				"Duration"	"%duration"
+				"IsPurgable"	"0"
+				"IsHidden"	"1"	
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%reduce_armor"
+				}
+			}
+		}
+	}
+
+	"ability_thdots_patchouli_metal_earth"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_patchouli_metal_earth"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.01"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"35"
+		"MaxLevel"						"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"200"
+		"AbilityCastRange"	"700"
+		"precache"
+		{
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_kanako_sounds.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_earth_spirit.vsndevts"
+			"particle"	"particles/units/heroes/hero_invoker/invoker_deafening_blast.vpcf"
+			"particle"	"particles/heroes/patchouli/metal_earth.vpcf"
+			"particle"	"particles/heroes/kanako/ability_kanako_01_explosion.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_SkywrathMage.Wings"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"	"OnPatchouliMetalEarth"
+				"Target"	"POINT"
+				"Caster"	"CASTER"
+				"hitbox_radius"	"%hitbox_radius"				
+				"range"	"%range"
+				"speed"	"%speed"
+				"tick_interval"	"%tick_interval"
+				"ExDamage"	"%ex_damage"
+				"ExRange"		"%ex_range"
+				"Damage"		"%damage"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}
+		}
+		"Modifiers"
+		{			
+			"modifier_thdots_patchouli_metal_earth_lock"
+			{
+				"IsPurgable"	"0"						
+			}
+		}
+		"AbilityValues"
+		{
+			"hitbox_radius"
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
+			"range"	"400"
+			"speed"	"300"
+			"tick_interval"	"0.03"
+			"ex_damage"	"30"
+			"ex_range"	"150"
+			"damage"	"90"
+		}
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+	}
+
+	"ability_thdots_patchouli_earth_earth"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"				"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"custom/ability_thdots_patchouli_earth_earth"
+		"MaxLevel"					"1"
+
+		"precache"
+		{
+			"soundfile"         "soundevents/game_sounds_heroes/game_sounds_leshrac.vsndevts"
+			"particle"			"particles/units/heroes/hero_ursa/ursa_earthshock.vpcf"
+		}
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"750"
+		"AbilityCastPoint"				"0.01"
+		"AOERadius"						"%radius"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"20"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"160"
+	
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage"			"85"
+			"ex_damage"			"45"
+			"duration"			"0.3"
+			"ex_duration"			"0.3"
+			"delay_time"			"1.0"
+			"radius"
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		"OnSpellStart"
+		{		
+			"DelayedAction"
+			{
+				"Delay"	"%delay_time"
+				"Action"
+				{	
+					"FireEffect"
+					{
+						"EffectName"        "particles/units/heroes/hero_ursa/ursa_earthshock.vpcf"
+						"EffectAttachType"  "start_at_customorigin"
+						"TargetPoint"       "POINT"
+						"ControlPoints"
+						{
+							"01"    "%radius %radius %radius"
+						}
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Leshrac.Split_Earth"
+						"Target" 		"CASTER"
+					}
+				}
+			}
+			"RunScript"
+			{
+				"ScriptFile"		"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"			"OnPatchouliEarthEarth"
+				"Target"	"POINT"
+				"Damage"			"%damage"
+				"ExDamage"			"%ex_damage"
+				"Duration"			"%duration"
+				"ExDuration"		"%ex_duration"
+				"DelayTime"			"%delay_time"
+				"Radius"			"%radius"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitypatchouli.lua"
+				"Function"		"OnPatchouliXianzhezhishi"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_patchouli_5"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_patchouli_6"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_patchouli_7"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_patchouli_8"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:火金符攻击攻速
+	//=================================================================================================================
+	"special_bonus_unique_patchouli_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"55"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：神罗天征
+	//=================================================================================================================
+	"special_bonus_unique_patchouli_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：-5缠绕
+	//=================================================================================================================
+	"special_bonus_unique_patchouli_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-5"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：+40 陨石伤害
+	//=================================================================================================================
+	"special_bonus_unique_patchouli_9"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"40"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:+250 森林大火判定
+	//=================================================================================================================
+	"special_bonus_unique_patchouli_10"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"250"
+		}
+	}
+}

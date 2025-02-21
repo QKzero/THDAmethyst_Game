@@ -1,0 +1,58 @@
+"DOTAAbilities"
+{
+    "item_recipe_leiyunzhiyuchuan"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_leiyunzhiyuchuan"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"200"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_leiyunzhiyuchuan"
+		"ItemRequirements"
+		{
+			"01"	"item_glue;item_swimming_suit"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_leiyunzhiyuchuan"
+	{
+		"BaseClass"	"item_lua"
+		"AbilityTextureName"	"item_leiyunzhiyuchuan"	//图标By 橘橘子
+		"ScriptFile"                    "items/item_leiyunzhiyuchuan"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE | DOTA_ABILITY_BEHAVIOR_UNRESTRICTED | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"ItemShareability"		"ITEM_FULLY_SHAREABLE"
+		"AbilityCooldown"	"25"
+		"AbilityManaCost"	"0"
+		"AbilityCastRange" "600"
+		"ItemCost"	"2400"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"magic_resist;armor"
+		"precache"
+		{
+			// "soundfile"	"soundevents/game_sounds_heroes/game_sounds_skeletonking.vsndevts"
+			// "particle"	"particles/units/heroes/hero_skeletonking/skeleton_king_weapon_blur_critical.vpcf"
+		}
+		"AbilityValues"
+		{
+			"bonus_armor"	"13"
+			"bonus_health"	"250"
+			"radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"distance"	"300"
+		}
+	}
+}

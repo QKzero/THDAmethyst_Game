@@ -1,0 +1,154 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Yukkuri Stick
+	// =================================================================================================================
+	"item_recipe_yukkuri_stick"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_yukkuri_stick"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8171"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1575"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_yukkuri_stick"
+		"ItemRequirements"
+		{
+			"01"	"item_sake;item_magic_guide_book;item_gran_grimoire"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Yukkuri Stick
+	// =================================================================================================================
+	"item_yukkuri_stick"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_yukkuri_stick"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"40"
+		"AbilityManaCost"	"250"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"800"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8172"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"int;regen_mana"
+		"ItemAliases"	"ibmbp's go home and get married;hex;scythe of vyse"
+		"precache"
+		{
+			"soundfile" "soundevents/game_sounds_heroes/game_sounds_lion.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"Item_yukkuri_stick_ModifierTarget"
+				"ModifierName"	"modifier_item_yukkuri_stick_debuff"
+				"Blockable"	"1"
+			}
+			// "FireSound"
+			// {
+			// 	"EffectName"	"Hero_Lion.Voodoo"
+			// 	"Target" 		"TARGET"
+			// }
+			// "FireEffect"
+			// {
+			// 	"EffectName"	"particles/units/heroes/hero_lion/lion_spell_voodoo.vpcf"
+			// 	"Target"		"TARGET"
+			// 	"EffectAttachType"	"follow_origin"
+			// }
+		}
+		"Modifiers"
+		{
+			"modifier_item_yukkuri_stick"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+				}
+			}
+			"modifier_item_yukkuri_stick_debuff"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%debuff_movespeed"
+				}
+				"States"
+				{
+					"MODIFIER_STATE_HEXED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MUTED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_DISARMED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_EVADE_DISABLED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_BLOCK_DISABLED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"voodoo_start"
+						"model"	"models/thd2/yukkuri/yukkuri.vmdl"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"HideWearables"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"voodoo_end"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ShowWearables"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_intellect"	"35"
+			"bonus_mana_regen"	"8.5"
+			"debuff_duration"	"2.5"
+			"debuff_movespeed"	"-300"
+			"Illusion_cooldown"	"50"
+		}
+	}
+}

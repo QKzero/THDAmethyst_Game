@@ -1,0 +1,98 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Watermelon
+	// =================================================================================================================
+	"item_recipe_watermelon"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_watermelon"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8059"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1100"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_watermelon"
+		"ItemRequirements"
+		{
+			"01"	"item_knife"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Watermelon 半灵练习剑
+	// =================================================================================================================
+	"item_watermelon"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_watermelon"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8060"
+		"ItemQuality"	"common"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1500"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"damage"
+		"ItemAliases"	"watermelon"
+		"Modifiers"
+		{
+			"modifier_item_watermelon_attack"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_ModifierTarget"
+						"ModifierName"	"modifier_item_watermelon_debuff"
+					}
+				}
+			}
+			"modifier_item_watermelon_debuff"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Duration"	"duration"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%corruption_armor"
+				}
+			}
+			"modifier_item_watermelon"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+				}
+			}
+		}
+		// 定义物品是否可以被丢弃，1表示可以丢弃
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"	"20"
+			"corruption_armor"	"-3"
+			"duration"	"5.0"
+		}
+	}
+}

@@ -1,0 +1,122 @@
+"DOTAAbilities"
+{
+	"item_recipe_nuetrident"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_nuetrident"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// "ID"	"8202"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"700"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_nuetrident"
+		"ItemRequirements"
+		{
+			"01"	"item_grudge_bow;item_gran_grimoire"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+        "ItemPurchasable" "1"
+	}
+
+	// =================================================================================================================
+	// Grudge Bow
+	// =================================================================================================================
+	"item_nuetrident"
+	{
+     //   "ItemPurchasable" "0"
+		"BaseClass"	             "item_datadriven"
+		"AbilityTextureName"	 "item_nuetrident"
+		"AbilityBehavior"	     "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetFlags" "DOTA_UNIT_TARGET_FLAG_NONE"
+		"AbilityUnitDamageType"	 "DAMAGE_TYPE_MAGICAL"
+		"AbilityCooldown"		"7.0"
+		"AbilityCastPoint"	"0.0"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		// "AbilityCastRange"	"1000"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		// "ID"	"8203"
+		"ItemQuality"	"common"
+		
+		
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5500"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"agi"
+		// 定义物品是否可以被丢弃，1表示可以丢弃
+        // "AbilitySharedCooldown"	"grudgebow"
+		"Modifiers"
+		{
+			"modifier_item_nuetrident_attack_cd_ready"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"OnAttackLanded"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"particles/base_attacks/ranged_tower_good_launch.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"	"TARGET"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Nuetrident_OnAttack"
+						"Caster"	"CASTER"
+						"Target"	"TARGET"
+						"Damagemanabonus"	"%damage_bonus_mana_attack"
+                        "Duration"	"%duration"
+                        "Decrease"	"%decrease"
+					}
+				}
+			}
+			"modifier_item_nuetrident"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"		"%bonus_mana_regen"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_PROJECTILE_SPEED_BONUS"	"%projectile_speed"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"	"6"
+			"bonus_intellect"	"40"
+			"bonus_mana_regen"		"2"
+			"bonus_attack_speed"	"50"
+			"projectile_speed"	"300"
+			"damage_bonus_mana_attack"	"6"
+			"decrease"	"20"
+			"int_atk_duration"
+			{
+				"value"	"5"
+				// "CalculateSpellamageTooltip"  "0"
+				//该键值决定该变量的面板是否计算技能增强，e为不计算，如果变量被命名为“damage"贝黑认为1"DamageTypeTooltip"
+			}
+		}
+	}
+}

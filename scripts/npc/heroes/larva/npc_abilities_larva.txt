@@ -1,0 +1,229 @@
+// Dota2 Editor
+// Get latest version: https://github.com/zombieJ/nw-dota2editor
+
+"DOTAAbilities"
+
+{
+	"Version"		"1"
+				 
+	"ability_thdots_larvaEx"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_larvaEx"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitylarva.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"	"1"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_faceless_void.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_warlock.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_visage.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_dark_seer.vsndevts"
+
+			"particle"			"particles/units/heroes/hero_brewmaster/brewmaster_windwalk.vpcf"
+			"particle"			"particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf"
+			"particle"			"particles/econ/items/antimage/antimage_weapon_basher_ti5_gold/antimage_manavoid_explode_b_ti_5_gold.vpcf"
+			"particle"			"particles/units/heroes/hero_void_spirit/dissimilate/void_spirit_dissimilate_dmg_shock.vpcf"
+			"particle"			"particles/econ/items/death_prophet/death_prophet_acherontia/death_prophet_acher_swarm.vpcf"
+			"particle"			"particles/units/heroes/hero_death_prophet/death_prophet_carrion_swarm.vpcf"
+			"particle"			"particles/econ/items/nightstalker/nightstalker_black_nihility/nightstalker_black_nihility_void_swarm.vpcf"
+			"particle"			"particles/econ/items/faceless_void/faceless_void_bracers_of_aeons/fv_bracers_of_aeons_red_timedialate.vpcf"
+			"particle"			"particles/units/heroes/hero_faceless_void/faceless_void_chrono_speed.vpcf"
+		}	
+		"AbilityValues"
+		{
+			"duration"  "15"
+			"damage_percent"  "15"
+		}
+	}
+				 
+   "ability_thdots_larva01"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_larva01"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitylarva.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"precache"
+		{
+			"particle"		"particles/units/larva/larva01.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"	"24 20 16 12"
+			"AbilityManaCost"	"60"
+
+			"duration"			"2"
+			"length"
+			{
+				"value"							"1200"
+				"special_bonus_unique_larva_2"	"+800"
+			}
+			"width"
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"debuff_duration"	"3"
+			"slow_percent"		"-100"
+			"damage"			"100 150 200 250"
+			"fly_duration"		"5"
+			"damage_bonus_per_difference"	"2"
+		}
+	}
+
+	"ability_thdots_larva02"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_larva02"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitylarva.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"precache"
+		{
+			"particle"		"particles/heroes/larva/ability_larva_02_warning_circle.vpcf"
+			"particle"		"particles/units/heroes/hero_dark_willow/dark_willow_willowisp_ambient_trail_bits.vpcf"
+			"particle"		"particles/units/heroes/hero_dark_willow/dark_willow_shadow_realm_alert_burst.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.0"
+			"AbilityCooldown"	"18 16 14 12"
+			"AbilityManaCost"	"90"
+
+			"duration"		"6"
+			"damage"		"24 36 48 60"
+			"slow"			"-15 -20 -25 -30"
+			"radius"
+			{
+				"value"						"425"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage_bonus"	"8 12 16 20"
+		}
+	} 
+
+	 "ability_thdots_larva03"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_larva03"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitylarva.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+		"precache"
+		{
+			"particle"		"particles/heroes/larva/lotus_orb_shield.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCooldown"
+			{
+				"value"							"25 21 17 13"
+				"special_bonus_unique_larva_1"	"-4"
+			}
+			"AbilityCastPoint"	"0.2"
+			"AbilityManaCost"	"75"
+			"AbilityCastRange"	"500 550 600 650"
+
+			"duration"		"3"
+			"slowtime"		"1.2 1.8 2.4 3.0"
+			"slow"			"-90"
+		}
+	}
+
+	"ability_thdots_larva04"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_larva04"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitylarva.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"HasScepterUpgrade"	"1"
+		"MaxLevel"	"3"
+		"precache"
+		{
+			"particle"		"particles/units/larva/larva04.vpcf"
+			"particle"		"particles/units/larva/larva04line.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCooldown"	"100 80 60"
+			"AbilityManaCost"	"200"
+			"AbilityCastRange"	"400"
+
+			"duration"		"6"
+			"damage"
+			{
+				"value"							"100 200 300"
+				"special_bonus_unique_larva_3"	"+200"
+			}
+			"movelimit"		"575"
+			"stuntime"		"5"
+			"radius"
+			{
+				"value"						"525"
+				"affected_by_aoe_increase"	"1"
+			}
+			"slow"			"-50 -70 -90"
+			"damagelimit"	"150 300 450"
+		}
+	}
+	
+	"special_bonus_unique_larva_1"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+	"special_bonus_unique_larva_2"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+	"special_bonus_unique_larva_3"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+	"special_bonus_unique_larva_4"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"7"
+		}
+	}
+	"special_bonus_unique_larva_5"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"2"
+		}
+	}
+	"special_bonus_unique_larva_6"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"2"
+		}
+	}
+}

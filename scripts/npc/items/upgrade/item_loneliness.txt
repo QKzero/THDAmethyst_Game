@@ -1,0 +1,97 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Loneliness
+	// =================================================================================================================
+	"item_recipe_loneliness"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"			"item_recipe_loneliness"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8102"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1800"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_loneliness"
+		"ItemRequirements"
+		{
+			"01"	"item_god_hand;item_god_hand"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Loneliness
+	// =================================================================================================================
+	"item_loneliness"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_loneliness"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8103"
+		"ItemQuality"	"secret_shop"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"6000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"str;regen_health"
+		"ItemAliases"	"tacticus;heart of tarrasque"
+		"Modifiers"
+		{
+			"modifier_item_loneliness"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength" 
+				}
+			}
+			"modifier_item_loneliness_decrease_damage"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"		"%decrease_damage"
+				}
+			}
+			"modifier_item_loneliness_regen_health"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				// "IsHidden"	"1"
+				"ThinkInterval"	"0.5"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_LoneLiness_RegenHealth"
+						"PercentHealthRegenBonus"	"%percent_health_regen_bonus"
+						"HealthRegenMultiplier"	"%health_regen_multiplier"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"40"
+			"percent_health_regen_bonus"	"3.0"
+			"health_regen_multiplier"	"60.0"
+			"decrease_damage"	"-10"
+		}
+	}
+}

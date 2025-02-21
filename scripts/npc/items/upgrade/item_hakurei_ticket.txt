@@ -1,0 +1,149 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Hakurei Ticket
+	// =================================================================================================================
+	"item_recipe_hakurei_ticket"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_hakurei_ticket"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8122"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"800"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_hakurei_ticket"
+		"ItemRequirements"
+		{
+			"01"	"item_glue;item_best_lunchbox"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Hakurei Ticket
+	// =================================================================================================================
+	"item_hakurei_ticket"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_hakurei_ticket"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"35"
+		"AbilityManaCost"	"110"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8123"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"3072"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"regen_health;regen_mana;str;agi;int;armor"
+		"ItemAliases"	"summer reitaisai invitation;mekansm"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_HakureiTicket_FeastHeal"
+				"HealAmount"	"%feast_heal_amount"
+				"Target"
+				{
+					"Center"	"CASTER"
+					"Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+					"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+					"Radius"	"%feast_radius"
+				}
+			}
+			"ApplyModifier"
+			{
+				"Target"
+				{
+					"Center"	"CASTER"
+					"Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+					"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+					"Radius"	"%feast_radius"
+				}
+				"ModifierName"	"modifier_item_hakurei_ticket_feast_buff"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_hakurei_ticket"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	
+				{
+					
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_BONUS"			"%bonus_health"
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_all_stats"
+				}
+			}
+			"aura_item_hakurei_ticket_health_regen"
+			{
+				"IsHidden"	"0"
+				"Passive"	"1"
+				"Aura"	"modifier_item_hakurei_ticket_health_regen"
+				"Aura_Radius"	"%feast_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+				"Aura_ApplyToCaster"	"1"
+			}
+			"modifier_item_hakurei_ticket_health_regen"
+			{
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%aura_health_regen"
+				}
+			}
+			"modifier_item_hakurei_ticket_feast_buff"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Duration"	"%feast_buff_duration"
+				"IsBuff"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%feast_bonus_armor"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health_regen"	"4"
+			"bonus_mana_regen"	"3.5"
+			"bonus_all_stats"	"5"
+			"aura_health_regen"	"3"
+			"feast_radius"
+			{
+				"value"			"750"
+				"affected_by_aoe_increase"	"1"
+			}
+			"feast_heal_amount"	"250"
+			"feast_bonus_armor"	"3"
+			"feast_buff_duration"	"20"
+			"bonus_health"	"250"
+		}
+	}
+}

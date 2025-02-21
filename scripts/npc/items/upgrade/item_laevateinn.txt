@@ -1,0 +1,51 @@
+"DOTAAbilities"
+{
+    "item_recipe_laevateinn"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_laevateinn"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"800"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_laevateinn"
+		"ItemRequirements"
+		{
+			"01"	"item_tengu_fan;item_ice_block;item_bloodthirstiest"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_laevateinn"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"                    "items/item_laevateinn"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"Model"							"models/props_gameplay/red_box.vmdl" 
+		"Effect"						"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"			"item_laevateinn"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"5500"
+		"ItemShopTags"					"unique"
+		"ItemQuality"					"component"
+		"ItemAliases"					"morbid mask"
+		"SideShop"						"0"
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"lifesteal_percent"		"40"
+			"bonus_agility"		    "30"
+			"bonus_strength"		"10"
+			"bonus_intellect"		"10"
+			"amplify_percent"		"25"
+		}
+	}
+}

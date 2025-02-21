@@ -1,0 +1,142 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: tuzhushen
+	// =================================================================================================================
+	"item_recipe_tuzhushen"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"7997"
+		"ItemCost"	"500"
+		"AbilityTextureName"	"item_recipe_tuzhushen"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_tuzhushen"
+		"ItemRequirements"
+		{
+			"01"	"item_zun_glasses;item_qijizhixing"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+    // =================================================================================================================
+	// 土著神
+	// =================================================================================================================
+	"item_tuzhushen"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_tuzhushen"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCastRange"	"650"
+		"AbilityCooldown"	"50"
+		"AbilityManaCost"	"22"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"7998"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5700"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"regen_health;regen_mana;armor"
+		"AOERadius"	"%target_radius"
+
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_qijizhixing.vpcf"
+		}
+
+		"OnSpellStart"
+		{	
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_Tuzhushen_OnSpell"
+				"Target"	"TARGET"
+				"Caster"	"CASTER"
+				"target_radius"	"%target_radius"
+				"feast_buff_duration"	"%feast_buff_duration"
+				"feast_health_regen"	"%feast_health_regen"
+				"bonu_heal"	"%bonu_heal"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_tuzhushen"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MANA_BONUS"			"%bonus_mana"
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_str_stats"
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+				}
+			}
+			"aura_item_tuzhushen_effect"
+			{
+				"IsHidden"	"0"
+				"Passive"	"1"
+				"Aura"	"modifier_item_tuzhushen_effect"
+				"Aura_Radius"	"%aura_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+				"Aura_ApplyToCaster"	"1"
+			}
+			"modifier_item_tuzhushen_effect"
+			{
+				"Target"	"TARGET"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%tuzhushen_health_regen"
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS"	"%tuzhushen_bonus_mgcical_resitance"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health_regen"	"5"
+			"bonus_mana_regen"	"3"
+			"bonus_str_stats"	"7"
+			"bonus_mana"	"200"
+			"feast_radius"
+			{
+				"value"			"650"
+				"affected_by_aoe_increase"	"1"
+			}
+			"tuzhushen_bonus_mgcical_resitance"	"22"
+			"tuzhushen_health_regen"	"5"
+			"feast_buff_duration"	"8"
+			"feast_health_regen"	"35"
+			"bonus_health"	"200"
+			"aura_radius"
+			{
+				"value"			"1000"
+				"affected_by_aoe_increase"	"1"
+			}
+			"target_radius"
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"barrier_block"	"300"
+			"bonus_armor"					"4"
+			"bonu_heal"					    "350"
+		}
+	}
+}

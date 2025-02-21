@@ -1,0 +1,404 @@
+"DOTAAbilities"
+{
+	"ability_thdots_eirinex"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_eirinex"
+		"ScriptFile"					"scripts/vscripts/abilities/abilityeirin.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"MaxLevel"	"1"
+		"AbilityCastPoint"	"0"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+		"AbilityCooldown"	"35"
+		"AbilityManaCost"	"60"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"300"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_items.vsndevts"
+			"particle"	"particles/items_fx/healing_flask.vpcf"
+			"particle"	"particles/items2_fx/mask_of_madness.vpcf"
+		}
+		//"OnSpellStart"
+		//{
+		//	"FireSound"
+		//	{
+		//		"EffectName"	"DOTA_Item.HealingSalve.Activate"
+		//		"Target"	"TARGET"
+		//	}	
+		//	"RunScript"
+		//	{
+		//		"ScriptFile"	"scripts/vscripts/abilities/abilityEirin.lua"
+		//		"Function"	"OnEirinExEffect"		
+		//		"Duration"	"%ability_duration"
+		//		"Target"	"TARGET"
+		//	}
+		//	"ApplyModifier"
+		//	{
+		//		"Target"	"TARGET"
+		//		"ModifierName"	"modifier_ability_thdots_eirinex_health_regen"
+		//	}
+		//	"Random"
+		//	{
+		//		"Chance"	"%RandomchanceValue"
+		//		"OnSuccess"
+		//		{
+		//			"ApplyModifier"
+		//			{
+		//				"ModifierName"	"modifier_ability_thdots_eirinex_exciting"
+		//				"Target"	"TARGET"
+		//			}
+		//		}
+		//	}
+		//}
+		//"Modifiers"
+		//{
+		//	"modifier_ability_thdots_eirinex_health_regen"
+		//	{
+		//		"Duration"	"%ability_duration"
+		//		"OnCreated"	{}
+		//		"Target"	"TARGET"
+		//		"Properties"
+		//		{
+		//			"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+		//		}
+		//		"OnTakeDamage"
+		//		{
+		//			"RunScript"
+		//			{
+		//				"ScriptFile"	"scripts/vscripts/abilities/abilityEirin.lua"
+		//				"Function"		"OnEirinExTakeDamage"
+		//				"Caster"		"CASTER"
+		//				"attacker"		"ATTACKER"
+		//			}
+		//		}
+		//	}
+		//	"modifier_ability_thdots_eirinex_exciting"
+		//	{
+		//		"Duration"	"%ability_duration"
+		//		"OnCreated"	{}
+		//		"Target"	"TARGET"
+		//		"EffectName"	"particles/items2_fx/mask_of_madness.vpcf"
+		//		"EffectAttachType"	"follow_origin"
+		//		"Properties"
+		//		{
+		//			"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_speed"
+		//			"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed_bouns"
+		//		}
+		//	}
+		//}
+		"AbilityValues"
+		{
+			"ability_duration"	"5"
+			"bonus_health_regen"	"45"
+			"move_speed"	"20"
+			"attackspeed_bouns"	"50"
+			"RandomchanceValue"	"35"
+		}
+	}
+
+	"ability_thdots_eirin02"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_eirin02"
+		"ScriptFile"					"scripts/vscripts/abilities/abilityeirin.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AbilityCooldown"	"22 20 18 16"
+		"AbilityManaCost"	"75 90 105 120"
+		"HasScepterUpgrade"			"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"3000"
+		"ID"	"2051"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_witchdoctor/witchdoctor_ward_skull.vpcf"
+			"particle"	"particles/units/heroes/hero_witchdoctor/witchdoctor_voodoo_restoration_heal.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_puck.vsndevts"
+			"particle"	"particles/heroes/eirin/ability_eirin_02.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_mirana.vsndevts"
+		}
+		//"OnSpellStart"
+		//{
+		//	"RunScript"
+		//	{
+		//		"ScriptFile"	"scripts/vscripts/abilities/abilityEirin.lua"
+		//		"Target"	"CASTER"
+		//		"Function"	"OnEirin02SpellStart"
+		//	}
+		//	"FireSound"
+		//	{
+		//		"EffectName"	"Hero_Mirana.Arrow "
+		//		"Target"	"CASTER"
+		//	}
+		//	"ApplyModifier"
+		//	{
+		//		"Target"	"CASTER"
+		//		"ModifierName"	"modifier_thdots_eirin02_magic_immune"
+		//	}
+		//	"LinearProjectile"
+		//	{
+		//		"EffectName"	"particles/heroes/eirin/ability_eirin_02.vpcf"
+		//		"MoveSpeed"	"%move_speed"
+		//		"StartRadius"	"%collision_radius"
+		//		"EndRadius"	"%collision_radius"
+		//		"FixedDistance"	"%length"
+		//		"TargetTeams"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		//		"TargetTypes"	"DOTA_UNIT_TARGET_HERO"
+		//		"TargetFlags"	"DOTA_UNIT_TARGET_FLAG_NOT_ANCIENTS | DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+		//		"HasFrontalCone"	"0"
+		//		"ProvidesVision"	"1"
+		//		"VisionRadius"	"300"
+		//	}
+		//}
+		//"OnProjectileHitUnit"
+		//{
+		//	"FireSound"
+		//	{
+		//		"EffectName"	"Hero_Mirana.ArrowImpact"
+		//		"Target"	"TARGET"
+		//	}
+		//	"RunScript"
+		//	{
+		//		"ScriptFile"	"scripts/vscripts/abilities/abilityEirin.lua"
+		//		"Target"	"TARGET"
+		//		"Function"	"OnEirin02SpellHit"
+		//		"Damage"	"%damage"
+		//		"Radius"	"%radius"
+		//		"StunDuration"	"%stun_duration"
+		//	}
+		//}
+		"Modifiers"
+		{
+			"modifier_thdots_eirin02_magic_immune"
+			{
+				"Duration"	"0.1"
+				"States"
+				{
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"move_speed"	"1250"
+			"collision_radius"
+			{
+				"value"			"80"
+				"affected_by_aoe_increase"	"1"
+			}
+			"explosion_radius"
+			{
+				"value"			"80"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"	"30 60 90 120"
+			"length"	"3000"
+			"stun_duration"	"0.1"
+			"radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		"AbilityDamage"	"50 100 150 200"
+	}
+
+	"ability_thdots_eirin03"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_eirin03"
+		"ScriptFile"					"scripts/vscripts/abilities/abilityeirin.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+		"AbilityCooldown"	"25 20 15 10"
+		"AbilityManaCost"	"100"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"550 700 850 1000"
+		"ID"	"2052"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_treant.vsndevts"
+			"particle"	"particles/units/heroes/hero_mirana/mirana_moonlight_ray.vpcf"
+			"particle"	"particles/units/heroes/hero_mirana/mirana_moonlight_owner.vpcf"
+		}
+		//"OnSpellStart"
+		//{
+		//	"FireSound"
+		//	{
+		//		"EffectName"	"Hero_Treant.NaturesGuise.On"
+		//		"Target"	"TARGET"
+		//	}
+		//	"AttachEffect"
+		//	{
+		//		"EffectName"	"particles/units/heroes/hero_mirana/mirana_moonlight_ray.vpcf"
+		//		"EffectAttachType"	"follow_origin"
+		//		"Target"	"TARGET"
+		//	}
+		//	"ApplyModifier"
+		//	{
+		//		"Target"	"TARGET"
+		//		"ModifierName"	"modifier_ability_thdots_eirin03_effect"
+		//	}
+		//}
+		//"Modifiers"
+		//{
+		//	"modifier_ability_thdots_eirin03_effect"
+		//	{
+		//		"Duration"	"%ability_duration"
+		//		"OnCreated"
+		//		{
+		//			"AttachEffect"
+		//			{
+		//				"EffectName"	"particles/units/heroes/hero_mirana/mirana_moonlight_owner.vpcf"
+		//				"EffectAttachType"	"follow_overhead"
+		//				"Target"	"TARGET"
+		//			}
+		//			"RunScript"
+		//			{
+		//				"ScriptFile"	"scripts/vscripts/abilities/abilityEirin.lua"
+		//				"Target"	"TARGET"
+		//				"Function"	"OnEirin03EffectInvisible"
+		//				"Duration"	"%ability_duration"
+		//			}
+		//		}
+		//		"Properties"
+		//		{
+		//			"MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE"	"%attack_bonus"
+		//			"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%int_bonus"
+		//		}
+		//	}
+		//}
+		"AbilityValues"
+		{
+			"ability_duration"	"10.5"
+			"attack_bonus"	"5 30 55 80"
+			"int_bonus"	"10 15 20 25"
+		}
+	}
+
+	"ability_thdots_eirin04"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityeirin.lua"
+		"AbilityTextureName"	"custom/ability_thdots_eirin04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityManaCost"	"150"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"800"
+		"ID"	"2053"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_dazzle.vsndevts"
+			"particle"	"particles/heroes/eirin/ability_eirin_04.vpcf"
+			"particle"	"particles/units/heroes/hero_omniknight/omniknight_purification.vpcf"
+		}
+		"AbilityValues"
+		{
+			"buff_duration"	"5.0 7.0 9.0"
+			"health_regen"	"270 380 530"
+			"AbilityCooldown"
+			{
+				"value"	"135 120 105"
+				"special_bonus_unique_eirin_6"	"-60"
+			}
+		}
+	}
+
+	"special_bonus_unique_eirin_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	"special_bonus_unique_eirin_2"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_eirin_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"						"-9"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：天生同时提供回血和加速，不会被打断
+	//=================================================================================================================
+	"special_bonus_unique_eirin_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：隐身夜间视野加成
+	//=================================================================================================================
+	"special_bonus_unique_eirin_5"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"500"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：减少大招CD
+	//=================================================================================================================
+	"special_bonus_unique_eirin_6"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-60"
+		}
+	}
+}

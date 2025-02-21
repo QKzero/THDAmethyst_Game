@@ -1,0 +1,52 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Aunt Clothes
+	// =================================================================================================================
+	"item_aunt_clothes"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_aunt_clothes"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8029"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"250"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"armor;health_pool"
+		"ItemAliases"	"grand dress"
+		"Modifiers"
+		{
+			"modifier_item_aunt_clothes"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"	"2"
+			"bonus_health"	"50"
+		}
+		// Sound
+		// -------------------------------------------------------------------------------------------------------------
+		"UIPickupSound"	"Item.PickUpRingShop"
+		"UIDropSound"	"Item.DropRingShop"
+		"WorldDropSound"	"Item.DropRingWorld"
+	}
+}

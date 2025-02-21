@@ -1,0 +1,113 @@
+"DOTAAbilities"
+{
+    "item_recipe_cishidaishouji"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_cishidaishouji"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"200"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_cishidaishouji"
+		"ItemRequirements"
+		{
+			"01"	"item_luna_chip;item_bird"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_cishidaishouji"
+	{
+		"BaseClass"				"item_datadriven"
+		"AbilityTextureName"	"item_cishidaishouji" // 图标By 橘橘子
+		"ItemDeclarations"		"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"0"
+		"AbilityManaCost"	"0"
+		//"AbilityCastRange"	"600"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"		"2700"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"attack_speed;damage"
+		"precache"
+		{
+			// "soundfile"	"soundevents/game_sounds_heroes/game_sounds_antimage.vsndevts"
+		}
+
+		"AbilityValues"
+		{
+			"bonus_damage"				"5"
+			"duration"					"6.0"
+			"bonus_attack_speed"		"30"
+			"bonus_mana"				"350"
+			"pre_bonus_damage"			"4"
+			"pre_bonus_attack_speed"	"10"
+			"max_count"					"5"
+			"mana_regen"				"5"
+		}
+
+		"Modifiers"
+		{
+			"modifier_item_cishidaishouji_basic"
+			{
+				"Attributes"		"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"			"1"
+				"IsHidden"			"1"
+				"IsDebuff"			"0"
+				"IsPurgable"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"		"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_MANA_BONUS"		"%bonus_mana"
+				}
+			}
+			"modifier_item_cishidaishouji_passsive"
+			{
+				"Passive"			"1"
+				"IsHidden"			"1"
+				"IsDebuff"			"0"
+				"IsPurgable"		"0"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"items/item_cishidaishouji.lua"
+						"Function"		"OnCishidaishoujiAttackLanded"
+						"Target"		"CASTER"
+					}
+				}
+			}
+			"modifier_item_cishidaishouji_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsDebuff"			"0"
+				"IsPurgable"		"1"
+				"Duration"			"%duration"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"		"%pre_bonus_damage"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"		"%pre_bonus_attack_speed"
+				}
+			}
+		}
+	}
+}

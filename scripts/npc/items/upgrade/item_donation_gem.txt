@@ -1,0 +1,107 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Donation Gem
+	// =================================================================================================================
+	"item_recipe_donation_gem"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_donation_gem"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8057"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"510"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_donation_gem"
+		"ItemRequirements"
+		{
+			"01"	"item_scissors;item_mushroom_kebab"
+			"02"	"item_scissors;item_mushroom_pie"
+			"03"	"item_scissors;item_mushroom_soup"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Donation Gem
+	// =================================================================================================================
+	"item_donation_gem"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_donation_gem"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityCooldown"	"1.0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8058"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2050"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"damage;str;agi;int"
+		"Modifiers"
+		{
+			"modifier_item_donation_gem"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+				}
+			}
+			"modifier_item_donation_gem_attack"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnKill"
+				{
+					"Random"
+					{
+						"Chance"	"%bonus_gold_chance"
+						"OnSuccess"
+						{
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+								"Function"	"ItemAbility_DonationGem_BounsGold"
+								"GoldBountyAmount"	"%bonus_gold"
+							}
+						}
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_DonationGem_BounsGoldConst"
+						"GoldBountyAmount"	"%bonus_gold_const"
+					}
+				}
+			}
+		}
+		// Values
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_all_stats"	"6"
+			"bonus_damage"	"15"
+			// Bonus influenced by chance
+			"bonus_gold_chance"	"25"
+			"bonus_gold"	"40"
+			// Bonus which is constant
+			"bonus_gold_const"	"2"
+		}
+	}
+}

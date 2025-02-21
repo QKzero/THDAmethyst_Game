@@ -1,0 +1,440 @@
+"DOTAAbilities"
+{
+    "ability_thdots_sakuyaEx"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_sakuyaEx"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
+		// "AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		"MaxLevel"	"1"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"0"
+		"ID"	"2025"
+		"precache"
+		{
+			"particle"	"particles/heroes/sakuya/ability_sakuya_ex.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts"
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_sakuyaEx_flag"
+			{
+				"IsHidden"	"0"
+				"IsDebuff"	"0"
+				"IsPurgable" "0"
+			}
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Invoker.Alacrity"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"Caster"	"CASTER"
+				"ScriptFile"	"scripts/vscripts/abilities/abilitySakuya.lua"
+				"Function"	"OnSakuyaExSpellStart"
+			}
+		}
+		"AbilityValues"
+		{
+			"stun_duration"
+			{
+				"value"	"1"
+				"LinkedSpecialBonus"	"special_bonus_unique_sakuya_1"
+			}
+			"AbilityCooldown"
+			{
+				"value"	"13"
+				"special_bonus_unique_sakuya_2"	"-6"
+			}
+		}
+	}
+
+	"ability_thdots_sakuya01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_sakuya01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"5.0"
+		"AbilityManaCost"	"45"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"1150 1300 1450 1600"
+		"ID"	"2023"
+		"precache"
+		{
+			"particle"	"particles/heroes/sakuya/ability_sakuya_ex_stun.vpcf"
+			"particle"	"particles/heroes/marisa/marisa_04_spark_circle.vpcf"
+			"particle"	"particles/thd2/heroes/sakuya/ability_sakuya_01.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_phantom_assassin.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitySakuya.lua"
+				"Caster"	"CASTER"
+				"Function"	"OnSakuya01SpellReset"
+			}
+			"LinearProjectile"
+			{
+				"EffectName"	"particles/thd2/heroes/sakuya/ability_sakuya_01.vpcf"
+				"MoveSpeed"	"%move_speed"
+				"StartRadius"	"%collision_radius"
+				"EndRadius"	"%collision_radius"
+				"StartPosition"	"attach_hitloc"
+				"FixedDistance"	"%length"
+				"TargetTeams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"TargetTypes"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"TargetFlags"	"DOTA_UNIT_TARGET_FLAG_NOT_ANCIENTS"
+				"HasFrontalCone"	"0"
+				"ProvidesVision"	"1"
+				"VisionRadius"	"300"
+			}
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"	"false"
+			"FireSound"
+			{
+				"EffectName"	"Hero_PhantomAssassin.Dagger.Cast"
+				"Target"	"TARGET"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitySakuya.lua"
+				"Target"	"TARGET"
+				"Function"	"OnSakuya01SpellStart"
+				"Damage"	"%damage"
+				"StunDuration"	"%stun_duration"
+				"DamageBouns"	"%damage_bouns"
+				"AgiMulti"	"%agi_multi"
+				"IntMulti"	"%int_multi"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_sakuya_pause_unit"
+			{
+				"IsHidden"	"1"
+				// "Duration"	"1.0"
+				"IsDebuff"	"1"
+				"IsPurgable" "0"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_FROZEN"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"move_speed"	"2000"
+			"collision_radius"
+			{
+				"value"			"120"
+				"affected_by_aoe_increase"	"1"
+			}
+			"explosion_radius"
+			{
+				"value"			"120"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"	"45 75 105 120"
+			"length"	"1150 1300 1450 1600"
+			"stun_duration"
+			{
+				"value"	"1.0"
+				"LinkedSpecialBonus"	"special_bonus_unique_sakuya_1"
+			}
+			"damage_bouns"	"15.0"
+			"agi_multi"	"1"
+			"int_multi"	"0"
+		}
+		"AbilityDamage"	"45 75 105 120"
+	}
+
+	"ability_thdots_sakuya02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_sakuya_01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT "
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AbilityCooldown"	"12"
+		"AbilityManaCost"	"135"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"600"
+		"ID"	"2024"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/sakuya/ability_sakuya_01.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_bristleback.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Bristleback.QuillSpray.Cast"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitySakuya.lua"
+				"Function"	"OnSakuya02SpellStart"
+				"Caster"	"CASTER"
+				"Target"	"POINT"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitySakuya.lua"
+				"Function"	"OnSakuya02SpellDamage"
+				"Caster"	"CASTER"
+				"Target"
+				{
+					"Center"	"CASTER"
+					"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+					"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+					"Radius"	"%damage_radius"
+				}
+				"AgiMulti"	"%agi_multi"
+				"IntMulti"	"%int_multi"
+				"DamageRadius"	"%damage_radius"
+				"DamageRad"	"%damage_rad"
+				"Damage"	"%damage"
+			}
+		}
+		"AbilityValues"
+		{
+			"damage_radius"
+			{
+				"value"		"600"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"affected_by_aoe_increase"	"1"
+			}
+			"agi_multi"	"1.5"
+			"int_multi"	"0"
+			"damage_rad"
+			{
+				"value"		"30 50 70 90"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+			}
+			"damage"
+			{
+				"value"	"60 135 210 285"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+		}
+	}
+
+	"ability_thdots_sakuya03"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"			"scripts/vscripts/abilities/abilitysakuya.lua"
+		"AbilityTextureName"	"touhoutd/thtd_sakuya_03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_3"
+		"AnimationPlaybackRate"	"2"
+		"AbilityManaCost"	"110"
+		"HasScepterUpgrade"			"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"ID"	"2026"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/sakuya/ability_sakuya_01.vpcf"
+			"particle"	"particles/thd2/heroes/sakuya/ability_sakuya_03.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_antimage.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"damage"	"50 100 150 200"
+			"damage_radius"
+			{
+				"value"	"450"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"affected_by_aoe_increase"	"1"
+			}
+			// "attack_speed"	"27"
+			"attack_speed"	"15 30 45 60"
+			"max_range"	"600 700 800 900"
+			"AbilityCooldown"
+			{
+				"value"	"21 16 12 9"
+				"special_bonus_unique_sakuya_3"	"-3.125"
+			}
+			"duration"	"6"
+		}
+		"AbilityDamage"	"50 100 150 200"
+		"AbilityCastRange"	"600 700 800 900"
+	}
+
+	"ability_thdots_sakuya04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_sakuya04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastPoint"	"0"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"AnimationPlaybackRate"	"5"
+		"HasScepterUpgrade"			"1"
+		"AbilityCooldown"	"120 100 80"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"0"
+		"ID"	"2027"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/sakuya/ability_sakuya_04.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_sakuya_sounds.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_faceless_void.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitySakuya.lua"
+				"Function"	"OnSakuya04SpellStart"
+				"Ability_Duration"	"%ability_duration"
+				"Caster"	"CASTER"
+				"Radius"	"%radius"
+			}
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_thdots_sakuya04_think_interval"
+				"Target"	"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_sakuya04_think_interval"
+			{
+				"Duration"	"%ability_duration"
+				"ThinkInterval"	"0.1"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_FacelessVoid.Chronosphere"
+						"Target"	"CASTER"
+					}
+				}
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitySakuya.lua"
+						"Function"	"OnSakuya04SpellThink"
+						"Caster"	"CASTER"
+						"Radius"	"%radius"
+					}
+				}
+			}
+			"modifier_the_world"
+			{
+				"IsHidden"	"1"
+				"Aura"	"modifier_the_world_buff"
+				"Aura_Radius"	"99999"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"	"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+				"Aura_ApplyToCaster"	"0"
+			}
+			"modifier_the_world_buff"
+			{
+				"Duration"	"2"
+				"IsDebuff"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"-999"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"-999"
+				}
+			}
+
+		}
+		"AbilityValues"
+		{
+			"ability_duration"	"4 5 6"
+			"radius"
+			{
+				"value"			"400 550 700"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_sakuya_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"0.5"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_sakuya_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-6"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_sakuya_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-2.5"
+		}
+	}
+}

@@ -1,0 +1,562 @@
+"DOTAAbilities"
+{
+	"ability_thdots_Utsuho01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_utsuho_02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET "
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityManaCost"	"75 90 105 120"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"700"
+		"ID"	"2047"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_ogre_magi/ogre_magi_ignite_debuff.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_ogre_magi.vsndevts"
+			"particle"	"particles/thd2/heroes/utsuho/ability_utsuho01_effect.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_OgreMagi.Fireblast.Target"
+				"Target"	"TARGET"
+			}
+			"FireEffect"
+			{
+				"EffectName"	"particles/thd2/heroes/utsuho/ability_utsuho01_effect.vpcf"
+				"EffectAttachType"	"world_origin"
+				"Target"	"TARGET"
+			}
+			"RunScript"
+			{
+				"Target"	"TARGET"
+				"ScriptFile"	"scripts/vscripts/abilities/abilityUtsuho.lua"
+				"Function"	"OnUtsuho01SpellStart"
+				"DebuffName"	"modifier_thdots_Utsuho01_fire_damage"
+				"ModifiersName"	"modifier_thdots_Utsuho01_fire_silence"
+				"radius"	"%radius"
+				"AbilityCastRange"	"%AbilityCastRange"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_Utsuho01_fire_damage"
+			{
+				"ThinkInterval"	"1.0"
+				"Duration"	"%duration"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"EffectName"	"particles/units/heroes/hero_ogre_magi/ogre_magi_ignite_debuff.vpcf"
+				"EffectAttachType"	"follow_origin"
+				
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Types"	"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+							"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Flags"	"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+						}
+						"ScriptFile"	"scripts/vscripts/abilities/abilityUtsuho.lua"
+						"Function"	"OnUtsuho01FireDamage"
+						"AbilityDamage"	"%damage"
+
+					}
+				}
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"			"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			// "modifier_thdots_Utsuho01_fire_silence"
+			// {
+			// 	"Duration"	"%duration"
+			// 	"IsDebuff"	"1"
+			// 	"IsPurgable"	"1"
+			// 	"States"
+			// 	{
+			// 		"MODIFIER_STATE_SILENCED"			"MODIFIER_STATE_VALUE_ENABLED"
+			// 	}
+			// }
+		}
+		"AbilityValues"
+		{
+			"duration"	"2.0"
+			"damage"	"60 100 140 180"
+			"radius"
+			{
+				"value"			"500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"cast_range"	"700"
+			"AbilityCooldown"
+			{
+				"value"	"8.0 7.0 6.0 5.0"
+				"special_bonus_unique_utsuho_1"	"-1"
+			}
+		}
+		"AbilityDamage"	"75 150 225 300"
+	}
+	"special_bonus_unique_utsuho_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"-1"
+		}
+	}
+	"ability_thdots_Utsuho02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_utsuho_01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AbilityCooldown"	"1.0"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"0"
+		"ID"	"2048"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_huskar.vsndevts"
+			"particle"	"particles/units/heroes/hero_doom_bringer/doom_bringer_ambient.vpcf"
+		}
+		"OnToggleOn"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_Utsuho02_mana_regen"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_Huskar.Inner_Vitality"
+				"Target"	"CASTER"
+			}
+		}
+		"OnToggleOff"
+		{			
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_Utsuho02_mana_regen"
+			}
+		}		
+		"Modifiers"
+		{
+			"modifier_thdots_Utsuho02_mana_regen"
+			{
+				"ThinkInterval"	"1.0"
+				//"Duration"	"%ability_duration"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnCreated"
+				{					
+					"AttachEffect"
+					{
+						"EffectName"	"particles/units/heroes/hero_doom_bringer/doom_bringer_ambient.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"	"CASTER"
+					}					
+				}
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Types"	"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+							"Teams"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+							"Flags"	"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+						}
+						"ScriptFile"	"scripts/vscripts/abilities/abilityUtsuho.lua"
+						"Function"	"OnUtsuho02SpellStart"
+						"AbilityDamage"	"%damage"
+						"DamageBonus"	"%bonus_damage_percentage"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%mana_regen"
+					"MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE"	"%bonus_damage_percentage"
+				}				
+			}
+		}
+		"AbilityValues"
+		{
+			"ability_duration"	"10"
+			"damage"	"5 10 20 40"
+			"mana_regen"	"5 10 20 40"
+			"radius"
+			{
+				"value"			"450"
+				"affected_by_aoe_increase"	"1"
+			}
+			"bonus_damage_percentage"	"4 8 16 32"
+		}
+	}
+
+	"ability_thdots_Utsuho03"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_patchouli_04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_3"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"200"
+		"ID"	"2049"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts"
+			"particle"	"particles/units/heroes/hero_phoenix/phoenix_sunray_tgt.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts"
+			"particle"	"particles/thd2/heroes/utsuho/ability_utsuho03_effect.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_Utsuho03_damage"
+			}
+			"RunScript"
+			{				
+				"ScriptFile"	"scripts/vscripts/abilities/abilityUtsuho.lua"
+				"Function"	"OnUtsuho03SpellStart"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_Utsuho03_damage"
+			{
+				"Duration"	"%ability_duration"
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Invoker.EMP.Charge"
+						"Target"	"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"	"particles/units/heroes/hero_phoenix/phoenix_sunray_tgt.vpcf"
+						"EffectAttachType"	"start_at_customorigin"
+						"Target"	"CASTER"
+						"ControlPointEntities"
+						{
+							"TARGET"	"follow_overhead"
+							"TARGET"	"follow_overhead"
+							"TARGET"	"follow_overhead"
+							"TARGET"	"follow_overhead"
+						}
+					}
+				}
+				"OnDestroy"
+				{
+					// "FireSound"
+					// {
+					// 	"EffectName"	"Hero_Invoker.ChaosMeteor.Impact"
+					// 	"Target"	"TARGET"
+					// }
+					// "FireEffect"
+					// {
+					// 	"EffectName"	"particles/thd2/heroes/utsuho/ability_utsuho03_effect.vpcf"
+					// 	"EffectAttachType"	"follow_overhead"
+					// 	"Target"	"TARGET"
+					// }
+					"RunScript"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Types"	"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+							"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Flags"	"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+						}
+						"ScriptFile"	"scripts/vscripts/abilities/abilityUtsuho.lua"
+						"Function"	"OnUtsuho03SpellEnd"
+						"AbilityDamage"	"%damage"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"ability_duration"	"20 15 10 5"
+			"damage"	"500"
+			"radius"
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"AbilityCooldown"
+			{
+				"value"	"20.5 17 13.5 10"
+				"special_bonus_unique_utsuho_4"	"-3"
+			}
+		}
+	}
+
+	"ability_thdots_Utsuho04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_utsuho_03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastPoint"	"0.1"
+		"HasScepterUpgrade"			"1"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"AbilityManaCost"	"100 150 200"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"750 1000 1250"
+		"AbilityChannelTime"	"6.5"
+		"AOERadius"	"%radius"
+		"ID"	"2050"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/utsuho/ability_utsuho04_effect.vpcf"
+			"particle"	"particles/units/heroes/hero_phoenix/phoenix_supernova_reborn.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_utsuho_sounds.vsndevts"
+			"particle"	"particles/thd2/heroes/utsuho/ability_utsuho04_end.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_phoenix.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_phoenix.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Utsuho.AbilityUtsuho04"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityUtsuho.lua"
+				"Function"	"OnUtsuho04SpellStart"
+				"Caster"	"CASTER"
+				"Target"	"POINT"
+			}
+			"DelayedAction"
+			{
+				"Delay"	"0"
+				"Action"
+				{
+					"ApplyModifier"
+					{
+						"Target"	"CASTER"
+						"ModifierName"	"modifier_thdots_Utsuho04_think_interval"
+					}
+				}
+			}
+		}
+		"OnChannelInterrupted"
+		{
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_Utsuho04_think_interval"
+			}
+		//	"RunScript"
+		//	{
+		//		"ScriptFile"	"scripts/vscripts/abilities/abilityUtsuho.lua"
+		//		"Function"	"OnUtsuho04SpellRemove"
+		//		"Target"
+		//		{
+		//			"Types"	"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+		//			"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		//			"Flags"	"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+		//			"Center"	"POINT"
+		//			"Radius"	"%radius"
+		//		}
+		//	}
+		}
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_Utsuho04_think_interval"
+			}
+		//	"RunScript"
+		//	{
+		//		"ScriptFile"	"scripts/vscripts/abilities/abilityUtsuho.lua"
+		//		"Function"	"OnUtsuho04SpellRemove"
+		//		"Target"
+		//		{
+		//			"Types"	"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+		//			"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		//			"Flags"	"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+		//			"Center"	"POINT"
+		//			"Radius"	"%radius"
+		//		}
+		//	}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_Utsuho04_think_interval"
+			{
+				"ThinkInterval"	"%thinkInterval"
+				"Duration"	"6.5"
+				"OverrideAnimation"	"Act_DOTA_CAST_ABILITY_4"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Phoenix.SuperNova.Cast"
+						"Target"	"TARGET"
+					}
+				}
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityUtsuho.lua"
+						"Function"	"OnUtsuho04SpellThink"
+						"Gravity"	"%gravity"
+						"DamageRadius"	"%damage_radius"
+						"Radius"	"%radius"
+						"Damage"	"%damage"
+					}
+				}
+				"OnDestroy"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Phoenix.SuperNova.Explode"
+						"Target"	"TARGET"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityUtsuho.lua"
+						"Function"	"OnUtsuho04SpellRemove"
+					//	"Target"
+					//	{
+					//		"Types"	"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+					//		"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+					//		"Flags"	"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+					//		"Center"	"POINT"
+					//		"Radius"	"%radius"
+					//	}
+					}
+				}
+			}
+			"modifier_thdots_Utsuho04_wanbaochui_debuff"
+			{
+
+				"Duration"	"2"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"damage_radius"
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
+			"thinkInterval"	"0.1"
+			"gravity"	"140 170 200"
+			"radius"
+			{
+				"value"			"750"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"	"80 120 160"
+			"cast_range_bonus"	"500"
+			"AbilityCooldown"
+			{
+				"value"	"120"
+				"special_bonus_unique_utsuho_3"	"-50"
+			}
+		}
+		"AbilityDamage"	"400 800 1000"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_utsuho_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_utsuho_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-50"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_utsuho_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-3"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_utsuho_5"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+}

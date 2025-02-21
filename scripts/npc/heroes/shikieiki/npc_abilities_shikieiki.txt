@@ -1,0 +1,397 @@
+"DOTAAbilities"
+{
+	"ability_thdots_shikieiki01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_shikieiki01"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"MaxLevel"	"4"
+		"AOERadius"						"%AOE"
+		"AbilityCastPoint"	"0.2"
+		"AnimationPlaybackRate"	"1.5"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"20 15 10 5"
+		"AbilityManaCost"	"50"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"550"
+		"precache"
+		{
+			"particle"	"particles/heroes/shikieiki/ability_shikieiki_01_guilty.vpcf"
+			"particle"	"particles/heroes/shikieiki/ability_shikieiki_01_guilty_b.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_chen.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_chen.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Chen.PenitenceCast"
+				"Target"	"CASTER"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_Chen.PenitenceImpact"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityShikieiki.lua"
+				"Function"	"Shikieiki01_OnSpellStart"
+				"ModifierName"	"modifier_thdots_shikieiki01_accusation_timer"
+				"Duration"	"%accusation_duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_shikieiki01_mark"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"EffectName"	"particles\heroes\shikieiki\ability_shikieiki_04_c.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"OnKill"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityShikieiki.lua"
+						"Function"	"Shikieiki01_Modifier_Accusation_OnKill"
+						"DamageHpPctOnkillHero"	"%damage_hp_pct_onkill_hero"
+						"DamageHpPctOnkillCreep"	"%damage_hp_pct_onkill_creep"
+						"DamageHpPctOnkillBase"	"%damage_hp_pct_onkill_base"
+						"AccusationTriggerNum"	"%accusation_trigger_num"
+					}
+				}
+			}
+			"modifier_thdots_shikieiki01_accusation_timer"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"IsDebuff"	"1"
+				"IsHidden"	"1"
+				"IsPurgable"	"1"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityShikieiki.lua"
+						"Function"	"Shikieiki01_Modifier_AccusationTimer_OnCreated"
+						"MaxAccusationNum"	"%max_accusation_num"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityShikieiki.lua"
+						"Function"	"Shikieiki01_Modifier_AccusationTimer_OnDestroy"
+					}
+				}
+			}
+			"modifier_thdots_shikieiki1_accusation"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"Duration"		"%accusation_duration"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+			}
+		}
+		"AbilityValues"
+		{
+			"accusation_duration"	"9"
+			"damage_hp_pct_onkill_base"	"10 15 20 25"
+			"damage_hp_pct_onkill_hero"	"4 5 6 7"
+			"damage_hp_pct_onkill_creep" "10 15 20 25"
+			"accusation_trigger_num"	"10"
+			"max_accusation_num"	"10"
+			"move_speed"	"-5 -7 -9 -11"
+			"AOE"
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+
+	"ability_thdots_shikieiki02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_shikieiki02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.2"
+		"AnimationPlaybackRate"	"3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AbilityCooldown"	"15 13 11 9"
+		"AbilityManaCost"	"100 115 130 145"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"600"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_omniknight/omniknight_purification.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Omniknight.Purification"
+				"Target"	"CASTER"
+			}
+			"DelayedAction"
+			{
+				"Delay"	"%delay_action"
+				"Action"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityShikieiki.lua"
+						"Function"	"Shikieiki02_OnSpellStart"
+						"StunDurationBase"	"%stun_duration_base"
+						"StunDurationAccusation"	"%stun_duration_accusation"
+						"DamageBase"	"%damage_base"
+						"DamageAccusation"	"%damage_accusation"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"stun_duration_base"	"1"
+			"stun_duration_accusation"	"0.1 0.15 0.2 0.25"
+			"damage_base"	"50 100 150 200"
+			"damage_accusation"	"60 70 80 90"
+			"delay_action"	"0.1"
+		}
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_YES"
+	}
+
+	"ability_thdots_shikieiki03"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_shikieiki03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"HasScepterUpgrade"			"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"MaxLevel"	"4"
+		"IsBreakable"				"1"
+		"precache"
+		{
+			"particle"		"particles/heroes/shikieiki/ability_shikieiki_01_guilty.vpcf"
+		}
+		"Modifiers"
+		{
+			"passive_shikieiki03_attack"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityShikieiki.lua"
+						"Function"	"Shikieiki03_OnAttackLanded"
+						"AccusationDuration"	"%accusation_duration"
+						"MaxAccusationNum"	"%max_accusation_num"
+						"DamageOnMaxAccusation"	"%damage_on_max_accusation"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"accusation_duration"	"9"
+			"max_accusation_num"	"10"
+			"damage_on_max_accusation"
+			{
+				"value"	"5 10 15 20"
+				"LinkedSpecialBonus" 	"special_bonus_unique_shikieiki_1"
+			}
+		}
+	}
+	"special_bonus_unique_shikieiki_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"15"
+		}
+	}
+	"ability_thdots_shikieiki04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_shikieiki04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"	"3"
+		"AbilityCastPoint"	"0.3"
+		"AnimationPlaybackRate"	"2.5"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"AbilityManaCost"	"140 280 420"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"600"
+		"precache"
+		{
+			"particle"	"particles/heroes/shikieiki/ability_shikieiki_04.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_shikieiki_sounds.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_oracle.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_oracle.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_doombringer.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			// "FireSound"
+			// {
+			// 	"EffectName"	"Hero_Oracle.FatesEdict.Cast"
+			// 	"Target"	"CASTER"
+			// }
+			// "FireSound"
+			// {
+			// 	"EffectName"	"Voice_Thdots_Shikieiki.AbilityShikieiki04"
+			// 	"Target"	"CASTER"
+			// }
+			// "FireSound"
+			// {
+			// 	"EffectName"	"Hero_Oracle.FatesEdict"
+			// 	"Target"	"CASTER"
+			// }
+			// "ApplyModifier"
+			// {
+			// 	"Target"	"TARGET"
+			// 	"ModifierName"	"modifier_thdots_shikieiki04_debuff"
+			// }
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityShikieiki.lua"
+				"Function"	"Shikieiki04_OnSpellStart"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_shikieiki04_deny"
+			{
+				"Duration"	"0.1"	
+				"IsHidden"	"1"			
+				"States"
+				{					
+					"MODIFIER_STATE_SPECIALLY_DENIABLE"		"MODIFIER_STATE_VALUE_ENABLED"
+				}				
+			}
+			"modifier_thdots_shikieiki04_debuff"
+			{
+				"Duration"	"%debuff_duration"
+				"ThinkInterval"	"0.03"
+				"IsDebuff"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MUTED"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_PASSIVES_DISABLED"	"MODIFIER_STATE_VALUE_ENABLED"					
+				}
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityShikieiki.lua"
+						"Function"	"Shikieiki04_ModifierDebuff_OnIntervalThink"
+						"DamagePerSec"	"%debuff_damage_per_sec"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityShikieiki.lua"
+						"Function"	"Shikieiki04_ModifierKeepDebuffDuration_OnIntervalThink"
+						"RadiusKeepDuration"	"%radius_keep_duration"
+						"DebuffName"	"modifier_thdots_shikieiki04_debuff"
+					}
+				}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityShikieiki.lua"
+						"Function"	"Shikieiki04_ModifierDebuff_OnCreated"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityShikieiki.lua"
+						"Function"	"Shikieiki04_ModifierKeepDebuffDuration_OnCreated"
+						"DebuffDuration"	"%debuff_duration"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityShikieiki.lua"
+						"Function"	"Shikieiki04_ModifierKeepDebuffDuration_OnDestroy"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"debuff_duration"	"8 10 12"
+			"debuff_damage_per_sec"	"50 70 90"
+			"radius_keep_duration"
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"8 10 12"
+			"damage"	"0 0 0"
+			"duration_scepter"	"0.0 0.0 0.0"
+			"damage_scepter"	"0 0 0"
+			"deniable_pct"	"0 0 0"
+			"AbilityCooldown"
+			{
+				"value"	"100"
+				"special_bonus_unique_shikieiki_2"	"-40"
+			}
+		}
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_YES"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_shikieiki_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-40.0"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_shikieiki_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"250"
+		}
+	}
+}

@@ -1,0 +1,447 @@
+"DOTAAbilities"
+{
+	"ability_thdots_yukariEx"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_yukariEx"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"MaxLevel"	"5"
+		"AbilityCastPoint"	"0.5"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"45"
+		"AbilityManaCost"	"100 200 300 400 500"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"800"
+		"AOERadius"	"%radius"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityYukari.lua"
+				"Function"	"yukariEx_SpellStart"
+				"Caster"	"CASTER"
+				"Target"	"POINT"
+				"Radius"	"%radius"
+				"FalldownNum"	"%falldown_num"
+				"FalldownInterval"	"%falldown_interval"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_yukariEx_check_levelup"
+			{
+				"Passive"	"1"
+				"IsHidden"			"1"
+				"RemoveOnDeath"	"0"
+				"ThinkInterval"	"1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityYukari.lua"
+						"Function"	"YukariEx_OnIntervalThink"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"falldown_num"	"2 4 6 8 10"
+			"falldown_interval"	"0.5"
+		}
+	}
+
+	"ability_thdots_yukari01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_yukari01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES_STRONG"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"9 8 7 6"
+		"AbilityManaCost"	"50"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"800"
+		"AOERadius"	"%radius"
+		"precache"
+		{
+			"particle"	"particles/heroes/yukari/ability_yukari_02_body.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_tiny.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityYukari.lua"
+				"Function"	"Yukari01_OnSpellStart"
+				"Caster"	"CASTER"
+				"Target"	"POINT"
+				"StunDuration"	"%stun_duration"
+				"Radius"	"%radius"
+				"FalldownTime"	"%falldown_time"
+				"DamageUnitBase"	"%damage_unit_base"
+				"DamageUnitPct"	"%damage_unit_pct"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_yukari01_falldown"
+			{
+				"IsDebuff"	"1"
+				"Duration"	"%falldown_time"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_thdots_yukari01_killunit"
+			{
+				"Duration"	"30"
+				"IsPurgable" "0"
+				"RemoveOnDeath"	"1"
+				"IsHidden" "1"
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityYukari.lua"
+						"Function"	"Yukari_killunit"
+						"target" "TARGET"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"stun_duration"	"0.6 0.8 1.0 1.2"
+			"radius"
+			{
+				"value"			"200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"falldown_time"	"0.5"
+			"damage_unit_base"	"100"
+			"damage_unit_pct"	"25"
+			"int_bonus"			"0.4"
+		}
+		"AbilityDamage"	"120 150 180 210"
+	}
+
+	"ability_thdots_yukari02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_yukari02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES_STRONG"
+		//"AbilityCooldown"	"27 22 17 12"
+		"AbilityCooldown"	"46 38 30 22"
+		"AbilityManaCost"	"100"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"600"
+		"precache"
+		{
+			"particle"	"particles/heroes/yukari/ability_yukari_02_vortex_2.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityYukari.lua"
+				"Function"	"Yukari02_OnSpellStart"
+				"Caster"	"CASTER"
+				"Target"	"TARGET"
+				"HeroHiddenDuration"	"%hero_hidden_duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_yukari02_counter"
+			{
+				// "Attributes"		"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"IsBuff"	"1"
+				"RemoveOnDeath"	"0"
+			}
+			"modifier_thdots_yukari02_hidden"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_PROVIDES_VISION"	"MODIFIER_STATE_VALUE_DISABLED"
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NOT_ON_MINIMAP"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NOT_ON_MINIMAP_FOR_ENEMIES"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_OUT_OF_GAME"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_BONUS_DAY_VISION"	"-99999"
+					"MODIFIER_PROPERTY_BONUS_NIGHT_VISION"	"-99999"
+				}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityYukari.lua"
+						"Function"	"Yukari02_OnHiddenStart"
+						"Caster"	"CASTER"
+						"Target"	"TARGET"
+						"HeroHiddenDuration"	"%hero_hidden_duration"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityYukari.lua"
+						"Function"	"Yukari02_OnHiddenEnd"
+						"Caster"	"CASTER"
+						"Target"	"TARGET"
+					}
+				}
+			}
+			"modifier_thdots_unit_anti_bd"
+			{
+				"IsHidden"	"0"
+				"RemoveOnDeath"	"1"
+				"IsPurgable"	"0"
+			}
+		}
+		"AbilityValues"
+		{
+			"hero_hidden_duration"
+			{
+				"value"	"1.5 2.0 2.5 3.0"
+				"special_bonus_unique_yukari_2"		"+2"
+			}
+		}
+	}
+
+	"ability_thdots_yukari03"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityYukari.lua"
+		"AbilityTextureName"	"custom/ability_thdots_yukari03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_OPTIONAL_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_ALL"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"2.7"	//0.2 +2.5
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_3"
+		// "AbilityCooldown"	"85 70 55 40" --修改技能冷却需要在Lua里修改对应自动增加间隙单位的时间
+		"AbilityManaCost"	"90"
+		"HasScepterUpgrade"	"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"0"
+		//"AbilityChannelTime"	"2.5"
+		"precache"
+		{
+			"particle"	"particles/heroes/yukari/ability_yukari_03_teleport_light.vpcf"
+			"particle"	"particles/heroes/yukari/ability_yukari_03_teleportflash.vpcf"
+			"particle"	"particles/heroes/yukari/ability_yukari_03_teleportflash2.vpcf"
+			"particle"	"particles/econ/items/death_prophet/death_prophet_ti9/death_prophet_silence_ti9.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_dark_seer.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"wanbaochui_radius"
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"int_bonus"	"2"
+			"AbilityCooldown"
+			{
+				"value"	"50 40 30 20"
+				"special_bonus_unique_yukari_3"	"=0"
+			}
+		}
+	}
+
+	"ability_thdots_yukari04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_yukari04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_OPTIONAL_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_ALL"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"	"3"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"AbilityManaCost"	"225 300 375"
+		"HasScepterUpgrade"	"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"0"
+		"AbilityChannelTime"	"2.0"
+		"precache"
+		{
+			"particle"	"particles/heroes/yukari/ability_yukari_04_magical.vpcf"
+			"particle"	"particles/heroes/yukari/ability_yukari_03_teleportflash.vpcf"
+			"particle"	"particles/heroes/yukari/ability_yukari_03_teleportflash2.vpcf"
+			"particle"	"particles/econ/items/death_prophet/death_prophet_ti9/death_prophet_silence_ti9.vpcf"
+			"particle"	"particles/heroes/yukari/ability_yukari_04_effect.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_enigma.vsndevts"
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"				"false"
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityYukari.lua"
+				"Function"	"Yukari04_OnProjectileHitUnit"
+				"Caster"	"CASTER"
+				"Target"	"TARGET"
+				"BarrageDamage"	"%barrage_damage"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityYukari.lua"
+				"Function"	"Yukari04_OnSpellStart"
+				"Target"	"POINT"
+				"MinRadius"	"%min_radius"
+				"MaxRadius"	"%max_radius"
+				"TargetRange"	"%target_range"
+				"BarrageSpawnPoint"	"%barrage_spawn_point"
+				"BarrageFireInterval"	"%barrage_fire_interval"
+				"BarrageRadius"	"%barrage_radius"
+				"EffectName"	"particles/heroes/yukari/ability_yukari_04_effect.vpcf"
+				"Exdamage"    "%ex_damage"
+			}
+			//"RunScript"
+			//{
+			//	"ScriptFile"	"scripts/vscripts/abilities/abilityYukari.lua"
+			//	"Function"	"Yukari04_OnProjectileHitUnit"
+			//	"Caster"	"CASTER"
+			//	"Target"
+			//			{
+			//				"Center"	"POINT"
+			//				"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+			//				"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+			//				"Radius"	"%barrage_radius"
+			//			}
+			//	"BarrageDamage"	"%barrage_damage"
+			//}								
+		}
+		"AbilityValues"
+		{
+			"min_radius"
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
+			"max_radius"
+			{
+				"value"			"750"
+				"affected_by_aoe_increase"	"1"
+			}
+			"target_range"	"1000"
+			"barrage_spawn_point"	"16"
+			"barrage_fire_interval"	"0.1"
+			"barrage_damage"	"200 300 400"
+			"barrage_radius"
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
+			"ex_damage"	"20 30 40"
+			"wanbaochui_radius"
+			{
+				"value"			"750"
+				"affected_by_aoe_increase"	"1"
+			}
+			"int_bonus"	"4"
+			"AbilityCooldown"
+			{
+				"value"	"115"
+				"special_bonus_unique_yukari_4"	"-60"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:+0.4眩晕时间
+	//=================================================================================================================
+	"special_bonus_unique_yukari_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"0.4"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:+2秒隙间时间
+	//=================================================================================================================
+	"special_bonus_unique_yukari_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"2"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：-35传送冷却
+	//=================================================================================================================
+	"special_bonus_unique_yukari_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-35"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：-60大招冷却
+	//=================================================================================================================
+	"special_bonus_unique_yukari_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-60"
+		}
+	}
+}

@@ -1,0 +1,63 @@
+"DOTAAbilities"
+{
+    "item_recipe_diary"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_diary"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_diary"
+		"ItemRequirements"
+		{
+			"01"	"item_pant;item_sailor_suit;item_touhou_banana;item_jiaokeshu"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_diary"
+	{
+		"BaseClass"	"item_lua"
+		"AbilityTextureName"	"item_diary"	//图标By 橘橘子
+		"ScriptFile"                    "items/item_diary"
+		"ItemDeclarations"        "DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"ItemShareability"		"ITEM_FULLY_SHAREABLE"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"0"
+		"AbilityManaCost"	"0"
+		"AbilityCastRange"	"0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		// "ID"	"8216"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"3350"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"magic_resist;armor;agi;int;str"
+		"AbilityValues"
+		{
+			"bonus_all_stats"	"12"
+			"percent_time"	"25"
+			"duration"	"240"
+			"death_bonus_all_stats"	"8"
+			"movement_speed_percent_bonus"	"9"
+			"bonus_armor"	"6"
+			"bonus_magical_armor"	"15"
+		}
+	}
+}

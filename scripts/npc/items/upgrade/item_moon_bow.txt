@@ -1,0 +1,127 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Moon Bow
+	// =================================================================================================================
+	"item_recipe_moon_bow"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_moon_bow"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8161"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_moon_bow"
+		"ItemRequirements"
+		{
+			"01"	"item_knife;item_luna_chip;item_rocket_diagram;item_doctor_doll"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Moon Bow
+	// =================================================================================================================
+	"item_moon_bow"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_moon_bow"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"20.0"
+		"AbilityManaCost"	"120"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"2000"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8162"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"4000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"damage;int;attack_speed"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_moon_bow.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"LinearProjectile"
+			{
+				"Target"	"POINT"
+				"EffectName"	"particles/thd2/items/item_moon_bow.vpcf"
+				"MoveSpeed"	"%arrow_speed"
+				"StartRadius"	"%arrow_radius"
+				"EndRadius"	"%arrow_radius"
+				"StartPosition"	"attach_hitloc"
+				"FixedDistance"	"%arrow_range"
+				"TargetTeams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"TargetTypes"	"DOTA_UNIT_TARGET_HERO"
+				"TargetFlags"	"DOTA_UNIT_TARGET_FLAG_NONE"
+				"HasFrontalCone"	"1"
+				"ProvidesVision"	"0"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_DragonKnight.BreathFire"
+				"Target"	"CASTER"
+			}
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"	"0"
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_MoonBow_OnHit"
+				"arrow_damage_const"	"%arrow_damage_const"
+				"arrow_damage_int_mult"	"%arrow_damage_int_mult"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_moon_bow"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+				}
+			}
+		}
+		// 定义物品是否可以被丢弃，1表示可以丢弃
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"	"13"
+			"bonus_intellect"	"16"
+			"bonus_attack_speed"	"42"
+			"arrow_speed"	"1200"
+			"arrow_range"	"2000"
+			"arrow_radius"
+			{
+				"value"			"150"
+				"affected_by_aoe_increase"	"1"
+			}
+			"arrow_damage_const"	"200"
+			"arrow_damage_int_mult"	"4.0"
+		}
+	}
+}

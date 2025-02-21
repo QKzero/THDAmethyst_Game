@@ -1,0 +1,47 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// 魔法使扫把
+	// =================================================================================================================
+	"item_broom"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_broom"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8005"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"500"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"SideShop"	"1"
+		"ItemShopTags"	"move_speed"
+		"Modifiers"
+		{
+			"modifier_item_broom"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					//"MODIFIER_PROPERTY_MOVESPEED_BONUS_UNIQUE"	"%bonus_movement_speed"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_UNIQUE"	"%bonus_movement_speed"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_movement_speed"	"35"
+		}
+		"Model"	"models/props_gameplay/boots_of_speed.vmdl"
+	}
+}

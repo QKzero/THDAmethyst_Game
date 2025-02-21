@@ -1,0 +1,267 @@
+// Dota2 Editor
+// Get latest version: https://github.com/zombieJ/nw-dota2editor
+
+"DOTAAbilities"
+{
+	"ability_thdots_tojikoEx"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"storm_spirit_electric_vortex"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitytojiko.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"	"1"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"models/tojiko/tojiko/lightning.vpcf"
+			"particle"	"models/tojiko/tojiko/cloud.vpcf"
+			"particle"	"particles/generic_gameplay/generic_slowed_cold.vpcf"
+			"particle"	"particles/units/heroes/hero_leshrac/leshrac_lightning_slow.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_tojiko_sounds.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"debuff_bonus_damage"	"3"
+			"debuff_duration"	"12"
+			"reduce_time"	"10"
+		}
+	}
+
+	"ability_thdots_tojiko01"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"leshrac_lightning_storm"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitytojiko.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES_STRONG"
+		"AbilityCastPoint"	"0.4"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+		"AnimationPlaybackRate"	"1.5"
+		"AbilityCooldown"	"10"
+		"AbilityManaCost"	"95 110 125 140"
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_leshrac/leshrac_lightning_bolt.vpcf"
+			"particle"		"particles/econ/items/arc_warden/arc_warden_ti9_immortal/arc_warden_ti9_wraith_cast.vpcf"
+		}
+		"AbilityValues"
+		{
+			"cast_range"	"700 750 800 850"
+			"width"
+			{
+				"value"			"150"
+				"affected_by_aoe_increase"	"1"
+			}
+			"length"
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"stun_duration"
+			{
+				"value"	"1.75"
+				"LinkedSpecialBonus"	"special_bonus_unique_tojiko_1"
+			}
+			"damage"	"60 120 180 240"
+			"mana_cost"	"95 110 125 140"
+			"armor_damage_bonus"	"4"
+		}
+	}
+
+	"ability_thdots_tojiko02"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"disruptor_thunder_strike"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitytojiko.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate"	"2"
+		"AbilityCooldown"	"7 6 5 4"
+		"AbilityManaCost"	"65 80 95 110"
+		"precache"
+		{
+			"particle"		"particles/econ/items/zeus/lightning_weapon_fx/zuus_lb_cfx_il.vpcf"
+			"particle"		"particles/econ/items/arc_warden/arc_warden_ti9_immortal/arc_warden_ti9_wraith_spawn_portal.vpcf"
+			"particle"		"particles/units/heroes/hero_disruptor/disruptor_thunder_strike_bolt.vpcf"
+			"particle"		"particles/units/heroes/hero_arc_warden/arc_warden_flux_cast.vpcf"
+			"particle"		"particles/econ/items/arc_warden/arc_warden_ti9_immortal/arc_warden_ti9_wraith_cast.vpcf"
+		}
+		"AbilityValues"
+		{
+			"cast_range"	"700 750 800 850"
+			"radius"
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"	"60 120 180 240"
+			"delay"	"0.75"
+			"damage_bonus"	"35"
+			"armor_damage_bonus"	"4"
+		}
+	}
+
+	"ability_thdots_tojiko03"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"zuus_lightning_bolt"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitytojiko.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.2"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+		"AnimationPlaybackRate"	"2"
+		"AbilityCooldown"	"11 10 9 8"
+		"AbilityManaCost"	"75 85 95 105"
+		"precache"
+		{
+			"particle"		"particles/econ/items/zeus/lightning_weapon_fx/zuus_lightning_bolt_immortal_lightning.vpcf"
+			"particle"		"particles/units/heroes/hero_disruptor/disruptor_thunder_strike_bolt.vpcf"
+			"particle"		"particles/econ/events/ti8/mjollnir_shield_ti8.vpcf"
+		}
+		"AbilityValues"
+		{
+			"cast_range"	"850"
+			"radius"
+			{
+				"value"			"185"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"	"80 120 160 200"
+			"bonus_damage_percentage"	"15 20 25 30"
+			"duration"	"6"
+			"physical_reduce"	"10 15 20 25"
+			"vision_time"	"0.2"
+			"vision_radius"
+			{
+				"value"			"1000"
+				"affected_by_aoe_increase"	"1"
+			}
+			"armor_damage_bonus"	"4"
+		}
+	}
+
+	"ability_thdots_tojiko04"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"zuus_cloud"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitytojiko.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AnimationPlaybackRate"	"1.2"
+		"AbilityCooldown"	"100 90 80"
+		"AbilityManaCost"	"200"
+		"precache"
+		{
+			"particle"		"particles/econ/items/razor/razor_ti6/razor_plasmafield_ti6.vpcf"
+			"particle"		"particles/econ/items/zeus/arcana_chariot/zeus_arcana_thundergods_wrath_start.vpcf"
+			"particle"		"particles/units/heroes/hero_arc_warden/arc_warden_flux_cast.vpcf"
+			"particle"		"particles/econ/items/zeus/arcana_chariot/zeus_arcana_thundergods_wrath.vpcf"
+			"particle"		"particles/econ/items/earthshaker/earthshaker_arcana/earthshaker_arcana_aftershock.vpcf"
+		}
+		"AbilityValues"
+		{
+			"cast_range"	"99999"
+			"radius"
+			{
+				"value"			"350"
+				"affected_by_aoe_increase"	"1"
+			}
+			"delay"	"2.5"
+			"damage"	"200 325 450"
+			"armor_damage_bonus"	"40"
+			"regen_mana"	"200"
+		}
+	}
+
+	"ability_thdots_tojiko05"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"razor_plasma_field"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitytojiko.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES_STRONG"
+		"MaxLevel"	"1"
+		"HasScepterUpgrade"	"1"
+		"IsGrantedByScepter"	"1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"20"
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_pugna/pugna_decrepify.vpcf"
+			"particle"		"particles/units/heroes/hero_razor/razor_plasmafield.vpcf"
+			"particle"		"particles/econ/items/necrolyte/necro_ti9_immortal/necro_ti9_immortal_shroud.vpcf"
+			"particle"		"particles/units/heroes/hero_razor_reduced_flash/razor_static_link_beam_reduced_flash.vpcf"
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"450"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"5"
+			"reduce_mgical_resistance"	"-44"
+		}
+	}
+
+	"special_bonus_unique_tojiko_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"0.6"
+		}
+	}
+
+	"special_bonus_unique_tojiko_2"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	"special_bonus_unique_tojiko_3"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"5"
+		}
+	}
+	"special_bonus_unique_tojiko_4"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+}

@@ -1,0 +1,108 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: wanbaochui
+	// =================================================================================================================
+	"item_recipe_wanbaochui"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"7981"
+		"ItemCost"	"0"
+		"AbilityTextureName"	"item_recipe_wanbaochui"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_wanbaochui"
+		"ItemRequirements"
+		{
+			"01"	"item_cat_foot;item_paper_mask;item_rocket_diagram;item_zun_hat"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// wanbaochui 万宝槌
+	// =================================================================================================================
+	"item_wanbaochui"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_wanbaochui"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"7982"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"4200"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"agi"
+		"ItemAliases"	"aghanim's scepter;aghs"
+		"Modifiers"
+		{
+			"modifier_item_wanbaochui"
+			{
+				"IsBuff" "1"
+				"RemoveOnDeath" "0"	
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_IS_SCEPTER" "1"
+				}		
+
+			}
+			"modifier_item_wanbaochui_stat"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"	
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS" "%bonus_intellect"
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+					"MODIFIER_PROPERTY_MANA_BONUS"	"%bonus_mana"
+				}
+			}
+			"modifier_item_ultimate_scepter_datadriven"
+			{
+				"Passive"			"1"
+				"IsHidden"			"1"
+				"RemoveOnDeath"		"0"
+				"Attributes" 		"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"		"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"			"modifier_item_ultimate_scepter_datadriven_on_created"
+					}
+				}
+				
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"		"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"			"modifier_item_ultimate_scepter_datadriven_on_destroy"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_agility"	"10"
+			"bonus_strength"	"10"
+			"bonus_intellect"	"10"
+			"bonus_health"	"175"
+			"bonus_mana"	"175"
+		}
+	}
+}

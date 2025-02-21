@@ -1,0 +1,473 @@
+"DOTAAbilities"
+{
+	// "ability_thdots_minoriko01"
+	// {
+	// 	"BaseClass"	"ability_datadriven"
+	// 	"AbilityTextureName"	"custom/ability_thdots_minoriko01"
+	// 	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET "
+	// 	"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	// 	"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+	// 	"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+	// 	"AbilityCastPoint"	"0.4"
+	// 	"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+	// 	"AbilityCooldown"	"11"
+	// 	"AbilityManaCost"	"105 120 135 150"
+	// 	// Stats
+	// 	// ----------------------------------------------------------------
+	// 	"AbilityCastRange"	"600"
+	// 	"precache"
+	// 	{
+	// 		"particle"	"particles/heroes/minoriko/ability_minoriko_01.vpcf"
+	// 		"soundfile"	"soundevents/thdots_hero_sounds/thdots_minoriko_sounds.vsndevts"
+	// 		"particle"	"particles/units/heroes/hero_ogre_magi/ogre_magi_fireblast.vpcf"
+	// 		"particle"	"particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_buff.vpcf"
+	// 	}
+	// 	"OnSpellStart"
+	// 	{
+	// 		"TrackingProjectile"
+	// 		{
+	// 			"Target"				"TARGET"
+	// 			"EffectName"			"particles/heroes/minoriko/ability_minoriko_01.vpcf"
+	// 			"Dodgeable"				"0"
+	// 			"ProvidesVision"		"1"
+	// 			"VisionRadius"			"100"
+	// 			"MoveSpeed"				"1000"
+	// 			"SourceAttachment"		"DOTA_PROJECTILE_ATTACHMENT_ATTACK_1"
+	// 		}
+	// 		"FireSound"
+	// 		{
+	// 			"EffectName"	"Voice_Thdots_Minoriko.AbilityMinoriko01"
+	// 			"Target" 		"CASTER"
+	// 		}
+	// 	}
+	// 	"OnProjectileHitUnit"
+	// 	{
+	// 		"DeleteOnHit"	"true"
+	// 		"FireSound"
+	// 		{
+	// 			"EffectName"				"Minoriko.AbilityMinoriko01"
+	// 			"Target"					"TARGET"
+	// 		}
+	// 		"RunScript"
+	// 	    {
+	// 	      	"ScriptFile"    			"scripts/vscripts/abilities/abilityMinoriko.lua"
+	// 	      	"Function"  				"OnMinoriko01ProjectileHitUnit"
+	// 	      	"Target"        			"TARGET"
+	// 	      	"stun_duration"				"%stun_duration"
+	// 	      	"radius"					"%radius"
+	// 	      	"aoe_damage"				"%aoe_damage"
+	// 	      	"heal_amount"				"%heal_amount"
+	// 	      	"heal_percent"				"%heal_percent"
+	// 	    }
+	// 	}
+	// 	"AbilityValues"
+	// 	{
+	// 		"stun_duration"	"1.5"
+	// 		"radius"	"275"
+	// 		"aoe_damage"	"50 75 100 125"
+	// 		"heal_amount"	"100 150 200 250"
+	// 		"heal_percent"	"6 9 12 15"
+	// 	}
+	// 	"AbilityDamage"	"50 75 100 125"
+	// }
+	"ability_thdots_minoriko01"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityMinoriko.lua"
+		"AbilityTextureName"	"custom/ability_thdots_minoriko01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET "
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.4"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"13"
+		"AbilityManaCost"	"105 120 135 150"
+		"HasShardUpgrade"	"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"600"
+		"precache"
+		{
+			"particle"	"particles/heroes/minoriko/ability_minoriko_01.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_minoriko_sounds.vsndevts"
+			"particle"	"particles/units/heroes/hero_ogre_magi/ogre_magi_fireblast.vpcf"
+			"particle"	"particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_buff.vpcf"
+			"particle"	"particles/econ/items/lina/lina_ti7/lina_spell_light_strike_array_ti7_gold.vpcf"
+		}
+		"AbilityValues"
+		{
+			"stun_duration"	"1.5"
+			"damage"	"60 90 120 150"
+			"heal_amount"	"80 140 200 260"
+			"heal_percent"	"3 4 5 6"
+			"wanbaochui_radius"
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+				"RequiresShard"		"1"
+			}
+			"aoe_damage"	"120 200 280 360"
+		}
+	}
+	
+	"ability_thdots_minoriko02"
+	{
+		"BaseClass"				"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_minoriko02"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"MaxLevel"				"4"
+		"AbilityCastPoint"		"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AbilityCooldown"		"36 32 28 24"
+		"AbilityManaCost"		"75"
+		"HasScepterUpgrade"			"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"500"
+		"precache"
+		{
+			"particle"				"particles/heroes/ran/ability_ran_03_laser.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"		"scripts/vscripts/abilities/abilityMinoriko.lua"
+				"Function"			"OnMinoriko02SpellStart"
+				"Caster"			"CASTER"
+				"Target"			"POINT"
+				"duration"			"%duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_minoriko02_buff"
+			{
+				"IsBuff"					"1"
+				"Duration"					"%duration"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"		"scripts/vscripts/abilities/abilityMinoriko.lua"
+						"Function"			"OnMinoriko02RegenHealth"
+						"Target"			"TARGET"
+						"heal_amount"		"%heal_amount"
+						"mana_regen_amount"	"%mana_regen_amount"
+					}
+				}
+			}
+			"aura_thdots_minoriko02_buff"
+			{
+				"Aura"			"modifier_thdots_minoriko02_buff"
+				"Aura_Radius"	"%aura_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"	"DOTA_UNIT_TARGET_FLAG_NONE"
+				"Aura_ApplyToCaster"	"0"
+				"ThinkInterval"			"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL"		"1"
+					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL"		"1"
+					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE"			"1"
+					"MODIFIER_PROPERTY_DISABLE_HEALING"					"1"
+				}
+				"OnAttacked"
+				{
+					"RunScript"
+					{
+						"ScriptFile"		"scripts/vscripts/abilities/abilityMinoriko.lua"
+						"Function"			"OnMinoriko02Attacked"
+						"Caster"	"CASTER"
+						"attacker"	"ATTACKER"
+					}
+				}
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"particles/heroes/misc/aura_circle_common.vpcf"
+						"EffectAttachType"	"follow_overhead"
+						"Target"	"CASTER"
+						"ControlPoints"
+						{
+							"01"	"%aura_radius 0 0"
+							"02"	"1 0 0"
+							"03"	"216 111 0"
+						}
+					}
+				}
+				"OnIntervalThink"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"particles/heroes/misc/aura_circle_common.vpcf"
+						"EffectAttachType"	"follow_overhead"
+						"Target"	"CASTER"
+						"ControlPoints"
+						{
+							"01"	"%aura_radius 0 0"
+							"02"	"1 0 0"
+							"03"	"216 111 0"
+						}
+					}
+				}
+			}
+			"aura_thdots_minoriko02_wanbaochui"
+			{
+				"Aura"			"aura_thdots_minoriko02_wanbaochui_buff"
+				"Aura_Radius"	"700"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO"
+				"Aura_ApplyToCaster"	"0"
+			}
+			"aura_thdots_minoriko02_wanbaochui_buff"
+			{
+				"IsBuff"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"70"
+				}
+			}
+			"thdots_minoriko02_wanbaochui_buff"
+			{
+				"IsHidden"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACK_RANGE_BONUS"	"140"
+				}
+			}	
+			"modifier_thdots_minoriko02_wanbaochui_check"
+			{
+				"Passive"	"1"
+				"IsHidden"			"1"
+				"RemoveOnDeath"	"0"
+				"ThinkInterval"	"1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMinoriko.lua"
+						"Function"	"Minoriko02_OnIntervalThink"
+					}
+				}
+			}			
+		}
+		"AbilityValues"
+		{
+			"aura_radius"
+			{
+				"value"			"500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"heal_amount"		"80 170 260 350"
+			"mana_regen_amount"	"110 150 190 230"
+			"duration"			"12 16 20 24"
+		}
+	}
+
+	"ability_thdots_minoriko03"
+	{
+		"BaseClass"				"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_minoriko03"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"MaxLevel"				"4"
+
+		"precache"
+		{
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"		"scripts/vscripts/abilities/abilityMinoriko.lua"
+				"Function"			"OnMinoriko02SpellStart"
+				"Caster"			"CASTER"
+				"Target"			"POINT"
+				"duration"			"%duration"
+			}
+		}
+		"Modifiers"
+		{
+			"aura_thdots_minoriko03_buff"
+			{
+				"Passive"		"1"
+				"Aura"			"aura_thdots_minoriko03_buff_aura"
+				"Aura_Radius"	"%aura_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO"
+				"Aura_Flags"	"DOTA_UNIT_TARGET_FLAG_NO_INVIS | DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
+				"Aura_ApplyToCaster"	"1"
+				"RemoveOnDeath"	"1"
+			}
+
+			"aura_thdots_minoriko03_buff_aura"
+			{	
+				"RemoveOnDeath"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%strength_bonus"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"aura_radius"
+			{
+				"value"			"900"
+				"affected_by_aoe_increase"	"1"
+			}
+			"strength_bonus"	"5 10 15 20"
+		}
+	}
+
+	"ability_thdots_minoriko04"
+	{
+		"BaseClass"				"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_minoriko04"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"		"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityCooldown"		"60"
+		"AbilityManaCost"		"100 175 250"
+
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"			"600"
+		"AbilityType"			   	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"precache"
+		{
+			"particle"				"particles/heroes/minoriko/ability_minoriko_04_laser.vpcf"
+			"particle"				"particles/heroes/minoriko/ability_minoriko_04.vpcf"
+			"particle"				"particles/heroes/minoriko/ability_minoriko_04_fruit.vpcf"
+			"soundfile"				"soundevents/thdots_hero_sounds/thdots_minoriko_sounds.vsndevts"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+		    {
+		      	"ScriptFile"    			"scripts/vscripts/abilities/abilityMinoriko.lua"
+		      	"Function"  				"OnMinoriko04SpellStart"
+		      	"Target"        			"TARGET"
+		      	"strength_amount"			"%strength_amount"
+		      	"radius"					"%radius"
+		      	"duration"					"%duration"
+		    }
+		}
+
+		"Modifiers"
+		{
+			"aura_thdots_minoriko04_buff"
+			{	
+				"RemoveOnDeath"				"1"
+				"IsBuff"					"1"
+				"Duration"					"6"
+				"EffectName" 				"particles/heroes/minoriko/ability_minoriko_04_fruit.vpcf"
+				"EffectAttachType"			"follow_origin"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"1"
+				}
+			}
+			"aura_thdots_minoriko04_debuff"
+			{	
+				"RemoveOnDeath"				"1"
+				"IsDebuff"					"1"
+				"Duration"					"6"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"-1"
+				}
+			}
+
+			"aura_thdots_minoriko04_strength"
+			{	
+				"RemoveOnDeath"				"1"
+				"IsBuff"					"1"
+				"Duration"					"0.1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"0"
+				}
+			}
+		}
+
+		"AbilityValues"
+		{
+			"strength_amount"	"3"
+			"radius"
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"3 4 5"
+		}
+	}
+
+
+	//=================================================================================================================
+	// Ability: Special Bonus:番薯汲取范围
+	//=================================================================================================================
+	"special_bonus_unique_minoriko_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"400"
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus：力量光环
+	//=================================================================================================================
+	"special_bonus_unique_minoriko_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"10"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：苹果眩晕时间
+	//=================================================================================================================
+	"special_bonus_unique_minoriko_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1.5"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：车冷却
+	//=================================================================================================================
+	"special_bonus_unique_minoriko_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-28"
+		}
+	}
+}

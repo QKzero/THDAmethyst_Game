@@ -1,0 +1,109 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: qijizhixing
+	// =================================================================================================================
+	"item_recipe_qijizhixing"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"			"item_recipe_qijizhixing"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8179"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"125"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_qijizhixing"
+		"ItemRequirements"
+		{
+			"01"	"item_baozi;item_zun_hat;item_pant"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// 奇迹之星
+	// =================================================================================================================
+	"item_qijizhixing"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_qijizhixing"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING "
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"40"
+		"AbilityManaCost"	"125"
+		"AbilityCastRange"	"650"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8180"
+		"ItemQuality"	"secret_shop"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"3175"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"mana;regen_health;magical_armor"
+
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_qijizhixing.vpcf"
+		}
+
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"	"particles/thd2/items/item_qijizhixing.vpcf"
+				"Target"		"TARGET"
+				"EffectAttachType"	"follow_origin"
+			}
+			"DelayedAction"
+			{
+				"Delay"	"0.5"
+				"Action"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"		"ItemAbility_Qijizhixing_OnSpellStart"
+						"ModifierName"	"modifier_item_qijizhixing_regen"
+						"HealAmount"	"%heal_constant"
+					}
+				}
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_item_qijizhixing"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_MANA_BONUS"				"%bonus_mana"
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS"	"%bonus_magical_armor"
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health_regen"	"6.5"
+			"bonus_health"		"175"
+			"bonus_mana"	"175"
+			"bonus_magical_armor"	"10"
+			"heal_constant"		"275"
+		}
+	}
+}

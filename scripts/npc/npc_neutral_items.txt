@@ -1,0 +1,404 @@
+//用于覆写dota中立物品
+"DOTAAbilities"
+{
+	"item_refresher"
+	{
+		"ItemIsNeutralDrop"				"1"
+        "ItemPurchasable"				"0"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemSellable"					"0"
+	}
+    "item_titan_sliver"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"381"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralDrop"				"1"
+		"ItemPurchasable"				"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"base_attack_damage"			"20"
+			"magic_resistance"			"16"
+			"status_resistance"			"99"
+		}
+	}
+    //=================================================================================================================
+	// Wind Waker
+	//=================================================================================================================
+	"item_wind_waker"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"610"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		"FightRecapLevel"				"1"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"550"
+		"AbilityCastPoint"				"0.0"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"18.0"
+		"AbilitySharedCooldown"			"cyclone"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"175"
+        "ItemCost"						"0"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"cyclone;wind waker;ww"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ShouldBeSuggested"				"0"
+        "ItemIsNeutralDrop"				"1"
+        "ItemPurchasable"				"0"
+		"IsTempestDoubleClonable"		"0"
+		"ItemSellable"					"0"
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_movement_speed"	"50"
+			"bonus_mana_regen"		"6.0"
+			"bonus_intellect"		"35"
+			"cyclone_duration"		"2.5"
+			"tooltip_drop_damage"	"50"
+			"tornado_speed"	"360"
+		}
+	}
+	//=================================================================================================================
+	// Maelstrom
+	//=================================================================================================================
+	"item_maelstrom"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"166"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"maelstrom"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemIsNeutralDrop"				"1"
+        "ItemPurchasable"				"0"
+		"IsTempestDoubleClonable"		"0"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemSellable"					"0"
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"			"24"
+			"chain_chance"			"40"
+			"chain_damage"			"140"
+			"chain_strikes"			"4"
+			"chain_radius"			"650"
+			"chain_delay"			"0.25"
+			"chain_cooldown"		"0.2"
+		}
+	}
+	"item_book_of_shadows"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_giants_ring"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}			  
+	"item_demonicon"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}				  
+	"item_fallen_sky"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"AbilityTextureName"			"item_neutral_sky"
+	}				 
+	"item_pirate_hat"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}				 
+	"item_ex_machina"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_apex"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"AbilityTextureName"			"item_neutral_fumo"
+	}						  
+	"item_ballista"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}					 
+	"item_woodland_striders"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_seer_stone"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_force_boots"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}				
+	"item_desolator_2"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_witless_shako"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}			 
+	"item_timeless_relic"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}			 
+	"item_spell_prism"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}				  
+	"item_princes_knife"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_ninja_gear"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"AbilityTextureName"			"item_neutral_koishi"
+	}				 
+	"item_illusionsts_cape"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_panic_button"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_minotaur_horn"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_wind_waker"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_heavy_blade"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_spy_gadget"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}				
+	"item_trickster_cloak"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_elven_tunic"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}			
+	"item_cloak_of_flames"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}				
+	"item_ceremonial_robe"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}				
+	"item_psychic_headband"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}				 
+	"item_ogre_seal_totem"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_mind_breaker"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}				  
+	"item_penta_edged_sword"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_quickening_charm"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}			  
+	"item_spider_legs"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}				  
+	"item_enchanted_quiver"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"AbilityTextureName"			"item_neutral_quiver"
+	}		 
+	"item_paladin_sword"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_craggy_coat"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_bullwhip"		
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}	  		 
+	"item_quicksilver_amulet"		 
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_specialists_array"		  
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_eye_of_the_vizier"		 
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	} 
+	"item_maelstrom"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_clumsy_net"		
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}		  
+	"item_misericorde"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_imp_claw"		
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}			  
+	"item_philosophers_stone"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_grove_bow"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}			 
+	"item_vampire_fangs"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}		  
+	"item_ring_of_aquila"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_satchel"		
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}			  
+	"item_seeds_of_serenity"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}	  
+	"item_lance_of_pursuit"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}		 
+	"item_occult_bracelet"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_possessed_mask"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}		 
+	"item_mysterious_hat"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}		  
+	"item_unstable_wand"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}			  
+	"item_pogo_stick"
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	"item_satchel"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}				 
+	"item_seeds_of_serenity"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}	  
+	"item_lance_of_pursuit"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}		 
+	"item_occult_bracelet"	
+	{
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	}
+	//=================================================================================================================
+	// Blink dagger
+	//=================================================================================================================
+	"item_blink"
+	{
+		"ItemIsNeutralDrop"				"1"
+        "ItemPurchasable"				"0"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemSellable"					"0"
+	}
+	//=================================================================================================================
+	// Recipe: Arcane Blink
+	//=================================================================================================================
+	"item_recipe_arcane_blink"
+	{
+		"ItemCost"						"3999"	
+		"ItemRequirements"
+		{
+			"01"						"item_blink*"
+		}
+	}	
+	//=================================================================================================================
+	// Recipe: Swift Blink
+	//=================================================================================================================
+	"item_recipe_swift_blink"
+	{
+		"ItemCost"						"3999"	
+		"ItemRequirements"
+		{
+			"01"						"item_blink*"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Overwhelming Blink
+	//=================================================================================================================
+	"item_recipe_overwhelming_blink"
+	{
+		"ItemCost"						"3999"	
+		"ItemRequirements"
+		{
+			"01"						"item_blink*"
+		}
+	}	 				  		  			  		  		  				 				 	 				  		 			  	 					 				 
+}

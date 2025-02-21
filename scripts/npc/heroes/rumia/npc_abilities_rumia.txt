@@ -1,0 +1,187 @@
+"DOTAAbilities"
+{
+	// ---------------------------------------------------------------------------------------first ok
+	"ability_thdots_rumia01"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityRumia.lua"
+		"AbilityTextureName"	"touhoutd/thtd_rumia_04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"MaxLevel"	"4"
+		"ID"	"2040"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/rumia/ability_rumia01_effect.vpcf"
+			"particle_folder"	"particles/thd2/heroes/rumia"
+			"soundfile" "soundevents/thdots_hero_sounds/thdots_rumia_sounds.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCooldown"	"20"
+			"AbilityManaCost"	"60 70 80 90"
+
+			"duration"			"3.0 4.0 5.0 6.0"
+			"health_regen_pct"	"2 2.5 3 3.5"
+			"evasion"			"25"
+		}
+	}
+
+	// ----------------------------------------------------------second OK---------------------
+	"ability_thdots_rumia02"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityRumia.lua"
+		"AbilityTextureName"	"touhoutd/thtd_rumia_03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"MaxLevel"	"4"
+		"ID"	"2041"
+		"IsBreakable"				"1"
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/heroes/rumia"
+			"particle"	"particles/thd2/heroes/rumia/ability_rumia02_effect.vpcf"
+		}
+		"AbilityValues"
+		{
+			"duration"		"1"
+			"crit_chance"	"15"
+			"crit_damage"
+			{
+				"value"							"120 180 240 280"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"damage_count"		"2"
+			"think_interval"	"0.5"
+			"move_speed_slow"	"-15 -20 -25 -30"
+			"damage"
+			{
+				"value"							"10 15 20 25"
+				"special_bonus_unique_rumia_4"	"+75"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+		}
+	}
+
+	"ability_thdots_rumia03"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityRumia.lua"
+		"AbilityTextureName"	"touhoutd/thtd_rumia_02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"	"4"
+		"IsBreakable"				"1"
+		"precache"
+		{
+			"particle"		"particles/econ/items/nightstalker/nightstalker_black_nihility/nightstalker_black_nihility_void_swarm.vpcf"
+		}
+		"AbilityValues"
+		{
+			"day_move_speed"		"5 8 11 14"
+			"day_attack_speed"		"13 26 39 52"
+			"night_move_speed"		"10 16 22 28"
+			"night_attack_speed"	"26 52 78 104"
+		}
+	}
+
+	// --------------------------------------------------------------------------------------------lasting ok
+	"ability_thdots_rumia04"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityRumia.lua"
+		"AbilityTextureName"	"touhoutd/thtd_rumia_01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetFlags"	"DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
+		// Stats---------------------------------------------------------------
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"HasScepterUpgrade"			"1"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"	"3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"ID"	"2042"
+		"precache"
+		{
+			"particle_folder"	"particles/blood_impact"
+			"particle"	"particles/blood_impact/blood_advisor_pierce_spray.vpcf"
+			"particle"	"particles/units/heroes/hero_life_stealer/life_stealer_infest_cast.vpcf"
+			"particle"	"particles/units/heroes/hero_axe/axe_culling_blade_kill.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_rumia_sounds.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.3"
+			"AbilityCooldown"
+			{
+				"value"							"30"
+				"special_bonus_unique_rumia_2"	"-12"
+			}
+			"AbilityManaCost"	"80"
+			"AbilityCastRange"	"150"
+
+			"lost_strength_percent"	"20"
+			"steal_health_percent"	"30 50 80"
+			"str_gain"
+			{
+				"value"							"1"
+				"special_bonus_unique_rumia_1"	"x3"
+			}
+			"hero_str_gain"
+			{
+				"value"							"5"
+				"special_bonus_unique_rumia_1"	"x3"
+			}
+
+			"eat_chance"
+			{
+				"special_bonus_scepter"			"18"
+			}
+		}
+		"AbilityDamage"	"250 425 600"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_rumia_1"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:-15吃人冷却
+	//=================================================================================================================
+	"special_bonus_unique_rumia_2"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:驱散
+	//=================================================================================================================
+	"special_bonus_unique_rumia_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	"special_bonus_unique_rumia_4"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+}

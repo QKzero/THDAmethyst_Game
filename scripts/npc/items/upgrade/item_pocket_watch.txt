@@ -1,0 +1,110 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Pocket Watch
+	// =================================================================================================================
+	"item_recipe_pocket_watch"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_pocket_watch"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8149"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"700"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_pocket_watch"
+		"ItemRequirements"
+		{
+			"01"	"item_cookbook;item_magic_guide_book;item_rocket_diagram"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Pocket Watch
+	// =================================================================================================================
+	"item_pocket_watch"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_pocket_watch"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"40"
+		"AbilityManaCost"	"144"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"550"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8150"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2300"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"str;agi;int;damage"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_pocket_watch.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_ModifierTarget"
+				"ModifierName"	"modifier_item_pocket_watch_pause"
+				"Blockable"	"1"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_pocket_watch"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+				}
+			}
+			"modifier_item_pocket_watch_pause"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"EffectName"	"particles/thd2/items/item_pocket_watch.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_FROZEN"	    "MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"3"
+			"bonus_agility"	"3"
+			"bonus_intellect"	"18"
+			"bonus_damage"	"5"
+			"duration"	"1.44"
+		}
+	}
+}

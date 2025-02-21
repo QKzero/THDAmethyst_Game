@@ -1,0 +1,121 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Ghost Balloon
+	// =================================================================================================================
+	"item_recipe_ghost_balloon"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_ghost_balloon"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8087"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"625"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_ghost_balloon"
+		"ItemRequirements"
+		{
+			"01"	"item_sailor_suit;item_juice;item_aunt_clothes"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Ghost Balloon 幽灵气球
+	// =================================================================================================================
+	"item_ghost_balloon"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_ghost_balloon"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"30"
+		"AbilityManaCost"	"75"
+		"AbilityCastRange"	"700"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8088"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1800"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"		
+		"ItemShopTags"	"armor"
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/items"
+			"particle"	"particles/thd2/items/item_ballon.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityitem.lua"
+				"Function"	"ItemAbility_ghost_balloon_OnSpellStart"
+				"Caster"	"CASTER"
+				"Target"	"TARGET"
+				"Duration"	"%shield_duration"
+				"Block"		"%barrier_block"	
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_ghost_balloon"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+				}
+			}
+			"modifier_item_ghost_balloon_shield_debuff"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Duration"	"%cold_duration"
+				// "IsHidden"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%cold_attackspeed"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%cold_movespeed"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"	"6"
+			"barrier_block"	"200"
+			"shield_duration"	"6"
+			"cold_duration"	"2"
+			"cold_movespeed"	"-10"
+			"cold_attackspeed"	"-15"
+			"bonus_mana_regen"	"1.5"
+			"bonus_health"	"100"
+		}
+		// Sound
+		// -------------------------------------------------------------------------------------------------------------
+		"UIPickupSound"	"Item.PickUpRingShop"
+		"UIDropSound"	"Item.DropRingShop"
+		"WorldDropSound"	"Item.DropRingWorld"
+	}
+}

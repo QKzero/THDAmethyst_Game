@@ -1,0 +1,56 @@
+"DOTAAbilities"
+{
+    "item_recipe_ertianyiliu"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_ertianyiliu"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5000"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_ertianyiliu"
+		"ItemRequirements"
+		{
+			"01"	"item_cirno_claymore;item_sampan"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+	"item_ertianyiliu"
+	{
+		"BaseClass"	"item_lua"
+		"AbilityTextureName"	"item_ertianyiliu"	//图标By 橘橘子
+		"ScriptFile"                    "items/item_ertianyiliu"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityCooldown"	"7"
+		"ItemCost"	"14300"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"damage"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_skeletonking.vsndevts"
+			"particle"	"particles/units/heroes/hero_skeletonking/skeleton_king_weapon_blur_critical.vpcf"
+			"particle"	"particles/units/heroes/hero_monkey_king/monkey_king_attack_01_blur_cud.vpcf"
+			"particle"	"particles/econ/items/monkey_king/ti7_weapon/mk_ti7_crimson_strike_cast_motion_dark.vpcf"
+		}
+		
+		"AbilityValues"
+		{
+			"bonus_damage"	"155"
+			"crit_mult"	"300"
+			"crit_chance"	"30"
+			"corruption_armor_duration"	"5"
+			"corruption_armor"	"-10"
+			"slow_duration"	"0.8"
+			"slow_movespeed"	"-100"
+			"cooldown_crit_mult"	"200"
+			"cooldown"	"5"
+		}
+	}
+}

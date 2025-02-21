@@ -1,0 +1,133 @@
+"DOTAAbilities"
+{
+    "item_recipe_autumn_leaves"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_autumn_leaves"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"300"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_autumn_leaves"
+		"ItemRequirements"
+		{
+			"01"	"item_throwing_knive;item_huanyingzhifeng;item_scissors"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_autumn_leaves"
+	{
+		"BaseClass"	             "item_datadriven"
+		"AbilityTextureName"	 "item_autumn_leaves"
+		"AbilityBehavior"	     "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	 "DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	 "DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityDamageType"				"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType"	"SPELL_DISPELLABLE_NO"
+		"AbilityCastPoint"	"0.0"
+		"Model"							"models/props_gameplay/red_box.vmdl" 
+		"Effect"						"particles/generic_gameplay/dropped_item.vpcf"
+		
+		"ItemQuality"	"common"
+		
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"4000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"					"unique"
+		"ItemAliases"					"mkb;monkey king bar"
+		"ItemQuality"	                "secret_shop"
+		"SideShop"						"0"
+		"Modifiers"
+		{
+			"modifier_item_autumn_leaves_passive"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"			"1"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"		"%bonus_damage"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+				}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_autumn_leaves.lua"
+						"Function"		"ReconsiderNomiss"
+						"ModifierName"	"modifier_item_autumn_leaves_nomiss"
+						"Chance"		"%chance"
+						"FirstCheck" 	"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_autumn_leaves.lua"
+						"Function"		"ReconsiderNomiss"
+						"ModifierName"	"modifier_item_autumn_leaves_nomiss"
+						"Chance"		"0"
+						//Clear buff when remove
+					}
+				}
+				"OnAttack"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_autumn_leaves.lua"
+						"Function"		"ReconsiderNomiss"
+						"ModifierName"	"modifier_item_autumn_leaves_nomiss"
+						"Chance"		"%chance"
+					}
+				}
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_autumn_leaves.lua"
+						"Function"		"OnLeavesPierceLanded"
+						"ModifierName"	"modifier_item_autumn_leaves_pierce_buff"
+					}
+				}
+			}
+			"modifier_item_autumn_leaves_nomiss"
+			{
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"0"
+				"States"
+				{
+					"MODIFIER_STATE_CANNOT_MISS"			"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_item_autumn_leaves_pierce_buff"
+			{
+				"Attributes"		"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"IsDebuff"			"1"
+				"RemoveOnDeath"		"1"
+				"Duration"			"%duration"
+			}
+		}
+		"AbilityValues"
+		{
+			"damage"				"30"
+			"bonus_attack_speed"	"60"
+			"bonus_damage"			"20"
+			"chance"				"75"
+			"maxstack"				"3"
+			"duration"				"12"
+		}
+	}
+}

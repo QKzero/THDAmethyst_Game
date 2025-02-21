@@ -1,0 +1,101 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Card Eat Mam
+	// =================================================================================================================
+	"item_card_eat_man"
+	{
+		"BaseClass"	"item_lua"
+		"ScriptFile"                    "items/item_card"
+		"AbilityTextureName"	"item_card_eat_man"			//图标By 橘橘子
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"90"
+		"ItemIsNeutralDrop"		"1"
+		"SecretShop"   "1"
+		"Model"	"models/props_gameplay/recipe.vmdl"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"600"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8205"
+		"ItemQuality"	"consumables"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"70"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShareability"	"ITEM_FULLY_SHAREABLE"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES"
+		"ItemPermanent"	"0"
+		"ItemInitialCharges"	"1"
+		"ItemStackable"	"1"
+		"ItemShopTags"	"consumables"
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/items"
+			"particle"	"particles/units/heroes/hero_clinkz/clinkz_death_pact.vpcf"
+			"soundevents"	"soundevents/game_sounds_heroes/game_sounds_clinkz.vsndevts"
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"level_limit"	"10"
+			"health_regen"	"5"
+			"per_min"	"999"
+			"duration"	"60"
+		}
+		"AbilitySharedCooldown"	"item_card"
+		"ItemStockMax"	"2"
+		"ItemStockInitial"	"2"
+		"ItemStockTime"	"120.0"
+	}
+
+	"item_card_eat_man_shop"
+	{
+		"BaseClass"	"item_lua"
+		"ScriptFile"                    "items/item_card"
+		"AbilityTextureName"	"item_card_eat_man"	//图标By 橘橘子
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"0"
+		"ItemIsNeutralDrop"		"0"
+		"FightRecapLevel"				"1"
+		"Model"	"models/props_gameplay/recipe.vmdl"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"600"
+		"ItemQuality"	"consumables"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"70"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShareability"	"ITEM_FULLY_SHAREABLE"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemPermanent"	"0"
+		"ItemInitialCharges"	"1"
+		"ItemStackable"	"1"
+		"ItemShopTags"	"consumables"
+		"AbilitySharedCooldown"	"item_card"
+		"ItemStockMax"	"2"
+		"ItemStockInitial"	"2"
+		"ItemAlertable"		"1"
+		"ItemStockTime"	"120.0"
+		"IsTempestDoubleClonable"		"0"
+		"AbilityValues"
+		{
+			"level_limit"	"10"
+			"health_regen"	"5"
+			"per_min"	"999"
+			"duration"	"60"
+		}
+	}
+}

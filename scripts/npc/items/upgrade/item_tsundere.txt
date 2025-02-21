@@ -1,0 +1,117 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Tsundere
+	// =================================================================================================================
+	"item_recipe_tsundere"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_tsundere"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8141"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1000"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_tsundere"
+		"ItemRequirements"
+		{
+			"01"	"item_hj_bug;item_harvest_cradle"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Tsundere
+	// =================================================================================================================
+	"item_tsundere"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_tsundere"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"50"
+		"AbilityManaCost"	"0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8142"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5500"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"health_pool;mana_pool;regen_health;regen_mana"
+		"ItemAliases"	"xiao yushen's adamantine"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_tsundere.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_item_tsundere_invulnerable"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityitem.lua"
+				"Target"	"TARGET"
+				"Function"	"ItemAbility_tsundere_OnSpellStart"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_tsundere"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+					"MODIFIER_PROPERTY_MANA_BONUS"	"%bonus_mana"
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+				}
+			}
+			"modifier_item_tsundere_invulnerable"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Duration"	"%invulnerable_duration"
+				"IsBuff"	"1"
+				"EffectName"	"particles/thd2/items/item_tsundere.vpcf"
+				"EffectAttachType"	"follow_origin"
+				// "IsHidden"	"1"
+				"States"
+				{
+					// "MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_ATTACK_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_DISABLED"
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"-100"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health"	"550"
+			"bonus_mana"	"600"
+			"bonus_health_regen"	"3"
+			"bonus_mana_regen"	"2"
+			"invulnerable_duration"	"2.0"
+		}
+	}
+}

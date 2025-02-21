@@ -1,0 +1,501 @@
+"DOTAAbilities"
+{
+	"ability_thdots_suika02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_suika02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		//"ID"	"2036"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_brewmaster.vsndevts"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_suika_sounds.vsndevts"
+			"particle"	"particles/units/heroes/hero_brewmaster/brewmaster_pulverize.vpcf"
+		}
+		// "precache"
+		// {
+		// 	    "soundfile"					""
+		// }
+		"Modifiers"
+		{
+			"passive_suika02_attack"
+			{
+				"Passive"	"1"
+				"OnAttackLanded"
+				{
+					"Random"
+					{
+						"Chance"	"%ability_chance_base"
+						"OnSuccess"
+						{
+							"FireSound"
+							{
+								"EffectName"	"Hero_Brewmaster.ThunderClap"
+								"Target"	"TARGET"
+							}
+							"RunScript"
+							{
+								"Target"
+								{
+									"Center"	"TARGET"
+									"Radius"	"%move_slow_radius"
+									"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+									"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_OTHER"
+								}
+								"ScriptFile"	"scripts/vscripts/abilities/abilitySuika.lua"
+								"Function"	"OnSuika02Start"
+							}
+							"FireEffect"
+							{
+								"EffectName"	"particles/units/heroes/hero_brewmaster/brewmaster_pulverize.vpcf"
+								"EffectAttachType"	"world_origin"
+								"Target"	"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_suika02_slow"
+								"Duration"	"%move_slow_duration"
+								"Target"
+								{
+									"Center"	"TARGET"
+									"Radius"	"%move_slow_radius"
+									"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+									"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_OTHER"
+								}
+							}
+						}
+					}
+				}
+			}
+			"modifier_suika02_slow"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_slow"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed_slow"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"ability_chance_base"	"30"
+			"bouns_damage"	"60 95 130 165"
+			"move_slow"	"-40"
+			"move_slow_duration"	"1.7"
+			"move_slow_radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"attackspeed_slow"	"-10 -20 -30 -40"
+		}
+		"AbilityDamage"	"60 95 130 165"
+	}
+
+	"ability_thdots_suika02_ult"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_suika02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"3"
+		"ID"	"2037"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_brewmaster.vsndevts"
+			"particle"	"particles/units/heroes/hero_brewmaster/brewmaster_pulverize.vpcf"
+		}
+		"Modifiers"
+		{
+			"passive_suika02_ult_attack"
+			{
+				"Passive"	"1"
+				"OnAttackLanded"
+				{
+					"Random"
+					{
+						"Chance"	"%ability_chance_base"
+						"OnSuccess"
+						{
+							"FireSound"
+							{
+								"EffectName"	"Hero_Brewmaster.ThunderClap"
+								"Target"	"TARGET"
+							}
+							"RunScript"
+							{
+								"Target"
+								{
+									"Center"	"TARGET"
+									"Radius"	"%move_slow_radius"
+									"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+									"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_OTHER"
+								}
+								"ScriptFile"	"scripts/vscripts/abilities/abilitySuika.lua"
+								"Function"	"OnSuika02ULTStart"
+							}
+							"FireEffect"
+							{
+								"EffectName"	"particles/units/heroes/hero_brewmaster/brewmaster_pulverize.vpcf"
+								"EffectAttachType"	"world_origin"
+								"Target"	"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_suika02_ult_slow"
+								"Duration"	"%move_slow_duration"
+								"Target"
+								{
+									"Center"	"TARGET"
+									"Radius"	"%move_slow_radius"
+									"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+									"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_OTHER"
+								}
+							}
+						}
+					}
+				}
+			}
+			"modifier_suika02_ult_slow"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_slow"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed_slow"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"ability_chance_base"	"50 75 100"
+			"move_slow"	"-40"
+			"move_slow_duration"	"1.7"
+			"move_slow_radius"
+			{
+				"value"			"350"
+				"affected_by_aoe_increase"	"1"
+			}
+			"attackspeed_slow"	"-40"
+		}
+	}
+
+	"ability_thdots_suika03"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_suika03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"28 24 20 16"
+		"HasScepterUpgrade" "1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"60 80 100 120"
+		"ID"	"2038"
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/heroes/suika"
+			"particle"	"particles/thd2/heroes/suika/ability_suika_03_effect.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitySuika.lua"
+				"Function"	"OnSuika03Start"
+				"Caster"	"CASTER"
+			}
+			// "ApplyModifier"
+			// {
+			// 	"Target"	"CASTER"
+			// 	"ModifierName"	"modifier_thdots_suika03_think_interval"
+			// }
+			// "ApplyModifier"
+			// {
+			// 	"Target"	"CASTER"
+			// 	"ModifierName"	"modifier_thdots_suika03_states"
+			// }
+			// "FireSound"
+			// {
+			// 	"EffectName"	"Voice_Thdots_Suika.AbilitySuika01"
+			// 	"Target"	"CASTER"
+			// }
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_suika03_think_interval"
+			{
+				"IsHidden"	"0"
+				"Duration"	"%ability_duration"
+				"ThinkInterval"	"0.5"
+				"EffectName"	"particles/thd2/heroes/suika/ability_suika_03_effect.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitySuika.lua"
+						"Function"	"OnSuika03Spawn"
+					}
+				}
+			}
+			"modifier_thdots_suika03_states"
+			{
+				"IsHidden"	"1"
+				"Duration"	"%ability_duration"
+				"States"
+				{
+					"MODIFIER_STATE_ATTACK_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_DISARMED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MUTED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_speed"
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"-100"
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitySuika.lua"
+						"Function"	"OnSuika03End"
+						"Target"	"CASTER"
+					}
+				}
+			}
+			"modifier_thdots_suika03_unit"
+			{
+				"Duration"	"0.1"				
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_thdots_suika03_wanbaochui"
+			{
+				"IsHidden"	"1"
+				"Duration"	"%ability_duration"
+				"States"
+				{
+					"MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY"				"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"ability_duration"	"2 3 4 5"
+			"spawn_duration"	"5"
+			"move_speed"	"-40"
+		}
+	}
+
+	"ability_thdots_suika04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_suika04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		//"AbilityCharges"				"2"
+		//"AbilityChargeRestoreTime"		"85"
+		"AbilityCooldown"	"65"
+		"HasScepterUpgrade" "1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"75 125 175"
+		"ID"	"2039"
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/heroes/suika"
+			"particle"	"particles/thd2/heroes/suika/ability_suika_04_effect.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_suika_sounds.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			// "FireSound"
+			// {
+			// 	"EffectName"		"Hero_DoomBringer.ScorchedEarthAura"
+			// 	"Target"            "CASTER"
+			// }
+			"FireEffect"
+			{
+				"EffectName"	"particles/thd2/heroes/suika/ability_suika_04_effect.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitySuika.lua"
+				"Function"	"OnSuika04SpellStart"
+				"Caster"	"CASTER"
+				"Duration"	"%duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_Suika_04"
+			{
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_speed"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed_bouns"
+					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL"	"1"
+					"MODIFIER_PROPERTY_ATTACK_RANGE_BONUS"		"%bonus_attack_range"
+				}
+				"States"
+				{
+					//"MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY"				"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitySuika.lua"
+						"Function"	"OnSuika04End"
+						"Target"	"CASTER"
+					}
+				}
+			}
+			"modifier_thdots_Suika_04_telent"
+			{
+				"IsHidden"			"1"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_DISABLED"
+				}
+			}
+
+			"modifier_Suika_04_wanbaochui"
+			{
+				"IsHidden"			"1"
+				"Duration"			"%duration"
+				"States"
+				{
+					"MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY"				"MODIFIER_STATE_VALUE_ENABLED"
+				}	
+			}			
+		}
+		"AbilityValues"
+		{
+			"health_regen"	"15 30 50"
+			"move_speed"	"25"
+			"duration"
+			{
+				"value"	"8"
+				"LinkedSpecialBonus"	"special_bonus_unique_suika_3"
+			}
+			"attackspeed_bouns"	"75 100 125"
+			"bonus_attack_range"	"100"
+			"ability_chance_base"	"50 75 100"
+		}
+	}
+
+	"ability_thdots_suikaex"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_suikaex"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"	"1"
+		//"IsGrantedByScepter"	"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCooldown"	"15"
+		"AbilityManaCost"	"50"
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_Suika_04_wanbaochui"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_Suika_04_wanbaochui"
+			{
+				
+				"Duration" "15"
+				"States"
+					{
+						"MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY"				"MODIFIER_STATE_VALUE_ENABLED"
+					}	
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_suika_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"						"1"
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus：+50 小西瓜移速
+	//=================================================================================================================
+	"special_bonus_unique_suika_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"50"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：+3.5秒大招持续
+	//=================================================================================================================
+	"special_bonus_unique_suika_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"5"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_suika_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"8"
+		}
+	}
+}

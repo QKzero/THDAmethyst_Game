@@ -1,0 +1,283 @@
+// Dota2 Editor
+// Get latest version: https://github.com/zombieJ/nw-dota2editor
+
+"DOTAAbilities"
+{
+	"Version"		"1"
+
+	"ability_thdots_youmu2_Ex"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_youmuEx"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityyoumu2.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"1"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/econ/items/juggernaut/jugg_serrakura/jugg_serrakurra_ambient_blade_petal.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_antimage.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"decrease_damage"			"-20"
+			"decrease_damage_per_level"	"0"
+		}
+	}
+
+	"ability_thdots_youmu2_01"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_youmu_01"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityyoumu2.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AnimationPlaybackRate"	"2"
+		"precache"
+		{
+			"particle"		"particles/thd2/heroes/youmu/youmu_01_blink_effect.vpcf"
+			"particle"		"particles/econ/items/juggernaut/jugg_ti8_sword/juggernaut_blade_fury_abyssal.vpcf"
+			"particle"		"particles/econ/items/riki/riki_immortal_ti6/riki_immortal_ti6_blinkstrike_gold_stab_core.vpcf"
+			"particle"		"particles/econ/items/riki/riki_immortal_ti6/riki_immortal_ti6_blinkstrike_gold_r_stab_core.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.1"
+			"AbilityCooldown"
+			{
+				"value"							"14 12 10 8"
+				"special_bonus_unique_youmu2_8"	"-4"
+			}
+			"AbilityManaCost"	"85"
+			"AbilityCastRange"	"900"
+
+			"damage_radius"
+			{
+				"value"							"300"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"CalculateSpellDamageTooltip"	"0"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"
+			{
+				"value"							"100 150 200 250"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"count"			"2"
+			"move_duration"	"0.4"
+		}
+	}
+
+	"ability_thdots_youmu2_02"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_youmu02"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityyoumu2.lua"
+		//"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/heroes/youmu/youmu_02_effect_explosion.vpcf"
+			"particle"	"particles/econ/items/witch_doctor/wd_ti10_immortal_weapon_gold/wd_ti10_immortal_ambient_gold_glint.vpcf"
+			"particle"	"particles/dev/library/base_attack_swipe.vpcf"
+			"particle"	"particles/thd2/heroes/youmu/youmu_01_blink_effect.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_youmu_sounds.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityManaCost"	"35"
+			"AbilityCooldown"	"9"
+
+			"damage"
+			{
+				"value"							"35 70 105 140"
+				"special_bonus_unique_youmu2_5"	"x2"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"silence_time"
+			{
+				"value"							"0.1"
+				"special_bonus_unique_youmu2_5"	"x2"
+			}
+			"duration"		"0.7"
+		}
+	}
+
+	"ability_thdots_youmu2_03"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_youmu_02"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityyoumu2.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AnimationPlaybackRate"	"1.5"
+		"precache"
+		{
+			"particle"		"particles/econ/items/juggernaut/jugg_ti8_sword/juggernaut_blade_fury_abyssal.vpcf"
+			"particle"		"particles/econ/items/riki/riki_immortal_ti6/riki_immortal_ti6_blinkstrike_gold_r_stab.vpcf"
+			"particle"		"particles/thd2/heroes/youmu/youmu_01_blink_effect.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCooldown"	"20"
+			"AbilityManaCost"	"80 90 100 110"
+
+			"radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"
+			{
+				"value"							"20 40 60 80"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"count"		"1 1 2 2"
+			"duration"
+			{
+				"value"							"2 3 4 5"
+				"special_bonus_unique_youmu2_2"	"+3"
+			}
+			"movement_bonus"	"20 40 60 80"
+		}
+	}
+
+	"ability_thdots_youmu2_04"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_youmu_03"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityyoumu2.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AnimationPlaybackRate"	"1.5"
+		"precache"
+		{
+			"particle"		"particles/thd2/heroes/youmu/youmu_01_blink_effect.vpcf"
+			"particle"		"particles/units/heroes/hero_witchdoctor/witchdoctor_maledict.vpcf"
+			"particle"		"particles/dev/library/base_attack_swipe.vpcf"
+			"particle"		"particles/item/silver_edge/silver_edge_panic_debuff.vpcf"
+			"particle"		"particles/thd2/items/item_morenjingjuan.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.3"
+			"AbilityCooldown"	"100 85 70"
+			"AbilityManaCost"	"100 150 200"
+			"AbilityCastRange"
+			{
+				"value"							"300"
+				"special_bonus_unique_youmu2_4"	"+1000"
+			}
+			
+			"duration"	"2 2.5 3"
+			"break_duration"
+			{
+				"value"							"3 5 7"
+				"special_bonus_unique_youmu2_1"	"+3"
+			}
+			"decrease_magical_armor"	"-20 -30 -40"
+			"damage"
+			{
+				"value"							"100 200 300"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"flick_time"				"3"
+			"bonus_attack_speed"		"60 90 120"
+			"bonus_duration"			"6"
+		}
+	}
+
+	"ability_thdots_youmu2_05"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"vengefulspirit_nether_swap"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityyoumu2.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"CastFilterRejectCaster"	"1"
+		"MaxLevel"	"1"
+		"AbilityCastAnimation"	"ACT_DOTA_ATTACK"
+		"AnimationPlaybackRate"	"2"
+		"IsGrantedByScepter"	"1"
+		"precache"
+		{
+			"particle"		"particles/econ/items/ogre_magi/ogre_ti8_immortal_weapon/ogre_ti8_immortal_bloodlust_buff_ground.vpcf"
+			"particle"		"particles/econ/items/natures_prophet/natures_prophet_weapon_primeval_staff/natures_prophet_primeval_staff.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"	"30"
+			"AbilityManaCost"	"100"
+			"AbilityCastRange"	"1500"
+			
+			"duration"	"10"
+		}
+	}
+
+	"special_bonus_unique_youmu2_1"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+	"special_bonus_unique_youmu2_2"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+	"special_bonus_unique_youmu2_3"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	"special_bonus_unique_youmu2_4"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+	"special_bonus_unique_youmu2_5"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+	"special_bonus_unique_youmu2_8"
+	{
+		"BaseClass"	"special_bonus_base"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+}

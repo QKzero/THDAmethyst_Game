@@ -1,0 +1,46 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// 妖精之翼
+	// =================================================================================================================
+	"item_cat_ear"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_cat_ear"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8018"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"450"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"SideShop"	"1"
+		"ItemShopTags"	"agi"
+		"ItemAliases"	"nekomimi"
+		"Modifiers"
+		{
+			"modifier_item_cat_ear"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_agility"	"6"
+		}
+	}
+}

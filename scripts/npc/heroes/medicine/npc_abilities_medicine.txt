@@ -1,0 +1,683 @@
+"DOTAAbilities"
+{
+	"ability_thdots_medicine01old"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"				"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityTextureName"			"custom/ability_thdots_medicine01"
+		"HasScepterUpgrade"			"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0.1"
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"2"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"15"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage"						"16 24 32 40"
+			"duration"						"5"
+			"slow_movement"					"-3 -5 -7 -9"
+			"move_speed"					"1200"
+			"decrease_mgical_resistance"	"-4 -5 -7 -8"
+			"decrease_armor"				"-1.5 -2.0 -2.5 -3.0"
+			"base_slow_movement"			"-15"
+		}
+		"precache"
+		{
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_viper.vsndevts"
+			"particle"		"particles/units/heroes/hero_viper/viper_poison_attack.vpcf"
+			"particle"		"particles/units/heroes/hero_viper/viper_poison_debuff.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Viper.poisonAttack.Cast"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"Target"				"TARGET"
+				"ScriptFile"			"scripts/vscripts/abilities/abilitymedicine.lua"
+				"Function"				"OnMedicine01Spellbegining"	
+				"AbilityCastRange"		"%AbilityCastRange"
+			}
+			"TrackingProjectile"
+			{
+				"Target"				"TARGET"
+				"EffectName"			"particles/units/heroes/hero_viper/viper_poison_attack.vpcf"
+				"Dodgeable"				"0"
+				"ProvidesVision"		"1"
+				"VisionRadius"			"300"
+				"MoveSpeed"				"%move_speed"
+				"SourceAttachment"		"DOTA_PROJECTILE_ATTACHMENT_ATTACK_1"
+			}			
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"				"true"
+			"RunScript"
+			{
+				"Target"				"TARGET"
+				"ScriptFile"			"scripts/vscripts/abilities/abilitymedicine.lua"
+				"Function"				"OnMedicine01SpellStart"				
+				"Duration"				"%duration"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_Viper.PoisonAttack.Target"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_medicine01_debuff"
+			{
+				"IsDebuff"			"1"
+				"IsPurgable"		"1"
+				"Duration"				"%duration"
+				"EffectName"		"particles/units/heroes/hero_viper/viper_poison_debuff.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_DECREPIFY_UNIQUE"	 "%decrease_mgical_resistance"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%decrease_armor"	
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow_movement"			
+				}				
+			}
+			"modifier_medicine01_move_debuff"
+			{
+				"IsDebuff"			"1"
+				"IsPurgable"		"1"			
+				"Duration"				"%duration"	
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%base_slow_movement"	
+				}
+				"ThinkInterval"	 "0.5"			
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{	
+						"Target"				"TARGET"
+						"ScriptFile"			"scripts/vscripts/abilities/abilitymedicine.lua"
+						"Function"				"OnMedicine01SpellThink"
+						"Damage"				"%damage"
+					}
+				}
+			}
+			"modifier_medicine01_debuff_wanbaochui"
+			{
+				"IsDebuff"			"1"
+				"Duration"				"%duration"
+				"EffectName"		"particles/units/heroes/hero_viper/viper_poison_debuff.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_DECREPIFY_UNIQUE"	 "%decrease_mgical_resistance"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%decrease_armor"	
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow_movement"			
+				}				
+			}
+			"modifier_medicine01_move_debuff_wanbaochui"
+			{
+				"IsDebuff"			"1"
+				"Duration"				"%duration"	
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%base_slow_movement"	
+				}
+				"ThinkInterval"	 "0.5"			
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{	
+						"Target"				"TARGET"
+						"ScriptFile"			"scripts/vscripts/abilities/abilitymedicine.lua"
+						"Function"				"OnMedicine01SpellThink"
+						"Damage"				"%damage"
+					}
+				}
+			}
+		}
+	}
+	"ability_thdots_medicineEx"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"death_prophet_spirit_siphon"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitymedicine.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET  | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AnimationPlaybackRate"	"1"
+		"AbilityCastPoint"	"0"
+		"MaxLevel"	"1"
+		"AbilityCooldown"				"30"
+		"precache"
+		{
+			"particle"		"particles/heroes/medicine/medicine_ex4.vpcf"
+			"particle"		"particles/thd2/heroes/medicine/medicineex_target.vpcf"
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"350"
+				"affected_by_aoe_increase"	"1"
+			}
+			"slow_amount"
+			{
+				"value"								"-10"
+				"special_bonus_unique_medicine_1"	"-20"
+			}
+			"resistance_decrepify"
+			{
+				"value"								"-10"
+				"special_bonus_unique_medicine_1"	"-20"
+			}
+			"duration"	"5"
+		}
+		"SpellDispellableType"	"SPELL_DISPELLABLE_NO"
+	}
+	"ability_thdots_medicine01"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"scripts/vscripts/abilities/abilitymedicine.lua"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityTextureName"			"custom/ability_thdots_medicine01"
+		"FightRecapLevel"				"1"
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0.1"
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"10"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"60 85 100 115"
+		"AbilityCastAnimation"			"Act_DOTA_CAST_ABILITY_1"
+		"precache"
+		{
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_viper.vsndevts"
+			"particle"		"particles/econ/items/viper/viper_ti7_immortal/viper_poison_attack_ti7.vpcf"
+			"particle"		"particles/units/heroes/hero_viper/viper_poison_attack.vpcf"
+			"particle"		"particles/units/heroes/hero_viper/viper_poison_debuff.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_ability_thdots_medicine01new_caster"	{}
+		}
+		"AbilityValues"
+		{
+			"damage"						"30 50 70 90"
+			"duration"						"3"
+			"stun_time"						"0.4 0.6 0.8 1"
+			"cooldown_decrease"				"2"
+			"slow_amount"					"20"
+		}
+	}
+	"ability_thdots_medicine00"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"scripts/vscripts/abilities/abilitymedicine.lua"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityTextureName"			"custom/ability_thdots_medicine01"
+		"FightRecapLevel"				"1"
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0.1"
+		"HasScepterUpgrade"			"1"
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"2"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"15"
+		"AbilityCastAnimation"			"Act_DOTA_CAST_ABILITY_1"
+		"precache"
+		{
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_viper.vsndevts"
+			"particle"		"particles/units/heroes/hero_viper/viper_poison_attack.vpcf"
+			"particle"		"particles/units/heroes/hero_viper/viper_poison_debuff.vpcf"
+		}
+		"AbilityValues"
+		{
+			"damage"						"16 24 32 40"
+			"duration"						"5"
+			"slow_movement"					"-3 -5 -7 -9"
+			"move_speed"					"1200"
+			"decrease_mgical_resistance"	"-4 -5 -7 -8"
+			"decrease_armor"				"-1.5 -2.0 -2.5 -3.0"
+			"base_slow_movement"			"-15"
+		}
+	}
+	"ability_thdots_medicine02"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"				"ability_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AOERadius" 					"%radius"
+		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"touhoutd/thtd_medicine_02"
+		"MaxLevel"						"4"
+		"AbilityCastAnimation"      	"Act_DOTA_CAST_ABILITY_2"
+		
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"particle"		"particles/heroes/medicine/medicine02.vpcf"
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_morphling.vsndevts"
+		}
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0.2"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"12"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"95"	
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Morphling.Death"
+				"Target"	"POINT"
+			}
+		 	"CreateThinker"
+			{
+				"Target"	"POINT"
+				"ModifierName"	"modifier_thdots_medicine02"
+			}
+			"RunScript"
+			{	
+				"Target"				"POINT"
+				"ScriptFile"			"scripts/vscripts/abilities/abilitymedicine.lua"
+				"Function"				"OnMedicine02SpellStart"
+				"Damage"				"%damage"
+				"Radius"				"%radius"
+				"Duration"				"%duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_medicine02"
+			{
+				"Aura"					"modifier_thdots_medicine02_debuff"
+				"Aura_Radius"			"%radius"
+				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Duration"				"%duration"							
+			}
+			"modifier_thdots_medicine02_debuff"
+			{
+				"IsDebuff"		"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%decrease_speed"					
+				}				
+			}
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"					"5.0"
+			"damage"			"40 60 80 100"
+			"decrease_speed"		"-25 -30 -35 -40"
+			"doll_hp"		"400 600 800 1000"
+		}
+	}	
+
+	"ability_thdots_medicine03"
+	{
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_medicine_01"
+		"MaxLevel"						"4"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityCastPoint"				"0"
+		"AbilityCastRange"				"700"
+		"IsBreakable"					"1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"20"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"60"	
+		"precache"
+		{
+			"particle"			"particles/thd2/items/item_frock.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"		"TARGET"
+				"ModifierName"	"modifier_thdots_medicine03_OnTakeDamage"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_medicine03_onattacked"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnCreated"	{}
+				"OnAttacked"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymedicine.lua"
+						"Function"	"OnMedicine03Attacked"
+						"Caster"	"CASTER"
+						"attacker"	"ATTACKER"
+						"PoisonDamageBase"	"%poison_damage_base"
+						"PoisonDamageFactor"	"%poison_damage_factor"
+						"PoisonMinDamage"	"%poison_min_damage"
+					}
+				}
+			}
+			"modifier_thdots_medicine03_OnTakeDamage"
+			{
+				// "Attributes"		"MODIFIER_ATTRIBUTE_PERMANENT"
+				"OnCreated"	
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymedicine.lua"
+						"Function"		"OnMedicine03Created"
+						"Target"		"TARGET"
+						"Caster"		"CASTER"
+					}
+				}
+				"Duration"			"%duration"
+				"EffectName"		"particles/thd2/items/item_frock.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"OnTakeDamage"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymedicine.lua"
+						"Function"		"OnMedicine03TakeDamage"
+						"Caster"		"CASTER"
+						"attacker"		"ATTACKER"
+						"TakenDamage"	"%attack_damage"
+						"BackDamage"	"%back_damage"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"	"5"
+			"poison_damage_base"	"5"
+			"poison_damage_factor"	"0.4"
+			"poison_min_damage"	"10 20 30 40"
+			"back_damage"	"30 45 60 75"
+		}
+		// Sound
+		// -------------------------------------------------------------------------------------------------------------
+		"UIPickupSound"	"Item.PickUpRingShop"
+		"UIDropSound"	"Item.DropRingShop"
+		"WorldDropSound"	"Item.DropRingWorld"
+	}	
+
+	"ability_thdots_medicine04"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityTextureName"		"custom/ability_thdots_medicine04"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_4"
+		"AbilityType"				"DOTA_ABILITY_TYPE_ULTIMATE"
+		"HasScepterUpgrade"			"1"
+		"MaxLevel"					"3"		
+		// Stats
+		//----------------------------------------------------------------
+		"AbilityManaCost"           "120 180 240"
+		"AbilityCastPoint"          "0.6"
+		"AbilityCooldown"           "100 80 60"
+		"AbilityCastRange"			"670 755 840"
+		
+		// Stats
+		//----------------------------------------------------------------
+		"precache"
+		{
+			"particle"				"particles/thd2/items/item_zaiezhizhurenxing.vpcf"
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_warlock.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"			"Hero_Warlock.ShadowWordCastGood"
+				"Target"				"TARGET"
+			}
+			"RunScript"
+			{
+				"Target"	"TARGET"
+				"ScriptFile"	"scripts/vscripts/abilities/abilitymedicine.lua"
+				"Function"	"OnMedicine04SpellStart"
+			}			
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_medicine04_debuff"
+			{
+				"Duration"			"%duration"
+				"IsDebuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"EffectName"		"particles/thd2/items/item_zaiezhizhurenxing.vpcf"
+				"EffectAttachType"	"follow_origin"					
+				//"ThinkInterval"				"0.1"
+				//"OnIntervalThink"
+				//{
+				//	"RunScript"
+				//	{
+				//		"Target"	"TARGET"
+				//		"ScriptFile"	"scripts/vscripts/abilities/abilitymedicine.lua"
+				//		"Function"	"OnMedicine04Think"
+				//	}
+				//}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymedicine.lua"
+						"Function"	"OnMedicine04Start"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymedicine.lua"
+						"Function"	"OnMedicine04End"
+					}
+				}	
+				"OnDealDamage"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymedicine.lua"
+						"Function"		"OnTargetDealDamage"
+						"DealDamage"	"%attack_damage"
+						"Caster"		"CASTER"
+					}
+				}
+
+				"States"
+				{
+					"MODIFIER_STATE_COMMAND_RESTRICTED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}		
+				"Properties"
+				{					
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_speed"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_speed_bonus"
+				}	
+			}	
+			"modifier_thdots_medicine04_think"
+			{
+				"Duration"			"%duration"
+				"IsHidden"			"1"
+				"ThinkInterval"		"0.1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymedicine.lua"
+						"Function"		"OnMedicine04Think"
+					}
+				}
+			}
+			"modifier_thdots_medicine04_damage"
+			{
+				"Duration"			"%duration"
+				"IsBuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"OnTakeDamage"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymedicine.lua"
+						"Function"		"OnTargetTakeDamage"
+						"DamageTaken"	"%attack_damage"
+						"Caster"		"CASTER"
+					}
+				}
+			}
+			"modifier_thdots_medicine04_delay"
+			{
+				"Duration"			"2.5"
+				"IsDeBuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"EffectName"		"particles/thd2/items/item_zaiezhizhurenxing.vpcf"
+				"EffectAttachType"	"follow_origin"		
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymedicine.lua"
+						"Function"		"OnMedicine04DelayEnd"
+						"Caster"		"CASTER"
+						"Target"		"TARGET"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"	"5.0"
+			"bonus_speed"	"0 5 10"
+			"move_speed_bonus"	"10 15 20"
+			"physical_block"	"100 85 70"
+		}
+    }
+    
+    "special_bonus_unique_medicine_0"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+	"special_bonus_unique_medicine_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+	"special_bonus_unique_medicine_2"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_medicine_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"200"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_medicine_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+}

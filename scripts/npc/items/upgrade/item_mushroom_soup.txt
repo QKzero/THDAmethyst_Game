@@ -1,0 +1,64 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Mushroom Soup
+	// =================================================================================================================
+	"item_recipe_mushroom_soup"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_mushroom_soup"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8044"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"205"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_mushroom_soup"
+		"ItemRequirements"
+		{
+			"01"	"item_mushroom;item_cookbook"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Mushroom soup
+	// =================================================================================================================
+	"item_mushroom_soup"
+	{
+		"BaseClass"	"item_lua"
+		"AbilityTextureName"	"item_mushroom_soup"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_SELF"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_INVULNERABLE | DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD"
+		"ScriptFile"	"items/item_pie.lua"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8045"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"504"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"agi;int;str"
+		"ItemAliases"	"magicshroom soup;null talisman"
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"3"
+			"bonus_agility"	"3"
+			"bonus_intellect"	"7"
+			"increase_intellect"	"3"
+			"bonus_cooldown_reduction"	"3"
+		}
+	}
+}

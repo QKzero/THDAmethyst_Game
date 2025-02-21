@@ -1,0 +1,149 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Frock
+	// =================================================================================================================
+	"item_recipe_frock"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_frock"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8114"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"550"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_frock"
+		"ItemRequirements"
+		{
+			"01"	"item_scissors;item_sailor_suit"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Frock
+	// =================================================================================================================
+	"item_frock"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_frock"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8115"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2100"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"str;agi;int;armor"
+		"ItemAliases"	"blademail"
+		"AbilityCooldown"	"25"
+		"AbilityManaCost"	"50"
+		"precache"
+		{
+			"particle"			"particles/thd2/items/item_frock.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"		"CASTER"
+				"ModifierName"	"modifier_item_frock_OnTakeDamage"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_frock_onattacked"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"OnAttacked"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Frock_Poison"
+						"Caster"	"CASTER"
+						"attacker"	"ATTACKER"
+						"PoisonDamageBase"	"%poison_damage_base"
+						"PoisonDamageFactor"	"%poison_damage_factor"
+						"PoisonMinDamage"	"%poison_min_damage"
+					}
+				}
+			}
+			"modifier_item_frock_OnTakeDamage"
+			{
+				// "Attributes"		"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Duration"			"%duration"
+				"EffectName"		"particles/thd2/items/item_frock.vpcf"
+				"EffectAttachType"	"follow_origin"				
+				"OnDestory"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"		"ItemAbility_Frock_Poison_Destory"
+					}
+				}
+				"OnTakeDamage"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"		"ItemAbility_Frock_Poison_TakeDamage"
+						"Caster"		"CASTER"
+						"attacker"		"ATTACKER"
+						"TakenDamage"	"%attack_damage"
+						"BackFactor"	"%back_factor"
+					}
+				}
+			}
+			"modifier_item_frock"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"	"6"
+			"bonus_damage"	"20"
+			"poison_damage_base"	"10"
+			"poison_damage_factor"	"0.4"
+			"poison_min_damage"	"30"
+			"duration"		"6"
+			"back_factor"	"60"
+		}
+		// Sound
+		// -------------------------------------------------------------------------------------------------------------
+		"UIPickupSound"	"Item.PickUpRingShop"
+		"UIDropSound"	"Item.DropRingShop"
+		"WorldDropSound"	"Item.DropRingWorld"
+	}
+}

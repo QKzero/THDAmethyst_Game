@@ -1,0 +1,112 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Green Dam
+	// =================================================================================================================
+	"item_recipe_green_dam"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_green_dam"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8139"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"600"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_green_dam"
+		"ItemRequirements"
+		{
+			"01"	"item_zun_hat;item_zun_hat"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// 真诚之镜
+	// =================================================================================================================
+	"item_green_dam"
+	{
+		"BaseClass"	"item_lua"
+		"ScriptFile"           "items/item_green_dam"
+		"AbilityTextureName"	"item_green_dam"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING "
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"30"
+		"AbilityManaCost"	"90"
+		"AbilityCastRange"	"700"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8140"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"4000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"health_pool;mana_pool"
+		"ItemAliases"	"green dam youth escort"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_medusa/medusa_mana_shield.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+			 	"Target"	"TARGET"
+			 	"ModifierName"	"modifier_item_green_dam_barrier"
+			}
+			
+			"FireSound"
+			{
+				"Target"	"TARGET"
+				"EffectName" "THD_ITEM.GreenDam_Cast"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_green_dam"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+					"MODIFIER_PROPERTY_MANA_BONUS"	"%bonus_mana"
+				}
+			}
+			"modifier_item_green_dam_barrier"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Duration"	"%barrier_duration"
+				"IsBuff"	"1"
+				"IsPurgable" "1"
+				"EffectName"	"particles/units/heroes/hero_medusa/medusa_mana_shield.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL"	"1"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health"	"350"
+			"bonus_mana"	"350"
+			"barrier_duration"	"4"
+		}
+	}
+}

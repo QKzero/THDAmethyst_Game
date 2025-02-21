@@ -1,0 +1,592 @@
+"DOTAAbilities"
+{
+	"ability_thdots_minamitsu01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_minamitsu01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetFlags"   "DOTA_UNIT_TARGET_FLAG_NOT_ANCIENTS"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"HasScepterUpgrade"			"1"
+		"precache"
+		{
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_minamitsu_sounds.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_pudge.vsndevts"
+			"particle"	"particles/heroes/minamitsu/ability_minamitsu_01.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.3"
+			"AbilityCooldown"
+			{
+				"value"								"18 16 14 12"
+				"special_bonus_unique_minamitsu_3"	"-4"
+			}
+			"AbilityManaCost"	"100"
+			"AbilityCastRange"	"700 800 900 1000"
+
+			"hitbox_radius"
+			{
+				"value"			"100"
+				"affected_by_aoe_increase"	"1"
+			}
+			"range"			"700 800 900 1000"
+			"speed"			"2400"
+			"damage"
+			{
+				"value"							"90 120 150 180"
+				"special_bonus_scepter"			"+200"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+				"Function"	"OnMinamitsu01SpellStart"
+				"Target"	"POINT"
+				"Caster"	"CASTER"
+				"damage"	"%damage"
+				"hitbox_radius"	"%hitbox_radius"
+				"range"	"%range"
+				"speed"	"%speed"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_minamitsu01_pause"
+			{
+				"IsHidden"		"1"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_minamitsu01_check"
+			{
+				"IsPurgable"	"1"
+				"IsDebuff"		"1"
+				"RemoveOnDeath"	"1"
+				"IsHidden"		"0"
+				"Duration"		"3"
+			}
+		}
+	}
+
+	"ability_thdots_minamitsu02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_minamitsu02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"MaxLevel"	"4"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AOERadius"	"%damage_radius"
+		"precache"
+		{
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_minamitsu_sounds.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts"
+			"particle"	"particles/heroes/minamitsu/ability_minamitsu_02_body.vpcf"
+			"particle"	"particles/heroes/minamitsu/ability_minamitsu_02.vpcf"
+			"particle"	"particles/units/heroes/hero_kunkka/kunkka_ghostship_marker_x.vpcf"
+			"particle"	"particles/units/heroes/hero_kunkka/kunkka_ghostship_marker_splash.vpcf"
+			"particle"	"particles/units/heroes/hero_kunkka/kunkka_ghostship_marker_splash_ring.vpcf"
+			"particle"	"particles/units/heroes/hero_kunkka/kunkka_ghostship_marker_warp.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.1"
+			"AbilityCooldown"	"25 23 21 19"
+			"AbilityManaCost"	"75 100 125 150"
+			"AbilityCastRange"	"900"
+
+			"damage_radius"
+			{
+				"value"							"200 250 300 350"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"affected_by_aoe_increase"	"1"
+			}
+			"vortex_speed"	"5 7 9 11"
+		}
+		"AbilityDamage"	"30 40 50 60"
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Minamitsu.AbilityMinamitsu021"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+				"Function"	"OnMinamitsu02SpellStart"
+				"Caster"	"CASTER"
+				"Target"	"POINT"
+				"Radius"	"%damage_radius"
+				"VortexSpeed"	"%vortex_speed"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_minamitsu02_pause"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_minamitsu02_vortex_pause_target"
+			{
+				"IsHidden"		"1"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_minamitsu02_vortex_target"
+			{
+				"IsHidden"		"1"
+				"States"
+				{
+					"MODIFIER_STATE_ATTACK_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_OUT_OF_GAME"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}
+
+	"ability_thdots_minamitsu03"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_minamitsu03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_3"
+		"precache"
+		{
+			"particle"	"particles/heroes/minamitsu/ability_minamitsu_03.vpcf"
+			"particle"	"particles/heroes/minamitsu/ability_minamitsu_03_body.vpcf"
+			"particle"	"particles/econ/items/kunkka/divine_anchor/hero_kunkka_dafx_weapon/kunkka_spell_tidebringer_fxset.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.3"
+			"AbilityCooldown"
+			{
+				"value"								"15"
+				"special_bonus_unique_minamitsu_2"	"-7"
+			}
+			"AbilityManaCost"	"75"
+
+			"ability_duration"	"7"
+			"strength_bonus"	"30 40 50 60"
+			"attack_speed"		"15 20 25 30"
+			"attack_bonus"
+			{
+				"value"								"30 45 60 75"
+				"special_bonus_unique_minamitsu_4"	"+125"
+				"CalculateSpellDamageTooltip"		"1"
+				"DamageTypeTooltip"					"DAMAGE_TYPE_PURE"
+			}
+			"radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Minamitsu.AbilityMinamitsu03"
+				"Target"	"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_minamitsu03_bonus"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_minamitsu03_bonus"
+			{
+				"Duration"	"%ability_duration"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+						"Function"	"OnMinamitsu03SpellStart"
+					}
+				}
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+						"Function"	"OnMinamitsu03AttackLanded"
+						"AttackBonus"	"%attack_bonus"
+						"CleaveBonus"	"%cleave_bonus"
+						"Radius"	"%radius"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%strength_bonus"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attack_speed"
+				}
+			}
+		}
+	}
+
+	"ability_thdots_minamitsu04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_minamitsu04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"precache"
+		{
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_minamitsu_sounds.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_lycan.vsndevts"
+			"particle"	"particles/units/heroes/hero_abaddon/abaddon_spawn.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_chen.vsndevts"
+			"particle"	"particles/units/heroes/hero_chen/chen_holy_persuasion_a.vpcf"
+			"particle"	"particles/heroes/minamitsu/ability_minamitsu_04_boom.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"1.0"
+			"AbilityCooldown"
+			{
+				"value"								"180 130 80"
+				"special_bonus_unique_minamitsu_1"	"-25"
+			}
+			"AbilityManaCost"	"150"
+
+			"move_speed"		"250"
+			"move_slow"			"-400"
+			"drown_duration"	"10"
+		}
+		"OnAbilityPhaseStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Ability.Ghostship.bell"
+				"Target"	"CASTER"
+			}
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Lycan.SummonWolves"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+				"Function"	"OnMinamitsu04KillSpawn"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+				"Function"	"OnMinamitsu04Spawn"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_minamitsu04_speed"
+			{
+				"OnDeath"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+						"Function"		"OnMinamitsu04ShipDestroy"
+						"DrownDuration"	"%drown_duration"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"	"%move_speed"
+				}
+			}
+			"modifier_minamitsu04_death"
+			{
+				"OnDeath"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+						"Function"		"OnMinamitsu04ShipDeath"
+					}
+				}
+			}
+			"modifier_minamitsu04_ship_destroy"
+			{
+				"Duration"	"%drown_duration"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"	"%move_slow"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%move_slow"
+				}
+			}
+			"modifier_minamitsu04_Invincible"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_ATTACK_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_OUT_OF_GAME"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"-100"
+				}
+			}
+		}
+	}
+
+	"ability_thdots_minamitsu04_unit_upload"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_minamitsu04_unit_upload"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IGNORE_TURN | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"MaxLevel"	"1"
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.1"
+			"AbilityCooldown"	"0"
+			"AbilityCastRange"	"160"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+				"Function"	"OnMinamitsu04ShipUnitUpload"
+			}
+		}
+	}
+
+	"ability_thdots_minamitsu04_unit_download"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_minamitsu04_unit_download"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IGNORE_TURN | DOTA_ABILITY_BEHAVIOR_POINT"
+		"MaxLevel"	"1"
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.1"
+			"AbilityCooldown"	"0"
+			"AbilityCastRange"	"160"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+				"Function"	"OnMinamitsu04ShipUnitDownload"
+				"Target"	"POINT"
+			}
+		}
+	}
+
+	"ability_thdots_minamitsu04_unit_back"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_minamitsu04_unit_back"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"MaxLevel"	"1"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_chen.vsndevts"
+			"particle"	"particles/units/heroes/hero_chen/chen_holy_persuasion_a.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"1.5"
+			"AbilityCooldown"	"0"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+				"Function"	"OnMinamitsu04ShipBack"
+			}
+		}
+	}
+
+	"ability_thdots_minamitsu04_unit_boom"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_minamitsu04_unit_boom"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IGNORE_TURN | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"MaxLevel"	"3"
+		"AOERadius"	"%boom_radius"
+		"precache"
+		{
+			"particle"	"particles/heroes/minamitsu/ability_minamitsu_04_boom.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.1"
+			"AbilityCooldown"	"10"
+			"AbilityCastRange"	"1000"
+
+			"damage"	"300 500 700"
+			"boom_radius"
+			{
+				"value"			"300 300 300"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+				"Function"	"OnMinamitsu04ShipUnitBoom"
+				"Target"	"POINT"
+				"Damage"	"%damage"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_minamitsu04_pause"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_minamitsu04_pause"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}
+
+	"ability_thdots_minamitsu04_unit_block"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_minamitsu04_unit_block"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN "
+		"AbilityUnitTargetFlags"	"DOTA_UNIT_TARGET_FLAG_INVULNERABLE | DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		"MaxLevel"	"1"
+		"precache"
+		{
+		}
+		"Modifiers"
+		{
+			"passive_ship_attacked"
+			{
+				"Passive"	"1"
+				"OnAttacked"
+				{
+					"RunScript"
+					{	
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+						"Function"	"OnMinamitsu04ShipUnitGetHealth"
+					}
+				}
+				"OnTakeDamage"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMinamitsu.lua"
+						"Function"	"OnMinamitsu04ShipUnitBlock"
+						"DamageTaken"	"%attack_damage"
+					}
+				}
+			}
+		}		
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_minamitsu_1"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_minamitsu_2"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_minamitsu_3"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_minamitsu_4"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_minamitsu_5"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+}

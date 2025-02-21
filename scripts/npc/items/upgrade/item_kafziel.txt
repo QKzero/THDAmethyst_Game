@@ -1,0 +1,155 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Kafziel
+	// =================================================================================================================
+	"item_recipe_kafziel"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_kafziel"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8106"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_kafziel"
+		"ItemRequirements"
+		{
+			"01"	"item_cake;item_cake;item_scissors;item_god_hand;item_throwing_knive"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Kafziel
+	// =================================================================================================================
+	"item_kafziel"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_kafziel"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8107"
+		"ItemQuality"	"common"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"3750"
+		"AbilityCooldown"		"30"
+		"AbilityCastRange"	"700"
+		"AbilityManaCost"	"80"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"damage;str;regen_health"
+		// 定义物品是否可以被丢弃，1表示可以丢弃
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/items"
+			"particle"	"particles/thd2/items/item_kafziel.vpcf"
+			"particle"  "particles/units/heroes/hero_grimstroke/grimstroke_soulchain_debuff.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	 "Kafziel_OnSpellStart"
+			}		
+		}
+
+		"Modifiers"
+		{
+			"modifier_item_kafziel_attack"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnAttackLanded"
+				{
+					"Random"
+					{
+						"Chance"	"%reap_chance"
+						"OnSuccess"
+						{
+							"AttachEffect"
+							{
+								"EffectName"	"particles/thd2/items/item_kafziel.vpcf"
+								"EffectAttachType"	"follow_origin"
+								"Target"	"TARGET"
+							}
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+								"Function"	"ItemAbility_Kafziel_OnAttack"
+								"Caster"	"CASTER"
+								"Target"	"TARGET"
+								"ReapHealthPct"	"%reap_health_pct"
+								"ReapDamage"	"%reap_damage"
+							}
+						}
+					}
+				}
+			}
+			"modifier_item_kafziel"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+				}
+			}
+			"modifier_item_kafziel_debuff"
+			{
+				"IsDebuff"		"1"
+				"IsPurgable"  "0"
+				"RemoveOnDeath"			"1"
+				"Duration"		"%duration"
+				"EffectName"            "particles/items4_fx/spirit_vessel_damage.vpcf"
+				"EffectAttachType"      "PATTACH_ABSORIGIN"
+				"ThinkInterval"		"0.1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"		"ItemAbility_Kafziel_Interval_Think"
+						"Caster"		"CASTER"
+						"Target"		"TARGET"
+					}
+				}
+				"Properties"
+				{
+					//"MODIFIER_PROPERTY_DISABLE_HEALING" "1" 					
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"	"14"
+			"bonus_strength"	"18"
+			"bonus_health_regen"	"4"
+			"duration"	"5"
+			"min_health_pct"	"15"
+			"damage"	"270"
+			"regen_amplify"	"-70"
+			"reap_chance"		"25"
+			"reap_health_pct"	"5"
+			"reap_damage"		"60"
+		}
+	}
+}

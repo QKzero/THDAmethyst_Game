@@ -1,0 +1,225 @@
+// Dota2 Editor
+// Get latest version: https://github.com/zombieJ/nw-dota2editor
+
+"DOTAAbilities"
+{
+	"Version"		"1"
+
+	"ability_thdots_exrumia01"
+	{
+	    "AbilityTextureName"	"custom/ability_thdots_exrumia01"
+	    "BaseClass"	"ability_lua"
+	    "ScriptFile"	"scripts/vscripts/abilities/abilityexrumia.lua"
+	    "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityCooldown"	"20"
+		"AbilityManaCost"	"70 80 90 100"
+		"AbilityCastPoint"	"0.3"
+		"precache"
+		{
+			"particle"		"particles/thd2/heroes/rumia/ability_rumia01_effect.vpcf"
+		}
+	    "AbilityValues"
+	    {
+		    "duration"  "3 4 5 6"
+		    "evasion"  "25"
+		    "cast_range"  "450"
+		    "slow"  "40"
+        }
+	}
+
+	"ability_thdots_exrumia02"
+	{
+	    "AbilityTextureName"	"custom/ability_thdots_exrumia02"
+	    "BaseClass"	"ability_lua"
+	    "ScriptFile"	"scripts/vscripts/abilities/abilityexrumia.lua"
+	    "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+	    "AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCooldown"	"13"
+		"AbilityManaCost"	"60 70 80 90"
+		"precache"
+		{
+			"particle"		"particles/thd2/heroes/exrumia/exrumia04/exrumia02.vpcf"
+			"particle"		"particles/thd2/heroes/exrumia/exrumia04/abaddon_borrowed_time_e.vpcf"
+			"particle"		"particles/thd2/heroes/exrumia/exrumia02.vpcf"
+			"particle"		"particles/thd2/heroes/exrumia/exrumia022.vpcf"
+		}
+	    "AbilityValues"
+	    {
+		    "duration"  "6"
+		    "attack_speed"  "30 60 90 120"
+		    "damage"  "40 80 120 160"
+		    "radius"
+			{
+				"value"						"550"
+				"affected_by_aoe_increase"	"1"
+			}
+		    "attack_angle"  "210"
+        }
+	}	
+
+	"ability_thdots_exrumia03"
+	{
+	    "AbilityTextureName"	"custom/ability_thdots_exrumia03"
+	    "BaseClass"	"ability_lua"
+	    "ScriptFile"	"scripts/vscripts/abilities/abilityexrumia.lua"
+	    "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+	    "AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCooldown"	"20 18 16 14"
+		"AbilityManaCost"	"60 65 70 75"
+		"AbilityCastPoint"	"0.3"
+		"precache"
+		{
+			"particle"		"particles/thd2/heroes/exrumia/exrumia_shield.vpcf"
+			"particle"		"particles/thd2/heroes/exrumia/exrumia03break/exrumia03.vpcf"
+		}
+	    "AbilityValues"
+	    {
+		    "duration"  "2"
+		    "block_constant"  "100"
+		    "radius"
+			{
+				"value"						"500"
+				"affected_by_aoe_increase"	"1"
+			}
+		    "stuntime"  "2"
+		    "regen_mana"  "50 70 90 110"
+		    "break_damage"  "80 160 240 320"
+        }
+	}
+
+	"ability_thdots_exrumia04"
+	{
+	    "AbilityTextureName"	"custom/ability_thdots_exrumia04"
+	    "BaseClass"	"ability_lua"
+	    "ScriptFile"	"scripts/vscripts/abilities/abilityexrumia.lua"
+	    "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"HasScepterUpgrade"	"1"
+		"AbilityCooldown"	"120 105 90"
+		"AbilityManaCost"	"100 150 200"
+		"AbilityCastPoint"	"0.5"
+		"MaxLevel"	"3"
+		"precache"
+		{
+			"particle"		"particles/thd2/heroes/exrumia/lastjudge/exrumia04.vpcf"
+		}
+	    "AbilityValues"
+	    {
+		    "duration"  "6"
+		    "crit"  "300"
+		    "damage"  "275 400 525"
+		    "block"  "33"
+		    "cast_range"  "425"
+		    "chance"  "14"
+        }
+	}
+
+	"ability_thdots_exrumiaEx"
+	{
+	    "AbilityTextureName"	"custom/ability_thdots_exrumiaEx"
+	    "BaseClass"	"ability_lua"
+	    "ScriptFile"	"scripts/vscripts/abilities/abilityexrumia.lua"
+	    "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"	"1"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/exrumia/exrumia_ambient.vpcf"
+		}
+	    "AbilityValues"
+	    {
+			"speed"  "10"
+        }
+	}
+
+	"special_bonus_unique_exrumia_01"
+    {
+         	"BaseClass"	"special_bonus_undefined"
+         	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityValues"
+        	{
+         		"value"	"10"
+        	}
+    }
+
+	   	"special_bonus_unique_exrumia_02"
+    {
+         	"BaseClass"	"special_bonus_undefined"
+         	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityValues"
+        	{
+         		"value"	"15"
+        	}
+    }
+
+	   	"special_bonus_unique_exrumia_03"
+    {
+         	"BaseClass"	"special_bonus_undefined"
+         	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityValues"
+        	{
+         		"value"	"100"
+        	}
+    }
+
+	   	"special_bonus_unique_exrumia_04"
+    {
+         	"BaseClass"	"special_bonus_undefined"
+         	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityValues"
+        	{
+         		"value"	"25"
+        	}
+    }
+
+	   	"special_bonus_unique_exrumia_05"
+    {
+         	"BaseClass"	"special_bonus_undefined"
+         	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityValues"
+        	{
+         		"value"	"2"
+        	}
+    }
+
+	   	"special_bonus_unique_exrumia_06"
+    {
+         	"BaseClass"	"special_bonus_undefined"
+         	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityValues"
+        	{
+         		"value"	"15"
+        	}
+    }
+
+	   	"special_bonus_unique_exrumia_07"
+    {
+         	"BaseClass"	"special_bonus_undefined"
+         	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityValues"
+        	{
+         		"value"	"2"
+        	}
+    }
+	   
+	   	"special_bonus_unique_exrumia_08"
+    {
+         	"BaseClass"	"special_bonus_undefined"
+         	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityValues"
+        	{
+         		"value"	"55"
+        	}
+    }
+}

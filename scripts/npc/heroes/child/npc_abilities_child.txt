@@ -1,0 +1,275 @@
+"DOTAAbilities"
+{
+	"ability_thdots_child01"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitychild.lua"
+		"AbilityTextureName"	"touhoutd/thtd_hourainingyou_01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate"	"1.8"
+		"HasScepterUpgrade" "1"
+		//"AbilityCastRange"	"650"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_sniper/sniper_assassinate.vpcf"
+			"particle"	"particles/units/heroes/hero_sniper/sniper_shrapnel_launch.vpcf"
+			"particle"	"particles/units/heroes/hero_void_spirit/void_spirit_entryportal.vpcf"
+			"particle"	"particles/units/heroes/hero_sniper/sniper_shrapnel_launch.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"	"9 7 5 3"
+			
+			"movespeed_slow"	"-15"
+			"attackspeed_slow"	"-10 -15 -20 -25"
+			"damage"			"15 30 45 60"
+			"attack_bonus"		"0.3 0.5 0.7 0.9"
+			"duration"			"2"
+		}
+	}
+
+	"ability_thdots_child02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_kaguya_02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+		"AnimationPlaybackRate"	"2"
+		"AOERadius"	"%radius"
+		"precache"
+		{
+			//"particle"  "particles/heroes/child/child02.vpcf"
+			"particle"  "particles/heroes/child/child02_1.vpcf"
+			"particle"	"particles/econ/items/storm_spirit/strom_spirit_ti8/storm_sprit_ti8_overload_discharge.vpcf"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"	"24 21 18 15"
+			"AbilityCastRange"	"600 700 800 900"
+
+			"damage"		"140 200 260 320"
+			"duration"		"4.5 6.0 7.5 9.0"
+			"stun_duration"	"2.5"
+			"radius"
+			{
+				"value"							"250"
+				"special_bonus_unique_child_1"	"+150"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		"OnSpellStart"
+		{
+			// "ApplyModifier"
+			// {
+			// 	"Target"	"CASTER"
+			// 	"ModifierName"	"modifier_ability_thdots_child02"
+			// 	"Duration"	"%duration"
+			// }
+			"RunScript"
+			{
+				"Target"	"POINT"
+				"ScriptFile"	"scripts/vscripts/abilities/abilitychild.lua"
+				"Function"	"Child02OnSpellStart"
+				"radius"	"%radius"
+				"duration"	"%duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_ability_thdots_child02"
+			{
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"Target"	"POINT"
+						"ScriptFile"	"scripts/vscripts/abilities/abilitychild.lua"
+						"Function"	"Child02OIntervalThink"
+						"radius"	"%radius"
+						"duration"	"%duration"
+					}
+				}
+				"ThinkInterval"	"0.03"
+				"IsDebuff"	"0"
+				"IsHidden"	"1"
+			}
+			"modifier_ability_thdots_child02_debuff"
+			{
+				"OnAbilityExecuted"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilitychild.lua"
+						"Function"	"child02DebuffOnSpellStart"
+						"damage"	"%damage"
+						"stun_duration"	"%stun_duration"
+					}
+				}
+				"IsDebuff"	"0"
+				"IsHidden"	"0"
+			}
+			"modifier_ability_thdots_child02_debuff_flag"
+			{
+				"IsDebuff"	"0"
+				"IsHidden"	"1"
+			}
+		}
+	}
+
+	"ability_thdots_child03"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitychild.lua"
+		"AbilityTextureName"	"touhoutd/luna_lucent_beam_hp1"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_wisp/wisp_guardian.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_wisp.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"damage"
+			{
+				"value"							"30 45 60 75"
+				"special_bonus_unique_child_4"	"x3"
+			}
+			"attack_reduce"			"-6 -8 -10 -12"
+			"debuff_stack"
+			{
+				"value"							"1"
+				"special_bonus_unique_child_4"	"x3"
+			}
+			"debuff_max"
+			{
+				"value"							"3"
+				"special_bonus_unique_child_4"	"=infinity"
+			}
+			"duration"				"4"
+		}
+	}
+
+	"ability_thdots_child04"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitychild.lua"
+		"AbilityTextureName"	"touhoutd/thtd_luna_02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AnimationPlaybackRate"	"2"
+		"MaxLevel"	"3"
+		"HasScepterUpgrade" "1"
+		"precache"
+		{
+			"particle"	"particles/econ/items/antimage/antimage_weapon_basher_ti5_gold/antimage_manavoid_explode_b_ti_5_gold.vpcf"
+			"particle"	"particles/units/heroes/hero_void_spirit/dissimilate/void_spirit_dissimilate_dmg_shock.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_faceless_void.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_faceless_void.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_rubick.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"	"100 80 60"
+			"AbilityCastRange"	"1800 2100 2400"
+
+			"radius"
+			{
+				"value"			"200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"		"200 300 400"
+			"damage_bonus"
+			{
+				"value"							"40 50 60"
+				"special_bonus_unique_child_3"	"+40"
+			}
+			"agi_increase"	"5"
+			"duration"		"20"
+		}
+	}
+	"ability_thdots_childEx"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitychild.lua"
+		"AbilityTextureName"	"touhoutd/exp_up"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"	"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_phantom_assassin/phantom_assassin_blur.vpcf"
+		}
+		"AbilityValues"
+		{
+			"radius"	"1600"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_child_1"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_child_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_child_3"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_child_4"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+}

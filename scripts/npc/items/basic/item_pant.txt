@@ -1,0 +1,46 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Pant
+	// =================================================================================================================
+	"item_pant"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_pant"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8032"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"650"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"magic_resist"
+		"ItemAliases"	"bloomers"
+		"Modifiers"
+		{
+			"modifier_item_pant"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS"	"%bonus_magical_armor"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_magical_armor"	"10"
+			"tooltip_resist"	"10"
+		}
+	}
+}

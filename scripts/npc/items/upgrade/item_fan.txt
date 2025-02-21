@@ -1,0 +1,66 @@
+"DOTAAbilities"
+{
+    "item_recipe_fan"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_fan"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8207"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_fan"
+		"ItemRequirements"
+		{
+			"01"	"item_gran_grimoire;item_cherry_branch;item_cherry_branch;item_cherry_branch"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_fan"
+	{
+		"BaseClass"	"item_lua"
+		"AbilityTextureName"	"item_fan"	// 图标By 橘橘子
+		"ScriptFile"                    "items/item_fan"
+		"ItemDeclarations"        "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"15"
+		"AbilityManaCost"	"80"
+		"AbilityCastRange"	"975"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8208"
+		"ItemQuality"	"secret_shop"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2450"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"int;damage"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_death_prophet/death_prophet_carrion_swarm.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_death_prophet.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"bonus_strength"	"9"
+			"bonus_intellect"	"19"
+			"damage"	"200"
+			"damage_bonus_time"	"4"
+			"cast_range"	"975"
+		}
+	}
+}

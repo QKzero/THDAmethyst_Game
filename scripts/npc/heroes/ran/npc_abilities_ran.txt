@@ -1,0 +1,420 @@
+"DOTAAbilities"
+{
+	"ability_thdots_RanEx"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_RanEx"
+		"AbilityTextureName"	"custom/ability_thdots_RanEx"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"MaxLevel"	"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_tsundere.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_ran_sounds.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCooldown"	"30"
+
+			"duration"	"1.0"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Ran.AbilityRanEx"
+				"Target"		"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_ranex_buff"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_ranex_buff"
+			{
+				"EffectName"	"particles/thd2/items/item_tsundere.vpcf"
+				"EffectType"	"attach_hitloc"
+				"Duration"	"%duration"
+				"IsBuff"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_ATTACK_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"-100"
+				}
+			}
+		}
+	}
+
+	"ability_thdots_ran01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_ran01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"MaxLevel"	"4"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_vengeful/vengeful_nether_swap.vpcf"
+			"particle"	"particles/units/heroes/hero_vengeful/vengeful_nether_swap_target.vpcf"
+			"particle"	"particles/heroes/ran/ability_ran_03_laser.vpcf"
+			"soundfile"	"soundevents/voscripts/game_sounds_vo_techies.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_vengefulspirit.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"	"15 13 11 9"
+			"AbilityManaCost"	"75"
+			"AbilityCastRange"	"800"
+
+			"aura_radius"
+			{
+				"value"			"700"
+				"affected_by_aoe_increase"	"1"
+			}
+			"bonus_attackspeed"		"5 10 15 20"
+			"slow_attackspeed"		"-10 -20 -30 -40"
+			"blink_select_range"	"150"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityRan.lua"
+				"Function"	"Ran01_OnSpellStart"
+				"Caster"	"CASTER"
+				"Target"	"POINT"
+				"Radius"	"%radius"
+				"BlinkSelectRange"	"%blink_select_range"
+				"AuraBuffName"	"aura_thdots_ran01_buff"
+				"AuraDebuffName"	"aura_thdots_ran01_debuff"
+				"FlagUnitName"	"npc_thdots_unit_ran01_flag"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_ran01_buff"
+			{
+				"IsBuff"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed"
+				}
+			}
+			"modifier_thdots_ran01_debuff"
+			{
+				"IsDebuff"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%slow_attackspeed"
+				}
+			}
+			"aura_thdots_ran01_buff"
+			{
+				"Aura"	"modifier_thdots_ran01_buff"
+				"Aura_Radius"	"%aura_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_ApplyToCaster"	"1"
+			}
+			"aura_thdots_ran01_debuff"
+			{
+				"Aura"	"modifier_thdots_ran01_debuff"
+				"Aura_Radius"	"%aura_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_ApplyToCaster"	"1"
+			}
+		}
+	}
+
+	"ability_thdots_ran02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_ran02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"precache"
+		{
+			"particle"	"particles/heroes/ran/ability_ran_02_new.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_ran_sounds.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"	"12 11 10 9"
+			"AbilityManaCost"	"100"
+
+			"radius"
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"			"2.0 2.5 3.0 3.5"
+			"slow_movement_pct"	"-80"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Ran.AbilityRan01"
+				"Target"		"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"aura_thdots_ran02_debuff"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_ran02_debuff"
+			{
+				"IsDebuff"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow_movement_pct"
+				}
+			}
+			"aura_thdots_ran02_debuff"
+			{
+				"IsBuff"	"1"
+				"Duration"	"%duration"
+				"Aura"	"modifier_thdots_ran02_debuff"
+				"Aura_Radius"	"%radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_ApplyToCaster"	"0"
+				"EffectName"	"particles/heroes/ran/ability_ran_02_new.vpcf"
+				"EffectType"	"attach_hitloc"
+			}
+		}
+	}
+
+	"ability_thdots_ran03"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_ran03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_3"
+		"HasScepterUpgrade"			"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"700"
+		"precache"
+		{
+			"particle"	"particles/heroes/ran/ability_ran_03_laser.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_tinker.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"
+			{
+				"value"							"10"
+				"special_bonus_unique_ran_2"	"-3"
+			}
+			"AbilityManaCost"
+			{
+				"value"							"90 100 110 120"
+				"special_bonus_scepter"			"x2"
+			}
+
+			"jump_radius"
+			{
+				"value"			"700"
+				"affected_by_aoe_increase"	"1"
+			}
+			"jump_count"
+			{
+				"value"							"3 5 7 9"
+				"special_bonus_scepter"			"+2"
+			}
+			"jump_count_mult"
+			{
+				"value"							"1"
+				"special_bonus_unique_ran_1"	"=2"
+			}
+			"jump_interval"	"0.2"
+			"vision_duration"	"0.5"
+			"vision_radius"		"64"
+
+			"mana_burn_base"
+			{
+				"special_bonus_scepter"	"30"
+			}
+			"mana_burn_multi"
+			{
+				"special_bonus_scepter"	"1.4"
+			}
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Tinker.LaserAnim"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityRan.lua"
+				"Function"	"Ran03_OnSpellStart"
+				"Caster"	"CASTER"
+				"Target"	"TARGET"
+				"JumpRadius"	"%jump_radius"
+				"JumpCount"	"%jump_count"
+				"JumpCountMult"	"%jump_count_mult"
+				"JumpInterval"	"%jump_interval"
+				"VisionDuration"	"%vision_duration"
+				"ViewerRadius"		"%vision_radius"
+				"AbilityManaCost"	"%AbilityManaCost"
+				"ManaBurnBase"	"%mana_burn_base"
+				"ManaBurnMulti"	"%mana_burn_multi"
+			}
+		}
+		"AbilityDamage"	"100 135 170 205"
+	}
+
+	"ability_thdots_ran04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_ran04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"	"3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"precache"
+		{
+			"particle"	"particles/heroes/ran/ability_ran_04_buff.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.2"
+			"AbilityCooldown"	"115 105 95"
+			"AbilityManaCost"	"200 300 400"
+
+			"radius"
+			{
+				"value"			"700"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"				"7"
+			"bonus_physical_armor"	"20 30 40"
+			"bonus_health_regen"	"50 75 100"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Omniknight.GuardianAngel.Cast"
+				"Target"		"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"aura_thdots_ran04_buff"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_ran04_buff"
+			{
+				"IsBuff"		"1"
+				"EffectName"	"particles/heroes/ran/ability_ran_04_buff.vpcf"
+				"EffectTyoe"	"attach_hitloc"
+				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_physical_armor"
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+				}
+			}
+			"aura_thdots_ran04_buff"
+			{
+				"IsBuff"	"1"
+				"Duration"	"%duration"
+				"Aura"	"modifier_thdots_ran04_buff"
+				"Aura_Radius"	"%radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_ApplyToCaster"	"1"
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Phoenix.SunRay.Loop"
+						"Target"		"CASTER"
+					}
+				}
+			}
+		}
+	}
+
+	"ability_ran01_flag_passive"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/rubick_empty1"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"Modifiers"
+		{
+			"dummy_unit"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_ATTACK_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"-100"
+				}
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_ran_1"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：-3激光
+	//=================================================================================================================
+	"special_bonus_unique_ran_2"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+}

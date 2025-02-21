@@ -1,0 +1,48 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Hunting Cap
+	// =================================================================================================================
+	"item_hunting_cap"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_hunting_cap"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8033"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"950"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"armor;regen_health"
+		"ItemAliases"	"beret"
+		"Modifiers"
+		{
+			"modifier_item_hunting_cap"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS"	"%bonus_magical_armor"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"	"3"
+			"bonus_health_regen"	"3"
+			"bonus_magical_armor"	"9"
+		}
+	}
+}

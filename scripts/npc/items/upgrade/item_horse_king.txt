@@ -1,0 +1,147 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Horse King
+	// =================================================================================================================
+	"item_recipe_horse_king"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_horse_king"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8083"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1200"
+		"SideShop"	"1"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_horse_king"
+		"ItemRequirements"
+		{
+			"01"	"item_horse_red;item_horse_green;item_horse_blue"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Horse King
+	// =================================================================================================================
+	"item_horse_king"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_horse_king"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"1"
+		"AbilityManaCost"	"0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8084"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5400"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"move_speed;attack_speed;str"
+		"ItemAliases"	"llama doll king (limited edition)"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf"
+		}
+		"OnToggleOn"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_item_horse_king_open"
+			}
+		}
+		"OnToggleOff"
+		{
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_item_horse_king_open"
+			}
+		}
+		"OnUnequip"
+		{
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_item_horse_king_open"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_horse_king"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_UNIQUE"	"%bonus_movement_speed"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_all_stats"
+				}
+			}
+			"modifier_item_horse_king_open"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				// "Passive" 	"1"
+				// "IsHidden"	"1"
+				"EffectName"	"particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%onopen_bonus_movement_speed"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%onopen_bonus_attack_speed"
+				}
+				"ThinkInterval"	"1.0"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_HorseKing_OnOpen_SpendMana"
+						"SpendManaPercent"	"%onopen_spend_mana_percent"
+						"NeedSpendMana"	"%onopen_need_spend_mana"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_HorseKing_ToggleOff"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_movement_speed"	"80"
+			"bonus_attack_speed"	"40"
+			"bonus_all_stats"	"20"
+			"onopen_bonus_movement_speed"	"17"
+			"onopen_bonus_attack_speed"	"40"
+			"onopen_need_spend_mana"	"0"
+			"onopen_spend_mana_percent"	"3.0"
+		}
+		"Model"	"models/props_gameplay/boots_of_speed.vmdl"
+	}
+}

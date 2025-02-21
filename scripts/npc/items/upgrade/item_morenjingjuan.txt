@@ -1,0 +1,141 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Morenjingjuan
+	// =================================================================================================================
+	"item_recipe_morenjingjuan"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_morenjingjuan"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8189"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1000"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_morenjingjuan"
+		"ItemRequirements"
+		{
+			"01"	"item_eyunzhifu;item_tentacle"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Morenjingjuan
+	// =================================================================================================================
+	"item_morenjingjuan"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_morenjingjuan"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"50"
+		"AbilityManaCost"	"150"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"600"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8190"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5250"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"str;agi;int;damage"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_morenjingjuan.vpcf"
+			"particle"	"particles/units/heroes/hero_enigma/enigma_ambient_body.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_ModifierTarget_Morenjingjuan"
+				"ModifierName"	"modifier_item_morenjingjuan_antiblink"
+				"Blockable"	"1"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_morenjingjuan"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+				}
+			}
+			// "modifier_item_morenjingjuan_antiblink"
+			// {
+			// 	"Duration"	"%bonus_duration"
+			// 	"IsDebuff"	"1"
+			// 	"IsPurgable"	"1"
+
+			// 	"OnCreated"
+			// 	{
+			// 		"RunScript"
+			// 		{
+			// 			"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+			// 			"Function"	"ItemAbility_Morenjingjuan_Antiblink_OnSpellStart"
+			// 			"AttackSpeedIncrese"	"%bonus_attackspeed_increase"
+			// 			"Duration"	"%bonus_duration"
+			// 			"Target"	"TARGET"
+			// 		}
+			// 	}
+			// 	"OnDestroy"
+			// 	{
+			// 		"RunScript"
+			// 		{
+			// 			"ScriptFile"		"scripts/vscripts/abilities/abilityItem.lua"
+			// 			"Function"			"ItemAbility_Morenjingjuan_Antiblink_OnDestroy"
+			// 		}
+			// 	}
+			// }
+			"modifier_item_morenjingjuan_buff"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"IsBuff"	"1"
+				"Duration"	"%bonus_duration"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%speedup_attackspeed_once"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"10"
+			"bonus_agility"	"10"
+			"bonus_intellect"	"10"
+			"bonus_damage"	"32"
+			"bonus_attack_speed"	"30"
+			"bonus_mana_regen"	"3"
+			"bonus_attackspeed_increase"	"30"
+			"bonus_duration"	"4.0"
+			"speedup_attackspeed_once"	"1.0"
+		}
+	}
+}

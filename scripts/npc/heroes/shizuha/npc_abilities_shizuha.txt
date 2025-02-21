@@ -1,0 +1,650 @@
+"DOTAAbilities"
+{
+
+	"ability_thdots_shizuha01"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"touhoutd/thtd_sizuha_00"
+		"AbilityCastRange"				"800"
+		//AOE指示器
+        	"AOERadius"				"%radius"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+			
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3"
+	
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"14"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"90 105 120 135"
+	
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage"
+			{
+				"value"								"60 100 140 180"
+				"special_bonus_unique_shizuha_8"	"+180"
+			}
+			"radius"
+			{
+				"value"						"250"
+				"special_bonus_unique_shizuha_1"		"+100"
+				"affected_by_aoe_increase"	"1"
+			}
+
+			"root_duration"			"1.5 2.0 2.5 3.0"
+		}
+		"precache"
+		{
+			"soundfile"					"soundevents/game_sounds_heroes/game_sounds_puck.vsndevts"
+			"particle"					"particles/units/heroes/hero_puck/puck_waning_rift.vpcf"			
+			"soundfile"					"soundevents/thdots_hero_sounds/thdots_mystia_sounds.vsndevts"
+			"particle_folder"				"particles/thd2/items"
+			"particle"					"particles/units/heroes/hero_treant/treant_overgrowth_vines.vpcf"	
+			"soundfile"					"soundevents/thdots_hero_sounds/thdots_suwako_sounds.vsndevts"	
+			"particle"					"particles/units/heroes/hero_ursa/ursa_earthshock.vpcf"		
+			"soundfile"					"soundevents/thdots_hero_sounds/thdots_shizuha_sounds.vsndevts"		
+			"particle"					"particles/econ/items/pugna/pugna_ti9_immortal/pugna_ti9_immortal_netherblast.vpcf"
+		}
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+					"ScriptFile"	"scripts/vscripts/abilities/abilityshizuha.lua"
+					"Function"		"shizuha01soundeffect"	
+					"Target"		"POINT"	
+					"radius"		"%radius"
+					"root_duration"		"%root_duration"						
+			}
+
+		}
+		"Modifiers"
+		{
+			"modifier_shizuha01"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"EffectName"	"particles/units/heroes/hero_treant/treant_overgrowth_vines.vpcf"
+				"EffectAttachType"	"attach_hitloc"
+	
+				"States"
+				{
+					"MODIFIER_STATE_ROOTED"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_DISARMED"		"MODIFIER_STATE_VALUE_ENABLED" 	
+					
+				}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityshizuha.lua"
+						"Function"		"OnShizuha01SpellStart"		
+						"damage"		"%damage"					
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityshizuha.lua"
+						"Function"		"OnShizuha01SpellEnd"								
+					}
+				}				
+			}			
+		}
+	}
+
+	"ability_thdots_shizuha03"
+	{
+		"BaseClass"				"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_sizuha_03"
+		"ScriptFile"			"scripts/vscripts/abilities/abilityshizuha.lua"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST | DOTA_ABILITY_BEHAVIOR_ATTACK"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"				"4"
+		"AbilityCastRange"		"600"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"10"
+		"precache"
+		{
+			"particle"		"particles/heros/shizuha/shizuha_attack_modifier_activation.vpcf"
+			"particle"		"particles/heros/shizuha/shizuha_attack_modifier_endboom.vpcf"
+			"particle"		"particles/units/heroes/hero_spectre/spectre_desolate_debuff.vpcf"
+			"particle"		"particles/heros/shizuha/sizuha03_buff.vpcf"
+		}
+
+		"AbilityValues"
+		{
+			"aura_radius"
+			{
+				"value"			"900"
+				"affected_by_aoe_increase"	"1"
+			}
+			"attack_bonus"
+			{
+				"value"			"4 8 12 16"
+				"special_bonus_unique_shizuha_9"	"+20"
+			}
+			"range_damage"
+			{
+				"value"	"30 45 55 60"
+				"LinkedSpecialBonus"		"special_bonus_unique_shizuha_5"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage_radius"				"0"
+			"disable_healing_times"		"1.25 2.5 3.75 5"
+			"regen_amplify"				"-60"
+		}
+	}
+
+	"ability_thdots_shizuhaEX"
+	{
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"touhoutd/thtd_sizuha_ex"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_PURE"
+		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"MaxLevel"			"1"
+		"precache"
+		{
+			"particle"		"particles/econ/items/windrunner/windranger_arcana/windranger_arcana_item_cyclone_v2_leaf.vpcf"
+		}
+
+		"Modifiers"
+		{
+			"modifier_thdots_shizuhaEX_check_levelup"
+			{
+				"Passive"	"1"
+				"RemoveOnDeath"	"0"
+				"ThinkInterval"	"1"
+
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityshizuha.lua"
+						"Function"	"OnCreatedShizuhaEX"
+					}
+				}
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"		"scripts/vscripts/abilities/abilityshizuha.lua"
+						"Function"			"OnPlayerLevelupShizuhaEX"
+						"base_damage"		"%base_damage"
+						"level_multiple"	"%level_multiple"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"aura_radius"		"0"
+			"base_damage"		"75"
+			"level_multiple"	"9"
+		}
+	}
+
+	"ability_thdots_shizuhaEXNew"
+	{
+		"BaseClass"			"ability_lua"
+		"ScriptFile"			"scripts/vscripts/abilities/abilityshizuha.lua"
+		"AbilityTextureName"		"touhoutd/thtd_sizuha_ex"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_PURE"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCastPoint"	"0.35"
+		"MaxLevel"			"1"
+
+
+		"HasShardUpgrade"	  "1"
+
+		"precache"
+		{
+			"particle"		"particles/econ/items/windrunner/windranger_arcana/windranger_arcana_item_cyclone_v2_leaf.vpcf"
+		}
+
+		"AbilityValues"
+		{
+			"aura_radius"		"0"
+			"base_damage"		"75"
+			"level_multiple"	"9"
+			"AbilityCooldown"
+			{
+				"value"					"0"
+				"special_bonus_shard"	"=60"
+			}
+			"AbilityCastRange"
+			{
+				"value"					"0"
+				"special_bonus_shard"	"=1300"
+			}
+			"tree_duration"
+			{
+				"value"					"6"
+				"RequiresShard"			"1"
+			}
+			"trees_num"
+			{
+				"value"					"14"
+				"RequiresShard"			"1"
+			}
+			"trees_circle_angel"
+			{
+				"value"					"70"
+				"RequiresShard"			"1"
+			}
+			"trees_circle_radius"
+			{
+				"value"					"440"
+				"RequiresShard"			"1"
+			}
+			"trees_circle_speace"
+			{
+				"value"					"140"
+				"RequiresShard"			"1"
+			}
+			"trees_vision_radius"
+			{
+				"value"					"900"
+				"RequiresShard"			"1"
+				"affected_by_aoe_increase"	"1"
+			}
+			"active_modifier_duration"
+			{
+				"value"					"6"
+				"RequiresShard"			"1"
+			}
+			"active_bonus_attack_speed"
+			{
+				"value"					"55"
+				"RequiresShard"			"1"
+			}
+			"active_bonus_movespeed_pct"
+			{
+				"value"					"15"
+				"RequiresShard"			"1"
+			}
+		}
+	}
+
+	"ability_thdots_shizuha02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_sizuha_02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+
+		"AbilityChannelTime"	"7.0 6.0 5.0 4.0"
+		"AbilityCooldown"	"48 36 24 12"
+		"AbilityManaCost"	"0"
+
+		"MaxLevel"	"4"
+
+		"precache"
+		{
+			"soundfile"					"soundevents/thdots_hero_sounds/thdots_shizuha_sounds.vsndevts"	
+		}
+
+		"OnSpellStart" //开始施法
+		{	
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_shizuha02_time"
+				"Target"	"CASTER"
+			}
+		}
+
+		"OnChannelInterrupted"  //持续施法中断
+		{
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_shizuha02_time"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityshizuha.lua"
+				"Function"	"OnShizuha02Interrupted"
+			}
+			"AttachEffect"
+			{
+				"EffectName"				"particles/heros/shizuha/shizuha02_fail.vpcf"
+				"EffectAttachType"			"follow_overhead"
+				"Target"					"CASTER"
+			}					
+		}
+
+		"OnChannelSucceeded"   //持续施法成功
+		{
+			"FireSound"
+			{
+				"EffectName"				"Voice_Thdots_Shizuha.AbilityShizuha02"
+				"Target"					"CASTER"
+			}	
+			"ApplyModifier"
+			{
+				"Target"					"CASTER"
+				"ModifierName"				"modifier_shizuha02_end"
+			}
+			"RemoveModifier"
+			{
+				"Target"					"CASTER"
+				"ModifierName"				"modifier_shizuha02_time"
+			}		
+		}
+
+		"Modifiers"
+		{
+			"modifier_shizuha02_time"
+			{
+				"IsHidden"	"1"
+				"ThinkInterval"	"1"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+ 					{
+ 						"EffectName"				"particles/heros/shizuha/shizuha02_sleep.vpcf"
+ 						"EffectAttachType"			"follow_overhead"
+ 						"Target"					"CASTER"
+ 					}
+				}
+
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"					"scripts/vscripts/abilities/abilityshizuha.lua"
+						"Function"						"OnCreatedShizuha02Time"
+						"heal_amount"					"%heal_amount"
+						"mana_regen_amount"				"%mana_regen_amount"
+					}
+				}
+			}
+			"modifier_shizuha02_end"
+			{
+				"IsBuff"	"1"
+				"Duration" 	"%time_strength"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"		"%bouns_strength" //攻击力增加
+					"MODIFIER_PROPERTY_HEALTH_BONUS"				"%bonus_health" //生命值上限增加
+				}
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"					"particles/heros/shizuha/shizuha02_success.vpcf"
+						"EffectAttachType"				"follow_overhead"
+						"Target"						"CASTER"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"bouns_strength"	"10 20 30 40"
+			"time_strength"		"20"
+			"heal_amount"	"200 400 600 800"
+			"mana_regen_amount"	"150 200 250 300"
+			"bonus_health"
+			{
+				"value"	"0"
+				"special_bonus_unique_shizuha_7"    "+500"
+			}
+		}
+	}
+
+	"ability_thdots_shizuha05"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityshizuha.lua"
+		"AbilityTextureName"	"touhoutd/thtd_sizuha_04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"FightRecapLevel"	"1"
+		"AbilityType"	"DOTA_ABILITY_TYPE_BASIC"
+		"HotKeyOverride"	"F"
+		"MaxLevel"	"1"
+		"RequiredLevel"	"1"
+		"IsGrantedByScepter"	"1"
+		"LevelsBetweenUpgrades"	"2"
+		"AbilityCastPoint"	"0.333"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"100"
+		"AbilityManaCost"	"135"
+		"AbilityCastRange"	"1100"
+		"AbilityCastRangeBuffer"	"250"
+		"precache"
+		{
+			"particle"	"particles/econ/items/windrunner/windranger_arcana/windranger_arcana_ambient_v2.vpcf"
+			"particle"	"particles/heros/shizuha/sizuha_05_leaf_nosuck.vpcf"
+			"particle"	"particles/econ/items/windrunner/windranger_arcana/windranger_arcana_monkey_king_bar_tgt_v2.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_batrider.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"radius_base"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"radius_max"
+			{
+				"value"			"1100"
+				"affected_by_aoe_increase"	"1"
+			}
+			"radius_increment"			"100"
+			"interval"					"1"
+			"tree_down_countdown"		"5"
+			"tree_down_delay"			"1"
+			"damage"
+			{
+				"value"		"150"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"dmg_bonus_pct_per_tree"	"5"
+			"debuff_duration"			"1.2"
+			"movement_slow_pct"			"-50"
+		}
+	}
+
+	"ability_thdots_shizuha04"
+	{
+		// Ability Technical Aspect
+		// base script folder	: scripts/vscripts
+		// base texture folder	: resource/flash3/images/spellicons
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"AbilityTextureName"			"touhoutd/thtd_sizuha_01"
+		"ScriptFile"					"scripts/vscripts/abilities/abilityshizuha.lua"
+		"FightRecapLevel"				"1"
+		"MaxLevel"						"3"
+
+		"precache"
+		{
+			"soundfile"	"sounds/addons/dungeon/vase_break02.vsnd"
+			"particle"	"particles/units/heroes/hero_tinker/tinker_machine.vpcf"
+			"particle"	"particles/units/heroes/hero_tinker/tinker_motm.vpcf"
+			"particle"	"particles/heros/shizuha/sizuha04_leaf_fall.vpcf"
+			"particle"	"particles/generic_gameplay/generic_disarm.vpcf"
+			"particle"	"particles/generic_gameplay/generic_stunned.vpcf"
+		}
+		
+		// Ability General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+        	"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+
+		// Ability Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"400"
+		"AbilityCastPoint"				"0.4"
+
+		// Ability Resource
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"175 200 225"
+
+		// Damage
+		//-------------------------------------------------------------------------------------------------------------
+		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"collision_radius"			"50"
+			"splash_radius"				"150"
+			"duration"
+			{
+				"value"	"5.0 8.0 11.0"
+			}
+			"speed"					"1000"
+			"machines_per_sec"
+			{
+				"value"	"12 14 16"
+				"special_bonus_unique_shizuha_3"    	"+3"
+			}
+			"distance"				"1200"
+			"distance_scepter"			"2000"
+			"new_damage"
+			{
+				"value"	"50 65 80"
+				// "LinkedSpecialBonus"    	"special_bonus_unique_shizuha_4"
+				// "LinkedSpecialBonusOperation"	"SPECIAL_BONUS_MULTIPLY"
+			}
+			"AbilityCooldown"
+			{
+				"value"				"90.0"
+				"special_bonus_unique_shizuha_2"	"-30.0"
+			}
+		}
+	}
+
+	"special_march_of_the_machines_disarm_duration_lua" //天赋：造成缴械
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"						"2.0"
+		}
+	}
+
+
+	"special_bonus_unique_shizuha_1" //天赋：1技能范围 +100
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+	
+	"special_bonus_unique_shizuha_2"  //天赋：大招CD减少
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	"special_bonus_unique_shizuha_3" //天赋： 大招落叶数量+3
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"						"3"
+		}
+	}
+
+	"special_bonus_unique_shizuha_4"  //天赋：大招伤害倍数提升
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"						"2.0"
+		}
+	}
+
+	"special_bonus_unique_shizuha_5" //天赋： 3技能 范围伤害+20
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"						"20"
+		}
+	}
+
+	"special_bonus_unique_shizuha_6"  //天赋：睡觉不被打断
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"						"1"
+		}
+	}
+
+	"special_bonus_unique_shizuha_7" //天赋： 完全睡醒+500生命上限
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+	"special_bonus_unique_shizuha_8" //天赋： 1技能 +伤害
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+	"special_bonus_unique_shizuha_9" //天赋： 3技能 +光环攻击力
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+	}
+
+
+}

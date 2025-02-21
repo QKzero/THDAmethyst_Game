@@ -1,0 +1,113 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Pad
+	// =================================================================================================================
+	"item_recipe_pad"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_pad"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8173"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"200"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_pad"
+		"ItemRequirements"
+		{
+			"01"	"item_bra;item_baozi;item_glue"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+	// =================================================================================================================
+	// Pad
+	// =================================================================================================================
+	"item_pad"
+	{
+		//"BaseClass"	"item_lua"
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_pad"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		//"ScriptFile" "scripts/vscripts/items/item_pad.lua"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8174"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2050"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"block;health_pool;regen_health"
+		"ItemAliases"	"pad;vanguard"
+		"Modifiers"
+		{
+			"modifier_item_pad"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+				}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_block.lua"
+						"Function"	"ItemAbility_Block_Refresh"
+						"BlockModifierName"	"modifier_item_pad_block"
+						"BlockChance"	"%chance"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_block.lua"
+						"Function"	"ItemAbility_Block_Recycle"
+					}
+				}
+				"OnAttacked"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_block.lua"
+						"Function"	"ItemAbility_Block_OnAttacked"
+					}
+				}
+			}
+			"modifier_item_pad_block"
+			{
+				"IsHidden"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_CONSTANT_BLOCK" "%block"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"block"	"50"
+			"chance"	"60"
+			"bonus_health_regen"	"7"
+			"bonus_health"	"300"
+			"percent"	"100"
+		}
+		"Model"	"models/props_gameplay/stout_shield.vmdl"
+	}
+}

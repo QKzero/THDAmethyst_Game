@@ -1,0 +1,65 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Mushroom Kebab
+	// =================================================================================================================
+	"item_recipe_mushroom_kebab"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_mushroom_kebab"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8040"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"205"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_mushroom_kebab"
+		"ItemRequirements"
+		{
+			"01"	"item_mushroom;item_cherry_branch"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Mushroom Kebab
+	// =================================================================================================================
+	"item_mushroom_kebab"
+	{
+		"BaseClass"	"item_lua"
+		"AbilityTextureName"	"item_mushroom_kebab"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_SELF"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_INVULNERABLE | DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD"
+		"ScriptFile"	"items/item_pie.lua"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8041"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"504"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"agi;int;str"
+		"ItemAliases"	"magicshroom kebab;bracer"
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"7"
+			"bonus_agility"	"3"
+			"bonus_intellect"	"3"
+			"increase_strength"	"3"
+			"bonus_resist"	"9"
+		}
+		
+	}
+}

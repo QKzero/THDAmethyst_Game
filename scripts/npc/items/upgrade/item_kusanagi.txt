@@ -1,0 +1,67 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Sword of Kusanagi
+	// =================================================================================================================
+	"item_recipe_kusanagi"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_hexie"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		//"ID"	""
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1599"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_kusanagi"
+		"ItemRequirements"
+		{
+			"01"	"item_wrench;item_silver_knife"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Sword of Kusanagi
+	// =================================================================================================================
+	"item_kusanagi"
+	{
+		"BaseClass"	"item_lua"
+		"Model"							"models/props_gameplay/divine_rapier.vmdl"
+        "AbilityTextureName"			"item_hexie"
+		"ScriptFile"					"items/item_kusanagi"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		//"ID"	""
+		"ItemQuality"	"epic"
+        "ItemAliases"					"divine rapier;concordia"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"6999"
+		"ItemDroppable"					"1"
+        "ItemShareability"				"ITEM_NOT_SHAREABLE"
+		"ItemSellable"					"0"
+    	"ItemKillable"					"0"
+        "ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS | DECLARE_PURCHASES_IN_SPEECH"
+        "ItemContributesToNetWorthWhenDropped"	"0"
+		"AllowedInBackpack"				"0"
+		"IsTempestDoubleClonable"		"0"
+		"ItemDisassembleRule"				"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ShouldBeSuggested"				"1"
+		"ItemShopTags"	"damage"
+		// Values
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"	"399"
+			"bonus_spell_damage"	"25"
+		}
+	}
+}

@@ -1,0 +1,572 @@
+"DOTAAbilities"
+{
+	"ability_thdots_mystia01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_mystia_02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"AnimationPlaybackRate"	"2"
+		"CastFilterRejectCaster"	"0"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCooldown"	"14 14 14 14"
+		"AbilityManaCost"	"50 60 70 80"
+		"AbilityCastRange"	"600"
+		"AOERadius"	"600"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/mystia/mystia01.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_wisp.vsndevts"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_mystia_sounds.vsndevts"
+			"particle"	"particles/units/heroes/hero_pangolier/pangolier_luckyshot_silence_debuff.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"CASTER"
+				"ScriptFile"	"scripts/vscripts/abilities/abilitymystia.lua"
+				"Function"	"Mystia01OnSpellStart"
+				"damage"	"%damage"
+				"range"	"%range"
+				"duration"	"%duration"
+				"agility_bonus"	"%agility_bonus"
+			}
+			"FireEffect"
+			{
+				"Target"	"CASTER"
+				"EffectName"	"particles/thd2/heroes/mystia/mystia01.vpcf"
+				"EffectAttachType"	"attach_origin"
+			}
+			"FireSound"
+			{
+				"Target"	"CASTER"
+				"EffectName"	"Hero_Wisp.Spirits.Target"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_mystia01"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+		//		"Properties"
+		//		{
+		//			"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movespeed_slow"
+		//		}
+				"EffectName"	"particles/units/heroes/hero_pangolier/pangolier_luckyshot_silence_debuff.vpcf"
+				"EffectAttachType"	"follow_overhead"
+			}
+			"modifier_mystia02"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+		//		"Properties"
+		//		{
+		//			"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movespeed_slow_night"
+		//		}
+				"EffectName"	"particles/units/heroes/hero_pangolier/pangolier_luckyshot_silence_debuff.vpcf"
+				"EffectAttachType"	"follow_overhead"
+			}
+		}
+		"AbilityValues"
+		{
+			"damage"	"100 150 200 250"
+			"agility_bonus"	"1.5"
+			"duration"	"1.5 2 2.5 3"
+			"range"
+			{
+				"value"			"600 600 600 600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"movespeed_slow"	"-10 -15 -20 -25"
+			"movespeed_slow_night"	"-20 -30 -40 -50"
+		}
+	}
+	"ability_thdots_mystia02"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitymystia.lua"
+		"AbilityTextureName"	"ability_thdots_mystia02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ALLIES_NO"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"10 10 10 10"
+		"AbilityManaCost"	"65 65 65 65"
+		"AbilityCastRange"	"500"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/mystia/mystia02.vpcf"
+			"particle"	"particles/thd2/heroes/mystia/mystia02_2.vpcf"
+			"particle"	"particles/thd2/heroes/mystia/mystia_modifer_02_1.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_enchantress.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"movespeedup"	"20 40 60 80"
+			"attackspeedup"	"20 30 40 50"
+			"range"
+			{
+				"value"	"500"
+				"LinkedSpecialBonus"		"special_bonus_unique_mystia_2"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"10"
+		}
+	}
+	"special_bonus_unique_mystia_2"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"500"
+		}
+	}
+	// "ability_thdots_mystia02_1"
+	// {
+	// 	"BaseClass"	"ability_datadriven"
+	// 	"AbilityTextureName"	"ability_thdots_mystia02"
+	// 	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+	// 	"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	// 	"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+	// 	"SpellImmunityType"	"SPELL_IMMUNITY_ALLIES_NO"
+	// 	"AbilityCastPoint"	"0"
+	// 	"AbilityCooldown"	"10 10 10 10"
+	// 	"AbilityManaCost"	"65 65 65 65"
+	// 	"AbilityCastRange"	"400"
+	// 	"precache"
+	// 	{
+	// 		"particle"	"particles/thd2/heroes/mystia/mystia02.vpcf"
+	// 		"particle"	"particles/thd2/heroes/mystia/mystia_modifer_02_1.vpcf"
+	// 		"soundfile"	"soundevents/game_sounds_heroes/game_sounds_enchantress.vsndevts"
+	// 	}
+	// 	"OnSpellStart"
+	// 	{
+	// 		"RunScript"
+	// 		{
+	// 			"Target"	"CASTER"
+	// 			"ScriptFile"	"scripts/vscripts/abilities/abilitymystia.lua"
+	// 			"Function"	"Mystia02OnSpellStart"
+	// 			"range"	"%range"
+	// 		}
+	// 		"FireSound"
+	// 		{
+	// 			"Target"	"CASTER"
+	// 			"EffectName"	"Hero_Enchantress.EnchantCast"
+	// 		}
+	// 		"FireEffect"
+	// 		{
+	// 			"Target"	"CASTER"
+	// 			"EffectName"	"particles/thd2/heroes/mystia/mystia02.vpcf"
+	// 			"EffectAttachType"	"follow_origin"
+	// 		}
+	// 	}
+	// 	"Modifiers"
+	// 	{
+	// 		"modifier_mystia02"
+	// 		{
+	// 			"IsBuff"	"1"
+	// 			"IsPurgable"	"1"
+	// 			"States"	{}
+	// 			"Properties"
+	// 			{
+	// 				"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movespeedup"
+	// 				"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeedup"
+	// 			}
+	// 			"EffectName"	"particles/thd2/heroes/mystia/mystia_modifer_02_1.vpcf"
+	// 			"EffectAttachType"	"follow_origin"
+	// 		}
+	// 		"modifier_mystia02_1"
+	// 		{
+	// 			"IsBuff"	"1"
+	// 			"Properties"
+	// 			{
+	// 				"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armorup"
+	// 				"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS"	"%magicalup"
+	// 			}
+	// 			"IsPurgable"	"1"
+	// 		}
+	// 		"modifier_mystia02_2"
+	// 		{
+	// 			"IsBuff"	"1"
+	// 			"Properties"
+	// 			{
+	// 				"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS"	"%magicalup"
+	// 			}
+	// 			"IsPurgable"	"1"
+	// 		}
+	// 		"modifier_mystia02_area"
+	// 		{
+	// 			"Duration"	"%duration"
+	// 			"IsBuff"	"1"
+	// 			"Aura"	"modifier_mystia02"
+	// 			"Aura_ApplyToCaster"	"1"
+	// 			"Aura_Radius"	"%range"
+	// 			"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+	// 			"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	// 		}
+	// 		"modifier_mystia02_area_1"
+	// 		{
+	// 			"Duration"	"%duration"
+	// 			"IsBuff"	"1"
+	// 			"Aura_Radius"	"%range"
+	// 			"Aura"	"modifier_mystia02_1"
+	// 			"Aura_ApplyToCaster"	"1"
+	// 			"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+	// 			"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	// 		}
+	// 		"modifier_mystia02_area_2"
+	// 		{
+	// 			"Duration"	"%duration"
+	// 			"IsBuff"	"1"
+	// 			"Aura"	"modifier_mystia02_2"
+	// 			"Aura_ApplyToCaster"	"1"
+	// 			"Aura_Radius"	"%range"
+	// 			"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+	// 			"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	// 			"IsHidden"	"0"
+	// 		}
+	// 	}
+	// 	"AbilityValues"
+	// 	{
+	// 		"movespeedup"	"7 14 21 30"
+	// 		"attackspeedup"	"20 30 40 50"
+	// 		"range"	"400"
+	// 		"duration"	"10"
+	// 		"armorup"	"5"
+	// 		"magicalup"	"10"
+	// 	}
+	// }
+
+	"ability_thdots_mystia03"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"ability_thdots_mystia03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ALLIES_YES"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/mystia03.vpcf"
+			"particle"	"particles/thd2/heroes/mystia/mystia03.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_mystia03_mana"
+			{
+				"IsHidden"	"1"
+				"Aura"	"modifier_mystia03_mana_effect"
+				"Aura_Radius"	"%radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO"
+				"Properties"	{}
+				"IsBuff"	"1"
+				"Passive"	"1"
+				"Aura_ApplyToCaster"	"1"
+			}
+			"modifier_mystia03_resistence"
+			{
+				"Passive"	"1"
+				"IsHidden"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS"	"%magic_resistence"
+				}
+				"IsBuff"	"1"
+			}
+			"modifier_mystia03_mana_effect"
+			{
+				"States"	{}
+				"OnAbilityExecuted"
+				{
+					"RunScript"
+					{
+						"Target"	"UNIT"
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymystia.lua"
+						"Function"	"mystia03OnExecuted"
+					}
+				}
+				"IsHidden"	"0"
+				"IsBuff"	"1"
+				"Properties"	{}
+			}
+		}
+		"AbilityValues"
+		{
+			//"magic_resistence"	"3 5 7 9"
+			"magic_resistence"	"10 20 30 40"
+			"radius"
+			{
+				"value"			"500 500 500 500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"chance"	"35"
+			"restoredmana"	"40 60 80 100"
+		}
+	}
+
+	"ability_thdots_mystia04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"ability_thdots_mystia01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_BUILDING | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"HasScepterUpgrade"			"1"
+		"AnimationPlaybackRate"	"2"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCooldown"	"60"
+		"AbilityManaCost"	"150 150 150"
+		"AbilityCastRange"	"800 800 800"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/mystia/mystia0.vpcf"
+			"particle"	"particles/units/heroes/hero_night_stalker/nightstalker_ulti.vpcf"
+			"particle"	"particles/econ/items/kunkka/kunkka_immortal/kunkka_immortal_ambient_alt_caustic_edge_dark.vpcf"
+			"particle"	"particles/econ/items/dark_willow/dark_willow_ti8_immortal_head/dw_crimson_ti8_immortal_cursed_crownenergy.vpcf"
+            "particle"  "particles/thd2/heroes/mystia/mystia04_screen.vpcf"
+			"particle"	"particles/generic_gameplay/screen_death_indicator_b.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
+
+		}
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"Target"	"CASTER"
+				"EffectName"	"particles/thd2/heroes/mystia/mystia0.vpcf"
+				"EffectAttachType"	"follow_origin"
+			}
+			"RunScript"
+			{
+				"Target"	"CASTER"
+				"ScriptFile"	"scripts/vscripts/abilities/abilitymystia.lua"
+				"Function"	"Mystia04OnSpellStart"
+				"range"	"%range"
+				"damage"	"%damage"
+				"range2"	"%range2"
+			}
+			"FireSound"
+			{
+				"Target"	"CASTER"
+				"EffectName"	"Hero_Omniknight.GuardianAngel.Cast"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_mystia04_1"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Duration"	"%duration"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeeddown"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movespeeddown"
+				}
+				"States"	{}
+			}
+			"modifier_mystia04_tohero"
+			{
+				"Duration"	"%duration"
+				"IsDebuff"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_BONUS_NIGHT_VISION"	"%nightvision"
+					"MODIFIER_PROPERTY_BONUS_DAY_VISION"	"%dayvision"
+				}
+				"EffectName"	"particles/econ/items/dark_willow/dark_willow_ti8_immortal_head/dw_crimson_ti8_immortal_cursed_crownenergy.vpcf"
+				"EffectAttachType"	"follow_eyes"
+				"IsPurgable"	"1"
+			}
+			"modifier_mystia04_toother"
+			{
+				"IsDebuff"	"1"
+				"Duration"	"%duration"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_BONUS_DAY_VISION"	"-4000"
+					"MODIFIER_PROPERTY_BONUS_NIGHT_VISION"	"-4000"
+				}
+				"States"
+				{
+					"MODIFIER_STATE_SOFT_DISARMED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"EffectName"	"particles/econ/items/kunkka/kunkka_immortal/kunkka_immortal_ambient_alt_caustic_edge_dark.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"IsPurgable"	"0"
+			}
+		}
+		"AbilityValues"
+		{
+			"damage"	"100 175 250"
+			"duration"	"3 3.5 4"
+			"range"
+			{
+				"value"			"800 800 800"
+				"affected_by_aoe_increase"	"1"
+			}
+			"movespeeddown"	"-50%"
+			"attackspeeddown"	"-35"
+			"nightvision"	"-1600 -2000 -2400"
+			"dayvision"	"-800 -1200 -1500"
+			"duration_darkness"
+			{
+				"value"	"10"
+				"RequiresScepter"	"1"
+			}
+		}
+	}
+
+	"ability_thdots_mystiaex"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"ability_thdots_mystiaEx"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_BASIC"
+		"HasScepterUpgrade"			"1"
+		"MaxLevel"	"1"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"30"
+		"AbilityManaCost"	"30"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_batrider.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_terrorblade.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_nightstalker.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"CASTER"
+				"ScriptFile"	"scripts/vscripts/abilities/abilitymystia.lua"
+				"Function"	"mystiaExOnSpellStart"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_mystiaEx"
+			{
+				"IsHidden"	"0"
+				"States"	{}
+				"Properties"	{}
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymystia.lua"
+						"Function"	"mystiaExOnAttackLanded"
+					}
+				}
+				"OnAttacked"
+				// "%attack_damage" is set to the damage value after mitigation
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymystia.lua"
+						"Function"	"mystiaExOnAttacked"
+					}
+				}
+				"Passive"	"1"
+			}
+			"modifier_mystiaEx_fly"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_FLYING"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"ThinkInterval"	"0.05"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"Target"	"CASTER"
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymystia.lua"
+						"Function"	"mystiainnatevision"
+					}
+				}
+				"EffectName"	"particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf"
+				"EffectAttachType"	"follow_hitloc"
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"Target"	"CASTER"
+						"EffectName"	"Hero_Batrider.Firefly.Cast"
+					}
+				}
+				"Properties"	{}
+			}
+		}
+    	"AbilityValues"
+		{
+			"rate"	"3"
+			"base"	"25"
+		}
+	}
+	"special_bonus_unique_mystia_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"3"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_mystia_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_mystia_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"11"
+		}
+	}
+}

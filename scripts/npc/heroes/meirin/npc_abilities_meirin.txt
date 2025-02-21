@@ -1,0 +1,652 @@
+"DOTAAbilities"
+{
+	"ability_thdots_meirin01"
+	{
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_meirin01"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityMeirin.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"	"1"
+		// Casting
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AnimationPlaybackRate"	"0.5"
+		// Time
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"	"16 13 10 7"
+		// Cost
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"	"95"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_magnataur/magnataur_skewer_horn.vpcf"
+			"soundfile"	"sounds/weapons/hero/magnataur/skewer_cast.vsnd"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_magnataur.vsndevts"
+			"particle"	"particles/units/heroes/hero_magnataur/magnataur_skewer_debuff.vpcf"
+			"particle"	"particles/units/heroes/hero_magnataur/magnataur_skewer.vpcf"
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"skewer_speed"	"950"
+			"range"	"887 982 1077 1172"
+			"slow_pct_notuse"	"-25 -30 -35 -40"
+			"skewer_radius"
+			{
+				"value"			"125"
+				"affected_by_aoe_increase"	"1"
+			}
+			"slow_duration"	"0.1"
+			"skewer_damage"	"70 140 210 280"
+			"hero_offset"	"200"
+			"tree_radius"
+			{
+				"value"			"200"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		"AbilityCastRange"	"887 982 1077 1172"
+	}
+
+	"ability_thdots_meirin02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_meirin02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AnimationPlaybackRate"	"1.5"
+		"AbilityCooldown"	"20"
+		"AbilityManaCost"	"30 45 60 75"
+		"HasScepterUpgrade"	"1"
+		// Stats
+		// -------------
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_dragon_star.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
+			"particle"	"particles/econ/items/juggernaut/jugg_arcana/juggernaut_arcana_v2_blade_fury_dragon.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Ancient_Apparition.IceBlastRelease.Cast.Self"
+				"Target"	"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_meirin02_buff"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMeirin.lua"
+				"Function"	"OnMeirin02Talent"
+				"Caster"	"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_meirin02_buff"
+			{
+				"Duration"	"%buff_duration"
+				"EffectName"	"particles/econ/items/juggernaut/jugg_arcana/juggernaut_arcana_v2_blade_fury_dragon.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"IsPurgable"	"0"
+				"IsBuff"	"1"
+				"ThinkInterval"	"0.03"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMeirin.lua"
+						"Function"	"OnMeirin02Purge"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"%reduce_damage"
+					//"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movement_speed"
+				}
+			}
+			"modifier_meirin02_buff_ex"
+			{
+				"Duration"	"%buff_duration"
+				"IsPurgable"	"0"
+				"IsBuff"	"1"
+				"IsHidden"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"%reduce_damage"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"buff_duration"	"2 3 4 5"
+			"reduce_damage"	"-30"
+		}
+	}
+
+	"ability_thdots_meirin03"
+	{
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_meirin03"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_YES"
+		"HasScepterUpgrade"	"1"
+		"IsBreakable"					"1"
+		// Time
+		// -------------------------------------------------------------------------------------------------------------
+		"AOERadius"	"%radius"
+		// Precache
+		// -------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_axe/axe_attack_blur_counterhelix.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+		}
+		"Modifiers"
+		{
+			"modifier_meirin03_passive"
+			{
+				"Passive"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile" "scripts/vscripts/abilities/abilityMeirin.lua"
+						"Function" "OnMeirin03PassiveIntervalThink"
+						"Caster" "CASTER"
+					}
+				}
+				//"OnTakeDamage"
+				//{
+				//	"Random"
+				//	{
+				//		"Chance"	"%chance"
+				//		"OnSuccess"
+				//		{
+				//			"RunScript"
+				//			{
+				//				"ScriptFile"	"scripts/vscripts/abilities/abilityMeirin.lua"
+				//				"Function"	"Meirin03passive"
+				//				"helix_modifier"	"modifier_meirin03_damage"
+				//				"DamageTaken"	"%attack_damage"
+				//				"DamageBlock"	"%block_damage"
+				//				"helixcd"	"%cooldown"
+				//				"helixcd_wbc"	"%cooldown_wbc"
+				//			}
+				//		}
+				//	}
+				//}
+			}
+			"modifier_meirin03_damage"
+			{
+				//"Duration"	"%cooldown"
+				"IsHidden"	"1"
+				"EffectName"	"particles/units/heroes/hero_axe/axe_attack_blur_counterhelix.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Axe.CounterHelix"
+						"Target"	"CASTER"
+					}
+					//"RunScript"
+					//{
+					//	"ScriptFile"	"scripts/vscripts/abilities/abilityMeirin.lua"
+					//	"Function"	"Meirin03Damage"
+					//	"damage"	"%damage"
+					//	"radius"	"%radius"
+					//}
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_meirin03_anime"
+						"Target"	"CASTER"
+						"Duration"	"0.4"
+					}
+				}
+			}
+			"modifier_meirin03_anime"
+			{
+				"IsHidden"	"1"
+				"OverrideAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"275"
+				"affected_by_aoe_increase"	"1"
+			}
+			"chance"	"14 17 20 23"
+			"cooldown"	"0.65"
+			"block_damage"
+			{
+				"value"	"40 80 120 160"
+				"LinkedSpecialBonus"	"special_bonus_unique_meirin_2"
+			}
+			"damage"
+			{
+				"value"	"40 70 100 130"
+				"LinkedSpecialBonus"	"special_bonus_unique_meirin_3"
+			}
+			"cooldown_wbc"
+			{
+				"value"	"0.13"
+				"RequiresScepter"		"1"
+			}
+		}
+	}
+
+//	"ability_thdots_meirin04"
+//	{
+//		"BaseClass"	"ability_datadriven"
+//		"AbilityTextureName"	"custom/ability_thdots_meirin04"
+//		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET "
+//		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+//		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+//		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+//		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+//		"AbilityCastPoint"	"0.1"
+//		"AbilityCooldown"	"90"
+//		"AbilityManaCost"	"200 300 400"
+//		// Stats
+//		// ----------------------------------------------------------------
+//		"AbilityCastRange"	"150"
+//		"precache"
+//		{
+//			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_sven.vsndevts"
+//			"particle"	"particles/econ/items/juggernaut/jugg_arcana/juggernaut_arcana_blade_fury.vpcf"
+//			"particle"	"particles/units/heroes/hero_oracle/oracle_fortune_purge_root_pnt.vpcf"
+//		}
+//		"OnSpellStart"
+//		{
+///			"FireSound"
+//			{
+//				"EffectName"	"Hero_Sven.GodsStrength"
+//				"Target"	"CASTER"
+//			}
+//			"ApplyModifier"
+//			{
+//				"Target"	"CASTER"
+//				"ModifierName"	"modifier_thdots_meirin04_states"
+//			}
+//			"ApplyModifier"
+//			{
+//				"Target"	"CASTER"
+//				"ModifierName"	"modifier_thdots_meirin04_effect"
+//			}
+//			"RunScript"
+//			{
+//				"Caster"	"CASTER"
+//				"Target"	"TARGET"
+//				"ScriptFile"	"scripts/vscripts/abilities/abilityMeirin.lua"
+//				"Function"	"OnMeirin04SpellStart"
+//				"StunDuration"	"%stun_duration"
+//				"Radius"	"%radius"
+//			}
+//		}
+//		"Modifiers"
+//		{
+//			"modifier_thdots_meirin04_states"
+//			{
+//				"IsHidden"	"0"
+//				"Duration"	"1.7"
+//				"States"
+//				{
+//					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+//					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+//					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
+//					"MODIFIER_STATE_DISARMED"	"MODIFIER_STATE_VALUE_ENABLED"
+//					"MODIFIER_STATE_MUTED"	"MODIFIER_STATE_VALUE_ENABLED"
+//					"MODIFIER_STATE_ROOTED"	"MODIFIER_STATE_VALUE_ENABLED"
+//				}
+//			}
+//			"modifier_thdots_meirin04_effect"
+//			{
+//				"IsHidden"	"0"
+//				"Duration"	"2.5"
+//				"EffectName"	"particles/econ/items/juggernaut/jugg_arcana/juggernaut_arcana_blade_fury.vpcf"
+//				"EffectAttachType"	"follow_origin"
+//			}
+//			"modifier_thdots_meirin04_slow"
+//			{
+//				"Duration"	"%slow_duration"
+//				"IsDebuff"	"1"
+//				"IsPurgable"	"1"
+//				"Properties"
+//				{
+//					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow_movement"
+//				}
+//				"EffectName"	"particles/units/heroes/hero_oracle/oracle_fortune_purge_root_pnt.vpcf"
+//				"EffectAttachType"	"attach_origin"
+//			}
+//			"modifier_thdots_meirin04_knockback"
+//			{
+//				"IsHidden"	"1"
+//				"IsDebuff"	"1"
+//				"IsPurgable"	"1"
+//				"Duration"	"0.4"
+//				"OnCreated"
+//				{
+//					"Knockback"
+//					{
+//						"Center"	"CASTER"
+//						"Target"	"TARGET"
+//						"Duration"	"0.4"
+//						"Distance"	"%distance"
+//						"Height"	"50"
+//					}
+//				}
+//			}
+//		}
+//		"AbilityValues"
+//		{
+//			"slow_duration"	"4 5 6"
+//			"stun_duration"	"1.7"
+//			"distance"	"800"
+//			"slow_movement"	"-50"
+//			"radius"	"500"
+//		}
+//		"AbilityDamage"	"100 200 300"
+//	}
+
+	"ability_thdots_meirin04_fix"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_meirin04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"	"3"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCooldown"	"90"
+		"AbilityManaCost"	"100 125 150"
+		"AbilityCastRange"	"600"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_vengefulspirit.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_elder_titan.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_sven.vsndevts"
+			"particle"	"particles/units/heroes/hero_phantom_lancer/phantomlancer_spiritlance_target.vpcf"
+			"particle"	"particles/units/heroes/hero_oracle/oracle_fortune_purge_root_pnt.vpcf"
+			"particle"	"particles/units/heroes/hero_sven/sven_spell_gods_strength.vpcf"
+			"particle"	"particles/econ/items/sven/sven_warcry_ti5/sven_spell_warcry_ti_5.vpcf"
+			"particle"	"particles/econ/items/elder_titan/elder_titan_ti7/elder_titan_echo_stomp_ti7.vpcf"
+			"particle"	"particles/econ/items/earthshaker/earthshaker_arcana/earthshaker_arcana_aftershock_v2.vpcf"
+			"particle"	"particles/econ/items/earthshaker/earthshaker_arcana/earthshaker_arcana_debut_ground.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"Target"	"CASTER"
+				"EffectName"	"Hero_Sven.GodsStrength"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_ability_thdots_meirin04_caster"
+			}
+			"RunScript"
+			{
+				"Target"	"POINT"
+				"ScriptFile"	"scripts/vscripts/abilities/abilitymeirin.lua"
+				"Function"	"OnMeirin04Point"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_ability_thdots_meirin04_caster"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"Passive"	"0"
+				"IsBuff"	"0"
+				"IsHidden"	"1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"Target"	"POINT"
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymeirin.lua"
+						"Function"	"OnMeirin04"
+						"damage01"	"%damage01"
+						"damage02"	"%damage02"
+						"damage03"	"%damage03"
+						"slow_duration"	"%slow_duration"
+						"stun_duration"	"%stun_duration"
+						"root_duration"	"%root_duration"
+						"radiu"	"%radiu"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMeirin.lua"
+						"Function"	"OnMeirin02Purge"
+					}
+				}
+				"ThinkInterval"	"0.01"
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilitymeirin.lua"
+						"Function"	"OnMeirin04Destroy"
+					}
+				}
+				"Duration"	"5"
+			}
+			"modifier_ability_thdots_meirin04_attack01"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow_movement_speed"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%slow_attack_speed"
+				}
+				"IsHidden"	"0"
+				"EffectName"	"particles/units/heroes/hero_phantom_lancer/phantomlancer_spiritlance_target.vpcf"
+				"EffectAttachType"	"attach_origin"
+			}
+			"modifier_ability_thdots_meirin04_attack02"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_ROOTED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"EffectName"	"particles/units/heroes/hero_oracle/oracle_fortune_purge_root_pnt.vpcf"
+				"EffectAttachType"	"attach_origin"
+			}
+			"modifier_ability_thdots_meirin04_attack03"
+			{
+				"IsDebuff"	"1"
+				"States"	{}
+				"OnCreated"
+				{
+					"Knockback"
+					{
+						"Target"	"TARGET"
+						"Center"	"CASTER"
+						"Distance"	"0"
+						"Duration"	"1.5"
+						"Height"	"500"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"slow_duration"	"6"
+			"slow_movement_speed"	"-30 -40 -50"
+			"slow_attack_speed"	"-30 -40 -50"
+			"root_duration"	"3"
+			"stun_duration"	"2"
+			"damage01"	"80 100 200"
+			"damage02"	"100 140 280"
+			"damage03"	"120 160 320"
+			"radiu"
+			{
+				"value"			"500"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+	"ability_thdots_meirinex"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_meirinex"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		// "AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		"MaxLevel"	"1"
+		"AbilityManaCost"           "0"
+		"AbilityCastPoint"          "0"
+		"AbilityCooldown"           "20"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		// Stats
+		// ----------------------------------------------------------------
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
+			"particle"	"particles/units/heroes/hero_lich/lich_frost_nova_flash_b.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"		"CASTER"
+				"ModifierName"	"modifier_meirinex"
+			}
+		}
+		
+		"Modifiers"
+		{	
+			"modifier_meirinex"
+			{
+				"Passive"				"0"
+				"Duration"  "10"
+				"IsHidden"  "0"
+				"IsBuff" "1"
+			}
+			"modifier_thdots_meirinex_attack"
+			{
+				"RemoveOnDeath"			"0"
+				"Passive"				"1"
+				"IsBuff"  "1"
+				"IsHidden" "0"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMeirin.lua"
+						"Function"	"OnMeirinexDamage"
+						"Target"	"TARGET"
+						"stackCount"			"%stack_count"	
+					}
+				}
+			}
+			"modifier_thdots_meirinex_passive"
+			{
+				"IsHidden" "1"
+				"Passive" "1"
+				"RemoveOnDeath" "0"
+				"ThinkInterval"	"8"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMeirin.lua"
+						"Function"	"OnMeirinexSpellThink"
+						"Target"	"CASTER"
+						"stackCount"			"%stack_count"					
+					}
+				}				
+			}
+		}
+		"AbilityValues"
+		{
+			"stack_count"	"7"
+		}
+	}
+	"special_bonus_unique_meirin_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"0.5"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_meirin_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"80"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_meirin_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"160"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_meirin_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+}

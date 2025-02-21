@@ -1,0 +1,351 @@
+"DOTAAbilities"
+{
+	"ability_thdots_lunasa01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_CUSTOM"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityTextureName"		"custom/thtd_luna_01"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"9 8 7 6"
+		"AbilityManaCost"	"100 120 140 160"
+		"AbilityCastRange"	"1000"
+		"precache"
+		{
+			"particle"	"particles/heroes/lunasa/lunasa01.vpcf"
+			"particle"	"particles/units/heroes/hero_death_prophet/death_prophet_base_attack_explosion.vpcf"
+			"particle"	"particles/econ/items/storm_spirit/storm_spirit_orchid_hat/storm_orchid_silenced.vpcf"
+			"particle"	"particles/econ/items/shadow_fiend/sf_fire_arcana/sf_fire_arcana_base_attack_impact.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"CASTER"
+				"ScriptFile"	"scripts/vscripts/abilities/abilitylunasa.lua"
+				"Function"	"lunasa01OnSpellStart"
+				"Duration"	"%lunasa01_duration"
+				"damage"	"%damage"
+				"range"		"%range"
+			}
+			"FireSound"
+			{
+				"Target"	"CASTER"
+				"EffectName"	"Voice_Thdots_Cirno.AbilityLunasa01"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_lunasa01"
+			{
+				"Duration"	"%lunasa01_duration"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"	{}
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"Target"	"TARGET"
+						"EffectName"	"particles/econ/items/storm_spirit/storm_spirit_orchid_hat/storm_orchid_silenced.vpcf"
+						"EffectAttachType"	"follow_overhead"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"damage"	"70 130 190 250"
+			"lunasa01_duration"	"0.3 0.4 0.5 0.6"
+			"range"		"1000"
+			"int_bonus"		"0.7"
+		}
+	}
+
+	"ability_thdots_lunasa02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/thtd_lunasa_01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_dark_seer/dark_seer_surge_g.vpcf"
+			"particle"	"particles/econ/items/zeus/lightning_weapon_fx/zuus_base_attack_explosion_immortal_lightning.vpcf"
+			"particle"	"particles/units/heroes/hero_dark_seer/dark_seer_surge_start_fallback_low.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_lunasa02"
+			{
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitylunasa.lua"
+						"Function"	"lunasa02OnspellStart"
+						"Target"	"TARGET"
+						"Duration"	"%duration"
+						"max_StackCount" "%max_StackCount"
+						"Damage"	"%damage"
+					}
+				}
+				"IsHidden"	"0"
+				"Passive"	"1"
+				"IsBuff"	"1"
+			}
+			"modifier_lunasa02_debuff"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_DECREPIFY_UNIQUE"	"%debuff_bonus"
+				}
+				"States"	{}
+				"Passive"	"0"
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"ThinkInterval"	"1"
+			}
+		}
+		"AbilityValues"
+		{
+			"debuff_bonus"	"-0.5 -1.5 -2.5 -3.5"
+			"damage"	"10 20 30 40"
+			"duration"	"9"
+			"max_StackCount"	"16"
+		}
+	}
+	"ability_thdots_lunasa03"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitylunasa.lua"
+		"AbilityTextureName"	"touhoutd/luna_eclipse_hp1"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_BASIC"
+		"MaxLevel"	"4"
+		"IsBreakable"					"1"
+		"AbilityValues"
+		{
+			"hp_percent"	"26 22 18 14"
+		}
+	}
+	"ability_thdots_lunasa_wanbaochui"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"scripts/vscripts/abilities/abilitylunasa.lua"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilityTextureName"			"wisp_overcharge"
+		"MaxLevel"						"1"
+		"AbilityCastPoint"				"0"
+   		"AbilityCastAnimation"			"ACT_INVALID"
+   		"HasScepterUpgrade"			"1"
+		"IsGrantedByScepter"			"1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"2.0"
+
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"soundfile"					"soundevents/game_sounds_heroes/game_sounds_wisp.vsndevts"
+			"particle"					"particles/units/heroes/hero_wisp/wisp_overcharge.vpcf"
+		}
+		"AbilityValues"
+		{
+			"bonus_attack_speed"		"50"
+			"bonus_damage_pct"			"-33"
+			"drain_interval"			"0.5 0.5 0.5 0.5"
+			"drain_pct"					"6.0"
+		}
+	}
+	"ability_thdots_lunasa04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityTextureName"	"custom/thtd_lunasa_02"
+		"HotKeyOverride"	"R"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"80 75 70"
+		"AbilityManaCost"	"300 400 500"
+		"AbilityCastRange"	"1000 1000 1000"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf"
+			"particle"	"particles/units/heroes/hero_dark_seer/dark_seer_surge_start.vpcf"
+			"particle"	"particles/econ/items/abaddon/abaddon_alliance/abaddon_aphotic_shield_alliance_explosion.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_lunasa_sounds.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"TARGET"
+				"ScriptFile"	"scripts/vscripts/abilities/abilitylunasa.lua"
+				"Function"	"lunasa04OnSpellStart"
+				"damage"	"%damage"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_lunasa04"
+			{
+				"Duration"	"%duration"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"	{}
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"Target"	"TARGET"
+						"EffectName"	"particles/econ/items/storm_spirit/storm_spirit_orchid_hat/storm_orchid_silenced.vpcf"
+						"EffectAttachType"	"follow_overhead"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilitylunasa.lua"
+						"Function"	"lunasa04End"
+						"damage"	"%damage"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"damage"	"150 200 250"
+			"range"	"1000 1000 1000"
+			"int_bonus"		"0.7"
+			"duration"		"6"
+		}
+	}
+
+	"ability_thdots_lunasaEx"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/star_up"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityType"	"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		// "AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		"MaxLevel"	"1"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_lunasaEx"
+			{
+				"Passive"	"1"
+				"OnKill"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitylunasa.lua"
+						"Target"	"UNIT"
+						"Function"	"lunasaExOnCreated"
+					}
+				}
+				"States"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE"	"%amplify_bonus_half"
+				}
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilitylunasa.lua"
+						"Function"	"lunasaExOnIntervalThink"
+					}
+				}
+				"ThinkInterval"	"0.1"
+			}
+			"modifier_lunasaEx_magicBonus"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilitylunasa.lua"
+						"Function"	"lunasaExOnattactLanded"
+						"damage"	"%damage"
+					}
+				}
+				"Properties"	{}
+			}
+		}
+		"AbilityValues"
+		{
+			"damage"	"20"
+			"amplify_limit"		"75"
+			"amplify_bonus"		"0.25"
+			"amplify_bonus_half"		"0.125"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_lunasa_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"4"
+		}
+	}
+	
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_lunasa_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+}

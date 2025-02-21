@@ -1,0 +1,92 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: 9 Ball
+	// =================================================================================================================
+	"item_recipe_9ball"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_9ball"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8085"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"499"
+		"SideShop"	"1"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_9ball"
+		"ItemRequirements"
+		{
+			"01"	"item_broom"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// 9 Ball
+	// =================================================================================================================
+	"item_9ball"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_9ball"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"20"
+		"AbilityManaCost"	"9"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8086"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1500"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"SideShop"	"1"
+		"ItemShopTags"	"move_speed"
+		"ItemAliases"	"9 ball"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_9ball_OnSpellStart"
+				"Caster"	"CASTER"
+				"BlinkRangeMin"	"%blink_range_min"
+				"BlinkRangeMax"	"%blink_range_max"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_9ball"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					//"MODIFIER_PROPERTY_MOVESPEED_BONUS_UNIQUE"	"%bonus_movement_speed"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_UNIQUE"	"%bonus_movement_speed"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_movement_speed"	"45"
+			"blink_range_min"	"300.0"
+			"blink_range_max"	"700.0"
+		}
+		"Model"	"models/props_gameplay/boots_of_speed.vmdl"
+	}
+}

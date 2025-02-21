@@ -1,0 +1,82 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Bra
+	// =================================================================================================================
+	"item_bra"
+	{
+		//"BaseClass"	"item_lua"
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_bra"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		//"ScriptFile" "scripts/vscripts/items/item_bra.lua"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8034"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"200"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"block"
+		"ItemAliases"	"metallic chest protector"
+		"Modifiers"
+		{
+			"modifier_item_bra_passive"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"			"1"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"0"
+				
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_block.lua"
+						"Function"	"ItemAbility_Block_Refresh"
+						"BlockModifierName"	"modifier_item_bra_block"
+						"BlockChance"	"%chance"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_block.lua"
+						"Function"	"ItemAbility_Block_Recycle"
+					}
+				}
+				"OnAttacked"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_block.lua"
+						"Function"	"ItemAbility_Block_OnAttacked"
+					}
+				}
+			}
+			"modifier_item_bra_block"
+			{
+				"IsHidden"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_CONSTANT_BLOCK" "%block"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"block"	"18"
+			"chance"	"60"
+			"percent"	"100"
+		}
+		"Model"	"models/props_gameplay/stout_shield.vmdl"
+	}
+}

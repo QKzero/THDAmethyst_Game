@@ -1,0 +1,574 @@
+"DOTAAbilities"
+{
+	"ability_thdots_yuuka01"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityTextureName"	"custom/ability_thdots_yuuka01"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_1"
+		
+		"precache"
+		{
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_furion.vsndevts"
+		}
+
+		"AbilityValues"
+		{
+			"AbilityManaCost"           "110 120 130 140"
+			"AbilityCastPoint"          "0.2"
+			"AbilityCooldown"           "15 14 13 12"
+			"AOERadius"
+			{
+				"value"			"125 150 175 200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"
+			{
+				"value"							"2.0 2.8 3.6 4.4"
+				"special_bonus_unique_yuuka_2"	"+2.5"
+			}
+			"flower_num"				"9 12 15 18"
+			"move_duration"				"7"
+		}
+
+		"OnAbilityPhaseStart"
+		{
+			"FireSound"
+			{
+				"EffectName"		"Hero_Furion.ForceOfNature"
+				"Target"			"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityYuuka.lua"
+				"Function"          "Yuuka01_IllusionCastAnimation"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilityYuuka.lua"
+				"Function"				"Yuuka01_OnSpeelStart"
+				"Radius"				"%AOERadius"
+				"Duration"				"%duration"
+				"FlowerNum"				"%flower_num"
+			}			
+		}			
+    }
+	"ability_thdots_yuuka02"
+    {
+        "BaseClass"                "ability_datadriven"
+        "AbilityBehavior"          "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+        "AbilityTextureName"	"custom/ability_thdots_yuuka02"
+    	"AbilityCastAnimation"     "Act_DOTA_CAST_ABILITY_2"
+    	"SpellDispellableType" "SPELL_DISPELLABLE_YES_STRONG"
+		"AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
+        "MaxLevel"                 "4"
+
+	    "precache"
+		{
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_furion.vsndevts"
+		}
+
+		"AbilityValues"
+		{
+			"AbilityCastRange"          "300 400 500 600"
+			"AbilityManaCost"           "130"
+			"AbilityCastPoint"          "0.2"
+			"AbilityCooldown"           "15 14 13 12"
+			"damage"
+			{
+				"value"							"75 125 175 225"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"duration"					"4"
+			"stun_duration"				"1.5"
+			"create_flower_interval"	"0.05"
+			"move_speed"				"1600"
+		}
+
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityYuuka.lua"
+				"Function"          "Yuuka02_IllusionCastAnimation"
+			}
+		}
+
+        "OnSpellStart"
+		{
+			"RunScript"					
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilityYuuka.lua"
+				"Function"		  		"Yuuka02_OnSpellStart"
+				"Duration"				"%duration"
+				"StunDuration"			"%stun_duration"
+				"CreateFlowerInterval"	"%create_flower_interval"
+				"MoveSpeed"				"%move_speed"
+			}
+		}
+		
+		"Modifiers"
+		{
+		}
+	}
+	
+    "ability_thdots_yuuka03"
+    {
+        "BaseClass"                "ability_datadriven"
+        "AbilityBehavior"          "DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	   "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetFlags"   "DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
+        "AbilityTextureName"	"custom/ability_thdots_yuuka03"
+    	"AbilityCastAnimation"     "Act_DOTA_CAST_ABILITY_3"
+        "MaxLevel"                 "4"
+		"AOERadius"                "%radius"
+		
+		"precache"
+		{
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
+			"particle"				"particles/heroes/yuuka/ability_yuuka_03.vpcf"
+		}
+
+		"AbilityValues"
+		{
+			"AbilityCastRange"			"800"
+			"AbilityManaCost"			"55 70 85 100"
+			"AbilityCastPoint"			"0.2"
+			"AbilityCooldown"			"18"
+			"duration"					"12"
+			"radius"
+			{
+				"value"			"800"
+				"affected_by_aoe_increase"	"1"
+			}
+			"bonus_health_regen"		"5 10 15 20"
+			"bonus_attackspeed"			"15 30 45 60"
+		}
+		
+		"OnAbilityPhaseStart"
+		{
+			"FireSound"
+			{
+				"EffectName"		"Hero_Omniknight.GuardianAngel.Cast"
+				"Target"			"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityYuuka.lua"
+				"Function"          "Yuuka03_IllusionCastAnimation"
+				"Target"			"POINT"
+			}
+		}
+        "OnSpellStart"
+        {
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityYuuka.lua"
+				"Function"          "Yuuka03_OnSpellStart"
+				"Target"			"POINT"
+				"Radius"			"%radius"
+				"Duration"			"%duration"
+				"BuffName"			"modifier_thdots_yuuka03_buff_timer"
+			}
+        }
+
+		"Modifiers"
+		{
+			"modifier_thdots_yuuka03_buff_timer"
+			{
+				"IsHidden"					"1"
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"		"modifier_thdots_yuuka03_buff"
+						"Target"			"TARGET"
+					}
+				}
+				"OnDestroy"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"		"modifier_thdots_yuuka03_buff"
+						"Target"			"TARGET"
+					}
+				}
+			}
+			"modifier_thdots_yuuka03_buff"
+			{
+				"IsBuff"				"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%bonus_health_regen"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed"
+				}
+			}
+		}
+    }
+	"ability_thdots_yuuka04"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityTextureName"	"custom/ability_thdots_yuuka04"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_4"
+		"AbilityType"			   	"DOTA_ABILITY_TYPE_ULTIMATE"
+        "MaxLevel"                 	"3"
+		
+		"precache"
+		{
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_treant.vsndevts"
+			"soundfile"				"soundevents/thdots_hero_sounds/thdots_yuuka_sounds.vsndevts"
+		}
+		
+		"AbilityValues"
+		{
+			"AbilityCastRange"			"700"
+			"AbilityManaCost"           "200 250 300"
+			"AbilityCastPoint"          "0.2"
+			"AbilityCooldown"
+			{
+				"value"							"120 105 90"
+				"special_bonus_unique_yuuka_1"	"-60"
+			}
+			"duration"					"20 25 30"
+			"illusion_damage_in_pct" 	"50"
+			"illusion_damage_out_pct"	"-50"
+		}
+
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"		"Hero_Treant.Overgrowth.Cast"
+				"Target"			"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityYuuka.lua"
+				"Function"          "Yuuka04_OnSpellStart"
+				"Target"			"TARGET"
+				"Duration"			"%duration"
+				"IllusionDamageInPct" "%illusion_damage_in_pct"
+				"IllusionDamageOutPct" "%illusion_damage_out_pct"
+			}
+		}
+    }
+
+    "ability_thdots_YuukaEx"
+	{
+		"BaseClass"				 	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_YuukaEx"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    	"AbilityCastAnimation"     	"Act_DOTA_CAST_ABILITY_1"
+		"MaxLevel"				  	"1"
+		
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_furion/furion_base_attack.vpcf"
+		}
+		
+		"AbilityValues"
+		{
+			"AbilityCastPoint"          "0.2"
+			"AbilityCooldown"           "1"
+			"AbilityManaCost"			"15"
+			"max_flower"
+			{
+				"value"							"5"
+				"special_bonus_unique_yuuka_3"	"+15"
+			}
+			"flower_hp_per_lvl"			"10"
+			"flower_damage_per_lvl"		"2"
+			"flower_attackspeed_per_lvl" "2"
+			"bonus_damage_per_flower"	"6"
+			"mana_regen_on_day"			"1"
+			"healing_radius"
+			{
+				"value"			"200"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityYuuka.lua"
+				"Function"          "YuukaEx_IllusionCastAnimation"
+			}
+		}
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilityYuuka.lua"
+				"Function"				"YuukaEx_OnSpellStart"
+				"MaxFlower"				"%max_flower"
+			}
+		}
+
+		"Modifiers"
+	    {
+			"modifier_thdots_yuukaex_flower"
+			{
+				"IsHidden"				"1"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityYuuka.lua"
+						"Function"				"YuukaEx_OnCreateFlower"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityYuuka.lua"
+						"Function"				"YuukaEx_OnDestroyFlower"
+					}
+				}
+				
+				"ThinkInterval"				"1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityYuuka.lua"
+						"Function"				"YuukaEx_FlowerCheckDayNight"
+						"DayBuffName"			"modifier_thdots_yuukaex_flower_onday"
+						"NightBuffName"			"modifier_thdots_yuukaex_flower_onnight"
+						"ManaRegenOnDay"		"%mana_regen_on_day"
+					}
+				}
+			}
+			"modifier_thdots_yuukaex_flower_onday"
+			{
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT" "%mana_regen_on_day"
+				}
+				
+				"Aura"					"modifier_thdots_yuukaex_flower_onday_healing"
+				"Aura_Radius"			"%healing_radius"
+				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"			"DOTA_UNIT_TARGET_HERO"
+				"Aura_Flags"			"DOTA_UNIT_TARGET_FLAG_NO_INVIS | DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
+				"Aura_ApplyToCaster"	"0"
+			}
+			"modifier_thdots_yuukaex_flower_onday_healing"
+			{
+				"IsHidden"				"1"
+				"Attributes"			"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"ThinkInterval"			"1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityYuuka.lua"
+						"Function"				"YuukaEx_FlowerOnDayHealing"
+					}
+				}
+			}
+			"modifier_thdots_yuukaex_flower_onnight"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"		"modifier_thdots_yuukaex_flower_onnight_invisable"
+						"Target"			"TARGET"
+					}
+				}
+				"OnDestroy"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"		"modifier_thdots_yuukaex_flower_onnight_visable"
+						"Target"			"TARGET"
+					}
+					"RemoveModifier"
+					{
+						"ModifierName"		"modifier_thdots_yuukaex_flower_onnight_invisable"
+						"Target"			"TARGET"
+					}
+				}
+				"OnAttackStart"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"		"modifier_thdots_yuukaex_flower_onnight_visable"
+						"Target"			"ATTACKER"
+					}
+				}
+			}
+			"modifier_thdots_yuukaex_flower_onnight_invisable"
+			{
+				"IsHidden"					"1"
+				"States"
+				{
+					"MODIFIER_STATE_INVISIBLE"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_thdots_yuukaex_flower_onnight_visable"
+			{
+				"IsHidden"					"1"
+				"Duration"					"3"
+				
+				"OnCreated"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"		"modifier_thdots_yuukaex_flower_onnight_invisable"
+						"Target"			"TARGET"
+					}
+				}
+				"OnDestroy"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"		"modifier_thdots_yuukaex_flower_onnight_invisable"
+						"Target"			"TARGET"
+					}
+				}
+			}
+			"modifier_thdots_yuukaex_flower_buff"
+			{
+				"Attributes"			"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"IsBuff"				"1"
+				"States"
+				{
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE" 	"%flower_damage_per_lvl"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" "%flower_attackspeed_per_lvl"
+				}
+			}
+			"modifier_thdots_yuukaex_bonus_damage"
+			{
+				"Attributes"			"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"RemoveOnDeath"			"0"
+				"IsBuff"				"1"
+			}
+			"modifier_thdots_yuukaex_bonus_damage_count"
+			{
+				"Attributes"			"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"RemoveOnDeath"			"0"
+				"IsBuff"				"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE" 	"1"
+				}
+			}
+		
+		}
+	}
+"ability_thdots_YuukaEx2"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_YuukaEx2"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"MaxLevel"	"2"
+		"HasScepterUpgrade"			"1"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_vengefulspirit.vsndevts"
+		}
+
+		"AbilityValues"
+		{
+			"AbilityCastPoint"	"0.3"
+			"AbilityCooldown"
+			{
+				"value"							"12"
+				"special_bonus_unique_yuuka_5"	"-7"
+			}
+			"AbilityManaCost"	"50"
+			"AbilityCastRange"
+			{
+				"value"							"700"
+				"special_bonus_unique_yuuka_4"	"+400"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityYuuka.lua"
+				"Function"          "YuukaEx2_OnSpellStart"
+				"Target"			"TARGET"
+			}					
+		}
+
+		"Modifiers"
+		{
+		}		
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_yuuka_1"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:花圈持续时间
+	//=================================================================================================================
+	"special_bonus_unique_yuuka_2"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：天生上限
+	//=================================================================================================================
+	"special_bonus_unique_yuuka_3"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_yuuka_4"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_yuuka_5"
+	{
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+}

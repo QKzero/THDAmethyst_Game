@@ -1,0 +1,73 @@
+"DOTAAbilities"
+{
+    "item_recipe_third_eyes"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_third_eyes"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8210"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"160"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_third_eyes"
+		"ItemRequirements"
+		{
+			"01"	"item_swimming_suit;item_mushroom_kebab;item_guilty_mask"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_third_eyes"
+	{
+		"BaseClass"	"item_lua"
+		"AbilityTextureName"	"item_third_eyes"	//图标By 橘橘子
+		"ScriptFile"                    "items/item_third_eyes"
+		// "ItemDeclarations"        "DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemDeclarations"        "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_CHANNEL | DOTA_ABILITY_BEHAVIOR_DONT_ALERT_TARGET"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"25"
+		"AbilityManaCost"	"85"
+		"AbilityCastRange"	"600"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8212"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"3000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"magic_resist;int"
+		"precache"
+		{
+			 "soundfile"	"soundevents/game_sounds_heroes/game_sounds_bane.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"bonus_intellect"	"3"
+			"duration"	"5.0"
+			"mgical_resistance"	"18"
+			"max_duration"	"10"
+			"cast_range"	"600"
+			"damage"	"40"
+			"regen_reduce"	"-35"
+			"cast_range"	"600"
+			"bonus_strength"	"15"
+			"bonus_agility"	"3"
+			"bonus_armor"	"10"
+		}
+	}
+}

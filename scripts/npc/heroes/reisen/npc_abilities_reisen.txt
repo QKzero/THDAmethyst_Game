@@ -1,0 +1,831 @@
+"DOTAAbilities"
+{
+	"ability_thdots_reisenEx"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_reisenEx"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		"MaxLevel"	"1"
+	}
+
+	"ability_thdots_reisen01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_reisen01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"10 9 8 7"
+		"AbilityManaCost"	"80"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"800"
+		"precache"
+		{
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_reisen_sounds.vsndevts"
+			"particle"	"particles/heroes/reisen/ability_reisen_01.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Reisen.AbilityReisen01"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+				"Function"	"OnReisenExSpellStart"
+				"Caster"	"CASTER"
+				"Target"	"POINT"
+			}
+			"LinearProjectile"
+			{
+				"EffectName"	"particles/heroes/reisen/ability_reisen_01.vpcf"
+				"MoveSpeed"	"%move_speed"
+				"StartRadius"	"%collision_radius"
+				"EndRadius"	"%collision_radius"
+				"FixedDistance"	"%max_lenth"
+				"TargetTeams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"TargetTypes"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"TargetFlags"	"DOTA_UNIT_TARGET_FLAG_NOT_ANCIENTS"
+				"HasFrontalCone"	"0"
+				"ProvidesVision"	"1"
+				"VisionRadius"	"300"
+			}
+			"DelayedAction"
+			{
+				"Delay"	"0"
+				"Action"
+				{
+					"ApplyModifier"
+					{
+						"Target"	"CASTER"
+						"ModifierName"	"modifier_thdots_reisen01_think_interval"
+					}
+				}
+			}
+		}
+		"OnProjectileHitUnit"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+				"Target"	"TARGET"
+				"Function"	"OnReisen01SpellHit"
+			}
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_reisen01_think_interval"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_reisen01_think_interval"
+			{
+				"RemoveOnDeath"	"1"
+				"IsHidden"	"0"
+				"Duration"	"%move_duration"
+				"ThinkInterval"	"0.02"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+						"Function"	"OnReisen01SpellMove"
+						"MoveSpeed"	"%move_speed"
+					}
+				}
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"move_speed"	"1250"
+			"move_duration"	"0.64"
+			"collision_radius"
+			{
+				"value"			"80"
+				"affected_by_aoe_increase"	"1"
+			}
+			"max_lenth"	"800"
+		}
+		"AbilityDamage"	"60 80 100 120"
+	}
+
+	"ability_thdots_reisen02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_reisen02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AbilityCooldown"	"18"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"100"
+		"precache"
+		{
+			"particle"	"particles/heroes/reisen/ability_reisen02.vpcf"
+			"particle"	"particles/heroes/reisen/ability_reisen02_buff.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_reisen_sounds.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Reisen.AbilityReisen02"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"Target"	"TARGET"
+				"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+				"Function"	"OnReisen02SpellStart"
+				"BounsDamage"	"%bouns_damage"
+				"Duration"	"%stun_duration"
+				"Radius"	"%radius"
+				"AbilityDuration"	"%ability_duration"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_reisen02_buff"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_reisen02_buff"
+			{
+				"Duration"	"%ability_duration"
+			}
+		}
+		"AbilityValues"
+		{
+			"ability_duration"	"8.0"
+			"bouns_damage"	"20 40 60 80"
+			"stun_duration"	"1.0"
+			"radius"
+			{
+				"value"			"200"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		"AbilityDamage"	"20 40 60 80"
+	}
+
+	"ability_thdots_reisen03"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_reisen03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_3"
+		"AbilityCooldown"	"16 14 12 10"
+		"AbilityManaCost"	"100"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"1000"
+		"AbilityChannelTime"	"1.0"
+		"precache"
+		{
+			"particle"	"particles/heroes/reisen/ability_reisen_01_e.vpcf"
+			// "particle_folder"			"particles/thd2/heroes/marisa"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_reisen_sounds.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Reisen.AbilityReisen03"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+				"Function"	"OnReisen03SpellStart"
+				"Target"	"POINT"
+			}
+			"DelayedAction"
+			{
+				"Delay"	"0"
+				"Action"
+				{
+					"ApplyModifier"
+					{
+						"Target"	"CASTER"
+						"ModifierName"	"modifier_thdots_reisen03_think_interval"
+					}
+				}
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_reisen03_think_interval"
+			{
+				"OverrideAnimation"	"Act_DOTA_CAST_ABILITY_3"
+				"RemoveOnDeath"	"1"
+				"IsHidden"	"0"
+				"Duration"	"0.5"
+				"ThinkInterval"	"0.02"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+						"Function"	"OnReisen03SpellMove"
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+							"Radius"	"%damage_radius"
+						}
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"move_speed"	"1250"
+			"damage_radius"
+			{
+				"value"			"1000"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		"AbilityDamage"	"60 80 100 120"
+	}
+
+	"ability_thdots_reisen04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_reisen04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"AbilityCooldown"	"5"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"50"
+		"precache"
+		{
+			"particle"	"particles/heroes/reisen/ability_reisen_04_bullet.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_reisen_sounds.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Reisen.AbilityReisen041"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+				"Function"	"OnReisen04SpellStart"
+				"MoveSpeed"	"%move_speed"
+				"Acceleration1"	"%acceleration1"
+				"Acceleration2"	"%acceleration2"
+				"DamageRadius"	"%collision_radius"
+			}
+		}
+		"OnProjectileHitUnit"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Reisen.AbilityReisen042"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+				"Function"	"OnReisen04Damage"
+			}
+		}
+		"AbilityValues"
+		{
+			"acceleration1"	"-100"
+			"acceleration2"	"100"
+			"move_speed"	"1500"
+			"collision_radius"
+			{
+				"value"			"80"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		"AbilityDamage"	"40 80 120"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_reisen_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"2"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:「胧月花栞」双倍伤害
+	//=================================================================================================================
+	"special_bonus_unique_reisen_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1.5"
+		}
+	}
+
+	"ability_thdots_reisenOldex"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_reisenOldex"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"	"1"
+		"IsBreakable"				"1"
+		"precache"
+		{
+			"particle"	"particles/heroes/reisen/ability_reisen_01.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_reisen_sounds.vsndevts"
+		}
+		"Modifiers"
+		{			
+			"passive_reisenOldex_attack"
+			{
+				"Passive"	"1"
+				"OnAttackLanded"
+				{	
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+						"Function"	"OnReisenOldExSpellSuccess"
+						"Chance"	"%ability_chance_base"
+						"Duration"	"%move_slow_duration"
+					}					
+				}
+			}
+			"modifier_reisenexold_slow"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_slow"
+					"MODIFIER_PROPERTY_MISS_PERCENTAGE"	"%miss_change"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"ability_chance_base"	"20"
+			"move_slow"	"-20"
+			"move_slow_duration"	"2.0"
+			"miss_change"	"30"
+		}
+	}
+
+	"ability_thdots_reisenOld01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_reisenOld01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"	"4"
+		"precache"
+		{}
+		"Modifiers"
+		{
+			"ability_reisenold01_modifier"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACK_RANGE_BONUS"	"%bonus_attack_range"
+				}
+			}			
+		}
+		"AbilityValues"
+		{
+			"bonus_attack_range"	"50 90 130 170"
+		}
+	}
+
+	"ability_thdots_reisenOld02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_reisen_02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"MaxLevel"	"4"
+		"AbilityCooldown"	"16"
+		"AbilityManaCost"	"50"
+		"IsBreakable"				"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_phantom_lancer/phantom_lancer_spawn_smoke.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_reisen_sounds.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"TARGET"
+				"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+				"Function"	"OnReisenOld02SpellStart"
+				"Max_illusions"	"%max_illusions"
+				"Illusion_duration"	"%illusion_duration"
+				"Illusion_damage_out_pct"	"%illusion_damage_out_pct"
+				"Illusion_damage_in_pct"	"%illusion_damage_in_pct"
+			}
+		}
+		"Modifiers"
+		{
+			"passive_reisenOld02_attack"
+			{
+				"Passive"	"1"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+						"Function"	"OnReisenOld02SpellSuccess"
+						"Max_illusions"	"%max_illusions"
+						"Illusion_duration"	"%illusion_duration"
+						"Illusion_damage_out_pct"	"%illusion_damage_out_pct"
+						"Illusion_damage_in_pct"	"%illusion_damage_in_pct"
+						"Chance"	"%ability_chance_base"
+						"illusionChance"	"%ability_chance_illusion"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+						"Function"	"OnReisenOld02OnDeath"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"ability_chance_base"	"10"
+			"max_illusions"	"9"
+			"illusion_duration"	"10"
+			"illusion_damage_out_pct"	"-95 -90 -85 -80"
+			"tooltip_illusion_damage"	"5 10 15 20"
+			"illusion_damage_in_pct"	"250"
+			"ability_chance_illusion"	"1.5"
+		}
+	}
+
+	"ability_thdots_reisenOld03"
+	{
+		"BaseClass"				"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_reisen_01"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"				"4"
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_IDLE"	
+		"AbilityManaCost"		"80 100 120 140"
+		"AbilityChannelTime"	"1.0"
+		"HasScepterUpgrade"		"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"		"1500 1600 1700 1800"
+		"precache"
+		{
+			"particle"			"particles/heroes/reisen/reisennew03.vpcf"
+			"particle"			"particles/heroes/reisen/reisenold03_channel.vpcf"
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
+		}		
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"				"Ability.AssassinateLoad"
+				"Target"					"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"ability_reisenold03_modifier"
+			}			
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_thdots_reisen03_time"
+				"Target"	"CASTER"
+			}
+		}
+		"OnChannelInterrupted"
+		{
+			"FireSound"
+			{
+				"EffectName"				"Ability.Assassinate"
+				"Target"					"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"ability_reisenold03_animation"
+			}	
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_reisen03_time"
+			}		
+			//"LinearProjectile"
+			//{
+			//	"EffectName"		"particles/heroes/reisen/reisennew03.vpcf"
+			//	"MoveSpeed"			"%move_speed"
+			//	"StartRadius"		"%collision_radius"
+			//	"EndRadius"			"%collision_radius"
+			//	"StartPosition"		"attach_attack1"
+			//	"FixedDistance"		"%max_lenth"
+			//	"TargetTeams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+			//	"TargetTypes"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+			//	"TargetFlags"		"0"
+			//	"HasFrontalCone"	"0"
+			//	"ProvidesVision"	"1"
+			//	"VisionRadius"		"0"
+			//}	
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"ability_reisenold03_modifier"
+			}					
+		}
+		"OnChannelFinish"
+		{
+			"FireSound"
+			{
+				"EffectName"				"Ability.Assassinate"
+				"Target"					"CASTER"
+			}	
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"ability_reisenold03_animation"
+			}
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_reisen03_time"
+			}		
+			//"LinearProjectile"
+			//{
+			//	"EffectName"		"particles/heroes/reisen/reisennew03.vpcf"
+			//	"MoveSpeed"			"%move_speed"
+			//	"StartRadius"		"%collision_radius"
+			//	"EndRadius"			"%collision_radius"
+			//	"StartPosition"		"attach_attack1"
+			//	"FixedDistance"		"%max_lenth"
+			//	"TargetTeams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+			//	"TargetTypes"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+			//	"TargetFlags"		"0"
+			//	"HasFrontalCone"	"0"
+			//	"ProvidesVision"	"1"
+			//	"VisionRadius"		"0"
+			//}
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"ability_reisenold03_modifier"
+			}		
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"			"false"
+			"RunScript"
+			{
+				"ScriptFile"		"scripts/vscripts/abilities/abilityReisen.lua"
+				"Target"			"TARGET"
+				"Function"			"OnReisenOld03SpellHit"
+				"DamageMulti"		"%damage_multi"
+				"duration"			"%move_slow_duration"
+			}
+		}
+		"Modifiers"
+		{
+
+			"modifier_reisen03_knockback"
+			{
+				"IsHidden"	"1"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Duration"	"0.1"
+				"OnCreated"
+				{
+					"Knockback"
+					{
+						"Center"	"CASTER"
+						"Target"	"TARGET"
+						"Duration"	"0.1"
+						"Distance"	"%block_back"
+						"Height"	"0"
+					}
+				}
+			}
+			"ability_reisenold03_animation"
+			{
+				"IsHidden"	"1"
+				"OverrideAnimation"	"ACT_DOTA_ATTACK2"
+			}
+			"ability_reisenold03_modifier"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"EffectName"	"particles/heroes/reisen/ability_reisen02.vpcf"
+				"EffectAttachType"	"attach_hitloc"		
+				"Duration"	"0.7"		
+			}
+			"modifier_thdots_reisen03_time"
+			{
+				"Duration"	"2.0"				
+				"ThinkInterval"	"0.05"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+						"Function"	"OnReisen03ChannellStart"
+						"Caster"	"CASTER"
+					}
+				}
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+						"Function"	"OnReisen03Channelling"
+						"Caster"	"CASTER"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+						"Function"	"OnReisen03Shoot"
+						"Caster"	"CASTER"
+					}
+					"LinearProjectile"
+					{
+						"EffectName"		"particles/heroes/reisen/reisennew03.vpcf"
+						"MoveSpeed"			"%move_speed"
+						"StartRadius"		"%collision_radius"
+						"EndRadius"			"%collision_radius"
+						"StartPosition"		"attach_attack1"
+						"FixedDistance"		"%max_lenth"
+						"TargetTeams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+						"TargetTypes"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+						"TargetFlags"		"0"
+						"HasFrontalCone"	"0"
+						"ProvidesVision"	"1"
+						"VisionRadius"		"0"
+					}
+				}
+			}
+			"modifier_thdots_reisen03_full"
+			{
+				"IsHidden"	"0"	
+				"IsDebuff"	"1"		
+				"Duration"	"5.0"
+				"IsPurgable"	"0"														
+			}
+		}
+		"AbilityValues"
+		{
+			"move_speed"	"3600"
+			"collision_radius"
+			{
+				"value"			"120"
+				"affected_by_aoe_increase"	"1"
+			}
+			"max_lenth"	"1400 1500 1600 1700"
+			"reduce_time"	"-8"
+			"damage_bonus"	"80"
+			"block_back"	"200"
+			"total_damage"
+			{
+				"value"	"120 220 320 420"
+				"LinkedSpecialBonus"	"special_bonus_unique_reisen_1"
+				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_MULTIPLY"
+			}
+			"move_slow_duration"	"2.0"
+			"AbilityCooldown"
+			{
+				"value"	"18"
+				"special_bonus_scepter"	"-8"
+			}
+		}
+		//"AbilityDamage"	"120 220 320 420"
+	}
+
+	"ability_thdots_reisenOld04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_reisen_03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"AbilityCooldown"	"30"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"50"
+		"precache"
+		{
+			"particle"	"particles/heroes/reisen/ability_reisen02.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"TARGET"
+				"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+				"Function"	"OnReisenOld04SpellStart"
+				"duration" "%duration"
+			}
+		}
+		"Modifiers"
+		{
+			"ability_reisenold04_modifier"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"EffectName"	"particles/heroes/reisen/ability_reisen02.vpcf"
+				"EffectAttachType"	"attach_hitloc"
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attack_speed"
+				}
+			}
+			"ability_reisenold04_bouns_attack_speed"
+			{
+				"IsBuff"	"1"
+				//"IsHidden"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_INVISIBLE"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				// "OnAttackLanded"
+				// {
+				// 	"RemoveModifier"
+				// 	{
+				// 		"Target"	"CASTER"
+				// 		"ModifierName"	"ability_reisenold04_bouns_attack_speed"
+				// 	}
+				// }
+			}
+		}
+		"AbilityValues"
+		{
+			"duration"
+			{
+				"value"	"3.0 4.0 5.0"
+				"LinkedSpecialBonus" "special_bonus_unique_reisen_2"
+			}
+			"chance"	"8 12 16"
+			"attack_speed"	"50 75 100"
+		}
+	}
+}

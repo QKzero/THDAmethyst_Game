@@ -1,0 +1,290 @@
+// Dota2 Editor
+// Get latest version: https://github.com/zombieJ/nw-dota2editor
+
+"DOTAAbilities"
+{
+	"Version"		"1"
+
+	"ability_thdots_daiyouseiEx"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_daiyousei_01"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitydaiyousei.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"	"1"
+		//"HasScepterUpgrade"	"1"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"models/daiyousei/particles/weapon_ambient.vpcf"
+			"particle"	"models/daiyousei/particles/daiyousei_ambient.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_ursa.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_sandking.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_legion_commander.vsndevts"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_daiyousei_sounds.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"radius"	"128"
+			"vision_bonus"	"1000"
+			"aura_radius"
+			{
+				"value"			"2500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage_percent"	"100"
+		}
+	}
+
+	"ability_thdots_daiyousei01"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_daiyousei_03"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitydaiyousei.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_TREE"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityCastPoint"	"0.1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
+		"AnimationPlaybackRate"	"1.5"
+		"AbilityCooldown"	"15 12 9 6"
+		"AbilityManaCost"	"55"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_phantom_assassin/phantom_assassin_phantom_strike_start.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_phantom_assassin.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_ursa.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"heal"
+			{
+				"value"	"100"
+				"LinkedSpecialBonus"	"special_bonus_unique_daiyousei_7"
+			}
+			"cast_range"	"700"
+		}
+	}
+
+	"ability_thdots_daiyousei02"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"naga_siren_ensnare"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitydaiyousei.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		//"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+		//"AnimationPlaybackRate"	"0.6"
+		"AbilityCooldown"	"15 13 11 9"
+		"AbilityManaCost"	"60"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_siren/siren_net_projectile.vpcf"
+			"particle"	"particles/units/heroes/hero_siren/siren_net.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_naga_siren.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"350 400 450 500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"
+			{
+				"value"	"60 120 180 240"
+				"LinkedSpecialBonus"	"special_bonus_unique_daiyousei_2"
+			}
+			"attack_bonus"	"0.2"
+			"duration"	"2"
+		}
+	}
+
+	"ability_thdots_daiyousei03"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_daiyousei_04"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitydaiyousei.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"AbilityCastPoint"	"0.1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+		"AnimationPlaybackRate"	"1.5"
+		"AbilityCooldown"	"13"
+		"AbilityManaCost"	"40 50 60 70"
+		"precache"
+		{
+			"particle"	"particles/items3_fx/lotus_orb_shield.vpcf"
+		}
+		"AbilityValues"
+		{
+			"duration"	"6"
+			"cast_range"	"725"
+			"damage_bonus"	"20 40 60 80"
+			"armor_bonus"	"5 10 15 20"
+		}
+	}
+
+	"ability_thdots_daiyousei04"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_daiyousei_02"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitydaiyousei.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		//"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		//"AnimationPlaybackRate"	"1"
+		"AbilityCooldown"	"75 70 65"
+		"AbilityManaCost"	"80 90 100"
+		"precache"
+		{
+			"particle"	"models/daiyousei/particles/lihui.vpcf"
+			"particle"	"particles/units/heroes/hero_puck/puck_base_attack.vpcf"
+			"particle"	"particles/status_fx/status_effect_slark_shadow_dance.vpcf"
+			"particle"	"particles/units/heroes/hero_slark/slark_shadow_dance.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_puck.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_slark.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"400 500 600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"	"60 120 180"
+			"attack_bonus"	"1.0"
+			"duration"	"6"
+		}
+	}
+	"ability_thdots_daiyousei05"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"naga_siren_ensnare"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitydaiyousei.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_MOVEMENT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+		"AnimationPlaybackRate"	"1.2"
+		"AbilityCooldown"	"19 16 13 10"
+		"AbilityManaCost"	"80 85 90 95"
+		"precache"
+		{
+			"particle" "particles/heroes/komachi/ability_komachi_02.vpcf"
+			"particle"	"particles/econ/items/juggernaut/jugg_ti8_sword/juggernaut_blade_fury_abyssal.vpcf"
+			"particle"	"particles/units/heroes/hero_siren/siren_net.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_ability_thdots_daiyousei05_rooted"	{}
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			// "damage_hero"	"40"
+			"attack_crtl"	"180"
+			"duration"	"1.5"
+			"damage_radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"attack_crtl_ih"	"200"
+		}
+	}
+
+	"special_bonus_unique_daiyousei_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	"special_bonus_unique_daiyousei_2"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"200"
+		}
+	}
+
+	"special_bonus_unique_daiyousei_3"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	"special_bonus_unique_daiyousei_4"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+
+	"special_bonus_unique_daiyousei_5"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+	"special_bonus_unique_daiyousei_6"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"7"
+		}
+	}
+	"special_bonus_unique_daiyousei_7"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"100"
+		}
+	}
+}

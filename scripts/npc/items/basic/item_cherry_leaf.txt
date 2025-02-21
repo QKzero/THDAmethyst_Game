@@ -1,0 +1,46 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// 鬼天王腰带
+	// =================================================================================================================
+	"item_cherry_leaf"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_cherry_leaf"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8015"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"450"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"SideShop"	"1"
+		"ItemShopTags"	"str"
+		"ItemAliases"	"ink-black cherry blossom"
+		"Modifiers"
+		{
+			"modifier_item_cherry_leaf"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"6"
+		}
+	}
+}

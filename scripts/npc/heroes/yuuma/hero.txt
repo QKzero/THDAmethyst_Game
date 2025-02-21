@@ -1,0 +1,107 @@
+"DOTAHeroes"
+{
+	"npc_dota_hero_yuuma"
+	{
+		"Ability1"	"ability_thdots_yuuma01"
+		"Ability2"	"ability_thdots_yuuma02"
+		"Ability3"	"ability_thdots_yuuma03"
+		"Ability4"	"generic_hidden"
+		"Ability5"	"ability_thdots_yuumaEx"
+		"Ability6"	"ability_thdots_yuuma04"
+		"Ability7"	"ability_yuuma03_empty1"
+		"Ability8"	"ability_yuuma03_empty2"
+		"Ability9"	"ability_thdots_yuuma04_end"
+		"Ability10"	"special_bonus_hp_regen_15"
+		"Ability11"	"special_bonus_cleave_15"
+		"Ability12"	"special_bonus_unique_yuuma_1"
+		"Ability13"	"special_bonus_unique_yuuma_2"
+		"Ability14"	"special_bonus_unique_yuuma_3"
+		"Ability15"	"special_bonus_unique_yuuma_4"
+		"Ability16"	"special_bonus_unique_yuuma_5"
+		"Ability17"	"special_bonus_unique_yuuma_6"
+		"AbilityLayout"	"6"
+
+		"Facets"
+		{
+		}
+
+		"override_hero"				"npc_dota_hero_alchemist"
+		"Model"						"models/courier/sw_donkey/sw_donkey.vmdl"
+		"ModelScale"				"1.0"
+		"VersusScale"				"1.0"
+		"LoadoutScale"				"1.0"
+		"VoiceFile"					""
+		"SoundSet"					""
+		"IdleSoundLoop"				""
+		"DisableWearables"	"1"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackRange"				"200"
+		"AttackRate"				"1.700000"
+		"AttackAnimationPoint"		"0.300000"
+		"AttackAcquisitionRange"	"800"
+
+		"AttributePrimary"	"DOTA_ATTRIBUTE_STRENGTH"
+
+		//"Carry"			"核心"
+		//"Support"			"辅助"
+		//"Nuker"			"爆发"
+		//"Disabler"		"控制"
+		//"Jungler"			"打野"
+		//"Durable"			"耐久"
+		//"Escape"			"逃生"
+		//"LaneSupport"		"对线辅助"
+		//"Pusher"			"推进"
+		//"Initiator"		"先手"
+		//"Role"			"Carry,Support,Nuker,Disabler,Jungler,Durable,Escape,LaneSupport,Pusher,Initiator"
+
+		"Role"				"Carry,Durable"
+		"Rolelevels"		"1,2"
+		"Complexity"		"1"
+
+		// 基础力量
+		"AttributeBaseStrength"		"25"
+		// 每级增加的力量，力量成长
+		"AttributeStrengthGain"		"3.4"
+		// 基础敏捷
+		"AttributeBaseAgility"		"14"
+		// 每级增加的敏捷，敏捷成长
+		"AttributeAgilityGain"		"1.5"
+		// 基础智力
+		"AttributeBaseIntelligence"	"20"
+		// 每级增加的智力，智力成长
+		"AttributeIntelligenceGain"	"2.0"
+
+		// 基础护甲
+		"ArmorPhysical"		"0"
+		// 基础魔法抗性
+		"MagicalResistance"	"25"
+
+		// 攻击前摇
+		"AttackRate"		"1.7"
+		// 基础攻击速度
+		"BaseAttackSpeed"	"100"
+		// 最小攻击力
+		"AttackDamageMin"	"29"
+		// 最大攻击力
+		"AttackDamageMax"	"33"
+
+		// 基础移动速度
+		"MovementSpeed"		"300"
+		// 转身速度
+		"MovementTurnRate"	"0.9"
+
+		// 基础生命值
+		"StatusHealth"		"255"
+		// 基础生命恢复
+		"StatusHealthRegen"	"0.25"
+		// 基础魔法值
+		"StatusMana"		"50"
+		// 基础魔法恢复
+		"StatusManaRegen"	"0"
+		// 日间视野大小
+		"VisionDaytimeRange"	"1050"
+		// 夜间视野大小
+		"VisionNighttimeRange"	"700"
+	}
+}

@@ -1,0 +1,906 @@
+"DOTAAbilities"
+{
+	"ability_thdots_Margatroid01"
+    {
+        "BaseClass"                "ability_datadriven"
+        "AbilityBehavior"          "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_IGNORE_TURN | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		// | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+        "AbilityTextureName"	"custom/ability_thdots_Margatroid01"
+    	"AbilityCastAnimation"     "Act_DOTA_CAST_ABILITY_1"
+        "MaxLevel"                 "4"
+		"HasScepterUpgrade"			"1"
+        // Stats 
+        //----------------------------------------------------------------
+        "AbilityCastRange"          "700"
+        "AbilityManaCost"           "40"
+        "AbilityCastPoint"          "0.2"
+		"AbilityDamage"				"100 140 180 220"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		"AOERadius"                 "%radius"
+		
+		"precache"
+		{
+			"particle"					"particles/heroes/alice/ability_alice_dash_a1.vpcf"
+			"soundfile"					"soundevents/thdots_hero_sounds/thdots_alice_sounds.vsndevts"
+		}
+		
+        "OnSpellStart"
+        {
+        	"FireSound"
+			{
+				"EffectName"		"Voice_Thdots_Alice.AbilityAlice011"
+				"Target"			"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityMargatroid.lua"
+				"Function"          "Margatroid01_OnSpellStart"
+				"Target"			"POINT"
+				"Radius"			"%radius"
+				"MoveSpeed"			"%move_speed"
+				"MoveDistance"		"%move_distance"
+				"ModifierGoForward"	"modifier_thdots_margatroid01_doll_go_forward"
+			}
+        }
+
+	    "AbilityValues"
+	    {
+	    	"radius"			        "300"
+	    	"move_speed"		        "2800"
+	    	"move_distance"		        "700"
+	    	"knockback_radius"
+			{
+				"value"			"150"
+				"affected_by_aoe_increase"	"1"
+			}
+	    	"knockback_distance"        "150"
+	    	"knockback_duration"        "0.6"
+			"AbilityCooldown"
+			{
+				"value"	"10 8 6 4"
+				"special_bonus_scepter"	"-3"
+			}
+	    }
+		"Modifiers"
+		{
+			"modifier_thdots_margatroid01_doll_go_forward"
+			{
+				"ThinkInterval"			"0.02"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"        "scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"          "Margatroid01_DollGoForwardThink"
+						"MoveSpeed"			"%move_speed"
+						"Interval"			"0.02"
+					}
+				}
+				
+				"Aura"					"modifier_thdots_margatroid01_if_knockback"
+				"Aura_Radius"			"%knockback_radius"
+				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"			"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+				"Aura_Flags"			"DOTA_UNIT_TARGET_FLAG_NONE"
+				"Aura_ApplyToCaster"	"0"
+			}
+			"modifier_thdots_margatroid01_if_knockback"
+			{
+				"IsHidden"				"1"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"        "scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"          "Margatroid01_IfKnockback"
+						"ModifierKnockbackName" "modifier_thdots_margatroid01_knockback"
+						"KnockbackDistance"	"%knockback_distance"
+						"KnockbackDuration"	"%knockback_duration"
+					}
+				}
+			}
+			"modifier_thdots_margatroid01_knockback"
+			{
+				"Duration"				"%knockback_duration"
+				"IsDebuff"				"1"
+				"IsPurgable"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+    }
+    "ability_thdots_Margatroid02"
+    {
+        "BaseClass"                "ability_datadriven"
+        "AbilityBehavior"          "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_IGNORE_TURN | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		// | DOTA_ABILITY_BEHAVIOR_IMMEDIATE" | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+        "AbilityTextureName"	"custom/ability_thdots_Margatroid02"
+    	"AbilityCastAnimation"     "Act_DOTA_CAST_ABILITY_2"
+        "MaxLevel"                 "4"
+        "HasScepterUpgrade"			"1"
+
+        // Stats 
+        //----------------------------------------------------------------
+        "AbilityCastRange"          "850"
+        "AbilityManaCost"           "40"
+        "AbilityCastPoint"          "0.2"
+		"AbilityDamage"				"55 80 105 130"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		
+		"precache"
+		{
+			"particle"					"particles/heroes/alice/ability_alice_02.vpcf"
+			"model"						"models/alice/penglai.vmdl"
+			"soundfile"					"soundevents/thdots_hero_sounds/thdots_alice_sounds.vsndevts"
+		}
+		
+        "OnSpellStart"
+        {
+        	"FireSound"
+			{
+				"EffectName"		"Voice_Thdots_Alice.AbilityAlice011"
+				"Target"			"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityMargatroid.lua"
+				"Function"          "Margatroid02_OnSpellStart"
+				"Target"			"POINT"
+				"Radius"			"%radius"
+				"Distance"			"%distance"
+				"LaserRadius"		"%laser_radius"
+				"FocusTargetInRadius" "%focus_target_in_radius"
+			}
+        }
+
+	    "AbilityValues"
+	    {
+	    	"radius"	        		"250"
+	    	"distance"			        "600"
+	    	"laser_radius"
+			{
+				"value"			"150"
+				"affected_by_aoe_increase"	"1"
+			}
+	    	"focus_target_in_radius"    "300"
+			"AbilityCooldown"
+			{
+				"value"	"9 7 5 3"
+				"special_bonus_scepter"	"-2"
+			}
+	    }
+		"Modifiers"
+		{
+		
+		}
+    }
+	"ability_thdots_Margatroid03"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityTextureName"	"custom/ability_thdots_Margatroid03"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_3"
+		
+		// Stats
+		//----------------------------------------------------------------
+		"AbilityManaCost"           "200"
+		"AbilityCastPoint"          "0.2"
+		
+		"precache"
+		{
+			"particle"				"particles/econ/items/clockwerk/clockwerk_paraflare/clockwerk_para_rocket_flare_explosion.vpcf"
+			"particle"				"particles/heroes/alice/ability_alice_02.vpcf"
+			"soundfile"					"soundevents/thdots_hero_sounds/thdots_alice_sounds.vsndevts"
+		}
+		
+		"AbilityValues"
+		{
+			"duration"				"30"
+			"doll_max_distance"		"1500"
+			"doll_hp"				"400 600 800 1000"
+			"doll_damage"			"85 110 135 160"
+			"AbilityCooldown"
+			{
+				"value"	"40"
+				"special_bonus_unique_margatroid_6"	"-20"
+			}
+		}
+
+		"OnSpellStart"
+		{
+        	"FireSound"
+			{
+				"EffectName"		"Voice_Thdots_Alice.AbilityAlice03"
+				"Target"			"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+				"Function"				"Margatroid03_OnSpellStart"
+				"Duration"				"%duration"
+				"DollHP"				"%doll_hp"
+				"DollDamage"			"%doll_damage"
+				"DollMaxDistance"		"%doll_max_distance"
+				"Target"				"POINT"
+				"Level2Ability"			"ability_thdots_Margatroid32"
+				"Level3Ability"			"ability_thdots_Margatroid33"
+				"Level4Ability"			"ability_thdots_Margatroid34"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_margatroid03_doll"
+			{
+				"IsHidden"				"1"
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"		"MODIFIER_STATE_VALUE_ENABLED"
+					//"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_DISABLED"
+				}
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"		"modifier_kill"
+						"Target"			"TARGET"
+						"Duration"			"%duration"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"				"Margatroid03_OnDollDestroy"
+					}
+				}
+				"ThinkInterval"				"0.01"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"				"Margatroid03_DollOnIntervalThink"
+						"DollMaxDistance"		"%doll_max_distance"
+					}
+				}
+			}
+		}
+    }
+    "ability_thdots_Margatroid32"
+    {
+        "BaseClass"                "ability_datadriven"
+        "AbilityBehavior"          "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+        "AbilityTextureName"	"custom/ability_thdots_Margatroid32"
+    	"AbilityCastAnimation"     "ACT_DOTA_ATTACK"
+        "MaxLevel"                 "1"
+
+        // Stats 
+        //----------------------------------------------------------------
+        "AbilityCastRange"          "100"
+        "AbilityManaCost"           "100"
+        "AbilityCooldown"           "15"
+		"AbilityDamage"				"100"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		
+		"precache"
+		{
+			"particle"		"particles/heroes/alice/ability_alice_dash_a1.vpcf"
+		}
+		
+        "OnSpellStart"
+        {
+        	"FireSound"
+			{
+				"EffectName"		"Voice_Thdots_Alice.AbilityAlice031"
+				"Target"			"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityMargatroid.lua"
+				"Function"          "Margatroid32_OnSpellStart"
+				"StunDuration"		"%stun_duration"
+			}
+        }
+
+	    "AbilityValues"
+	    {
+	    	"stun_duration"			    "1"
+	    }
+    }
+    "ability_thdots_Margatroid33"
+    {
+        "BaseClass"                "ability_datadriven"
+        "AbilityBehavior"          "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL"
+		"AbilityUnitTargetType"	   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+        "AbilityTextureName"	"custom/ability_thdots_Margatroid33"
+    	"AbilityCastAnimation"     "Act_DOTA_CAST_ABILITY_2"
+        "MaxLevel"                 "1"
+
+        // Stats 
+        //----------------------------------------------------------------
+        "AbilityCastRange"          "600"
+        "AbilityManaCost"           "100"
+        "AbilityCastPoint"          "0.5"
+        "AbilityCooldown"           "15"
+		"AbilityDamage"				"250"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		"AOERadius"					"%laser_radius"
+		
+		"precache"
+		{
+			"particle"		"particles/heroes/alice/ability_alice_02.vpcf"
+			"particle"		"particles/econ/items/clockwerk/clockwerk_paraflare/clockwerk_para_rocket_flare_explosion.vpcf"
+		}
+		
+        "OnSpellStart"
+        {
+        	"FireSound"
+			{
+				"EffectName"		"Voice_Thdots_Alice.AbilityAlice032"
+				"Target"			"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityMargatroid.lua"
+				"Function"          "Margatroid33_OnSpellStart"
+				"Target"			"POINT"
+				"Distance"			"%distance"
+				"LaserRadius"		"%laser_radius"
+			}
+        }
+
+	    "AbilityValues"
+	    {
+	    	"distance"			        "600"
+	    	"laser_radius"
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
+	    }
+		"Modifiers"
+		{
+		
+		}
+    }
+    "ability_thdots_Margatroid34"
+    {
+        "BaseClass"                "ability_datadriven"
+        "AbilityBehavior"          "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+        "AbilityTextureName"	"custom/ability_thdots_Margatroid34"
+    	"AbilityCastAnimation"     "ACT_DOTA_ATTACK"
+        "MaxLevel"                 "1"
+
+        // Stats 
+        //----------------------------------------------------------------
+        "AbilityManaCost"           "100"
+        "AbilityCastPoint"          "0.5"
+        "AbilityCooldown"           "15"
+		"AbilityDamage"				"400"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		"AOERadius"					"%explosion_radius"
+		
+		"precache"
+		{
+		}
+		
+        "OnSpellStart"
+        {
+        	"FireSound"
+			{
+				"EffectName"		"Voice_Thdots_Alice.AbilityAlice033"
+				"Target"			"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityMargatroid.lua"
+				"Function"          "Margatroid04_DamageTargets"
+				"Target"    
+				{
+					"Center"		    "ATTACKER"
+					"Radius"		    "%explosion_radius"
+					"Teams" 			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+					"Types" 			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				}
+				"explosion_damage"		"400"
+			}
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityMargatroid.lua"
+				"Function"          "Margatroid33_KillItself"
+			}
+        }
+
+	    "AbilityValues"
+	    {
+	    	"explosion_radius"
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+			}
+	    }
+		"Modifiers"
+		{
+		
+		}
+    }
+	"ability_thdots_Margatroid04"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityTextureName"	"custom/ability_thdots_Margatroid04"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_4"
+		"AbilityType"			   	"DOTA_ABILITY_TYPE_ULTIMATE"
+        "MaxLevel"                 	"3"
+		
+		// Stats
+		//----------------------------------------------------------------
+		"AbilityCastRange"			"1000"
+		"AbilityManaCost"           "100 200 300"
+		"AbilityCastPoint"          "0.2"
+		"AbilityCooldown"           "30"
+		"AbilityDamage"				"%explosion_damage"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		"precache"
+		{
+			"soundfile"					"soundevents/thdots_hero_sounds/thdots_alice_sounds.vsndevts"
+			"soundfile"					"soundevents/game_sounds_heroes/game_sounds_techies.vsndevts"
+		}
+		
+		"AbilityValues"
+		{
+			"explosion_radius"
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"explosion_damage"
+			{
+				"value"	"100 180 260"
+				"LinkedSpecialBonus"	"special_bonus_unique_margatroid_2"
+			}
+			"duration"				"10"
+			"find_dolls_radius"
+			{
+				"value"			"1000"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"		"Voice_Thdots_Alice.AbilityAliceEx"
+				"Target"			"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"        "scripts/vscripts/abilities/abilityMargatroid.lua"
+				"Function"          "Margatroid04_OnSpellStart"
+				"Target"			"POINT"
+				"Duration"			"%duration"
+				"FindDollsRadius"	"%find_dolls_radius"
+			}
+		}
+		
+		"Modifiers"
+		{
+			"modifier_thdots_margatroid04_doll_explosion"
+			{
+				"Duration"						"%duration"
+				"States"
+				{
+					"MODIFIER_STATE_DOMINATED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				// "OnAttackLanded"
+				"OnAttack"
+				{
+					"RunScript"
+					{
+						"ScriptFile"        "scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"          "Margatroid04_DamageTargets"
+						"Target"    
+						{
+							"Center"		    "ATTACKER"
+							"Radius"		    "%explosion_radius"
+							"Teams" 			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types" 			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+						}
+						"explosion_damage"		"%explosion_damage"
+					}
+					"ApplyModifier"
+					{
+						"ModifierName"			"modifier_kill"
+						"Target"				"ATTACKER"
+						"Duration"				"0.02"
+					}
+				}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"        "scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"          "Margatroid04_SetControllableForCaster"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"        "scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"          "Margatroid04_End"
+					}
+				}
+			}
+		}
+	}
+    "ability_thdots_MargatroidEx"
+	{
+		"BaseClass"				 	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_MargatroidEx"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+        "AbilityTextureName"       	"ability_thdots_MargatroidEx"
+    	"AbilityCastAnimation"     	"Act_DOTA_CAST_ABILITY_2"
+		"MaxLevel"				  	"1"
+		
+        // Stats 
+        //----------------------------------------------------------------
+        "AbilityCastPoint"          "0.2"
+        "AbilityCooldown"           "1"
+		"AbilityManaCost"			"0"
+		"AOERadius"                 "%doll_max_distance"
+		
+		"precache"
+		{
+			"particle"					"particles/heroes/alice/ability_alice_line.vpcf"
+			"particle"					"particles/econ/items/clockwerk/clockwerk_paraflare/clockwerk_para_rocket_flare_explosion.vpcf"
+			"particle"					"particles/heroes/alice/ability_alice_ex_release.vpcf"
+			"soundfile"					"soundevents/thdots_hero_sounds/thdots_alice_sounds.vsndevts"
+		}
+		
+		
+		"AbilityValues"
+		{
+			"doll_base_num"			"3"
+			"doll_max_distance"		"1200"
+			"doll_base_hp"			"300"
+			"upgrade_doll_hp"		"50"
+			"lvl_to_upgrade"		"2"
+			"add_doll_interval"		"5"
+			"reset_doll_time"		"2"
+			"recover_move_speed"	"1000"
+			"destroy_when_lost"		"10"
+			"add_doll_interval_talent"		"2.5"
+		}
+		
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"		"Voice_Thdots_Alice.AbilityAliceEx"
+				"Target"			"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+				"Function"				"MargatroidEx_OnSpellStart"
+				"Radius"				"%doll_max_distance"
+			}
+		}
+		
+		"OnUpgrade"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+				"Function"				"MargatroidEx_OnUpgrade"
+				"LvlToUpgrade"			"%lvl_to_upgrade"
+			}
+		}
+
+		"Modifiers"
+	    {
+			"modifier_thdots_margatroidex_add_doll"
+			{
+				"IsHidden"				"1"
+				"Passive"				"1"
+				"RemoveOnDeath"			"0"
+				
+				"ThinkInterval"				"0.1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"				"MargatroidEx_IntervalAddDoll"
+						"DollBaseNum"			"%doll_base_num"
+						"LvlToUpgrade"			"%lvl_to_upgrade"
+					}
+				}
+			}
+			"modifier_thdots_margatroidex_time_to_add_doll"
+			{
+				"RemoveOnDeath"			"0"
+				"Duration"						"%add_doll_interval"
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"				"MargatroidEx_AddDoll"
+						"UsableDollAmount"		"1"
+						"TotalDollAmount"		"1"
+					}
+				}
+			}
+			"modifier_thdots_margatroidex_time_to_add_doll_talent"
+			{
+				"RemoveOnDeath"			"0"
+				"Duration"						"%add_doll_interval_talent"
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"				"MargatroidEx_AddDoll"
+						"UsableDollAmount"		"1"
+						"TotalDollAmount"		"1"
+					}
+				}
+			}
+			"modifier_thdots_margatroidex_doll"
+			{
+				"IsHidden"				"1"
+				"States"
+				{
+					"MODIFIER_STATE_LOW_ATTACK_PRIORITY"	"MODIFIER_STATE_VALUE_DISABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"			"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"ThinkInterval"				"0.1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"				"MargatroidEx_OnDollIntervalThink"
+						"DollMaxDistance"		"%doll_max_distance"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"				"MargatroidEx_OnDollDestroy"
+					}
+					"ApplyModifier"
+					{
+						"ModifierName"			"modifier_kill"
+						"Target"				"TARGET"
+						"Duration"				"%destroy_when_lost"
+					}
+				}
+			}
+			"modifier_thdots_margatroidex_doll_recovering"
+			{
+				"ThinkInterval"				"0.03"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"				"MargatroidEx_OnDollRecovering"
+						"ThinkInterval"			"0.03"
+						"RecoveringMoveSpeed"	"%recover_move_speed"
+						"ResetDollTime"			"%reset_doll_time"
+					}
+				}
+			}
+			"modifier_thdots_margatroidex_doll_count"
+			{
+				"RemoveOnDeath"			"0"
+				"OnRespawn"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"				"MargatroidEx_OnRespawn"
+						"LvlToUpgrade"			"%lvl_to_upgrade"
+						"DollBaseNum"			"%doll_base_num"
+					}
+				}
+			}
+			"modifier_thdots_margatridex_line_action"
+			{
+				"RemoveOnDeath"			"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_TRANSLATE_ACTIVITY_MODIFIERS"	"taidao"
+				}
+			}
+			"modifier_thdots_margatroidex_reset_doll"
+			{
+				"RemoveOnDeath"			"0"
+				"Attributes"			"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"IsHidden"				"1"
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+						"Function"				"MargatroidEx_AddDoll"
+						"UsableDollAmount"		"1"
+					}
+				}
+			}
+		}
+	}
+	"ability_thdots_Margatroid_lyz"
+	{
+		"BaseClass"					"ability_lua"
+		"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
+		"AbilityTextureName"		"ability_thdots_Margatroid_lyz"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_TURN | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"			"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityCastAnimation"		"Act_DOTA_CAST_ABILITY_2"
+		"IsGrantedByShard"			"1"
+		"MaxLevel"					"1"
+		
+		// Stats 
+		//----------------------------------------------------------------
+		"AbilityCastPoint"			"0.2"
+		"AbilityCooldown"			"10"
+		"AbilityManaCost"			"40"
+		"AOERadius"					"%damage_radius"
+		"AbilityCastRange"			"700"
+		"precache"
+		{
+			"particle"	"particles/heroes/alice/ability_alice_dash_a1.vpcf"
+			"particle"	"particles/econ/items/bane/bane_fall20_immortal/bane_fall20_immortal_grip_ring.vpcf"
+			"particle"	"particles/units/heroes/hero_bane/bane_fiendsgrip_ground_rubble.vpcf"
+		}
+		"AbilityValues"
+		{
+			"damage_per_doll"		"200"
+			"radius"				"300"
+			"doll_move_speed"		"50"
+			"doll_move_distance"	"400"
+			"damage_radius"
+			{
+				"value"							"200"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"affected_by_aoe_increase"	"1"
+			}
+			"distance"					"300"
+			"caster_move_duration"		"1"
+			"caster_move_speed"			"800"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_margatroid_0"  // 未来文乐自由行动
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+	"special_bonus_unique_margatroid_1"  // 人偶补充速率翻倍
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+	"special_bonus_unique_margatroid_2"  // +7人偶上限
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"7"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：超级文乐
+	//=================================================================================================================
+	"special_bonus_unique_margatroid_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"2"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_margatroid_4"  // +50人偶爆炸伤害
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"50"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus: -20s文乐CD
+	//=================================================================================================================
+	"special_bonus_unique_margatroid_6"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-20"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：文乐加成
+	//=================================================================================================================
+	"special_bonus_unique_margatroid_5"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"75"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：+1000未来文乐爆炸伤害
+	//=================================================================================================================
+	"special_bonus_unique_margatroid_7"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1000"
+		}
+	}
+}

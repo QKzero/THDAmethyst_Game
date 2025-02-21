@@ -1,0 +1,45 @@
+"DOTAAbilities"
+{
+    "item_bloodthirstiest"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		// "BaseClass"						"item_datadriven"
+		"BaseClass"						"item_lua"
+		"ScriptFile"                    "items/item_bloodthirstiest"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"Model"							"models/props_gameplay/red_box.vmdl" 
+		"Effect"						"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"			"item_bloodthirstiest"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"900"
+		"ItemShopTags"					"unique"
+		"ItemQuality"					"component"
+		"ItemAliases"					"morbid mask"
+		"SideShop"						"1"
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		// "Modifiers"
+		// {
+		// 	"modifier_item_Lifesteal"
+		// 	{
+		// 		"Passive"			"1"
+		// 		"IsHidden"			"1"
+		// 		"OnAttackLanded"
+		// 	   {
+		// 		   "Lifesteal"
+		// 		   {
+		// 			    "Target"			"ATTACKER"
+		// 			    "LifestealPercent"	"%lifesteal_percent"
+		// 		   }
+		// 	   }
+		// 	}
+		// }
+		"AbilityValues"
+		{
+			"lifesteal_percent"		"16"
+		}
+	}
+}

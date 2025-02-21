@@ -1,0 +1,316 @@
+"DOTAAbilities"
+{
+	"ability_thdots_wriggle01"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitywriggle.lua"
+		"AbilityTextureName"	"custom/ability_thdots_wriggle01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityCooldown"	"30"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"60 80 100 120"
+		"precache"
+		{
+			"particle"	"particles/econ/items/outworld_devourer/od_shards_exile/od_shards_exile_prison_top_orb.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityWriggle.lua"
+				"Function"	"OnWriggle01Start"
+				"Vision"	"%vision"
+				"Duration"	"%duration"
+				"AntiInvisible"	"%vision_antiinvisible"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_item_gem_of_true_sight"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_wriggle01_antiinvisible"
+			{
+				"Duration"	"0.1"
+				"States"
+				{
+					"MODIFIER_STATE_INVISIBLE"	"MODIFIER_STATE_VALUE_DISABLED"
+					"MODIFIER_STATE_PROVIDES_VISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"vision"	"1200 1400 1600 1800"
+			"radius"
+			{
+				"value"			"100 200 300 400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"20"
+		}
+	}
+
+	"ability_thdots_wriggle01_special"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitywriggle.lua"
+		"AbilityTextureName"	"custom/ability_thdots_wriggle01_special"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"0"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"0"
+		"precache"
+		{
+			"particle"	"particles/econ/items/outworld_devourer/od_shards_exile/od_shards_exile_prison_top_orb.vpcf"
+		}
+		"AbilityValues"
+		{
+			"vision"	"1200 1400 1600 1800"
+			"radius"
+			{
+				"value"			"1800"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"	"20"
+		}
+	}
+
+	"ability_thdots_wriggle03"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_wriggle03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"	"4"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_weaver/weaver_base_attack.vpcf"
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"	"true"
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityWriggle.lua"
+				"Function"	"OnWriggle03ProjectileHit"
+				"BaseDamage"	"%base_damage"
+				"SilenceDuration"	"%silence_duration"
+			}
+		}
+		"Modifiers"
+		{
+			"passive_wriggle03_attack"
+			{
+				"Passive"	"1"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityWriggle.lua"
+						"Function"	"OnWriggle03AttackLanded"
+						"AttackInterval"	"%attack_interval"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"silence_duration"	"1.5 2.0 2.5 3"
+			// "base_damage"	"40 60 80 100"
+			"base_damage"	"26 42 58 74"
+			"attack_interval"	"6"
+			"AbilityCooldown"
+			{
+				"value"	"6"
+				"special_bonus_unique_wriggle_1"	"-4"
+			}
+		}
+	}
+
+	"ability_thdots_wriggle04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_wriggle04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"HasScepterUpgrade"			"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/econ/courier/courier_master_chocobo/courier_master_chocobo_ambient_death_b.vpcf"
+			"particle"	"particles/units/heroes/hero_mirana/mirana_moonlight_owner.vpcf"
+		}
+		"Modifiers"
+		{
+			"passive_wriggle04_invisible"
+			{
+				"Passive"	"1"
+				"ThinkInterval"	"0.03"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"Target"	"CASTER"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityWriggle.lua"
+						"Function"	"OnWriggle04Order"
+					}
+				}
+//				"OnAbilityExecuted"
+//				{
+//					"RunScript"
+//					{
+//						"Target"	"CASTER"
+//						"ScriptFile"	"scripts/vscripts/abilities/abilityWriggle.lua"
+//						"Function"	"OnWriggle04SpellStart"
+//					}
+//				}
+				"OnAttackStart"
+				{
+					"RunScript"
+					{
+						"Target"	"CASTER"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityWriggle.lua"
+						"Function"	"OnWriggle04AttackStart"
+					}
+				}
+			}
+			"modifier_wriggle04_invisible"
+			{
+				"Passive"	"0"
+				"IsHidden"	"1"
+				"EffectName"	"particles/units/heroes/hero_mirana/mirana_moonlight_owner.vpcf"
+				"EffectAttachType"	"attach_hitloc"
+				"States"
+				{
+					"MODIFIER_STATE_INVISIBLE"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_wriggle04_noinvisible"
+			{
+				"Duration"	"%invisible_interval"
+				"Passive"	"0"
+			}
+			"wriggle_wanbaochui_check"
+			{
+				"Passive"	"1"
+				"ThinkInterval"	"0.1"
+				"IsHidden"	"1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"Target"	"CASTER"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityWriggle.lua"
+						"Function"	"wriggle_wanbaochui"
+						"Radius"	"900"
+					}
+				}
+			}
+			"wriggle_wanbaochui_buff"
+			{
+				"IsBuff"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE"	"3"
+					"MODIFIER_PROPERTY_MANA_REGEN_TOTAL_PERCENTAGE"	"3"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"40"
+				}
+			}
+			"wriggle_wanbaochui_buff_2"
+			{
+				"IsBuff"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE"	"30"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"30"
+				}
+			}
+			"wriggle_talent_modifier_spell_amplify_40"
+			{
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"RemoveOnDeath"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE"	"40"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"invisible_interval"	"3.3 1.35 0.55"
+		}
+	}
+	"ability_thdots_wriggle_talent_unit"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_TURN"
+		"MaxLevel"	"4"
+		"AbilityCooldown"	"0"
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_item_gem_of_true_sight"
+				"Target"	"CASTER"
+			}
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"1800"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+	"special_bonus_unique_wriggle_1"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"-4"
+		}
+	}
+	"special_bonus_unique_wriggle_2"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"40"
+		}
+	}
+	"special_bonus_unique_wriggle_3"
+	{
+		"BaseClass"	"special_bonus_undefined"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityValues"
+		{
+			"value"	"1"
+		}
+	}
+}

@@ -1,0 +1,176 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Teeth
+	// =================================================================================================================
+	"item_recipe_teeth"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_teeth"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8075"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"500"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_teeth"
+		"ItemRequirements"
+		{
+			"01"	"item_silver_knife;item_luna_chip"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Teeth
+	// =================================================================================================================
+	"item_teeth"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_teeth"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"35"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"	"0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8076"
+		"ItemQuality"	"rare"
+		"ItemCost"	"4500"
+		"ItemShopTags"	"damage;attack_speed"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_items.vsndevts"
+			"particle"	"particles/items2_fx/mask_of_madness.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"DOTA_Item.MaskOfMadness.Activate"
+				"Target"	"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_item_teeth_berserk_buff"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_item_teeth_berserk_debuff"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_item_teeth_life_steal_01"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_teeth"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+				}
+			}
+			"modifier_item_teeth_berserk_buff"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"IsBuff"	"1"
+				"Duration"	"%berserk_duration"
+				"EffectName"	"particles/items2_fx/mask_of_madness.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%berserk_bonus_attackspeed"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%berserk_bonus_movespeed"
+				}				
+			}
+			"modifier_item_teeth_berserk_debuff"
+			{
+				"IsHidden"	"1"
+				//沉默debuff
+				"Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"IsDebuff"	"1"
+				"Duration"	"%berserk_duration"
+				"States"
+				{
+				 	"MODIFIER_STATE_SILENCED"			"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"%berserk_extra_damage"
+				}
+			}
+			"modifier_item_teeth_life_steal_01"
+			{				
+				"IsHidden"			"1"	
+				"Duration"	"%berserk_duration"
+				//"OnAttackLanded"
+				//{
+				//	"Lifesteal"
+				//	{
+				//		"Target"			"ATTACKER"
+				//		"LifestealPercent"	"%lifesteal_percent"
+				//	}					
+				//}
+				"OnAttackLanded"						
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_item_teeth_life_steal_02"
+						"Target" 		"CASTER"						
+					}
+				}
+			}
+			"modifier_item_teeth_life_steal_02"
+			{
+				"IsHidden"			"1"
+				"OnDealDamage"
+				{
+					"Lifesteal"
+					{
+						"Target"			"ATTACKER"
+						"LifestealPercent"	"%lifesteal_percent"
+					}					
+				}
+				"OnAttackFinished"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"	"modifier_item_teeth_life_steal_02"
+						"Target" 		"CASTER"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"	"30"
+			"bonus_damage"	"60"
+			"berserk_bonus_attackspeed"	"100"
+			"berserk_bonus_movespeed"	"30"
+			"berserk_duration"	"7.0"
+			"lifesteal_percent"	"100"
+		}
+	}
+}

@@ -1,0 +1,123 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: zaiezhizhurenxing
+	// =================================================================================================================
+	"item_recipe_zaiezhizhurenxing"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_zaiezhizhurenxing"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8199"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"450"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_zaiezhizhurenxing"
+		"ItemRequirements"
+		{
+			"01"	"item_jiao_shou;item_wing"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// zaiezhizhurenxing
+	// =================================================================================================================
+	"item_zaiezhizhurenxing"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_zaiezhizhurenxing"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AOERadius"	"%effect_radius"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCastRange"	"700"
+		"AbilityCooldown"	"30"
+		"AbilityManaCost"	"50"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8200"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"str;agi;int;damage"
+		"ItemAliases"	"lonely kindness;veil of discord"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_zaiezhizhurenxing.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"		"ItemAbility_zaiezhizhurenxing"
+				"Target"	"POINT"
+				"effect_radius"	"%effect_radius"
+				"Duration"	"%debuff_duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_zaiezhizhurenxing"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+				}
+			}
+			"modifier_item_zaiezhizhurenxing_play_debuff"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				// "EffectName"	"particles/thd2/items/item_zaiezhizhurenxing.vpcf"
+				"EffectName"    "particles/items2_fx/veil_of_discord_debuff.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movement_speed_percent_reduction"
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"%debuff_bonus_damage"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"10"
+			"bonus_agility"	"10"
+			"bonus_intellect"	"10"
+			"bonus_attackspeed"	"20"
+			"effect_radius"
+			{
+				"value"			"500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"debuff_duration"	"5"
+			"movement_speed_percent_reduction"	"-30"
+			"bonus_health"	"500"
+			"debuff_bonus_damage"	"20"
+			"bonus_armor"	"5"
+		}
+	}
+}

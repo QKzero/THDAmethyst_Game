@@ -1,0 +1,115 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Camera
+	// =================================================================================================================
+	"item_recipe_camera"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_camera"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8038"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1800"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_camera"
+		"ItemRequirements"
+		{
+			"01"	"item_tengu_fan;item_tengu_fan"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+    // =================================================================================================================
+	// Camera
+	// =================================================================================================================
+	"item_camera"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_camera"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8039"
+		"ItemQuality"	"common"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"6000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"agi"
+		// 定义物品是否可以被丢弃，1表示可以丢弃
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/items"
+			"particle"	"particles/thd2/items/item_camera.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_item_camera_attack"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnAttackLanded"
+				{
+					// "Random"
+					// {
+						// "Chance"	"%damage_chance"
+						// "OnSuccess"
+						// {
+							"FireSound"
+							{
+								"EffectName"	"THD_ITEM.Camera"
+								"Target" 		"TARGET"
+							}
+							"AttachEffect"
+							{
+								"EffectName"	"particles/thd2/items/item_camera.vpcf"
+								"EffectAttachType"	"follow_origin"
+								"Target"	"TARGET"
+							}
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+								"Function"	"ItemAbility_Camera_OnAttack"
+								"Caster"	"CASTER"
+								"Target"	"TARGET"
+								"DamageHealthPercent"	"%damage_health_percent"
+								"RoshanPercent"			"%roshan_percent"
+							}
+						// }
+					// }
+				}
+			}
+			"modifier_item_camera"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_agility"	"40"
+			"damage_chance"	"100"
+			"damage_health_percent"	"3"
+			"roshan_percent"	"50"
+		}
+	}
+}

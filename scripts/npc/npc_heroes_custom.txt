@@ -1,15 +1,186 @@
-// Dota Heroes File
-// NOTE: This is not for creating new heroes, this is for taking a currently existing hero as a template and overriding
-// the specified key-value combinations.  Use override_hero <hero_to_override> for this.
+// Dota2 Editor
+// Get latest version: https://github.com/zombieJ/nw-dota2editor
+
+// 应用Imba的方法，新建的英雄采用#base的引用来维护
+// 字母顺序排序
+#base heroes/aya/hero.txt
+#base heroes/byakuren/hero.txt
+#base heroes/chen/hero.txt
+#base heroes/child/hero.txt
+#base heroes/cirno/hero.txt
+#base heroes/clown/hero.txt
+#base heroes/daiyousei/hero.txt
+#base heroes/eirin/hero.txt
+#base heroes/ellen/hero.txt
+#base heroes/exrumia/hero.txt
+#base heroes/flandre/hero.txt
+#base heroes/flandrev2/hero.txt
+#base heroes/hatate/hero.txt
+#base heroes/hina/hero.txt
+#base heroes/iku/hero.txt
+#base heroes/jyoon/hero.txt
+#base heroes/kagerou/hero.txt
+#base heroes/kaguya/hero.txt
+#base heroes/kasen/hero.txt
+#base heroes/kasen3/hero.txt
+#base heroes/keine/hero.txt
+#base heroes/kisume/hero.txt
+#base heroes/koakuma/hero.txt
+#base heroes/kogasa/hero.txt
+#base heroes/koishi/hero.txt
+#base heroes/kokoro/hero.txt
+#base heroes/kurumi/hero.txt
+#base heroes/komachi/hero.txt
+#base heroes/larva/hero.txt
+#base heroes/larva02/hero.txt
+#base heroes/letty/hero.txt
+#base heroes/lilywhite/hero.txt
+#base heroes/lunasa/hero.txt
+#base heroes/lyrica/hero.txt
+#base heroes/margatroid/hero.txt
+#base heroes/marisa/hero.txt
+#base heroes/medicine/hero.txt
+#base heroes/meira/hero.txt
+#base heroes/meirin/hero.txt
+#base heroes/merlin/hero.txt
+#base heroes/miko/hero.txt
+#base heroes/miko2/hero.txt
+#base heroes/minamitsu/hero.txt
+#base heroes/minoriko/hero.txt
+#base heroes/miyako/hero.txt
+#base heroes/mokou/hero.txt
+#base heroes/momiji/hero.txt
+#base heroes/mystia/hero.txt
+#base heroes/nazrin/hero.txt
+#base heroes/nitori/hero.txt
+#base heroes/nue/hero.txt
+#base heroes/parsee/hero.txt
+#base heroes/patchouli/hero.txt
+#base heroes/ran/hero.txt
+#base heroes/reimu/hero.txt
+#base heroes/reisen/hero.txt
+#base heroes/reisen02/hero.txt
+#base heroes/remilia/hero.txt
+#base heroes/rin/hero.txt
+#base heroes/rumia/hero.txt
+#base heroes/sagume/hero.txt
+#base heroes/sakuya/hero.txt
+#base heroes/samurai/hero.txt
+#base heroes/sanae/hero.txt
+#base heroes/satori/hero.txt
+#base heroes/seiga/hero.txt
+#base heroes/seija/hero.txt
+#base heroes/shikieiki/hero.txt
+#base heroes/shinki/hero.txt
+#base heroes/shion/hero.txt
+#base heroes/shizuha/hero.txt
+#base heroes/shou/hero.txt
+#base heroes/star/hero.txt
+#base heroes/suika/hero.txt
+#base heroes/sumireko/hero.txt
+#base heroes/sunny/hero.txt
+#base heroes/suwako/hero.txt
+#base heroes/tei/hero.txt
+#base heroes/tensi/hero.txt
+#base heroes/tojiko/hero.txt
+#base heroes/toyohime/hero.txt
+#base heroes/utsuho/hero.txt
+#base heroes/wriggle/hero.txt
+#base heroes/yamame/hero.txt
+#base heroes/yasaka/hero.txt
+#base heroes/yorihime/hero.txt
+#base heroes/youmu/hero.txt
+#base heroes/youmu2/hero.txt
+#base heroes/yugi/hero.txt
+#base heroes/yukari/hero.txt
+#base heroes/yumemi/hero.txt
+#base heroes/yuuka/hero.txt
+//#base heroes/yuuma/hero.txt
+#base heroes/yuyuko/hero.txt
+
 "DOTAHeroes"
 {
-	//=================================================================================================================
-	// HERO: Templar Assassin
-	//=================================================================================================================
-	"npc_dota_hero_templar_assassin_template"
+	"Version"		"1"
+
+	// 虽然这个文件命名为npc_heroes_custom，自定义英雄，但是目前在DOTA2，依然无法真正地自定义一个英雄。
+	// 更合适的名称应该是重写英雄
+	// 这里所定义的英雄，都必须定义一个 override_hero ，所重写英雄的字段，
+	// 在英雄选择界面，选择 override_hero 所指定的那个英雄，得到的就是我们的这个英雄。
+	// 一般在英雄定义这个部分，我们除了重新定义英雄的技能和基本属性以外，不去定义英雄的模型、语音什么的
+	// 避免不必要的麻烦（主要是饰品问题）
+
+	"npc_dota_hero_observer"
 	{
-		"override_hero"				"npc_dota_hero_templar_assassin"			// Hero to override
-		"Ability1"					"templar_assassin_refraction_holdout"		// Ability 1
-		"VisionNighttimeRange"		"1800"										// Range of vision at night time.
+		"override_hero"	"npc_dota_hero_monkey_king"
+		"AbilityLayout"	"6"
+		"Ability1"		"ability_dummy_unit"
+		"Ability2"		"generic_hidden"
+		"Ability3"		"generic_hidden"
+		"Ability4"		"generic_hidden"
+	
+		"Ability5"		"generic_hidden"		
+		"Ability6"		"generic_hidden"
+		"Ability7"		"generic_hidden"	
+		"Ability8"		"generic_hidden"	
+		"Ability9"		"generic_hidden"	
+		"Ability10"		"generic_hidden"
+		"Ability11"		"generic_hidden"
+		"Ability12"		"generic_hidden"
+		"Ability13"		"generic_hidden"
+		"Ability14"		"generic_hidden"
+		"Ability15"		"generic_hidden"
+		"Ability16"		"generic_hidden"
+		"Ability17"		"generic_hidden"
+		//"Carry"			"核心"
+		//"Support"			"辅助"
+		//"Nuker"			"爆发"
+		//"Disabler"		"控制"
+		//"Jungler"			"打野"
+		//"Durable"			"耐久"
+		//"Escape"			"逃生"
+		//"LaneSupport"		"对线辅助"
+		//"Pusher"			"推进"
+		//"Initiator"		"先手"
+		//"Role"			"Carry,Support,Nuker,Disabler,Jungler,Durable,Escape,LaneSupport,Pusher,Initiator"
+		"Role"				"Carry,Nuker,Disabler,Jungler,Escape,Pusher,Initiator"
+		"Rolelevels"		"0,0,0,0,0,0,0"
+		"Model"			"models/items/courier/shibe_dog_cat/shibe_dog_cat_flying.vmdl"
+		"ModelScale"                 "1.0"
+		"AttackRange"	"10"
+		"ArmorPhysical"	"0"
+		// 物理护甲
+		"AttackDamageMin"	"1"
+		// 最大攻击力
+		"AttackDamageMax"	"1"
+		// 最小攻击力
+		"AttributeBaseStrength"	"1"
+		// 基础力量
+		"AttributeStrengthGain"	"0"
+		// 每级增加的力量，力量成长
+		"AttributeBaseAgility"	"1"
+		// 基础敏捷
+		"AttributeAgilityGain"	"0"
+		// 每级增加的敏捷，敏捷成长
+		"AttributeBaseIntelligence"	"1"
+		// 基础智力
+		"AttributeIntelligenceGain"	"0"
+		// 每级增加的智力，智力成长
+		"MovementSpeed"	"0"
+		// 基础移动速度
+		"MovementTurnRate"	"1.2"
+		// 转身速度
+		"StatusHealth"	"10"
+		// 基础生命值
+		"StatusHealthRegen"	"0"
+		// 基础生命恢复
+		"StatusMana"	"10"
+		// 基础魔法值
+		"StatusManaRegen"	"0"
+		// 基础魔法恢复
+		"VisionDaytimeRange"	"200"
+		// 白天视野大小
+		"VisionNighttimeRange"	"200"
+		// 晚上视野大小
+		"DisableWearables"	"1"
 	}
 }

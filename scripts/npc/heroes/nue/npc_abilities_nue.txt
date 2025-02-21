@@ -1,0 +1,370 @@
+"DOTAAbilities"
+{
+	"ability_thdots_nueEx"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityTextureName"		"custom/ability_thdots_nueEx"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_1"
+		"MaxLevel"					"1"
+		
+		// Stats
+		//----------------------------------------------------------------
+		"AbilityManaCost"           "30"
+		"AbilityCastPoint"          "0.2"
+		"AbilityCooldown"           "8"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+
+		"AbilityCastRange"			"600"
+		
+		"precache"
+		{
+			"particle"				"particles/units/heroes/hero_templar_assassin/templar_assassin_trap_explode.vpcf"
+			"soundfile"				"soundevents/thdots_hero_sounds/thdots_nue_sounds.vsndevts"
+		}
+
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"				"Nue.AbilityNueEx"
+				"Target"					"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilityNue.lua"
+				"Function"				"OnNueExSpellStart"
+				"damage_percent"		"%damage_percent"
+			}
+		}	
+
+		"AbilityValues"
+		{
+			"damage_percent"		"2.0"
+		}
+    }
+
+	"ability_thdots_nue01"
+	{
+		"BaseClass"           	    "ability_datadriven"
+		"AbilityBehavior"   	    "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityTextureName"		"custom/ability_thdots_nue01"
+		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_1"
+		
+		// Stats
+		//----------------------------------------------------------------
+		"AbilityManaCost"           "25 30 35 40"
+		"AbilityCastPoint"          "0"
+		"AbilityCooldown"           "15"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		"IsBreakable"					"1"
+		
+		"precache"
+		{
+			"particle"				"particles/heroes/nue/ability_nue_01_ball.vpcf"
+			"particle"				"particles/units/heroes/hero_templar_assassin/templar_assassin_meld_hit.vpcf"
+			"soundfile"				"soundevents/thdots_hero_sounds/thdots_nue_sounds.vsndevts"
+		}
+
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"				"Nue.AbilityNue01"
+				"Target"					"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/abilityNue.lua"
+				"Function"				"OnNue01SpellStart"
+				"damage"				"%damage"
+				"Duration"				"%duration"
+			}
+		}	
+
+		"Modifiers"
+		{
+			"passive_nue01_attack"
+			{
+				"Passive"	"1"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"Target"		"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityNue.lua"
+						"Function"		"OnNue01AttackLanded"
+						"damage"		"%damage"
+						"damage_percent"	"%damage_percent"
+					}
+				}
+			}
+			"modifier_nue_01_extradamage"
+			{
+				"Duration"				"%duration"
+			}
+		}
+
+		"AbilityValues"
+		{
+			"damage"				"11.25 22.50 33.75 45.00"
+			"duration"				"15.0"
+			"damage_percent"				"1.25"
+		}
+    }
+
+    "ability_thdots_nue02"
+	{
+		"BaseClass"				"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_nue02"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"				"4"
+		"AbilityCastPoint"		"0.8"
+		"AnimationPlaybackRate"	"1.4"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityCooldown"		"9 8 7 6"
+		"AbilityManaCost"		"80 100 120 140"
+		"HasScepterUpgrade"			"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"		"680 960 1240 1540"
+		"precache"
+		{
+			"particle"	"particles/heroes/nue/ability_nue_01.vpcf"
+			"soundfile"				"soundevents/thdots_hero_sounds/thdots_nue_sounds.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"				"Nue.AbilityNue02"
+				"Target"					"CASTER"
+			}
+			"LinearProjectile"
+			{
+				"EffectName"		"particles/heroes/nue/ability_nue_01.vpcf"
+				"MoveSpeed"			"%move_speed"
+				"StartRadius"		"%collision_radius"
+				"EndRadius"			"%collision_radius"
+				"StartPosition"		"attach_attack1"
+				"FixedDistance"		"%max_lenth"
+				"TargetTeams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"TargetTypes"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"HasFrontalCone"	"0"
+				"ProvidesVision"	"1"
+				"VisionRadius"		"300"
+			}
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"			"false"
+			"RunScript"
+			{
+				"ScriptFile"		"scripts/vscripts/abilities/abilityNue.lua"
+				"Target"			"TARGET"
+				"Function"			"OnNue02SpellHit"
+				"damage_percent"	"%damage_percent"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_nue_wanbaochui_debuff"
+			{
+				"Duration"			"12"
+				"IsDebuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_DECREPIFY_UNIQUE"	"-12"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"-12"
+				}
+			}			
+		}
+		"AbilityValues"
+		{
+			"move_speed"	"3000"
+			"collision_radius"
+			{
+				"value"			"140"
+				"affected_by_aoe_increase"	"1"
+			}
+			"max_lenth"	"680 960 1240 1540"
+			"damage_percent"		"3.0"
+		}
+		"AbilityDamage"	"120 160 200 240"
+	}
+
+	"ability_thdots_nue03"
+	{
+		"BaseClass"				"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_nue03"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"				"4"
+		"IsBreakable"					"1"
+
+		"precache"
+		{
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_nue_03"
+			{
+				"Passive"		"1"
+				"OnKill"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityNue.lua"
+						"Function"		"OnNue03Kill"
+						"exp_bonus"		"%exp_bonus"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"exp_bonus"			"15 20 25 30"
+		}
+	}
+
+	"ability_thdots_nue04"
+	{
+		"BaseClass"				"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_nue04"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"		"1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AnimationPlaybackRate"	"2"
+		"AbilityCooldown"		"120 105 90"
+		// "AbilityChannelTime"	"2.0"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"		"99999"
+		"AOERadius"				"%radius"
+		"AbilityType"			"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityManaCost"		"125 150 175"
+		"AbilityDamage"			"100 200 300"
+
+		"precache"
+		{
+			"particle"	"particles/heroes/nue/ability_nue_04.vpcf"
+			"particle"	"particles/heroes/nue/ability_nue_04_light_ufo.vpcf"
+			"particle"	"particles/heroes/nue/ability_minoriko_04_ufo_move.vpcf"
+			"particle"	"particles/heroes/nue/ability_nue_04_warning_circle.vpcf"
+			"soundfile"				"soundevents/thdots_hero_sounds/thdots_nue_sounds.vsndevts"
+		}
+		"OnAbilityPhaseStart"
+		{
+			"FireSound"
+			{
+				"EffectName"				"Nue.AbilityNue04_channel"
+				"Target"					"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityNue.lua"
+				"Function"		"OnNue04PhaseStart"
+			}
+		}
+		"OnAbilityPhaseInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityNue.lua"
+				"Function"		"OnNue04PhaseInterrupted"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityNue.lua"
+				"Function"		"OnNue04Start"
+				"Radius"		"%radius"
+				"Target"		"POINT"
+				"stun_duration"	"%stun_duration"
+				"damage_percent"	"%damage_percent"
+			}
+			"ApplyModifier"
+			{
+				"Target"		"CASTER"
+				"ModifierName"	"modifier_thdots_nue04_states"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_nue04_states"
+			{
+				"Duration"	"1.5"
+				"States"
+				{
+					"MODIFIER_STATE_ATTACK_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value"			"300 350 400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"stun_duration"	"2.0 2.5 3.0"
+			"damage_percent"	"4.0"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_nue_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"						"25"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:大招眩晕时间+1
+	//=================================================================================================================
+	"special_bonus_unique_nue_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：大招减50CD
+	//=================================================================================================================
+	"special_bonus_unique_nue_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-50"
+		}
+	}
+}

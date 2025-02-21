@@ -1,0 +1,74 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Eyunzhifu
+	// =================================================================================================================
+	"item_recipe_eyunzhifu"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_eyunzhifu"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8191"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_eyunzhifu"
+		"ItemRequirements"
+		{
+			"01"	"item_frog;item_juice;item_magic_guide_book"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Eyunzhifu
+	// =================================================================================================================
+	"item_eyunzhifu"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_eyunzhifu"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8192"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1725"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"attack_speed;damage"
+		"ItemAliases"	"broken charm of protection"
+		"Modifiers"
+		{
+			"modifier_item_eyunzhifu"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"	"9"
+			"bonus_damage"	"9"
+			"bonus_intellect"	"6"
+			"bonus_mana_regen"	"1"
+		}
+	}
+}

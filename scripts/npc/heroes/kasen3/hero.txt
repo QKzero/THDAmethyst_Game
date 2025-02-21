@@ -1,0 +1,88 @@
+"DOTAHeroes"
+{
+	"npc_dota_hero_kasen3"
+	{
+		"override_hero"	"npc_dota_hero_lone_druid"
+		"Model"		"models/ibaraki_kasen/ibaraki_kasen_1.vmdl"
+		"VoiceFile" ""
+		"AbilityLayout"	"6"
+		"Ability1"	"ability_thdots_kasen3_01"
+		"Ability2"	"kasen_spirit_bear"
+		"Ability3"	"kasen_holy_persuasion"
+		"Ability4"	"generic_hidden"
+		"Ability5"	"generic_hidden"
+		"Ability6"	"ability_thdots_kasen3_04"
+		"Ability7"	""
+		"Ability8"	""
+		"Ability9"	""
+		"Ability10"	"special_bonus_magic_resistance_15"
+		"Ability11"	"special_bonus_attack_damage_30"
+		"Ability12"	"special_bonus_strength_15"
+		"Ability13"	"special_bonus_unique_kasen3_1"//包符 +1s持续时间
+		"Ability14"	"special_bonus_unique_kasen3_2"//务光 普攻附带雷云效果
+		"Ability15"	"special_bonus_unique_kasen3_3"//可以劝说远古
+		"Ability16"	"special_bonus_unique_kasen3_4"//务光和劝说单位+1500HP
+		"Ability17"	"special_bonus_unique_kasen3_5"//「奸佞邪智的鬼」-40cd
+
+		"Facets"
+		{
+		}
+
+		"AttributePrimary"			"DOTA_ATTRIBUTE_ALL"
+		// "Role"			"Carry,Support,Nuker,Disabler,Jungler,Durable,Escape,LaneSupport,Pusher,Initiator"
+
+		"Role"	"Carry,Disabler,Jungler,Durable,LaneSupport,Initiator"
+		"Rolelevels"	"3,3,3,3,3,2"
+		"Complexity"	"2"
+		"ModelScale"	"1.03"
+		"VersusScale"	"1.03"
+		"LoadoutScale"	"1.03"
+		"AttackRange"	"150"
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackAnimationPoint"	"0.3"
+		// 攻击前摇
+		"AttackRate"	"1.65"
+		// 攻击速度
+		"ArmorPhysical"	"3"
+		// 物理护甲
+		"AttackDamageMin"	"38"
+		// 最大攻击力
+		"AttackDamageMax"	"43"
+		"AttributePrimary"		"DOTA_ATTRIBUTE_ALL"
+		// 最小攻击力
+		"AttributeBaseStrength"	"22"
+		// 基础力量
+		"AttributeStrengthGain"	"4"
+		// 每级增加的力量，力量成长
+		"AttributeBaseAgility"	"19"
+		// 基础敏捷
+		"AttributeAgilityGain"	"1.5"
+		// 每级增加的敏捷，敏捷成长
+		"AttributeBaseIntelligence"	"21"
+		// 基础智力
+		"AttributeIntelligenceGain"	"1.5"
+		// 每级增加的智力，智力成长
+		"MovementSpeed"	"300"
+		// 基础移动速度
+		"MovementTurnRate"	"1.0"
+		// 转身速度
+		"StatusHealth"	"250"
+		// 基础生命值
+		"StatusHealthRegen"	"2.2"
+		// 基础生命恢复
+		"StatusMana"	"100"
+		// 基础魔法值
+		"StatusManaRegen"	"1.5"
+		// 基础魔法恢复
+		"VisionDaytimeRange"	"1050"
+		// 白天视野大小
+		"VisionNighttimeRange"	"700"
+		// 晚上视野大小
+		"DisableWearables"	"1"
+		"precache"
+		{
+			"model"		"models/ibaraki_kasen/ibaraki_kasen_2.vmdl"
+			"model"		"models/ibaraki_kasen/ibaraki_kasen_3.vmdl"
+		}
+	}
+}

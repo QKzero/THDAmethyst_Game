@@ -1,0 +1,95 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: UFO
+	// =================================================================================================================
+	"item_recipe_UFO"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"7983"
+		"ItemCost"	"1400"
+		"AbilityTextureName"	"item_recipe_UFO"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_UFO"
+		"ItemRequirements"
+		{
+			"01"	"item_huanyingzhifeng;item_huanyingzhifeng"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+    // =================================================================================================================
+	// UFO 不明飞行物
+	// =================================================================================================================
+	"item_UFO"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_UFO"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"0"
+		"AbilityManaCost"	"0"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"700"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"7984"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"SideShop"	"1"
+		"ItemShopTags"	"attack_speed"
+		"ItemAliases"	"moon shard"
+
+		"OnSpellStart"
+		{				
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_UFO_OnSpellStart"
+			}			
+		}		
+		"Modifiers"
+		{
+			"modifier_item_UFO"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"				
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+				}
+			}
+			"modifier_item_UFO_attack_speed_bonus"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"RemoveOnDeath"	"0"
+				"IsPurgable"	"0"	
+				"IsHidden"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%ex_attack_speed"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"	"130"
+			"ex_attack_speed"	"55"
+		}
+	}
+}

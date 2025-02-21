@@ -1,0 +1,105 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Card Love Man
+	// =================================================================================================================
+	"item_card_love_man"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_card_love_man"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"90"
+		"ItemIsNeutralDrop"		"1"
+		"SecretShop"   "1"
+		"Model"	"models/props_gameplay/recipe.vmdl"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"600"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8137"
+		"ItemQuality"	"consumables"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"70"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShareability"	"ITEM_FULLY_SHAREABLE"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES"
+		"ItemPermanent"	"0"
+		"ItemInitialCharges"	"1"
+		"ItemStackable"	"1"
+		"ItemShopTags"	"consumables"
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/items"
+			"particle"	"particles/thd2/items/item_love_man_card.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"	"particles/thd2/items/item_love_man_card.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Target"	"TARGET"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_CardLoveMan_OnSpellStart"
+				"HealAmount"	"%heal_amount"
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"heal_amount"	"210"
+		}
+		"AbilitySharedCooldown"	"item_card"
+		"ItemStockMax"	"2"
+		"ItemStockInitial"	"2"
+		"ItemStockTime"	"120.0"
+	}
+
+	"item_card_love_man_shop"
+	{
+		"BaseClass"	"item_lua"
+		"ScriptFile"                    "items/item_card"
+		"AbilityTextureName"	"item_card_love_man"	//图标By 橘橘子
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"0"
+		"ItemIsNeutralDrop"		"0"
+		"Model"	"models/props_gameplay/recipe.vmdl"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"600"
+		"ItemQuality"	"consumables"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"70"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShareability"	"ITEM_FULLY_SHAREABLE"
+		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES"
+		"ItemPermanent"	"0"
+		"ItemInitialCharges"	"1"
+		"ItemStackable"	"1"
+		"ItemShopTags"	"consumables"
+		"AbilitySharedCooldown"	"item_card"
+		"ItemStockMax"	"2"
+		"ItemStockInitial"	"2"
+		"ItemStockTime"	"120.0"
+		"AbilityValues"
+		{
+			"heal_amount"	"210"
+		}
+	}
+}

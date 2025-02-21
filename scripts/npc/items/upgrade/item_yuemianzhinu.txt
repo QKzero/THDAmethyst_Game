@@ -1,0 +1,96 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: yuemianzhinu
+	// =================================================================================================================
+	"item_recipe_yuemianzhinu"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"			"item_recipe_yuemianzhinu"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8187"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_yuemianzhinu"
+		"ItemRequirements"
+		{
+			"01"	"item_aunt_clothes;item_aunt_clothes;item_cat_ear;item_cat_foot"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// yuemianzhinu
+	// =================================================================================================================
+	"item_yuemianzhinu"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_yuemianzhinu"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8188"
+		"ItemQuality"	"secret_shop"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"		"1950"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"int;str"
+		"ItemAliases"	"dragon lance"
+		"Modifiers"
+		{
+			"modifier_item_yuemianzhinu"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"		"1"
+				"IsHidden"		"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_yuemianzhinu.lua"
+						"Function"		"ItemAbility_yuemianzhinu_range"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_yuemianzhinu.lua"
+						"Function"		"ItemAbility_yuemianzhinu_range_destory"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_HEALTH_BONUS"    "%bonus_health"
+				}
+			}
+			"modifier_item_yuemianzhinu_range"
+			{
+				"IsHidden"		"1"
+				"RemoveOnDeath"	"0"
+				"Passive"		"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACK_RANGE_BONUS_UNIQUE"		"%bonus_attack_range"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_range"	"150"
+			"bonus_strength"	"16"
+			"bonus_health"     "200"
+		}
+	}
+}

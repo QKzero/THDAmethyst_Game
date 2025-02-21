@@ -1,0 +1,613 @@
+"DOTAAbilities"
+{
+	"ability_thdots_kaguyaEx"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_kaguyaEx"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"	"4"
+		"precache"
+		{
+			"particle"		"particles/thd2/heroes/kaguya/ability_kaguya01_light.vpcf"
+			"particle"		"particles/thd2/heroes/kaguya/ability_kaguya01_light_green.vpcf"
+			"particle"		"particles/thd2/heroes/kaguya/ability_kaguya01_light_red.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_kaguya04_passive"
+			{
+				"Passive"	"1"
+				"ThinkInterval"	"0.1"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityKaguya.lua"
+						"Function"	"OnKaguya04Passive"
+						"Caster"	"CASTER"
+						"CostMana"	"%cost_mana"
+						"HpRegen"	"%hp_regen"
+						"Decrease_speed"	"%decrease_speed"
+					}
+				}
+			}
+			"modifier_thdots_kaguyaEx_check_levelup"
+			{
+				"Passive"	"1"
+				"IsHidden"			"1"
+				"RemoveOnDeath"	"0"
+				"ThinkInterval"	"1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityKaguya.lua"
+						"Function"	"KaguyaEx_OnIntervalThink"
+					}
+				}
+			}		
+		}
+		"AbilityValues"
+		{
+			"cost_mana"	"2.5 2.0 1.5 1.0"
+			"hp_regen"	"16"
+			"decrease_speed"	"0.004"
+		}		
+	}
+
+	"ability_thdots_kaguya01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_kaguya01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.2"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"0"
+		"ID"	"2054"
+		"HasScepterUpgrade"	"1"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/kaguya/ability_kaguya01_light.vpcf"
+			"particle"	"particles/thd2/heroes/kaguya/ability_kaguya01_light_green.vpcf"
+			"particle"	"particles/thd2/heroes/kaguya/ability_kaguya01_light_red.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_luna.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_luna.vsndevts"
+			"particle"	"particles/units/heroes/hero_treant/treant_overgrowth_vines.vpcf"
+			"particle"	"particles/thd2/heroes/reimu/reimu_03_effect.vpcf"			
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Luna.Eclipse.Cast"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityKaguya.lua"
+				"Function"	"OnKaguya01SpellStart"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_kaguya01_think"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_kaguya01_think"
+			{
+				"Duration"	"%duration"
+				"ThinkInterval"	"%damage_interval"
+				"OverrideAnimation"	"Act_DOTA_CAST_ABILITY_1"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityKaguya.lua"
+						"Function"	"OnKaguya01SpellThink"
+						"HealthCost"	"%health_cost"
+						"DamageRadius"	"%damage_radius"
+						"ExDamage"	"%ex_damage"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Luna.Eclipse.Target"
+						"Target"	"CASTER"
+					}
+				}
+			}
+			"modifier_thdots_kaguya01_exdamage"
+			{
+				"Duration"	"%duration"
+				"IsDebuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"				
+			}
+			"modifier_thdots_kaguya_wanbaochui_debuff_1"
+			{
+				"IsDebuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"	
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE"	"-30"
+				}			
+			}
+			"modifier_thdots_kaguya_wanbaochui_debuff_2"
+			{
+				"IsDebuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"	
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"-30"
+				}			
+			}
+			"modifier_thdots_kaguya_wanbaochui_debuff_3"
+			{
+				"IsDebuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"	
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_DECREPIFY_UNIQUE"	"-15"
+				}			
+			}
+			"modifier_thdots_kaguya_wanbaochui_debuff_4"
+			{
+				"IsDebuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"	
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"-30"
+				}			
+			}
+			"modifier_thdots_kaguya_wanbaochui_debuff_5"
+			{
+				"IsDebuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"	
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MISS_PERCENTAGE"	"70"
+				}			
+			}
+			"modifier_thdots_kaguya_wanbaochui_debuff_6"
+			{
+				"IsDebuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"	
+				"EffectName"	"particles/thd2/heroes/reimu/reimu_03_effect.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"			"MODIFIER_STATE_VALUE_ENABLED"
+				}		
+			}
+			"modifier_thdots_kaguya_wanbaochui_debuff_7"
+			{
+				"IsDebuff"			"1"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"	
+				"EffectName"	"particles/units/heroes/hero_treant/treant_overgrowth_vines.vpcf"
+				"EffectAttachType"	"attach_hitloc"
+
+				"States"
+				{
+					"MODIFIER_STATE_ROOTED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}			
+			}
+
+		}
+		"AbilityValues"
+		{
+			"duration"	"2.15"
+			"damage_interval"	"0.3"
+			"health_cost"	"4"
+			"damage_radius"
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
+			"ex_damage"	"30 40 50 60"
+			"AbilityCooldown"
+			{
+				"value"	"14"
+				"special_bonus_unique_kaguya_1"	"-8"
+			}
+		}
+		"AbilityDamage"	"30 55 80 105"
+	}
+
+	"ability_thdots_kaguya02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_kaguya02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AbilityCooldown"	"0.3"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"0"
+		"ID"	"2055"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts"
+			"particle"	"particles/thd2/heroes/kaguya/ability_kaguya02_brilliant_dragon_bullet.vpcf"
+			"particle"	"particles/thd2/heroes/kaguya/ability_kaguya02_buddhist_diamond.vpcf"
+			"particle"	"particles/thd2/heroes/kaguya/ability_kaguya02_buddhist_diamond_d.vpcf"
+			"particle"	"particles/thd2/heroes/kaguya/ability_kaguya02_salamander_shield.vpcf"
+			"particle"	"particles/thd2/heroes/kaguya/ability_kaguya02_life_spring_infinity.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Invoker.Invoke"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityKaguya.lua"
+				"Function"	"OnKaguyaSwapAbility"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_kaguya02_Brilliant_Dragon_Bullet"
+			{
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"1"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"particles/thd2/heroes/kaguya/ability_kaguya02_brilliant_dragon_bullet.vpcf"
+						"EffectAttachType"	"start_at_customorigin"
+						"Target"	"CASTER"
+						"ControlPointEntities"
+						{
+							"CASTER"	"follow_origin"
+							"CASTER"	"follow_origin"
+							"CASTER"	"follow_origin"
+						}
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_BONUS_DAY_VISION"	"%day_vision"
+					"MODIFIER_PROPERTY_BONUS_NIGHT_VISION"	"%night_vision"
+				}
+			}
+			"modifier_thdots_kaguya02_Buddhist_Diamond"
+			{
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"1"
+				"OnCreated"
+				{
+					"FireSound"	{}
+					"AttachEffect"
+					{
+						"EffectName"	"particles/thd2/heroes/kaguya/ability_kaguya02_buddhist_diamond.vpcf"
+						"EffectAttachType"	"start_at_customorigin"
+						"Target"	"CASTER"
+						"ControlPointEntities"
+						{
+							"CASTER"	"follow_origin"
+						}
+					}
+					"AttachEffect"
+					{
+						"EffectName"	"particles/thd2/heroes/kaguya/ability_kaguya02_buddhist_diamond_d.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"	"CASTER"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS_UNIQUE"	"%armor"
+				}
+			}
+			"modifier_thdots_kaguya02_Salamander_Shield"
+			{
+				"IsHidden"	"1"
+				"ThinkInterval"	"0.2"
+				"RemoveOnDeath"	"1"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"particles/thd2/heroes/kaguya/ability_kaguya02_salamander_shield.vpcf"
+						"EffectAttachType"	"start_at_customorigin"
+						"Target"	"CASTER"
+						"ControlPointEntities"
+						{
+							"CASTER"	"follow_origin"
+						}
+					}
+				}
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"%shield_radius"
+							"Types"	"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+							"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Flags"	"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+						}
+						"ScriptFile"	"scripts/vscripts/abilities/abilityKaguya.lua"
+						"Function"	"OnKaguya02SpellDamage"
+						"AbilityDamage"	"%damage"
+					}
+				}
+			}
+			"modifier_thdots_kaguya02_Life_Spring_Infinity"
+			{
+				"IsHidden"	"1"
+				"Aura"	"modifier_thdots_kaguya02_Life_Spring_Infinity_aura"
+				"Aura_Radius"	"%infinity_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+				"Aura_Flags"	"DOTA_UNIT_TARGET_FLAG_NO_INVIS | DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
+				"Aura_ApplyToCaster"	"1"
+				"RemoveOnDeath"	"1"
+				"OnCreated"
+				{
+					"FireSound"	{}
+					"AttachEffect"
+					{
+						"EffectName"	"particles/thd2/heroes/kaguya/ability_kaguya02_life_spring_infinity.vpcf"
+						"EffectAttachType"	"start_at_customorigin"
+						"Target"	"CASTER"
+						"ControlPointEntities"
+						{
+							"CASTER"	"follow_origin"
+						}
+					}
+				}
+			}
+			"modifier_thdots_kaguya02_Life_Spring_Infinity_aura"
+			{
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%health_regen"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"day_vision"	"300 400 500 600"
+			"night_vision"	"300 400 500 600"
+			"armor"	"3 5 7 9"
+			"shield_radius"
+			{
+				"value"			"700"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage"	"10 30 50 70"
+			"infinity_radius"
+			{
+				"value"			"500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"health_regen"	"3 5 7 9"
+		}
+	}
+
+	"ability_thdots_kaguya03"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_kaguya03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_3"
+		"AbilityCooldown"	"120 105 90 75"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"0"
+		"ID"	"2056"
+		"precache"
+		{
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_kaguya_sounds.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_SkywrathMage.AncientSeal.Target"
+				"Target"	"CASTER"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Kaguya.AbilityKaguya03"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"Target"	"CASTER"
+				"ScriptFile"	"scripts/vscripts/abilities/abilityKaguya.lua"
+				"Function"	"OnKaguya03SpellStart"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_kaguya03_mana_regen"
+			{
+				"Passive"	"1"
+				"ThinkInterval"	"0.1"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityKaguya.lua"
+						"Function"	"OnKaguya03ManaRegen"
+						"ManaRegen"	"%mana_regen"
+						"BonusRegen"	"%bonus_regen"
+						"increaseTime"	"%increase_time"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"mana_regen"	"3 5 7 9"
+			"bonus_regen"	"1"
+			"increase_time"	"90"
+		}
+	}
+
+	"ability_thdots_kaguya04"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_kaguya04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"AbilityCooldown"	"140 130 120"
+		"AbilityManaCost"	"0"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"600"
+		"AOERadius"	"%radius"
+		"ID"	"2057"
+		"precache"
+		{
+			"particle"	"particles/heroes/kaguya/ability_kaguya04_effect.vpcf"
+			"particle"	"particles/heroes/kaguya/ability_kaguya04_explosion.vpcf"
+			"particle"	"particles/heroes/kaguya/kaguya04ring.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_phoenix.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_abaddon.vsndevts"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_kaguya_sounds.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Kaguya.AbilityKaguya04"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityKaguya.lua"
+				"Function"	"OnKaguya04SpellStart"
+				"HealthCost"	"%health_cost"
+				"Target"	"POINT"
+				"IncreaseRadius"	"%increase_radius"
+				"StunDuration"	"%stun_duration"
+			}
+		}
+		"AbilityValues"
+		{
+			"increase_radius"	"35"
+			"stun_duration"	"0.2 0.4 0.6"
+			"radius"	"100"
+			"health_cost"	"8"
+		}
+		"AbilityDamage"	"20 30 40"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus -5CD
+	//=================================================================================================================
+	"special_bonus_unique_kaguya_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-8"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus +30转
+	//=================================================================================================================
+	"special_bonus_unique_kaguya_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"30"
+		}
+	}	
+
+	//=================================================================================================================
+	// Ability: Special Bonus +35献祭
+	//=================================================================================================================
+	"special_bonus_unique_kaguya_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"25"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:四重神宝
+	//=================================================================================================================
+	"special_bonus_unique_kaguya_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：光明之世
+	//=================================================================================================================
+	"special_bonus_unique_kaguya_5"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:永远的须臾
+	//=================================================================================================================
+	"special_bonus_unique_kaguya_6"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+}

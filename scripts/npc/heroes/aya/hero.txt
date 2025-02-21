@@ -1,0 +1,118 @@
+"DOTAHeroes"
+{
+	"npc_dota_hero_Aya"
+	{
+		"override_hero"	"npc_dota_hero_slark"
+		"AbilityLayout"	"6"
+		"Ability1"		"ability_thdots_aya01"
+		"Ability2"		"ability_thdots_aya02"
+		"Ability3"		"ability_thdots_aya03"
+		"Ability4"		"aya_fantasy"
+		"Ability5"		"generic_hidden"		
+		"Ability6"		"ability_thdots_aya04"
+		
+		"Ability10"		"special_bonus_spell_amplify_8"
+		"Ability11"		"special_bonus_attack_speed_25"
+		"Ability12"		"special_bonus_hp_300"
+		"Ability13"		"special_bonus_mp_350"
+		"Ability14"		"special_bonus_unique_aya_4"
+		"Ability15"		"special_bonus_unique_aya_2"
+		"Ability16"		"special_bonus_unique_aya_5"
+		"Ability17"		"special_bonus_unique_aya_1"
+
+		"Facets"
+		{
+		}
+
+		//"Carry"			"核心"
+		//"Support"			"辅助"
+		//"Nuker"			"爆发"
+		//"Disabler"		"控制"
+		//"Jungler"			"打野"
+		//"Durable"			"耐久"
+		//"Escape"			"逃生"
+		//"LaneSupport"		"对线辅助"
+		//"Pusher"			"推进"
+		//"Initiator"		"先手"
+		//"Role"			"Carry,Support,Nuker,Disabler,Jungler,Durable,Escape,LaneSupport,Pusher,Initiator"
+
+		"Role"				"Carry,Jungler,Durable,Escape,Initiator"
+		"Rolelevels"		"3,3,1,3,1"
+		"Complexity"	"2"
+
+		"Model"	"models/new_touhou_model/aya/aya.vmdl"
+		"VoiceFile" "soundevents/voscripts/game_sounds_vo_slark.vsndevts"
+		"ModelScale"	"1.15"
+		"VersusScale"	"1.15"
+		"LoadoutScale"	"1.15"
+		"IdleSoundLoop"			""
+		"ArmorPhysical"	"1"
+		// 物理护甲
+		"AttackAnimationPoint"	"0.2"
+		"AttackDamageMin"	"26"
+		// 最大攻击力
+		"AttackDamageMax"	"31"
+		// 最小攻击力
+		"AttributeBaseStrength"	"18"
+		// 基础力量
+		"AttributeStrengthGain"	"1.6"
+		// 每级增加的力量，力量成长
+		"AttributeBaseAgility"	"27"
+		// 基础敏捷
+		"AttributeAgilityGain"	"3.3"
+		// 每级增加的敏捷，敏捷成长
+		"AttributeBaseIntelligence"	"14"
+		// 基础智力
+		"AttributeIntelligenceGain"	"1.6"
+		// 每级增加的智力，智力成长
+		"MovementSpeed"	"320"
+		// 基础移动速度
+		"MovementTurnRate"	"3.0"
+		// 转身速度
+		"StatusHealth"	"280"
+		// 基础生命值
+		"StatusHealthRegen"	"2.0"
+		// 基础生命恢复
+		"StatusMana"	"60"
+		// 基础魔法值
+		"StatusManaRegen"	"0.5"
+		// 基础魔法恢复
+		"VisionDaytimeRange"	"1050"
+		// 白天视野大小
+		"VisionNighttimeRange"	"700"
+		// 晚上视野大小
+		"DisableWearables"	"1"
+		"AttachWearables"
+		{
+			"Wearable1"
+			{
+				"ItemDef"	"0"
+			}
+			"Wearable2"
+			{
+				"ItemDef"	"0"
+			}
+			"Wearable3"
+			{
+				"ItemDef"	"0"
+			}
+			"Wearable4"
+			{
+				"ItemDef"	"0"
+			}
+			"Wearable5"
+			{
+				"ItemDef"	"0"
+			}
+		}
+		"ItemSlots"	{}
+		
+		"Ability7"	"generic_hidden"
+		"Ability8"	"generic_hidden"
+		"Ability9"	"generic_hidden"
+		"precache"
+		{
+			"model"		"models/new_touhou_model/aya/aya_with_wing.vmdl"
+		}
+	}
+}

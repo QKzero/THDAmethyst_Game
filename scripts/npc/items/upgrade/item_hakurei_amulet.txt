@@ -1,0 +1,117 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Hakurei Amulet
+	// =================================================================================================================
+	"item_recipe_hakurei_amulet"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_hakurei_amulet"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8169"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"225"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_hakurei_amulet"
+		"ItemRequirements"
+		{
+			"01"	"item_ice_block;item_picnic_basket"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Hakurei Amulet
+	// =================================================================================================================
+	"item_hakurei_amulet"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_hakurei_amulet"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityCooldown"	"20"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8170"
+		"ItemQuality"	"epic"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"3950"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"regen_health;regen_mana;str;agi;int;hard_to_tag"
+		"ItemAliases"	"linken's sphere"
+		"Modifiers"
+		{
+			"modifier_item_hakurei_amulet"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+				}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_HakureiAmulet_OnCreated"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_HakureiAmulet_OnDestroy"
+					}
+				}
+				"OnRespawn"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_HakureiAmulet_OnCreated"	
+					}
+				}
+				"ThinkInterval"	"0.03"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_HakureiAmulet_OnIntervalThink"
+						"IconModifyName"	"modifier_item_hakurei_amulet_icon"
+					}
+				}
+			}
+			"modifier_item_hakurei_amulet_icon"
+			{
+				"Passive"	"0"
+				"IsHidden"	"1"
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_all_stats"	"16"
+			"bonus_health_regen"	"8.5"
+			"bonus_mana_regen"	"5"
+			"block_cooldown"	"20.0"
+		}
+	}
+}

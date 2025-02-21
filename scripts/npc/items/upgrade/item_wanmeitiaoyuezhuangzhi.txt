@@ -1,0 +1,67 @@
+"DOTAAbilities"
+{
+    "item_recipe_wanmeitiaoyuezhuangzhi"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_gold9ball"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8201"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1200"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_wanmeitiaoyuezhuangzhi"
+		"ItemRequirements"
+		{
+			"01"	"item_ice_block;item_9ball"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_wanmeitiaoyuezhuangzhi"
+	{
+		"BaseClass"	"item_lua"
+		"AbilityTextureName"	"item_gold9ball"
+		"ScriptFile"                    "items/item_wanmeitiaoyuezhuangzhi"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"ItemDeclarations"        "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AbilityCastRange"	"499"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"29"
+		"AbilityManaCost"	"9"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8202"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"3999"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"move_speed;str;agi;int;damage"
+		"precache"
+		{
+			// "soundfile"	"soundevents/game_sounds_heroes/game_sounds_antimage.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"distance"	"499"
+			"bonus_damage"	"9"
+			"bonus_attack_speed"	"9"
+			"bonus_movement_speed"	"55"
+			"bonus_strength"	"9"
+			"bonus_agility"	"9"
+			"bonus_intellect"	"9"
+			"bonus_health"	"9"
+			"bonus_mana"	"9"
+			"blink_damage_cooldown"	"3"
+		}
+	}
+}

@@ -1,0 +1,111 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: pomojinlingli
+	// =================================================================================================================
+	"item_recipe_pomojinlingli"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_pomojinlingli"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8193"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1175"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_pomojinlingli"
+		"ItemRequirements"
+		{
+			"01"	"item_eyunzhifu;item_gran_grimoire"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Pomojinlingli
+	// =================================================================================================================
+	"item_pomojinlingli"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_pomojinlingli"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"40"
+		"AbilityManaCost"	"100"
+		"AbilityCastRange"	"750"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8194"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"attack_speed;damage"
+		"ItemAliases"	"orchid malevolence"
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"  "DOTA_Item.Orchid.Activate"
+				"Target"  "TARGET"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_pomojinlingli_OnSpellStart"
+				"ModifierName"	"modifier_item_pomojinlingli_silence"
+				"Blockable"	"1"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_pomojinlingli"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+					"MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE"	"%bonus_damage_percentage"
+				}
+			}
+			"modifier_item_pomojinlingli_silence"
+			{
+				"Duration"	"%duration"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				//"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"EffectName"	"particles/econ/items/silencer/silencer_ti6/silencer_last_word_status_ti6_ring_mist.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"			"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"	"25"
+			"bonus_damage"	"25"
+			"bonus_intellect"	"30"
+			"bonus_mana_regen"	"4"
+			"duration"	"5.5"
+			"bonus_damage_percentage"	"15"
+		}
+	}
+}

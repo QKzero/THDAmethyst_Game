@@ -1,0 +1,138 @@
+"DOTAAbilities"
+{
+    "item_recipe_flower_umbrella"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_flower_umbrella"
+		"ItemCost"	"150"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_flower_umbrella"
+		"ItemRequirements"
+		{
+			"01"	"item_umbrella;item_ghost_balloon;item_violin"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+	"item_flower_umbrella"
+	{
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"item_flower_umbrella"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	        "DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	        "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"SpellDispellableType"          "SPELL_DISPELLABLE_YES"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		//"ID"	"8111"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"4500"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"health_pool;mana_pool;damage;armor"
+		"ItemAliases"	"assault cuirass"
+		"AbilityCooldown"	"40"
+		"AbilityManaCost"	"50"
+		"AbilityCastRange"	"1000"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_flower_umbrella_attach.vpcf"
+			"particle"	"particles/thd2/items/item_flower_umbrella_shield.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/items/item_umbrella.lua"
+				"Function"	"ItemAbility_Flower_Umbrella_OnSpellStart"
+				"Caster"	"CASTER"
+				"Radius"	"%aura_radius"
+				"Duration"	"%duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_flower_umbrella"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+					"MODIFIER_PROPERTY_MANA_BONUS"	"%bonus_mana"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+				}
+			}
+			"aura_item_flower_umbrella"
+			{
+				"IsHidden"	"1"
+				"Passive"	"1"
+				"Aura"	"modifier_item_flower_umbrella_aura"
+				"Aura_Radius"	"%aura_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_BUILDING"
+				"Aura_ApplyToCaster"	"1"
+			}
+			"modifier_item_flower_umbrella_aura"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"EffectName"	"particles/thd2/items/item_flower_umbrella_attach.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Target"	"TARGET"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%aura_bonus_armor"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%aura_bouns_attackspeed"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%aura_mana_regen"
+				}
+			}
+			"aura_item_flower_umbrella_debuff"
+			{
+				"IsHidden"	"1"
+				"Passive"	"1"
+				"Aura"	"modifier_item_flower_umbrella_aura_debuff"
+				"Aura_Radius"	"%aura_radius"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+				"Aura_ApplyToCaster"	"0"
+			}
+			"modifier_item_flower_umbrella_aura_debuff"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"EffectName"	"particles/thd2/items/item_flower_umbrella_attach.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Target"	"TARGET"
+				"IsDebuff" 		"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%aura_reduce_armor"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"bonus_mana"	"250"
+			"bonus_health"	"150"
+			"aura_radius"
+			{
+				"value"			"1000"
+				"affected_by_aoe_increase"	"1"
+			}
+			"bonus_armor"	"5"
+			"aura_bonus_armor"	"5"
+			"aura_reduce_armor"	"-5"
+			"aura_bouns_attackspeed"	"30"
+			"aura_mana_regen"	"2"
+			"duration"	"8"
+			"str_percent"	"80"
+			//"bonus_attackspeed"			"30"
+		}
+	}
+}

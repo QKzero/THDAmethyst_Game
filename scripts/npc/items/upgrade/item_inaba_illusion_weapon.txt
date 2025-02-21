@@ -1,0 +1,214 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Inaba Illusion Weapon
+	// =================================================================================================================
+	"item_recipe_inaba_illusion_weapon"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_inaba_illusion_weapon"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8175"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"750"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_inaba_illusion_weapon"
+		"InvalidHeroes"	"npc_dota_hero_medusa"
+		"ItemRequirements"
+		{
+			"01"	"item_screw_driver;item_wind_gun;item_violin"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Inaba Illusion Weapon
+	// =================================================================================================================
+	"item_inaba_illusion_weapon"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_inaba_illusion_weapon"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8176"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5500"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"damage;attack_speed"
+		"OnUnequip"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_InabaIllusionWeapon_OnUnequip"
+				"ModifierBuffMelee"	"modifier_item_inaba_illusion_weapon_buff_melee"
+				"ModifierBuffRanged"	"modifier_item_inaba_illusion_weapon_buff_ranged"
+				"ModifierBuffCannon"	"modifier_item_inaba_illusion_weapon_buff_cannon"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_inaba_illusion_weapon"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					// "MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_hp_regen"
+					// "MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"		"%bonus_mana_regen"
+				}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_InabaIllusionWeapon_OnEquip"
+						"ModifierBuffMelee"	"modifier_item_inaba_illusion_weapon_buff_melee"
+						"ModifierBuffRanged"	"modifier_item_inaba_illusion_weapon_buff_ranged"
+						"ModifierBuffCannon"	"modifier_item_inaba_illusion_weapon_buff_cannon"
+					}
+				}
+			}
+			"modifier_item_inaba_illusion_weapon_buff_melee"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"RemoveOnDeath"	"0"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_InabaIllusionWeapon_Melee_OnAttackLanded"
+						"CleavePercent"	"%melee_cleave_percent"
+						"CleaveRadius"	"%melee_cleave_radius"
+						"AttackDamage"	"%attack_damage"
+					}
+				}
+				"OnAttackStart"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"		"ItemAbility_InabaIllusionWeapon_Refresh"
+						"ModifierBuffMelee"	"modifier_item_inaba_illusion_weapon_buff_melee"
+						"ModifierBuffRanged"	"modifier_item_inaba_illusion_weapon_buff_ranged"
+						"ModifierBuffCannon"	"modifier_item_inaba_illusion_weapon_buff_cannon"
+					}
+				}
+			}
+			"modifier_item_inaba_illusion_weapon_buff_ranged"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"RemoveOnDeath"	"0"
+				"OnAttackStart"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_item_inaba_illusion_weapon_buff_ranged_split"
+						"Target"	"CASTER"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"		"ItemAbility_InabaIllusionWeapon_Refresh"
+						"ModifierBuffMelee"	"modifier_item_inaba_illusion_weapon_buff_melee"
+						"ModifierBuffRanged"	"modifier_item_inaba_illusion_weapon_buff_ranged"
+						"ModifierBuffCannon"	"modifier_item_inaba_illusion_weapon_buff_cannon"
+					}
+				}
+			}
+			"modifier_item_inaba_illusion_weapon_buff_ranged_split"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnAttack"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"	"modifier_item_inaba_illusion_weapon_buff_ranged_split"
+						"Target"	"CASTER"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_InabaIllusionWeapon_Ranged_OnAttack"
+						"RangedSplitNum"	"%ranged_split_num"
+						"RangedSplitRadius"	"%ranged_split_radius"
+					}
+				}
+			}
+			"modifier_item_inaba_illusion_weapon_buff_cannon"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"RemoveOnDeath"	"0"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_InabaIllusionWeapon_Cannon_OnAttackLanded"
+						"CannonDamageMin"	"%cannon_damage_min"
+						"CannonDamageMax"	"%cannon_damage_max"
+						"CannonDamageRadius"	"%cannon_damage_radius"
+					}
+				}
+				"OnAttackStart"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"		"ItemAbility_InabaIllusionWeapon_Refresh"
+						"ModifierBuffMelee"	"modifier_item_inaba_illusion_weapon_buff_melee"
+						"ModifierBuffRanged"	"modifier_item_inaba_illusion_weapon_buff_ranged"
+						"ModifierBuffCannon"	"modifier_item_inaba_illusion_weapon_buff_cannon"
+					}
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"	"45"
+			"bonus_attack_speed"	"60"
+			"melee_cleave_percent"	"50"
+			"melee_cleave_radius"
+			{
+				"value"			"700"
+				"affected_by_aoe_increase"	"1"
+			}
+			"ranged_split_num"	"2"
+			"ranged_split_radius"
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"cannon_damage_min"	"75"
+			"cannon_damage_max"	"150"
+			"cannon_damage_radius"
+			{
+				"value"			"150"
+				"affected_by_aoe_increase"	"1"
+			}
+			"bonus_hp_regen"	"6"
+			"bonus_mana_regen"		"2.25"
+		}
+		"Model"	"models/props_gameplay/stout_shield.vmdl"
+	}
+}

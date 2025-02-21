@@ -1,0 +1,69 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Luna Chip
+	// =================================================================================================================
+	"item_recipe_luna_chip"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_luna_chip"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8052"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"500"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_luna_chip"
+		"ItemRequirements"
+		{
+			"01"	"item_wind_amulet;item_wind_amulet"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Luna Chip
+	// =================================================================================================================
+	"item_luna_chip"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_luna_chip"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8053"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1500"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"attack_speed;damage"
+		"Modifiers"
+		{
+			"modifier_item_luna_chip"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"	"30"
+			"bonus_damage"	"5"
+		}
+	}
+}

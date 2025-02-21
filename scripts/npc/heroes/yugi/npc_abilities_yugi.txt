@@ -1,0 +1,337 @@
+"DOTAAbilities"
+{
+	"ability_thdots_yugi01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_yugi01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"	"4"
+		"ID"	"2033"
+		"Modifiers"
+		{
+			"passive_yugi01_bouns"
+			{
+				"Passive"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bouns_strength"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"bouns_strength"	"10 20 30 40"
+		}
+	}
+
+	"ability_thdots_yugi03"
+	{
+		"BaseClass"	"ability_datadriven"
+		// "AbilityTextureName"	"custom/ability_thdots_yugi03"
+		"AbilityTextureName"	"touhoutd/thtd_yuugi_02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		"ID"	"2034"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/heroes/mokou"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_spirit_breaker.vsndevts"
+		}
+		"Modifiers"
+		{
+			"passive_yugi03_attack"
+			{
+				"Passive"	"1"
+				"OnKill"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityYugi.lua"
+						"Function"		"OnYugiKill"
+					}
+				}
+				"OnAttackStart"
+				{
+					 "RunScript"
+				    	{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityYugi.lua"
+						"Target"	"CASTER"
+						"Function"	"OnYugi03Refresh"
+				  	}
+					"Random"
+					{
+						"Chance"	"%ability_chance_base"
+						"OnSuccess"
+						{
+							"ApplyModifier"
+							{
+								"Target"	"CASTER"
+								"ModifierName"	"ability_yugi03_animation"
+							}
+							//"Knockback"
+							//{
+							//	"Center"	"CASTER"
+							//	"Target"	"TARGET"
+							//	"Duration"	"1.0"
+							//	"Distance"	"%distance"
+							//	"Height"	"200"
+							//}
+						}
+					}
+				}
+				"OnAttackLanded"
+				{
+				    "RunScript"
+				    {
+						"ScriptFile"	"scripts/vscripts/abilities/abilityYugi.lua"
+						"Target"	"TARGET"
+						"Function"	"OnYugi03Damage"
+						"BounsDamage"	"%bouns_damage"
+						"Distance"	"%distance"
+				    }
+				}
+				"OnAttackFail"
+				{
+				    "RunScript"
+				    {
+						"ScriptFile"	"scripts/vscripts/abilities/abilityYugi.lua"
+						"Function"	"OnYugi03Fail"
+				    }
+				}
+			}
+			"ability_yugi03_animation"
+			{
+				"Duration"	"1.0"
+				"OverrideAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+			}
+		}
+		"AbilityValues"
+		{
+			"bouns_damage"	"150 250 350 450"
+			"ability_chance_base"	"14 14 14 14"
+			"distance"	"400"
+		}
+		"AbilityDamage"	"150 250 350 450"
+	}
+
+	"ability_thdots_yugi04"
+	{
+		"BaseClass"		"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityYugi.lua"
+		"AbilityTextureName"	"custom/ability_thdots_yugi04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET "
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetFlags"	"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastPoint"	"0.5"
+		"HasScepterUpgrade"			"1"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"AbilityCooldown"	"40 40 40"
+		"AbilityManaCost"	"120 180 240"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"300"
+		"ID"	"2035"
+		"precache"
+		{
+			"particle_folder"	"particles/thd2/heroes/yugi"
+			"particle_folder"	"particles/units/heroes/hero_earthshaker"
+			"soundfile"	"soundevents/voscripts/game_sounds_vo_doom_bringer.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_sandking.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"particle"	"particles/thd2/heroes/yugi/yugi_slam.vpcf"
+			"particle"	"particles/units/heroes/hero_earthshaker/earthshaker_echoslam_start_fallback_mid.vpcf"
+			"particle"	"particles/heroes/seija/seija04.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_yugi_sounds.vsndevts"
+			"particle"	"particles/units/heroes/hero_puck/puck_dreamcoil_tether.vpcf"
+			"particle"	"particles/units/heroes/hero_puck/puck_dreamcoil.vpcf"
+		}
+		//"OnSpellStart"
+		//{
+		//	"DelayedAction"
+		//	{
+		//		"Delay"	"0.5"
+		//		"Action"
+		//		{
+		//			// "FireSound"
+		//			// {
+		//			// 	"EffectName"	"Hero_Axe.JungleWeapon.Dunk"
+		//			// 	"Target"
+		//			// 	{
+		//			// 		"Center"	"TARGET"
+		//			// 		"Flags"	"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		//			// 	}
+		//			// }
+		//			// "AttachEffect"
+		//			// {
+		//			// 	"EffectName"	"particles/thd2/heroes/yugi/yugi_slam.vpcf"
+		//			// 	"EffectAttachType"	"follow_origin"
+		//			// 	"Target"
+		//			// 	{
+		//			// 		"Center"	"TARGET"
+		//			// 		"Flags"	"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		//			// 	}
+		//			// }
+		//			// "AttachEffect"
+		//			// {
+		//			// 	"EffectName"	"particles/units/heroes/hero_earthshaker/earthshaker_echoslam_start_fallback_mid.vpcf"
+		//			// 	"EffectAttachType"	"follow_origin"
+		//			// 	"Target"
+		//			// 	{
+		//			// 		"Center"	"TARGET"
+		//			// 		"Flags"	"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		//			// 	}
+		//			// }
+		//			// "ApplyModifier"
+		//			// {
+		//			// 	"Target"
+		//			// 	{
+		//			// 		"Center"	"TARGET"
+		//			// 		"Flags"	"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		//			// 	}
+		//			// 	"ModifierName"	"modifier_thdots_yugi04_think_interval"
+		//			// }
+		//			"RunScript"
+		//			{
+		//				"Target"	"TARGET"
+		//				"ScriptFile"	"scripts/vscripts/abilities/abilityYugi.lua"
+		//				"Function"	"OnYugi04wanbaochui"
+		//			}
+		//		}
+		//	}
+		//}
+		//"Modifiers"
+		//{
+		//	"modifier_thdots_yugi04_think_interval"
+		//	{
+		//		"Duration"	"%ability_duration"
+		//		"ThinkInterval"	"0.1"
+		//		"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+		//		"OnCreated"
+		//		{
+		//			"RunScript"
+		//			{
+		//				"Target"	"TARGET"
+		//				"ScriptFile"	"scripts/vscripts/abilities/abilityYugi.lua"
+		//				"Function"	"OnYugi04SpellStart"
+		//			}
+		//		}
+		//		"OnIntervalThink"
+		//		{
+		//			"RunScript"
+		//			{
+		//				"Target"	"TARGET"
+		//				"AbilityRadius"	"%ability_radius"
+		//				"AbilityDuration"	"%ability_duration"
+		//				"ScriptFile"	"scripts/vscripts/abilities/abilityYugi.lua"
+		//				"Function"	"OnYugi04SpellThink"
+		//			}
+		//		}
+		//		"OnDestroy"
+		//		{
+		//			"RunScript"
+		//			{
+		//				"Target"	"TARGET"
+		//				"DamagePercent"	"%damage_percent"
+		//				"ScriptFile"	"scripts/vscripts/abilities/abilityYugi.lua"
+		//				"Function"	"OnYugi04SpellEnd"
+		//			}
+		//			"FireSound"
+		//			{
+		//				"EffectName"	"Hero_Axe.JungleWeapon.Dunk"
+		//				"Target"	"TARGET"
+		//			}
+		//		}
+		//	}
+		//	"modifier_yugi04_wanbaochui_buff"
+		//	{
+		//		
+		//		"IsDebuff"	"1"
+		//		"IsPurgable"	"0"
+		//		"AttachEffect"
+		//			{
+		//				"EffectName"	"particles/thd2/heroes/yugi/yugi_slam.vpcf"
+		//				"EffectAttachType"	"follow_origin"
+		//				"Target"
+		//				{
+		//					"Center"	"TARGET"
+		//					"Flags"	"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		//				}
+		//			}
+		//			"AttachEffect"
+		//			{
+		//				"EffectName"	"particles/units/heroes/hero_earthshaker/earthshaker_echoslam_start_fallback_mid.vpcf"
+		//				"EffectAttachType"	"follow_origin"
+		//				"Target"
+		//				{
+		//					"Center"	"TARGET"
+		//					"Flags"	"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		//				}
+		//			}
+		//	}
+		//}
+		"AbilityValues"
+		{
+			"ability_duration"	"3.0 4.0 5.0"
+			"ability_radius"	"300"
+			"damage_percent"
+			{
+				"value"	"25"
+				"special_bonus_unique_yugi_3"	"+12"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_yugi_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"3"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_yugi_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:+12%三步必杀结算伤害
+	//=================================================================================================================
+	"special_bonus_unique_yugi_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"12"
+		}
+	}
+}

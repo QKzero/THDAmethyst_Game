@@ -1,0 +1,115 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Verity
+	// =================================================================================================================
+	"item_recipe_verity"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_verity"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8108"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_verity" 
+		"ItemRequirements"
+		{
+			"01"	"item_screw_driver;item_mushroom_pie;item_cat_ear;item_wind_amulet"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Verity
+	// =================================================================================================================
+	"item_verity"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_verity"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCooldown"		"5.0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8109"
+		"ItemQuality"	"common"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"3900"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"damage;agi;attack_speed"
+		"ItemAliases"	"diffusal blade"
+		"precache"
+		{
+			"particle"	"particles/base_attacks/ranged_tower_good_launch.vpcf"
+			"soundevents"	"soundevents/game_sounds_heroes/game_sounds_antimage.vsndevts"
+		}
+		"Modifiers"
+		{
+			"modifier_item_verity_attack"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"OnAttackLanded"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"particles/base_attacks/ranged_tower_good_launch.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"	"TARGET"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_Verity_OnAttack"
+						"Caster"	"CASTER"
+						"Target"	"TARGET"
+						"PenetrateRemoveManaPercent"	"%penetrate_remove_mana_percent"
+						"PenetrateDamageFactor"	"%penetrate_damage_factor"
+						"Basicremovemana"  "%basic_remove_mana"
+					}
+				}
+			}
+			"modifier_item_verity"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+				}
+			}
+		}
+		// 定义物品是否可以被丢弃，1表示可以丢弃
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"	"26"
+			"bonus_agility"	"14"
+			"bonus_attack_speed"	"15"
+			"penetrate_remove_mana_percent"	"3"
+			"penetrate_damage_factor"	"0.7"
+			"basic_remove_mana"	"24"
+			"bonus_strength"	"3"
+			"bonus_intellect"	"3"
+			"attackLand_damage"	"100"
+			"reduce_mana"	"100"
+		}
+	}
+}

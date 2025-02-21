@@ -1,0 +1,114 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Fox Mask
+	// =================================================================================================================
+	"item_recipe_mystia_wings"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_mystia_wings"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"8089"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"400"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_mystia_wings"
+		"ItemRequirements"
+		{
+			"01"	"item_wind_lace;item_sailor_suit;item_mushroom_kebab"
+			"02"	"item_wind_lace;item_sailor_suit;item_mushroom_pie"
+			"03"	"item_wind_lace;item_sailor_suit;item_mushroom_soup"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+	//"01"	"item_catnip;item_cat_ear;item_cat_foot"
+
+	// =================================================================================================================
+	// Fox Mask
+	// =================================================================================================================
+	"item_mystia_wings"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_mystia_wings"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"15"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8090"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"1740"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"armor;str;agi;int"
+		"ItemAliases"	"kitsune exalt;phase"
+		"precache"
+		{
+			"particle"	"particles/items2_fx/phase_boots.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_item_mystia_wings_fly"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_mystia_wings"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"OnCreated"	{}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"		"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_all_stats"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_all_stats"	
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"	"%bonus_move_speed"				
+				}
+			}
+			"modifier_item_mystia_wings_fly"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Duration"	"%foxwalk_duration"
+				// "Passive" 	"1"
+				"IsBuff"	"1"
+				// "IsHidden"	"1"
+				// "IsPurgable"	"1"
+				"EffectName"	"particles/items2_fx/phase_boots.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%foxwalk_movement_speed_percent_bonus"
+				}
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_all_stats"	"6"
+			"bonus_armor"	"4"
+			"foxwalk_duration"	"5"
+			"foxwalk_movement_speed_percent_bonus"	"25"
+			"bonus_move_speed"	"20"
+		}
+	}
+}

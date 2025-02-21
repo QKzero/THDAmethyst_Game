@@ -1,0 +1,86 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: wanbaochui 
+	// =================================================================================================================
+	"item_recipe_wanbaochui2"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"7979"
+		"ItemCost"	"2000"
+		"AbilityTextureName"	"item_recipe_wanbaochui2"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_wanbaochui2"
+		"ItemRequirements"
+		{
+			"01"	"item_wanbaochui"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+    // =================================================================================================================
+	// wanbaochui 万宝槌
+	// =================================================================================================================
+	"item_wanbaochui2"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_wanbaochui2"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"7980"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"6200"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"agi"
+		"ItemAliases"	"aghanim's blessing"
+		"Modifiers"
+		{
+			"modifier_item_wanbaochui2"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnCreated"	
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_wanbaochui02_OnSpellStart"
+					}		
+
+				}
+
+			}
+
+			"modifier_item_wanbaochui"
+			{
+
+				"IsBuff" "1"
+				"RemoveOnDeath" "0"	
+				
+				"ThinkInterval"  "0.03"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+						"Function"	"ItemAbility_wanbaochui02_SelfDestroy"
+					}		
+
+				}
+
+			}
+			
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+
+	}
+}

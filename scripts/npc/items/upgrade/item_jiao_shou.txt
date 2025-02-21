@@ -1,0 +1,113 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Jiao Shou
+	// =================================================================================================================
+	"item_recipe_jiao_shou"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_jiao_shou"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8132"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_jiao_shou"
+		"ItemRequirements"
+		{
+			"01"	"item_sailor_suit;item_cherry_leaf;item_cat_ear;item_doctor_doll"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Jiao Shou
+	// =================================================================================================================
+	"item_jiao_shou"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_jiao_shou"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AOERadius"		"%radius"
+		"AbilityCastRange"	"500"
+		"AbilityCooldown"	"25"
+		"AbilityManaCost"	"25"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8133"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2550"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"str;agi;int;damage"
+		"ItemAliases"	"jiao show's mask"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"		"ItemAbility_jiao_shou"
+				"Target"	"POINT"
+				"radius"	"%radius"
+				"AbilityCastRange" "%AbilityCastRange"
+				"Duration"	"%debuff_duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_jiao_shou"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
+				}
+			}
+			"modifier_item_jiao_shou_play_debuff"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movement_speed_percent_reduction"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"8"
+			"bonus_agility"	"8"
+			"bonus_intellect"	"8"
+			"bonus_armor"	"4"
+			"radius"
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"debuff_duration"	"5"
+			"movement_speed_percent_reduction"	"-20"
+			"bonus_attackspeed"	"15"
+		}
+	}
+}

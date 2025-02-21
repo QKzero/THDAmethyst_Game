@@ -1,0 +1,88 @@
+"DOTAHeroes"
+{
+	"npc_dota_hero_Tensi"
+	{
+		"override_hero"	"npc_dota_hero_earthshaker"
+		"AbilityLayout"	"6"
+		"Ability1"	"earthshaker_fissure"
+		"Ability2"	"ability_thdots_tensi02"
+		"Ability3"	"ability_thdots_tensi03"
+		"Ability4"		"ability_thdots_tensiex"
+		"Ability5"		"generic_hidden"		
+		"Ability6"	"zuus_thundergods_wrath"
+		
+		"Ability10"		"special_bonus_strength_8"
+		"Ability11"		"special_bonus_mp_250"
+		"Ability12"		"special_bonus_movement_speed_30"
+		"Ability13"		"special_bonus_armor_6"
+		"Ability14"		"special_bonus_unique_tensi_2"
+		"Ability15"		"special_bonus_unique_tensi_3"
+		"Ability16"		"special_bonus_unique_tensi_1"
+		"Ability17"		"special_bonus_cooldown_reduction_30"
+
+		"Facets"
+		{
+		}
+
+		//"Carry"			"核心"
+		//"Support"			"辅助"
+		//"Nuker"			"爆发"
+		//"Disabler"		"控制"
+		//"Jungler"			"打野"
+		//"Durable"			"耐久"
+		//"Escape"			"逃生"
+		//"LaneSupport"		"对线辅助"
+		//"Pusher"			"推进"
+		//"Initiator"		"先手"
+		//"Role"			"Carry,Support,Nuker,Disabler,Jungler,Durable,Escape,LaneSupport,Pusher,Initiator"
+
+		"Role"				"Support,Nuker,Disabler,LaneSupport,Initiator"
+		"Rolelevels"		"3,1,3,2,3"
+		"Complexity"	"1"
+
+		"Model"	"models/new_touhou_model/tenshi/tenshi.vmdl"
+		"VoiceFile" "soundevents/voscripts/game_sounds_vo_earthshaker.vsndevts"
+		"ModelScale"	"1.2"
+		"VersusScale"	"1.2"
+		"LoadoutScale"	"1.2"
+		"ArmorPhysical"	"2"
+		// 物理护甲
+		"AttackDamageMin"	"40"
+		// 最小攻击力
+		"AttackDamageMax"	"42"
+		// 最大攻击力
+		"AttributeBaseStrength"	"25"
+		// 基础力量
+		"AttributeStrengthGain"	"2.7"
+		// 每级增加的力量，力量成长
+		"AttributeBaseAgility"	"17"
+		// 基础敏捷
+		"AttributeAgilityGain"	"2.4"
+		// 每级增加的敏捷，敏捷成长
+		"AttributeBaseIntelligence"	"18"
+		// 基础智力
+		"AttributeIntelligenceGain"	"2.0"
+		// 每级增加的智力，智力成长
+		"MovementSpeed"	"300"
+		// 基础移动速度
+		"MovementTurnRate"	"2.0"
+		// 转身速度
+		"StatusHealth"	"205"
+		// 基础生命值
+		"StatusHealthRegen"	"3.2"
+		// 基础生命恢复
+		"StatusMana"	"30"
+		// 基础魔法值
+		"StatusManaRegen"	"0.8"
+		// 基础魔法恢复
+		"VisionDaytimeRange"	"1050"
+		// 白天视野大小
+		"VisionNighttimeRange"	"700"
+		// 晚上视野大小
+		"DisableWearables"	"1"
+		
+		"Ability7"	"generic_hidden"
+		"Ability8"	"generic_hidden"
+		"Ability9"	"generic_hidden"
+	}
+}

@@ -1,0 +1,49 @@
+"DOTAAbilities"
+{
+    "item_recipe_nb9ball"
+    {
+        "BaseClass" "item_datadriven"
+		"AbilityTextureName"	"item_recipe_nb9ball"	
+        "ItemCost"	"0"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_nb9ball"
+        "ItemRequirements"
+		{
+			"01"	"item_wanmeitiaoyuezhuangzhi;item_horse_king;item_travel_boots"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+    }
+
+    "item_nb9ball"
+    {
+        "BaseClass" "item_lua"
+        "AbilityTextureName" "item_nb9ball"
+        "ScriptFile" "scripts/vscripts/items/item_nb9ball.lua"
+        "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+        "ItemQuality" "basics"
+        "ItemCost"	"12299"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"AbilityCooldown"	"29"
+        "ItemShopTags" "str;agi;int"
+        "ItemAliases" "nb;nb9ball;newbee;cow pussy"
+        "precache"
+        {
+            "particle"		"particles/econ/events/fall_2021/blink_dagger_fall_2021_start_lvl2.vpcf"
+            "particle"		"particles/econ/events/fall_2021/blink_dagger_fall_2021_end_lvl2.vpcf"
+        }
+        "AbilityValues"
+        {
+            "AbilityCastRange" "999"
+            "damage" "99"
+            "movespeed" "99"
+            "attack_speed" "99"
+            "all_stats" "29"
+            "health" "99"
+            "mana" "99"
+            "modifier_duration" "9"
+            "modifier_attack_speed" "9"
+            "modifier_movespeed_percent" "9"
+        }
+    }
+}

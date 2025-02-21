@@ -1,0 +1,89 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Jinkela
+	// =================================================================================================================
+	//"item_jinkela1"
+	//{
+	//	"BaseClass"	"item_datadriven"
+	//	"AbilityTextureName"	"item_jinkela"
+	//	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+	//	// Stats
+	//	// -------------------------------------------------------------------------------------------------------------
+	//	"AbilityCastPoint"	"0.0"
+	//	"AbilityCooldown"	"60"
+	//	// General
+	//	// -------------------------------------------------------------------------------------------------------------
+	//	// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+	//	"ID"	"8138"
+	//	"ItemQuality"	"consumables"
+	//	// Item Info
+	//	// -------------------------------------------------------------------------------------------------------------
+	//	"ItemCost"	"600"
+	//	"ItemDroppable"	"1"
+	//	"ItemSellable"	"1"
+	//	"ItemShareability"	"ITEM_FULLY_SHAREABLE"
+	//	"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES"
+	//	"ItemPermanent"	"0"
+	//	"ItemInitialCharges"	"2"
+	//	"ItemStackable"	"1"
+	//	"ItemShopTags"	"consumables"
+	//	"OnSpellStart"
+	//	{
+	//		"Heal"
+	//		{
+	//			"Target"
+	//			{
+	//				"Center"	"CASTER"
+	//				"Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+	//				"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+	//				"Radius"	"%effect_radius"
+	//			}
+	//			"HealAmount"	"%heal_amount"
+	//		}
+	//		"ApplyModifier"
+	//		{
+	//			"Target"
+	//			{
+	//				"Center"	"CASTER"
+	//				"Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+	//				"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+	//				"Radius"	"%effect_radius"
+	//			}
+	//			"ModifierName"	"modifier_item_jinkela_buff"
+	//		}
+	//		"RunScript"
+	//		{
+	//			"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+	//			"Function"	"ItemAbility_SpendItem"
+	//		}
+	//	}
+	//	"Modifiers"
+	//	{
+	//		"modifier_item_jinkela_buff"
+	//		{
+	//			// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+	//			"Duration"	"%buff_duration"
+	//			"IsBuff"	"1"
+	//			"Properties"
+	//			{
+	//				"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%buff_bonus_armor"
+	//				"MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE"	"%buff_bonus_damage_percent"
+	//			}
+	//		}
+	//	}
+	//	// Special
+	//	// -------------------------------------------------------------------------------------------------------------
+	//	"AbilityValues"
+	//	{
+	//		"buff_bonus_damage_percent"	"30"
+	//		"buff_bonus_armor"	"5"
+	//		"buff_duration"	"30"
+	//		"effect_radius"	"500"
+	//		"heal_amount"	"120"
+	//	}
+	//	"ItemStockMax"	"2"
+	//	"ItemStockInitial"	"2"
+	//	"ItemStockTime"	"120"
+	//}
+}

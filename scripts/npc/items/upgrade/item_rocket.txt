@@ -1,0 +1,591 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: Rocket
+	// =================================================================================================================
+	"item_recipe_rocket"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_rocket"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8065"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"800"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_rocket"
+		"ItemRequirements"
+		{
+			"01"	"item_knife;item_rocket_diagram"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_recipe_rocket_2"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_rocket"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8066"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_rocket_2"
+		"ItemRequirements"
+		{
+			"02"	"item_rocket;item_recipe_rocket"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_recipe_rocket_3"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_rocket"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8067"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_rocket_3"
+		"ItemRequirements"
+		{
+			"02"	"item_rocket_2;item_recipe_rocket"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_recipe_rocket_4"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_rocket"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8068"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_rocket_4"
+		"ItemRequirements"
+		{
+			"02"	"item_rocket_3;item_recipe_rocket"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	"item_recipe_rocket_5"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_rocket"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8069"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"0"
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_rocket_5"
+		"ItemRequirements"
+		{
+			"02"	"item_rocket_4;item_recipe_rocket"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+	// =================================================================================================================
+	// Rocket
+	// =================================================================================================================
+	"item_rocket"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_rocket"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"48"
+		"AbilityManaCost"	"60"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"300 400 500 600 700"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8070"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2200"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShopTags"	"str;agi;int;damage"
+		"ItemAliases"	"dagon"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"1"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_rocket.vpcf"
+			"soundevents"	"soundevents/game_sounds_custom.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"THD_ITEM.Rocket_Fire"
+				"Target"		"CASTER"
+			}
+			"TrackingProjectile"
+			{
+				"Target"	"TARGET"
+				"EffectName"	"particles/thd2/items/item_rocket.vpcf"
+				"Dodgeable"	"0"
+				"ProvidesVision"	"1"
+				"VisionRadius"	"300"
+				"MoveSpeed"	"800"
+			}
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"	"true"
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_Rocket_OnHit"
+				"RocketDamage"	"%rocket_damage"
+				"StunDuration"	"%rocket_stun_duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_rocket"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"3"
+			"bonus_agility"	"3 4 5 6 7"
+			"bonus_intellect"	"12 14 16 18 20"
+			"bonus_damage"	"12 16 20 24 28"
+			"rocket_damage"	"300 400 500 600 700"
+			"rocket_stun_duration"	"0.01 0.26 0.51 0.76 1.01"
+		}
+		"AbilitySharedCooldown"	"rocket"
+		"UpgradesItems"	"item_rocket;item_rocket_2;item_rocket_3;item_rocket_4"
+		"UpgradeRecipe"	"item_recipe_rocket"
+	}
+
+	"item_rocket_2"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_rocket_2"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"48"
+		"AbilityManaCost"	"80"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"300 400 500 600 700"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8071"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"3000"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShopTags"	"str;agi;int;damage"
+		"ItemAliases"	"dagon"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"2"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_rocket.vpcf"
+			"soundevents"	"soundevents/game_sounds_custom.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"THD_ITEM.Rocket_Fire"
+				"Target"		"CASTER"
+			}
+			"TrackingProjectile"
+			{
+				"Target"	"TARGET"
+				"EffectName"	"particles/thd2/items/item_rocket.vpcf"
+				"Dodgeable"	"0"
+				"ProvidesVision"	"1"
+				"VisionRadius"	"300"
+				"MoveSpeed"	"800"
+			}
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"	"true"
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_Rocket_OnHit"
+				"RocketDamage"	"%rocket_damage"
+				"StunDuration"	"%rocket_stun_duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_rocket_2"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"3"
+			"bonus_agility"	"3 4 5 6 7"
+			"bonus_intellect"	"12 14 16 18 20"
+			"bonus_damage"	"12 16 20 24 28"
+			"rocket_damage"	"300 400 500 600 700"
+			"rocket_stun_duration"	"0.01 0.26 0.51 0.76 1.01"
+		}
+		"AbilitySharedCooldown"	"rocket"
+		"UpgradesItems"	"item_rocket_2;item_rocket_3;item_rocket_4"
+		"UpgradeRecipe"	"item_recipe_rocket"
+	}
+
+	"item_rocket_3"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_rocket_3"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"48"
+		"AbilityManaCost"	"100"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"300 400 500 600 700"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8072"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"3800"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShopTags"	"str;agi;int;damage"
+		"ItemAliases"	"dagon"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"3"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_rocket.vpcf"
+			"soundevents"	"soundevents/game_sounds_custom.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"THD_ITEM.Rocket_Fire"
+				"Target"		"CASTER"
+			}
+			"TrackingProjectile"
+			{
+				"Target"	"TARGET"
+				"EffectName"	"particles/thd2/items/item_rocket.vpcf"
+				"Dodgeable"	"0"
+				"ProvidesVision"	"1"
+				"VisionRadius"	"300"
+				"MoveSpeed"	"800"
+			}
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"	"true"
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_Rocket_OnHit"
+				"RocketDamage"	"%rocket_damage"
+				"StunDuration"	"%rocket_stun_duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_rocket_3"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"3"
+			"bonus_agility"	"3 4 5 6 7"
+			"bonus_intellect"	"12 14 16 18 20"
+			"bonus_damage"	"12 16 20 24 28"
+			"rocket_damage"	"300 400 500 600 700"
+			"rocket_stun_duration"	"0.01 0.26 0.51 0.76 1.01"
+		}
+		"AbilitySharedCooldown"	"rocket"
+		"UpgradesItems"	"item_rocket_3;item_rocket_4"
+		"UpgradeRecipe"	"item_recipe_rocket"
+	}
+
+	"item_rocket_4"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_rocket_4"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"48"
+		"AbilityManaCost"	"120"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"300 400 500 600 700"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8073"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"4600"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShopTags"	"str;agi;int;damage"
+		"ItemAliases"	"dagon"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"4"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_rocket.vpcf"
+			"soundevents"	"soundevents/game_sounds_custom.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"THD_ITEM.Rocket_Fire"
+				"Target"		"CASTER"
+			}
+			"TrackingProjectile"
+			{
+				"Target"	"TARGET"
+				"EffectName"	"particles/thd2/items/item_rocket.vpcf"
+				"Dodgeable"	"0"
+				"ProvidesVision"	"1"
+				"VisionRadius"	"300"
+				"MoveSpeed"	"800"
+			}
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"	"true"
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_Rocket_OnHit"
+				"RocketDamage"	"%rocket_damage"
+				"StunDuration"	"%rocket_stun_duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_rocket_4"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"3"
+			"bonus_agility"	"3 4 5 6 7"
+			"bonus_intellect"	"12 14 16 18 20"
+			"bonus_damage"	"12 16 20 24 28"
+			"rocket_damage"	"300 400 500 600 700"
+			"rocket_stun_duration"	"0.01 0.26 0.51 0.76 1.01"
+		}
+		"AbilitySharedCooldown"	"rocket"
+		"UpgradesItems"	"item_rocket_4"
+		"UpgradeRecipe"	"item_recipe_rocket"
+	}
+
+	"item_rocket_5"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_rocket_5"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"48"
+		"AbilityManaCost"	"140"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"300 400 500 600 700"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"8074"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"5400"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemDeclarations"	"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemShopTags"	"str;agi;int;damage"
+		"ItemAliases"	"dagon"
+		"MaxUpgradeLevel"	"5"
+		"ItemBaseLevel"	"5"
+		"precache"
+		{
+			"particle"	"particles/thd2/items/item_rocket.vpcf"
+			"soundevents"	"soundevents/game_sounds_custom.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"THD_ITEM.Rocket_Fire"
+				"Target"		"CASTER"
+			}
+			"TrackingProjectile"
+			{
+				"Target"	"TARGET"
+				"EffectName"	"particles/thd2/items/item_rocket.vpcf"
+				"Dodgeable"	"0"
+				"ProvidesVision"	"1"
+				"VisionRadius"	"300"
+				"MoveSpeed"	"800"
+			}
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"	"true"
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_Rocket_OnHit"
+				"RocketDamage"	"%rocket_damage"
+				"StunDuration"	"%rocket_stun_duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_rocket_5"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bonus_strength"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"	"3"
+			"bonus_agility"	"3 4 5 6 7"
+			"bonus_intellect"	"12 14 16 18 20"
+			"bonus_damage"	"12 16 20 24 28"
+			"rocket_damage"	"300 400 500 600 700"
+			"rocket_stun_duration"	"0.01 0.26 0.51 0.76 1.01"
+		}
+		"AbilitySharedCooldown"	"rocket"
+	}
+}

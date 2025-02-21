@@ -1,0 +1,228 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: xuenvdeweijin
+	// =================================================================================================================
+	"item_recipe_xuenvdeweijin"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"7987"
+		"ItemCost"	"1000"
+		"AbilityTextureName"	"item_recipe_xuenvdeweijin"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_xuenvdeweijin"
+		"ItemRequirements"
+		{
+			"01"	"item_pad;item_ghost_balloon;item_swimming_suit"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
+    // =================================================================================================================
+	// 雪女的围巾
+	// =================================================================================================================
+
+	"item_xuenvdeweijin"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_datadriven"
+		"ID"							"7988"  //Valve's version of this item uses the ID "119".
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"Model"							"models/props_gameplay/red_box.vmdl" 
+		"Effect"						"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"			"item_xuenvdeweijin"
+		"FightRecapLevel"				"1"
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"30"
+		"AbilityManaCost"				"70"
+		"AbilityCastPoint"				"0.0"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"5750"
+		"ItemShopTags"					"armor;hard_to_tag"
+		"ItemAliases"					"snow fairy's scarf;shiva's guard"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"AbilityValues"
+		{
+			"bonus_health"				   "450"
+			"bonus_health_regen"			"8"
+			"bonus_armor"					"14"
+			"aura_radius"
+			{
+				"value"			"900"
+				"affected_by_aoe_increase"	"1"
+			}
+			"aura_attack_speed"				"-20"
+			"blast_final_radius"
+			{
+				"value"			"900"
+				"affected_by_aoe_increase"	"1"
+			}
+			"blast_speed_per_second"		"450"
+			"blast_damage"					"200"
+			"blast_movement_speed_debuff"	"-40"
+			"blast_debuff_duration"			"4"
+			"blast_vision_radius"			"800.0"
+			"blast_vision_duration"			"2.0"
+			"chance"	"60"
+			"shield_duration"	"4"
+			"incoming_damage_reduce"	"-80"
+			"block"							"90"
+			"percent"						"100"
+			"bonus_mana_regen"	"2"
+		}
+		
+		
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"					"scripts/vscripts/items/item_block.lua"
+				"Function"						"ItemBlockXOnSpellStart"
+				"BlastFinalRadius"				"%blast_final_radius"
+				"BlastSpeedPerSecond"			"%blast_speed_per_second"
+				"BlastDamage"					"%blast_damage"
+				"BlastDebuffDuration"			"%blast_debuff_duration"
+				"BlastVisionRadius"				"%blast_vision_radius"
+				"BlastVisionDuration"			"%blast_vision_duration"
+				"ModifierBlastDebuffName" 		"modifier_item_xuenvdeweijin_blast_debuff"
+				"ModifierShieldName" 			"modifier_item_xuenvdeweijin_shield"
+			}
+		}
+		
+		"Modifiers"
+		{
+			"modifier_item_xuenvdeweijin_block"
+			{
+				"IsHidden"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_CONSTANT_BLOCK" "%block"
+				}
+			}
+			"modifier_item_xuenvdeweijin"
+			{
+				"Passive"			"1"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"0"
+				"Attributes" 		"MODIFIER_ATTRIBUTE_MULTIPLE"
+				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+					"MODIFIER_PROPERTY_HEALTH_BONUS"	"%bonus_health"
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor"
+					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+				}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_block.lua"
+						"Function"	"ItemAbility_Block_Refresh"
+						"BlockModifierName"	"modifier_item_xuenvdeweijin_block"
+						"BlockChance"	"%chance"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_block.lua"
+						"Function"	"ItemAbility_Block_Recycle"
+					}
+				}
+				"OnAttacked"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_block.lua"
+						"Function"	"ItemAbility_Block_OnAttacked"
+					}
+				}
+				
+			}
+			"modifier_item_xuenvdeweijin_aura"
+			{
+				"Passive"			"1"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"1"
+				"ThinkInterval"  "0.5"
+				"OnIntervalThink"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_item_xuenvdeweijin_enemy_aura"
+						"Target"
+						{
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+							"Center"	"CASTER"
+							"Radius"	"%aura_radius"
+						}
+					}
+				}
+			}
+			"modifier_item_xuenvdeweijin_enemy_aura"
+			{
+				//"Attributes" 		"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsDebuff"			"1"			
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"1"
+				"Duration"			"0.5"
+				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"			"%aura_attack_speed"
+				}
+			}
+			"modifier_item_xuenvdeweijin_blast_debuff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsDebuff"			"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"1"
+				
+				"StatusEffectName"     "particles/status_fx/status_effect_frost.vpcf"
+				"StatusEffectPriority" "10"				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"		"%blast_movement_speed_debuff"
+				}
+			}
+			"modifier_item_xuenvdeweijin_shield"
+			{
+				"IsBuff"	"1"
+				"IsPurgable"		"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"		"1"
+				"EffectName"	"particles/thd2/items/item_ballon.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Duration"	"%shield_duration"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_PHYSICAL_DAMAGE_PERCENTAGE"			"%incoming_damage_reduce"
+				}
+			}
+		}
+	}
+}

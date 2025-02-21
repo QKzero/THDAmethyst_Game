@@ -1,0 +1,346 @@
+"DOTAAbilities"
+{
+	"ability_thdots_marisaEx"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityMarisa.lua"
+		"AbilityTextureName"	"touhoutd/thtd_marisa_02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// Stats
+		// ----------------------------------------------------------------
+		"MaxLevel"	"1"	
+		"AbilityCooldown"	"10"
+		"IsBreakable"					"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_windrunner/windrunner_windrun_beam.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_brewmaster.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"refresh_interval"	"10"
+			"refresh_time"		"3"
+			"refresh_time_ult"		"25"
+		}
+	}
+
+	"ability_thdots_marisa01"
+	{
+		"BaseClass"	"ability_lua"
+		"AbilityTextureName"	"custom/ability_thdots_marisa01"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityMarisa.lua"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.1"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"AbilityManaCost"	"70"
+		// Stats
+		// ----------------------------------------------------------------
+		// "AbilityCastRange"	"99999"
+		"ID"	"2003"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_faceless_void.vsndevts"
+			"particle"	"particles/thd2/heroes/marisa/marisa_01_rocket.vpcf"
+		}
+		"AbilityValues"
+		{
+			"move_speed"	"1250"
+			"damage_radius"
+			{
+				"value"	"200"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"affected_by_aoe_increase"	"1"
+			}
+			"move_duration"	"0.4 0.48 0.56 0.64"
+			"cast_range"	"500 600 700 800"
+			"AbilityCooldown"
+			{
+				"value"	"10 8.5 7 5.5"
+				"special_bonus_unique_marisa_4"	"-2"
+			}
+		}
+		"AbilityDamage"	"60 80 100 120"
+		"AbilityCastRange" "500 600 700 800"
+	}
+
+	"ability_thdots_marisa02"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitymarisa.lua"
+		"AbilityTextureName"	"custom/ability_thdots_marisa02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		"AbilityCastPoint"	"0.1"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AbilityCooldown"	"6"
+		"AbilityManaCost"	"85 105 125 145"
+		// Stats
+		// ----------------------------------------------------------------
+		//"AbilityCastRange"	"650"
+		"AbilityChannelTime"	"0.5"
+		"ID"	"2004"
+		"precache"
+		{
+			"particle"	"particles/thd2/heroes/marisa/marisa_02_stars.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_keeper_of_the_light.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"damage_duration"
+			{
+				"value"	"0.5"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+			}
+			"damage_radius"
+			{
+				"value"	"650"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		"AbilityDamage"	"75 150 225 300"
+		"AbilityCastRange" "650"
+	}
+
+	"ability_thdots_marisa03"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_marisa03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_3"
+		"AbilityCooldown"	"16"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityManaCost"	"95 115 135 155"
+		"ID"	"2005"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_wisp.vsndevts"
+			"particle"	"particles/heroes/marisa/marisa_03_stars.vpcf"
+			"particle"	"particles/heroes/marisa/marisa_03_stars_b.vpcf"
+			"particle"	"particles/heroes/marisa/marisa_03_stars_c.vpcf"
+			"particle"	"particles/heroes/marisa/marisa_03_stars_d.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityMarisa.lua"
+				"Function"	"OnMarisa03SpellStart"
+				"AbilityDuration"	"%ability_duration"
+				"Caster"	"CASTER"
+			}			
+		}
+		"Modifiers"
+		{			
+			"modifier_thdots_marisa03_think_interval"
+			{
+				"RemoveOnDeath"	"0"
+				"IsHidden"	"0"
+				"ThinkInterval"	"0.02"
+
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMarisa.lua"
+						"Function"	"OnMarisa03SpellThink"
+						"Caster"	"CASTER"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"ability_duration"	"8"
+			"attack_radius"	"500"
+			"building_percent"	"60"
+		}
+		"AbilityDamage"	"25 40 55 70"
+	}
+
+	"ability_thdots_marisa04"
+	{
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitymarisa.lua"
+		"AbilityTextureName"	"custom/ability_thdots_marisa04"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		// "AbilityCooldown"           "0"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		"AbilityCooldown"	"100 85 70"
+		"AbilityManaCost"	"250 375 500"
+		"HasScepterUpgrade"	"1"
+		// Stats
+		// ----------------------------------------------------------------
+		"AbilityCastRange"	"950"
+		"AbilityChannelTime"	"2.0"
+		"ID"	"2006"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_windrunner/windrunner_windrun_beam.vpcf"
+			"particle"	"particles/thd2/heroes/marisa/marisa_04_spark.vpcf"
+			"particle"	"particles/thd2/heroes/marisa/marisa_04_spark_wind_b.vpcf"
+			"particle"	"particles/heroes/marisa/marisa_04_spark_circle.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_marisa_sounds.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_puck.vsndevts"
+		}
+		"AbilityValues"
+		{
+			"damage_width"
+			{
+				"value"	"400"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage_lenth"
+			{
+				"value"	"1060"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"affected_by_aoe_increase"	"1"
+			}
+			"wanbaochui_amplify"
+			{
+				"value"	"0.35"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"duration"	"2.1"
+		}
+		"AbilityDamage"	"360 540 720"
+		"AbilityCastRange" "1000"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_marisa_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"800"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_marisa_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"						"-50"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:+100星辰狂欢
+	//=================================================================================================================
+	"special_bonus_unique_marisa_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"100"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus：-3飞CD
+	//=================================================================================================================
+	"special_bonus_unique_marisa_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"-2"
+		}
+	}
+
+	"ability_marisa03_dummy_unit"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/rubick_empty1"
+		"Modifiers"
+		{
+			"dummy_unit"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"States"
+				{
+					"MODIFIER_STATE_ATTACK_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"	
+					"MODIFIER_STATE_NOT_ON_MINIMAP"	"MODIFIER_STATE_VALUE_ENABLED"	
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"-100"
+					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE"	"1"
+				}
+			}
+		}
+	}
+
+	"ability_thdots_marisa03_dealdamage"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_marisa03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		"MaxLevel"	"1"
+		"Modifiers"
+		{
+			"passive_marisa03_damaged"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnDealDamage"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityMarisa.lua"
+						"Function"	"OnMarisa03DealDamage"
+						"DealDamage"	"%deal_damage"
+					}
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"deal_damage"	"25 40 55 70"
+			"building_percent"	"60"
+		}
+	}
+}
