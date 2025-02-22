@@ -38,6 +38,7 @@
 		"Role"				"Carry,Support,Nuker,Disabler,Jungler,Durable,Initiator"
 		"Rolelevels"		"2,1,3,2,3,2,2"
 		"Complexity"	"3"
+		"AttributePrimary"	"DOTA_ATTRIBUTE_INTELLECT"
 
 		"Model"	"models/kaguya/kaguya_mmd.vmdl"
 		"VoiceFile" "soundevents/voscripts/game_sounds_vo_furion.vsndevts"

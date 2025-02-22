@@ -2205,6 +2205,7 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 			GameRules:SendCustomMessage("#BotMode_Explain15",0,0)
 			GameRules:SendCustomMessage("#BotMode_Explain16",0,0)
 			GameRules:SendCustomMessage("#BotMode_Explain17",0,0)
+			GameRules:SendCustomMessage("#BotMode_Explain18",0,0)
 		else
 			GameRules:SendCustomMessage("#BP_Explain1",0,0)
 			GameRules:SendCustomMessage("#RANKDC_Explain1",0,0)

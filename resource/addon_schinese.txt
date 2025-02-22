@@ -87,7 +87,7 @@
 		"DOTA_AbilityTooltip_Aghs_Scepter" "万宝槌"
 		"DOTA_AbilityTooltip_Aghs_Shard" "灵异珠"
 
-		"BotMode_Explain1" "<font color='#00FFFF'>欢迎来到THD2人机模式，在这里通过与Bot对抗，熟悉THD2的少女和装备吧</font>"
+		"BotMode_Explain1" "<font color='#6633CC'>正在使用紫水晶地图</font>"
 		"BotMode_Explain2" "<font color='#00FFFF'>欢迎新人加入QQ群474907856与新老玩家共勉，也可通过 https://thd2.cc/ 获取信息发布</font>"
 		"BotMode_Explain3" "<font color='#00FFFF'>THBWiki搜索桃花岛获取更多角色攻略</font>"
 		"BotMode_Explain4" "<font color='#00FFFF'>默认难度为easy(容易)，可通过以下指令修改难度：</font>"
@@ -104,6 +104,7 @@
 		"BotMode_Explain15" "<font color='#00FFFF'>-banbots X 禁用bot机体，x是机体覆盖的dota英雄名字，多个机体用空格隔开</font>"
 		"BotMode_Explain16" "<font color='#00FFFF'>-strawberry 启用草莓模式，测试未实装的游戏性改动</font>"
 		"BotMode_Explain17" "<font color='#00FFFF'>-dota 启用Dota乱入</font>"
+		"BotMode_Explain18" "<font color='#6633CC'>正在使用紫水晶地图</font>"
 
 		"BP_Explain1" "<font color='#00FFFF'>房主在该界面输入-bp即可启用自由BP模式</font>"
 		"BP_Explain2" "<font color='#00FFFF'>BP模式已启用</font>"
