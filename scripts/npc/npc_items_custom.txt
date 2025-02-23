@@ -165,11 +165,6 @@
 #base "items\upgrade\item_nuetrident.txt"
 #base "items\upgrade\item_kusanagi.txt"
 
-// Test Items
-//#base "items\test\item_test01.txt"
-//#base "items\test\item_test02.txt"
-
-
 "DOTAAbilities"
 {
 	"Version"		"1"

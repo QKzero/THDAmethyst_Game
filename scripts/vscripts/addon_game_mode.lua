@@ -1178,49 +1178,6 @@ function THDOTSGameMode:OnPlayerSay( keys )
 		elseif hero:GetName() == "npc_dota_hero_lone_druid" then
 			Say(plyhd, "*该少女已经更换技能，无法再更换", true)
 		end
-	elseif text == "-abi" then --
-		local caster = plyhd:GetAssignedHero()
-		-- caster:SetModel("models/mushroom/mushroom.vmdl")
-		-- caster:SetModelScale(0.4)
-		-- GetAllAbilityName(caster)
-		-- if caster.mushroom == nil then
-		-- 	caster.mushroom = {}
-		-- end
-		-- local vec = Vector(0,0,0)
-		-- local radius = 7500
-		-- local trees = GridNav:GetAllTreesAroundPoint(vec, radius, false)
-		-- local particle = ParticleManager:CreateParticle("particles/heroes/seija/seija04.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
-	 --    ParticleManager:SetParticleControl(particle, 2, Vector(radius, radius, radius))
-	 --    ParticleManager:ReleaseParticleIndex(particle)
-		-- print("tree")
-		-- print(#trees)
-			-- GridNav:DestroyTreesAroundPoint(vec, radius, true)
-		-- 	local towers = FindUnitsInRadius(caster:GetTeam(), vec,nil,radius,DOTA_UNIT_TARGET_TEAM_BOTH,
-		-- DOTA_UNIT_TARGET_BUILDING,0,0,false)
-		-- print("tower")
-		-- print(#towers)
-		-- for _,tower in pairs(towers) do
-		-- 	print(tower:GetOrigin())
-		-- end
-
-		
-		-- GetAllModifierName(caster)
-		-- caster:AddAbility("ability_thdots_sumirekoEx")
-	-- elseif text == "-flandre01" then --
-	-- 	local hero = plyhd:GetAssignedHero()
-	-- 	if hero:GetName() == "npc_dota_hero_naga_siren" and hero:GetModelName() == "models/flandre_scarlet/flandre_scarlet.vmdl" then
-	-- 		hero:SetMaterialGroup("0")
-	-- 		ParticleManager:DestroyParticleSystem(hero.Flandre_effect,true)
-	-- 	end
-	-- elseif text == "-flandre02" then --
-	-- 	local hero = plyhd:GetAssignedHero()
-	-- 	if hero:GetName() == "npc_dota_hero_naga_siren" and hero:GetModelName() == "models/flandre_scarlet/flandre_scarlet.vmdl" then
-	-- 		hero:SetMaterialGroup("1")
-	-- 		hero.Flandre_effect = ParticleManager:CreateParticle("models/flandre_scarlet/flandre_scarlet/flandre_ambient.vpcf", PATTACH_CUSTOMORIGIN,hero)
-	-- 		ParticleManager:SetParticleControlEnt(hero.Flandre_effect , 0, hero, 5, "attach_hitloc", Vector(0,0,0), true)
-	-- 		ParticleManager:SetParticleControlEnt(hero.Flandre_effect , 1, hero, 5, "attach_hitloc", Vector(0,0,0), true)
-	-- 		ParticleManager:SetParticleControlEnt(hero.Flandre_effect , 5, hero, 5, "attach_hitloc", Vector(0,0,0), true)
-	-- 	end
 	end
 	
 	if text == "getnum" then
