@@ -6717,10 +6717,10 @@
 		"DOTA_Tooltip_ability_item_laevateinn_bonus_intellect"		"+$int"
 		"DOTA_Tooltip_ability_item_laevateinn_Note0"				"加攻击力包括绿字攻击；血晶石派生道具之间的吸血不可叠加，吸血效果以最后获得的道具为主。\n血晶石系列道具攻击幻象与建筑无法吸血，攻击特效伤害也不能吸血。"
 
-		"DOTA_Tooltip_ability_item_magic_mushroom"						"神奇蘑菇"
-		"DOTA_Tooltip_ability_item_magic_mushroom_Description"			"<h1>使用：吞食蘑菇</h1>立即回复%regen_mana%点魔法。"
+		"DOTA_Tooltip_ability_item_magic_mushroom"						"神奇芒果"
+		"DOTA_Tooltip_ability_item_magic_mushroom_Description"			"<h1>使用：吞食芒果</h1>立即回复%regen_mana%点魔法。"
 		"DOTA_Tooltip_ability_item_magic_mushroom_bonus_health_regen"	"+$hp_regen"
-		"DOTA_Tooltip_ability_item_magic_mushroom_Lore"					"产自魔法森林的看起来人畜无害的蘑菇，一定很好吃吧。啊喂！为什么这蘑菇在发光？！"
+		"DOTA_Tooltip_ability_item_magic_mushroom_Lore"					"产自魔法森林的看起来人畜无害的芒果，一定很好吃吧。啊喂！为什么这芒果在发光？！"
 
 		"DOTA_Tooltip_ability_item_recipe_jiaokeshu"				"历史教科书制作书"
 		"DOTA_Tooltip_ability_item_jiaokeshu"						"历史教科书"

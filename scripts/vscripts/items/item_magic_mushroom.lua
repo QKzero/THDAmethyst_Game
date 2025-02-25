@@ -50,5 +50,11 @@ function item_magic_mushroom:OnSpellStart()
 	local particle = ParticleManager:CreateParticle(particle_name,PATTACH_CUSTOMORIGIN,target)
 	target:GiveMana(regen_mana)
 	SendOverheadEventMessage(nil,OVERHEAD_ALERT_MANA_ADD,target,regen_mana,nil)
-	self:RemoveSelf()
+
+	local Charge = self:GetCurrentCharges()
+	if (Charge > 1) then
+		self:SetCurrentCharges(Charge - 1)
+	else
+		self:RemoveSelf()
+	end
 end
