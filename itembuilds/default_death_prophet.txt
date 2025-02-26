@@ -1,0 +1,73 @@
+"itembuilds"
+{
+	"author"		"QKzero"
+	"hero"			"npc_dota_hero_death_prophet"
+	"Title"			"Recommended items for shion"
+	
+	"Items"
+	{		
+		"#DOTA_Item_Build_Starting_Items"
+		{
+			"item"		"item_wind_lace"				// 西尔芙灵纹
+			"item"		"item_cucumber"					// 四叶草
+			"item"		"item_card_love_man_shop"		// 爱人卡
+			"item"		"item_card_worse_man_shop"		// 衰人卡
+			"item"		"item_flask"					// 思兼生命药
+			"item"		"item_ward_observer"			// 侦查守卫
+			"item"		"item_ward_sentry"				// 岗哨守卫
+		}
+		
+		"#DOTA_Item_Build_Early_Game"
+		{
+            "item"		"item_rocket"					// 红魔火箭
+			"item"		"item_broom"					// 魔法使扫把
+			"item"		"item_present_box"				// 很值钱的礼物
+			"item"		"item_guilty_mask"				// 使魔斗篷
+		}
+
+		"#DOTA_Item_Build_Mid_Items"
+		{
+            "item"		"item_rocket_5"					// 红魔火箭
+            "item"		"item_wanbaochui"				// 万宝槌
+            "item"		"item_phoenix_wing"				// 火凤凰之翼
+			"item"		"item_9ball"					// 冰精跳跃装置
+            "item"		"item_hetongtuijinzhuangzhi"	// 河童推进装置
+            "item"		"item_qijizhixing"				// 奇迹之星
+			"item"		"item_jiaokeshu"				// 历史教科书
+            "item"		"item_shanbibu"					// 轻飘飘的布
+            "item"		"item_mystia_wings"					// 巫女的狐狸面具
+            "item"		"item_third_eyes"				// 读心之心眼
+		}
+
+		"#DOTA_Item_Build_Late_Items"
+		{
+            "item"		"item_yukkuri_stick"			// 油库里之杖
+            "item"		"item_nuclear_stick"			// 速融的核融合棒
+            "item"		"item_zaiezhizhurenxing"		// 灾厄之主人形
+            "item"		"item_wanmeitiaoyuezhuangzhi"	// 完美跳跃装置
+            "item"		"item_zun_glasses"				// 七曜魔女斗篷
+            "item"		"item_leiyunzhiyuchuan"			// 雷云之羽川
+		}
+		
+		"#DOTA_Item_Build_Core_Items"
+		{
+            "item"		"item_rocket_5"					// 红魔火箭
+			"item"		"item_nuclear_stick"			// 速融的核融合棒
+			"item"		"item_wanbaochui"				// 万宝槌
+		}
+
+		"#DOTA_Item_Build_Luxury"
+		{
+            "item"		"item_bagua"					// 迷你八卦炉
+            "item"		"item_tsundere"					// 亡灵送行提灯
+            "item"		"item_three_dimension"			// 巴瓦鲁幽魂之书
+            "item"		"item_green_dam"				// 真澄之镜
+            "item"		"item_shizijia"					// 十字架
+            "item"		"item_hakurei_amulet"			// 博丽神社护身符
+            "item"		"item_bone_flute"				// 碎骨笛
+            "item"		"item_loneliness"				// 鬼神镣铐
+            "item"		"item_xuenvdeweijin"			// 雪女的围巾
+            "item"		"item_kafziel"					// 死神之大镰刀
+		}
+	}
+}

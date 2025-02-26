@@ -1,0 +1,84 @@
+"itembuilds" //打架蜘蛛出装-心眼流
+{
+	"author"		"Valve"
+	"hero"			"npc_dota_hero_broodmother"
+	"Title"			"Recommended items for Yamame"
+	
+	"Items"//打架的工具人
+	{		
+		"#DOTA_Item_Build_Starting_Items"
+		{
+			"item"		"item_good_lunchbox" //御币
+			"item"		"item_card_love_man_shop"
+			"item"		"item_card_worse_man_shop"
+			"item"      "item_magic_mushroom"  //神奇蘑菇
+			"item"		"item_flask"
+		}
+		
+		"#DOTA_Item_Build_Early_Game"
+		{	
+			"item"		"item_best_lunchbox" //博丽御币
+			"item"		"item_wind_lace"  //西尔芙灵纹
+			"item"		"item_9ball"  //冰晶跳跃装置可以自保
+			"item"		"item_third_eyes" //蜘蛛技能能保证心眼打出最大伤害
+			
+		}
+		
+		"#DOTA_Item_Build_Mid_Items"
+
+		{	
+			"item"		"item_mystia_wings"  //巫女的狐狸面具，灵活应变pock
+			"item"		"item_tentacle" //触手撑肉，提供控制
+			"item"		"item_hakurei_ticket"   //思兼生命智慧，带队打架工具人
+			"item"		"item_jiaokeshu"  //历史教科书加速复活回到战场
+
+		}
+		
+		
+		"#DOTA_Item_Build_Late_Items"
+		{
+            "item"		"item_yukkuri_stick" //羊刀，工具人的归宿
+			"item"		"item_dragon_star"  //龙星，团战存活给输出			
+			"item"		"item_zaiezhizhurenxing"  //灾厄之主人形，提供团队增伤
+			"item"		"item_phoenix_wing" //肉加伤害
+			"item"		"item_xuenvdeweijin"  //雪女的围巾，减伤装备
+			"item"		"item_frock" //毒裙，肉装反伤
+			"item"		"item_loneliness" //鬼神镣铐，肉装
+		}
+		
+		"#DOTA_Item_Build_Luxury"
+
+		{	
+			"item"		"item_donation_box" //优势局有发育空间可出
+
+			"item"		"item_shanbibu" //轻飘飘的布微光自保
+
+			"item"		"item_green_dam" //真澄之镜保大哥
+
+			"item"		"item_shizijia"  //十字架保大哥
+
+			"item"		"item_travel_boots"    //无可厚非鞋
+
+			"item"		"item_pocket_watch"  //不如憋羊的不明的秒时计
+
+			"item"		"item_cyclone"  //不如憋羊的魔法使的帽子
+
+			"item"		"item_rocket"  //不如憋羊的红魔火箭
+			
+			"item"       "item_wanbaochui" //万宝槌性价比有点差
+			
+			"item"		"item_tsundere"  //提灯应对对方来秒你的大哥
+	
+			"item"		"item_three_dimension" //巴瓦鲁幽魂之书应对对方来秒你的大哥
+
+			"item"		"item_nuclear_stick"  //速融的核融合棒提供-CD
+
+			"item"		"item_hakurei_amulet"  //博丽神社护身符应对飞进来羊你的大哥
+  
+            "item"      "item_god_lunchbox"//神御笔应对秒人装
+
+			"item"		"item_bone_flute"  //碎骨笛提供全队buff
+
+		}
+	}
+}

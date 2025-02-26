@@ -1,0 +1,112 @@
+"itembuilds"
+
+{
+
+	"author"		"By group discussion"
+
+	"hero"			"npc_dota_hero_phantom_assassin"
+
+	"Title"			"Recommended items for Nue"
+
+	
+
+	"Items"//敏捷物理大哥
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items" //出门装备
+
+		{
+
+			"item"		"item_mushroom_pie"
+
+            "item"		"item_quelling_blade"  //河童木工刃
+
+            "item"		"item_magic_mushroom"  //神奇蘑菇
+
+			"item"		"item_card_love_man_shop"
+
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Early_Game" //前期装备
+
+		{	
+
+            "item"		"item_donation_gem"
+			
+			"item"		"item_donation_box" //博丽供奉箱
+
+			"item"		"item_harvest_cradle"  //丰收之摇篮
+
+			"item"		"item_9ball"  //冰晶跳跃装置
+
+
+		}
+
+		 "#DOTA_Item_Build_Mid_Items" //中期装备
+
+		{
+			"item"		"item_rocket"  //红魔火箭
+			
+			"item"		"item_yukkuri_stick"  //油库里之杖
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Late_Items" //后期装备
+
+		{
+
+			"item"		"item_dragon_star"  //龙星
+			
+			"item"		"item_teeth" //恶魔的乳牙
+			
+			"item"		"item_camera"  //高科技相机
+			
+			"item"		 "item_tsundere" //亡灵送行提灯
+			
+			"item"		"item_wanmeitiaoyuezhuangzhi"  //完美跳跃装置
+
+		}
+
+        "#DOTA_Item_Build_Luxury" //可选装备
+
+            {
+
+			"item"		"item_cyclone"  //魔法使的帽子,lonnet推荐
+
+			"item"		"item_morenjingjuan"  //魔人经卷，法系中期可选
+			
+			"item"		"item_pomojinlingli" //破魔净灵札，法系应对绿坝
+
+            "item"		"item_mr_yang" //光龙雷云钻，中期半法半物理可选
+			
+			"item"		"item_yuetufensuijvren" //月兔粉碎巨刃，半法半物理后期装
+
+            "item"		"item_ganggenier"  //神枪冈格尼尔，加强全部伤害
+			
+			"item"		"item_wanbaochui"  //万宝锤，整蛊流法师
+			
+			"item"		"item_dummy_doll1" //替身人偶，中期半法半物理可选
+			
+			"item"		"item_brother_sharp" //风神羽翼，中期半法半物理可选
+
+            "item"		"item_feixiangjian"  //绯想剑，针对可选
+			
+			"item"		"item_three_dimension" //巴瓦鲁幽魂之书，针对可选
+
+			"item"		"item_bagua"  //迷你八卦炉，过于整蛊的法师出装
+			
+			"item"		"item_hakurei_amulet"  //博丽神社护身符，认怂装备
+
+            "item"		"item_travel_boots"    //八云间隙发生器，无可厚非鞋
+
+            }
+
+	}
+
+}

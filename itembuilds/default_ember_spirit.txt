@@ -1,0 +1,127 @@
+"itembuilds"
+
+{
+
+	"author"		        "LXS"//high hand
+
+	"hero"			"npc_dota_hero_ember_spirit"
+
+	"Title"			"Recommended items for meira"
+
+	
+
+	"Items"
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items"//starting items
+
+		{
+
+			"item"		"item_mushroom_pie" //green pie
+
+			"item"		"item_wind_lace"  //Sylph talisman
+
+			"item"		"item_good_lunchbox" //gohei
+
+			"item"		"item_card_worse_man_shop"  //
+
+			"item"		"item_flask" //big medicine
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Early_Game"//early items
+
+		{	
+			"item"		"item_donation_gem" //money jade
+			
+			"item"		"item_watermelon" //half spirit sword
+
+			"item"		"item_9ball"  //9 ball
+
+			"item"		"item_bloodthirstiest" //blood crystal
+
+			
+
+		}
+
+		"#DOTA_Item_Build_Mid_Items"//mid items
+
+		{
+			"item"		  "item_anchor" //boat hook
+
+			"item"		  "item_sampan"  //floor see sword
+
+			"item"		  "item_cirno_claymore"  //white floor sword
+
+			"item"		  "item_dragon_star"  //dragon star
+
+		}
+
+
+		"#DOTA_Item_Build_Late_Items"//late items
+
+		{
+
+            "item"		"item_laevateinn" //lai wa ting
+                        
+            "item"		"item_wanbaochui"  //wan bao chui
+
+			"item"		"item_nuclear_stick"  //river mussel
+			
+		}
+
+			
+		"#DOTA_Item_Build_Luxury"//core items
+
+		{
+
+			"item"		   "item_mystia_wings"  //��Ů�ĺ������
+
+			"item"		   "item_kafziel" //����֮�������Ը���Ѫ��
+
+			"item"		   "item_teeth" //��ħ������
+			
+			"item"		"item_peach"  //���֮����
+   
+			"item"         "item_loneliness" //��������װѡ��
+
+			"item"		   "item_tingshiyice"  //ͥʦ�Ųᣬ��еװ
+
+			"item"		"item_yukkuri_stick"  //�Ϳ���֮��
+
+			"item"		   "item_feixiangjian"  //��뽣
+
+			"item"		"item_pomojinlingli" //��ħ������
+			
+			"item"		   "item_rocket"  //��ħ���
+
+			"item"		   "item_cyclone"  //ħ��ʹ��ñ��
+
+			"item"		   "item_yuetufensuijvren" //���÷������
+
+			"item"		   "item_zun_glasses" //����ħŮ����
+
+			"item"		   "item_dummy_doll1" //������ż
+
+			"item"		"item_wanbaochui"  //�򱦴�������װ��
+
+			"item"		   "item_phoenix_wing"  //����֮��
+
+			"item"		   "item_frock" //����������ȹ
+
+			"item"		"item_zaiezhizhurenxing"  //�ֶ�֮������
+
+   			"item"		"item_camera"  //�߿Ƽ����
+
+			"item"		   "item_mr_yang" //����������
+
+			"item"		   "item_laevateinn"  //����͡
+
+		}
+
+	}
+
+}

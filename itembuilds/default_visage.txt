@@ -1,0 +1,105 @@
+"itembuilds"
+
+{
+
+	"author"		"Zhoutangren"
+
+	"hero"			"npc_dota_hero_visage"
+
+	"Title"			"Recommended items for Visage"
+
+	
+
+	"Items"
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items"//出门装备
+
+		{
+
+			"item"	"item_card_good_man_shop"  //配合文乐打输出
+
+			"item"		"item_wind_amulet" 
+
+			"item"		"item_mushroom" //撑面板
+
+			"item"		"item_clarity"
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Early_Game"//前期装备
+
+		{	
+
+			"item"		"item_donation_box" //打钱还好打架
+
+			"item"		"item_touhou_banana" //跑得快，拟补没位移的缺点
+
+			"item"		"item_9ball"
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Core_Items"//核心装备
+
+		{
+
+			"item"		"item_yukkuri_stick"
+
+			"item"		"item_9ball"
+
+			"item"		"item_wanbaochui"  //偏中后期出好，人偶丢的快即使没旅鼠也好拉扯
+
+			"item"		"item_ward_observer"  //视野优势才好炸人
+
+			"item"		"item_ward_sentry"  //视野优势才好炸人
+
+			"item"		"item_smoke_of_deceit"  //找机会可以开大后再开雾抓人，没羊刀的过渡
+                         
+            "item"		"item_wanmeitiaoyuezhuangzhi" 
+		}
+
+		
+
+		"#DOTA_Item_Build_Luxury"//可选装备
+
+		{
+
+			"item"		"item_tsundere"
+
+			"item"		"item_cyclone"
+
+			"item"		"item_bone_flute"
+
+			"item"		"item_bagua"
+
+			"item"		"item_pomojinlingli"
+
+			"item"		"item_qijizhixing"
+
+			"item"		"item_travel_boots"
+
+			"item"      "item_hakurei_amulet"  
+
+			"item"		"item_morenjingjuan"  //点左边天赋的爱丽丝
+
+			"item"		"item_UFO"  //点左边天赋的爱丽丝
+
+			"item"		"item_dummy_doll1" //杂耍玩法，开大后开替身不显示自己
+
+			"item"		"item_brother_sharp" //还是跑得快
+
+			"item"		"item_loneliness" //怕死可出
+		}
+
+
+
+	
+
+	}
+
+}

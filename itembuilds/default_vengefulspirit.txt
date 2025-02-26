@@ -1,0 +1,101 @@
+"itembuilds"
+
+{
+
+	"author"		"Nature Boy，Hitachi Mako"
+
+	"hero"			"npc_dota_hero_vengefulspirit"
+
+	"Title"			"Recommended items for Vengefulspirit_A guide by observing emperor xu"
+
+	
+
+	"Items"	
+
+        {		
+
+		"#DOTA_Item_Build_Starting_Items"//出门装备
+
+		{
+
+                        "item"                "item_mushroom_pie" //妖精护符撑属性
+
+                        "item"                "item_flask"
+
+                        "item"                "item_card_love_man_shop"
+
+                        "item"                "item_card_worse_man_shop" 
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Early_Game"//前期装备
+
+		{				
+
+                        "item"                "item_donation_gem"  //纳税用阴阳玉
+         
+                        "item"                "item_harvest_cradle"  //丰收之摇篮
+
+                        "item"                "item_inaba_illusion_weapon" //兔炮打钱杀人
+
+		}
+
+
+
+		"#DOTA_Item_Build_Mid_Items"//中期装备
+
+		{
+
+                       "item"		 "item_dummy_doll1" //替身人偶
+
+                        "item"                "item_camera"  //相机杀人bkb
+
+                        "item"                "item_dragon_star" //没有龙星你也敢b进去？
+
+		}
+
+
+
+		"#DOTA_Item_Build_Late_Items"//后期装备
+
+		{
+
+                        "item"                "item_sampan" //大炮融化一切
+
+                        "item"                "item_tsundere" //果篮转提灯
+
+                        "item"		 "item_teeth" //恶魔的乳牙
+
+                        "item"                "item_yukkuri_stick"  //羊刀单秒对方大哥
+
+
+		}
+
+		"#DOTA_Item_Build_Luxury"//可选装备
+
+		{
+
+                        "item"                "item_donation_box" //可选打钱过渡
+
+                        "item"                "item_laevateinn"  //莱瓦汀
+
+                        "item"		  "item_hakurei_amulet"  //博丽神社护身符
+
+                        "item"                "item_feixiangjian"  //功能对策装
+
+                        "item"                "item_ganggenier" //神枪
+
+                        "item"                "item_kusanagi"  //天丛云剑
+
+                        "item"                "item_god_lunchbox" //防先手对策装
+
+                        "item"                "item_frozen_frog" //冰眼也太平庸了吧
+
+
+		}
+
+	}
+
+}

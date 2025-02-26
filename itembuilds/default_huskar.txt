@@ -1,0 +1,145 @@
+"itembuilds"
+
+{
+
+	"author"		"Nature Boy"
+
+	"hero"			"npc_dota_hero_huskar"
+
+	"Title"			"Recommended items for Aki"
+
+	
+
+	"Items"
+
+	{		
+
+
+"#DOTA_Item_Build_Core_Items" //核心装备（指真假眼粉雾）
+
+		{
+
+			"item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+
+			"item"		"item_dust"
+
+			"item"		"item_smoke_of_deceit"
+
+		}
+
+
+
+
+		"#DOTA_Item_Build_Starting_Items"
+
+		{
+
+			"item"		"item_good_lunchbox"  //别几把辅助裸450力量出门，血压要炸啦
+
+			"item"		"item_card_love_man_shop" 
+
+			"item"		"item_clarity"
+
+			"item"		  "item_magic_mushroom"  //神奇蘑菇
+
+			"item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Early_Game"
+
+		{	
+
+			"item"		"item_present_box" //礼物
+
+			"item"		"item_broom" //草鞋
+
+			"item"		"item_wind_lace"  //西尔芙灵纹
+
+			"item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+
+		}
+
+		
+		"#DOTA_Item_Build_Mid_Items"
+
+		{	
+
+			"item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+
+			"item"		"item_9ball"  //冰晶跳跃装置可以自保
+
+			"item"		"item_wanbaochui"  //万宝锤性价比不错
+
+			"item"		"item_qijizhixing" //星星保大哥
+
+			"item"		"item_hetongtuijinzhuangzhi"  //推推保大哥
+
+			"item"		"item_jiaokeshu"  //历史教科书可以回到战场
+
+			"item"		"item_hakurei_ticket" 	//梅肯来奶人	
+
+			"item"		"item_shanbibu" //轻飘飘的布微光自保
+
+		}
+
+		
+		"#DOTA_Item_Build_Late_Items"
+
+		{
+                        "item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+
+			"item"		"item_yukkuri_stick"		//酱油用羊刀给一手控是最大贡献	
+
+			"item"		"item_tsundere"  //提灯应对对方来秒你的大哥
+	
+			"item"		"item_three_dimension" //巴瓦鲁幽魂之书应对对方来秒你的大哥
+
+			"item"		"item_bone_flute"  //碎骨笛提供全队buff
+
+			"item"		"item_nuclear_stick"  //速融的核融合棒提供-CD
+
+}
+
+		"#DOTA_Item_Build_Luxury"
+
+		{	
+
+			"item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+
+			"item"		"item_donation_box" //优势局有发育空间可出
+
+			"item"		"item_green_dam" //真澄之镜保大哥
+
+			"item"		"item_shizijia"  //十字架保大哥
+
+			"item"		"item_wanmeitiaoyuezhuangzhi"  //完美跳跃装置很有钱可考虑
+
+			"item"		"item_travel_boots"    //无可厚非鞋
+
+			"item"		"item_pocket_watch"  //不如憋羊的不明的秒时计
+
+			"item"		"item_cyclone"  //不如憋羊的魔法使的帽子
+
+			"item"		"item_rocket"  //不如憋羊的红魔火箭
+
+			"item"		"item_hakurei_amulet"  //博丽神社护身符应对飞进来羊你的大哥
+		}
+
+	}
+
+}

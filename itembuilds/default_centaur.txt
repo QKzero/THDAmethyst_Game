@@ -1,0 +1,115 @@
+"itembuilds"
+
+{
+
+	"author"		"Nature Boy"
+
+	"hero"			"npc_dota_hero_centaur"
+
+	"Title"			"Recommended items for Centaur_A guide try to fuck people with your ulti"
+
+	
+
+	"Items"
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items"//出门装备
+
+		{
+
+			"item"		"item_good_lunchbox" //御币
+
+			"item"		"item_flask"
+
+			"item"		"item_ward_observer"  //侦查守卫
+
+			"item"		"item_card_good_man_shop"
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Early_Game"//前期装备
+
+		{	
+
+			"item"		"item_broom"        //草鞋
+
+			"item"		"item_donation_box" //红三打钱太慢全靠补刀 不点金怎么发育
+
+			"item"		"item_wind_lace"  //西尔芙灵纹
+
+		}
+
+
+
+		"#DOTA_Item_Build_Mid_Items"//中期装备
+
+		{
+
+			"item"		 "item_hetongtuijinzhuangzhi" //没有推推棒不知道怎么玩红三
+
+			"item"		"item_9ball" // 9球团战抽奖
+
+			"item"		"item_doctor_doll"  //做替身的护士人偶过渡，不做的就别了
+
+		}
+
+
+
+		"#DOTA_Item_Build_Late_Items"//后期装备
+
+		{
+
+			"item"		"item_dummy_doll1" //替身红三经典出装，队友隐身多对面爆眼怪就别了
+
+			"item"		"item_wanmeitiaoyuezhuangzhi"  // 跳刀切入，红三后期必备
+
+			"item"		"item_wanbaochui"  //25级天赋配合万宝槌
+
+			"item"		"item_dragon_star"  //后期没龙星红三通常是一下都a不出来的
+
+			"item"		"item_yukkuri_stick"  //羊刀给你单秒大哥的环境
+
+			"item"		"item_teeth" //恶魔的乳牙
+
+		}
+
+
+
+		"#DOTA_Item_Build_Luxury"//可选装备
+
+		{
+
+			"item"		"item_mystia_wings"  //如果大伙儿都在爬，狐狸面具好切入
+
+			"item"               "item_travel_boots" //无可厚非鞋
+
+			"item"		"item_zaiezhizhurenxing"  //群体减速道具
+
+			"item"		"item_tentacle" //触手控制不足时用的
+
+			"item"		"item_diary" //后期非大哥整日记总没错
+
+			"item"		"item_brother_sharp" //风神羽翼解决移速问题...但性价比？
+
+			"item"		"item_morenjingjuan"  //最好配合替身不然额外攻速...
+
+			"item"		"item_feixiangjian"  //绯想剑单杀对方大哥专用
+
+			"item"		"item_yuetufensuijvren" //大后期可选
+
+			"item"		"item_peach"  //物理可选
+
+			"item"		"item_anchor" //念缚灵的船勾物理可选
+
+			"item"               "item_cyclone"  //吹风接踩是个选择
+
+			"item"               "item_bone_flute"  //碎骨笛是个选择
+
+		}
+
+	}
+
+}

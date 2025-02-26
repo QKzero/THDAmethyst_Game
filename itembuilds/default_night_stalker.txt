@@ -1,0 +1,62 @@
+"itembuilds"
+{
+	"author"		"Nature Boy"
+	"hero"			"npc_dota_hero_night_stalker"
+	"Title"			"Recommended items for Mystia"
+	
+	"Items"	
+        {		
+		"#DOTA_Item_Build_Starting_Items"//
+		{
+                        "item"                "item_mushroom_pie"
+                        "item"				  "item_magic_mushroom"  //神奇蘑菇
+                        "item"                "item_flask"
+                        "item"                "item_card_worse_man_shop"
+		}
+		
+		"#DOTA_Item_Build_Early_Game"//
+		{				
+                        "item"                "item_donation_box"
+						"item"                "item_wind_gun"
+                        "item"				  "item_harvest_cradle"  //丰收之摇篮
+                        "item"                "item_9ball"
+                        "item"			      "item_wind_lace"  //西尔芙灵纹
+
+		}
+
+		"#DOTA_Item_Build_Mid_Items"//
+		{
+						"item"				  "item_grudge_bow"  //仇恨之弓，平滑加伤害
+                        "item"                "item_zuzhoumujian" //诅咒木剑，平滑                     
+                        "item"                "item_dragon_star"  //龙星冲脸
+		}
+
+		"#DOTA_Item_Build_Late_Items"//
+		{
+						"item"				  "item_camera"  //高科技相机打后期必备
+						"item"		          "item_feixiangjian"  //绯想剑提供控制						
+						"item"		          "item_yukkuri_stick"  //油库里之杖后期控制必备
+                        "item"                "item_wanmeitiaoyuezhuangzhi" //跳刀切入必备
+                        "item"				  "item_ganggenier"  //神枪冈格尼尔输出增幅                        
+                        "item"				  "item_laevateinn"  //莱瓦汀
+                        "item"                "item_tsundere" //提灯
+		}
+		
+		"#DOTA_Item_Build_Luxury" //可选装备
+
+        {
+					    "item"                "item_verity" //削蓝刀可与恨弓二选一过渡
+					    "item"                "item_tingshiyice" //缴械装备
+                        "item"                "item_mr_yang" //电疗可选                       
+						"item"                "item_tentacle" //触手控制可选
+						"item"                "item_teeth" //恶魔的乳牙对刚可出                        
+						"item"		          "item_dummy_doll1" //替身人偶中期可选
+						"item"		          "item_diary" //幻想乡日记后期可选
+                        "item"		          "item_tsundere" //亡灵送行提灯
+						"item"		          "item_frozen_frog" //冰精完美钻石
+						"item"                "item_bone_flute"//碎骨笛工具人出装
+						"item"                "item_gem" //宝石处理隐身对手
+        }
+		
+	}
+}

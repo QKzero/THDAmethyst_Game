@@ -1,0 +1,100 @@
+"itembuilds" //物理大哥出装
+
+{
+
+	"author"		"Hitachi Mako"
+
+	"hero"			"npc_dota_hero_phantom_lancer"
+
+	"Title"			"Recommended items for Reisen02"
+
+	
+
+	"Items"//敏捷物理大哥
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items" //出门装备
+
+		{
+
+			"item"		"item_mushroom_pie"
+
+                        "item"		"item_mushroom" //新月头饰
+
+                        "item"		"item_magic_mushroom"  //神奇蘑菇
+
+			"item"		"item_card_love_man_shop"
+
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Early_Game" //前期装备
+
+		{	
+
+                        "item"		"item_donation_gem"
+
+			"item"		"item_cishidaishouji"  //次世代手机
+
+			"item"		"item_horse_green"  //迅捷扫把
+
+			"item"		"item_bloodthirstiest" //血晶石
+
+		}
+
+		 "#DOTA_Item_Build_Mid_Items" //中期装备
+
+		{
+
+			"item"		"item_camera"  //高科技相机
+
+			"item"		"item_dragon_star"  //龙星
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Late_Items" //后期装备
+
+		{
+
+			"item"		"item_laevateinn"  //莱瓦汀
+
+			"item"		"item_wanbaochui"  //万宝锤			
+
+			"item"		"item_yuetufensuijvren" //月兔粉碎巨刃			
+
+                        "item"		"item_ganggenier"  //神枪冈格尼尔
+
+                        "item"		"item_hakurei_amulet"  //博丽神社护身符
+
+                        "item"		"item_card_bad_man_shop"  //坏人卡
+
+		}
+
+               "#DOTA_Item_Build_Luxury" //可选装备
+
+                {
+
+			"item"		 "item_sampan" //楼观剑
+
+                        "item"		"item_yukkuri_stick"  //油库里之杖
+
+                        "item"		 "item_feixiangjian"  //绯想剑
+
+			"item"		 "item_kusanagi"  //天丛云剑
+
+                        "item"		 "item_tsundere" //亡灵送行提灯
+
+                       "item"		 "item_frozen_frog" //冰精完美钻石
+
+                       "item"		 "item_gem" //鸦天狗
+
+                }
+
+	}
+
+}

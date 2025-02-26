@@ -1,0 +1,63 @@
+"itembuilds"
+{
+	"author"		"Nature Boy"
+	"hero"			"npc_dota_hero_abyssal_underlord"
+	"Title"			"Recommended items for Rin"
+	
+	"Items"
+	{		
+		"#DOTA_Item_Build_Starting_Items"//出门装备
+		{
+                        "item"		"item_mushroom_kebab"
+                        "item"		"item_magic_mushroom"
+						"item"		"item_cucumber" //四叶草
+						"item"		"item_flask"
+                        "item"		"item_card_worse_man_shop"
+		}
+		
+		"#DOTA_Item_Build_Early_Game"//前期装备
+		{	
+                        "item"		"item_9ball"  //冰晶跳跃装置
+						"item"		"item_wind_lace"  //西尔芙灵纹
+						"item"		"item_donation_box" //刷钱装备
+						
+		}
+
+		"#DOTA_Item_Build_Mid_Items"//中期装备
+		{			
+						"item"		"item_tentacle" //花之领主阳伞，缠绕，适合新手的打法
+						"item"		"item_cyclone"  //吹风COMBO 中期主要干人手段
+						
+		}
+
+		"#DOTA_Item_Build_Late_Items"//后期装备
+		{
+						"item"		"item_yukkuri_stick"  //油库里之杖，火焰猫必出神装
+						"item"      "item_loneliness"//镣铐，火焰猫必出肉装+技能增伤装备
+						"item"		"item_zaiezhizhurenxing"  //灾厄之主人形，肉装+增伤
+						"item"		"item_phoenix_wing"  //火凤凰之翼，肉输出
+						"item"		"item_wanmeitiaoyuezhuangzhi"  //完美跳跃装置
+						"item"		"item_pomojinlingli" //破魔净灵札，二选一法强装，针对镜子
+						"item"		"item_bagua"  //迷你八卦炉，二选一法强装
+
+						
+		}
+
+		"#DOTA_Item_Build_Luxury"//可选装备
+		{
+			"item"      "item_donation_gem"  //纳税用阴阳玉,可选刷钱装
+			"item"		"item_fan"   //白玉楼的扇子，可选刷钱装
+			"item"		"item_rocket"  //可选干人装 红魔火箭
+			"item"		"item_zun_glasses" //七曜魔女斗篷，可选中期肉装
+			"item"		"item_three_dimension" //可选增伤秒人装备 巴瓦鲁幽魂之书
+			"item"      "item_tsundere"//提灯，可选生存装
+			"item"		"item_xuenvdeweijin"  //雪女的围巾，可选肉装
+			"item"      "item_frock" //毒裙，可选肉装
+			"item"      "item_dragon_star"//龙星优先度不高
+			"item"		"item_nuclear_stick"  //速融的核融合棒，优先度不算高
+			"item"      "item_wanbaochui"//后期出装，可选
+			"item"		"item_gem" //该带的天狗要带的
+
+		}
+	}
+}

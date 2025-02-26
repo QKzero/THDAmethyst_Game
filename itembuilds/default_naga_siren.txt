@@ -1,0 +1,130 @@
+"itembuilds"								//芙兰朵露·斯卡雷特（替换娜迦海妖）
+
+{
+
+	"author"		"Mr.Luna"
+
+	"hero"			"npc_dota_hero_naga_siren"
+
+	"Title"			"Recommended items for Flandre"
+
+	
+
+	"Items"
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items"
+
+		{
+
+			"item"		"item_card_love_man_shop"				//爱人卡
+
+			"item"		"item_cucumber"						//四叶草
+
+			"item"		"item_mushroom"						//新月头饰
+
+			"item"		"item_catnip"                       //妖精发带
+
+			"item"		"item_catnip"                       //妖精发带
+
+			"item"		"item_flask"							//思兼生命药
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Early_Game"
+
+		{	
+			"item"		"item_quelling_blade"  //河童木工刃
+
+			"item"		"item_mushroom_pie" //妖精护符
+			
+			"item"		"item_mushroom_pie" //妖精护符
+
+			"item"		"item_donation_gem"  //纳税用阴阳玉
+
+			"item"		"item_broom"		//魔法使扫把
+			
+			"item"		"item_wind_lace"  //西尔芙灵纹
+			
+			"item"		"item_watermelon" //半灵练习剑
+			
+			"item"		"item_mystia_wings"  //巫女的狐狸面具
+
+			"item"		"item_card_bad_man_shop" //坏人卡
+
+			
+		}
+
+		
+
+		"#DOTA_Item_Build_Mid_Items"
+
+		{
+
+			"item"		"item_9ball"  //冰晶跳跃装置
+			
+			"item"		"item_cirno_claymore"					//白楼剑
+			
+			"item"		"item_dragon_star"						//龙星
+
+
+
+		}
+
+		
+		"#DOTA_Item_Build_Late_Items" //后期装备
+
+		{
+
+			"item"		"item_wanmeitiaoyuezhuangzhi"  //完美跳跃装置
+			
+			"item"		"item_ganggenier"  //神枪冈格尼尔
+			
+			"item"		"item_mr_yang" //光龙雷云钻，控制对方辅助，与羊刀二选一
+
+			"item"		"item_yukkuri_stick"  //油库里之杖，控制对方辅助，与电疗二选一
+
+			"item"		"item_card_moon_man_shop" //月人卡
+
+			"item"		"item_tsundere"						//亡灵送行提灯
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Luxury"
+
+		{			
+
+			"item"		"item_dummy_doll1"					//替身人偶，中期可选大件
+			
+			"item"		"item_brother_sharp"					//风神羽翼，中期可选大件
+
+			"item"		"item_anchor"							//念缚灵的船钩，中期可选大件
+
+            "item"      "item_yuetufensuijvren"                 //月兔粉碎巨刃，后期可选大件
+
+			"item"		"item_frozen_frog"						//冰精完美钻石，后期可选大件
+			
+			"item"		"item_tsundere"						//亡灵送行提灯，保命可选大件
+
+			"item"		"item_phoenix_wing"					//火凤凰之翼，玩幻想流可选大件
+
+			"item"		"item_loneliness"						//鬼神镣铐，玩幻想流可选大件
+
+			"item"		"item_camera"							//高科技相机
+
+			"item"		"item_travel_boots"                     //八云间隙发生器，带线用的
+
+			"item"		"item_horse_king"						//炽热彗星
+
+
+		}
+
+
+	}
+
+}

@@ -1,0 +1,102 @@
+"itembuilds"
+
+{
+
+	"author"		"Nature Boy"
+
+	"hero"			"npc_dota_hero_tidehunter"
+
+	"Title"			"Recommended items for Suika"
+
+	
+
+	"Items"
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items"
+
+		{
+
+			"item"		"item_mushroom_kebab" //红魔挂件撑属性
+
+			"item"		"item_card_bad_man_shop"
+
+			"item"		"item_magic_mushroom"  //神奇蘑菇
+
+			"item"		"item_flask"
+
+			"item"		"item_flask"
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Early_Game"
+
+		{	
+
+			"item"		"item_donation_gem"  //纳税用阴阳玉
+
+			"item"		"item_broom" //鞋子
+
+			"item"		"item_card_bad_man_shop"  //坏人卡
+
+			"item"		"item_touhou_banana" //恶魔之翼
+
+		}
+
+		"#DOTA_Item_Build_Mid_Items"
+
+		{	
+
+			"item"		"item_anchor" //念缚灵的船勾
+
+			"item"		"item_dragon_star"  //没龙星你咋输出
+
+		}
+	
+		"#DOTA_Item_Build_Late_Items"
+
+		{	
+
+			"item"		"item_teeth" //恶魔的乳牙吸血对刚
+
+			"item"		"item_morenjingjuan"  //魔人经卷专逮飞行怪
+
+			"item"		"item_yukkuri_stick"  //油库里之杖秒人
+
+			"item"		"item_camera"  //所有人都需要一个高科技相机
+
+			"item"		"item_wanmeitiaoyuezhuangzhi"  //后期跳刀切入
+
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Luxury"
+
+		{
+
+			"item"		"item_donation_box" //博丽供奉箱没有阴阳玉流行
+
+			"item"		"item_ganggenier"  //神枪增加输出打miss怪
+
+			"item"		"item_feixiangjian"  //逮捕出龙星的飞行怪
+
+			"item"		"item_loneliness" //鬼神镣铐
+
+			"item"		"item_laevateinn"  //莱瓦汀吸血不如乳牙
+
+			"item"		"item_travel_boots" //无可厚非鞋
+
+			"item"		"item_kafziel" //打回血怪用的镰刀
+
+			"item"		"item_tsundere" //提灯
+
+		}
+
+	}
+
+}

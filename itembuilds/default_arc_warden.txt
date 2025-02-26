@@ -1,0 +1,110 @@
+"itembuilds" //辅助标准出门
+{
+	"author"		"Nature Boy"
+	"hero"			"npc_dota_hero_arc_warden"
+	"Title"			"Recommended items for Ellen"
+	
+	"Items"//远程智力辅助
+	{		
+		"#DOTA_Item_Build_Starting_Items"
+		{
+        "item"                "item_ward_observer"  //侦查守卫
+
+        "item"                "item_ward_sentry"  //侦查守卫
+
+        "item"                "item_magic_mushroom"  //神奇蘑菇
+
+        "item"				  "item_juice" //无色水晶
+
+        "item"                "item_aunt_clothes" //秘银戒指
+
+        "item"                "item_card_love_man_shop"
+
+		"item"		          "item_flask" //思兼生命药
+		}
+		
+		"#DOTA_Item_Build_Early_Game"
+		{	
+			"item"		"item_ward_observer"
+			"item"		"item_ward_sentry"
+			"item"		"item_yatagarasu"
+			"item"		"item_present_box"
+			"item"		"item_broom"
+			"item"		"item_wind_lace"  //西尔芙灵纹
+			"item"		"item_good_lunchbox"
+		}
+		
+		"#DOTA_Item_Build_Mid_Items"
+		{
+            "item"       "item_yueyaomishi"
+			
+			"item"		"item_9ball"  //冰晶跳跃装置可以自保
+			
+            "item"       "item_hetongtuijinzhuangzhi"
+
+            "item"       "item_ghostspoon"
+
+            "item"       "item_qijizhixing"
+			
+            "item"       "item_cyclone" //吹风自保
+			
+            "item"       "item_tentacle"//触手缠绕
+			
+            "item"       "item_shanbibu" //微光自保
+			
+			"item"		"item_jiaokeshu"  //历史教科书加速复活回到战场
+		}
+		
+		"#DOTA_Item_Build_Late_Items"
+		{
+            "item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+
+			"item"		"item_yukkuri_stick"		//羊刀必出
+			
+            "item"       "item_three_dimension"  // 绿书恶心对手自保
+			
+			"item"		"item_wanmeitiaoyuezhuangzhi"  //跳刀切入逃生
+			
+			"item"		"item_tsundere"  //提灯应对对方来秒你的大哥
+			
+			"item"		"item_nuclear_stick"  //速融的核融合棒提供-CD
+			
+            "item"       "item_bagua"  //八卦提供法强
+				
+			"item"		"item_pomojinlingli" //破魔净灵札应对镜子
+
+		}
+		
+		"#DOTA_Item_Build_Luxury"
+
+		{	
+
+			"item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+
+			"item"		"item_donation_box" //优势局有发育空间可出
+
+			"item"		"item_hakurei_ticket" 	//梅肯来奶人	
+
+			"item"		"item_green_dam" //真澄之镜保大哥
+
+			"item"		"item_shizijia"  //十字架保大哥
+
+			"item"		"item_travel_boots"    //无可厚非鞋
+
+			"item"		"item_pocket_watch"  //不如憋羊的不明的秒时计
+
+			"item"		"item_rocket"  //不如憋羊的红魔火箭
+
+			"item"		"item_hakurei_amulet"  //博丽神社护身符应对飞进来羊你的大哥
+  
+            "item"      "item_god_lunchbox"//神御笔应对秒人装
+
+			"item"		"item_bone_flute"  //碎骨笛提供全队buff
+
+		}
+	}
+}

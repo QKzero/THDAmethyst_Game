@@ -1,0 +1,104 @@
+"itembuilds"
+
+{
+
+	"author"		        "Kiyohime"//�努
+
+	"hero"			"npc_dota_hero_life_stealer"
+
+	"Title"			"Recommended items for Lifestealer"
+
+	
+
+	"Items"
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items"//����װ��
+
+		{
+
+			"item"		"item_mushroom_kebab" //��ħ�Ҽ�
+
+			"item"		"item_wind_lace"  //����ܽ����
+
+			"item"		"item_cucumber" //��Ҷ��
+
+   "item"		   "item_card_good_man_shop"  //���˿�
+
+			"item"		"item_flask" //˼������ҩ
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Early_Game"//ǰ��װ��
+
+		{	
+
+			"item"		"item_broom"  //ħ��ʹɨ��
+
+			"item"		"item_tentacle" //��֮������ɡ
+
+			"item"		"item_donation_box" //����������
+
+		}
+
+		"#DOTA_Item_Build_Mid_Items"//����װ��
+
+  {
+  "item"		  "item_anchor" //���Ĵ���
+
+  "item"		  "item_dragon_star"  //����
+
+  "item"		  "item_wanmeitiaoyuezhuangzhi"  //������Ծװ��
+  }
+
+		"#DOTA_Item_Build_Luxury"//��ѡװ��
+
+		{
+
+			"item"		"item_best_lunchbox" //��������
+
+   "item"		   "item_kafziel" //����֮������
+
+   "item"		   "item_teeth" //��ħ������
+
+   "item"		   "item_tingshiyice"  //ͥʦ�Ų�
+
+			"item"		"item_yukkuri_stick"  //�Ϳ���֮��
+
+   "item"		   "item_feixiangjian"  //��뽣
+
+			"item"		"item_pomojinlingli" //��ħ������
+
+   "item"		   "item_cyclone"  //ħ��ʹ��ñ��
+
+   "item"		   "item_yuetufensuijvren" //���÷������
+
+   "item"		   "item_zun_glasses" //����ħŮ����
+
+   "item"		   "item_dummy_doll1" //������ż
+
+			"item"		"item_loneliness" //��������
+
+   "item"		   "item_phoenix_wing"  //����֮��
+
+   "item"		   "item_frock" //����������ȹ
+
+			"item"		"item_zaiezhizhurenxing"  //�ֶ�֮������
+
+   			"item"		"item_camera"  //�߿Ƽ����
+
+   "item"		   "item_mr_yang" //����������
+
+   "item"		   "item_ganggenier"  //��ǹ�Ը����
+
+   "item"		   "item_mystia_wings"  //��Ů�ĺ������
+
+   "item"		   "item_rocket"  //��ħ���
+		}
+
+	}
+
+}

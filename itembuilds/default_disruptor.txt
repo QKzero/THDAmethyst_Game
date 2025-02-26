@@ -1,0 +1,86 @@
+"itembuilds" 
+{
+	"author"		"Nature boy"
+	"hero"			"npc_dota_hero_disruptor"
+	"Title"			"Recommended items for Tojiko"
+	
+	"Items"//智力大哥
+	{		
+		"#DOTA_Item_Build_Starting_Items"
+		{
+			"item"		"item_mushroom_soup"
+			"item"		"item_card_love_man_shop"
+			"item"		"item_card_worse_man_shop"
+			"item"		"item_flask"
+			"item"		"item_clarity"
+			"item"		"item_magic_mushroom"  //神奇蘑菇
+			"item"		"item_ward_observer"
+		}
+		
+		"#DOTA_Item_Build_Early_Game"
+		{	
+			"item"		"item_donation_box"
+			
+			"item"		"item_9ball"  //冰晶跳跃装置
+			
+			"item"		"item_wind_lace"
+			
+			"item"      "item_harvest_cradle"  //丰收之摇篮
+		}
+		
+        "#DOTA_Item_Build_Mid_Items" //中期装备
+
+        {
+
+            "item"				  "item_cyclone"  //魔法使的帽子
+
+            "item"                "item_wanbaochui"  //万宝锤
+
+			"item"                "item_third_eyes" //读心之心眼
+        }		
+		
+		
+		"#DOTA_Item_Build_Late_Items"
+		{
+            "item"       "item_wanmeitiaoyuezhuangzhi"  //跳刀
+            
+			"item"       "item_yukkuri_stick" //羊刀
+			
+			"item"       "item_tsundere" //提灯
+			
+			"item"       "item_three_dimension" //绿书
+			
+			"item"       "item_card_moon_man_shop" //月人卡切入
+			
+			"item"       "item_bagua"
+            
+            
+		}
+		
+		
+		"#DOTA_Item_Build_Luxury" //可选装备
+
+        {
+			"item"		"item_donation_gem" //可选刷钱
+			
+			"item"		"item_hetongtuijinzhuangzhi"  //河童推进装置，辅助使用
+			
+			"item"		"item_qijizhixing"  //奇迹之星，辅助使用
+			
+			"item"      "item_hakurei_amulet"  //博丽神社护身符
+                        
+			"item"      "item_pomojinlingli" //破魔净灵札
+			
+			"item"      "item_rocket_5" //火箭可选带节奏
+			
+			"item"      "item_nuclear_stick" //核棒与25级天赋不搭
+			
+			"item"      "item_travel_boots" //无可厚非鞋
+			
+			"item"		"item_bone_flute"  //碎骨笛
+
+			"item"      "item_gem" //鸦天狗
+
+                }
+	}
+}

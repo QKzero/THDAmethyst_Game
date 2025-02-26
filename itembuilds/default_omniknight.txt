@@ -1,0 +1,114 @@
+"itembuilds" //
+{
+	"author"		"Mr.Luna"
+	"hero"			"npc_dota_hero_omniknight"
+	"Title"			"Recommended items for Kisume"
+	
+	"Items"//
+	{		
+		"#DOTA_Item_Build_Core_Items" //核心装备（指真假眼粉雾）
+
+		{
+
+			"item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+
+			"item"		"item_dust"
+
+			"item"		"item_smoke_of_deceit"
+
+		}
+
+		
+		
+		"#DOTA_Item_Build_Starting_Items"
+		{
+			"item"		"item_good_lunchbox"  //魔棒
+			"item"		"item_card_worse_man_shop"
+			"item"		"item_magic_mushroom"  //神奇蘑菇
+			"item"		"item_flask"
+			"item"		"item_ward_observer"			
+		}
+		
+		"#DOTA_Item_Build_Early_Game"
+		{	
+			"item"		"item_wind_lace"  //西尔芙灵纹
+			
+			"item"		"item_present_box" //礼物
+
+			"item"		"item_broom" //草鞋
+
+			"item"		"item_best_lunchbox" //博丽御币
+			
+			"item"		"item_donation_box" //优势局有发育空间可出
+			
+			"item"		"item_harvest_cradle"  //丰收之摇篮炸人升级
+
+			"item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+		}
+		
+		"#DOTA_Item_Build_Mid_Items"
+		{	
+			"item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+
+			"item"		"item_9ball"  //冰晶跳跃装置可以自保
+
+			"item"		"item_hakurei_ticket" 	//梅肯平滑奶自己	
+
+			"item"		"item_qijizhixing" //星星保大哥和自己
+			
+			"item"		"item_zun_glasses" //七曜魔女斗篷，中期魔抗装二选一
+
+			"item"		"item_leiyunzhiyuchuan"  //雷云之羽川，中期魔抗装二选一
+
+			"item"		"item_card_super_man_shop"   //超人卡		
+		}
+		
+		"#DOTA_Item_Build_Late_Items"
+		{
+            "item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+
+			"item"		"item_yukkuri_stick"		//酱油用羊刀给一手控是最大贡献	
+
+			"item"		"item_god_lunchbox" //退魔御币解控自保
+			
+			"item"		"item_xuenvdeweijin"  //雪女的围巾撑肉
+			
+			"item"		"item_loneliness" //鬼神镣铐撑肉
+			
+			"item"		"item_tsundere"  //提灯应对对方来秒你的大哥
+
+			"item"		"item_bone_flute"  //碎骨笛提供全队buff
+
+
+		}
+		
+		"#DOTA_Item_Build_Luxury"
+		{
+			"item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+			
+			"item"		"item_wanbaochui"  //万宝锤可选
+			
+			"item"		"item_nuclear_stick"  //速融的核融合棒提供-CD
+			
+			"item"		"item_diary" //有钱可升级幻想乡日记
+			
+			"item"		"item_tuzhushen" //土著神的庇护虽然很菜但也算可选
+			
+			"item"		"item_wanmeitiaoyuezhuangzhi"  //完美跳跃装置很有钱可考虑
+
+			"item"		"item_travel_boots"    //无可厚非鞋
+			
+			"item"		"item_three_dimension" //巴瓦鲁幽魂之书应对对方来秒你的大哥		
+		}
+	}
+}

@@ -1,0 +1,132 @@
+"itembuilds" //辅助标准出门
+
+{
+
+	"author"		"nature boy"
+
+	"hero"			"npc_dota_hero_ogre_magi"
+
+	"Title"			"Recommended items for Suwako _ Support Guide"
+
+	
+
+	"Items"//远程智力辅助
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items"
+
+		{
+
+			"item"		"item_good_lunchbox" //御币为辅助青蛙子提供线上回复和对拼资本，后续可升
+
+			"item"		"item_card_love_man_shop"
+
+			"item"		"item_card_worse_man_shop"
+
+			"item"		"item_flask"
+
+			"item"		"item_ward_observer"  //假眼给中路或者边路线上
+
+			"item"		"item_ward_sentry" //真眼交给中单反眼或自行反眼
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Early_Game"
+
+		{	
+
+			"item"		"item_wind_lace" //对青蛙子游走游泳冲脸能力很有帮助
+
+			"item"		"item_broom" //草鞋必出
+
+			"item"		"item_ward_observer"
+
+			"item"		"item_ward_sentry"
+
+			"item"		"item_present_box" //可选礼物适当发育
+
+			"item"		"item_mushroom_soup" //魔力灵符增加清线与魔力回复，为心眼做准备
+
+			"item"		"item_guilty_mask" //使魔斗篷增加肉度，为心眼做准备
+
+
+		}
+
+		"#DOTA_Item_Build_Mid_Items"
+
+		{
+
+            "item"       "item_9ball" //9球团战找位置生存
+
+            "item"       "item_third_eyes" //心眼非常好用，合成平滑效果强，青蛙子中期第一推荐
+
+            "item"       "item_qijizhixing" //奶力充足，强驱救援大哥
+
+            "item"       "item_cyclone" //吹风自救或先手
+
+            "item"       "item_ghostspoon" //绿杖应对强物理
+
+            "item"       "item_hakurei_ticket" //御币可转思兼，提供团队恢复
+
+            "item"       "item_jiaokeshu" //教科书为辅助提供快速回到战场的能力
+
+            "item"       "item_hetongtuijinzhuangzhi" //推推棒
+
+		}
+
+		"#DOTA_Item_Build_Late_Items"
+
+		{
+
+            "item"       "item_yukkuri_stick" //青蛙子后期必备，配合25级天赋直接折磨对方大哥
+
+            "item"       "item_phoenix_wing"  //凤凰冲脸
+
+            "item"       "item_wanmeitiaoyuezhuangzhi"  //跳刀切入
+
+            "item"      "item_three_dimension"  //绿书折磨对方大哥
+
+            "item"       "item_bone_flute" //25级天赋全队冲脸
+
+            "item"      "item_god_lunchbox"  //对方强切入秒人时需要出一个
+
+            "item"      "item_bagua"  //大后期提供魔法输出
+
+
+		}
+
+
+		"#DOTA_Item_Build_Luxury"
+
+		{
+
+            "item"       "item_travel_boots" //可换飞鞋
+
+            "item"       "item_donation_box" //点金无可厚非吧
+
+            "item"       "item_lifu" //我就是要发育
+
+            "item"       "item_zun_glasses" //大部分时候还是心眼适合多了
+
+            "item"       "item_shanbibu" //大部分时候还是心眼适合多了
+
+            "item"       "item_tuzhushen" //青蛙帽版本弃儿，只能当备选
+
+            "item"       "item_diary" //日记升级性价比对青蛙略低
+
+            "item"       "item_green_dam" //保大哥用的
+
+            "item"       "item_shizijia" //保大哥用的
+
+            "item"       "item_tentacle" //控制不足时用的
+
+		}
+
+		
+
+	}
+
+}

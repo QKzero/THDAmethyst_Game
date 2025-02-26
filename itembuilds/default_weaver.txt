@@ -1,0 +1,108 @@
+"itembuilds"
+
+{
+
+	"author"		"Nature Boy"
+
+	"hero"			"npc_dota_hero_weaver"
+
+	"Title"			"Recommended items for weaver_if game lasts long you are very niubi"
+
+	
+
+	"Items"
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items"//出门装备
+
+		{
+
+                        "item"                 "item_mushroom_pie" //妖精护符撑属性
+
+                        "item"                "item_flask"
+
+                        "item"                "item_card_love_man_shop"
+
+                        "item"                "item_card_worse_man_shop" 
+
+     	}
+
+		
+
+"#DOTA_Item_Build_Early_Game"//前期装备
+
+		{				
+
+                        "item"                "item_donation_box"  //点金，越点越爽
+         
+                        "item"                "item_harvest_cradle"  //丰收之摇篮
+
+                        "item"                "item_inaba_illusion_weapon" //兔炮打钱杀人
+         
+                        "item"                "item_9ball"  //冰晶跳跃装置
+	
+		}
+
+
+
+		"#DOTA_Item_Build_Mid_Items"//中期装备
+
+		{
+
+                       "item"		 "item_dummy_doll1" //替身人偶CD加成后很顶
+
+                        "item"                "item_camera"  //相机杀人必备
+
+                        "item"                "item_dragon_star" //没有龙星你也敢跳进去？
+
+		}
+
+
+		"#DOTA_Item_Build_Late_Items"//后期装备
+
+		{
+
+                        "item"                "item_wanmeitiaoyuezhuangzhi"  //金跳CD加成战斗力无敌
+
+                        "item"                "item_tsundere" //果篮转提灯
+
+                        "item"                "item_yukkuri_stick"  //羊刀单秒对方大哥
+
+
+		}
+
+		"#DOTA_Item_Build_Luxury"//可选装备
+
+		{
+
+                        "item"                "item_mystia_wings"  //巫女的狐狸面具CD加成后可用
+
+                        "item"                "item_morenjingjuan" //魔人可选对策装
+
+                        "item"                "item_feixiangjian"  //绯想功能对策装
+
+                        "item"                "item_pomojinlingli" //破魔净灵札，对策装
+
+                        "item"                "item_yuetufensuijvren" //感觉不如羊刀...大晕
+
+                        "item"		  "item_hakurei_amulet"  //博丽神社护身符，保命对策装
+
+                        "item"                "item_brother_sharp"//翅膀受CD加持
+
+                        "item"                "item_zaiezhizhurenxing"  //人形 功能性出装
+
+                        "item"                "item_bone_flute"  //碎骨笛，功能性出装
+
+                        "item"                "item_tuzhushen" //土著神的庇护，功能性出装
+
+
+		}
+
+
+
+		
+
+	}
+
+}

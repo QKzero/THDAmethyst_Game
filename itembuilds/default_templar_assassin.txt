@@ -1,0 +1,121 @@
+"itembuilds"
+
+{
+
+	"author"		"Xi Yue Miao OFFICIAL"
+
+	"hero"			"npc_dota_hero_templar_assassin"
+
+	"Title"			"Recommended items for Templar Assassin_Sister Xi's recommendation"
+
+	
+
+	"Items"
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items" //����װ��
+
+                {
+
+                        "item"                "item_ward_observer"  //�������
+
+                        "item"                "item_ward_sentry"  //�������
+
+                        "item"                "item_clarity"
+
+                        "item"                "item__mushroom_pie" //��������
+
+                        "item"                "item_aunt_clothes" //������ָ
+
+                        "item"                "item_card_love_man_shop"
+
+                        "item"                "item_card_worse_man_shop"
+
+                }
+
+                
+
+                "#DOTA_Item_Build_Early_Game" //ǰ��װ��
+
+                {        
+
+                        "item"                "item_donation_gem"  //��˰��������
+
+                        "item"                "item_broom"
+
+                        "item"                "item_yatagarasu" //С����
+
+                        "item"                "item_harvest_cradle"  //����֮ҡ��
+
+                        "item"                "item_smoke_of_deceit"  //���֮��
+
+
+                }
+
+                
+
+                "#DOTA_Item_Build_Mid_Items" //����װ��
+
+                {
+
+                        "item"                "item_yueyaomishi"  //��ҫ��ʯ
+
+                        "item"                "item_wanbaochui"  //�򱦴�
+
+			"item"                "item_dragon_star"  //����
+                }
+
+             
+                "#DOTA_Item_Build_Late_Items" //����װ��
+
+                {
+
+                        "item"                "item_camera"  //�߿Ƽ����
+
+                        "item"                "item_tsundere" //�����������
+
+			"item"                "item_yukkuri_stick"  //��
+
+                        "item"                "item_teeth" //��ħ������
+
+                        "item"                "item_bagua"  //�������¯
+
+			"item"                "item_nuclear_stick"  //���ڵĺ��ںϰ�
+
+                        "item"                "item_travel_boots" //�޿ɺ��Ь
+
+                        "item"                "item_card_moon_man_shop" //���˿�����
+
+
+                }
+   
+
+                "#DOTA_Item_Build_Luxury" //��ѡװ��
+
+                {
+
+                        "item"                "item_wanmeitiaoyuezhuangzhi"  //����
+
+			"item"                "item_hakurei_amulet"  //�������绤����
+
+			"item"                "item_dummy_doll1" //������ż
+                        
+                        "item"                "item_morenjingjuan"  //ħ�˾���
+
+			"item"                "item_pomojinlingli" //��ħ������
+
+			"item"                "item_three_dimension" //����³�Ļ�֮��
+                        
+                        "item"                "item_yuetufensuijvren" //���÷������
+
+			"item"                "item_gem" //ѻ�칷
+
+			"item"                "item_kusanagi"  //����ƽ�
+
+			"item"                "item_frozen_frog" //����������ʯ
+                }
+
+	}
+
+}

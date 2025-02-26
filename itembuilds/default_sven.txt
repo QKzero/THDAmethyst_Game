@@ -1,0 +1,101 @@
+"itembuilds"
+
+{
+
+	"author"		"Valve"
+
+	"hero"			"npc_dota_hero_sven"						//绵月依姬（替换斯温）
+
+	"Title"			"Recommended items for Sven"
+
+	
+
+	"Items"
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items"						//出门装
+
+		{
+
+                        "item"		"item_juice"							//无色水晶
+
+                        "item"		"item_cherry_leaf"						//鬼天王腰带
+
+		}
+
+
+
+		"#DOTA_Item_Build_Core_Items"							//核心装备
+
+		{
+
+		"item"		"item_ward_observer"  						//岗哨守卫
+
+		"item"		"item_ward_sentry"  						//侦查守卫
+
+		"item"		"item_dust" 								//显影之尘
+
+		"item"		"item_smoke_of_deceit"  					//诡计之雾
+
+		}
+
+
+
+		"#DOTA_Item_Build_Early_Game"							//前期装备
+
+		{	
+
+                        "item"		"item_present_box"						//很值钱的礼物
+
+                        "item"		"item_good_lunchbox"					//御币
+
+	       		"item"		"item_card_worse_man_shop"					//衰人卡
+
+	       		"item"		"item_clarity"							//雾雨魔力瓶
+
+	       		"item"		"item_broom"							//魔法使扫把
+
+		}
+
+
+
+		"#DOTA_Item_Build_Mid_Items"							//中期装备
+
+		{			
+
+	        "item"		"item_jiaokeshu"							//历史教科书
+
+	        "item"		"item_9ball"								//冰精跳跃装置
+
+	        "item"		"item_tuzhushen"							//土著神的庇护
+
+		}
+
+
+
+		"#DOTA_Item_Build_Luxury"								//可选装备
+
+		{
+
+	        "item"		"item_donation_box"						//博丽供奉箱
+
+	        "item"		"item_flower_umbrella"						//血染的太阳伞
+
+	        "item"		"item_shizijial"								//十字架
+
+          	"item"		"item_green_dam_barrier"					//真澄之镜
+
+	        "item"		"item_wanbaochui"							//万宝槌
+
+	        "item"		"item_diary"								//幻想乡日记
+
+	        "item"		"item_cyclone"								//魔法使的帽子
+
+	        "item"		"item_xuenvdeweijin"						//雪女的围巾
+
+		}
+
+	}
+
+}

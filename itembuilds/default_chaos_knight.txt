@@ -1,0 +1,111 @@
+"itembuilds"
+
+{
+
+	"author"		"Nature Boy"
+
+	"hero"			"npc_dota_hero_chaos_knight"
+
+	"Title"			"Recommended items for Mokou"
+
+	
+
+	"Items"
+
+	{		
+
+		"#DOTA_Item_Build_Starting_Items"//出门装备
+
+		{
+
+                        "item"                "item_cherry_branch" //堆力量
+
+                        "item"                "item_mushroom_kebab" //红魔挂件
+
+                        "item"                "item_card_worse_man_shop"
+
+		}
+
+		
+
+		"#DOTA_Item_Build_Early_Game"//前期装备
+
+		{	
+
+                        "item"                "item_broom" //草鞋
+
+	                "item"                "item_donation_gem" //打钱用
+
+		}
+
+
+
+		"#DOTA_Item_Build_Mid_Items"//中期装备
+
+		{
+
+                        "item"                "item_horse_red" //红马
+
+			"item"                "item_anchor" //船勾完美契合妹红
+
+                        "item"                "item_dragon_star"  //龙星版本答案
+
+		}
+
+
+
+		"#DOTA_Item_Build_Late_Items"//后期装备
+
+		{
+
+                        "item"                "item_teeth" //乳牙完美契合妹红
+
+                        "item"		"item_yuetufensuijvren" //月兔粉碎巨刃非常契合妹红
+                        
+                        "item"		"item_ganggenier"  //神枪冈格尼尔补输出
+
+			"item"                "item_loneliness" //肉装的第六件选择，当前版本并不是很行
+
+			"item"                "item_horse_king" //钱多总可以补
+
+		}
+
+		"#DOTA_Item_Build_Luxury"
+
+		{
+
+			"item"		"item_donation_box" //博丽供奉箱没有阴阳玉流行
+
+			"item"               "item_zun_glasses" //线劣自己扛时吃伤害时的选择
+	
+           		"item"		"item_feixiangjian"  //同样，线劣自己抗中期急需战斗力的选择
+                        
+                        "item"		"item_tentacle" //花之领主阳伞，中期急需控制的选择
+
+                        "item"		"item_kafziel" //中期急需对抗回血怪的选择
+
+                        "item"		"item_zaiezhizhurenxing"  //灾厄之主人形，较为平滑且可以补充减速
+
+                        "item"		"item_laevateinn"  //莱瓦汀吸血不如乳牙
+
+			"item"		"item_feixiangjian"  //逮捕出龙星的飞行怪的选择
+
+			"item"		"item_tingshiyice"  //庭师遗册，对刚远程C的选择
+
+			"item"		"item_frock" //肉装流派选择，当期版本很蛇
+
+			"item"               "item_phoenix_wing"  //火凤凰之翼，肉装流派选择，当前版本很蛇
+
+			"item"               "item_xuenvdeweijin"  //雪女的围巾，肉装流派选择，当前版本很蛇
+
+			"item"		"item_travel_boots" //无可厚非鞋
+
+			"item"		"item_tsundere" //玩个妹红被逼到出提灯，离到点不远了
+
+		}
+
+
+
+	}
+
+}

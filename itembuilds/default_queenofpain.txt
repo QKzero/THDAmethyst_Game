@@ -1,0 +1,44 @@
+"itembuilds"
+{
+	"author"		"Valve"
+	"hero"			"npc_dota_hero_invoker"
+	"Title"			"Recommended items for Invoker"
+	
+	"Items"
+	{		
+		"#DOTA_Item_Build_Starting_Items"
+		{
+			"item"		"item_mushroom_soup"
+			"item"		"item_card_worse_man_shop"
+		}
+		
+		"#DOTA_Item_Build_Early_Game"
+		{	
+			"item"		"item_donation_box"
+			"item"		"item_grudge_bow"
+		}
+		
+		"#DOTA_Item_Build_Core_Items"
+		{
+			"item"		"item_camera"
+			"item"		"item_morenjingjuan"
+		}
+		
+		"#DOTA_Item_Build_Luxury"
+		{
+			"item"		"item_tsundere"
+			"item"		"item_yukkuri_stick"
+			"item"		"item_dragon_star"
+			"item"		"item_UFO"
+			"item"		"item_cishidaishouji"
+			"item"		"item_harvest_cradle"
+			"item"		"item_best_lunchbox"
+			"item"		"item_wanbaochui"
+			"item"		"item_donation_gem"
+		}
+		"#DOTA_Item_Build_Other_Items"
+		{
+			
+		}
+	}
+}
