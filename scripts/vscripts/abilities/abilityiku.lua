@@ -120,7 +120,7 @@ function OnIku03Knockback( unit,caster_face,distance,speed )
 			end
 			unit:AddNewModifier(nil, nil, "modifier_phased", {duration=0.1})
 			unit.is_Iku_02_knock = false
-			if rooted_modifier then
+			if rooted_modifier and not rooted_modifier:IsNull() then
 				rooted_modifier:DecrementStackCount()
 				if rooted_modifier:GetStackCount() <= 0 then
 					unit:RemoveModifierByName("modifier_ability_thdots_iku_knockback_rooted")

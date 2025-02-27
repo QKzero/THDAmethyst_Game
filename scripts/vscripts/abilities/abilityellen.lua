@@ -914,13 +914,13 @@ end
 function modifier_ability_thdots_ellen04_debuff:OnDestroy()
 	if not IsServer() then return end
 
-	self.particle_kill_fx = ParticleManager:CreateParticle(self.particle_kill, PATTACH_ABSORIGIN, self.parent)
-	ParticleManager:SetParticleControlEnt(self.particle_kill_fx, 0, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", self.parent:GetAbsOrigin(), true)
-	ParticleManager:SetParticleControlEnt(self.particle_kill_fx, 2, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", self.parent:GetAbsOrigin(), true)
-	ParticleManager:SetParticleControlEnt(self.particle_kill_fx, 3, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", Vector(1,0,0), true)
-	ParticleManager:ReleaseParticleIndex(self.particle_kill_fx)
+	if not self.parent:IsNull() and self.parent:IsAlive() then
 
-	if self.parent:IsAlive() then
+		self.particle_kill_fx = ParticleManager:CreateParticle(self.particle_kill, PATTACH_ABSORIGIN, self.parent)
+		ParticleManager:SetParticleControlEnt(self.particle_kill_fx, 0, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", self.parent:GetAbsOrigin(), true)
+		ParticleManager:SetParticleControlEnt(self.particle_kill_fx, 2, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", self.parent:GetAbsOrigin(), true)
+		ParticleManager:SetParticleControlEnt(self.particle_kill_fx, 3, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", Vector(1,0,0), true)
+		ParticleManager:ReleaseParticleIndex(self.particle_kill_fx)
 
 		EmitSoundOn(self.impact_sound, self.caster)
 		local damage = self:CalculateShadowPoisonDamage()

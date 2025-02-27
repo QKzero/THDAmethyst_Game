@@ -70,14 +70,13 @@ function Shikieiki01_Modifier_Accusation_OnKill(keys)
 	local Caster=Ability:GetCaster()
 	local Attacker=keys.attacker
 	local Target=keys.unit
-	local DamageHPPct
+	local DamageHPPct = 0
+	local DamageHPPctelse = 0
 	if (Attacker:GetClassname()=="npc_dota_roshan" ) then return end
 	if (Attacker:IsBuilding() == true ) then return end
 	if Target:IsRealHero() then
-		DamageHPPcthero=keys.DamageHpPctOnkillHero*0.01
-		DamageHPPctelse=0
+		DamageHPPct=keys.DamageHpPctOnkillHero*0.01
 	else
-		DamageHPPct=0
 		DamageHPPctelse=keys.DamageHpPctOnkillCreep
 	end
 

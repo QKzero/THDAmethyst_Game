@@ -15,8 +15,17 @@ attackstart也要做暴击判定, 用来当做一般情况下攻击的标准判�
 
 ]]
 
-local function GetCritChance(keys)
+local function GetCritData(keys)
 	local data = keys.caster["Data_Item_"..keys.ability:GetName()]
+	if not data then
+		ItemAbility_Crit_Refresh(keys)
+		data = keys.caster["Data_Item_"..keys.ability:GetName()]
+	end
+	return data
+end
+
+local function GetCritChance(keys)
+	local data = GetCritData(keys)
 	local CritChance = data.CritChanceConst + (data.TakeDamageTrigger and math.floor(data.DamageCount/data.TakeDamageTrigger)*data.BuffCritChance or 0)
 	return math.min(data.BuffMaxStack or 100, CritChance)
 end
@@ -24,7 +33,7 @@ end
 local function ReconsiderCriticalStrike(keys, duration)
 	if duration == nil then duration = -1 end
 	local caster = keys.caster
-	local data = caster["Data_Item_"..keys.ability:GetName()]
+	local data = GetCritData(keys)
 	local NowTime = GameRules:GetGameTime()
 	if NowTime-data.LastTriggerTime >= data.CritBuffDuration then
 		data.DamageCount=0
@@ -64,7 +73,7 @@ end
 --Calls when Destroy
 function ItemAbility_Crit_Recycle(keys)
 	local caster = keys.caster
-	local data = caster["Data_Item_"..keys.ability:GetName()]
+	local data = GetCritData(keys)
 	data.LastTriggerTime = 0
 	data.DamageCount = 0
 	-- recycle for crit modifier
@@ -87,7 +96,7 @@ end
 function ItemAbility_Anchor_ReculcCritChance(keys)
 	local ability = keys.ability
 	local caster = keys.caster
-	local data = caster["Data_Item_"..keys.ability:GetName()]
+	local data = GetCritData(keys)
 	local DamageTaken = keys.DamageTaken or 0
 	
 	local NowTime = GameRules:GetGameTime()
@@ -117,7 +126,7 @@ end
 
 function ItemAbility_Sampan_Crit_Effect(keys)
 	local caster = keys.caster
-	local data = caster["Data_Item_"..keys.ability:GetName()]
+	local data = GetCritData(keys)
 	local duration = caster:FindModifierByName(data.CritModifierName):GetDuration()
 	if keys.Flag == 0 and duration > 0 or keys.Flag == 1 and duration < 0 then
 		local particle_impact = "particles/units/heroes/hero_skeletonking/skeleton_king_weapon_blur_critical.vpcf"
