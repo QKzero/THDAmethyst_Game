@@ -314,6 +314,9 @@
 	"item_disperser"			"REMOVE"
 	"item_harpoon"			"REMOVE"
 
+	// 7.38
+	// "item_orb_of_frost"		"REMOVE"
+
 	"earthshaker_fissure"
 	{
 		"AbilityTextureName"	"custom/ability_thdots_tenshi01"

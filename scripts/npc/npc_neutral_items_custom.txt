@@ -10,9 +10,9 @@
 		"1"
 		{
 			"start_time"			"0:00"
-			"trinket_options"		"4"
-			"enhancement_options"	"4"
-			"craft_cost"			"5"
+			"trinket_options"		"5"
+			"enhancement_options"	"5"
+			"craft_cost"			"4"
 			"xp_bonus"				"0"
 			
 			"items"
@@ -56,9 +56,9 @@
 		"2"
 		{
 			"start_time"			"6:00"
-			"trinket_options"		"4"
-			"enhancement_options"	"4"
-			"craft_cost"			"10"
+			"trinket_options"		"5"
+			"enhancement_options"	"5"
+			"craft_cost"			"8"
 			"xp_bonus"				"0"
 
 			"items"
@@ -104,9 +104,9 @@
 		"3"
 		{
 			"start_time"			"12:00"
-			"trinket_options"		"4"
-			"enhancement_options"	"4"
-			"craft_cost"			"10"
+			"trinket_options"		"5"
+			"enhancement_options"	"5"
+			"craft_cost"			"8"
 			"xp_bonus"				"0"
 
 			"items"
@@ -155,9 +155,9 @@
 		"4"
 		{
 			"start_time"			"18:00"
-			"trinket_options"		"4"
-			"enhancement_options"	"4"
-			"craft_cost"			"10"
+			"trinket_options"		"5"
+			"enhancement_options"	"5"
+			"craft_cost"			"8"
 			"xp_bonus"				"0"
 
 			"items"
@@ -206,9 +206,9 @@
 		"5"
 		{
 			"start_time"			"24:00"
-			"trinket_options"		"4"
-			"enhancement_options"	"4"
-			"craft_cost"			"10"
+			"trinket_options"		"5"
+			"enhancement_options"	"5"
+			"craft_cost"			"8"
 			"recraft_cost"			"10"
 			"xp_bonus"				"0"
 

@@ -11481,13 +11481,13 @@
 		// Abilities
 		//----------------------------------------------------------------
 		"Ability1"					"roshan_spell_block"	// Ability 1.
-		"Ability2"					"roshan_teleport"		// Ability 2.
+		"Ability2"					"roshan_grab_and_throw"	// Ability 2.
 		"Ability3"					"roshan_slam"			// Ability 3.
 		"Ability4"					"roshan_inherent_buffs"	// Ability 4.
 		"Ability5"					"roshan_devotion"		// Ability 5.
 		"Ability6"					"roshan_bash"			// Ability 6 - Extra.
 		"Ability7"					"roshan_purge"			// Ability 7 - Extra.
-		"Ability8"					"roshan_grab_and_throw"	// Ability 8 - Extra.
+		"Ability8"					""						// Ability 8 - Extra.
 
 		// Armor
 		//----------------------------------------------------------------
