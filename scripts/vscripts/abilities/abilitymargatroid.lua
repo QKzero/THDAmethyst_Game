@@ -760,7 +760,6 @@ function Margatroid03_OnSpellStart(keys)
 		doll:AddNewModifier(Caster,Ability,"modifier_thdots_margatroid03_doll_Upgrade",{})
 	end
 	doll:SetForwardVector(Caster:GetForwardVector())
-	print(keys.DollHP)
 	doll:SetBaseMaxHealth(keys.DollHP*(1+FindTelentValue(Caster,"special_bonus_unique_margatroid_3")))
 	-- doll:SetMaxHealth(keys.DollHP*(1+FindTelentValue(Caster,"special_bonus_unique_margatroid_1")))
 	doll:CreatureLevelUp(0)
@@ -773,14 +772,17 @@ function Margatroid03_OnSpellStart(keys)
 	if ability_lvl>=2 and keys.Level2Ability then
 		local ability=doll:AddAbility(keys.Level2Ability)
 		ability:SetLevel(1)
+		doll:SwapAbilities("twin_gate_portal_warp",keys.Level2Ability,false,true)
 	end
 	if ability_lvl>=3 and keys.Level3Ability then
 		local ability=doll:AddAbility(keys.Level3Ability)
 		ability:SetLevel(1)
+		doll:SwapAbilities("twin_gate_portal_warp",keys.Level3Ability,false,true)
 	end
 	if ability_lvl>=4 and keys.Level4Ability then
 		local ability=doll:AddAbility(keys.Level4Ability)
 		ability:SetLevel(1)
+		doll:SwapAbilities("twin_gate_portal_warp",keys.Level4Ability,false,true)
 	end
 
 	doll:StartGesture(ACT_DOTA_ATTACK)
