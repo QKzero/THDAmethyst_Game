@@ -20,37 +20,36 @@
 				//"item_elixer"					  "1"
 				"item_keen_optic"				  "1"
 				//"item_poor_mans_shield"		  "1"
-				//"item_iron_talon"				  "1"
 				//"item_ironwood_tree"			  "1"
-				"item_royal_jelly"				  "1"
+				"item_royal_jelly"				  "1"		// 蜂王浆
 				//"item_mango_tree"				  "1"
 				//"item_ocean_heart"				  "1"
 				"item_broom_handle"				  "1"
-				"item_trusty_shovel"			  "1"
+				"item_trusty_shovel"			  "1"		// 可靠铁铲
 				"item_faded_broach"				  "1"
-				"item_arcane_ring"				  "1"
+				"item_arcane_ring"				  "1"		// 奥术指环
 				//"item_chipped_vest"				  "1"
 				"item_possessed_mask"			  "1"
-				"item_mysterious_hat"			  "1"
-				"item_unstable_wand"			  "1"
-				//"item_pogo_stick"				  "1"
+				"item_mysterious_hat"			  "1"		// 仙灵饰品
+				"item_unstable_wand"			  "1"		// 豚杆
+				//"item_pogo_stick"				  "1"		// 杂技玩具
 				//"item_sample_picker"			  "1"
 				//"item_satchel"					  "1"
-				"item_seeds_of_serenity"		  "1"
-				//"item_lance_of_pursuit"			  "1"
-				//"item_occult_bracelet"			  "1"
-				"item_safety_bubble"				"1"
-				"item_spark_of_courage"				"1"
-				"item_duelist_gloves"			  "1"
+				"item_seeds_of_serenity"		  "1"		// 宁静种籽
+				//"item_lance_of_pursuit"			  "1"		// 追击矛
+				//"item_occult_bracelet"			  "1"		// 玄奥手镯
+				"item_safety_bubble"				"1"		// 安全泡泡
+				"item_spark_of_courage"				"1"		// 勇气之光
+				"item_duelist_gloves"			  "1"		// 决斗家手套
 			}
 
 			"enhancements"
 			{
-				"item_enhancement_mystical"			"1"
-				"item_enhancement_brawny"			"1"
-				"item_enhancement_alert"			"1"
-				"item_enhancement_tough"			"1"
-				"item_enhancement_quickened"		"1"
+				"item_enhancement_mystical"			"1"		// 神秘 回蓝
+				"item_enhancement_brawny"			"1"		// 壮实 血量
+				"item_enhancement_alert"			"1"		// 警觉 攻速
+				"item_enhancement_tough"			"1"		// 坚强 攻击
+				"item_enhancement_quickened"		"1"		// 迅速 移速
 			}
 		}
 		"2"
@@ -71,34 +70,35 @@
 				"item_philosophers_stone"		  "1"
 				//"item_nether_shawl"				  "1"
 				//"item_dragon_scale"				  "1"
-				//"item_essence_ring"				  "1"
+				//"item_essence_ring"				  "1"		// 精华指环
 				//"item_vambrace"					  "1"
 				"item_clumsy_net"				  "1"
-				"item_misericorde"				  "1"
+				"item_misericorde"				  "1"		// 飞贼之刃
 				//"item_paintball"				  "1"
 				//"item_bullwhip"			  		  "1"
 				"item_quicksilver_amulet"		  "1"
-				//"item_specialists_array"		  "1"
+				//"item_specialists_array"		  "1"		// 行家阵列
 				"item_eye_of_the_vizier"		  "1"
 				//"item_blighted_spirit"				  "1"
 				"item_defiant_shell"			  "1"
-				"item_gossamer_cape"				  "1"
+				"item_gossamer_cape"				  "1"		// 蛛丝斗篷
 				"item_light_collector"				"1"
-				"item_whisper_of_the_dread"				  "1"
+				"item_whisper_of_the_dread"				  "1"		// 邪道私语
+                // "item_iron_talon"                  "1"		// 寒铁钢爪
 			}
 
 			"enhancements"
 			{
-				"item_enhancement_mystical"			"2"
-				"item_enhancement_brawny"			"2"
-				"item_enhancement_alert"			"2"
-				"item_enhancement_tough"			"2"
-				"item_enhancement_quickened"		"2"
+				"item_enhancement_mystical"			"2"		// 神秘 回蓝
+				"item_enhancement_brawny"			"2"		// 壮实 血量
+				"item_enhancement_alert"			"2"		// 警觉 攻速
+				"item_enhancement_tough"			"2"		// 坚强 攻击
+				"item_enhancement_quickened"		"2"		// 迅速 移速
 
-				"item_enhancement_keen_eyed"		"1"
-				"item_enhancement_vast"				"1"
-				"item_enhancement_greedy"			"1"
-				"item_enhancement_vampiric"			"1"
+				"item_enhancement_keen_eyed"		"1"		// 犀利 施法距离回蓝最大魔法
+				"item_enhancement_vast"				"1"		// 高远 攻击距离
+				"item_enhancement_greedy"			"1"		// 贪婪 工资蓝量减攻击
+				"item_enhancement_vampiric"			"1"		// 吸血鬼 双吸血
 			}
 		}
 		"3"
@@ -112,44 +112,43 @@
 			"items"
 			{
 				//"item_helm_of_the_undying"		  "1"
-				//"item_repair_kit"				  "1"
+				//"item_repair_kit"				  "1"		// 维修器具
 				//"item_craggy_coat"				  "1"
 				//"item_greater_faerie_fire"		  "1"
-				"item_quickening_charm"			  "1"
-				"item_spider_legs"				  "1"
+				"item_quickening_charm"			  "1"		// 加速护符
+				"item_spider_legs"				  "1"		// 网虫腿
 				"item_enchanted_quiver"			  "1"
-				"item_paladin_sword"			  "1"
-				//"item_orb_of_destruction"		  "1"
+				"item_paladin_sword"			  "1"		// 骑士剑
+				//"item_orb_of_destruction"		  "1"		// 毁灭灵球
 				//"item_third_eye"				  "1"
 				//"item_titan_sliver"				  "1"
-				//"item_spy_gadget"				  "1"
-				"item_mind_breaker"				  "1"
-				"item_penta_edged_sword"		  "1"
+				"item_mind_breaker"				  "1"		// 智灭
+				"item_penta_edged_sword"		  "1"		// 五锋长剑
 				//"item_black_powder_bag"				  "1"
 				//"item_icarus_wings"					"1"
 				//"item_elven_tunic"				  "1"
 				//"item_cloak_of_flames"				  "1"
-				"item_ceremonial_robe"				  "1"
-				"item_psychic_headband"				  "1"
-				"item_ogre_seal_totem"					"1"
+				"item_ceremonial_robe"				  "1"		// 祭礼长袍
+				"item_psychic_headband"				  "1"		// 通灵头带
+				"item_ogre_seal_totem"					"1"		// 食人魔海豹图腾
 				"item_maelstrom"				  "1"
 				"item_doubloon"					"1"
-				"item_nemesis_curse"			  "1"
+				"item_nemesis_curse"			  "1"		// 天诛之咒
 				"item_spy_gadget"				  "1"
 			}
 
 			"enhancements"
 			{
-				"item_enhancement_mystical"			"3"
-				"item_enhancement_brawny"			"3"
-				"item_enhancement_alert"			"3"
-				"item_enhancement_tough"			"3"
-				"item_enhancement_quickened"		"3"
+				"item_enhancement_mystical"			"3"		// 神秘 回蓝
+				"item_enhancement_brawny"			"3"		// 壮实 血量
+				"item_enhancement_alert"			"3"		// 警觉 攻速
+				"item_enhancement_tough"			"3"		// 坚强 攻击
+				"item_enhancement_quickened"		"3"		// 迅速 移速
 
-				"item_enhancement_keen_eyed"		"2"
-				"item_enhancement_vast"				"2"
-				"item_enhancement_greedy"			"2"
-				"item_enhancement_vampiric"			"2"
+				"item_enhancement_keen_eyed"		"2"		// 犀利 施法距离回蓝最大魔法
+				"item_enhancement_vast"				"2"		// 高远 攻击距离
+				"item_enhancement_greedy"			"2"		// 贪婪 工资蓝量减攻击
+				"item_enhancement_vampiric"			"2"		// 吸血鬼 双吸血
 			}
 		}
 		"4"
@@ -164,24 +163,23 @@
 			{
 				"item_witless_shako"			  "1"
 				"item_timeless_relic"			  "1"
-				"item_spell_prism"				  "1"
-				"item_princes_knife"			  "1"
+				"item_spell_prism"				  "1"		// 法术棱镜
+				"item_princes_knife"			  "1"		// 亲王短刀
 				//"item_flicker"					  "1"
-				"item_ninja_gear"				  "1"
+				"item_ninja_gear"				  "1"		// 忍者用具
 				"item_illusionsts_cape"			  "1"
-				//"item_havoc_hammer"				  "1"
-				"item_panic_button"				  "1"
+				//"item_havoc_hammer"				  "1"		// 浩劫巨锤
+				"item_panic_button"				  "1"		// 神妙明灯
 				//"item_the_leveller"				  "1"
-				// "item_minotaur_horn"			  "1"
-				//"item_desolator_2"			  "1"
+				// "item_minotaur_horn"			  "1"		// 恶牛角
 				"item_wind_waker"                 "1"
 				//"item_ascetic_cap"				  "1"
 				//"item_heavy_blade"				  "1"
 				//"item_fortitude_ring"			  "1"
-				"item_trickster_cloak"			  "1"
+				"item_trickster_cloak"			  "1"		// 欺诈师斗篷
 				"item_blink"					  "1"
-				//"item_stormcrafter"				  "1"
-				//"item_penta_edged_sword"		  "1"
+				//"item_stormcrafter"				  "1"		// 风暴宝器
+				//"item_penta_edged_sword"		  "1"		// 五锋长剑
 				"item_martyrs_plate"			  "1"
 				"item_rattlecage"				"1"
 				"item_avianas_feather"				  "1"
@@ -190,17 +188,17 @@
 
 			"enhancements"
 			{
-				"item_enhancement_mystical"			"4"
-				"item_enhancement_brawny"			"4"
-				"item_enhancement_alert"			"4"
-				"item_enhancement_tough"			"4"
-				"item_enhancement_quickened"		"4"
+				"item_enhancement_mystical"			"4"		// 神秘 回蓝
+				"item_enhancement_brawny"			"4"		// 壮实 血量
+				"item_enhancement_alert"			"4"		// 警觉 攻速
+				"item_enhancement_tough"			"4"		// 坚强 攻击
+				"item_enhancement_quickened"		"4"		// 迅速 移速
 
-				"item_enhancement_vampiric"			"3"
+				"item_enhancement_vampiric"			"3"		// 吸血鬼 双吸血
 
-				"item_enhancement_timeless"			"1"
-				"item_enhancement_titanic"			"1"
-				"item_enhancement_crude"			"1"
+				"item_enhancement_timeless"			"1"		// 永恒 负面时间技能增强
+				"item_enhancement_titanic"			"1"		// 巨神 基础攻击状态抗性
+				"item_enhancement_crude"			"1"		// 粗暴 减速抗性攻击间隔减智力
 			}
 		}
 		"5"
@@ -215,39 +213,39 @@
 			"items"
 			{
 				"item_force_boots"				  "1"
-				"item_desolator_2"			  "1"
+				"item_desolator_2"			  "1"		// 寂灭
 				//"item_phoenix_ash"				  "1"
-				"item_seer_stone"				  "1"
-				//"item_mirror_shield"			  "1"
+				"item_seer_stone"				  "1"		// 先哲之石
+				//"item_mirror_shield"			  "1"		// 神镜盾
 				//"item_fusion_rune"				  "1"
 				"item_apex"						  "1"
-				"item_ballista"					  "1"
+				"item_ballista"					  "1"		// 弩炮
 				"item_woodland_striders"		  "1"
 				//"item_trident"			  "1"
-				//"item_demonicon"				  "1"
-				"item_fallen_sky"				  "1"
-				"item_pirate_hat"				  "1"
-				"item_ex_machina"				  "1"
+				//"item_demonicon"				  "1"		// 冥灵书
+				"item_fallen_sky"				  "1"		// 天崩
+				"item_pirate_hat"				  "1"		// 海盗帽
+				"item_ex_machina"				  "1"		// 机械之心
 				"item_refresher"   				  "1"
-				//"item_force_field"			  "1"
-				"item_giants_ring"				  "1"
+				//"item_force_field"			  "1"		// 秘术师铠甲
+				"item_giants_ring"				  "1"		// 巨人之戒
 				//"item_vengeances_shadow"		  "1"
-				"item_book_of_shadows"			  "1"
+				"item_book_of_shadows"			  "1"		// 暗影邪典
 				"item_unwavering_condition"				  "1"
 			}
 
 			"enhancements"
 			{
-				"item_enhancement_timeless"			"2"
-				"item_enhancement_titanic"			"2"
-				"item_enhancement_crude"			"2"
+				"item_enhancement_timeless"			"2"		// 永恒 负面时间技能增强
+				"item_enhancement_titanic"			"2"		// 巨神 基础攻击状态抗性
+				"item_enhancement_crude"			"2"		// 粗暴 减速抗性攻击间隔减智力
 
-				"item_enhancement_feverish"			"1"
-				"item_enhancement_fleetfooted"		"1"
-				"item_enhancement_audacious"		"1"
-				"item_enhancement_evolved"			"1"
-				"item_enhancement_boundless"		"1"
-				"item_enhancement_wise"				"1"
+				"item_enhancement_feverish"			"1"		// 狂热 冷却减少 蓝耗增加
+				"item_enhancement_fleetfooted"		"1"		// 捷足 移速
+				"item_enhancement_audacious"		"1"		// 进化 主属性
+				"item_enhancement_evolved"			"1"		// 进化 主属性
+				"item_enhancement_boundless"		"1"		// 无边 攻击距离施法距离
+				"item_enhancement_wise"				"1"		// 睿智 每分钟经验
 			}
 		}
 	}
