@@ -12,8 +12,7 @@
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"	"0.0"
 		"AbilityCooldown"	"90"
-		"ItemIsNeutralDrop"		"1"
-		"SecretShop"   "1"
+		"SpeciallyAllowedInNeutralSlot"		"1"
 		"Model"	"models/props_gameplay/recipe.vmdl"
 		// General
 		// -------------------------------------------------------------------------------------------------------------
@@ -72,43 +71,5 @@
 		"ItemStockMax"	"2"
 		"ItemStockInitial"	"2"
 		"ItemStockTime"	"120.0"
-	}
-
-	"item_card_bad_man_shop"
-	{
-		"BaseClass"	"item_lua"
-		"ScriptFile"                    "items/item_card"
-		"AbilityTextureName"	"item_card_bad_man"	//图标By 橘橘子
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityCastPoint"	"0.0"
-		"AbilityCooldown"	"0"
-		"ItemIsNeutralDrop"		"0"
-		"Model"	"models/props_gameplay/recipe.vmdl"
-		// Stats
-		// -------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"	"600"
-		"ItemQuality"	"consumables"
-		// Item Info
-		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"70"
-		"ItemDroppable"	"1"
-		"ItemSellable"	"1"
-		"ItemShareability"	"ITEM_FULLY_SHAREABLE"
-		"ItemDeclarations"	"DECLARE_PURCHASES_TO_TEAMMATES"
-		"ItemPermanent"	"0"
-		"ItemInitialCharges"	"1"
-		"ItemStackable"	"1"
-		"ItemShopTags"	"consumables"
-		"AbilitySharedCooldown"	"item_card"
-		"ItemStockMax"	"2"
-		"ItemStockInitial"	"2"
-		"ItemStockTime"	"120.0"
-		"AbilityValues"
-		{
-			"speedup_duration"	"5"
-			"speedup_movespeed_percent"	"30"
-		}
 	}
 }

@@ -293,6 +293,9 @@ function OnMinoriko01ProjectileHitUnit(keys)
 	end
 end
 
+modifier_thdots_minoriko02_box = class({})
+LinkLuaModifier("modifier_thdots_minoriko02_box", "scripts/vscripts/abilities/abilityminoriko.lua", LUA_MODIFIER_MOTION_NONE)
+
 function Minoriko02_OnIntervalThink(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
 	if caster:HasModifier("modifier_item_wanbaochui") then
@@ -328,6 +331,7 @@ function OnMinoriko02SpellStart(keys)
 
 	minoriko02.box_regen_targets = {}
 	keys.ability:ApplyDataDrivenModifier( minoriko02, minoriko02, "aura_thdots_minoriko02_buff", {Duration = NewDuration} )
+	minoriko02:AddNewModifier(minoriko02, keys.ability, "modifier_thdots_minoriko02_box", {Duration = NewDuration})
 	if caster:HasModifier("modifier_item_wanbaochui") then
 		keys.ability:ApplyDataDrivenModifier( minoriko02, minoriko02, "aura_thdots_minoriko02_wanbaochui", {Duration = NewDuration} )
 	end
@@ -345,6 +349,7 @@ function OnMinoriko02SpellStart(keys)
 		end, 
 	keys.duration + FindTelentValue(caster,"special_bonus_unique_minoriko_4"))
 end
+
 function OnMinoriko02Attacked(params) -- health handling
 	if params.caster:GetHealth() > 1 then
 		params.caster:SetHealth(params.caster:GetHealth() - 1)
@@ -352,6 +357,7 @@ function OnMinoriko02Attacked(params) -- health handling
 		params.caster:Kill(nil, params.attacker)
 	end
 end
+
 function OnMinoriko02RegenHealth(keys)
 	local count = 0
 	for k,v in pairs(keys.caster.box_regen_targets) do
@@ -375,6 +381,20 @@ function OnMinoriko02RegenHealth(keys)
 	1.0)
 end
 
+function modifier_thdots_minoriko02_box:IsHidden()			return true end
+function modifier_thdots_minoriko02_box:IsPurgable()		return false end
+-- function modifier_thdots_minoriko02_box:RemoveOnDeath()		return false end
+-- function modifier_thdots_minoriko02_box:IsDebuff()			return false end
+
+function modifier_thdots_minoriko02_box:DeclareFunctions()
+	return {
+		MODIFIER_PROPERTY_HEALTHBAR_PIPS,
+	}
+end
+
+function modifier_thdots_minoriko02_box:GetModifierHealthBarPips()
+	return self:GetParent():GetMaxHealth()
+end
 
 function OnMinoriko04SpellStart(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)

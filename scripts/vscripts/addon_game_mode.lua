@@ -240,8 +240,8 @@ function Precache( context )
 	PrecacheResource( "particle", "particles/econ/courier/courier_trail_orbit/courier_trail_orbit.vpcf", context )--超级兵特效
 	PrecacheResource( "particle", "particles/units/heroes/hero_spectre/spectre_desolate_debuff.vpcf", context )--超级兵特效
 
-
-
+	PrecacheResource( "model", "models/mushroom/mushroom.vmdl",context ) -- 蘑菇
+	PrecacheResource( "particle", "particles/econ/items/phantom_assassin/phantom_assassin_weapon_hells_usher/phantom_assassin_hells_usher_ambient.vpcf", context )--超人卡
 	PrecacheResource( "particle", "particles/econ/events/ti7/blink_dagger_end_ti7.vpcf", context )--9球
 	PrecacheResource( "particle", "particles/econ/events/fall_2021/blink_dagger_fall_2021_start_lvl2.vpcf", context )--nb9球
 	PrecacheResource( "particle", "particles/econ/events/fall_2021/blink_dagger_fall_2021_end_lvl2.vpcf", context )--nb9球
@@ -2791,109 +2791,8 @@ function THDOTSGameMode:On_dota_item_purchase(keys)
 end
 
 function THDOTSGameMode:On_dota_item_purchased(keys)
---这一段代码表示购卡时将商店显示的卡片删除，然后在购买的单位身上添加相应的使用卡片
-	print("[BAREBONES] dota_item_purchased")
-	local playerid = keys.PlayerID
-	local hero = PlayerResource:GetPlayer(playerid):GetAssignedHero()
-	if hero == nil then return end
-	local item_name = keys.itemname
-	local remove_item_name = nil
-	local add_item_name = nil
-	if item_name == "item_card_good_man_shop" then
-		add_item_name = "item_card_good_man"
-		remove_item_name = item_name
-	elseif item_name == "item_card_bad_man_shop" then
-		add_item_name = "item_card_bad_man" 
-		remove_item_name = item_name
-	elseif item_name == "item_card_love_man_shop" then
-		add_item_name = "item_card_love_man" 
-		remove_item_name = item_name
-	elseif item_name == "item_card_worse_man_shop" then
-		add_item_name = "item_card_worse_man" 
-		remove_item_name = item_name
-	elseif item_name == "item_card_kid_man_shop" then
-		add_item_name = "item_card_kid_man" 
-		remove_item_name = item_name
-	elseif item_name == "item_card_eat_man_shop" then
-		add_item_name = "item_card_eat_man" 
-		remove_item_name = item_name
-	elseif item_name == "item_card_moon_man_shop" then
-		add_item_name = "item_card_moon_man" 
-		remove_item_name = item_name
-	elseif item_name == "item_card_super_man_shop" then
-		add_item_name = "item_card_super_man" 
-		remove_item_name = item_name
-	else
-		return
-	end
-
-	-- lock hero items
-	local unlocked_indices = {}
-	for i=0,30 do
-		local old_item = hero:GetItemInSlot(i)
-		if old_item and not old_item:IsCombineLocked() then
-			table.insert(unlocked_indices, i)
-			old_item:SetCombineLocked(true)
-		end
-	end
-
-	-- lock courier items
-	local courier_unlocked_indices = {}
-	local courier = PlayerResource:GetPreferredCourierForPlayer(playerid)
-	if courier then
-		for i=0,20 do
-			local courier_item = courier:GetItemInSlot(i)
-			if courier_item and not courier_item:IsCombineLocked() then
-				table.insert(courier_unlocked_indices, i)
-				courier_item:SetCombineLocked(true)
-			end
-		end
-	end
-
-	-- replace cards on hero
-	for i=0,30 do
-		local old_item = hero:GetItemInSlot(i)
-		if old_item then
-			if old_item:GetName() == remove_item_name then
-				old_item:RemoveSelf()
-				hero:AddItemByName(add_item_name)
-			end
-		end
-	end
-
-	-- replace cards on courier
-	if courier then
-		for i=0,20 do
-			local courier_item = courier:GetItemInSlot(i)
-			if courier_item then
-				if courier_item:GetName() == remove_item_name then
-					courier_item:RemoveSelf()
-					courier:AddItemByName(add_item_name)
-				end
-			end
-		end
-	end
-
-	-- unlock hero items
-	for _, i in pairs(unlocked_indices) do
-		local old_item = hero:GetItemInSlot(i)
-		if old_item then
-			old_item:SetCombineLocked(false)
-		end
-	end
-
-	-- unlock courier items
-	if courier then
-		for _, i in pairs(courier_unlocked_indices) do
-			local courier_item = courier:GetItemInSlot(i)
-			if courier_item then
-				courier_item:SetCombineLocked(false)
-			end
-		end
-	end
+--这个函数原本表示购卡时将商店显示的卡片删除，然后在购买的单位身上添加相应的使用卡片
 end
-
-
 
 RegisterCustomEventListener("Shuffle_Pressed", Shuffle_Pressed)
 

@@ -327,7 +327,8 @@ end
 function modifier_phenx_egg_form:DeclareFunctions()
     return {
         MODIFIER_PROPERTY_DISABLE_HEALING,
-        MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE
+        MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE,
+		MODIFIER_PROPERTY_HEALTHBAR_PIPS,
     }
 end
 
@@ -360,6 +361,10 @@ function modifier_phenx_egg_form:GetModifierIncomingDamage_Percentage(params)
 		egg:SetHealth( egg:GetHealth() - damage )
 	end
 	return -100
+end
+
+function modifier_phenx_egg_form:GetModifierHealthBarPips()
+	return self:GetParent():GetMaxHealth()
 end
 
 function modifier_phenx_egg_form:OnRemoved()
