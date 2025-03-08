@@ -462,3 +462,77 @@ function modifier_item_card_super_man:OnDestroy()
 	if not IsServer() then return end
 	ParticleManager:DestroyParticle(self.superman_weapon,true)
 end
+
+--商店卡片购买程序，由于中立的装备栏无法设置商店个数，所以设置买到物品栏卡自动变成中立掉落卡
+
+item_card_kid_man_shop = {}
+function item_card_kid_man_shop:GetIntrinsicModifierName()
+	return "modifier_item_card_shop"
+end
+item_card_good_man_shop = {}
+function item_card_good_man_shop:GetIntrinsicModifierName()
+	return "modifier_item_card_shop"
+end
+item_card_bad_man_shop = {}
+function item_card_bad_man_shop:GetIntrinsicModifierName()
+	return "modifier_item_card_shop"
+end
+item_card_worse_man_shop = {}
+function item_card_worse_man_shop:GetIntrinsicModifierName()
+	return "modifier_item_card_shop"
+end
+item_card_love_man_shop = {}
+function item_card_love_man_shop:GetIntrinsicModifierName()
+	return "modifier_item_card_shop"
+end
+item_card_eat_man_shop = {}
+function item_card_eat_man_shop:GetIntrinsicModifierName()
+	return "modifier_item_card_shop"
+end
+item_card_moon_man_shop = {}
+function item_card_moon_man_shop:GetIntrinsicModifierName()
+	return "modifier_item_card_shop"
+end
+item_card_super_man_shop = {}
+function item_card_super_man_shop:GetIntrinsicModifierName()
+	return "modifier_item_card_shop"
+end
+
+
+modifier_item_card_shop = {}
+LinkLuaModifier("modifier_item_card_shop","scripts/vscripts/items/item_card",LUA_MODIFIER_MOTION_NONE)
+
+function modifier_item_card_shop:OnCreated()
+	if not IsServer() then return end
+	print("card-------------------------")
+	print(self:GetAbility():GetName())
+	print(self:GetAbility():GetCurrentCharges())
+	self:StartIntervalThink(FrameTime())
+end
+
+function modifier_item_card_shop:OnIntervalThink()
+	if not IsServer() then return end
+	local caster = self:GetCaster()
+	local ability = self:GetAbility()
+	for i=1,self:GetAbility():GetCurrentCharges() do
+		if ability:GetName() == "item_card_kid_man_shop" then
+			caster:AddItemByName("item_card_kid_man")
+		elseif ability:GetName() == "item_card_eat_man_shop" then
+			caster:AddItemByName("item_card_eat_man")
+		elseif ability:GetName() == "item_card_good_man_shop" then
+			caster:AddItemByName("item_card_good_man")
+		elseif ability:GetName() == "item_card_worse_man_shop" then
+			caster:AddItemByName("item_card_worse_man")
+		elseif ability:GetName() == "item_card_bad_man_shop" then
+			caster:AddItemByName("item_card_bad_man")
+		elseif ability:GetName() == "item_card_love_man_shop" then
+			caster:AddItemByName("item_card_love_man")
+		elseif ability:GetName() == "item_card_moon_man_shop" then
+			caster:AddItemByName("item_card_moon_man")
+		elseif ability:GetName() == "item_card_super_man_shop" then
+			caster:AddItemByName("item_card_super_man")
+		end
+	end
+	self:GetAbility():RemoveSelf()
+	self:Destroy()
+end

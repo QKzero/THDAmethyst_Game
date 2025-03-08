@@ -2799,28 +2799,28 @@ function THDOTSGameMode:On_dota_item_purchased(keys)
 	local item_name = keys.itemname
 	local remove_item_name = nil
 	local add_item_name = nil
-	if item_name == "item_card_good_man" then
+	if item_name == "item_card_good_man_shop" then
 		add_item_name = "item_card_good_man"
 		remove_item_name = item_name
-	elseif item_name == "item_card_bad_man" then
+	elseif item_name == "item_card_bad_man_shop" then
 		add_item_name = "item_card_bad_man" 
 		remove_item_name = item_name
-	elseif item_name == "item_card_love_man" then
+	elseif item_name == "item_card_love_man_shop" then
 		add_item_name = "item_card_love_man" 
 		remove_item_name = item_name
-	elseif item_name == "item_card_worse_man" then
+	elseif item_name == "item_card_worse_man_shop" then
 		add_item_name = "item_card_worse_man" 
 		remove_item_name = item_name
-	elseif item_name == "item_card_kid_man" then
+	elseif item_name == "item_card_kid_man_shop" then
 		add_item_name = "item_card_kid_man" 
 		remove_item_name = item_name
-	elseif item_name == "item_card_eat_man" then
+	elseif item_name == "item_card_eat_man_shop" then
 		add_item_name = "item_card_eat_man" 
 		remove_item_name = item_name
-	elseif item_name == "item_card_moon_man" then
+	elseif item_name == "item_card_moon_man_shop" then
 		add_item_name = "item_card_moon_man" 
 		remove_item_name = item_name
-	elseif item_name == "item_card_super_man" then
+	elseif item_name == "item_card_super_man_shop" then
 		add_item_name = "item_card_super_man" 
 		remove_item_name = item_name
 	else

@@ -7476,6 +7476,48 @@
 		"DOTA_Tooltip_modifier_item_card_super_man"									"Superhuman's Card"
 		"DOTA_Tooltip_modifier_item_card_super_man_Description"						"Gaining status resistance.Supperhuman!"
 
+		"DOTA_Tooltip_ability_item_card_good_man_shop"								"Good Girl Card"
+		"DOTA_Tooltip_ability_item_card_good_man_shop_Description"					"<h1>Use: Sorry, You're a Good Girl!</h1>Hits the target hard with a rejection. The shock causes them to be slowed by %slowdown_movespeed_percent%%% movement speed and %slowdown_attackspeed_percent% attack speed for %slowdown_duration% seconds.<br><br>If the target dies during this time, the cost of the card is refunded and the user will gain an additional %min_gold% gold for every minute that has passed.<br><br>Cast range: %AbilityCastRange%"
+		"DOTA_Tooltip_ability_item_card_good_man_shop_Note0"						"The item is fully shareable with allies.<br>Shares a cooldown with all other cards.<br><br>Restock Time: 120 seconds <br>Max Stock: 2"
+		"DOTA_Tooltip_ability_item_card_good_man_shop_note1"						"<br>The effect can be dispelled."
+		"DOTA_Tooltip_ability_item_card_good_man_shop_Lore"							"You are a Good Girl"
+
+		"DOTA_Tooltip_ability_item_card_bad_man_shop"								"Bad Girl Card"
+		"DOTA_Tooltip_ability_item_card_bad_man_shop_Description"					"<h1>Use: I'm a Bad Girl</h1>Increases your movement speed by %speedup_movespeed_percent%%% for %speedup_duration% seconds."
+		"DOTA_Tooltip_ability_item_card_bad_man_shop_Note0"							"The item is fully shareable with allies.<br>Shares a cooldown with all other cards.<br><br>Restock Time: 120 seconds <br>Max Stock: 2"
+		"DOTA_Tooltip_ability_item_card_bad_man_shop_note1"							"<br>The effect cannot be dispelled."
+		"DOTA_Tooltip_ability_item_card_bad_man_shop_Lore"							"I am a Bad Girl"
+
+		"DOTA_Tooltip_ability_item_card_worse_man_shop"								"Sad Girl Card"
+		"DOTA_Tooltip_ability_item_card_worse_man_shop_Description"					"<h1>Use: You're a Loser</h1>Steals up to %absorb_mana_amount% mana from the target. Deals pure damage based on mana stolen, up to %absorb_damage%.<br><br>The effect is doubled after 30 minutes.<br><br>Cast Range: %AbilityCastRange%"
+		"DOTA_Tooltip_ability_item_card_worse_man_shop_Note0"						"The item is fully shareable with allies.<br>Shares a cooldown with all other cards.<br><br>Restock Time: 120 seconds <br>Max Stock: 2<br><br>Drains mana before dealing damage."
+		"DOTA_Tooltip_ability_item_card_worse_man_shop_Lore"						"You are a Sad Girl"
+
+		"DOTA_Tooltip_ability_item_card_love_man_shop"								"Lover's Card"
+		"DOTA_Tooltip_ability_item_card_love_man_shop_Description"					"<h1>Use: You're a Loving Girl</h1>Instantly heal the target by %heal_amount%.<br><br>The effect is doubled after 30 minutes.<br><br>Cast Range: %AbilityCastRange%"
+		"DOTA_Tooltip_ability_item_card_love_man_shop_Note0"							"The item is fully shareable with allies.<br>Shares a cooldown with all other cards.<br><br>Restock Time: 120 seconds <br>Max Stock: 2"
+		"DOTA_Tooltip_ability_item_card_love_man_shop_Lore"							"You're my Lover"
+
+		"DOTA_Tooltip_ability_item_card_eat_man_shop"								"Cannibal's Card"
+		"DOTA_Tooltip_ability_item_card_eat_man_shop_Description"					"<h1>Use: I am a Foodie</h1>Devour a jungle creep instantly and gain %health_regen% health regeneration for %duration% seconds. The effect is doubled after 30 minutes.<br><br>Cannot devour ancients in the first 10 minutes of the game, and can never devour Giant Shanghai.<br><br>Cast Range: %AbilityCastRange%"
+		"DOTA_Tooltip_ability_item_card_eat_man_shop_Note0"							"The item is fully shareable with allies.<br>Shares a cooldown with all other cards.<br><br>Restock Time: 120 seconds <br>Max Stock: 2"
+		"DOTA_Tooltip_ability_item_card_eat_man_shop_Lore"							"RUA"
+
+		"DOTA_Tooltip_ability_item_card_kid_man_shop"								"Joker's Card"
+		"DOTA_Tooltip_ability_item_card_kid_man_shop_Description"					"<h1>Use: I Just Want to be Funny</h1>After a %delay% second delay, the target will be pushed 350 units in the direction they are currently facing.<br><br>Usable while stunned."
+		"DOTA_Tooltip_ability_item_card_kid_man_shop_Note0"							"The item is fully shareable with allies.<br>Shares a cooldown with all other cards.<br><br>Restock Time: 120 seconds <br>Max Stock: 2<br><br>The effect cannot be dispelled."
+		"DOTA_Tooltip_ability_item_card_kid_man_shop_Lore"							"I am a Joker"
+
+		"DOTA_Tooltip_ability_item_card_moon_man_shop"								"Lunarian's Card"
+		"DOTA_Tooltip_ability_item_card_moon_man_shop_Description"					"<h1>Use: I am an Alien</h1>Casts Smoke of Deceit on yourself only, and you gain %movement_bonus% flat movement speed for %duration% seconds."
+		"DOTA_Tooltip_ability_item_card_moon_man_shop_Note0"						"The item is fully shareable with allies.<br>Shares a cooldown with all other cards.<br><br>Restock Time: 120 seconds <br>Max Stock: 2"
+		"DOTA_Tooltip_ability_item_card_moon_man_shop_Lore"							"I am an Alien"
+
+		"DOTA_Tooltip_ability_item_card_super_man_shop"								"Superhuman's Card"
+		"DOTA_Tooltip_ability_item_card_super_man_shop_Description"					"<h1>Use: I am a Superhuman</h1>Grants %bonus_damage_percentage%%% status resistance for %duration% seconds."
+		"DOTA_Tooltip_ability_item_card_super_man_shop_Note0"						"The item is fully shareable with allies.<br>Shares a cooldown with all other cards.<br><br>Restock Time: 120 seconds <br>Max Stock: 2"
+		"DOTA_Tooltip_ability_item_card_super_man_shop_Lore"						"I am a Superhuman"
+
 		"DOTA_Tooltip_ability_item_jinkela"											"Jinkela"
 		"DOTA_Tooltip_ability_item_jinkela_effect_radius"							"RADIUS: "
 		"DOTA_Tooltip_ability_item_jinkela_heal_amount"								"HP RESTORE: "
