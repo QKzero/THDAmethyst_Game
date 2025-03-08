@@ -2791,7 +2791,106 @@ function THDOTSGameMode:On_dota_item_purchase(keys)
 end
 
 function THDOTSGameMode:On_dota_item_purchased(keys)
---这个函数原本表示购卡时将商店显示的卡片删除，然后在购买的单位身上添加相应的使用卡片
+	--这一段代码表示购卡时将商店显示的卡片删除，然后在购买的单位身上添加相应的使用卡片
+	print("[BAREBONES] dota_item_purchased")
+	local playerid = keys.PlayerID
+	local hero = PlayerResource:GetPlayer(playerid):GetAssignedHero()
+	if hero == nil then return end
+	local item_name = keys.itemname
+	local remove_item_name = nil
+	local add_item_name = nil
+	if item_name == "item_card_good_man" then
+		add_item_name = "item_card_good_man"
+		remove_item_name = item_name
+	elseif item_name == "item_card_bad_man" then
+		add_item_name = "item_card_bad_man" 
+		remove_item_name = item_name
+	elseif item_name == "item_card_love_man" then
+		add_item_name = "item_card_love_man" 
+		remove_item_name = item_name
+	elseif item_name == "item_card_worse_man" then
+		add_item_name = "item_card_worse_man" 
+		remove_item_name = item_name
+	elseif item_name == "item_card_kid_man" then
+		add_item_name = "item_card_kid_man" 
+		remove_item_name = item_name
+	elseif item_name == "item_card_eat_man" then
+		add_item_name = "item_card_eat_man" 
+		remove_item_name = item_name
+	elseif item_name == "item_card_moon_man" then
+		add_item_name = "item_card_moon_man" 
+		remove_item_name = item_name
+	elseif item_name == "item_card_super_man" then
+		add_item_name = "item_card_super_man" 
+		remove_item_name = item_name
+	else
+		return
+	end
+
+	-- lock hero items
+	local unlocked_indices = {}
+	for i=0,30 do
+		local old_item = hero:GetItemInSlot(i)
+		if old_item and not old_item:IsCombineLocked() then
+			table.insert(unlocked_indices, i)
+			old_item:SetCombineLocked(true)
+		end
+	end
+
+	-- lock courier items
+	local courier_unlocked_indices = {}
+	local courier = PlayerResource:GetPreferredCourierForPlayer(playerid)
+	if courier then
+		for i=0,20 do
+			local courier_item = courier:GetItemInSlot(i)
+			if courier_item and not courier_item:IsCombineLocked() then
+				table.insert(courier_unlocked_indices, i)
+				courier_item:SetCombineLocked(true)
+			end
+		end
+	end
+
+	-- replace cards on hero
+	for i=0,30 do
+		local old_item = hero:GetItemInSlot(i)
+		if old_item then
+			if old_item:GetName() == remove_item_name then
+				old_item:RemoveSelf()
+				hero:AddItemByName(add_item_name)
+			end
+		end
+	end
+
+	-- replace cards on courier
+	if courier then
+		for i=0,20 do
+			local courier_item = courier:GetItemInSlot(i)
+			if courier_item then
+				if courier_item:GetName() == remove_item_name then
+					courier_item:RemoveSelf()
+					courier:AddItemByName(add_item_name)
+				end
+			end
+		end
+	end
+
+	-- unlock hero items
+	for _, i in pairs(unlocked_indices) do
+		local old_item = hero:GetItemInSlot(i)
+		if old_item then
+			old_item:SetCombineLocked(false)
+		end
+	end
+
+	-- unlock courier items
+	if courier then
+		for _, i in pairs(courier_unlocked_indices) do
+			local courier_item = courier:GetItemInSlot(i)
+			if courier_item then
+				courier_item:SetCombineLocked(false)
+			end
+		end
+	end
 end
 
 RegisterCustomEventListener("Shuffle_Pressed", Shuffle_Pressed)
