@@ -177,12 +177,4 @@
 		// 晚上视野大小
 		"DisableWearables"	"1"
 	}
-
-	// 用于显示影魔模型，原版模型显示不出来
-	"npc_dota_hero_nevermore_dummy"
-	{
-		"override_hero"	"npc_dota_hero_nevermore"
-		"Model"			"models/heroes/nevermore/nevermore.vmdl"
-		"ModelScale"	"1.0"
-	}
 }

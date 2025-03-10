@@ -6858,51 +6858,6 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_toyohime_7"					"投影效果脱离范围后仍粘滞{s:value}秒"
 		"DOTA_Tooltip_ability_special_bonus_unique_toyohime_8" 					"「月影降临术」不向敌军提供伤害减免"
 
-
-		//------------------------------------------------------
-		//华扇v3
-		//---------------------------------------------	
-		"DOTA_Tooltip_ability_ability_kasenbear_01"								"暴怒"
-		"DOTA_Tooltip_ability_ability_kasenbear_01_Description"					"每次攻击有15%概率提升自身攻击速度，持续5秒。"
-		"DOTA_Tooltip_ability_ability_kasenbear_01_attackspeed_bonus"			"提升攻击速度:"
-		"DOTA_Tooltip_ability_ability_kasenbear_02"								"缠雷"
-		"DOTA_Tooltip_ability_ability_kasenbear_02_Description"					"每次攻击减少目标10点攻击速度,最多叠加%limit%层。"
-		"DOTA_Tooltip_ability_ability_kasenbear_02_duration"					"持续时间:"
-		"DOTA_Tooltip_ability_ability_kasenbear_03"								"雷云"
-		"DOTA_Tooltip_ability_ability_kasenbear_03_Description"					"每3秒向周围550码内3个单位造成%damage%魔法伤害并降低1点护甲和1魔抗,持续时间4秒,每次雷电叠加并刷新时间。"
-		"DOTA_Tooltip_ability_ability_thdots_kasen3_01"							"包符「假肢变形」"
-		"DOTA_Tooltip_ability_ability_thdots_kasen3_01_Description"				"华扇向目标扔出一条绷带，缠绕对手限制行动造成持续伤害，对友军释放造成等量治疗。"
-		"DOTA_Tooltip_ability_ability_thdots_kasen3_01_damage_per_tick"			"每秒伤害/治疗:"
-		"DOTA_Tooltip_ability_ability_thdots_kasen3_01_duration"				"持续时间:"
-		"DOTA_Tooltip_ability_ability_thdots_kasen3_01_Scepter_Description" 	"绷带会额外对离目标300码范围内的最近目标生效，少女优先"
-		"DOTA_Tooltip_ability_kasen_spirit_bear"								"雷符「低速的务光」"
-		"DOTA_Tooltip_ability_kasen_spirit_bear_bear_hp"						"务光生命值："
-		"DOTA_Tooltip_ability_kasen_spirit_bear_bear_regen_tooltip"				"务光每秒生命恢复："	
-		"DOTA_Tooltip_ability_kasen_spirit_bear_bear_armor"						"务光护甲："
-		"DOTA_Tooltip_ability_kasen_spirit_bear_bear_bat"						"务光基础攻击间隔："
-		"DOTA_Tooltip_ability_kasen_spirit_bear_movespeed_tooltip"				"务光移动速度："
-		"DOTA_Tooltip_ability_kasen_spirit_bear_Description"					"召唤一只可以装备物品的动物伙伴务光。若务光与华扇的距离超过1100，则不能攻击。如果务光死亡，华扇会受到自身最大生命值的%backlash_damage%%%作为反冲伤害。\n务光拥有暴怒，缠雷和雷云技能。"
-		"DOTA_Tooltip_ability_lone_druid_spirit_bear_retrun_scepter_description""允许务光无视华扇位置进行攻击，并且在德鲁伊死亡时不会消失。"
-		"DOTA_Tooltip_ability_kasen_holy_persuasion"							"「喜欢动物且爱多管闲事的仙人」"
-		"DOTA_Tooltip_ability_kasen_holy_persuasion_Description"				"华扇控制住敌方小兵或者中立生物。若被驯养的目标拥有的生命值低于最小生命值，其生命值将会提升到最小生命值。\n\n可对已驯养的单位施放，将其传送到华扇身边。对华扇自身施放则华扇控制的所有神圣劝化单位都会传送到她身边。若目标受到伤害将导致效果被驱散。"
-		"DOTA_Tooltip_ability_kasen_holy_persuasion_abilitydraft_note"			"远古生物的最大可控数量等于终极技能的等级。"
-		"DOTA_Tooltip_ability_kasen_holy_persuasion_Note0"						"如果达到劝化生物的数量上限后再劝化生物，最早劝化的单位将立即死亡。"
-		"DOTA_Tooltip_ability_kasen_holy_persuasion_Note2"						"升级此技能后在升级前劝化的单位并不会增加生命值。"
-		"DOTA_Tooltip_ability_kasen_holy_persuasion_Note3"						"劝化时单位的魔法恢复至满魔。"
-		"DOTA_Tooltip_ability_kasen_holy_persuasion_max_units"					"最多劝化数量："
-		"DOTA_Tooltip_ability_kasen_holy_persuasion_level_req"					"非英雄单位最高等级："
-		"DOTA_Tooltip_ability_kasen_holy_persuasion_movement_speed_bonus"		"移动速度加成："
-		"DOTA_Tooltip_ability_kasen_holy_persuasion_damage_bonus"				"攻击力加成："
-		"DOTA_Tooltip_ability_kasen_holy_persuasion_health_min"					"最低生命值："		
-		"DOTA_Tooltip_ability_kasen_holy_persuasion_teleport_delay"				"传送延迟："
-		"DOTA_Tooltip_ability_ability_thdots_kasen3_04"							"「奸佞邪智的鬼」"
-		"DOTA_Tooltip_ability_ability_thdots_kasen3_04_Description"				"华扇和她的右臂合二为一，获得鬼王的力量。力量提升%strength_bonus_pct%%，自身范围 %distance% 码内所有单位死亡会生成死士"
-		"DOTA_Tooltip_ability_special_bonus_unique_kasen3_1" 					"包符「假肢变形」持续时间1s"
-		"DOTA_Tooltip_ability_special_bonus_unique_kasen3_2" 					"务光普攻附带雷云效果"
-		"DOTA_Tooltip_ability_special_bonus_unique_kasen3_3" 					"「喜欢动物且爱多管闲事的仙人」+2最大劝说数量"
-		"DOTA_Tooltip_ability_special_bonus_unique_kasen3_4" 					"务光和劝说单位+1500最大生命值"
-		"DOTA_Tooltip_ability_special_bonus_unique_kasen3_5" 					"「奸佞邪智的鬼」-40冷却时间"
-
 		//---------------------------------------------------------------------
 		// 牛逼跳跃装置！
 		//--------------------------------------------------------------------
