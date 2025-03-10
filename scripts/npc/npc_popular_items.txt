@@ -250,7 +250,7 @@
 			"item_kusanagi"	"1"
 		}
 	}
-	"npc_dota_hero_nevermore"
+	"npc_dota_hero_lone_druid"
 	{
 		"popular_items"
 		{

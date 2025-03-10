@@ -7,18 +7,9 @@ ability_can_be_stolen ={
 	"ability_thdots_rin01",
 	"ability_thdots_rin02",
 	"ability_thdots_rin03",
---exrumia
-	"ability_thdots_exrumia01",
-	"ability_thdots_exrumia02",
-	"ability_thdots_exrumia03",
-	"ability_thdots_exrumia04",
 --rumia
 	"ability_thdots_rumia04",
 	"ability_thdots_rumia01",
---flandre2
-	"ability_thdots_flandrev2_01",
-	"ability_thdots_flandrev2_02",
-	"ability_thdots_flandrev2_06",
 --larva	
 	"ability_thdots_larva01",
 	"ability_thdots_larva02",
@@ -366,11 +357,6 @@ ability_can_be_stolen ={
 	"ability_thdots_shizuha01",
 	"ability_thdots_shizuha02",
 	"ability_thdots_shizuha04",
---mikov2
-	"ability_thdots_miko2_1",
-	"ability_thdots_miko2_2",
-	"ability_thdots_miko2_3",
-	"ability_thdots_miko2_4",
 --shion
 	"ability_thdots_shion_01",
 	"ability_thdots_shion_02",
@@ -863,17 +849,8 @@ function OnSatori04SpellStart(keys)
 end
 function ability_thdots_satori01:ForgetSpell(caster)
 	--删除旧技能的MODIFIER
-	--miko2
-	caster:RemoveModifierByName("modifier_ability_miko2_1check")
-	caster:RemoveModifierByName("modifier_ability_miko2_1ball")
-	caster:RemoveModifierByName("modifier_ability_miko2_3passive")
-	--exrumia
-	caster:RemoveModifierByName("modifier_ability_exrumia04_wanbaochui")
 	--rumia
 	caster:RemoveModifierByName("modifier_ability_thdots_rumia04_strength")
-	--flandre2
-	caster:RemoveModifierByName("modifier_ability_thdots_flandrev2_02_attackrange")
-	caster:RemoveModifierByName("modifier_ability_thdots_flandrev2_06_passive")
 	--miko
 	caster:RemoveModifierByName("modifier_ability_miko02_aura")
 	caster:RemoveModifierByName("modifier_ability_miko02_check")

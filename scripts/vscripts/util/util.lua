@@ -325,9 +325,7 @@ function IsNotLunchbox_ability(ability)  --御币不能充能的技能
         or ability:GetName() == "ability_thdots_patchouli_water"
         or ability:GetName() == "ability_thdots_patchouli_wood"
         or ability:GetName() == "ability_thdots_patchouli_metal"
-        or ability:GetName() == "ability_thdots_patchouli_earth" 
-        or ability:GetName() == "DOTA_Tooltip_ability_ability_thdots_flandrev2_04"
-        or ability:GetName() == "DOTA_Tooltip_ability_ability_thdots_flandrev2_05"
+        or ability:GetName() == "ability_thdots_patchouli_earth"
 		or ability:GetName() == "ability_thdots_kaguya02"
         then return true end
         if ability:IsToggle() or ability:GetAbilityType() == 3 then  --GetAbilityType() == 3 是HIDDEN技能，一般是天生，不触发

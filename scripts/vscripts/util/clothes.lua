@@ -226,23 +226,3 @@ function update_cloth( G_Player_Cloth, plyid, cloth_id )
 
 	G_Player_Cloth[plyid + 1] = cloth_id
 end
-
-function ChangeModelExRumia( G_Player_Cloth, plyid )
-	local hero = PlayerResource:GetPlayer(plyid):GetAssignedHero()
-	local classname = hero:GetClassname()
-	if Hero_Cloth[classname] == nil then return end
-	hero:SetModel(Hero_Cloth[classname][2])
-	hero:SetModelScale(Hero_Cloth[classname..'_size'][2])
-	hero:SetOriginalModel(Hero_Cloth[classname][2])
-	G_Player_Cloth[plyid + 1] = 2
-end
-
-function ChangeModelFlandre( G_Player_Cloth, plyid )
-	local hero = PlayerResource:GetPlayer(plyid):GetAssignedHero()
-	local classname = hero:GetClassname()
-	if Hero_Cloth[classname] == nil then return end
-	hero:SetModel(Hero_Cloth[classname][4])
-	hero:SetOriginalModel(Hero_Cloth[classname][4])
-	hero:SetModelScale(Hero_Cloth[classname..'_size'][4])
-	G_Player_Cloth[plyid + 1] = 4
-end

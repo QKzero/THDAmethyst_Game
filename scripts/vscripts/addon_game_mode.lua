@@ -45,6 +45,12 @@ DOTA_BAN_LIST={
 	"npc_dota_hero_slardar",--大鱼
 	"npc_dota_hero_ringmaster",--百戏大王
 	"npc_dota_hero_kez",--凯
+	"npc_dota_hero_skeleton_king",--冥魂大帝
+	"npc_dota_hero_alchemist",--炼金术士
+	"npc_dota_hero_wisp",--艾欧
+	"npc_dota_hero_pangolier",--石鳞剑士
+	"npc_dota_hero_marci",--玛西
+	"npc_dota_hero_nevermore",--影魔
 }--dota乱入名单，请在activelist中同步修改
 THD2_BAN_LIST ={
 	
@@ -1128,56 +1134,6 @@ function THDOTSGameMode:OnPlayerSay( keys )
 		elseif hero:GetName() == "npc_dota_hero_enchantress" then
 			GameRules:SendCustomMessage("#Youmu2SkillChangeFail", 0, 0)
 		end
-	--[[elseif text == "-4flan" then --
-		local hero = plyhd:GetAssignedHero()
-		if hero:GetName() == "npc_dota_hero_naga_siren" then
-			hero.mirror = true;
-			Say(plyhd, "*四重存在！", true)
-		end --]]
-
-	elseif text == "-exrumia" and Allpick_Mode == true then --
-		local hero = plyhd:GetAssignedHero()
-		if hero:GetName() == "npc_dota_hero_life_stealer" then
-			print(hero:GetName())
-			THD_Change_skill_exrumia(hero,plyhd)
-			-- ChangeModelExRumia( G_Player_Cloth, plyid)
-		elseif hero:GetName() == "npc_dota_hero_skeleton_king" then
-			Say(plyhd, "*该少女已经更换技能，无法再更换", true)
-		end
-	elseif text == "-miko2" and Allpick_Mode == true then --
-		local hero = plyhd:GetAssignedHero()
-		if hero:GetName() == "npc_dota_hero_dawnbreaker" then
-			print(hero:GetName())
-			THD_Change_skill_miko(hero,plyhd)
-		elseif hero:GetName() == "npc_dota_hero_marci" then
-			Say(plyhd, "*该少女已经更换技能，无法再更换", true)
-		end
-	elseif ( text == "-flandre2" and Allpick_Mode == true ) or ( Naotan_Mode == true and not Naotan and GameRules:State_Get() >= DOTA_GAMERULES_STATE_STRATEGY_TIME ) then --
-		local hero = plyhd:GetAssignedHero()
-		if hero:GetName() == "npc_dota_hero_naga_siren" then
-			print(hero:GetName())
-			Naotan = true
-			THD_Change_skill_flandre(hero,plyhd)
-			-- ChangeModelFlandre( G_Player_Cloth, plyid)
-		elseif hero:GetName() == "npc_dota_hero_pangolier" then
-			Say(plyhd, "*该少女已经更换技能，无法再更换", true)
-		end
-	elseif text == "-larva2" then
-		local hero = plyhd:GetAssignedHero()
-		if hero:GetName() == "npc_dota_hero_dark_willow" then
-			print(hero:GetName())
-			THD_Change_skill_Larva2(hero,plyhd)
-		elseif hero:GetName() == "npc_dota_hero_wisp" then
-			GameRules:SendCustomMessage("#Larva2SkillChangeFail", 0, 0)
-		end
-	elseif text == "-kasen3" then
-		local hero = plyhd:GetAssignedHero()
-		if hero:GetName() == "npc_dota_hero_bristleback" then
-			print(hero:GetName())
-			THD_Change_skill_kasen3(hero,plyhd)
-		elseif hero:GetName() == "npc_dota_hero_lone_druid" then
-			Say(plyhd, "*该少女已经更换技能，无法再更换", true)
-		end
 	end
 	
 	if text == "getnum" then
@@ -1397,7 +1353,7 @@ end
 function THDOTSGameMode:Levelup(keys)
 	print("THDOTSGameMode:Levelup")	
 
-	if PlayerResource:GetSelectedHeroName(keys.player_id) == "npc_dota_hero_nevermore" then
+	if PlayerResource:GetSelectedHeroName(keys.player_id) == "npc_dota_hero_lone_druid" then
 		--  秋姐升级监听 （暂时弃用）
 	end
 	THD2_Special_OnLevelUp()
@@ -2084,7 +2040,7 @@ function THDOTSGameMode:PrecacheHeroResource(hero)
 	elseif (heroName == "npc_dota_hero_tusk") then
 		abilityEx = hero:FindAbilityByName("ability_thdots_Jyoon_passive")
 		abilityEx:SetLevel(1)
-	elseif (heroName == "npc_dota_hero_nevermore") then
+	elseif (heroName == "npc_dota_hero_lone_druid") then
 		abilityEx = hero:FindAbilityByName("ability_thdots_shizuhaEXNew")
 		abilityEx:SetLevel(1) --开局设置天生技能一级
 	elseif (heroName == "npc_dota_hero_bloodseeker") then
@@ -2108,22 +2064,6 @@ function THDOTSGameMode:PrecacheHeroResource(hero)
 		ability:SetHidden(true)
 		ability = hero:FindAbilityByName("ability_thdots_meira04_2")
 		ability:SetHidden(true)
-
-	--[[elseif (heroName == "npc_dota_hero_skeleton_king") then
-		local ability = hero:FindAbilityByName("ability_thdots_exrumiaEx")
-   		ability:SetLevel(1) 
-	elseif (heroName =="npc_dota_hero_pangolier") then
-		local ability = hero:FindAbilityByName("ability_thdots_flandrev2_wanbaochui")
-		ability:SetLevel(1)  
-		ability:SetHidden(true)
-		ability = hero:FindAbilityByName("ability_thdots_flandrev2_03")
-		ability:SetLevel(1)
-	elseif (heroName == "npc_dota_hero_marci") then
-		local ability = hero:FindAbilityByName("ability_thdots_miko2_Ex")
-		ability:SetLevel(1)  --]]
-	elseif (heroName == "npc_dota_hero_wisp") then
-		abilityEx = hero:FindAbilityByName("ability_thdots_larva02_ex")
-		abilityEx:SetLevel(1)
 	end
 end
 
@@ -2163,6 +2103,7 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 			GameRules:SendCustomMessage("#BotMode_Explain16",0,0)
 			GameRules:SendCustomMessage("#BotMode_Explain17",0,0)
 			GameRules:SendCustomMessage("#BotMode_Explain18",0,0)
+			GameRules:SendCustomMessage("#BotMode_Explain19",0,0)
 		else
 			GameRules:SendCustomMessage("#BP_Explain1",0,0)
 			GameRules:SendCustomMessage("#RANKDC_Explain1",0,0)
@@ -2279,11 +2220,7 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 		end
 		--如果有人没选英雄则自动暂停游戏
 		local has_patchouli = false
-		local has_exrumia = false
 		local has_youmu = false
-		local has_flandre2 = false
-		local has_miko = false
-		local has_larva = false
 		for i =0,63 do
 			if PlayerResource:GetPlayer(i) ~= nil then
 				if PlayerResource:HasSelectedHero(i) == false then
@@ -2303,26 +2240,10 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 					HostSay("晚上触发月符「沉静的月神」，1200范围内友方英雄施加隐身且根据帕秋莉魔法上限的10%恢复生命魔法值，并降低所受伤害25%，持续10秒。")
 					HostSay("帕秋莉享受日/月元素加成，白天提高技能增强10%，晚上受到伤害降低10%")		]]
 					has_patchouli = true
-				elseif PlayerResource:GetSelectedHeroName(i) == "npc_dota_hero_life_stealer" and not has_exrumia and Allpick_Mode == true then
-					HostSay("玩家选择露米娅")
-					HostSay("进入地图后输入-exrumia可以切换为Ex露米娅")	
-					has_exrumia = true
 				elseif PlayerResource:GetSelectedHeroName(i) == "npc_dota_hero_juggernaut" and not has_youmu then
 					GameRules:SendCustomMessage("#Youmu2Explain1", 0, 0)
 					GameRules:SendCustomMessage("#Youmu2Explain2", 0, 0)
 					has_youmu = true
-				elseif PlayerResource:GetSelectedHeroName(i) == "npc_dota_hero_naga_siren" and not has_flandre2 and Allpick_Mode == true then
-					HostSay("玩家选择芙兰朵露")
-					HostSay("进入地图后输入-flandre2可以切换为芙兰朵露v2")	
-					has_flandre2 = true
-				elseif PlayerResource:GetSelectedHeroName(i) == "npc_dota_hero_dawnbreaker" and not has_miko and Allpick_Mode == true then
-					HostSay("玩家选择丰聪耳神子")
-					HostSay("进入地图后输入-miko2可以切换为神子v2")	
-					has_miko = true
-				elseif PlayerResource:GetSelectedHeroName(i) == "npc_dota_hero_dark_willow" and not has_larva and ( Allpick_Mode == true or THD2_GetStrarWberryMode() ) then
-					HostSay("玩家选择爱塔妮缇·拉尔瓦")
-					HostSay("进入地图后输入-larva2可以切换为拉尔瓦v2")	
-					has_larva = true
 				end
 			end
 		end

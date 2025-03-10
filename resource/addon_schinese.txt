@@ -104,7 +104,8 @@
 		"BotMode_Explain15" "<font color='#00FFFF'>-banbots X 禁用bot机体，x是机体覆盖的dota英雄名字，多个机体用空格隔开</font>"
 		"BotMode_Explain16" "<font color='#00FFFF'>-strawberry 启用草莓模式，测试未实装的游戏性改动</font>"
 		"BotMode_Explain17" "<font color='#00FFFF'>-dota 启用Dota乱入</font>"
-		"BotMode_Explain18" "<font color='#6633CC'>正在使用紫水晶地图</font>"
+		"BotMode_Explain18" "<font color='#00FFFF'>-removebot 关闭人机模式（不可逆）</font>"
+		"BotMode_Explain19" "<font color='#6633CC'>正在使用紫水晶地图</font>"
 
 		"BP_Explain1" "<font color='#00FFFF'>房主在该界面输入-bp即可启用自由BP模式</font>"
 		"BP_Explain2" "<font color='#00FFFF'>BP模式已启用</font>"
@@ -2348,7 +2349,6 @@
 		"npc_dota_hero_naga_siren"	"芙兰朵露·斯卡雷特"
 		"npc_dota_hero_chaos_knight"	"藤原妹红"
 		"npc_dota_hero_life_stealer"	"露米娅"
-		"npc_dota_hero_skeleton_king"	"露米娅"
 		"npc_dota_hero_tidehunter"	"伊吹萃香"
 		"npc_dota_hero_centaur"	"星熊勇仪"
 		"npc_dota_hero_razor"	"永江衣玖"
@@ -2382,10 +2382,10 @@
 		"npc_dota_hero_puck"	"八云蓝"
 		"npc_dota_hero_venomancer"	"风见幽香"
 		"npc_dota_hero_huskar"	"秋穰子"
-		"npc_dota_hero_nevermore"	"秋静叶"
+		"npc_dota_hero_lone_druid"	"秋静叶"
 		"npc_dota_hero_phantom_assassin"	"封兽鵺"
 
-		"npc_dota_hero_nevermore_npedesc1"	"悲凉好个秋啊"
+		"npc_dota_hero_lone_druid_npedesc1"	"悲凉好个秋啊"
 
 		"npc_dota_hero_abyssal_underlord"	"火焰猫燐"
 		"npc_dota_hero_abyssal_underlord_hype"	"觉的宠物。"
@@ -5353,120 +5353,6 @@
         "DOTA_Tooltip_modifier_ability_larva04_caught"  "「仲夏的妖精梦」"
         "DOTA_Tooltip_modifier_ability_larva04_caught_Description"  "困于梦境之中"
 
-//-------------------------------------------------------------------------------------------
-//------------------------------------大蛾子V2  by 小小淡宵-----------------------------------
-//-------------------------------------------------------------------------------------------
-		"npc_dota_hero_wisp"														"爱塔妮缇·拉尔瓦"
-
-		"DOTA_Tooltip_ability_ability_thdots_larva02_ex"							"「鳞粉」"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_ex_Description"				"拉尔瓦会不停地向周围撒出鳞粉，每%think_time%秒使%auraRangeRadius%范围内的敌方单位粘上一层「鳞粉」并刷新持续时间，持续%duration%秒。每层降低目标%attackspeed%攻击速度。"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_ex_note0"						"该技能对幻象生效。效果不可叠加。"
-
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_ex_target"					"「鳞粉」"
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_ex_target_Description"		"将会受到拉尔瓦鳞粉的影响。"
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_ex_debuff"					"沾身难下的鳞粉"
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_ex_debuff_Description"		"降低%dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%攻击速度和%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%移动速度。"
-
-		"DOTA_Tooltip_ability_ability_thdots_larva02_01"							"蝶符「盛夏振翅」"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_01_Description"				"<h1>被动：</h1>鳞粉会减缓敌人的步伐，每层「鳞粉」降低他们%speed_down%%%移动速度。\n<h1>主动：</h1>拉尔瓦进入飞行状态，增加移动速度，并移动无视地形阻挡。在飞行结束时，会扇动翅膀将鳞粉撒向四周，使周围%radius%范围内敌方单位粘上「鳞粉」，但不会刷新持续时间。"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_01_max_speed_down_value"		"%最大移动速度降低："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_01_duration"					"飞行持续时间："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_01_speed_up"					"%移动速度加成："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_01_stack_get"					"层数增加："
-
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_01_buff"						"「盛夏振翅」"
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_01_buff_Description"			"少女振翅中……"
-
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02"							"「仲夏的妖精梦」"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_Description"				"<h1>被动：</h1>每当拉尔瓦受到来自粘有「鳞粉」的单位的伤害时，根据受到伤害的一定百分比回复生命值，「鳞粉」层数越多效果越强。\n<h1>主动：</h1>将周围少女困入拉尔瓦的梦境之中，若被困少女没有在持续时间内离开拉尔瓦身边%runrange%距离，则会受到眩晕和伤害。"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_duration"					"梦境持续时间："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_stun_duration"				"眩晕持续时间："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_bone_damage"				"伤害："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_AbilityCastRange"			"作用范围："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_heal_stack"					"%每层回复："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_scepter_description"		"若被困少女没能成功逃脱拉尔瓦的梦境，则在该少女身旁产生一个拉尔瓦的幻象。若该少女粘有「鳞粉」，还将为她们叠加「鳞粉」。"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_stack_get"					"层数增加："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_illusions_duration"			"幻象持续时间："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_illusion_incoming_damage"	"%幻象承受伤害："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_illusion_outgoing_damage"	"%幻象继承攻击力："
-
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_02_debuff"					"「仲夏的妖精梦」"
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_02_debuff_Description"		"被困于拉尔瓦的梦境之中。"
-
-		"DOTA_Tooltip_ability_ability_thdots_larva02_03"							"蝶符「沾身难下的鳞粉」"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_03_Description"				"<h1>被动：</h1>「鳞粉」根据层数持续造成伤害。\n<h1>主动：</h1>拉尔瓦向周围%radius%范围内撒下鳞粉，对范围内的敌人造成伤害，并使他们粘上「鳞粉」，但不会刷新持续时间。"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_03_stack_damage"				"被动每层伤害："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_03_stack_get"					"层数增加："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_03_bone_damage"				"主动施法伤害："
-
-		"DOTA_Tooltip_ability_ability_thdots_larva02_04"							"梦蝶「Crazy Butterfly」"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_04_Description"				"拉尔瓦向前方发射蝴蝶弹幕，对击中的少女造成伤害并使他们粘上「鳞粉」，然后清除目标所有的「鳞粉」层数，根据减少的层数造成额外伤害。"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_04_stack_get"					"层数增加："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_04_bone_damage"				"基础伤害："
-		"DOTA_Tooltip_ability_ability_thdots_larva02_04_stack_damage"				"每层额外伤害："
-
-		//天赋
-		"DOTA_Tooltip_ability_special_bonus_unique_larva_02_2_1"					"+{s:value}「仲夏的妖精梦」逃脱距离"
-		"DOTA_Tooltip_ability_special_bonus_unique_larva_02_1_1"					"-{s:value}秒「盛夏振翅」冷却时间，飞行获得高空视野"
-		"DOTA_Tooltip_ability_special_bonus_unique_larva_02_2_2"					"+{s:value}%「仲夏的妖精梦」回复效果"
-		"DOTA_Tooltip_ability_special_bonus_unique_larva_02_ex_1"					"+{s:value}「鳞粉」作用范围"
-
-//-------------------------------------------------------------------------------------------
-//------------------------------------exrumia by 乌冬----------------------------------------
-//-------------------------------------------------------------------------------------------
-
-        "DOTA_Tooltip_ability_ability_thdots_exrumia01"     "月符 「月的暗面」"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia01_Description"  "露米娅使目标陷入一片黑暗之中，目标单位任何动作不显影且获得闪避能力。\n对敌释放时还将会将目标沉默缴械，持续时间为黑暗持续时间的一半。"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia01_cast_range"  "施法距离："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia01_duration"   "持续时间："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia01_evasion"   "闪避几率："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia01_note0"   "虽然目标的动作不会令她显形，但是真视视野仍然可以发现她。"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02"     "暗符 「境界线」"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02_Description"     "露米娅大肆收割周围血肉，提高攻击速度，并且普通攻击能造成额外的溅射伤害，造成额外伤害的50%%会治疗自身。"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02_duration"  "持续时间："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02_attack_speed"  "攻速加成："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02_damage"  "溅射伤害："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02_radius"  "溅射范围："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02_note0"  "露米娅获得的回复量是基于额外税前伤害的一半，目标实际受到的伤害与露米娅获得的回复无关。"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia03"     "「宵暗之盾」"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia03_Description"     "露米娅在%duration%秒内持续引导一个诡异的护盾，吸收%block_constant%伤害后破碎。护盾破碎会对自身周围的敌人造成伤害和%stuntime%秒眩晕，同时恢复自身魔法值。"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia03_radius"  "作用范围："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia03_regen_mana"  "恢复魔法："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia03_break_damage"  "破碎伤害："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04"      "食罪"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_Description"      "露米娅先对目标少女发动一次宏伟终结，造成魔法伤害，之后冲向目标打出一次无法闪避的暴击。\n冲刺期间不会被击晕，无视地形。失去目标后将结束状态。\n目标少女会因其罪孽而痛苦不堪，期间降低所有伤害，若状态持续期间目标死亡则恢复露米娅最大生命值的25%%\n对少于35%%生命值的少女造成双倍伤害。"
-				"DOTA_Tooltip_ability_ability_thdots_exrumia04_scepter_description"	"食罪对35%%生命以下的目标少女造成一倍额外伤害；攻击有%chance%%%几率触发食罪。"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_duration"  "负面状态持续时间："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_crit"  "暴击倍率："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_damage"  "魔法伤害："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_block"  "降低伤害："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_cast_range"  "施法距离："
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_note0"  "食罪造成的伤害减少debuff是通过造成伤害后给予一定治疗实现的，换言之，影响治疗效果的装备和技能会对这个debuff的实际效果产生影响。"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_scepter_description"  "食罪对35%%生命以下的目标少女造成一倍额外伤害；普攻%chance%%%触发食罪。"
-        "DOTA_Tooltip_ability_ability_thdots_exrumiaEx"  "夜符 「午夜」"
-        "DOTA_Tooltip_ability_ability_thdots_exrumiaEx_Description"  "夜间获得%speed%%%攻击力和移速加成" 
-        "DOTA_Tooltip_modifier_ability_exrumia01_shadow"  "月符 「月的暗面」"
-        "DOTA_Tooltip_modifier_ability_exrumia01_shadow_Description"  "拥有隐身及闪避能力"
-        "DOTA_Tooltip_modifier_ability_exrumia01_disable"   "月符 「月的暗面」"
-        "DOTA_Tooltip_modifier_ability_exrumia01_disable_Description"   "被缴械，沉默"
-        "DOTA_Tooltip_modifier_ability_exrumia02_attack"   "暗符 「境界线」"
-        "DOTA_Tooltip_modifier_ability_exrumia02_attack_Description"  "获得溅射能力，造成额外伤害的50%将治疗露米娅"
-        "DOTA_Tooltip_modifier_ability_exrumia03_block"    "「宵暗之盾」"
-        "DOTA_Tooltip_modifier_ability_exrumia03_block_Description"  "吸收伤害" 
-        "DOTA_Tooltip_modifier_ability_exrumia04_debuff"  "食罪"
-        "DOTA_Tooltip_modifier_ability_exrumia04_debuff_Description"  "降低33%%伤害，期间死亡将治疗露米娅"
-        "DOTA_Tooltip_modifier_ability_exrumiaEx_night"  "夜符 「午夜」"
-        "DOTA_Tooltip_modifier_ability_exrumiaEx_night_Description" "增加攻击力和移动速度"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_01" "+15敏捷"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_02" "暗符「境界线」持续时间延长2秒"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_03" "+35移动速度"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_04" "「境界线」 额外50%回复"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_05" "夜符「午夜」双倍加成"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_06" "+15护甲"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_07" "食罪期间窃取目标40力量"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_07_Description" "无法驱散"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_08" "+55攻击速度"      
-
 //-----------------------------------------------------------------------------------------------
 //------------------------------------flandrev2 by Rylynn----------------------------------------
 //-----------------------------------------------------------------------------------------------
@@ -5598,53 +5484,6 @@
         "DOTA_Tooltip_modifier_miko_immortal_description"  "神子获得了更多力量"
         "DOTA_Tooltip_modifier_ability_miko03_passive"  "「丙子椒林剑」"
 		"DOTA_Tooltip_ability_ability_thdots_mikoWanbao_scepter_description"	"神子指定一个敌方单位，对自身与敌方单位施加缴械和沉默，持续3秒。"
-
-//-------------------------------------------------------------------------------------------
-//------------------------------------------------神子v2----------------------------------------
-//-------------------------------------------------------------------------------------------
-				"npc_dota_hero_marci"	"丰聪耳神子"
-        "DOTA_Tooltip_ability_ability_thdots_miko2_1" "名誉「十二阶之色彩」"
-        "DOTA_Tooltip_ability_ability_thdots_miko2_1_Description" "开启后，每秒发射%num%个弹幕追踪%radius%范围内最近的敌人造成<font color='#FFFFFF'>基础伤害</font>+%mana_damage_percent%%%最大魔法值的魔法伤害。\n如果敌人被神光「无忤为宗」控制，则弹幕追踪该敌人。\n每发弹幕魔法消耗%mana_cost_constant% + %mana_cost_percent%%%"
-        "DOTA_Tooltip_ability_ability_thdots_miko2_1_Note0"		"可以发射弹幕攻击战争迷雾中乃至隐身的敌人，但是不会造成伤害，且无法实时追踪她们的位置。"
-        "DOTA_Tooltip_ability_ability_thdots_miko2_1_damage" "基础伤害：" 
-        "DOTA_Tooltip_ability_ability_thdots_miko2_2" "神光「无忤为宗」"
-        "DOTA_Tooltip_ability_ability_thdots_miko2_2_Description" "持续控制一个敌方少女，持续期间双方无法行动。\n施法距离：%cast_range%"
-        "DOTA_Tooltip_ability_ability_thdots_miko2_2_damage" "每秒造成伤害：" 
-        "DOTA_Tooltip_ability_ability_thdots_miko2_2_duration" "持续时间：" 
-        "DOTA_Tooltip_ability_ability_thdots_miko2_3" "德符「圣德的威望」"
-        "DOTA_Tooltip_ability_ability_thdots_miko2_3_Description" "<h1>主动</h1>神子在%duration%秒内的下一次普攻将附带%radius%范围的魔法伤害，范围内的敌人将受到持续%slow_duration%秒%slow_percent%%%的减速\n力量加成：%strength_bonus%\n<h1>被动</h1>获得%percent%%%技能吸血" 
-        "DOTA_Tooltip_ability_ability_thdots_miko2_3_Lore" "此剑斩尽桃花岛奸小"
-        "DOTA_Tooltip_ability_ability_thdots_miko2_3_damage" "范围伤害：" 
-        "DOTA_Tooltip_ability_ability_thdots_miko2_4" "「新生的神灵」"
-        "DOTA_Tooltip_ability_ability_thdots_miko2_4_Description" "完全降低目标敌方少女的移动速度，在%duration%内逐渐恢复正常。期间生成4个%damage%点伤害的弹幕攻击目标\n神子可以再次释放技能向目标突进（即使目标死亡），沿途造成%last_damage%点魔法伤害\n若该目标在减速期间死亡，神子将获得一层能量点数，每层能量点数提高%stack_damage%点伤害。"
-				"DOTA_Tooltip_ability_ability_thdots_miko2_4_scepter_description"	"降低30秒冷却时间，且神子向目标突进后将在负面状态结束时再次飞向敌人并沿途造成伤害。"
-        "DOTA_Tooltip_ability_ability_thdots_miko2_Ex" "「尸解仙」"
-        "DOTA_Tooltip_ability_ability_thdots_miko2_Ex_Description" "<h1>被动：</h1>免疫致死伤害并对自身施加强驱散，同时获得%duration%秒内匀速衰减的护盾，护盾值为等级x%shield%"
-        "DOTA_Tooltip_ability_ability_thdots_miko2_Ex_Note0"		"这个效果对小町的终极技能「余命无几许」无效且仍然会进入冷却。"
-        "DOTA_Tooltip_ability_special_bonus_unique_miko2_1" "+6 魔法回复"
-        "DOTA_Tooltip_ability_special_bonus_unique_miko2_2" "+6 护甲"
-        "DOTA_Tooltip_ability_special_bonus_unique_miko2_3" "+15 魔法抗性"
-        "DOTA_Tooltip_ability_special_bonus_unique_miko2_4" "+{s:value} 「新生的神灵」弹幕伤害"
-        "DOTA_Tooltip_ability_special_bonus_unique_miko2_5" "+{s:value}% 德符「圣德的威望」吸血"
-        "DOTA_Tooltip_ability_special_bonus_unique_miko2_6" "名誉「十二阶之色彩」附带3%最大法力值伤害"
-        "DOTA_Tooltip_ability_special_bonus_unique_miko2_7" "+{s:value} 「新生的神灵」突进魔法伤害"
-        "DOTA_Tooltip_ability_special_bonus_unique_miko2_8" "+{s:value} 名誉「十二阶之色彩」弹幕伤害"
-        "DOTA_Tooltip_modifier_ability_miko2_1check"  "名誉「十二阶之色彩」"
-        "DOTA_Tooltip_modifier_ability_miko2_1check_Description"  "持续消耗魔法，每秒发射一个弹幕追踪范围内最近的敌人"
-        "DOTA_Tooltip_modifier_ability_miko2_2t"  "神光「无忤为宗」"
-        "DOTA_Tooltip_modifier_ability_miko2_2t_Description"  "无法行动"
-        "DOTA_Tooltip_modifier_ability_miko2_2c"  "神光「无忤为宗」"
-        "DOTA_Tooltip_modifier_ability_miko2_2c_Description"  "无法行动"
-        "DOTA_Tooltip_modifier_ability_miko2_3check"  "德符「圣德的威望」"
-        "DOTA_Tooltip_modifier_ability_miko2_3check_Description"  "下一击附带范围魔法伤害"
-        "DOTA_Tooltip_modifier_ability_miko2_3debuff"  "德符「圣德的威望」"
-        "DOTA_Tooltip_modifier_ability_miko2_3debuff_Description"  "被减速"
-        "DOTA_Tooltip_modifier_ability_miko2_4debuff"  "「新生的神灵」"
-        "DOTA_Tooltip_modifier_ability_miko2_4debuff_Description"  "被减速"
-        "DOTA_Tooltip_modifier_ability_miko2_Ex"  "「新生的神灵」"
-        "DOTA_Tooltip_modifier_ability_miko2_Ex_Description"  "叠加层数"
-        "DOTA_Tooltip_modifier_ability_miko2_ExShield"  "「尸解仙」"
-        "DOTA_Tooltip_modifier_ability_miko2_ExShield_Description"  "无敌"
 //-------------------------------------------------------------------------------------------
 //------------------------------------------------kasen2----------------------------------------
 //-------------------------------------------------------------------------------------------
@@ -7018,17 +6857,6 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_toyohime_6"					"+{s:bonus_duration}秒「月影降临术」持续时间"
 		"DOTA_Tooltip_ability_special_bonus_unique_toyohime_7"					"投影效果脱离范围后仍粘滞{s:value}秒"
 		"DOTA_Tooltip_ability_special_bonus_unique_toyohime_8" 					"「月影降临术」不向敌军提供伤害减免"
-
-
-		//---------------------------------------------
-		// 饕餮尤魔 Yuuma
-		//---------------------------------------------	
-		"npc_dota_hero_alchemist"													"饕餮尤魔"
-
-		// YuumaEx
-		"DOTA_Tooltip_ability_ability_thdots_yuumaEx"								"「肚子空空的贪婪怪兽」"
-		"DOTA_Tooltip_ability_ability_thdots_yuumaEx_Description"					"尤魔每秒损失%curr_hp_loss_pct%%%当前生命值。当前生命值低于%hp_threshold%%%时，消耗速度减半。<br>每有%every_max_hp%点最大生命值获得%as_every_max_hp%攻击速度，每损失%every_loss_hp%点生命值获得%as_every_loss_hp%攻击速度。"
-		"DOTA_Tooltip_ability_ability_thdots_yuumaEx"								"战无不胜的刚欲同盟盟主，随无限食欲成长的晚成型。"
 
 
 		//------------------------------------------------------

@@ -110,8 +110,8 @@ function THD2_GetJFFMode() return cur_jff end
 
 
 --to ban some girls(which is not work done XD)
-cur_bot_heros_size = 44
-tot_bot_heros_size = 67
+cur_bot_heros_size = 43
+tot_bot_heros_size = 66
 G_BOT_USED = 
 {
 	false ,			--红白
@@ -180,7 +180,6 @@ G_BOT_USED =
 	false ,			--宫古
 	false ,			--青娥
 	
-	true ,			--芙兰v2
 	false ,			--探女
 	false ,			--琪斯美
 	false ,			--娜兹玲
@@ -264,7 +263,6 @@ G_Bot_Random_Hero =
 	"npc_dota_hero_undying",				--宫古
 	"npc_dota_hero_grimstroke",				--青娥
 	
-	"npc_dota_hero_pangolier",				--芙兰v2
 	"npc_dota_hero_queenofpain",			--探女
 	"npc_dota_hero_omniknight",				--琪斯美
 	"npc_dota_hero_ursa",					--娜兹玲
@@ -273,7 +271,7 @@ G_Bot_Random_Hero =
 	"npc_dota_hero_phantom_lancer",			--铃仙02
 	"npc_dota_hero_dark_willow",			--拉尔瓦
 	"npc_dota_hero_huskar",					--秋穰子
-	"npc_dota_hero_nevermore",				--秋静叶
+	"npc_dota_hero_lone_druid",				--秋静叶
 	"npc_dota_hero_enchantress",			--妖梦v2
 	
 	"npc_dota_hero_death_prophet",			--紫苑
@@ -353,7 +351,6 @@ G_Bots_Ability_Add = {
 	{3,1,2,3,3,  6,3,1,1,10,  1,6,2,2,13, 2,0,6,0,15,  0,0,0,0,17,  0,11,12,14,16  }, --miyako
 	{2,1,3,2,1,  6,2,1,2,11,  1,6,3,3,12, 3,0,6,0,14,  0,0,0,0,16,  0,10,13,15,17  }, --seiga
 	
-	{4,1,2,1,2,  6,1,2,1,10,  2,6,4,4,13, 4,0,6,0,15,  0,0,0,0,16,  0,11,12,14,17  }, --flandrev2
 	{2,1,3,2,1,  6,2,1,2,10,  1,6,3,3,13, 3,0,6,0,14,  0,0,0,0,17,  0,11,12,15,16  }, --sagume
 	{1,2,3,2,3,  6,2,3,2,11,  3,6,1,1,12, 1,0,6,0,14,  0,0,0,0,17,  0,10,13,15,16  }, --kisume
 	{1,2,3,1,2,  6,1,2,1,10,  2,6,3,3,12, 3,0,6,0,14,  0,0,0,0,17,  0,11,13,15,16  }, --nazrin
@@ -622,16 +619,6 @@ function THD2_AddBot()
 					if ply ~= nil then
 						local tHeroName = PlayerResource:GetSelectedHeroName(i)
 						print( 'Player ' .. string.format("%d",i) .. ' picked ' .. tHeroName )
-						--针对v2的处理
-						--玩家选择芙兰时，bot禁选芙兰v2
-						if tHeroName == "npc_dota_hero_naga_siren" then
-							for j=0,233 do
-								if G_Bot_Random_Hero[j] == "npc_dota_hero_pangolier" then
-									G_BOT_USED[j] = true
-									break
-								end
-							end
-						end
 						--通用情况
 						if tHeroName ~= nil then
 							for j=0,233 do
@@ -818,7 +805,7 @@ function THD2_FirstAddBuff( hero )
 						G_Bot_Level[hero:GetPlayerOwnerID()] = nil
 						THD2_BotUpGradeAbility(hero) -- init abilities
 						local hName = hero:GetClassname()
-						if hName == "npc_dota_hero_pangolier" or hName == "npc_dota_hero_enchantress" then
+						if hName == "npc_dota_hero_enchantress" then
 							THD2_BotSpecialInit(hero)
 						end
 						--[[
@@ -1008,27 +995,6 @@ function THD2_BotSpecialInit(hero)
 	--为部分技能和buff设定初始值
 	local hName = hero:GetClassname()
 	 --abilitys is 0~n-1, but vals set as 1~n
-	if hName == "npc_dota_hero_pangolier" then
-		local ability = hero:GetAbilityByIndex(6)
-		if ability~=nil then
-			print("SpecialAbilityInit:" .. ability:GetAbilityName())
-			ability:SetLevel(1)
-		else
-			print("SpecialAbilityInit Error: flandrev2")
-		end
-		local mName = "modifier_ability_thdots_flandrev2_03_bloodfire"
-		local modifier = hero:FindModifierByName(mName)
-		if modifier ~= nil then
-			print("SpecialModifierInit:" .. mName)
-			local init_value = 0
-			if cur_bot_dif > 2 then
-				init_value = (cur_bot_dif-2) * 50 + 20
-			end
-			hero:SetModifierStackCount(mName, modifier, init_value)
-		else
-			print("SpecialModifierInit Error: flandrev2")
-		end	
-	end
 	if hName == "npc_dota_hero_enchantress" then
 		local ability = hero:GetAbilityByIndex(3)
 		if ability~=nil then

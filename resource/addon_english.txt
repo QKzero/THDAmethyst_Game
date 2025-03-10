@@ -1212,58 +1212,6 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_rumia_2"							"-{s:bonus_AbilityCooldown}s「Is~ Dat~ So~」Cooldown"
 		"DOTA_Tooltip_ability_special_bonus_unique_rumia_3"							"「Dark Side of the Moon」Dispels On Cast"
 		"DOTA_Tooltip_ability_special_bonus_unique_rumia_4"							"+{s:bonus_damage}「Demarcation」Bleed Damage"
-		//--------------------
-		//EXRumia
-		//--------------------
-        "DOTA_Tooltip_ability_ability_thdots_exrumia01"     "Darkness Sign「Dark Side of the Moon」"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia01_Description"  "Rumia hides her target in a cloud of shadows, making it invisible and increasing it's evasion. Attacking, casting spells, and using items will not reveal itself.\nDisarm and silence the target for half the duration if it is an enemy."
-        "DOTA_Tooltip_ability_ability_thdots_exrumia01_cast_range"  "Cast Range: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia01_duration"   "Duration: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia01_evasion"   "Evasion: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02"     "Darkness Sign「Demarcation」"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02_Description"     "Rumia reaps flesh around wantonly, granting bonus attack speed and cleave on attack(causes permanent damage). Rumia heals herself by 50%% of the damage made by cleave."
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02_duration"  "Duration: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02_attack_speed"  "Bonus Attack Speed: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02_damage"  "Cleave Damage: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02_radius"  "Cleave Radius: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia02_note0"  "Damage taken by enemies in reality does nothing with healing."
-        "DOTA_Tooltip_ability_ability_thdots_exrumia03"     "「Dusk Shield」"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia03_Description"     "Rumia channelling a weird shield which can absorb %block_constant% damage for %duration% seconds. Enemies around will take damage and be stunned for %stuntime% seconds if the shield breaks, while Rumia will restore mana."
-        "DOTA_Tooltip_ability_ability_thdots_exrumia03_radius"  "Radius: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia03_regen_mana"  "Mana Restoring: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia03_break_damage"  "Damage: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04"      "Sin Devouring"
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_Description"      "Rumia launches a grand shutdown to the target enemy girl, dealing damage to her, then dashes towards her and cause an unevadable critical attack.\nBe able to pass impassable terrain and won't be stunned while dashing.\nThe target girl suffering for her sins, damage casued reduced. Rumia will heal herself by 25%% of max health if the target dies in the duration.\nDeals double damage to girls whose health percentage is less than 35%%."
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_duration"  "Debuff Duration: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_crit"  "Critical Damage: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_damage"  "Magical Damage: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_block"  "Damage Casued Reducing: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_cast_range"  "Cast Range: "
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_note0"  "Heal amplification and reducing influence the actual effect of damage casued reducing."
-        "DOTA_Tooltip_ability_ability_thdots_exrumia04_scepter_description"  "Deals double damage to girls whose health percentage is less than 35%%; Rumia has %chance%%% chance to spell Sin Devouring on each attack."
-        "DOTA_Tooltip_ability_ability_thdots_exrumiaEx"  "Night Sign 「Midnight Bird」"
-        "DOTA_Tooltip_ability_ability_thdots_exrumiaEx_Description"  "Get %speed%%% attack damage and attack speed bonus at night." 
-        "DOTA_Tooltip_modifier_ability_exrumia01_shadow"  "Darkness Sign「Dark Side of the Moon」"
-        "DOTA_Tooltip_modifier_ability_exrumia01_shadow_Description"  "Invisible and evasion increased"
-        "DOTA_Tooltip_modifier_ability_exrumia01_disable"   "Darkness Sign「Dark Side of the Moon」"
-        "DOTA_Tooltip_modifier_ability_exrumia01_disable_Description"   "Disarmed and silenced."
-        "DOTA_Tooltip_modifier_ability_exrumia02_attack"   "Darkness Sign 「Demarcation」"
-        "DOTA_Tooltip_modifier_ability_exrumia02_attack_Description"  "Cleaving, heal yourself by 50% of cleaving damage."
-        "DOTA_Tooltip_modifier_ability_exrumia03_block"    "「Dusk Shield」"
-        "DOTA_Tooltip_modifier_ability_exrumia03_block_Description"  "Absorbing damage" 
-        "DOTA_Tooltip_modifier_ability_exrumia04_debuff"  "Sin Devouring"
-        "DOTA_Tooltip_modifier_ability_exrumia04_debuff_Description"  "%block%%% damage caused reduced, healing Rumia if dead in duration."
-        "DOTA_Tooltip_modifier_ability_exrumiaEx_night"  "Night Sign 「Midnight Bird」"
-        "DOTA_Tooltip_modifier_ability_exrumiaEx_night_Description" "Get attack damage and attack speed bonus"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_01" "+15 Agility"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_02" "+2 seconds Darkness Sign「Demarcation」duration"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_03" "+35 move speed"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_04" "+50%「Demarcation」healing"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_05" "Night Sign 「Midnight Bird」double bouns"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_06" "+15 armor"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_07" "Steals 40 strength in duration"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_07_Description" "Undispellable"
-        "DOTA_Tooltip_ability_special_bonus_unique_exrumia_08" "+55 attack speed"      
 
 		//--------------------
 		//Iku Nagae
@@ -5711,65 +5659,6 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_larva_6_Description"		"Further hits refresh the duration and increase the counter as if the target had cast a spell."
 
 		// --------------------
-		// Larva v2
-		// --------------------
-
-		"npc_dota_hero_wisp"														"Eternity Larva"
-
-		"DOTA_Tooltip_ability_ability_thdots_larva02_ex"							"「Scales」"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_ex_Description"				"Larva constantly sprinkles scales around her. Applies a stack of 「Scales」 to enemy units within a %auraRangeRadius% range every %think_time% seconds and refreshes the duration for %duration% seconds. Reduces target's attack speed by %attackspeed% every stack."
-		"DOTA_Tooltip_ability_ability_thdots_larva02_ex_note0"						"The ability is functional for illusions. The effect cannot stack with itself."
-
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_ex_target"					"「Scales」"
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_ex_target_Description"		"Will effect by larva's scales."
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_ex_debuff"					"Surrounding Scales"
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_ex_debuff_Description"		"Attack speed reduced by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% and move speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%."
-
-		"DOTA_Tooltip_ability_ability_thdots_larva02_01"							"Butterfly Sign「Midsummer Wingbeats」"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_01_Description"				"<h1>Passvie: </h1>Scales slow enemies' steps, slow thier move speed by %speed_down%%% for each stack of 「Scales」.\n<h1>Active: </h1>Larva enters flight, increases move speed, and free pathing. At the end of the flight, Larva flaps her wings to sprinkle scales around, causing enemy units within a %radius% range to stick 「Scales」, but it will not refresh the duration."
-		"DOTA_Tooltip_ability_ability_thdots_larva02_01_max_speed_down_value"		"%MAX MOVE SPEED SLOW: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_01_duration"					"FIGHT DURATION: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_01_speed_up"					"%MOVE SPEED BONUS: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_01_stack_get"					"STACKS: "
-
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_01_buff"						"「Midsummer Wingbeats」"
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_01_buff_Description"			"NowFlying..."
-
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02"							"「A Midsummer Fairy's Dream」"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_Description"				"<h1>Passive: </h1>Each time Larva is attacked by enemies with 「Scales」, restores health based on a percentage of the damage taken. The more stacks of 「Scales」, the stronger the effect.\n<h1>Active: </h1>Traps the surrounding girls into Larva's dream. If the trapped girls do not leave Larva's side %runrange% range within the duration, they will suffer stun and damage."
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_duration"					"DREAM DURATION: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_stun_duration"				"STUN DURATION: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_bone_damage"				"DAMAGE: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_AbilityCastRange"			"RADIUS: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_heal_stack"					"%RESTORE PER STACK: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_scepter_description"		"If the trapped girl fails to escape from Larva's dream, a Larva's illusion will be created next to the girl. If the girl has 「Scales」 attached, also applies 「Scales」."
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_stack_get"					"STACKS: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_illusions_duration"			"ILLUSION DURATION: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_illusion_incoming_damage"	"%ILLUSION DAMAGE TAKEN: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_02_illusion_outgoing_damage"	"%ILLUSION DAMAGE: "
-
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_02_debuff"					"「A Midsummer Fairy's Dream」"
-		"DOTA_Tooltip_modifier_ability_thdots_larva02_02_debuff_Description"		"Trapped in Larva's dream."
-
-		"DOTA_Tooltip_ability_ability_thdots_larva02_03"							"Butterfly Sign「Surrounding Scales」"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_03_Description"				"<h1>Passive: </h1>「Scales」 deal damage based on the stacks over time.\n<h1>Active: </h1>Larva sprinkles scales on the %radius% radius area around her, dealing damage to enemies within the radius and causing them to stick 「Scales」, but it will not refresh the duration."
-		"DOTA_Tooltip_ability_ability_thdots_larva02_03_stack_damage"				"PASSIVE DAMAGE PER STACK"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_03_stack_get"					"STACKS: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_03_bone_damage"				"ACTIVE DAMAGE: "
-
-		"DOTA_Tooltip_ability_ability_thdots_larva02_04"							"Dream Butterfly「Crazy Butterfly」"
-		"DOTA_Tooltip_ability_ability_thdots_larva02_04_Description"				"Larva fires butterfly barrages towards the front, causing damage to the hit girls and causing them to stick 「Scales」. Then, clears all stacks of 「Scales」 on the target and deals bonus damage based on the cleared stacks."
-		"DOTA_Tooltip_ability_ability_thdots_larva02_04_stack_get"					"STACKS: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_04_bone_damage"				"BASE DAMAGE: "
-		"DOTA_Tooltip_ability_ability_thdots_larva02_04_stack_damage"				"BONUS DAMAGE PER STACK: "
-
-		//天赋
-		"DOTA_Tooltip_ability_special_bonus_unique_larva_02_2_1"					"+{s:value}「A Midsummer Fairy's Dream」Escape Range"
-		"DOTA_Tooltip_ability_special_bonus_unique_larva_02_1_1"					"-{s:value}s「Midsummer Wingbeats」Cooldown, fight gains flying vision"
-		"DOTA_Tooltip_ability_special_bonus_unique_larva_02_2_2"					"+{s:value}%「A Midsummer Fairy's Dream」Resotre"
-		"DOTA_Tooltip_ability_special_bonus_unique_larva_02_ex_1"					"+{s:value}「Scales」Radius"
-
-		// --------------------
 		// Sumireko Usami translated by epic
 		// --------------------
 		// 13-01-2022 - modified by Lasiace
@@ -6315,7 +6204,7 @@
 		// --------------------
 		// 12-01-2022 - created by Lasiace
 
-		"npc_dota_hero_nevermore"													"Shizuha Aki"
+		"npc_dota_hero_lone_druid"													"Shizuha Aki"
 
 		// Shizuha01
 		"DOTA_Tooltip_ability_ability_thdots_shizuha01"								"Wither Sign「Withered Tree Roots」"
@@ -6660,17 +6549,6 @@
 		// Special Bonus
 		"DOTA_Tooltip_ability_special_bonus_unique_meira_2"					"Thirst for Hakurei"
 		"DOTA_Tooltip_ability_special_bonus_unique_meira_2_description"		"The colldown of「Sword.The One Hundred and Thirty Arhats」 reduced {s:bonus_AbilityCooldown}"
-
-
-		//---------------------------------------------
-		// Yuuma Toutetsu
-		//---------------------------------------------	
-		"npc_dota_hero_alchemist"													"Yuuma Toutetsu"
-
-		// YuumaEx
-		"DOTA_Tooltip_ability_ability_thdots_yuumaEx"								"Refinement「Recollection of Cursed Blood」"
-		"DOTA_Tooltip_ability_ability_thdots_yuumaEx_Description"					"Yuuma loses %curr_hp_loss_pct%%% current health per second. When current health is below %hp_threshold%%%, the losing speed is halved.<br>Gains %as_every_max_hp% attack speed for every %every_max_hp% max health, and %as_every_loss_hp% attack speed for every %every_loss_hp% missing health."
-		"DOTA_Tooltip_ability_ability_thdots_yuumaEx_Lore"							"Undefeated Matriarch of the Gouyoku Alliance, Late-Blooming Type who Grows via Infinite Appetite."
 
 
 		//------------------------
@@ -8168,9 +8046,7 @@
 		//Heroes
 		//--------------------
 		"npc_dota_hero_necrolyte"															"Saigyouji Yuyuko"
-		"npc_dota_hero_pangolier"															"Flandre Scarlet"
 		"npc_dota_hero_life_stealer"														"Rumia"
-		"npc_dota_hero_skeleton_king"														"Rumia"
 		"npc_dota_hero_razor"																"Nagae Iku"
 		"npc_dota_hero_mirana"																"Reisen Udongein Inaba"
 		"npc_dota_hero_furion"																"Houraisan Kaguya"

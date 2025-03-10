@@ -12,9 +12,7 @@
 #base heroes/daiyousei/hero.txt
 #base heroes/eirin/hero.txt
 #base heroes/ellen/hero.txt
-#base heroes/exrumia/hero.txt
 #base heroes/flandre/hero.txt
-#base heroes/flandrev2/hero.txt
 #base heroes/hatate/hero.txt
 #base heroes/hina/hero.txt
 #base heroes/iku/hero.txt
@@ -22,7 +20,6 @@
 #base heroes/kagerou/hero.txt
 #base heroes/kaguya/hero.txt
 #base heroes/kasen/hero.txt
-#base heroes/kasen3/hero.txt
 #base heroes/keine/hero.txt
 #base heroes/kisume/hero.txt
 #base heroes/koakuma/hero.txt
@@ -32,7 +29,6 @@
 #base heroes/kurumi/hero.txt
 #base heroes/komachi/hero.txt
 #base heroes/larva/hero.txt
-#base heroes/larva02/hero.txt
 #base heroes/letty/hero.txt
 #base heroes/lilywhite/hero.txt
 #base heroes/lunasa/hero.txt
@@ -44,7 +40,6 @@
 #base heroes/meirin/hero.txt
 #base heroes/merlin/hero.txt
 #base heroes/miko/hero.txt
-#base heroes/miko2/hero.txt
 #base heroes/minamitsu/hero.txt
 #base heroes/minoriko/hero.txt
 #base heroes/miyako/hero.txt
@@ -95,7 +90,6 @@
 #base heroes/yukari/hero.txt
 #base heroes/yumemi/hero.txt
 #base heroes/yuuka/hero.txt
-//#base heroes/yuuma/hero.txt
 #base heroes/yuyuko/hero.txt
 
 "DOTAHeroes"
@@ -182,5 +176,13 @@
 		"VisionNighttimeRange"	"200"
 		// 晚上视野大小
 		"DisableWearables"	"1"
+	}
+
+	// 用于显示影魔模型，原版模型显示不出来
+	"npc_dota_hero_nevermore_dummy"
+	{
+		"override_hero"	"npc_dota_hero_nevermore"
+		"Model"			"models/heroes/nevermore/nevermore.vmdl"
+		"ModelScale"	"1.0"
 	}
 }
