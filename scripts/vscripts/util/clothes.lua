@@ -25,18 +25,6 @@ Hero_Cloth =
 			1.0
 		},
 
-	["npc_dota_hero_lina"] = --红白
-		{	
-			"models/new_touhou_model/reimu/reimu.vmdl",
-			"models/heroes/troll_warlord/troll_warlord.vmdl"
-		},
-
-	["npc_dota_hero_lina_size"] =
-		{	
-			1.2,
-			1.0
-		},
-
 	["npc_dota_hero_crystal_maiden"] = --黑白
 		{	
 			"models/new_touhou_model/marisa/marisa.vmdl",

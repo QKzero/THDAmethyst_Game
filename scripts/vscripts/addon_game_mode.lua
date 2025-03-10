@@ -133,11 +133,7 @@ function Precache( context )
 			1.0, --not necessary
 			3    --not necessary, minimal id usable for default
 	)
-	
-	add_cloth(
-			"npc_dota_hero_lina",
-			"models/thd2/hakurei_reimu/hakurei_reimu_mmd.vmdl"
-	)
+
 	LinkLuaModifier("modifier_imba_roshan_ai", "components/modifiers/modifier_imba_roshan_ai.lua", LUA_MODIFIER_MOTION_NONE )
 	LinkLuaModifier("aura_ability_collection_find_master_lua", "scripts/vscripts/abilities/abilityCollection.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -334,7 +330,6 @@ function Precache( context )
 	PrecacheResource( "model", "models/thd2/reisen/reisen.vmdl",context )
 	--PrecacheResource( "model", "models/thd2/reisen/reisenUnit.vmdl",context )
 
-	PrecacheResource( "model", "models/thd2/hakurei_reimu/hakurei_reimu_mmd.vmdl",context )
 	PrecacheResource( "model", "models/thd2/marisa/marisa_mmd.vmdl",context )
 	PrecacheResource( "model", "models/thd2/tenshi/tenshi_mmd.vmdl",context )
 	PrecacheResource( "model", "models/thd2/flandre/flandre_mmd.vmdl",context )

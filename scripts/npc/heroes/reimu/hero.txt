@@ -46,7 +46,7 @@
 
 		"Model"	"models/new_touhou_model/reimu/reimu.vmdl"
 		"VoiceFile" "soundevents/voscripts/game_sounds_vo_lina.vsndevts"
-		"ModelScale"	"1.0"
+		"ModelScale"	"1.2"
 		"VersusScale"	"1.0"
 		"LoadoutScale"	"1.0"
 		"HealthBarOffset"		"255"
