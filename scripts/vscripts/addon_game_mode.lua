@@ -76,6 +76,7 @@ require ( "util/stun" )
 require ( "util/pauseunit" )
 require ( "util/silence" )
 require ( "util/magic_immune" )
+require ( "util/mode_select" )
 require ( "util/timers" )
 require ( "util/util" )
 require ( "util/disarmed" )
@@ -2069,17 +2070,9 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 	if newState == 2 then -- CUSTOM_GAME_SETUP / shuffle
 		-- WebApi:SetTesting(true)
 		WebApi:BeforeMatch(THD2_Rating_Catcher)
-		if GetMapName() == "4_thdots_with_coach" then
-			GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 6 )
-			GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 6 )
-		end
+		ModeSelect()
 		if THD2_GetBotMode() then
-		--[[
-			HostSay("You're in bot mode.")
-			HostSay("You can choose difficulty now.")
-			HostSay("Usage: -easy, -normal, -hard, -lunatic.")
-			HostSay("Default Difficulty: easy.")
-		--]]
+			BotModSelect()
 			GameRules:SendCustomMessage("#BotMode_Explain1",0,0)
 			GameRules:SendCustomMessage("#BotMode_Explain2",0,0)
 			GameRules:SendCustomMessage("#BotMode_Explain3",0,0)
@@ -2107,6 +2100,9 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 			end
 		end
 	elseif newState == DOTA_GAMERULES_STATE_HERO_SELECTION then -- HERO_SELECTION
+        --关闭模式选择窗口
+        CloseGameMod()
+
 		if not THD2_GetStrarWberryMode() then
 			for i, enableName in pairs(STRAWBERRY_ENABLE_LIST) do
 				GameRules:AddHeroToBlacklist(enableName)
@@ -2810,6 +2806,10 @@ function THDOTSGameMode:On_dota_item_purchased(keys)
 end
 
 RegisterCustomEventListener("Shuffle_Pressed", Shuffle_Pressed)
+RegisterCustomEventListener("ChangeGamePause", ChangeGamePause)
+RegisterCustomEventListener("ChangeGameDotaInter", ChangeGameDotaInter)
+RegisterCustomEventListener("ChangeGameDifficulty", ChangeGameDifficulty)
+RegisterCustomEventListener("ChangeGameMaxPlayer", ChangeGameMaxPlayer)
 
 RegisterCustomEventListener("get_camera_yaw_callback",get_camera_yaw_callback)
 
