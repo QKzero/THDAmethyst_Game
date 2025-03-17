@@ -88,7 +88,6 @@
 				"States"
 				{
 					"MODIFIER_STATE_MUTED"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_PASSIVES_DISABLED"	"MODIFIER_STATE_VALUE_ENABLED"
 				}
 			}
 			"modifier_item_feixiangjian_attack"

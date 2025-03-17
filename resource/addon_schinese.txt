@@ -780,7 +780,7 @@
 		"DOTA_Tooltip_ability_zuus_thundergods_wrath_Description"	"绯想之剑发出红色的光芒，同时打击全图所有敌方少女。"
 		"DOTA_Tooltip_ability_zuus_thundergods_wrath_Lore"	"天子将周围的气质凝缩在绯想之剑上，并向全敌方一口气放出的超大技。"
 		"DOTA_Tooltip_ability_ability_thdots_tensiex"	"气符「无念无想的境界」"
-		"DOTA_Tooltip_ability_ability_thdots_tensiex_Description"	"天子能够操控任意个体的气质，破坏目标的被动技能，使其获得%damage_reduction_percent%%%减伤，但不可进行攻击、使用技能和道具，持续%duration%s。若目标为友方单位，则还会使其获得%hp_regen%%%每秒的最大生命恢复。\n施法距离：800"
+		"DOTA_Tooltip_ability_ability_thdots_tensiex_Description"	"天子能够操控任意个体的气质，使其获得%damage_reduction_percent%%%减伤，但不可进行攻击、使用技能和道具，持续%duration%s。若目标为友方单位，则还会使其获得%hp_regen%%%每秒的最大生命恢复。\n施法距离：800"
 		// --------------------
 		// Byakuren
 		// --------------------
@@ -1272,7 +1272,7 @@
 		"DOTA_Tooltip_ability_ability_thdots_shikieiki03_damage_on_max_accusation"	"每层罪名基础伤害："
 		"DOTA_Tooltip_ability_ability_thdots_shikieiki03_Note0"			"每层罪名的持续时间是独立的。\n增加罪名的效果先于普通攻击的伤害结算。"
 		"DOTA_Tooltip_ability_ability_thdots_shikieiki04"	"审判「Last Judgement」"
-		"DOTA_Tooltip_ability_ability_thdots_shikieiki04_Description"	"目标少女无法使用主动技能和所有物品，其被动技能也会暂时失效，在持续时间内每秒对其造成纯粹伤害。如果目标少女在四季映姬的周边%radius_keep_duration%码范围内，审判的时间不会减少。"
+		"DOTA_Tooltip_ability_ability_thdots_shikieiki04_Description"	"目标少女无法使用主动技能和所有物品，在持续时间内每秒对其造成纯粹伤害。如果目标少女在四季映姬的周边%radius_keep_duration%码范围内，审判的时间不会减少。"
 		"DOTA_Tooltip_ability_ability_thdots_shikieiki04_debuff_duration"	"审判持续时间："
 		"DOTA_Tooltip_ability_ability_thdots_shikieiki04_debuff_damage_per_sec"	"每秒伤害："
 		"DOTA_Tooltip_ability_ability_thdots_shikieiki04_radius_keep_duration"	"审判范围："
@@ -1532,7 +1532,7 @@
 		"DOTA_Tooltip_ability_ability_thdots_yasaka41_damage_radius"	"伤害范围："
 		"DOTA_Tooltip_ability_ability_thdots_yasaka41_Lore"	"真正的激怒神奈子是一件很可怕的事，她会令周围所有的一切被御柱砸成废墟。"
 		"DOTA_Tooltip_ability_ability_thdots_yasaka42"	"「神明的威光」"
-		"DOTA_Tooltip_ability_ability_thdots_yasaka42_Description"	"神奈子使一片区域内敌方单位的速度大幅度下降，普通攻击有概率落空，被动技能也完全失效。该效果无法被驱散。"
+		"DOTA_Tooltip_ability_ability_thdots_yasaka42_Description"	"神奈子使一片区域内敌方单位的速度大幅度下降，普通攻击有概率落空。该效果无法被驱散。"
 		"DOTA_Tooltip_ability_ability_thdots_yasaka42_effect_radius"	"影响范围："
 		"DOTA_Tooltip_ability_ability_thdots_yasaka42_duration"	"持续时间："
 		"DOTA_Tooltip_ability_ability_thdots_yasaka42_slow_movement_pct"	"%减速百分比："
@@ -6354,7 +6354,7 @@
 		"DOTA_Tooltip_modifier_item_tuzhushen_onspell_add_Description"	"获得魔法护盾和生命恢复。"
 		"DOTA_Tooltip_ability_item_recipe_feixiangjian"	"绯想剑卷轴"
 		"DOTA_Tooltip_ability_item_feixiangjian"	"绯想剑"
-		"DOTA_Tooltip_ability_item_feixiangjian_Description"	"<h1>主动：气质破坏</h1>使目标无力使用任何物品，其被动技能也会失效，持续%duration%秒。<br><br>施法距离：%AbilityCastRange%\n<h1>被动：诅咒攻击</h1>每次普通攻击时有%chance%%%概率使目标降低%maim_movement_speed%%%移动速度和%maim_attack_speed%攻击速度，持续%debuff_duration%秒。"		
+		"DOTA_Tooltip_ability_item_feixiangjian_Description"	"<h1>主动：气质破坏</h1>使目标无力使用任何物品，持续%duration%秒。<br><br>施法距离：%AbilityCastRange%\n<h1>被动：诅咒攻击</h1>每次普通攻击时有%chance%%%概率使目标降低%maim_movement_speed%%%移动速度和%maim_attack_speed%攻击速度，持续%debuff_duration%秒。"		
 		"DOTA_Tooltip_ability_item_feixiangjian_bonus_damage"	"+$damage"
 		"DOTA_Tooltip_ability_item_feixiangjian_bonus_attack_speed"	"+$attack"
 		"DOTA_Tooltip_ability_item_feixiangjian_bonus_strength"	"+$str"

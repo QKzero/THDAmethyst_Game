@@ -835,8 +835,6 @@ function modifier_ability_thdots_youmu2_04_bonus:GetModifierAttackSpeedBonus_Con
 	return self:GetAbility():GetSpecialValueFor("bonus_attack_speed")
 end
 
-
---破坏效果，记录永久BUFF的技能,并删除MODIFIER。最后再设置技能等级，以重置MODIFIER
 modifier_ability_thdots_youmu2_04_target = {}
 LinkLuaModifier("modifier_ability_thdots_youmu2_04_target","scripts/vscripts/abilities/abilityyoumu2.lua",LUA_MODIFIER_MOTION_NONE)
 function modifier_ability_thdots_youmu2_04_target:IsHidden() 		return false end
@@ -857,75 +855,6 @@ function modifier_ability_thdots_youmu2_04_target:IsPurgable()
 	end
 end
 
---	现在换了种实现方式，破坏做出来了。---2023.1.10 Lonnet追记
-
--- 破坏被动效果有大量BUG,会删除像骚灵三姐妹的天生积累层数。
--- function modifier_ability_thdots_youmu2_04_target:OnCreated()
--- 	if not IsServer() then return end
--- 	local target = self:GetParent()
--- 	self.duration = self:GetAbility():GetSpecialValueFor("duration")
--- 	self.target_point = target:GetOrigin()
--- 	self.youmu04_modifier_table = {}
---     local table_1 = {}
---     local table_2 = {}
--- 	local modifier_num = 1
--- 	for i=0,20 do 
--- 		if target:GetModifierNameByIndex(i) ~= "" then
--- 			-- print("==============")
--- 			-- print(target:GetModifierNameByIndex(i))
--- 			-- print(target:GetModifierNameByIndex(i))
--- 			local modifier = target:FindModifierByName(target:GetModifierNameByIndex(i))
--- 			-- print("==============================")
--- 			if modifier:GetRemainingTime() < -1 then
--- 				-- print(modifier:GetName() .. " :is modifier")
--- 				-- print(modifier:GetAbility())
--- 				-- print(modifier:GetAbility():IsItem())
--- 				if modifier:GetAbility():IsItem() == false and modifier:IsDebuff() == false 
--- 					--有些技能有BUG
--- 					and modifier:GetAbility():GetName() ~= "debug_name"
--- 					then
--- 					-- table_1[modifier_num] = {modifier_name = modifier:GetName(),modifier_ability = modifier:GetAbility()}
--- 					table_1[modifier_num] = modifier:GetAbility()
--- 					modifier_num = modifier_num + 1
--- 					modifier:Destroy()
--- 				end
--- 			end
--- 			-- print("==============================")
--- 		end
---     end
---     for key,val in pairs (table_1) do
---     	table_2[val] = true
---     end
---     for key,val in pairs(table_2) do
---     	table.insert(self.youmu04_modifier_table,key)--将key插入到新的table，构成最终的结果
---  	end
---     -- print_r(self.youmu04_modifier_table)
---     self:StartIntervalThink(FrameTime())
-
-
--- 	self.particle_fx = ParticleManager:CreateParticle("particles/items3_fx/silver_edge.vpcf", PATTACH_ABSORIGIN,target)
--- 	ParticleManager:SetParticleControl(self.particle_fx, 0,target:GetAbsOrigin())
--- end
-
--- function modifier_ability_thdots_youmu2_04_target:OnDestroy()
--- 	if not IsServer() then return end
--- 	local target = self:GetParent()
---     -- print_r(self.youmu04_modifier_table)
--- 	ParticleManager:DestroyParticle(self.particle_fx, false)
--- 	for i=1,#self.youmu04_modifier_table do
--- 		local ability = self.youmu04_modifier_table[i]
--- 		-- print("self.youmu04_modifier_table[i]")
--- 		-- print(self.youmu04_modifier_table[i])
--- 		-- target:AddNewModifier(target,self.youmu04_modifier_table[i].modifier_ability,tostring(self.youmu04_modifier_table[i].modifier_name), {duration = 20})
--- 		ability:SetLevel(ability:GetLevel())
--- 	end
--- end
-
-function modifier_ability_thdots_youmu2_04_target:CheckState()
- 	return {
- 		[MODIFIER_STATE_PASSIVES_DISABLED] = true
- 	}
-end
 function modifier_ability_thdots_youmu2_04_target:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,

@@ -489,10 +489,6 @@
 					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow_movement_pct"
 					"MODIFIER_PROPERTY_MISS_PERCENTAGE"	"%attack_miss_pct"
 				}
-				"States"
-				{
-					"MODIFIER_STATE_PASSIVES_DISABLED"	"MODIFIER_STATE_VALUE_ENABLED"					
-				}
 			}
 		}
 		"AbilityValues"
