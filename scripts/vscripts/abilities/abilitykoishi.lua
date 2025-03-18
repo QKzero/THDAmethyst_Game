@@ -68,11 +68,7 @@ function modifier_ability_thdots_koishi01:OnIntervalThink()
 		count = 12 - count
 	end
 	count = count * (1 + FindTelentValue(caster,"special_bonus_unique_koishi_2"))
-	if caster:PassivesDisabled() and caster:HasModifier("modifier_koishi04_bonus")==false then
-		caster:SetModifierStackCount("modifier_ability_thdots_koishi01", self:GetAbility(), 0)
-	else
-		caster:SetModifierStackCount("modifier_ability_thdots_koishi01", self:GetAbility(), count)
-	end
+	caster:SetModifierStackCount("modifier_ability_thdots_koishi01", self:GetAbility(), count)
 	if caster:FindModifierByName("modifier_ability_thdots_koishi01_open") ~= nil then
 		caster:SetModifierStackCount("modifier_ability_thdots_koishi01_open",self:GetAbility(),count)
 	end
@@ -126,7 +122,6 @@ end
 function OnKoishi02AttackLanded(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
 	local target = keys.target
-	if caster:PassivesDisabled() and caster:HasModifier("modifier_koishi04_bonus")==false then return end
 	local manadecrease = keys.DamagePercent * keys.DamageTaken / 100 + keys.BaseDamage + FindTelentValue(caster, "special_bonus_unique_koishi_4")
 	
 

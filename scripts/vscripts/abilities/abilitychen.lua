@@ -44,7 +44,6 @@ end
 function modifier_ability_thdots_chenEx:GetModifierPhysical_ConstantBlock(kv)
 	if not IsServer() then return end
 
-	if self.caster:PassivesDisabled() then return end
 	if kv.attacker == nil then return end
 	if bit.band(kv.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS) == DOTA_DAMAGE_FLAG_HPLOSS then return 0 end
 
@@ -388,8 +387,6 @@ function modifier_ability_thdots_chen03:OnAbilityExecuted(keys)
 	if keys.ability:GetName() == "ability_thdots_chen03" then
 		self.damage = self.damage * 2
 		self.radius = self.radius * 2
-	else
-		if self.caster:PassivesDisabled() then return end
 	end
 	OnChen03PassiveStart(self.caster,self.ability,self.damage,self.radius,self.int_bonus,self.duration)
 end

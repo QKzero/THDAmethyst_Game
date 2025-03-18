@@ -119,7 +119,6 @@ end
 
 function Tei01Onkill( keys )
 	local caster = keys.caster
-	if caster:PassivesDisabled() then return end
 	local casterPlayerID = caster:GetPlayerOwnerID()
 	local GoldBountyAmount= FindValueTHD("gold_bonus",keys.ability)
 	caster.ItemAbility_DonationGem_TriggerTime=GameRules:GetGameTime()	--加钱
@@ -325,7 +324,6 @@ end
 
 function Tei03ExOnAttacked( keys )--tei03被动：被攻击触发反击
 	local caster = keys.caster
-	if caster:PassivesDisabled() then return end
 	local target = keys.attacker
 	local odds = FindValueTHD("odds",keys.ability)
 	if target:IsRangedAttacker() then
@@ -408,7 +406,6 @@ end
 
 function Tei04ExOnAttackLanded( keys )
 	local caster = keys.attacker
-	if caster:PassivesDisabled() then return end
 	if caster:HasModifier("modifier_illusion") then return end
 	local target = keys.target
 	local ability = keys.ability

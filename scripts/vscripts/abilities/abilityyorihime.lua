@@ -616,13 +616,9 @@ function modifier_thdots_yorihime_ex:OnIntervalThink()
 			count = count + 1
 		end
 	end
-	if caster:PassivesDisabled() then count = 0 end
-	-- if count == 1 then
-	-- 	count = 0
-	-- end
 	self:GetParent():SetModifierStackCount("modifier_thdots_yorihime_ex", self:GetAbility(), count)
 	if self:GetAbility():IsCooldownReady() then
-		
+
 		self:GetParent():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_thdots_yorihime_ex_crit",{duration = -1})
 	end
 	if FindTelentValue(self:GetCaster(),"special_bonus_unique_yorihime_1") ~= 0 and not self:GetCaster():HasModifier("ability_thdots_yorihime_talent_1") then
@@ -633,7 +629,6 @@ end
 function modifier_thdots_yorihime_ex:OnAttackLanded(keys)
 	if not IsServer() then return end
 	if keys.attacker ~= self:GetParent() then return end
-	if keys.attacker:PassivesDisabled() then return end
 	if self:GetParent():HasModifier("modifier_thdots_yorihime_ex_crit") then
 		local d = self:GetAbility():GetSpecialValueFor("duration")
 		--local p = self:GetAbility():GetSpecialValueFor("attack_mult")
@@ -660,13 +655,9 @@ function modifier_thdots_yorihime_ex_crit:OnCreated()
 	if not IsServer() then return end
 end
 function modifier_thdots_yorihime_ex_crit:DeclareFunctions()
-	if self:GetCaster():PassivesDisabled() then
-		return {}
-	else
-		return {
-			MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE
-		}
-	end
+	return {
+		MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE
+	}
 end
 
 function modifier_thdots_yorihime_ex_crit:GetModifierDamageOutgoing_Percentage()

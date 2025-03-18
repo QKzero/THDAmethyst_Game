@@ -46,7 +46,6 @@ function lunasa02OnspellStart(keys)
 	-- 普通攻击附带可叠加减魔抗debuff,并附带法术伤害
 	local caster = EntIndexToHScript(keys.caster_entindex)
 	local target = keys.target
-	if caster:PassivesDisabled() then return end
 	if not target:IsBuilding() and caster:GetTeam() ~= target:GetTeam() then 
 		local duration = keys.Duration
 		local max_StackCount = keys.max_StackCount
@@ -215,7 +214,6 @@ end
 function lunasaExOnCreated ( keys )
 	-- 天生, 每击杀一个单位增加法术伤害,达到上限后层数减半
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	local amplify_limit = math.ceil(keys.ability:GetSpecialValueFor("amplify_limit") / keys.ability:GetSpecialValueFor("amplify_bonus") * 2)
 	print(amplify_limit)
 	local lunasaExModifier = caster:FindModifierByName("modifier_lunasaEx")
@@ -243,7 +241,6 @@ function lunasaExOnattactLanded (keys)
 	--每第四次攻击附加法术伤害
 	local caster = EntIndexToHScript(keys.caster_entindex)
 	local target = keys.target
-	if caster:PassivesDisabled() then return end
 	if not target:IsBuilding() then
 		local lunasaExModifier = caster:FindModifierByName("modifier_lunasaEx_magicBonus")
 		local count = caster:GetModifierStackCount("modifier_lunasaEx_magicBonus", caster)
@@ -286,11 +283,7 @@ function modifier_lunasa03:OnIntervalThink()
 	local ability = self:GetAbility()
 	local hp_percent = ability:GetSpecialValueFor("hp_percent")
 	self.LUNASA_DAMAGE_BONUS_PERCENT = (caster:GetMaxHealth() - caster:GetHealth())/caster:GetMaxHealth() * 10 / (hp_percent - FindTelentValue(caster,"special_bonus_unique_lunasa_4"))
-	if caster:PassivesDisabled() then
-		self:SetStackCount(0)
-	else
-		self:SetStackCount(self.LUNASA_DAMAGE_BONUS_PERCENT * 100)
-	end
+	self:SetStackCount(self.LUNASA_DAMAGE_BONUS_PERCENT * 100)
 end
 
 -- function lunasa03OnCreated (keys)

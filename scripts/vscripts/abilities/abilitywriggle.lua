@@ -39,7 +39,6 @@
 
 function OnWriggle03AttackLanded(keys)
 	local caster = keys.caster
-	if caster:PassivesDisabled() then return end
 	
 	if keys.ability:IsCooldownReady() then
 
@@ -115,10 +114,8 @@ end
 
 function OnWriggle04Order(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	local target = keys.target
-	if caster:PassivesDisabled() then caster:RemoveModifierByName("modifier_wriggle04_invisible") end
 	if caster:HasModifier("modifier_wriggle04_noinvisible") == false then
-		if not caster:PassivesDisabled() then keys.ability:ApplyDataDrivenModifier( caster, caster, "modifier_wriggle04_invisible", {} ) end
+		keys.ability:ApplyDataDrivenModifier( caster, caster, "modifier_wriggle04_invisible", {} )
 	end
 	if caster:FindAbilityByName("special_bonus_unique_wriggle_2"):GetLevel() ~= 0 
 		and not caster:HasModifier("wriggle_talent_modifier_spell_amplify_40") then

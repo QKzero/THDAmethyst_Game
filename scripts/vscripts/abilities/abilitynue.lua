@@ -50,11 +50,7 @@ function GetNueExtraDamage(caster)
 
 	local extradamage = caster:GetModifierStackCount("modifier_nue_01_extradamage", caster) or 0
 
-	if caster:PassivesDisabled() and (extradamage == 0) then
-		return 0
-	else
-		return extradamage*basedamage + basedamage
-	end
+	return extradamage*basedamage + basedamage
 end
 
 function OnNue01SpellStart(keys)
@@ -132,7 +128,6 @@ end
 
 function OnNue03Kill(keys)
 	local caster = keys.attacker
-	if caster:PassivesDisabled() then return end
 	local target = keys.unit
 	local ability = nil
 	local level = keys.ability:GetLevel()

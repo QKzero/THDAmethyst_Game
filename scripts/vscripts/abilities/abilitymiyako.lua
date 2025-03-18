@@ -57,7 +57,6 @@ end
 -- end
 
 function modifier_ability_thdots_miyakoEx_passive:GetModifierHPRegenAmplify_Percentage()
-	if self:GetCaster():PassivesDisabled() then return 0 end
 	if self:GetStackCount() == 1 then
 		return self:GetAbility():GetSpecialValueFor("day_regen")
 	else
@@ -334,11 +333,7 @@ function modifier_ability_thdots_miyako02_caster:OnIntervalThink()
 		end
 	end
 	--设置层数，直接增加攻速和百分比移速
-	if caster:PassivesDisabled() then
-		self:SetStackCount(0)
-	else
-		self:SetStackCount(count)
-	end
+	self:SetStackCount(count)
 	--特效
 	if self:GetStackCount() > 0 then
 		caster:AddNewModifier(caster, self.ability, "modifier_ability_thdots_miyako02_caster_paticle", {})
@@ -450,7 +445,6 @@ end
 function modifier_ability_thdots_miyako02_target:OnIntervalThink()
 	if not IsServer() then return end
 	local caster = self:GetCaster()
-	if caster:PassivesDisabled() then return end
 	local ability = self:GetAbility()
 	local hp_percent = self.parent:GetHealthPercent()
 	local stack_count = self:GetStackCount()
@@ -506,7 +500,6 @@ end
 
 function modifier_ability_thdots_miyako03:OnAttackLanded(keys)
 	if not IsServer() then return end
-	if self.caster:PassivesDisabled() then return end
 	if keys.attacker == self.caster and not keys.target:IsBuilding() then
 		-- and self.ability:GetAutoCastState() then
 

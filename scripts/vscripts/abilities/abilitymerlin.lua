@@ -145,14 +145,8 @@ function modifier_merlin03_aura:OnIntervalThink()
 
 	local buffstack = tmp1 + 1
 	local targets = FindUnitsInRadius(self.caster:GetTeamNumber(), self.caster:GetOrigin(), self, self.ability:GetSpecialValueFor("aura_range"), DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, 0, 0, false)
-	if self:GetCaster():PassivesDisabled() then
-		for _,u in pairs (targets) do
-			u:SetModifierStackCount("modifier_merlin03_buff", self.caster, 0)
-		end
-	else
-		for _,u in pairs (targets) do
-			u:SetModifierStackCount("modifier_merlin03_buff", self.caster, buffstack)
-		end
+	for _,u in pairs (targets) do
+		u:SetModifierStackCount("modifier_merlin03_buff", self.caster, buffstack)
 	end
 end
 
@@ -353,7 +347,6 @@ end
 function MerlinExOnCreated ( keys )
 	-- 天生, 每击杀一个单位增加4的生命值, 250次击杀后收益减半。
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	local health_limit = math.ceil(keys.ability:GetSpecialValueFor("health_limit") / keys.ability:GetSpecialValueFor("health_bonus_half"))
 	local MerlinExModifier = caster:FindModifierByName("modifier_MerlinEx_HealthBonus")
 	if MerlinExModifier and not caster:HasModifier("modifier_illusion") then
@@ -382,7 +375,6 @@ end
 function MerlinExOnattackLanded( keys )
 	-- 天生，第四次攻击附带法术伤害
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	local target = keys.target
 	if not target:IsBuilding() then
 		local MerlinExModifier = caster:FindModifierByName("modifier_MerlinEx_AttackBonus")

@@ -374,7 +374,6 @@ end
 function modifier_ability_thdots_nitori03:OnAbilityFullyCast(params)
 	if IsServer() then
 		if params.unit ~= self:GetParent() or params.ability:IsItem() then return end
-		if params.unit:PassivesDisabled() then return end
 		self.talent4 = FindTelentValue(self:GetCaster(),"special_bonus_unique_nitori_4")
 		self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ability_thdots_nitori03_passive",{})
 		if FindTelentValue(self:GetCaster(),"special_bonus_unique_nitori_4") ~= 0 and self:GetCaster():HasModifier("modifier_ability_thdots_nitori03_passive") then
@@ -638,17 +637,9 @@ function modifier_ability_thdots_nitoriEx:OnIntervalThink()
 end
 
 function modifier_ability_thdots_nitoriEx:GetModifierBaseAttack_BonusDamage()
-	if self:GetParent():PassivesDisabled() then
-		return 0
-	else
-		return self:GetParent():GetIntellect(false) * self:GetAbility():GetSpecialValueFor("damage_bonus")
-	end
+	return self:GetParent():GetIntellect(false) * self:GetAbility():GetSpecialValueFor("damage_bonus")
 end
 
 function modifier_ability_thdots_nitoriEx:GetModifierSpellAmplify_Percentage()
-	if self:GetParent():PassivesDisabled() then
-		return 0
-	else
-		return self:GetStackCount()
-	end
+	return self:GetStackCount()
 end

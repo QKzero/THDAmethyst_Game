@@ -19,7 +19,6 @@ end
 
 function modifier_thdots_kurumiEx_passive:OnAttacked(keys)
 	if not IsServer() then return end
-	if self:GetParent():PassivesDisabled() then return end
 	local attacker = keys.attacker
 	local target = keys.target
 	if attacker ~= self:GetParent() 
@@ -532,7 +531,6 @@ function modifier_thdots_kurumi03_attack:OnAttackLanded(keys)
 	if keys.attacker ~= self:GetParent() then return end
 	if keys.target:IsBuilding() then return end
 	local caster = self:GetParent()
-	if caster:PassivesDisabled() then return end
 	if caster:IsRealHero() then
 
 		local ability = self:GetAbility()
@@ -628,7 +626,6 @@ function ability_thdots_kurumi04_passive:OnAttackLanded(keys)
 	if keys.attacker ~= self:GetParent() then return end
 	if keys.target:IsBuilding() then return end
 	local caster = self:GetParent()
-	if caster:PassivesDisabled() then return end
 	if caster:IsRealHero() then
 		local ability = self:GetAbility()
 		local damage = ability:GetSpecialValueFor("damage")

@@ -28,7 +28,6 @@ function passive_tensi02_attack:OnAttackLanded(keys)
 	local caster = self:GetCaster()
 	local target = keys.target
 	if caster ~= keys.attacker then return end
-	if caster:PassivesDisabled() then return end
 	if not caster:IsRealHero() then return end
 
 	local ability = self:GetAbility()
@@ -87,7 +86,6 @@ end
 
 function OnTensi03Passive(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	caster:Heal(keys.BounsHealth, caster)
 	caster:GiveMana(keys.BounsMana)
 	if caster:HasModifier("active_tensi03_attacked") then

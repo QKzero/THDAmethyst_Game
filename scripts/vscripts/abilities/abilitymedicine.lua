@@ -579,7 +579,6 @@ function OnMedicine03Attacked(keys)
 	local ItemAbility = keys.ability
 	local Caster = keys.caster
 	local Attacker = keys.attacker
-	if Caster:PassivesDisabled() then return end
 	if (Attacker:IsBuilding()==false and not IsTHDReflect(Attacker))then
 		local damage_to_deal = 0
 		if (Attacker:IsHero()) then

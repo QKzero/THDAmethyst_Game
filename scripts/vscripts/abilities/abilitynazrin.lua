@@ -50,7 +50,6 @@ function OnNazrin03Attacklanded(keys)
 
 
 	local caster = keys.caster
-	if caster:PassivesDisabled() then return end
 	local target = keys.caster	
 	local ability = keys.ability
 	
@@ -521,7 +520,6 @@ end
 function modifier_ability_thdots_nazrinEx_gold:OnIntervalThink()
 	if not IsServer() then return end
 	local Caster = self:GetParent()
-	if Caster:PassivesDisabled() then return end
 	local CasterPlayerID = Caster:GetPlayerOwnerID()
 	if GameRules:GetDOTATime(false, false) == 0 then return end
 	PlayerResource:SetGold(CasterPlayerID,PlayerResource:GetUnreliableGold(CasterPlayerID) + self.give_gold_amount,false)

@@ -356,7 +356,6 @@ function modifier_sagumeEx_basic:OnDeath(keys)
 	if not self:GetCaster():IsAlive() then return end
 
     local caster = self:GetParent()
-	if caster:PassivesDisabled() then return end
 	if keys.unit:GetTeam() == caster:GetTeam() then return end
 	if not keys.unit:IsRealHero() then return end
 	if keys.attacker == caster then self:SetStackCount(self:GetStackCount()+2) return end

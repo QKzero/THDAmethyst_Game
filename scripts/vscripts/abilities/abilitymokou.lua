@@ -93,7 +93,6 @@ end
 
 function OnMokou02SpellStartUnit(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	local target = keys.target
 
 	if(target.ability_Mokou02_speed_increase==nil)then
@@ -119,7 +118,6 @@ end
 
 function OnMokou02Created(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	keys.ability:ApplyDataDrivenModifier(caster, caster, "modifier_mokou02_speed_up_counter",{})
 	local counter = keys.caster:FindModifierByName("modifier_mokou02_speed_up_counter")
 	counter:IncrementStackCount()
@@ -127,7 +125,6 @@ end
 
 function OnMokou02Destory(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	local counter = keys.caster:FindModifierByName("modifier_mokou02_speed_up_counter")
 
 	if counter then
@@ -137,7 +134,6 @@ end
 
 function OnMokou02DamageStart(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	local vecCaster = caster:GetOrigin()
 	local targets = keys.target_entities
 

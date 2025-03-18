@@ -468,7 +468,6 @@ end
 
 function modifier_ability_thdots_keine03_passive:OnAttackStart(keys)
 	if not IsServer() then return end
-	if keys.attacker:PassivesDisabled() then return end
 	if keys.attacker == self:GetParent() then
 		self.change = self:GetAbility():GetSpecialValueFor("change") + FindTelentValue(self:GetParent(),"special_bonus_unique_keine_1")
 		print(self.change)
@@ -485,7 +484,6 @@ function modifier_ability_thdots_keine03_passive:OnAttackLanded(keys)
 	if not IsServer() then return end
 	local caster = self:GetParent()
 	local target = keys.target
-	if caster:PassivesDisabled() then return end
 	if not (keys.attacker == self:GetParent()) then return end
 	if target:IsBuilding() or target:IsOther() or keys.target:GetTeamNumber() == keys.attacker:GetTeamNumber() then
 		return end

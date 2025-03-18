@@ -21,7 +21,6 @@ end
 function modifier_ability_mikoEx_vision:OnIntervalThink()        -- 每0.3秒添加一次0.31秒的高空视野
 	if not IsServer() then return end
 	if not self:GetCaster():IsAlive() then return end
-	if self:GetCaster():PassivesDisabled() then return end
 	local caster = self:GetCaster()
 	local radius = self:GetAbility():GetSpecialValueFor("radius") + FindTelentValue(self:GetCaster(),"special_bonus_unique_miko03")
 	local heros = FindUnitsInRadius(
@@ -96,7 +95,7 @@ end
 
 function modifier_ability_miko03_passive:OnAttackLanded(keys)
 	if not IsServer() then return end
-	if keys.attacker ~= self:GetCaster() or keys.attacker:PassivesDisabled() then return end
+	if keys.attacker ~= self:GetCaster() then return end
 	if not self:GetAbility():IsCooldownReady() then return end --检测是否是CD中 CD中无法触发效果
 	if not keys.attacker:HasModifier("modifier_ability_miko03_next") then
 		keys.attacker:AddNewModifier(keys.attacker,self:GetAbility(),"modifier_ability_miko03_next",{})

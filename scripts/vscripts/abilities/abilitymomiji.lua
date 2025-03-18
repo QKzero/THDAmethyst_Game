@@ -283,7 +283,6 @@ function modifier_ability_thdots_momiji03_passvie:GetModifierTotal_ConstantBlock
 	if bit.band(kv.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS) == DOTA_DAMAGE_FLAG_HPLOSS then return 0 end
 	if kv.attacker == nil then return end
 	local caster = self:GetParent()
-	if caster:PassivesDisabled() then return end
 	local target = kv.attacker
 	local defence = kv.damage * self:GetAbility():GetSpecialValueFor("physical_block") / 100
 
@@ -355,11 +354,7 @@ function passive_momiji04_bonus:DeclareFunctions()
 end
 
 function passive_momiji04_bonus:GetModifierMoveSpeedBonus_Percentage()
-	if self:GetCaster():PassivesDisabled() then
-		return 0
-	else
-		return self:GetAbility():GetSpecialValueFor("move_speed")
-	end
+	return self:GetAbility():GetSpecialValueFor("move_speed")
 end
 
 --被动光环
@@ -382,19 +377,11 @@ function modifier_momiji04_bonus:OnCreated()
 end
 
 function modifier_momiji04_bonus:GetModifierMoveSpeedBonus_Percentage()
-	if self:GetCaster():PassivesDisabled() then
-		return 0
-	else
-		return self.aura_move_speed
-	end
+	return self.aura_move_speed
 end
 
 function modifier_momiji04_bonus:GetModifierAttackSpeedBonus_Constant()
-	if self:GetCaster():PassivesDisabled() then
-		return 0
-	else
-		return self.aura_attack_speed
-	end
+	return self.aura_attack_speed
 end
 
 function ability_thdots_momiji04:OnSpellStart()

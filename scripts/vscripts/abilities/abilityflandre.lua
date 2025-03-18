@@ -188,7 +188,6 @@ end
 function OnFlandreExDealDamage(keys)
 	--PrintTable(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	if not caster:HasModifier("modifier_ability_thdots_flandre_Ex") then
 		caster:AddNewModifier(caster, keys.ability, "modifier_ability_thdots_flandre_Ex", {})
 	end
@@ -228,8 +227,7 @@ end
 function OnFlandre02SpellStartUnit(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
 	local target = keys.target
-	if target:IsBuilding() then return end	
-	if caster:PassivesDisabled() then return end
+	if target:IsBuilding() then return end
 	local MaxDecreaseNum = keys.DecreaseMaxSpeed
 	--[[if caster:HasModifier("modifier_item_wanbaochui") then
 		if(target:GetContext("ability_flandre02_Speed_Decrease")==nil)then
@@ -350,7 +348,6 @@ end
 
 function modifier_thdots_flandre03_passive:OnAttackLanded(keys)
 	if not IsServer() then return end
-	if self:GetParent():PassivesDisabled() then return end
 	local attacker = keys.attacker
 	local target = keys.target
 	if attacker ~= self:GetParent() 

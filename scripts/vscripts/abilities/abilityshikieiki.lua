@@ -214,7 +214,6 @@ end
 function Shikieiki03_OnAttackLanded(keys)
 	local Ability=keys.ability
 	local Caster=keys.caster
-	if Caster:PassivesDisabled() then return end
 	local Target=keys.target
 	if keys.target:IsBuilding() then return end
 	local MaxAccusationNum=keys.MaxAccusationNum

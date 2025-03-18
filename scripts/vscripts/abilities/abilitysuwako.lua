@@ -538,7 +538,6 @@ end
 function OnSuwako03DealDamage(keys)
 
 	local caster = keys.caster
-	if caster:PassivesDisabled() then return end
 	local dmg = keys.DealDamage
 	local returnmana = keys.Manareturn
 	print(dmg)

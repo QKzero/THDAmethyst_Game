@@ -11,7 +11,6 @@ function Komachi02_NormalAttackLanded(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
 	local target = keys.target
 	if caster:IsRealHero()==false then return end
-	if caster:PassivesDisabled() then return end
 	if target:IsBuilding() then return end
 	local ability = caster:FindAbilityByName("ability_thdots_komachi02")
 	if ability~=nil then
@@ -23,7 +22,6 @@ function Komachi02_AttackLanded(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
 	local targets = keys.target_entities
 	if caster:IsRealHero()==false then return end
-	if caster:PassivesDisabled() then return end
 
 	local deal_damage
 	local Damage

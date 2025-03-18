@@ -44,7 +44,6 @@ end
 
 function modifier_ability_thdots_tojikoEx:OnAbilityFullyCast(keys)
 	if not IsServer() then return end
-	if self:GetCaster():PassivesDisabled() then return end
 	if keys.unit == self:GetParent() then
 		local caster = self:GetParent()
 		local cast_ability = keys.ability

@@ -2808,6 +2808,7 @@ end
 RegisterCustomEventListener("Shuffle_Pressed", Shuffle_Pressed)
 RegisterCustomEventListener("ChangeGamePause", ChangeGamePause)
 RegisterCustomEventListener("ChangeGameDotaInter", ChangeGameDotaInter)
+RegisterCustomEventListener("ChangeGameBotMode", ChangeGameBotMode)
 RegisterCustomEventListener("ChangeGameDifficulty", ChangeGameDifficulty)
 RegisterCustomEventListener("ChangeGameMaxPlayer", ChangeGameMaxPlayer)
 

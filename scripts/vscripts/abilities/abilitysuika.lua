@@ -12,7 +12,6 @@ end
 
 function OnSuika02Start(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	local vecCaster = caster:GetOrigin()
 	local targets = keys.target_entities
 	for _,v in pairs(targets) do
@@ -59,7 +58,6 @@ function modifier_suika_sound:OnAbilityExecuted(keys)
 end
 function OnSuika02ULTStart(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	local vecCaster = caster:GetOrigin()
 	local targets = keys.target_entities
 	local abilityLevel = caster:GetContext("ability_thdots_suika02_level") 

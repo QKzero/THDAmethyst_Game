@@ -528,18 +528,13 @@ function modifier_ability_thdots_letty03:DeclareFunctions()
 end
 
 function modifier_ability_thdots_letty03:GetModifierHealthBonus()
-	if self:GetCaster():PassivesDisabled() then
-		return 0
-	else
-		return self:GetAbility():GetSpecialValueFor("health_bonus")	
-	end
+	return self:GetAbility():GetSpecialValueFor("health_bonus")
 end
 
 
 function modifier_ability_thdots_letty03:OnTakeDamage(keys)
 	if not IsServer() then return end
 	local caster = self:GetParent()
-	if caster:PassivesDisabled() then return end
 	if keys.attacker:GetTeam() == keys.unit:GetTeam() or caster.Poison == true then caster.Poison = false return end
 	if keys.attacker == self:GetParent() and keys.damage_type == DAMAGE_TYPE_MAGICAL and self:GetStackCount() == 0 then
 		local duration = self:GetAbility():GetSpecialValueFor("duration")

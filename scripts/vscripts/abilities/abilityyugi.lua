@@ -11,7 +11,6 @@ function OnYugi03Damage(keys)
 	end
 	if not caster:HasModifier("ability_yugi03_animation") then return end
 	caster:RemoveModifierByName("ability_yugi03_animation")
-	if caster:PassivesDisabled() then return end
 
 	local telentDamage = FindTelentValue(caster,"special_bonus_unique_yugi_1") * caster:GetStrength()
 

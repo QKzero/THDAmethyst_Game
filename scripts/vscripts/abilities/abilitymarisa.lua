@@ -812,7 +812,6 @@ end
 function modifier_thdots_marisaEx_passive:OnAbilityExecuted(keys)
 	if not IsServer() then return end
 	local caster = self:GetParent()
-	if caster:PassivesDisabled() then return end
 	local ability = keys.ability
 	if keys.unit ~= caster or ability:IsItem() then return end
 

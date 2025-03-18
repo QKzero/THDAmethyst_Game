@@ -577,7 +577,6 @@ end
 function modifier_ability_thdots_seija03_passive:OnAttackLanded(kv)
 	if not IsServer() then return end
 	local caster = self:GetParent()
-	if caster:PassivesDisabled() then return end
 	local target = kv.target
 	if kv.attacker == caster and target:IsHero() then
 		local ability  					= self:GetAbility()		
@@ -689,20 +688,12 @@ function ability_thdots_seija04:OnSpellStart()
 		self.center 		= self.target:GetAbsOrigin()
 		if self.target:HasModifier("modifier_ability_thdots_seijaEx") then
 			if self.target:HasModifier("modifier_ability_thdots_seijaEx_passive") then
-				if self.target:PassivesDisabled() then
-					self.isReverse = false
-				else
-					self.isReverse = true
-				end
-			else
-				self.isReverse = false
-			end
-		elseif self.target:HasModifier("modifier_ability_thdots_seijaEx_passive") then
-			if self.target:PassivesDisabled() then
 				self.isReverse = true
 			else
 				self.isReverse = false
 			end
+		elseif self.target:HasModifier("modifier_ability_thdots_seijaEx_passive") then
+			self.isReverse = false
 		end
 	else
 		self.center 		= self.point
@@ -715,8 +706,6 @@ function ability_thdots_seija04:OnSpellStart()
 		if self.isReverse == true then
 			if v:HasModifier("modifier_ability_thdots_seijaEx") then
 				v:AddNewModifier(self.caster, self, "modifier_ability_thdots_seija04", {duration = 10})
-			elseif v:HasModifier("modifier_ability_thdots_seijaEx_passive")  then
-				if not v:PassivesDisabled() then v:AddNewModifier(self.caster, self, "modifier_ability_thdots_seija04", {duration = 10}) end
 			end
 		else
 			if v:HasModifier("modifier_ability_thdots_seijaEx") then

@@ -25,7 +25,6 @@ end
 
 function modifier_ability_thdots_hinaEx_passive:OnIntervalThink()
 	if not IsServer() then return end
-	if self.caster:PassivesDisabled() then return end
 	self.interval_time = self.interval_time - 0.1
 	local MaxHealth_percent = self:GetAbility():GetSpecialValueFor("health_percent")
 	if self.interval_time <= 0 then

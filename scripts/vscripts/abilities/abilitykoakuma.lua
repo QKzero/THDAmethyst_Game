@@ -23,7 +23,7 @@ function OnKoakuma01SpellStart( keys )
 		koakuma04_level = koakuma04:GetLevel() - 1
 	end
 	local bonus_projectile_speed = 0
-	if caster:HasModifier("modifier_thdots_koakuma03") and (not caster:PassivesDisabled()) then
+	if caster:HasModifier("modifier_thdots_koakuma03") then
 		bonus_projectile_speed = koakuma03:GetLevelSpecialValueFor("bonus_projectile_speed", koakuma03_level)
 		local reduction_cooldown = (-1) * koakuma03:GetLevelSpecialValueFor("reduction_cooldown", koakuma03_level)
 		THDReduceCooldown(ability, reduction_cooldown)
@@ -53,7 +53,6 @@ function OnKoakuma01SpellStart( keys )
 	dummy_ability.projectileTo = nil
 	if caster:GetClassname()=="npc_dota_hero_lich" then	
 		dummy_ability.maxBounces = koakuma03:GetLevelSpecialValueFor("bounces", koakuma03_level)  + FindTelentValue(caster,"special_bonus_unique_koakuma_3")
-		if caster:PassivesDisabled() then dummy_ability.maxBounces = 0 end
 		dummy_ability.damage_reduction_percent = (koakuma03:GetLevelSpecialValueFor("damage_reduction_percent", koakuma03_level) + FindTelentValue(caster,"special_bonus_unique_koakuma_2"))/100	
 		dummy_ability.koakuma04_damage_percentage = koakuma04:GetLevelSpecialValueFor("damage_percentage", koakuma04_level)
 		dummy_ability.koakuma04_radius = koakuma04:GetLevelSpecialValueFor("radius", koakuma04_level)
@@ -230,7 +229,7 @@ function OnKoakuma02SpellStart( keys )
 		koakuma04_level = koakuma04:GetLevel() - 1
 	end
 	local bonus_projectile_speed = 0
-	if caster:HasModifier("modifier_thdots_koakuma03") and (not caster:PassivesDisabled()) then
+	if caster:HasModifier("modifier_thdots_koakuma03") then
 		bonus_projectile_speed = koakuma03:GetLevelSpecialValueFor("bonus_projectile_speed", koakuma03_level)
 		local reduction_cooldown = (-1) * koakuma03:GetLevelSpecialValueFor("reduction_cooldown", koakuma03_level)
 		THDReduceCooldown(ability, reduction_cooldown)
@@ -261,7 +260,6 @@ function OnKoakuma02SpellStart( keys )
 	dummy_ability.duration = keys.Duration
 	if caster:GetClassname()=="npc_dota_hero_lich" then	
 		dummy_ability.maxBounces = koakuma03:GetLevelSpecialValueFor("bounces", koakuma03_level) + FindTelentValue(caster,"special_bonus_unique_koakuma_3")
-		if caster:PassivesDisabled() then dummy_ability.maxBounces = 0 end
 		dummy_ability.damage_reduction_percent = (koakuma03:GetLevelSpecialValueFor("damage_reduction_percent", koakuma03_level) + FindTelentValue(caster,"special_bonus_unique_koakuma_2"))/100	
 		dummy_ability.koakuma04_damage_percentage = koakuma04:GetLevelSpecialValueFor("damage_percentage", koakuma04_level)
 		dummy_ability.koakuma04_radius = koakuma04:GetLevelSpecialValueFor("radius", koakuma04_level)
@@ -445,7 +443,6 @@ function OnKoakumaExThink(keys)
 	local mana = caster:GetMana()
 	local max_mana = caster:GetMaxMana()
 	local stack_count = math.floor( 100 - ( mana / max_mana ) * 100 )
-	if caster:PassivesDisabled() then stack_count = 0 end
 	if caster:HasModifier("modifier_thdots_koakumaex") == false then			
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_thdots_koakumaex", {})	
 	end

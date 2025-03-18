@@ -43,7 +43,6 @@ function modifier_ability_thdots_daiyouseiEx_passive:GetBonusNightVision()
 end
 function modifier_ability_thdots_daiyouseiEx_passive:OnAbilityFullyCast(keys)
 	if not IsServer() then return end
-	if self:GetParent():PassivesDisabled() then return end
 	if IsNotLunchbox_ability(keys.ability) then return end
 	if keys.unit:GetTeam() == self:GetParent():GetTeam() and keys.unit:IsRealHero() and not keys.ability:IsItem() 
 		and (keys.unit:GetOrigin()-self:GetParent():GetOrigin()):Length2D() <= self:GetAbility():GetSpecialValueFor("aura_radius") then

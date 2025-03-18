@@ -124,7 +124,6 @@ end
 function modifier_ability_thdots_Jyoon_1:GetModifierPreAttack_CriticalStrike(keys)
     if not IsServer() then return end
     local caster = self:GetCaster()
-	if caster:PassivesDisabled() then return end
     local ability = caster:FindAbilityByName("special_bonus_unique_Jyoon_ability1_crit")
     local value = 0
     if(ability ~= nil) then
@@ -138,7 +137,6 @@ end
 
 -- 攻击距离加成
 function modifier_ability_thdots_Jyoon_1:GetModifierAttackRangeBonus()
-	if self:GetCaster():PassivesDisabled() then return end
     return self:GetAbility():GetSpecialValueFor("range")
 end
 --攻击判定
@@ -148,7 +146,6 @@ function modifier_ability_thdots_Jyoon_1:OnAttackLanded(keys)
     local ability = self:GetAbility()
     local enemy = keys.target
     local caster = self:GetCaster()
-    if caster:PassivesDisabled() then return end
     --冷却判定
     if keys.attacker == caster and enemy:GetTeamNumber() ~= caster:GetTeamNumber() and ability:IsCooldownReady() then
         ability:StartCooldown(ability:GetEffectiveCooldown(ability:GetLevel()-1))
@@ -899,7 +896,6 @@ function modifier_thdots_Jyoon_passive_dropGold:OnHeroKilled(keys)
     local enemy = keys.target
     local caster = self:GetCaster()
     local ability = self:GetAbility()
-    if caster:PassivesDisabled() then return end
 
     if enemy == self:GetParent() then
         local playerID = enemy:GetPlayerOwnerID()

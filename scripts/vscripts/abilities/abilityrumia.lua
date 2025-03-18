@@ -94,7 +94,6 @@ function passive_rumia02_attack:DeclareFunctions()
 end
 function passive_rumia02_attack:OnAttackLanded(keys)
 	local parent = self:GetParent()
-	if parent:PassivesDisabled() then return end
 	if parent ~= keys.attacker then return end
 	local ability = self:GetAbility()
 	local target = keys.target
@@ -192,11 +191,6 @@ function modifier_rumia_03_think:OnIntervalThink()
 	local ability = self:GetAbility()
 
 	if caster:IsAlive() then
-		if caster:PassivesDisabled() then
-			caster:RemoveModifierByName("modifier_rumia_03_night")
-			caster:RemoveModifierByName("modifier_rumia_03_day")
-			return
-		end
 		if caster:HasModifier("modifier_rumia_03_day") == false and caster:HasModifier("modifier_rumia_03_night") == false then
 			caster:AddNewModifier(caster, ability, "modifier_rumia_03_day", {})
 		end

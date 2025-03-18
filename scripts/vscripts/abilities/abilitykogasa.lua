@@ -110,7 +110,6 @@ function Kogasa03OnKill( keys )
 	local caster = keys.caster
 	local max_count = FindValueTHD("max_count",keys.ability)*2
 	local count = caster:GetModifierStackCount("modifier_ability_thdots_kogasa03_agi", caster)
-	if caster:PassivesDisabled() then return end
 	if caster:FindAbilityByName("ability_thdots_kogasa03") == nil then return end
 	if count < max_count then
 		caster:SetModifierStackCount("modifier_ability_thdots_kogasa03_agi", caster, count + 1)

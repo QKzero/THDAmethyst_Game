@@ -1503,7 +1503,6 @@ function modifier_ability_thdots_kokoroEx_2:OnIntervalThink()
 		self:GetCaster():SetModifierStackCount("modifier_ability_thdots_kokoroEx_2_Intellect",self:GetCaster(),self.spell_amplify)
 	end
 	if not IsServer() then return end
-	if self:GetCaster():PassivesDisabled() then return end
 	self:GetCaster():SetPrimaryAttribute(self.num) --设置主属性，0是力量，1是敏捷，2是智力
 	if FindTelentValue(self:GetCaster(),"special_bonus_unique_kokoro_1") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_kokoroEx_2_talent1") then
 		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_kokoroEx_2_talent1",{})
@@ -1574,11 +1573,7 @@ function modifier_ability_thdots_kokoroEx_2_Strength:DeclareFunctions()
 	}
 end
 function modifier_ability_thdots_kokoroEx_2_Strength:GetModifierMagicalResistanceBonus()
-	if self:GetCaster():PassivesDisabled() then
-		return 0
-	else
-		return self:GetStackCount() * self:GetAbility():GetSpecialValueFor("strength_bonus")
-	end
+	return self:GetStackCount() * self:GetAbility():GetSpecialValueFor("strength_bonus")
 end
 function modifier_ability_thdots_kokoroEx_2_Agility:DeclareFunctions()
 	return {
@@ -1586,11 +1581,7 @@ function modifier_ability_thdots_kokoroEx_2_Agility:DeclareFunctions()
 	}
 end
 function modifier_ability_thdots_kokoroEx_2_Agility:GetModifierMoveSpeedBonus_Constant()
-	if self:GetCaster():PassivesDisabled() then
-		return 0
-	else
-		return self:GetStackCount() * self:GetAbility():GetSpecialValueFor("agility_bonus")
-	end
+	return self:GetStackCount() * self:GetAbility():GetSpecialValueFor("agility_bonus")
 end
 function modifier_ability_thdots_kokoroEx_2_Intellect:DeclareFunctions()
 	return {
@@ -1598,11 +1589,7 @@ function modifier_ability_thdots_kokoroEx_2_Intellect:DeclareFunctions()
 	}
 end
 function modifier_ability_thdots_kokoroEx_2_Intellect:GetModifierSpellAmplify_Percentage()
-	if self:GetCaster():PassivesDisabled() then
-		return 0
-	else
-		return self:GetStackCount() * self:GetAbility():GetSpecialValueFor("intellect_bonus")
-	end
+	return self:GetStackCount() * self:GetAbility():GetSpecialValueFor("intellect_bonus")
 end
 
 modifier_ability_thdots_kokoroEx_2_talent1 = modifier_ability_thdots_kokoroEx_2_talent1 or {}  --天赋监听

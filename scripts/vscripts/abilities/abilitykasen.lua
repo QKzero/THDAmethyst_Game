@@ -386,7 +386,6 @@ function modifier_thdots_kasen01_Passive:OnAttackLanded(keys)
 	if not IsServer() then return end
 	local caster = keys.attacker
 	if caster ~=self:GetCaster() then return end
-	if caster:PassivesDisabled() then return end
 	local ability =self:GetAbility()
 	local target = keys.target
 	local buff_duration = ability:GetSpecialValueFor("buff_duration")+ FindTelentValue(caster,"special_bonus_unique_kasen_1")
@@ -450,7 +449,6 @@ function Kasen02PassiveKnock(keys)
 	local caster = keys.caster
 	local target = keys.target
 	if target:IsBuilding() then return end
-	if caster:PassivesDisabled() then return end
 	local ability=keys.ability
 	if caster:HasModifier("modifier_thdots_kasen_ex")==true and caster:HasModifier("modifier_thdots_kasen_ex_WBC")==false then return end
 
@@ -752,7 +750,6 @@ function Kasen03PassiveOnAbility(keys)
 	local target_ability = keys.event_ability --mod目标用的技能
 	--有天生状态时继续
 	if caster:HasModifier("modifier_thdots_kasen_ex")==false and caster:HasModifier("modifier_thdots_kasen_ex_WBC")==false then return end
-	if caster:PassivesDisabled() then return end
 	--敌对技能目标是我时继续
 	if event_target ~= caster then return end
 	--最短间隔

@@ -184,7 +184,6 @@ function mystia03OnExecuted(keys)
   local CurrentActiveAbility = target:GetCurrentActiveAbility()
   local mana = ability:GetLevelSpecialValueFor("restoredmana", ability:GetLevel() - 1 )
   local chance = ability:GetLevelSpecialValueFor("chance", ability:GetLevel() - 1 )
-  if ability:GetCaster():PassivesDisabled() then return end
   if RollPercentage(chance) then
       target:GiveMana(mana)
       local effectIndex=  ParticleManager:CreateParticle("particles/thd2/heroes/mystia/mystia03.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, target)
@@ -326,7 +325,6 @@ function mystiaExOnAttackLanded(keys)
   if target:IsHero() or target:IsNeutralUnitType() then
 
   local caster = EntIndexToHScript(keys.caster_entindex)
-  if caster:PassivesDisabled() then return end
   local caster_level = caster:GetLevel()
   local target_level = target:GetLevel()
   if caster:HasScepter() and caster:HasModifier("modifier_mystiaEx_fly") then
@@ -365,7 +363,6 @@ function mystiaExOnAttacked( keys )
   if target:IsRealHero() or target:IsNeutralUnitType() then
 
   local caster = EntIndexToHScript(keys.caster_entindex)
-  if caster:PassivesDisabled() then return end
   local caster_level = caster:GetLevel()
   local target_level = target:GetLevel()
   if caster:HasScepter() and caster:HasModifier("modifier_mystiaEx_fly") then

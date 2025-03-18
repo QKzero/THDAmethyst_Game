@@ -44,21 +44,13 @@ end
 
 function modifier_ability_thdots_sunnyEx_passive:GetModifierConstantHealthRegen()
 	if self:GetStackCount() ~= 0 then
-		if self.caster:PassivesDisabled() then
-			return 0
-		else
-			return self:GetParent():GetLevel() * self.regen_bonus
-		end
+		return self:GetParent():GetLevel() * self.regen_bonus
 	else
 		return 0
 	end
 end
 function modifier_ability_thdots_sunnyEx_passive:GetModifierMagicalResistanceBonus()
-	if self.caster:PassivesDisabled() then
-		return 0
-	else
-		return self.bonus
-	end
+	return self.bonus
 end
 
 --------------------------------------------------------

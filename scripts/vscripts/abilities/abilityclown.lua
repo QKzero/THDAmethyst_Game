@@ -304,7 +304,6 @@ end
 function OnClown03Passive(keys)
 	local target = keys.target
 	local caster = keys.caster
-	if caster:PassivesDisabled() then return end
 	if target:IsBuilding() then return end	
 	keys.ability:ApplyDataDrivenModifier(caster, target, "modifier_thdots_clown03_passive_debuff", {})	
 end

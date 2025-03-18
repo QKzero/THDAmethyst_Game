@@ -173,7 +173,7 @@ function modifier_ability_thdots_parseeEx_passive:OnIntervalThink()
 	local caster = self:GetParent()
 	local ability = self:GetAbility()
 	self.gold = caster:GetGold()
-	if not caster:PassivesDisabled() and caster:GetHealthPercent() <= 20 and self:GetAbility():IsCooldownReady() and caster:IsAlive() and caster:IsRealHero() and self:GetStackCount() ~= 1 then
+	if caster:GetHealthPercent() <= 20 and self:GetAbility():IsCooldownReady() and caster:IsAlive() and caster:IsRealHero() and self:GetStackCount() ~= 1 then
 		caster:AddNewModifier(caster, self:GetAbility(), "modifier_ability_thdots_parseeEx_invin", {duration = self:GetAbility():GetSpecialValueFor("invin_time")})
 		ability:StartCooldown(ability:GetCooldown(ability:GetLevel() - 1))
 	end

@@ -361,7 +361,6 @@ end
 
 function OnReisenOldExSpellSuccess(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	local target = keys.target
 	local RandomNumber = RandomInt(1,100)
 	local deal_damage = caster:GetPrimaryStatValue()*0.5
@@ -407,7 +406,6 @@ function OnReisenOld02SpellStart(keys)
 		caster.ability_reisen02_illusion_max = 0
 	end
 	if(caster.ability_reisen02_illusion_max < keys.Max_illusions)then
-		if keys.caster:PassivesDisabled() and keys.passive_flag == 1 then return end
 		caster.ability_reisen02_illusion_max = caster.ability_reisen02_illusion_max + 2
 
 		local illusions = CreateIllusions(caster, caster, {
@@ -462,7 +460,6 @@ function OnReisenOld02SpellSuccess(keys)
 		hero.ability_reisen02_illusion_max = 0
 	end
 	if(hero.ability_reisen02_illusion_max < keys.Max_illusions)then
-		if keys.caster:PassivesDisabled() and keys.passive_flag == 1 then return end
 		hero.ability_reisen02_illusion_max = hero.ability_reisen02_illusion_max + 1
 
 		local illusions = CreateIllusions(caster, caster, {
@@ -501,68 +498,6 @@ function OnReisenOld02OnDeath(keys)
 		hero.ability_reisen02_illusion_max = hero.ability_reisen02_illusion_max - 1
 	end
 end
-
---[[
-function create_illusion_reisen(keys, illusion_origin, illusion_incoming_damage, illusion_outgoing_damage, illusion_duration)	
-	if keys.caster:PassivesDisabled() and keys.passive_flag == 1 then return end
-	local player_id = keys.caster:GetPlayerID()
-	local caster_team = keys.caster:GetTeam()
-	local tmp = keys.caster
-	
-	if not keys.caster:IsNull() then
-		if keys.caster:GetPlayerOwner() == nil then
-			if GetMapName() == "dota" then
-				tmp = nil
-			end
-		else
-			if keys.caster:GetPlayerOwner():GetContext("PlayerIsBot") == 1 then
-				tmp = nil
-			end
-		end
-	end
-	
-	local illusion = CreateUnitByName(keys.caster:GetUnitName(), illusion_origin, true, keys.caster, tmp, caster_team)
-	illusion:SetPlayerID(player_id)
-	illusion:SetControllableByPlayer(player_id, true)
-
-	--Level up the illusion to the caster's level.
-	local caster_level = keys.caster:GetLevel()
-	for i = 1, caster_level - 1 do
-		illusion:HeroLevelUp(false)
-	end
-
-	--Set the illusion's available skill points to 0 and teach it the abilities the caster has.
-	illusion:SetAbilityPoints(0)
-	for ability_slot = 0, 15 do
-		local individual_ability = keys.caster:GetAbilityByIndex(ability_slot)
-		if individual_ability ~= nil then 
-			local illusion_ability = illusion:FindAbilityByName(individual_ability:GetAbilityName())
-			if illusion_ability ~= nil then
-				illusion_ability:SetLevel(individual_ability:GetLevel())
-			end
-		end
-	end
-
-	print("AddNewModifier")
-	-- modifier_illusion controls many illusion properties like +Green damage not adding to the unit damage, not being able to cast spells and the team-only blue particle 
-	illusion:AddNewModifier(keys.caster, keys.ability, "modifier_illusion", {duration = illusion_duration, outgoing_damage = illusion_outgoing_damage, incoming_damage = illusion_incoming_damage})
-	print("MakeIllusion")
-	print(illusion_incoming_damage)
-	illusion:MakeIllusion()  --Without MakeIllusion(), the unit counts as a hero, e.g. if it dies to neutrals it says killed by neutrals, it respawns, etc.  Without it, IsIllusion() returns false and IsRealHero() returns true.
-
-	--Recreate the caster's items for the illusion.
-	for item_slot = 0, 8 do
-		local individual_item = keys.caster:GetItemInSlot(item_slot)
-		if individual_item ~= nil then
-			local illusion_duplicate_item = CreateItem(individual_item:GetName(), illusion, illusion)
-			illusion:AddItem(illusion_duplicate_item)
-			illusion_duplicate_item:SetPurchaser(nil)
-		end
-	end
-	
-	return illusion
-end
---]]
 
 function OnReisen03ChannellStart(keys)
 	local caster = keys.caster

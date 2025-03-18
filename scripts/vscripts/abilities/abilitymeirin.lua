@@ -342,7 +342,6 @@ function modifier_meirin03_block:GetModifierTotal_ConstantBlock(kv)
 	if not IsServer() then return end
 	if bit.band(kv.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS) == DOTA_DAMAGE_FLAG_HPLOSS then return 0 end
 	local caster = self:GetCaster()
-	if caster:PassivesDisabled() then return end
 	if caster:HasModifier("modifier_meirin03_damage") then return end
 	local ability = self:GetAbility()
 	local radius = ability:GetSpecialValueFor("radius")

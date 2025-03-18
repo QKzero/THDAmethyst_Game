@@ -2,9 +2,9 @@
 Bot_Mode_Select = {
 	is_paused = false,
 	dota_inter = false,
+	is_bot_enabled = true,
 	Difficulty = 4,
 	MaxPlayer = 5,
-	Mod = 2,
 }
 
 function ChangeGamePause(data)
@@ -28,6 +28,20 @@ function ChangeGameDotaInter(data)
 			Say(plyhd, "Dota Mixed ON", false)
 		else
 			Say(plyhd, "Dota Mixed OFF", false)
+		end
+	end
+end
+
+function ChangeGameBotMode(data)
+	print("ChangeGameBotMode")
+	if data ~= nil then
+		local plyhd = PlayerResource:GetPlayer(data.PlayerID)
+		Bot_Mode_Select.is_bot_enabled = data.is_bot_enabled ~= 0
+		THD2_SetBotMode(Bot_Mode_Select.is_bot_enabled)
+		if Bot_Mode_Select.is_bot_enabled then
+			Say(plyhd, "Bot Mode ON...", false)
+		else
+			Say(plyhd, "Bot Mode OFF...", false)
 		end
 	end
 end

@@ -388,7 +388,6 @@ function modifier_ability_thdots_kisume03_passive:DeclareFunctions()
 	}
 end
 function modifier_ability_thdots_kisume03_passive:GetModifierIncomingDamage_Percentage()
-	if self:GetParent():PassivesDisabled() then return 0 end
 	return -self:GetAbility():GetSpecialValueFor("decrease_damage")
 end
 
@@ -875,7 +874,6 @@ end
 
 
 function kisumeEx_count(caster,ability)
-	if ability.caster:PassivesDisabled() then return end
 	if ability.caster:HasModifier("modifier_ability_thdots_kisumeEx_passive") and ability.caster:HasAbility("ability_thdots_kisumeEx") then
 		local kisumeEx_modifier = ability.caster:FindModifierByName("modifier_ability_thdots_kisumeEx_passive")
 		local kisumeEx = ability.caster:FindAbilityByName("ability_thdots_kisumeEx")

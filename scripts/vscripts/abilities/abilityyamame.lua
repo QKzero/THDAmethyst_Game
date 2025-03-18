@@ -24,7 +24,6 @@ end
 function modifier_ability_thdots_yamameEx:OnAttackLanded(keys)
 	if not IsServer() then return end
 	if keys.attacker:GetTeam() == keys.target:GetTeam() or keys.target:IsBuilding() then return end
-	if keys.attacker:PassivesDisabled() then return end
 	local duration = self:GetAbility():GetSpecialValueFor("duration")
 	if keys.attacker == self:GetParent() then
 		keys.target:AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_yamameEx_debuff",{duration = duration})
@@ -175,7 +174,6 @@ end
 function modifier_ability_thdots_yamame02_passive:OnTakeDamage(keys)
 	if not IsServer() then return end
 	if keys.attacker:GetTeam() == keys.unit:GetTeam() then return end
-	if keys.attacker:PassivesDisabled() then return end
 	if keys.attacker == self:GetParent() and keys.damage_type == DAMAGE_TYPE_PHYSICAL then
 		local damage = keys.damage * self.passive_damage / 100
 		local damage_tabel = {

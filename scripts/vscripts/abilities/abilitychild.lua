@@ -353,7 +353,6 @@ ability_thdots_child03 = {}
 
 function ability_thdots_child03:CreateNewLight(location)
 	local caster = self:GetCaster()
-	if caster:PassivesDisabled() then return end
 	if self:GetLevel() == 0 then return end --判断是否学习3技能
 	local light = CreateUnitByName(
 		"npc_ability_child_03_light",

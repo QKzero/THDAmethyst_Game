@@ -321,7 +321,6 @@ function Hatate04OnSpellStart( keys )
 end
 
 function Hatate04OnAttackLanded( keys)
-	if keys.caster:PassivesDisabled() then return end
 	local stack = keys.caster:GetModifierStackCount("modifier_ability_thdots_hatate04_bonus",caster)
 	local ability02 = keys.caster:FindAbilityByName("ability_thdots_hatate02")
 	local actual_radius = ability02:GetSpecialValueFor("radius")

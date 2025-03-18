@@ -663,7 +663,6 @@ end
 function OnPatchouliFireFireUnit(keys)
 	if keys.unit:IsBuilding()==false then return end
 	local caster = EntIndexToHScript(keys.caster_entindex)	
-	if caster:PassivesDisabled() then return end
 	if(caster.firelock == nil)then
 		caster.firelock = false
 	end
@@ -1565,7 +1564,6 @@ end
 
 function OnPatchouliXianzhezhishi(keys)
 	local caster = keys.caster
-	if caster:PassivesDisabled() then return end
 	local CasterName = caster:GetClassname()
 	if CasterName ~= "npc_dota_hero_invoker" then return end
 	local ability_xianzhezhishi=caster:FindAbilityByName("ability_thdots_patchouli_xianzhezhishi")
@@ -1616,14 +1614,7 @@ end
 function OnPatchouliSunMoon(keys)
 	local ability = keys.ability
 	local caster = keys.caster
-	if caster:PassivesDisabled() then
-		if caster:HasModifier("modifier_thdots_patchouli_xianzhezhishi_moon") then 
-			caster:RemoveModifierByName("modifier_thdots_patchouli_xianzhezhishi_moon")
-		end
-		if caster:HasModifier("modifier_thdots_patchouli_xianzhezhishi_sun") then 
-			caster:RemoveModifierByName("modifier_thdots_patchouli_xianzhezhishi_sun")
-		end
-	elseif FindTelentValue(caster,"special_bonus_unique_patchouli_7") == 1 then
+	if FindTelentValue(caster,"special_bonus_unique_patchouli_7") == 1 then
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_thdots_patchouli_xianzhezhishi_sun", {duration = -1})
 		ability:ApplyDataDrivenModifier(caster, caster, "modifier_thdots_patchouli_xianzhezhishi_moon", {duration = -1})
 	else

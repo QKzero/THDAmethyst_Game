@@ -260,7 +260,6 @@ function modifier_thdots_byakuren04_passive:OnAttackLanded(keys)
 	if keys.attacker ~= self:GetCaster() then return end
 	if keys.target:IsBuilding() then return end
 	local caster = self:GetParent()
-	if caster:PassivesDisabled() then return end
 	local ability = self:GetAbility()
 	local radius = ability:GetSpecialValueFor("radius")
 	local ability_multi = ability:GetSpecialValueFor("ability_multi") / 100

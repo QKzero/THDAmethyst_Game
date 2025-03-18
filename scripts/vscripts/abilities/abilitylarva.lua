@@ -38,8 +38,6 @@ function modifier_ability_larvaEx_passive:OnAttackLanded(keys)
 	local attacker = keys.attacker
 	local duration = self:GetAbility():GetSpecialValueFor("duration")
 	if keys.target ~= self:GetParent() then return end  --判断被攻击者是否为拉尔瓦
-	--print_r(keys)
-	if keys.target:PassivesDisabled() then return end
 	attacker:RemoveModifierByName("modifier_ability_larvaEx_buff") --刷新持续时间
 	attacker:AddNewModifier(keys.target,self:GetAbility(),"modifier_ability_larvaEx_buff",{duration = duration})
 end

@@ -26,11 +26,7 @@ function modifier_ability_thdots_youmu2_Ex_passive:DeclareFunctions()
 end
 
 function modifier_ability_thdots_youmu2_Ex_passive:GetModifierPreAttack_BonusDamage()
-	if self:GetCaster():PassivesDisabled() then
-		return 0
-	else
-		return self:GetAbility():GetSpecialValueFor("decrease_damage") + self:GetAbility():GetSpecialValueFor("decrease_damage_per_level") * self:GetCaster():GetLevel()
-	end
+	return self:GetAbility():GetSpecialValueFor("decrease_damage") + self:GetAbility():GetSpecialValueFor("decrease_damage_per_level") * self:GetCaster():GetLevel()
 end
 function modifier_ability_thdots_youmu2_Ex_passive:GetAuraRadius() return 99999 end -- global
 function modifier_ability_thdots_youmu2_Ex_passive:GetAuraSearchFlags() return DOTA_UNIT_TARGET_FLAG_NONE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES end
@@ -93,8 +89,6 @@ function modifier_ability_thdots_youmu2_Ex_damage:GetModifierTotal_ConstantBlock
 	if kv.attacker:HasModifier("modifier_ability_thdots_youmu2_05_passive") then
 		Ex_damage_type = DAMAGE_TYPE_PHYSICAL
 		Ex_damage_flag = DOTA_DAMAGE_FLAG_BYPASSES_BLOCK
-	elseif caster:PassivesDisabled() then
-		return
 	end
 	if kv.attacker ~= caster or target:IsBuilding() then return end
 	if kv.attacker:HasModifier("modifier_ability_thdots_youmu2_Ex_passive") and kv.damage_type ~= Ex_damage_type then
@@ -274,7 +268,6 @@ end
 function modifier_ability_thdots_youmu2_02_passive:OnAttackLanded(keys)
 	if not IsServer() then return end
 	local caster = keys.attacker
-	if caster:PassivesDisabled() then return end
 	local target = keys.target
 	local ability = self:GetAbility()
 	local damage = ability:GetSpecialValueFor("damage")

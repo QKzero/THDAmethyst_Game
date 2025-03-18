@@ -66,77 +66,6 @@ function ability_thdots_yuyuko01:OnProjectileHit(hTarget, vLocation)
 	end
 end
 
---[[
-modifier_thdots_yuyuko_ghost_lead = {}
-LinkLuaModifier("modifier_thdots_yuyuko_ghost_lead","scripts/vscripts/abilities/abilityyuyuko.lua",LUA_MODIFIER_MOTION_NONE)
-
-function modifier_thdots_yuyuko_ghost_lead:OnCreated()
-	-- Ability properties
-	self.caster = self:GetCaster()
-	self.ability = self:GetAbility()
-	self.modifier_ghost_lead = "modifier_thdots_yuyuko03_stack"
-
-	-- Ability specials
-	self.regen_duration = self.ability:GetSpecialValueFor("regen_duration")
-	self.hero_multiplier = self.ability:GetSpecialValueFor("hero_multiplier")
-end
-
-function modifier_thdots_yuyuko_ghost_lead:GetAttributes() return MODIFIER_ATTRIBUTE_PERMANENT end
-function modifier_thdots_yuyuko_ghost_lead:IsHidden() return true end
-
-function modifier_thdots_yuyuko_ghost_lead:DeclareFunctions()
-	return {
-		MODIFIER_EVENT_ON_DEATH,
-	}
-end
-
-function modifier_thdots_yuyuko_ghost_lead:OnRefresh()
-	if IsServer() then
-		self:OnCreated()
-	end
-end
-
-function modifier_thdots_yuyuko_ghost_lead:OnDeath(params)
-	if IsServer() then
-		local unit = params.unit
-
-		if params.attacker == self:GetParent() then
-			-- If this is an illusion, do nothing
-			if not params.attacker:IsRealHero() then
-				return nil
-			end
-
-			-- If target has break, do nothing
-			if params.attacker:PassivesDisabled() then
-				return nil
-			end
-
-			-- Initialize stacks
-			local stacks = 1
-
-			-- If the target was a real hero, increase stack count
-			if unit:IsRealHero() then
-				stacks = self.hero_multiplier
-			end
-
-			-- If the caster doesn't have the modifier, add it
-			if not self.caster:HasModifier(self.modifier_ghost_lead) then
-				self.caster:AddNewModifier(self.caster, self.ability, "modifier_thdots_yuyuko03_stack", {duration = self.regen_duration})
-			end
-
-			-- Increment stacks
-			local modifier_ghost_lead_handler = self.caster:FindModifierByName(self.modifier_ghost_lead)
-			if modifier_ghost_lead_handler then
-				for i = 1, stacks do
-					modifier_ghost_lead_handler:IncrementStackCount()
-					modifier_ghost_lead_handler:ForceRefresh()
-				end
-			end
-		end
-	end
-end
---]]
-
 ability_thdots_yuyuko02 = {}
 
 function ability_thdots_yuyuko02:GetAssociatedSecondaryAbilities()
@@ -399,9 +328,6 @@ function modifier_thdots_yuyuko03_aura:GetAuraSearchType()  return DOTA_UNIT_TAR
 function modifier_thdots_yuyuko03_aura:GetModifierAura()  return "modifier_thdots_yuyuko03_aura_damage" end
 
 function modifier_thdots_yuyuko03_aura:IsAura()
-	if self:GetCaster():PassivesDisabled() then
-		return false
-	end
 	return true
 end
 
@@ -440,11 +366,6 @@ function modifier_thdots_yuyuko03_aura:OnDeath(params)
 		if params.attacker == self:GetParent() then
 			-- If this is an illusion, do nothing
 			if not params.attacker:IsRealHero() then
-				return nil
-			end
-
-			-- If target has break, do nothing
-			if params.attacker:PassivesDisabled() then
 				return nil
 			end
 
@@ -593,28 +514,25 @@ function modifier_thdots_yuyuko03_aura_damage:OnIntervalThink()
 	if IsServer() then
 		local caster = self:GetCaster()
 
-		if not caster:PassivesDisabled() then
-			-- Calculates damage
-			local damage
-			if caster:HasModifier("modifier_thdots_yuyuko03_aura_lyz") then
-				damage = self.parent:GetMaxHealth() * ((self.aura_damage + self.lyz_damage_plus) * self.tick_rate) / 100	--lyz
-			else
-				damage = self.parent:GetMaxHealth() * (self.aura_damage * self.tick_rate) / 100													--normal
-			end
+		-- Calculates damage
+		local damage
+		if caster:HasModifier("modifier_thdots_yuyuko03_aura_lyz") then
+			damage = self.parent:GetMaxHealth() * ((self.aura_damage + self.lyz_damage_plus) * self.tick_rate) / 100	--lyz
+		else
+			damage = self.parent:GetMaxHealth() * (self.aura_damage * self.tick_rate) / 100													--normal
+		end
 
-			if self.parent:HasModifier("modifier_thdots_yuyuko02_buff") then					--受到恍惚影响时减少伤害
-				damage = damage * self.trance_reduce_pct * 0.01
-			end
+		if self.parent:HasModifier("modifier_thdots_yuyuko02_buff") then					--受到恍惚影响时减少伤害
+			damage = damage * self.trance_reduce_pct * 0.01
+		end
 
-			ApplyDamage({attacker = caster, victim = self.parent, ability = self:GetAbility(), damage = damage, damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION})
+		ApplyDamage({attacker = caster, victim = self.parent, ability = self:GetAbility(), damage = damage, damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION})
 
-			--Heal
-			if caster:HasModifier("modifier_thdots_yuyuko03_aura_lyz") then
-				local heal = damage * self.lyz_heal_pct / 100
+		--Heal
+		if caster:HasModifier("modifier_thdots_yuyuko03_aura_lyz") then
+			local heal = damage * self.lyz_heal_pct / 100
 
-				caster:HealWithParams(heal, self:GetAbility(), false, false, caster, false)
-			end
-
+			caster:HealWithParams(heal, self:GetAbility(), false, false, caster, false)
 		end
 	end
 end

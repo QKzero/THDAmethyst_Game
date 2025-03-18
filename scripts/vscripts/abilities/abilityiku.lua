@@ -272,7 +272,6 @@ function OnIku03Attack( keys )
 
 	--检测概率 
 	local chance = keys.ability:GetLevelSpecialValueFor("chance", i)
-	if caster:PassivesDisabled() then chance = 0 end
 	if target:HasModifier("modifier_ability_thdots_iku04_electrification") then
 		chance = 100
 	end

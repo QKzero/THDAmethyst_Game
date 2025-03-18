@@ -8,7 +8,6 @@ end
 
 function OnYoumu02SpellStartDamage(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	if caster:PassivesDisabled() then return end
 	local target = keys.target
 	if target:IsBuilding() then return end
 	local damage_table = {

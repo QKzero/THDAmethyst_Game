@@ -130,7 +130,6 @@ function modifier_ability_thdots_rinEx_buff:OnDeath(event)
 	--DeepPrintTable(event)
 	local caster =self:GetCaster()
 	if caster:IsAlive()==false then return end
-	if caster:PassivesDisabled() then return end
 	if event.unit == caster then return end
 	local ability = self.caster:FindAbilityByName("ability_thdots_rin04")
 	local point = event.unit:GetAbsOrigin()

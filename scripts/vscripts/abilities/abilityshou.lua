@@ -130,7 +130,6 @@ end
 function Shou03OnKill( keys )
 	-- body
 	local caster = keys.caster
-	if caster:PassivesDisabled() then return end
 	local target = keys.unit
 	local damage = keys.damage
 	local radius = keys.radius
@@ -235,7 +234,6 @@ end
 function ShouExThink( keys )
 	-- body
 	local caster = keys.caster
-	if caster:PassivesDisabled() then return end
 	local ability = keys.ability
 	local count = caster:GetModifierStackCount("modifier_ability_thdots_shouEx", caster)
 	SHOUEX_COUNT = SHOUEX_COUNT + 1
@@ -265,7 +263,6 @@ end
 function ShouExOnSpellStart( keys )
 	-- body
 	local caster = keys.caster
-	if caster:PassivesDisabled() then return end
 	local ability = keys.ability
 	local regen = keys.regen
 	local count = caster:GetModifierStackCount("modifier_ability_thdots_shouEx", caster)

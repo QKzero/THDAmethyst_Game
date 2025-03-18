@@ -601,9 +601,7 @@ function modifier_ability_thdots_shion_ex_target:GetHPRegenAmplify()
     if self.subBasicRatio == nil then self.subBasicRatio = self:GetAbility():GetSpecialValueFor("subBasicRatio") end
     if self.subExtraRatio == nil then self.subExtraRatio = self:GetAbility():GetSpecialValueFor("subExtraRatio") end
     local subRatio = - (self.subBasicRatio + self.subExtraRatio * GameRules:GetDOTATime(false, false) / 60)
-    if self:GetCaster():PassivesDisabled() then
-        return 0
-    elseif subRatio >= -70 then
+    if subRatio >= -70 then
         return subRatio
     else
         return -70
@@ -1431,19 +1429,11 @@ function modifier_ability_thdots_shion_03_caster_debuff:DeclareFunctions()
 end
 
 function modifier_ability_thdots_shion_03_caster_debuff:GetModifierMagicalResistanceBonus()
-	if self.caster:PassivesDisabled() then
-        return 0
-    else
-		return self.parent:GetBaseMagicalResistanceValue() * self.ability:GetSpecialValueFor("ownMagicResistanceBonus") * 0.01
-    end
+    return self.parent:GetBaseMagicalResistanceValue() * self.ability:GetSpecialValueFor("ownMagicResistanceBonus") * 0.01
 end
 
 function modifier_ability_thdots_shion_03_caster_debuff:GetModifierPhysicalArmorBonus()
-	if self.caster:PassivesDisabled() then
-        return 0
-    else
-		return self.ability:GetSpecialValueFor("ownArmorBonus")
-    end
+    return self.ability:GetSpecialValueFor("ownArmorBonus")
 end
 
 -- function modifier_ability_thdots_shion_03_caster_debuff:GetModifierPhysicalArmorBase_Percentage()
@@ -1483,19 +1473,11 @@ function modifier_ability_thdots_shion_03_target:DeclareFunctions()
 end
 
 function modifier_ability_thdots_shion_03_target:GetModifierMagicalResistanceBonus()
-    if self.caster:PassivesDisabled() then
-        return 0
-    else
-        return self.parent:GetBaseMagicalResistanceValue() * self.ability:GetSpecialValueFor("targetMagicResistanceBonus") * 0.01
-    end
+    return self.parent:GetBaseMagicalResistanceValue() * self.ability:GetSpecialValueFor("targetMagicResistanceBonus") * 0.01
 end
 
 function modifier_ability_thdots_shion_03_target:GetModifierPhysicalArmorBonus()
-    if self.caster:PassivesDisabled() then
-        return 0
-    else
-        return self.ability:GetSpecialValueFor("targetArmorBonus")
-    end
+    return self.ability:GetSpecialValueFor("targetArmorBonus")
 end
 
 -- 三技能 End

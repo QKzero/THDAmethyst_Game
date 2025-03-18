@@ -374,11 +374,7 @@ end
 
 function modifier_thdots_yumemiEx_passive:GetModifierBaseAttack_BonusDamage()
 	local ability = self:GetAbility()
-	if self:GetCaster():PassivesDisabled() then
-		return 0
-	else
-		return ability:GetSpecialValueFor("attack_bonus") * self:GetStackCount()
-	end
+	return ability:GetSpecialValueFor("attack_bonus") * self:GetStackCount()
 end
 
 modifier_ability_thdots_yumemiEx_cross = {}

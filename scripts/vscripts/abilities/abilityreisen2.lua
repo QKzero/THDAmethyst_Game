@@ -502,7 +502,6 @@ function modifier_ability_thdots_reisen2_03:OnAttacked(keys)
     if not IsServer() then return end
 
     local temp=1
-    if self:GetParent():PassivesDisabled() then return end
 
     --如果目标是施法者,非英雄单位不生效
     if keys.target==self:GetParent() and not keys.target:HasModifier("modifier_illusion") and keys.attacker:IsHero() then
@@ -530,7 +529,6 @@ function modifier_ability_thdots_reisen2_03:OnAttackLanded(keys)
     --天赋修改信息
     local abilityName="special_bonus_unique_Reisen_2_ability3_multiplier"
     local temp=1
-    if self:GetParent():PassivesDisabled() then return end
     --如果攻击是施法者
 
     if keys.attacker==self:GetParent() and not keys.attacker:HasModifier("modifier_illusion") then
@@ -559,7 +557,6 @@ function modifier_ability_thdots_reisen2_03:OnIntervalThink()
 
     local abilityName="special_bonus_unique_Reisen_2_ability3_multiplier"
     local temp=1
-    if self:GetParent():PassivesDisabled() then return end
     --天赋判定：倍数
     --if self.caster:HasAbility(abilityName) and self.caster:FindAbilityByName(abilityName):GetLevel()>0 then 
     --    temp = temp*self.caster:FindAbilityByName(abilityName):GetSpecialValueFor("value")
@@ -994,7 +991,6 @@ function modifier_ability_thdots_reisen2_04:OnAttackLanded( keys )
     if not IsServer() then end
     --如果攻击者是 modifier持有者 而且自己不是幻象 执行分裂攻击
     --这个代码是 valve 提供的sven 例子
-    if self:GetParent():PassivesDisabled() then return end
     if keys.attacker == self:GetParent() then
         self.cleaveDamage= self:GetAbility():GetSpecialValueFor("cleave_damage")
         self.radius=self:GetAbility():GetSpecialValueFor("cleave_range")

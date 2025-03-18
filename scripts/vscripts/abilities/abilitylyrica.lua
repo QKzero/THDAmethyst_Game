@@ -243,14 +243,8 @@ function modifier_ability_thdots_lyrica03_debuff:OnCreated()
 	--print(self.bonus_stack)
 	local talent = self.caster:FindAbilityByName("special_bonus_unique_lyrica_2")
 	self.targets = FindUnitsInRadius(self.caster:GetTeamNumber(), self.caster:GetOrigin(), self, self.ability:GetSpecialValueFor("aura_radius"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0, 0, false)
-	if self:GetCaster():PassivesDisabled() then
-		for _,u in pairs (self.targets) do
-			u:SetModifierStackCount("modifier_ability_thdots_lyrica03_debuff_aura", self.caster, 0)
-		end
-	else
-		for _,u in pairs (self.targets) do
-			u:SetModifierStackCount("modifier_ability_thdots_lyrica03_debuff_aura", self.caster, self.bonus_stack)
-		end
+	for _,u in pairs (self.targets) do
+		u:SetModifierStackCount("modifier_ability_thdots_lyrica03_debuff_aura", self.caster, self.bonus_stack)
 	end
 	self:StartIntervalThink(0.3)
 end
@@ -261,14 +255,8 @@ function modifier_ability_thdots_lyrica03_debuff:OnIntervalThink()
 	self.bonus_stack = math.floor(self.base_bouns+ (100-self.caster:GetHealthPercent())/self.hp_bouns)
 	local talent = self.caster:FindAbilityByName("special_bonus_unique_lyrica_2")
 	self.targets = FindUnitsInRadius(self.caster:GetTeamNumber(), self.caster:GetOrigin(), nil, self.ability:GetSpecialValueFor("aura_radius"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0, 0, false)
-	if self:GetCaster():PassivesDisabled() then
-		for _,u in pairs (self.targets) do
-			u:SetModifierStackCount("modifier_ability_thdots_lyrica03_debuff_aura", self.caster, 0)
-		end
-	else
-		for _,u in pairs (self.targets) do
-			u:SetModifierStackCount("modifier_ability_thdots_lyrica03_debuff_aura", self.caster, self.bonus_stack)
-		end
+	for _,u in pairs (self.targets) do
+		u:SetModifierStackCount("modifier_ability_thdots_lyrica03_debuff_aura", self.caster, self.bonus_stack)
 	end
 end
 
@@ -476,7 +464,6 @@ function modifier_ability_thdots_lyricaEx:OnDeath(keys)
 	-- 天生, 每击杀一个单位增加0.2%冷却时间, 击杀200个单位后层数减半,上限75%
     if not IsServer() then return end
 	local caster = self:GetCaster()
-	if caster:PassivesDisabled() then return end
 	if keys.attacker == caster then
 		local cooldown_limit = math.ceil(self:GetAbility():GetSpecialValueFor("cooldown_limit") / self:GetAbility():GetSpecialValueFor("cooldown_bonus_half"))
 		local cooldown_max = math.ceil(self:GetAbility():GetSpecialValueFor("cooldown_max") / self:GetAbility():GetSpecialValueFor("cooldown_bonus_half"))
@@ -513,7 +500,6 @@ function modifier_ability_thdots_lyricaEx_bonus:OnAttackLanded(keys)
     if not IsServer() then return end
 	--每第四次攻击附加法术伤害
 	local caster = self:GetCaster()
-	if caster:PassivesDisabled() then return end
 	local target = keys.target
 	if keys.attacker == caster and target:GetTeamNumber() ~= caster:GetTeamNumber() then
 		local count = caster:GetModifierStackCount("modifier_ability_thdots_lyricaEx_bonus", caster)

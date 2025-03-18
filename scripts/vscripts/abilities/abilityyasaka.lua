@@ -41,11 +41,7 @@ function modifier_ability_thdots_yasakaEx_passive:DeclareFunctions()
 end
 
 function modifier_ability_thdots_yasakaEx_passive:GetModifierMagicalResistanceBonus()
-	if self:GetCaster():PassivesDisabled() then
-		return 0
-	else
-		return self:GetStackCount()
-	end
+	return self:GetStackCount()
 end
 
 --光环效果
@@ -102,7 +98,6 @@ end
 
 function modifier_ability_thdots_yasakaEx_passive_buff:OnAttack(keys)
 	if not IsServer() then return end
-	if self:GetCaster():PassivesDisabled() then return end
 	if keys.attacker ~= self.target then return end
 	local max_stack =self:GetAbility():GetSpecialValueFor("max_stack")
 	if self:GetStackCount() < max_stack then
@@ -142,7 +137,6 @@ end
 
 function modifier_ability_thdots_yasakaEx_passive_aura:OnAttack(keys)
 	if not IsServer() then return end
-	if self:GetCaster():PassivesDisabled() then return end
 	if keys.attacker ~= self.target then return end
 	if not self.target:HasModifier("modifier_ability_thdots_yasakaEx_passive_buff") then
 	local buff = self.target:AddNewModifier(self.caster, self:GetAbility(),  "modifier_ability_thdots_yasakaEx_passive_buff", {})
