@@ -26,7 +26,6 @@
 #base heroes/kogasa/hero.txt
 #base heroes/koishi/hero.txt
 #base heroes/kokoro/hero.txt
-#base heroes/kurumi/hero.txt
 #base heroes/komachi/hero.txt
 #base heroes/larva/hero.txt
 #base heroes/letty/hero.txt
@@ -36,7 +35,6 @@
 #base heroes/margatroid/hero.txt
 #base heroes/marisa/hero.txt
 #base heroes/medicine/hero.txt
-#base heroes/meira/hero.txt
 #base heroes/meirin/hero.txt
 #base heroes/merlin/hero.txt
 #base heroes/miko/hero.txt

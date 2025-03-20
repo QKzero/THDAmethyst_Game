@@ -51,6 +51,8 @@ DOTA_BAN_LIST={
 	"npc_dota_hero_pangolier",--石鳞剑士
 	"npc_dota_hero_marci",--玛西
 	"npc_dota_hero_nevermore",--影魔
+	"npc_dota_hero_bloodseeker",--血魔
+	"npc_dota_hero_ember_spirit",--灰烬之灵
 }--dota乱入名单，请在activelist中同步修改
 THD2_BAN_LIST ={
 	
@@ -62,10 +64,6 @@ THD2_BAN_LIST ={
 	--"npc_dota_hero_death_prophet",
 	--"npc_dota_hero_winter_wyvern",
 	--"npc_dota_hero_oracle",
-}
-STRAWBERRY_ENABLE_LIST = {
-	"npc_dota_hero_bloodseeker",
-	"npc_dota_hero_ember_spirit",
 }
 -- 载入项目所有文件
 require	("timers")
@@ -988,9 +986,6 @@ function THDOTSGameMode:OnPlayerSay( keys )
 		HostSay("JustForFun: "..THD2_GetJFFModeName())
 		if THD2_GetBotMode() then
 			HostSay("BotDiff: ".. THD2_GetBotDiffName() )
-		end
-		if THD2_GetStrarWberryMode() then
-			HostSay("StrawberryMode: ".. boolstr[THD2_GetStrarWberryMode()] )
 		end
 		if THD2_GetDotaMixedMode() then
 			HostSay("DotaMixed: ".. boolstr[THD2_GetDotaMixedMode()] )
@@ -2039,9 +2034,6 @@ function THDOTSGameMode:PrecacheHeroResource(hero)
 	elseif (heroName == "npc_dota_hero_lone_druid") then
 		abilityEx = hero:FindAbilityByName("ability_thdots_shizuhaEXNew")
 		abilityEx:SetLevel(1) --开局设置天生技能一级
-	elseif (heroName == "npc_dota_hero_bloodseeker") then
-		abilityEx = hero:FindAbilityByName("ability_thdots_kurumiEx")
-		abilityEx:SetLevel(1) --开局设置天生技能一级	
 	elseif (heroName == "npc_dota_hero_oracle") then
 		abilityEx = hero:FindAbilityByName("ability_thdots_toyohimeEx")
 		abilityEx:SetLevel(1) --开局设置天生技能一级
@@ -2051,15 +2043,6 @@ function THDOTSGameMode:PrecacheHeroResource(hero)
 		ability = hero:FindAbilityByName("ability_thdots_toyohime04_end")
 		ability:SetHidden(true)
 		ability:SetLevel(1)
-	elseif (heroName == "npc_dota_hero_ember_spirit") then
-		abilityEx = hero:FindAbilityByName("ability_thdots_meiraEx")
-		abilityEx:SetLevel(1)
-		local ability = hero:FindAbilityByName("ability_thdots_meira01_2")
-		ability:SetHidden(true)
-		ability = hero:FindAbilityByName("ability_thdots_meira01_3")
-		ability:SetHidden(true)
-		ability = hero:FindAbilityByName("ability_thdots_meira04_2")
-		ability:SetHidden(true)
 	end
 end
 
@@ -2087,11 +2070,6 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 			GameRules:SendCustomMessage("#BotMode_Explain12",0,0)
 			GameRules:SendCustomMessage("#BotMode_Explain13",0,0)
 			GameRules:SendCustomMessage("#BotMode_Explain14",0,0)
-			GameRules:SendCustomMessage("#BotMode_Explain15",0,0)
-			GameRules:SendCustomMessage("#BotMode_Explain16",0,0)
-			GameRules:SendCustomMessage("#BotMode_Explain17",0,0)
-			GameRules:SendCustomMessage("#BotMode_Explain18",0,0)
-			GameRules:SendCustomMessage("#BotMode_Explain19",0,0)
 		else
 			GameRules:SendCustomMessage("#BP_Explain1",0,0)
 			GameRules:SendCustomMessage("#RANKDC_Explain1",0,0)
@@ -2103,11 +2081,6 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
         --关闭模式选择窗口
         CloseGameMod()
 
-		if not THD2_GetStrarWberryMode() then
-			for i, enableName in pairs(STRAWBERRY_ENABLE_LIST) do
-				GameRules:AddHeroToBlacklist(enableName)
-			end
-		end
 		if not THD2_GetDotaMixedMode() then
 			for i, enableName in pairs(DOTA_BAN_LIST) do
 				GameRules:AddHeroToBlacklist(enableName)

@@ -88,7 +88,7 @@
 		"DOTA_AbilityTooltip_Aghs_Shard" "灵异珠"
 
 		"BotMode_Explain1" "<font color='#6633CC'>正在使用紫水晶地图</font>"
-		"BotMode_Explain2" "<font color='#00FFFF'>欢迎新人加入QQ群474907856与新老玩家共勉，也可通过 https://thd2.cc/ 获取信息发布</font>"
+		"BotMode_Explain2" "<font color='#00FFFF'>欢迎新人加入QQ群348605266与新老玩家共勉，也可通过 https://thd2.cc/ 获取信息发布</font>"
 		"BotMode_Explain3" "<font color='#00FFFF'>THBWiki搜索桃花岛获取更多角色攻略</font>"
 		"BotMode_Explain4" "<font color='#00FFFF'>默认难度为easy(容易)，可通过以下指令修改难度：</font>"
 		"BotMode_Explain5" "<font color='#00FFFF'>-easy 该难度下Bot会平地摔，适合没有或缺少MOBA经验的玩家</font>"
@@ -97,15 +97,10 @@
 		"BotMode_Explain8" "<font color='#00FFFF'>-lunatic 该难度：Oh shit, I'm dead, I don't want to play.</font>"
 		"BotMode_Explain9" "<font color='#00FFFF'>-extra 选择难度后，额外增加extra难度：bot复活后40秒内再次死亡会马上重置买活cd并获得买活钱，并且增加全属性。</font>"
 		"BotMode_Explain10" "<font color='#00FFFF'>其他常用指令如下，更多可在群内询问：</font>"
-		"BotMode_Explain11" "<font color='#00FFFF'>-pause 暂停，再次输入恢复游戏</font>"
-		"BotMode_Explain12" "<font color='#00FFFF'>-allowsame 允许选择同一英雄，可输入-unallowsame关闭</font>"
-		"BotMode_Explain13" "<font color='#00FFFF'>-setmaxplayer X 设置每队的最大人数，X最大为12</font>"
-		"BotMode_Explain14" "<font color='#00FFFF'>-setmaxbot X 设置守矢神社的最大人数，X最大为12</font>"
-		"BotMode_Explain15" "<font color='#00FFFF'>-banbots X 禁用bot机体，x是机体覆盖的dota英雄名字，多个机体用空格隔开</font>"
-		"BotMode_Explain16" "<font color='#00FFFF'>-strawberry 启用草莓模式，测试未实装的游戏性改动</font>"
-		"BotMode_Explain17" "<font color='#00FFFF'>-dota 启用Dota乱入</font>"
-		"BotMode_Explain18" "<font color='#00FFFF'>-removebot 关闭人机模式（不可逆）</font>"
-		"BotMode_Explain19" "<font color='#6633CC'>正在使用紫水晶地图</font>"
+		"BotMode_Explain11" "<font color='#00FFFF'>-allowsame 允许选择同一英雄，可输入-unallowsame关闭</font>"
+		"BotMode_Explain12" "<font color='#00FFFF'>-setmaxbot X 设置守矢神社的最大人数，X最大为12</font>"
+		"BotMode_Explain13" "<font color='#00FFFF'>-banbots X 禁用bot机体，x是机体覆盖的dota英雄名字，多个机体用空格隔开</font>"
+		"BotMode_Explain14" "<font color='#6633CC'>正在使用紫水晶地图</font>"
 
 		"BP_Explain1" "<font color='#00FFFF'>房主在该界面输入-bp即可启用自由BP模式</font>"
 		"BP_Explain2" "<font color='#00FFFF'>BP模式已启用</font>"
@@ -140,8 +135,6 @@
 
 		"SuperSiege_Explain1" "<font color='#00FFFF'>游戏已经超过40分钟，双方每过2分钟派出一个超级兵进攻</font>"
 		"SuperSiege_Explain2" "<font color='#00FFFF'>杀死超级兵获得500经验，500金币</font>"
-
-		"StrawberryModeHeroChanges_Content" "<font color='#00FFFF'>当前测试版本改动英雄：明罗、胡桃</font>"
 
 		// ******************** ABILITY MODIFIERS ********************
 		"DOTA_Tooltip_modifier_channel_start"	"Channel Start"
@@ -5956,105 +5949,6 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_sanae_2"					"+{s:bonus_damage} 大奇迹「八坂的神风」每秒伤害"
 		"DOTA_Tooltip_ability_special_bonus_unique_sanae_3"					"+{s:bonus_stun_duration}秒 开海「海水分开之日」眩晕时间"
 		"DOTA_Tooltip_ability_special_bonus_unique_sanae_4"					"+{s:bonus_damage} 开海「海水分开之日」伤害"
- 
-
-		//-------------------------------------------------------------------------------------------
-		//-------------------------------------------明罗---------------------------------------------
-		//-------------------------------------------------------------------------------------------
-
-		"npc_dota_hero_ember_spirit"										"明罗"
-
-		// Meira01
-		"DOTA_Tooltip_modifier_meira01_swaper" 								"技能状态"
-		"DOTA_Tooltip_modifier_meira01_timer" 								"技能计时器"
-
-		// Meira01_1
-		"DOTA_Tooltip_ability_ability_thdots_meira01_1"						"「刀符.破戒」"
-		"DOTA_Tooltip_ability_ability_thdots_meira01_1_description"			"明罗前冲，并击飞敌人。<br><br><font color='#5A6F8A'>击飞时间：</font>%knockback_dur%<font color='#5A6F8A'><br>冲撞伤害：</font>%dash_mul% × 技能等级<br><font color='#5A6F8A'>横扫伤害：</font>%sweep_mul% × 技能等级 × <font color='#DC143C'>力量</font>"
-		"DOTA_Tooltip_ability_ability_thdots_meira01_1_note0"				"结束后%next_time%秒内可释放下一段。"
-		"DOTA_Tooltip_ability_ability_thdots_meira01_1_note1"				"二段：后空翻，造成伤害、眩晕。"
-		"DOTA_Tooltip_ability_ability_thdots_meira01_1_note2"				"三段：再次后空翻。然后向前突刺，推走单位并造成伤害。"
-		"DOTA_Tooltip_modifier_thdots_meira01_1_dash" 						"冲刺"
-		"DOTA_Tooltip_modifier_thdots_meira01_1_sweep" 						"横扫"
-
-		// Meira01_2
-		"DOTA_Tooltip_ability_ability_thdots_meira01_2"						"「慈悲.明罗之心得」"
-		"DOTA_Tooltip_ability_ability_thdots_meira01_2_description"			"后空翻，造成伤害、眩晕。<br><br><font color='#5A6F8A'>眩晕时间：</font>%stun_dur%<br><font color='#5A6F8A'>伤害数值：</font>%level_mul% × 技能等级 + %agi_mul% × <font color='#26E030'>敏捷</font>"
-		"DOTA_Tooltip_ability_ability_thdots_meira01_1_note0"				"结束后%next_time%秒内可释放下一段。"
-		"DOTA_Tooltip_modifier_thdots_meira01_2_back" 						"后空翻"
-
-		// Meira01_3
-		"DOTA_Tooltip_ability_ability_thdots_meira01_3"						"「伏魔.净讨」"
-		"DOTA_Tooltip_ability_ability_thdots_meira01_3_description"			"再次后空翻。然后向前突刺，推走单位并造成伤害。<br><br><font color='#5A6F8A'>突刺伤害：</font>%dash_level_mul% × 技能等级 + %dash_agi_mul% × <font color='#26E030'>敏捷</font>"
-		"DOTA_Tooltip_modifier_thdots_meira01_3_states" 					"免疫"
-		"DOTA_Tooltip_modifier_thdots_meira01_3_back" 						"后撤"
-		"DOTA_Tooltip_modifier_thdots_meira01_3_dash" 						"冲刺"
-		"DOTA_Tooltip_modifier_thdots_meira01_3_dash_target" 				"被推行"
-
-		// Meira02
-		"DOTA_Tooltip_ability_ability_thdots_meira02"						"「地走.血海」"
-		"DOTA_Tooltip_ability_ability_thdots_meira02_description"			"明罗瞬移到目标背后，造成伤害、晕眩和击退，附带一次天生效果。<br><br><font color='#5A6F8A'>伤害数值：</font>%int_bonus%倍<font color='#5BC0DE'>智力</font>。"
-		"DOTA_Tooltip_ability_ability_thdots_meira02_note0"					"眩晕时间不包括击退时间。"
-		"DOTA_Tooltip_ability_ability_thdots_meira02_stun_dur"				"眩晕时间："
-		"DOTA_Tooltip_ability_ability_thdots_meira02_knockback_dist"		"击退距离："
-
-		// Meira03
-		"DOTA_Tooltip_ability_ability_thdots_meira03"						"「居合.明月」"
-		"DOTA_Tooltip_ability_ability_thdots_meira03_description"			"明罗收刀进入防守反击姿态。期间若受到来自少女的伤害，立即击飞周围单位。<br><br>伤害数值为%agi_mul%倍<font color='#26E030'>敏捷</font>。若当前<font color='#26E030'>敏捷</font>大于%agi_pure_floor%，伤害类型变成<font color='#d8ae54'>纯粹</font>。"
-		"DOTA_Tooltip_ability_ability_thdots_meira03_note0"					"主动释放位移技能会提前进入反击。"
-		"DOTA_Tooltip_ability_ability_thdots_meira03_knockback_duration"	"击飞时间："
-		"DOTA_Tooltip_modifier_thdots_meira03_channel"						"防反状态"
-		"DOTA_Tooltip_modifier_thdots_meira03_immune"						"防反无敌"
-
-		// MeiraEx
-		"DOTA_Tooltip_ability_ability_thdots_meiraEx"						"「黑暗的力量」"
-		"DOTA_Tooltip_ability_ability_thdots_meiraEx_description"			"<h1>基础效果</h1>明罗每次释放技能后，下次普攻附带剑气，伤害为当前<font color='#DC143C'>力量</font>。\n<h1>大招等级达到<font color='#FFFFFF'>1</font>后：</h1>主动使用本技能时，明罗向前跳跃%B_jump_dist%码。\n<h1>大招等级达到<font color='#FFFFFF'>3</font>后：</h1>「绝剑.壹佰肆拾尊」解锁二段。"
-		"DOTA_Tooltip_ability_ability_thdots_meiraEx_lore"					"以凡人之躯挑战妖怪神明，其心只为修行悟道，当剑道大成之时，即是蝼蚁也要蚀骨钻心。"
-		"DOTA_Tooltip_ability_ability_thdots_meiraEx_note0"					"剑气范围为笔直的%A_damage_len%×%A_damage_wid%矩形（中心点为明罗身前%A_damage_len%）。"
-		"DOTA_Tooltip_modifier_thdots_meiraex_attack"						"黑暗力量"
-		"DOTA_Tooltip_modifier_thdots_meiraex_attack_description"			"下次攻击时将附带黑暗力量"
-		"DOTA_Tooltip_modifier_thdots_meiraex_jump"							"跳跃"
-
-		// Meira04
-		"DOTA_Tooltip_modifier_thdots_meira04_swarper"						"四技能切换"
-
-		// Meira04_1
-		"DOTA_Tooltip_ability_ability_thdots_meira04_1"						"「绝剑.壹佰肆拾尊」"
-		"DOTA_Tooltip_ability_ability_thdots_meira04_1_description"			"明罗将瞬移到目标背后，造成三次伤害，削减目标攻速和移速，不可驱散。<br><br>三次伤害基础%damage_const%，分别增加<font color='#DC143C'>力量</font> × %str_mul%，<font color='#26E030'>敏捷</font> × %agi_mul%，<font color='#5BC0DE'>智力</font> × %int_mul%。"
-		"DOTA_Tooltip_ability_ability_thdots_meira04_1_note0"				"获得二段后，释放本技能后%next_time%秒内可使用二段。"
-		"DOTA_Tooltip_ability_ability_thdots_meira04_1_speed_pct"			"%速度削减："
-		"DOTA_Tooltip_ability_ability_thdots_meira04_1_speed_dur"			"减速时间："
-		"DOTA_Tooltip_ability_ability_thdots_meira04_1_AbilityCastRange"	"施法范围："
-		"DOTA_Tooltip_modifier_thdots_meira04_1_caster"						"斩击演出"
-		"DOTA_Tooltip_modifier_thdots_meira04_1_target"						"被斩击"
-		"DOTA_Tooltip_modifier_thdots_meira04_1_speed_bonus"				"被减速"
-		"DOTA_Tooltip_modifier_thdots_meira04_1_speed_bonus_description"	"移速减少%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%，攻速减少%dMODIFIER_PROPERTY_ATTACKSPEED_PERCENTAGE%%%。"
-
-		// Meira04_2
-		"DOTA_Tooltip_ability_ability_thdots_meira04_2"						"「绝剑.四方」"
-		"DOTA_Tooltip_ability_ability_thdots_meira04_2_description"			"无敌%duration%秒，释放法阵，造成伤害。<br><br><font color='#5A6F8A'>伤害：</font><font color='#FFFFFF'>%basic_damage%</font> + <font color='#26E030'>敏捷</font> × <font color='#FFFFFF'>%agi_mul%</font>。"
-		"DOTA_Tooltip_modifier_thdots_meira04_2_slash"						"斩击"
-
-		// Meira05
-		"DOTA_Tooltip_ability_ability_thdots_meira05"						"刀符「明罗.尊者」"
-		"DOTA_Tooltip_ability_ability_thdots_meira05_scepter_description"	"获得技能刀符「明罗.尊者」"
-		"DOTA_Tooltip_ability_ability_thdots_meira05_description"			"明罗进入冥想姿态，期间减伤。\n<h1>冥想期间如果受到少女伤害：</h1>打断冥想，刷新天生，对伤害来源施加%sword_time%次伤害。\n<h1>冥想期间如果进入眩晕、沉默、恐惧：</h1>打断冥想，立即释放「居合.明月」，并获得%immune_dur%秒无敌。"
-		"DOTA_Tooltip_ability_ability_thdots_meira05_lore"					"明罗尊者，壹佰肆拾，五百罗汉，降伏众魔，洞察众生，最上彼岸，心极平等，虚空无边，地火风缘，金刚不坏，以此一击，万籁俱寂，度化众生。"
-		"DOTA_Tooltip_ability_ability_thdots_meira05_note0"					"伤害为「黑暗的力量」的剑气效果。"
-		"DOTA_Tooltip_ability_ability_thdots_meira05_damage_rad_pct"		"%减伤比例："
-		"DOTA_Tooltip_modifier_thdots_meira05_scepter"						"万宝槌检测"
-		"DOTA_Tooltip_modifier_thdots_meira05_medit"						"冥想"
-		"DOTA_Tooltip_modifier_thdots_meira05_immune"						"无敌"
-
-		// Special Bonus
-		"DOTA_Tooltip_ability_special_bonus_unique_meira_1"					"黑暗之力"
-		"DOTA_Tooltip_ability_special_bonus_unique_meira_1_description"		"剑气伤害翻倍"
-
-		// Special Bonus
-		"DOTA_Tooltip_ability_special_bonus_unique_meira_2"					"博丽之求"
-		"DOTA_Tooltip_ability_special_bonus_unique_meira_2_description"		"「绝剑.壹佰肆拾尊」不再抬手且冷却时间-{s:bonus_AbilityCooldown}秒"
-
-
 
 		//---------------------------------
 		//---------------------------------
@@ -6716,76 +6610,6 @@
 
 		"DOTA_Tooltip_modifier_shizuha05_leaf_wood_debuff"							"秋符「Fall in Blast」"
 		"DOTA_Tooltip_modifier_shizuha05_leaf_wood_debuff_Description"				"移动速度减缓%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%。"
-
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		
-
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		//胡桃 kurumi
-		//------
-		"npc_dota_hero_bloodseeker"	"胡桃"
-		"npc_dota_hero_bloodseeker_npedesc1"	"是Kurumi，不是HuTao。"
-		
-		"npc_thdots_unit_kurumi02_coffin"											"棺材"
-
-		"DOTA_Tooltip_ability_ability_thdots_kurumiEx"								"吸血鬼「血色收割者」"
-		"DOTA_Tooltip_ability_ability_thdots_kurumiEx_Description"					"胡桃每次攻击时还会根据自身等级回复一定量的生命。"
-		"DOTA_Tooltip_ability_ability_thdots_kurumiEx_level_multiple"				"等级加成："
-		"DOTA_Tooltip_ability_ability_thdots_kurumiEx_lifesteal_constant"			"基础回复："
-		"DOTA_Tooltip_ability_ability_thdots_kurumiEx_Lore"							"请让鲜血都流出来吧。"
-
-		"DOTA_Tooltip_ability_ability_thdots_kurumi01"								"「颤栗的突击」"
-		"DOTA_Tooltip_ability_ability_thdots_kurumi01_Description"					"瞬间出现在一个敌方目标单位身边，对目标造成伤害。"
-		"DOTA_Tooltip_ability_ability_thdots_kurumi01_cast_range"					"施法距离："
-		"DOTA_Tooltip_ability_ability_thdots_kurumi01_attack_multiple"				"攻击力系数："
-		"DOTA_Tooltip_ability_ability_thdots_kurumi01_damage"						"基础伤害："
-		"DOTA_Tooltip_ability_ability_thdots_kurumi01_Lore"							"胡桃以极高的速度冲击并撕裂敌人。"
-
-		"DOTA_Tooltip_ability_ability_thdots_kurumi02"								"暗葬「血之湖」"
-		"DOTA_Tooltip_ability_ability_thdots_kurumi02_Description"					"胡桃跳入棺材中睡眠。棺材附近的敌人无法施法。当棺材被破坏或睡眠时间达到%coffin_duration%秒时，胡桃会从棺材里出来。\n胡桃可以自行中止睡眠。"
-		"DOTA_Tooltip_ability_ability_thdots_kurumi02_radius"						"作用范围："
-		"DOTA_Tooltip_ability_ability_thdots_kurumi02_coffin_armor"					"棺材护甲："
-		"DOTA_Tooltip_ability_ability_thdots_kurumi02_coffin_magic_resist"			"%棺材魔法抗性："
-		"DOTA_Tooltip_ability_ability_thdots_kurumi02_coffin_hp"					"棺材生命值："
-		"DOTA_Tooltip_ability_ability_thdots_kurumi02_Note0"						"胡桃跳入棺材期间无敌，持续%cast_time%秒。<br>棺材获得额外护甲和魔法抗性，基于胡桃的%armor_pct%%%护甲和%magic_resist_pct%%%魔法抗性。"
-		"DOTA_Tooltip_ability_ability_thdots_kurumi02_Lore"							"胡桃就在你的身边。"
-
-		"DOTA_Tooltip_modifier_thdots_kurumi02_caster"								"安心睡觉"
-		"DOTA_Tooltip_modifier_thdots_kurumi02_caster_Description"					"躲进棺材睡眠。"
-		"DOTA_Tooltip_modifier_thdots_kurumi02_coffin"								"棺材"
-		"DOTA_Tooltip_modifier_thdots_kurumi02_coffin_Description"					"胡桃在里面哦。"
-		"DOTA_Tooltip_modifier_thdots_kurumi02_area_debuff"							"血之湖水"
-		"DOTA_Tooltip_modifier_thdots_kurumi02_area_debuff_Description"				"被沉默了，无法施法。"
-
-		"DOTA_Tooltip_ability_ability_thdots_kurumi02_out"							"破棺而出"
-		"DOTA_Tooltip_ability_ability_thdots_kurumi02_out_Description"				"主动苏醒，从棺材里出来。"
-
-		"DOTA_Tooltip_ability_ability_thdots_kurumi03"								"门卫「逆向压制」"
-		"DOTA_Tooltip_ability_ability_thdots_kurumi03_Description"					"胡桃的攻击附带吸血鬼的诅咒，令敌人难以还手。每次攻击对目标及其附近%radius%范围内的敌人造成伤害并降低他们的攻击速度。"
-		"DOTA_Tooltip_ability_ability_thdots_kurumi03_atk_speed_slow"				"攻击速度降低："
-		"DOTA_Tooltip_ability_ability_thdots_kurumi03_atk_speed_slow_duration"		"减速持续时间："
-		"DOTA_Tooltip_ability_ability_thdots_kurumi03_damage"						"伤害："
-		//"DOTA_Tooltip_ability_ability_thdots_kurumi03_note0"						""
-		//"DOTA_Tooltip_ability_ability_thdots_kurumi03_Lore"						""
-
-		"DOTA_Tooltip_modifier_kurumi03_slow_debuff"								"压制"
-		"DOTA_Tooltip_modifier_kurumi03_slow_debuff_Description"					"你被压制了。降低%dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%攻击速度。"
-
-		"DOTA_Tooltip_ability_ability_thdots_kurumi04"								"血红「安息破坏日」"
-		"DOTA_Tooltip_ability_ability_thdots_kurumi04_Description"					"胡桃的攻击破坏敌人的伤口，造成基于他们损失生命值百分比的额外伤害。目标的生命值越低，伤害越高。"
-		"DOTA_Tooltip_ability_ability_thdots_kurumi04_note0"						"伤害 = 基础伤害 + 基础攻击力额外伤害 x 目标损失生命值百分比。"
-		"DOTA_Tooltip_ability_ability_thdots_kurumi04_damage"						"基础伤害："
-		"DOTA_Tooltip_ability_ability_thdots_kurumi04_base_attack_damage_bonus_pct"	"%基础攻击力额外伤害:"
-		//"DOTA_Tooltip_ability_ability_thdots_kurumi04_Note0"						""
-		//"DOTA_Tooltip_ability_ability_thdots_kurumi04_Lore"						""
-
-		"DOTA_Tooltip_ability_special_bonus_unique_kurumi_1"						"+{s:bonus_radius}「血之湖」作用范围"
-		"DOTA_Tooltip_ability_special_bonus_unique_kurumi_3"						"+{s:bonus_cast_range}「颤栗的突击」施法距离"
-		"DOTA_Tooltip_ability_special_bonus_unique_kurumi_4"						"-{s:bonus_AbilityCooldown}秒「颤栗的突击」冷却"
-		"DOTA_Tooltip_ability_special_bonus_unique_kurumi_6"						"+{s:bonus_atk_speed_slow}「逆向压制」攻击速度降低"
-		"DOTA_Tooltip_ability_special_bonus_unique_kurumi_7"						"+{s:bonus_coffin_movespeed}「血之湖」棺材移动速度"
-		"DOTA_Tooltip_ability_special_bonus_unique_kurumi_8"						"+{s:bonus_lifesteal_constant}「血色收割者」基础回复"
-		"DOTA_Tooltip_ability_special_bonus_unique_kurumi_9"						"+{s:bonus_base_attack_damage_bonus_pct}%「安息破坏日」基础攻击力额外伤害"
 
 		//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

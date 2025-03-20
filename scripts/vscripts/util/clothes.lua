@@ -152,16 +152,6 @@ Hero_Cloth =
 		  0.75,
 		  1.1,
 	   },
-	["npc_dota_hero_bloodseeker"] =	-- 胡桃
-	   {
-			"models/kurumi/kurumi.vmdl",
-			"models/kurumi/kurumi.vmdl",
-	   },
-	["npc_dota_hero_bloodseeker_material"] = -- 材质组
-		{
-			"default",		-- 材质名1
-			"mesh02",		-- 材质名2
-		},
 }
 
 function add_cloth( heroname, model, scale, cloth_id, material )

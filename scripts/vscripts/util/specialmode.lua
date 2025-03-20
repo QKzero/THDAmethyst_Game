@@ -10,7 +10,6 @@ Bot_Mode = false
 Allpick_Mode = false
 Naotan_Mode = false
 Naotan = false
-strarwberry = false
 DotaMixed = false
 -- look at precache, if map == "dota" then enable for default
 
@@ -44,7 +43,6 @@ function THD2_SetFCDMode(val) G_IsFastCDMode = val end
 function THD2_SetFRSMode(val) G_IsFastRespawnMode = val end
 function THD2_SetAPMode(val) Allpick_Mode = val end
 function THD2_SetFRSValue(val) fast_respawn_val = val end				--原THD2_SetFRSTime
-function THD2_SetStarWberryMode(val) strarwberry = val end
 function THD2_SetDotaMixedMode(val) DotaMixed = val end
 function THD2_SetPlayerPerTeam(val)
 	if GetMapName()=="dota" and 
@@ -101,7 +99,6 @@ function THD2_GetBotDiffName() return G_Bot_Diff_Text[cur_bot_dif] end
 function THD2_GetBotThinking(val) G_IsAIMode = val end
 function THD2_GetPlayerPerTeam() return player_per_team end
 function THD2_GetCloneMode() return G_IsCloneMode end
-function THD2_GetStrarWberryMode() return strarwberry end
 function THD2_GetDotaMixedMode() return DotaMixed end
 --function THD2_GetFCloneMode() return G_IsFCloneMode end
 function THD2_GetFCloneMode() return cur_jff==2 end
@@ -834,15 +831,6 @@ function THD2_FirstAddBuff( hero )
 					fastCDability:SetLevel(1)
 				end
 			end
-			if strarwberry then --strarwberry
-				local strarwberryMode = hero:AddAbility("ability_starwberryability_buff")
-				if strarwberryMode ~= nil then
-					strarwberryMode:SetLevel(1)
-				end
-				---给予特定英雄技能
-				if hero:GetClassname() == "npc_dota_hero_dark_willow" then hero:AddAbility("ability_thdots_larva05") end
-			end
-			
 end
 
 function THD2_BotPushAllWithDelay()

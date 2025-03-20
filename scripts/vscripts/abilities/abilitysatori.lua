@@ -175,9 +175,6 @@ ability_can_be_stolen ={
 --komachi
 	"ability_thdots_komachi01",
 	"ability_thdots_komachi04",
---kurumi
-	"ability_thdots_kurumi01",
-	"ability_thdots_kurumi02",
 --medicine
 	"ability_thdots_medicine01",
 	"ability_thdots_medicine02",
