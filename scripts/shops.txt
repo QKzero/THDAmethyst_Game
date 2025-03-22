@@ -107,7 +107,7 @@
 		"item"		"item_horse_blue"
 		"item"		"item_9ball"
 		"item"		"item_mystia_wings"
-		"item"		"item_travel_boots"
+		"item"		"item_gap_creator"
 		"item"		"item_horse_king"
 		"item"		"item_wanmeitiaoyuezhuangzhi"
 		"item"		"item_nb9ball"

@@ -84,6 +84,7 @@
 #base "items\upgrade\item_frock.txt"
 #base "items\upgrade\item_frozen_frog.txt"
 #base "items\upgrade\item_ganggenier.txt"
+#base "items\upgrade\item_gap_creator.txt"
 #base "items\upgrade\item_ghost_balloon.txt"
 #base "items\upgrade\item_green_dam.txt"
 #base "items\upgrade\item_grudge_bow.txt"

@@ -6803,11 +6803,11 @@
 		"DOTA_Tooltip_modifier_item_mystia_wings_fly"								"Night Sparrow's Tiny Wings"
 		"DOTA_Tooltip_modifier_item_mystia_wings_fly_Description"					"Movement speed increased by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and allows you to walk through other units."
 
-		"DOTA_Tooltip_ability_item_recipe_travel_boots"								"Recipe: Yakumo Sukima Generator"
-		"DOTA_Tooltip_ability_item_travel_boots"									"Yakumo Sukima Generator"
-		"DOTA_Tooltip_ability_item_travel_boots_bonus_movement_speed"				"+$move_speed"
-		"DOTA_Tooltip_ability_item_travel_boots_Description"						"<h1>Passive: Gap</h1>Reduces the cooldown for Gap Ticket. Gap Ticket can be used to teleport to any friendly non-girl unit.\nMovement speed bonuses from multiple brooms do not stack."
-		"DOTA_Tooltip_ability_item_travel_boots_lore"								"With this, there's no more need to line up for tickets."
+		"DOTA_Tooltip_ability_item_recipe_gap_creator"								"Recipe: Yakumo Sukima Generator"
+		"DOTA_Tooltip_ability_item_gap_creator"									"Yakumo Sukima Generator"
+		"DOTA_Tooltip_ability_item_gap_creator_bonus_movement_speed"				"+$move_speed"
+		"DOTA_Tooltip_ability_item_gap_creator_Description"						"<h1>Passive: Gap</h1>Reduces the cooldown for Gap Ticket. Gap Ticket can be used to teleport to any friendly non-girl unit.\nMovement speed bonuses from multiple brooms do not stack."
+		"DOTA_Tooltip_ability_item_gap_creator_lore"								"With this, there's no more need to line up for tickets."
 
 		"DOTA_Tooltip_ability_item_recipe_cyclone"									"Recipe: Magician's Hat"
 		"DOTA_Tooltip_ability_item_cyclone"											"Magician's Hat"

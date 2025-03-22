@@ -9,7 +9,7 @@
 		"ItemResult"	"item_nb9ball"
         "ItemRequirements"
 		{
-			"01"	"item_wanmeitiaoyuezhuangzhi;item_horse_king;item_travel_boots"
+			"01"	"item_wanmeitiaoyuezhuangzhi;item_horse_king;item_gap_creator"
 		}
 		"Model"	"models/props_gameplay/recipe.vmdl"
     }
