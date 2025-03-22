@@ -64,7 +64,7 @@
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityCastPoint"	"0.0"
 		"AbilityCooldown"	"0"
-		"ItemIsNeutralDrop"		"0"
+		"SpeciallyAllowedInNeutralSlot"		"1"
 		"Model"	"models/props_gameplay/recipe.vmdl"
 		// Stats
 		// -------------------------------------------------------------------------------------------------------------
