@@ -891,20 +891,7 @@ function THDOTSGameMode:OnPlayerSay( keys )
 			Say(plyhd,"已开启乱入",false)--]]
 		end
 		if GameRules:State_Get() < DOTA_GAMERULES_STATE_HERO_SELECTION then --只能在英雄选择阶段(请选择你的英雄)前使用
-			if text == "-strawberry" then
-				HostSay("==========================")
-				HostSay("未实装改动抢先测试已启动")
-				HostSay("输入-unstrawberry关闭")
-				GameRules:SendCustomMessage("#StrawberryModeHeroChanges_Content",0,0)
-				HostSay("==========================")
-				THD2_SetStarWberryMode(true)
-			elseif text == "-unstrawberry" then
-				HostSay("==========================")
-				HostSay("未实装改动抢先测试已关闭")
-				HostSay("输入-strawberry开启")
-				HostSay("==========================")
-				THD2_SetStarWberryMode(false)
-			elseif GetMapName() == "dota" then		-- dota地图指令
+			if GetMapName() == "dota" then		-- dota地图指令
 				if text == "-dota" then
 					THD2_SetDotaMixedMode(true)
 					Say(plyhd, "Dota Mixed ON",false)
@@ -2784,6 +2771,7 @@ RegisterCustomEventListener("ChangeGameDotaInter", ChangeGameDotaInter)
 RegisterCustomEventListener("ChangeGameBotMode", ChangeGameBotMode)
 RegisterCustomEventListener("ChangeGameDifficulty", ChangeGameDifficulty)
 RegisterCustomEventListener("ChangeGameMaxPlayer", ChangeGameMaxPlayer)
+RegisterCustomEventListener("ChangeGameMaxBot", ChangeGameMaxBot)
 
 RegisterCustomEventListener("get_camera_yaw_callback",get_camera_yaw_callback)
 
