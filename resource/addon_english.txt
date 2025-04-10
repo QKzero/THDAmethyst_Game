@@ -6759,6 +6759,7 @@
 		//"DOTA_Tooltip_ability_item_horse_blue_Note0"								"Movement speed bonuses from multiple brooms do not stack."
 
 		"DOTA_Tooltip_ability_item_recipe_horse_king"								"Recipe: Blazing Comet"
+		"DOTA_Tooltip_ability_item_horse_king_compressor"							"Blazing Comet Compress Package"
 		"DOTA_Tooltip_ability_item_horse_king"										"Blazing Comet"
 		"DOTA_Tooltip_ability_item_horse_king_Description"							"<h1>Toggle: Blazing</h1>While active, Blazing grants %onopen_bonus_movement_speed%%% movement speed and %onopen_bonus_attack_speed% attack speed but consumes %onopen_spend_mana_percent%%% of your max mana every second.\nMovement speed bonuses from multiple brooms do not stack."
 		"DOTA_Tooltip_ability_item_horse_king_bonus_all_stats"						"+$all"

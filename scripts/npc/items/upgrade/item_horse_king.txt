@@ -23,6 +23,9 @@
 		"ItemRequirements"
 		{
 			"01"	"item_horse_red;item_horse_green;item_horse_blue"
+			"02"	"item_horse_red;item_horse_king_compressor"
+			"03"	"item_horse_green;item_horse_king_compressor"
+			"04"	"item_horse_blue;item_horse_king_compressor"
 		}
 		"Model"	"models/props_gameplay/recipe.vmdl"
 	}
@@ -143,5 +146,33 @@
 			"onopen_spend_mana_percent"	"3.0"
 		}
 		"Model"	"models/props_gameplay/boots_of_speed.vmdl"
+	}
+
+	// =================================================================================================================
+	// Horse King Compressor
+	// =================================================================================================================
+	"item_horse_king_compressor"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_recipe_horse_king"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"0"
+		"AbilityManaCost"	"0"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		// "ID"	"8084"
+		"ItemQuality"	"component"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"2800"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	""
+		"ItemAliases"	""
+		"Model"	"models/props_gameplay/recipe.vmdl"
 	}
 }

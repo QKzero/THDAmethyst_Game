@@ -1890,6 +1890,7 @@
 		"DOTA_Tooltip_modifier_item_horse_blue_active"	"魔力扫把"
 		"DOTA_Tooltip_modifier_item_horse_blue_active_Description"	"短时间内增加魔法恢复"
 		"DOTA_Tooltip_ability_item_recipe_horse_king"	"炽热彗星制作书"
+		"DOTA_Tooltip_ability_item_horse_king_compressor"	"炽热彗星压缩包"
 		"DOTA_Tooltip_ability_item_horse_king"	"炽热彗星"
 		"DOTA_Tooltip_ability_item_horse_king_Description"	"<h1>切换：炽热</h1>开启后增加额外增加%onopen_bonus_attack_speed%攻击速度和%onopen_bonus_movement_speed%%%移动速度，每秒消耗魔法最大值的%onopen_spend_mana_percent%%%。\n多个扫把类物品提供的移动速度加成不叠加。"
 		"DOTA_Tooltip_ability_item_horse_king_bonus_all_stats"	"+$all"
@@ -4433,7 +4434,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_suwako_2"				"-7秒 「岩浆的两栖类」冷却"
 		// "DOTA_Tooltip_ability_special_bonus_unique_suwako_3"				"-30s 「古之间歇泉喷发」冷却"
 		// "DOTA_Tooltip_ability_special_bonus_unique_suwako_4"				"+300 「古之间歇泉喷发」伤害"
-		"DOTA_Tooltip_ability_special_bonus_unique_suwako_6"				"+100「赤口吞噬」缠绕范围"
+		"DOTA_Tooltip_ability_special_bonus_unique_suwako_6"				"+{s:bonus_AbilityCastRange}「赤口吞噬」缠绕范围"
 		"DOTA_Tooltip_ability_special_bonus_unique_suwako_7"				"「岩浆的两栖类」移速翻倍，并取消沉默与锁闭"
 		"DOTA_Tooltip_ability_special_bonus_unique_suwako_8"				"「洩矢之小铁轮」伤害翻倍"
 

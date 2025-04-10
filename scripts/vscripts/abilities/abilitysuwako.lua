@@ -104,8 +104,7 @@ end
 function suwako01soundeffect(keys)
 	local caster = keys.caster
 	local ability = keys.ability
-	local radius = ability:GetSpecialValueFor("radius") + FindTelentValue(caster,"special_bonus_unique_suwako_6")
-	print(radius)
+	local radius = ability:GetCastRange()
 	local root_duration = ability:GetSpecialValueFor("root_duration")
 	local targets = FindUnitsInRadius(caster:GetTeam(),caster:GetOrigin(),nil,radius,ability:GetAbilityTargetTeam()
 		,ability:GetAbilityTargetType(),0,0,false)

@@ -108,7 +108,6 @@
 		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"FightRecapLevel"				"1"
 		"AbilityTextureName"			"touhoutd/thtd_suwako_02"
-		"AbilityCastRange"	"450"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"		
 		//////"ID"	"30017"		
 		// Casting
@@ -132,10 +131,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"
+			"AbilityCastRange"
 			{
 				"value"			"450"
 				"affected_by_aoe_increase"	"1"
+				"special_bonus_unique_suwako_6"	"+100"
 			}
 			"root_duration"				"1.1 1.4 1.7 2.0"
 			"debugdmgg"						"0"
@@ -158,39 +158,6 @@
 		
 		"OnSpellStart"
 		{
-		
-			// "FireEffect"
-			// {
-			// 	"Target"					"CASTER"
-			// 	"EffectName"				"particles/units/heroes/hero_ursa/ursa_earthshock.vpcf"
-			// 	"EffectAttachType"			"start_at_origin"
-			// 	"EffectRadius"				"625"
-			// }		
-			// "Damage"
-			// {
-			// 	"Target"
-			// 	{
-			// 		"Center"	"CASTER"
-			// 		"Radius"	"%radius"
-			// 		"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
-			// 		"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			// 	}
-			// 	"Type"		"DAMAGE_TYPE_PURE"
-			// 	"Damage"	"%debugdmgg"
-			// }
-			
-			// "ApplyModifier"
-			// {
-			// 	"ModifierName"	"modifier_suwako01"
-			// 	"Target"
-			// 	{
-			// 		"Center"	"CASTER"
-			// 		"Radius"	"%radius"
-			// 		"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
-			// 		"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
-			// 	}
-			// 	"Duration"		"%root_duration"
-			// }
 			"RunScript"
 			{
 					"ScriptFile"	"scripts/vscripts/abilities/abilitysuwako.lua"
@@ -1216,13 +1183,9 @@
 	}
 	"special_bonus_unique_suwako_6"
 	{
-		"BaseClass"	"special_bonus_undefined"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityValues"
-		{
-			"value"	"100"
-		}
+		"BaseClass"						"special_bonus_base"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 	"special_bonus_unique_suwako_7"
 	{
