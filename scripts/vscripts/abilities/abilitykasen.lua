@@ -46,6 +46,19 @@ function ability_thdots_kasenEx:OnSpellStart()
 	end
 	caster:AddNewModifier(self:GetCaster(),self,"refresh_mod",{duration = 0.03})
 end
+
+function ability_thdots_kasenEx:OnInventoryContentsChanged()
+    if not IsServer() then
+        return
+    end
+    local ability = self:GetCaster():FindAbilityByName("ability_thdots_kasen04_ex_WBC")
+    if self:GetCaster():HasModifier("modifier_item_wanbaochui") then
+        ability:SetHidden(false)
+    else
+        ability:SetHidden(true)
+    end
+end
+
 modifier_thdots_kasen_ex = {}
 LinkLuaModifier("modifier_thdots_kasen_ex","scripts/vscripts/abilities/abilitykasen.lua",LUA_MODIFIER_MOTION_NONE)
 function modifier_thdots_kasen_ex:IsHidden() 		return false end     --是否隐藏
