@@ -2,6 +2,8 @@
 {
 	"npc_dota_hero_star"
 	{
+		"override_hero"		"npc_dota_hero_chen"
+
 		"BaseAttackSpeed"		"100"
 		"AttributePrimary"	"DOTA_ATTRIBUTE_INTELLECT"
 		"Ability1"				"ability_thdotsr_star01"
@@ -44,8 +46,6 @@
 		"Rolelevels"	"3,3,3,3,2"
 		"Complexity"	"1"
 		"SoundSet"			"Hero_Phoenix"
-		//"override_hero"		"npc_dota_hero_oracle"
-		"override_hero"		"npc_dota_hero_keeper_of_the_light"
 		"Model"	"models/new_thd/starsapphire/starsapphire.vmdl"
 		"ProjectileModel"	"particles/units/heroes/hero_keeper_of_the_light/keeper_base_attack.vpcf"		
 		"ProjectileSpeed"	"1000"

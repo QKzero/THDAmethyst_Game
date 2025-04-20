@@ -4441,9 +4441,7 @@
 		// --------------------
 		// 斯塔·塞菲尔 by Eriko
 		// --------------------
-		"npc_dota_hero_star"							"斯塔·塞菲尔"
-		"npc_dota_hero_keeper_of_the_light"							"斯塔·塞菲尔"
-		//"npc_dota_hero_oracle"							"斯塔·塞菲尔"
+		"npc_dota_hero_chen"											"斯塔·塞菲尔"
 		"ability_star03_ward"											"星粒"
 		"DOTA_Tooltip_ability_ability_thdotsr_star05"	 		 		"星符「蓝宝石星星」"	
 		"DOTA_Tooltip_ability_ability_thdotsr_star05_Description"	 	"持续施法%duration%秒，召唤蓝宝石星群从天而降。\n每%intervals%秒随机选择身边%effect_radius%范围内非少女单位落下星星造成魔法伤害，并恢复斯塔的生命值。"

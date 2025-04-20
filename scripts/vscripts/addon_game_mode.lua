@@ -28,7 +28,7 @@ DOTA_BAN_LIST={
 	"npc_dota_hero_shadow_shaman",--小Y
 	"npc_dota_hero_shadow_demon",--毒狗
 	"npc_dota_hero_enigma",--谜团
-	"npc_dota_hero_chen",--陈
+	"npc_dota_hero_keeper_of_the_light",--光之守卫
 	"npc_dota_hero_tiny",--小小
 	"npc_dota_hero_brewmaster",--酒仙
 	"npc_dota_hero_beastmaster",--兽王
@@ -1905,7 +1905,7 @@ function THDOTSGameMode:PrecacheHeroResource(hero)
 	elseif (heroName == "npc_dota_hero_ursa") then
 		abilityEx = hero:FindAbilityByName("ability_thdotsr_NazrinEx")
 		abilityEx:SetLevel(1)
-	elseif (heroName == "npc_dota_hero_keeper_of_the_light") then
+	elseif (heroName == "npc_dota_hero_chen") then
 		abilityEx = hero:FindAbilityByName("ability_thdotsr_star05")
 		abilityEx:SetLevel(1)
 	elseif (heroName == "npc_dota_hero_sven") then
@@ -2180,16 +2180,6 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 				end
 				--对帕秋莉玩家的提醒
 				if PlayerResource:GetSelectedHeroName(i) == "npc_dota_hero_invoker" and not has_patchouli then
-					--[[HostSay("预读七曜的魔法使的技能，将造成短暂延迟。")
-					--HostSay("由于快捷键限制, 图书需要用自定义按钮来合成技能。")
-					--HostSay("可以使用-keybind X指令来绑定按键(如-keybind d)。")
-					--HostSay("如果不小心绑错了, 请断开并重连然后重新绑定即可。")
-					--HostSay("帕秋莉每3级获得1个额外技能点，用于加满所有天赋和技能。")
-					HostSay("帕秋莉每施放一个合成魔法，可以维持一个贤者之石4秒。")
-					HostSay("当贤者之石达到5个之后，会立刻触发日/月符。")
-					HostSay("白天触发日符「皇家烈焰」，对800范围内敌方英雄造成20%血量魔法伤害。")
-					HostSay("晚上触发月符「沉静的月神」，1200范围内友方英雄施加隐身且根据帕秋莉魔法上限的10%恢复生命魔法值，并降低所受伤害25%，持续10秒。")
-					HostSay("帕秋莉享受日/月元素加成，白天提高技能增强10%，晚上受到伤害降低10%")		]]
 					has_patchouli = true
 				elseif PlayerResource:GetSelectedHeroName(i) == "npc_dota_hero_juggernaut" and not has_youmu then
 					GameRules:SendCustomMessage("#Youmu2Explain1", 0, 0)
@@ -2204,9 +2194,6 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 		if THD2_GetBotMode() == true then
 		
 			HostSay("You're in bot mode.")
-			--HostSay("You can choose difficulty now.")
-			--HostSay("Usage: -easy, -normal, -hard, -lunatic.")
-			--HostSay("Default Difficulty: easy.")
 			HostSay("Bot Difficulty: " .. THD2_GetBotDiffName())
 			
 			THD2_AddBot()

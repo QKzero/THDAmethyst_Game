@@ -4076,7 +4076,7 @@
 		// --------------------
 		// 03-02-2023 - modified by Lasiace
 
-		"npc_dota_hero_keeper_of_the_light"									"Star Sapphire"
+		"npc_dota_hero_chen"												"Star Sapphire"
 
 		// Star01
 		"DOTA_Tooltip_ability_ability_thdotsr_star01"	 		 			"Stardust「Star Pierce Shower」"
