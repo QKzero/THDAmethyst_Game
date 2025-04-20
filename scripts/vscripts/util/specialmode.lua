@@ -240,7 +240,7 @@ G_Bot_Random_Hero =
 	"npc_dota_hero_doom_bringer",			--皮丝
 	"npc_dota_hero_rattletrap",				--桑尼
 	"npc_dota_hero_luna",					--露娜
-	"npc_dota_hero_keeper_of_the_light",	--斯塔
+	"npc_dota_hero_chen",	--斯塔
 	
 	"npc_dota_hero_night_stalker",			--夜雀
 	"npc_dota_hero_nyx_assassin",			--大妖精
@@ -686,7 +686,7 @@ function THD2_AddBot()
 					-- 	H_name = "npc_dota_hero_mirana"
 					-- elseif not G_BOT_USED[40] then
 					-- 	H_id = 40
-					-- 	H_name = "npc_dota_hero_keeper_of_the_light"
+					-- 	H_name = "npc_dota_hero_chen"
 					-- elseif cur_jff == 1 then
 					if cur_jff == 1 then
 						--ordinary
