@@ -62,25 +62,9 @@ end
 ------------------------------------------------------------------------------------------------
 ------------------------------蝶符  盛夏振翅 扑棱蛾子---------------------------------------------
 ------------------------------------------------------------------------------------------------
-ability_thdots_larva01 = {}
+ability_thdots_larva01_1 = {}
 
-function ability_thdots_larva01:GetAbilityTextureName()
-    if self:GetCaster():HasModifier("modifier_ability_larva01_stop") then
-		return "custom/ability_thdots_larva01stop"
-	else
-		return "custom/ability_thdots_larva01"
-	end
-end
-
-function ability_thdots_larva01:GetBehavior()
-	if self:GetCaster():HasModifier("modifier_ability_larva01_stop") then
-		return DOTA_ABILITY_BEHAVIOR_NO_TARGET + DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES
-	else
-		return DOTA_ABILITY_BEHAVIOR_POINT + DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES
-	end
-end
-
-function ability_thdots_larva01:GetCastRange(location, target)
+function ability_thdots_larva01_1:GetCastRange(location, target)
 	if IsServer() then
 		return 0
 	else
@@ -88,212 +72,226 @@ function ability_thdots_larva01:GetCastRange(location, target)
 	end
 end
 
-function ability_thdots_larva01:GetCastPoint()
-	if self:GetCaster():HasModifier("modifier_ability_larva01_stop") then
-		return 0
-	else
-		return 0.2
-	end
-end
-
-
-function ability_thdots_larva01:GetManaCost(level)
-	 if self:GetCaster():HasModifier("modifier_ability_larva01_stop") then
-	 	return 0
-	 else
-	 	return self.BaseClass.GetManaCost(self, level )
-	 end
-	end
-
-function ability_thdots_larva01:OnSpellStart()
-	if not IsServer() then return end
-	if not self:GetCaster():HasModifier("modifier_ability_larva01_stop") then  --更替技能modifier
-	local caster		= self:GetCaster()
-	local position = self:GetCursorPosition()
-    local distance = (position - caster:GetAbsOrigin()):Length2D()
-	local dashLength	= self:GetSpecialValueFor("length")
-	if distance < dashLength then dashLength = distance end
-	local dashWidth		= self:GetSpecialValueFor("width")
-	local dashDuration	= self:GetSpecialValueFor("duration")
-	local casterOrigin	= caster:GetAbsOrigin()
-	local casterAngles	= caster:GetAngles()
-	local forwardDir	= caster:GetForwardVector()
-	local rightDir		= caster:GetRightVector()
-	local damage = self:GetSpecialValueFor("damage")
-	local statsdamagebonus = self:GetSpecialValueFor("damage_bonus_per_difference")
-	local statsdamage = 0
-	local ellipseCenter	= casterOrigin + forwardDir * ( dashLength / 2 )
-	caster:AddNewModifier(caster,self,"modifier_ability_larva01_fly",{duration = dashDuration})
-	caster:EmitSound("larva01")
-	local startTime = GameRules:GetGameTime()
-
-		caster:SetContextThink( DoUniqueString("updateIcarusDive"), function ( )
-
-		local elapsedTime = GameRules:GetGameTime() - startTime
-		local progress = elapsedTime / dashDuration
-
-		-- Interrupted
-		if not caster:HasModifier("modifier_ability_larva01_fly") then
-			caster:SetUnitOnClearGround()
-			return nil
-		end
-
-		-- Calculate potision
-		local theta = -2 * math.pi * progress
-		local x =  math.sin( theta ) * dashWidth * 0.5
-		local y = -math.cos( theta ) * dashLength * 0.5
-
-		local pos = ellipseCenter + rightDir * x + forwardDir * y
-		local yaw = casterAngles.y + 90 + progress * -360  
-
-		pos = GetGroundPosition( pos, caster )
-		caster:SetAbsOrigin( pos )
-		caster:SetAngles( casterAngles.x, yaw, casterAngles.z )
-		local debuff_duration = self:GetSpecialValueFor("debuff_duration")
-
-		local heros = FindUnitsInRadius(caster:GetTeam(),caster:GetAbsOrigin(),nil,200,DOTA_UNIT_TARGET_TEAM_ENEMY + DOTA_UNIT_TARGET_TEAM_CUSTOM
-		,DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP + DOTA_UNIT_TARGET_CUSTOM + DOTA_UNIT_TARGET_COURIER,0,0,false)  --将沿途单位计入heros中
-		  for _,v in pairs(heros) do  
-		  if not v:HasModifier("modifier_ability_larva01_debuffcheck") then --防止一头把人创死了
-		  	--v:AddNewModifier(caster,self,"modifier_ability_larva01_debuff",{duration = debuff_duration})
-		  	v:AddNewModifier(caster,self,"modifier_ability_larva01_debuffcheck",{duration = debuff_duration})
-            if v:IsRealHero() then statsdamage = v:GetStrength() + v:GetAgility() + v:GetIntellect(false) - ( caster:GetStrength() + caster:GetAgility() + caster:GetIntellect(false) ) end --对英雄计算属性差伤害
-            if statsdamage <= 0 then statsdamage = 0 end --无可厚非
-		  	local damage_table = {
-		  		victim = v,
-		  		attacker = caster,
-		  		damage = damage + statsdamage * statsdamagebonus,
-		  		damage_type = DAMAGE_TYPE_MAGICAL,
-		  	}
-		  	UnitDamageTarget(damage_table)
-           end
-       end
-		return 0.03
-	end, 0 )
-		caster:AddNewModifier(caster,self,"modifier_ability_larva01_stop",{duration = dashDuration}) --更替技能modifier
-	    caster:SetModifierStackCount("modifier_ability_larva01_fly", self, 0 )
-		self.remain_time = self:GetCooldownTimeRemaining()
-    self:EndCooldown() --直接结束冷却 这时身上的技能切换为中途停止按钮
-else
-	self:GetCaster():EmitSound("larva01stop")
-	self:GetCaster():RemoveModifierByName("modifier_ability_larva01_fly")
-	self:GetCaster():SetUnitOnClearGround() --安全着陆，防止与建筑物合体	
-end
-end
-
-modifier_ability_larva01_fly = {}
-LinkLuaModifier("modifier_ability_larva01_fly","scripts/vscripts/abilities/abilitylarva.lua",LUA_MODIFIER_MOTION_NONE)
-function modifier_ability_larva01_fly:IsHidden() 		return true end     --是否隐藏
-function modifier_ability_larva01_fly:IsPurgable()     return false end     --是否可净化
-function modifier_ability_larva01_fly:RemoveOnDeath() 	return true  end     --死亡移除
-function modifier_ability_larva01_fly:IsDebuff()	   	return false end     --是否是DEBUFF
-
-function modifier_ability_larva01_fly:OnCreated()
-	if not IsServer() then return end
-    local caster = self:GetParent()
-	self.larva01 = ParticleManager:CreateParticle("particles/units/larva/larva01.vpcf", PATTACH_ABSORIGIN, caster)
-	        ParticleManager:SetParticleControlEnt(self.larva01 , 0, caster, 5, "attach_hitloc", caster:GetAbsOrigin(), true)
-	        ParticleManager:SetParticleControlEnt(self.larva01 , 3, caster, 5, "attach_hitloc", caster:GetAbsOrigin(), true)
-	        self:StartIntervalThink(0.1)
-	        self:OnIntervalThink()
-end
-
-function modifier_ability_larva01_fly:OnIntervalThink()
-	local count = self:GetParent():GetModifierStackCount("modifier_ability_larva01_fly", nil) + 1
-    self:GetCaster():SetModifierStackCount("modifier_ability_larva01_fly",self:GetAbility(), count)
-end
-
-
-
-
-function modifier_ability_larva01_fly:OnRemoved()  --结束后为自身添加飞行状态、高空视野
-	if not IsServer() then return end
-	ParticleManager:DestroyParticle(self.larva01,true)
-	self:GetParent():RemoveModifierByName("modifier_ability_larva01_stop")  --更替技能modifier
-	if FindTelentValue(self:GetParent(),"special_bonus_unique_larva_4") ~= 0 then
-           local duration = self:GetAbility():GetSpecialValueFor("fly_duration")
-           self:GetParent():AddNewModifier(self:GetParent(),self:GetAbility(),"modifier_ability_larva01_flyvision",{duration = duration})
+function ability_thdots_larva01_1:OnUpgrade()
+    if not IsServer() then return end
+    local synchronousLevelAbility = {
+        self:GetCaster():FindAbilityByName("ability_thdots_larva01_2"),
+    }
+    for _, val in pairs(synchronousLevelAbility) do
+        if val:GetLevel() ~= self:GetLevel() then
+            val:SetLevel(self:GetLevel())
+        end
     end
 end
 
-modifier_ability_larva01_stop = {}
-LinkLuaModifier("modifier_ability_larva01_stop","scripts/vscripts/abilities/abilitylarva.lua",LUA_MODIFIER_MOTION_NONE)
-function modifier_ability_larva01_stop:IsHidden()  return true end
-function modifier_ability_larva01_stop:IsPurgable() return false end
-function modifier_ability_larva01_stop:RemoveOnDeath()  return true end
-function modifier_ability_larva01_stop:IsDebuff()  return false end
-
-function modifier_ability_larva01_stop:DeclareFunctions()
-	return {
-		MODIFIER_PROPERTY_OVERRIDE_ANIMATION,
-		MODIFIER_PROPERTY_IGNORE_CAST_ANGLE,
-	}
-end
-
-function modifier_ability_larva01_stop:GetModifierIgnoreCastAngle()
-	return 360
-end
-
-function modifier_ability_larva01_stop:GetOverrideAnimation()
-	return ACT_DOTA_CAST_ABILITY_1
-end
-
-function modifier_ability_larva01_stop:OnRemoved()
+function ability_thdots_larva01_1:OnSpellStart()
 	if not IsServer() then return end
-	local count = self:GetParent():GetModifierStackCount("modifier_ability_larva01_fly", nil)
-	--print(count)
-	local remain_time = self:GetAbility().remain_time - count * 0.1
-	self:GetAbility():StartCooldown(remain_time)
+
+	local caster = self:GetCaster()
+
+	local dashLength = self:GetSpecialValueFor("length")
+	local dashDuration = self:GetSpecialValueFor("duration")
+
+	local casterPos = caster:GetOrigin()
+	local targetPos = self:GetCursorPosition()
+	dashLength = math.min(dashLength, (targetPos - casterPos):Length2D())
+	targetPos = casterPos + (targetPos - casterPos):Normalized() * dashLength
+	
+	caster:EmitSound("larva01")
+	caster:AddNewModifier(caster, self, "modifier_ability_larva01_dash", {
+		duration = dashDuration,
+		dashLength = dashLength,
+	})
 end
 
-modifier_ability_larva01_debuff = {}
-LinkLuaModifier("modifier_ability_larva01_debuff","scripts/vscripts/abilities/abilitylarva.lua",LUA_MODIFIER_MOTION_NONE)
-function modifier_ability_larva01_debuff:IsHidden() return false end
-function modifier_ability_larva01_debuff:IsPurgable()  return true end
-function modifier_ability_larva01_debuff:RemoveOnDeath() return true end
-function modifier_ability_larva01_debuff:IsDebuff()  return true end
+ability_thdots_larva01_2 = {}
 
-function modifier_ability_larva01_debuff:DeclareFunctions()  --目前还没有成功使用这个功能
-	return {
-		MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE,
-	}
+function ability_thdots_larva01_2:OnUpgrade()
+    if not IsServer() then return end
+    local synchronousLevelAbility = {
+        self:GetCaster():FindAbilityByName("ability_thdots_larva01_1"),
+    }
+    for _, val in pairs(synchronousLevelAbility) do
+        if val:GetLevel() ~= self:GetLevel() then
+            val:SetLevel(self:GetLevel())
+        end
+    end
 end
 
-
-function modifier_ability_larva01_debuff:GetModifierPercentageCooldown()  
+function ability_thdots_larva01_2:OnSpellStart()
 	if not IsServer() then return end
-	return self:GetAbility():GetSpecialValueFor("slow_percent")
+
+	local caster = self:GetCaster()
+
+	local modifier = caster:FindModifierByName("modifier_ability_larva01_dash")
+	if (modifier ~= nil) then
+		modifier:Destroy()
+	end
 end
 
-modifier_ability_larva01_debuffcheck = {}
-LinkLuaModifier("modifier_ability_larva01_debuffcheck","scripts/vscripts/abilities/abilitylarva.lua",LUA_MODIFIER_MOTION_NONE)
-function modifier_ability_larva01_debuffcheck:IsHidden() return true end
-function modifier_ability_larva01_debuffcheck:IsPurgable()  return false end
-function modifier_ability_larva01_debuffcheck:RemoveOnDeath() return true end
-function modifier_ability_larva01_debuffcheck:IsDebuff()  return true end
+modifier_ability_larva01_dash = {}
+LinkLuaModifier("modifier_ability_larva01_dash", "scripts/vscripts/abilities/abilitylarva.lua", LUA_MODIFIER_MOTION_BOTH)
+-- function modifier_ability_larva01_dash:IsHidden() 		return true end     --是否隐藏
+function modifier_ability_larva01_dash:IsPurgable()     return false end     --是否可净化
+-- function modifier_ability_larva01_dash:RemoveOnDeath() 	return true  end     --死亡移除
+function modifier_ability_larva01_dash:IsDebuff()	   	return false end     --是否是DEBUFF
 
-modifier_ability_larva01_flyvision = {}
-LinkLuaModifier("modifier_ability_larva01_flyvision","scripts/vscripts/abilities/abilitylarva.lua",LUA_MODIFIER_MOTION_NONE)
-function modifier_ability_larva01_flyvision:IsDebuff() return false end
-function modifier_ability_larva01_flyvision:IsPurgable() return true end
-function modifier_ability_larva01_flyvision:IsHidden() return false end
-function modifier_ability_larva01_flyvision:RemoveOnDeath() return true end
-function modifier_ability_larva01_flyvision:CheckState()  --飞行 没有高空视野
+function modifier_ability_larva01_dash:OnCreated(params)
+	if not IsServer() then return end
+
+	self.caster = self:GetCaster()
+	self.ability = self:GetAbility()
+
+    self.caster:SwapAbilities("ability_thdots_larva01_1", "ability_thdots_larva01_2", false, true)
+	self.abilityCooldown = self.ability:GetCooldownTime()
+
+	self.dashLength = tonumber(params.dashLength)
+	self.dashWidth = self.ability:GetSpecialValueFor("width")
+	self.damage = self.ability:GetSpecialValueFor("damage")
+	self.damageMulBonus = self.ability:GetSpecialValueFor("damage_mul_bonus")
+	self.flyDuration = self.ability:GetSpecialValueFor("fly_duration")
+
+	self.casterOrigin = self.caster:GetOrigin()
+	self.casterAngles = self.caster:GetAngles()
+	self.forwardDir = self.caster:GetForwardVector()
+	self.rightDir = self.caster:GetRightVector()
+
+	self.caster:RemoveHorizontalMotionController(self)
+	self.caster:RemoveVerticalMotionController(self)
+	if self:ApplyVerticalMotionController() == false then self:Destroy() end
+	if self:ApplyHorizontalMotionController() == false then self:Destroy() end
+
+	self:StartIntervalThink(FrameTime())
+end
+
+function modifier_ability_larva01_dash:OnIntervalThink()
+	if not IsServer() then return end
+
+	local heros = FindUnitsInRadius(
+		self.caster:GetTeam(),
+		self.caster:GetOrigin(),
+		nil,
+		200,
+		self.ability:GetAbilityTargetTeam(),
+		self.ability:GetAbilityTargetType(),
+		DOTA_UNIT_TARGET_FLAG_NONE,
+        FIND_ANY_ORDER,
+		false
+	) -- 将沿途单位计入heros中
+
+	for _, v in pairs(heros) do
+		if not v:HasModifier("modifier_ability_larva01_damaged_flag") then
+			v:AddNewModifier(caster, self, "modifier_ability_larva01_damaged_flag", {
+				duration = self:GetRemainingTime() + 0.1
+			})
+
+			local damageBonus = 0
+			if v:IsRealHero() then
+				damageBonus = v:GetStrength() + v:GetAgility() + v:GetIntellect(false) - 
+					(self.caster:GetStrength() + self.caster:GetAgility() + self.caster:GetIntellect(false))
+			end -- 对英雄计算属性差伤害
+			damageBonus = math.max(0, damageBonus)
+
+			local damage_table = {
+				victim = v,
+				attacker = self.caster,
+				damage = self.damage + damageBonus * self.damageMulBonus,
+				damage_type = self.ability:GetAbilityDamageType()
+			}
+			print(self.damage, damageBonus, self.damageMulBonus, self.damage + damageBonus * self.damageMulBonus)
+			UnitDamageTarget(damage_table)
+		end
+	end
+end
+
+function modifier_ability_larva01_dash:OnDestroy()
+    if not IsServer() then return end
+
+	-- Set Destination and Interrupt Motion or the unit will still move
+	self.caster:RemoveHorizontalMotionController(self)
+	self.caster:RemoveVerticalMotionController(self)
+	FindClearSpaceForUnit(self.caster, self.caster:GetOrigin(), false)
+
+	self.ability:StartCooldown(self.abilityCooldown)
+    self.caster:SwapAbilities("ability_thdots_larva01_1", "ability_thdots_larva01_2", true, false)
+
+	-- 大于0说明有天赋
+	if self.flyDuration > 0 then
+		self.caster:AddNewModifier(self.caster, self.ability, "modifier_ability_larva01_fly", {
+			duration = self.flyDuration,
+		})
+	end
+end
+
+function modifier_ability_larva01_dash:OnRefresh(params)
+    self:OnCreated(params)
+end
+
+function modifier_ability_larva01_dash:UpdateHorizontalMotion(me, dt)
+	local passedTime = 1 - self:GetRemainingTime() / self:GetDuration()
+
+	local theta = - 2 * math.pi * passedTime
+	local x = math.sin(theta) * self.dashWidth * 0.5
+	local y = - math.cos(theta) * self.dashLength * 0.5
+
+	local pos = self.casterOrigin + self.forwardDir * (self.dashLength / 2) + self.rightDir * x + self.forwardDir * y
+
+	local startAngle = 45 -- 人物开始飞行转动的角
+	local cyclesAngle = 225 -- 人物完成飞行转动的角
+	local yaw = startAngle - passedTime * cyclesAngle
+
+	me:SetOrigin(pos)
+	self.caster:FaceTowards(pos + RotatePosition(Vector(0, 0, 0), QAngle(0, yaw, 0), self.forwardDir))
+end
+
+function modifier_ability_larva01_dash:OnHorizontalMotionInterrupted()
+    self:Destroy()
+end
+
+function modifier_ability_larva01_dash:UpdateVerticalMotion(me, dt)
+	local mePos = me:GetOrigin()
+	local groundPos = GetGroundPosition(mePos, nil)
+	mePos.z = math.max(mePos.z, groundPos.z)
+	me:SetOrigin(mePos)
+end
+
+-- -- This typically gets called if the caster uses a position breaking tool (ex. Earth Spike) while in mid-motion
+function modifier_ability_larva01_dash:OnVerticalMotionInterrupted()
+    self:Destroy()
+end
+
+modifier_ability_larva01_damaged_flag = {}
+LinkLuaModifier("modifier_ability_larva01_damaged_flag", "scripts/vscripts/abilities/abilitylarva.lua", LUA_MODIFIER_MOTION_NONE)
+function modifier_ability_larva01_damaged_flag:IsHidden() 		return true end     --是否隐藏
+function modifier_ability_larva01_damaged_flag:IsPurgable()     return false end     --是否可净化
+-- function modifier_ability_larva01_damaged_flag:RemoveOnDeath() 	return true  end     --死亡移除
+function modifier_ability_larva01_damaged_flag:IsDebuff()	   	return false end     --是否是DEBUFF
+
+modifier_ability_larva01_fly = {}
+LinkLuaModifier("modifier_ability_larva01_fly", "scripts/vscripts/abilities/abilitylarva.lua", LUA_MODIFIER_MOTION_NONE)
+-- function modifier_ability_larva01_fly:IsHidden() 		return false end     --是否隐藏
+function modifier_ability_larva01_fly:IsPurgable()     return false end     --是否可净化
+-- function modifier_ability_larva01_fly:RemoveOnDeath() 	return true  end     --死亡移除
+function modifier_ability_larva01_fly:IsDebuff()	   	return false end     --是否是DEBUFF
+
+function modifier_ability_larva01_fly:CheckState()  --飞行 没有高空视野
 	return{
 		[MODIFIER_STATE_FLYING]  = true,
 	}
 end
 
-function modifier_ability_larva01_flyvision:OnCreated()  --高空视野
+function modifier_ability_larva01_fly:OnCreated()  --高空视野
 	if not IsServer() then return end
-	self:StartIntervalThink(0.05)
+
+	self:StartIntervalThink(FrameTime())
 	self:OnIntervalThink()
 end
 
-function modifier_ability_larva01_flyvision:OnIntervalThink()  
+function modifier_ability_larva01_fly:OnIntervalThink()  
 	if not IsServer() then return end
-	local caster = self:GetParent()
-    AddFOWViewer(caster:GetTeamNumber(), caster:GetAbsOrigin(), caster:GetCurrentVisionRange(), 0.051, false)  --高空视野
+
+	local target = self:GetParent()
+    AddFOWViewer(target:GetTeamNumber(), target:GetOrigin(), target:GetCurrentVisionRange(), FrameTime() * 2, false)  --高空视野
 end
 
 ---------------------------------------------------------------------------------------------------------------------------------

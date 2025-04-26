@@ -5581,13 +5581,15 @@
 		"npc_dota_hero_dark_willow"											"Eternity Larva"
 
 		// Larva01
-		"DOTA_Tooltip_ability_ability_thdots_larva01"						"Butterfly Sign「Midsummer Wingbeats」"
-		"DOTA_Tooltip_ability_ability_thdots_larva01_lore"					"Even under the midsummer noon sun, the swallowtail butterflies still diligently pollinate the sunflower fields."
-		"DOTA_Tooltip_ability_ability_thdots_larva01_Description"			"Eternity Larva dives forward in an arc towards the target point, returning after reaching either the target point or the maximum distance. Enemies along the way will be dealt damage based on the difference between their total attributes and Eternity Larva's.\nDamage bonus per difference of attribute: %damage_bonus_per_difference%\nEternity Larva can cancel the dive at any point by casting this spell again."
-		"DOTA_Tooltip_ability_ability_thdots_larva01_duration"				"DURATION: "
-		"DOTA_Tooltip_ability_ability_thdots_larva01_length"				"MAX DISTANCE: "
-		"DOTA_Tooltip_ability_ability_thdots_larva01_width"					"ARC WIDTH: "
-		"DOTA_Tooltip_ability_ability_thdots_larva01_damage"				"BASE DAMAGE: "
+		"DOTA_Tooltip_ability_ability_thdots_larva01_1"						"Butterfly Sign「Midsummer Wingbeats」"
+		"DOTA_Tooltip_ability_ability_thdots_larva01_1_lore"					"Even under the midsummer noon sun, the swallowtail butterflies still diligently pollinate the sunflower fields."
+		"DOTA_Tooltip_ability_ability_thdots_larva01_1_Description"			"Eternity Larva dives forward in an arc towards the target point, returning after reaching either the target point or the maximum distance. Enemies along the way will be dealt damage based on the difference between their total attributes and Eternity Larva's.\nDamage bonus per difference of attribute: %damage_bonus_per_difference%\nEternity Larva can cancel the dive at any point by casting this spell again."
+		"DOTA_Tooltip_ability_ability_thdots_larva01_1_duration"				"DURATION: "
+		"DOTA_Tooltip_ability_ability_thdots_larva01_1_length"				"MAX DISTANCE: "
+		"DOTA_Tooltip_ability_ability_thdots_larva01_1_width"					"ARC WIDTH: "
+		"DOTA_Tooltip_ability_ability_thdots_larva01_1_damage"				"BASE DAMAGE: "
+		"DOTA_Tooltip_ability_ability_thdots_larva01_2"						"Butterfly Sign「Midsummer Wingbeats」"
+		"DOTA_Tooltip_ability_ability_thdots_larva01_2_Description"			"Land immediately at current position."
 
 		"DOTA_Tooltip_modifier_ability_larva01_debuff"						"Butterfly Sign「Midsummer Wingbeats」"
 		"DOTA_Tooltip_modifier_ability_larva01_debuff_Description"			"Hit by the butterfly！"

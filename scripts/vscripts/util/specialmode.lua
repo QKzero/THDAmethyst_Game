@@ -183,7 +183,7 @@ G_BOT_USED =
 	false ,			--诹访子
 	
 	false ,			--铃仙02
-	false ,			--拉尔瓦
+	true ,			--拉尔瓦
 	false ,			--秋穰子
 	true ,			--秋静叶
 	true ,			--youmuv2
