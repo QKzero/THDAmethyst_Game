@@ -168,7 +168,7 @@ function modifier_ability_larva01_dash:OnIntervalThink()
 	if not IsServer() then return end
 
 	local heros = FindUnitsInRadius(
-		self.caster:GetTeam(),
+		self.caster:GetTeamNumber(),
 		self.caster:GetOrigin(),
 		nil,
 		200,
@@ -190,7 +190,7 @@ function modifier_ability_larva01_dash:OnIntervalThink()
 				damageBonus = v:GetStrength() + v:GetAgility() + v:GetIntellect(false) - 
 					(self.caster:GetStrength() + self.caster:GetAgility() + self.caster:GetIntellect(false))
 			end -- 对英雄计算属性差伤害
-			damageBonus = math.max(0, damageBonus)
+			damageBonus = math.abs(damageBonus)
 
 			local damage_table = {
 				victim = v,
@@ -198,7 +198,6 @@ function modifier_ability_larva01_dash:OnIntervalThink()
 				damage = self.damage + damageBonus * self.damageMulBonus,
 				damage_type = self.ability:GetAbilityDamageType()
 			}
-			print(self.damage, damageBonus, self.damageMulBonus, self.damage + damageBonus * self.damageMulBonus)
 			UnitDamageTarget(damage_table)
 		end
 	end
@@ -236,8 +235,8 @@ function modifier_ability_larva01_dash:UpdateHorizontalMotion(me, dt)
 
 	local pos = self.casterOrigin + self.forwardDir * (self.dashLength / 2) + self.rightDir * x + self.forwardDir * y
 
-	local startAngle = 45 -- 人物开始飞行转动的角
-	local cyclesAngle = 225 -- 人物完成飞行转动的角
+	local startAngle = 60 -- 人物开始飞行转动的角
+	local cyclesAngle = 300 -- 人物完成飞行转动的角
 	local yaw = startAngle - passedTime * cyclesAngle
 
 	me:SetOrigin(pos)
@@ -249,10 +248,7 @@ function modifier_ability_larva01_dash:OnHorizontalMotionInterrupted()
 end
 
 function modifier_ability_larva01_dash:UpdateVerticalMotion(me, dt)
-	local mePos = me:GetOrigin()
-	local groundPos = GetGroundPosition(mePos, nil)
-	mePos.z = math.max(mePos.z, groundPos.z)
-	me:SetOrigin(mePos)
+	me:SetOrigin(GetGroundPosition(me:GetOrigin(), nil))
 end
 
 -- -- This typically gets called if the caster uses a position breaking tool (ex. Earth Spike) while in mid-motion
