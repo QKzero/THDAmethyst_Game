@@ -7774,19 +7774,15 @@
 		"DOTA_Tooltip_modifier_item_cishidaishouji_buff_Description"				"Bonus attack speed and attack damage."
 
 		"DOTA_Tooltip_ability_item_jiduzhixinyan"									"Green Eye of Jealousy"
-		"DOTA_Tooltip_ability_item_jiduzhixinyan_Description"						"<h1>Passive: Pull Under the Bridge</h1>When an enemy girl kills you, your team gains vision of her for %exposed_duration% seconds. Her healing and vision radius are reduced by %heal_reduce%%% and she takes %bonus_damage_percentage%%% more damage until you respawn or the target dies.<br><br>If your level is equal to or lower than the one who killed you, you also deal pure damage to her on death based on the level difference.<br><br>Base Damage: %damage%<br>Bonus Damage per Level Difference: %per_level_damage%"
-		"DOTA_Tooltip_ability_item_jiduzhixinyan_bonus_mana"						"+$mana"
-		"DOTA_Tooltip_ability_item_jiduzhixinyan_bonus_movement_speed"				"+$move_speed"
-		"DOTA_Tooltip_ability_item_jiduzhixinyan_bonus_day_vision"					"+$day_vision"
-		"DOTA_Tooltip_ability_item_jiduzhixinyan_Note0"								"The vision effect is dispellable, but the other effects cannot be dispelled."
-
-		"DOTA_Tooltip_modifier_item_jiduzhixinyan_debuff"							"Green Eye of Jealousy"
-		"DOTA_Tooltip_modifier_item_jiduzhixinyan_debuff_Description"				"Your victim's hatred curses you, reducing your healing and vision radius by %dMODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE%%% and causing you to take %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%% more damage."
-		"DOTA_Tooltip_modifier_item_jiduzhixinyan_debuff_exposed"					"Green Eye of Jealousy"
-		"DOTA_Tooltip_modifier_item_jiduzhixinyan_debuff_exposed_Description"		"Your position is exposed by the Green Eye of Jealousy."
-
-		"DOTA_Tooltip_modifier_item_jiduzhixinyan_passive"							"Green Eye of Jealousy"
-		"DOTA_Tooltip_modifier_item_jiduzhixinyan_passive_Description"				"Gains charges when you die."
+		"DOTA_Tooltip_ability_item_jiduzhixinyan_Description"						"<h1>Active:</h1>Mark a girl so that she can respawn immediatly, when you die and have to increase respawn time with %respawn_bonus%% .<br>Spell other girls to make a mark, or spell yourself to cancel the mark.<br>There will be no effect if target girl has marked others.\n<h1>Passive: </h1>During %bonus_aura_duration% seconds after dying, all ally grils will be healed with %bonus_aura_health_regen_pct%%  of max health, and increased movespeed with %bonus_aura_movespeed%% ."
+		"DOTA_Tooltip_ability_item_jiduzhixinyan_Note0"					"While this buff's base stat boost is active, multiple HP regen effects do not stack."
+		"DOTA_Tooltip_ability_item_jiduzhixinyan_bonus_mana"			"+$mana"
+		"DOTA_Tooltip_ability_item_jiduzhixinyan_bonus_health"			"+$health"
+		"DOTA_Tooltip_ability_item_jiduzhixinyan_bonus_movespeed"		"+$move_speed"
+		"DOTA_Tooltip_modifier_item_jiduzhixinyan_mark"					"Green Eye of Jealousy"
+		"DOTA_Tooltip_modifier_item_jiduzhixinyan_mark_Description"		"Current marked girl ID"
+		"DOTA_Tooltip_modifier_item_jiduzhixinyan_ally_buff"			"Green Eye of Jealousy"
+		"DOTA_Tooltip_modifier_item_jiduzhixinyan_ally_buff_Description"	"Move speed increased with %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%, and health healed."
 
 		"DOTA_Tooltip_ability_item_recipe_laevateinn"								"Recipe: Laevateinn"
 		"DOTA_Tooltip_ability_item_laevateinn"										"Laevateinn"

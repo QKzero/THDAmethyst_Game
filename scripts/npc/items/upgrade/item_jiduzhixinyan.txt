@@ -7,14 +7,14 @@
 		"AbilityTextureName"	"item_recipe_jiduzhixinyan"
 		// Item Info
 		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"250"
+		"ItemCost"	"750"
 		// Recipe
 		// -------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"	"1"
 		"ItemResult"	"item_jiduzhixinyan"
 		"ItemRequirements"
 		{
-			"01"	"item_wind_lace;item_bird"
+			"01"	"item_wind_lace;item_wing"
 		}
 		"Model"	"models/props_gameplay/recipe.vmdl"
 	}
@@ -25,9 +25,9 @@
 		"AbilityTextureName"	"item_jiduzhixinyan"	//图标By 橘橘子
 		"ScriptFile"                    "items/item_jiduzhixinyan"
 		"ItemDeclarations"        "DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		// Stats
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"	"0.0"
@@ -36,26 +36,25 @@
 		"AbilityCastRange"	"0"
 		// Item Info
 		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"1500"
+		"ItemCost"	"3000"
 		"ItemDroppable"	"1"
 		"ItemSellable"	"1"
 		"ItemShopTags"	"mana_pool"
 		"precache"
 		{
+			"particle" "particles/econ/items/undying/undying_pale_augur/undying_pale_augur_decay_strength_xfer.vpcf"
 			// "soundfile"	"soundevents/game_sounds_heroes/game_sounds_antimage.vsndevts"
 		}
 		"AbilityValues"
 		{
+			"bonus_health"	"450"
 			"bonus_mana"	"350"
-			"bonus_movement_speed"	"30"
-			"damage"	"75"
-			"per_level_damage"	"45"
-			"bonus_damage_percentage"	"10"
-			"BonusVisionPercentage"	"-25"
-			"exposed_duration"	"8"
-			"heal_reduce"	"-25"
-			"Vision"	"1"
-			"bonus_day_vision"	"200"
+			"bonus_movespeed"	"30"
+
+			"respawn_bonus"	"20"
+			"bonus_aura_duration"	"5"
+			"bonus_aura_movespeed"	"20"
+			"bonus_aura_health_regen_pct"	"20"
 		}
 	}
 }
