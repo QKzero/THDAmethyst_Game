@@ -1,24 +1,5 @@
 "DOTAAbilities"
 {
-    "item_recipe_jiduzhixinyan"
-	{
-		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
-		"BaseClass"	"item_datadriven"
-		"AbilityTextureName"	"item_recipe_jiduzhixinyan"
-		// Item Info
-		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"750"
-		// Recipe
-		// -------------------------------------------------------------------------------------------------------------
-		"ItemRecipe"	"1"
-		"ItemResult"	"item_jiduzhixinyan"
-		"ItemRequirements"
-		{
-			"01"	"item_wind_lace;item_wing"
-		}
-		"Model"	"models/props_gameplay/recipe.vmdl"
-	}
-
 	"item_jiduzhixinyan"
 	{
 		"BaseClass"	"item_lua"
@@ -37,12 +18,16 @@
 		// Item Info
 		// -------------------------------------------------------------------------------------------------------------
 		"ItemCost"	"3000"
-		"ItemDroppable"	"1"
-		"ItemSellable"	"1"
 		"ItemShopTags"	"mana_pool"
+		"ItemPurchasable"				"0"
+		"ItemDroppable"					"0"
+		"ItemSellable"					"0"
+		"AllowedInBackpack"				"0"
+		"Model"	"models/props_gameplay/neutral_box.vmdl"
 		"precache"
 		{
 			"particle" "particles/econ/items/undying/undying_pale_augur/undying_pale_augur_decay_strength_xfer.vpcf"
+			"particle" "particles/thd2/items/item_jiduzhixinyan_number.vpcf"
 			// "soundfile"	"soundevents/game_sounds_heroes/game_sounds_antimage.vsndevts"
 		}
 		"AbilityValues"
@@ -51,10 +36,10 @@
 			"bonus_mana"	"350"
 			"bonus_movespeed"	"30"
 
-			"respawn_bonus"	"20"
+			"respawn_bonus"	"30"
 			"bonus_aura_duration"	"5"
 			"bonus_aura_movespeed"	"20"
-			"bonus_aura_health_regen_pct"	"20"
+			"bonus_aura_health_regen_pct"	"30"
 		}
 	}
 }

@@ -1,3 +1,6 @@
+----------------------------------------------------------------------------------------------
+-- 道具技能
+
 item_jiduzhixinyan = {}
 
 function item_jiduzhixinyan:OnSpellStart()
@@ -34,6 +37,10 @@ end
 function item_jiduzhixinyan:GetIntrinsicModifierName()
 	return "modifier_item_jiduzhixinyan_passive"
 end
+
+-- 道具技能 End
+----------------------------------------------------------------------------------------------
+-- 被动buff
 
 modifier_item_jiduzhixinyan_passive = {}
 LinkLuaModifier("modifier_item_jiduzhixinyan_passive","items/item_jiduzhixinyan.lua", LUA_MODIFIER_MOTION_NONE)
@@ -114,6 +121,10 @@ function modifier_item_jiduzhixinyan_passive:OnDeath(keys)
 	end
 end
 
+-- 被动buff End
+----------------------------------------------------------------------------------------------
+-- 复活主体buff
+
 modifier_item_jiduzhixinyan_mark = {}
 LinkLuaModifier("modifier_item_jiduzhixinyan_mark","items/item_jiduzhixinyan.lua", LUA_MODIFIER_MOTION_NONE)
 function modifier_item_jiduzhixinyan_mark:IsHidden() return false end
@@ -172,6 +183,92 @@ function modifier_item_jiduzhixinyan_mark:OnDeath(keys)
 	end
 end
 
+--- ChangeTargetMarkFlag
+---@param change boolean Increment or Reduction, true meaning increment or false meaning reduction
+function modifier_item_jiduzhixinyan_mark:ChangeTargetMarkFlag(change)
+	if not IsServer() then return end
+
+	local target = PlayerResource:GetPlayer(self:GetStackCount()):GetAssignedHero()
+	
+	if not target:HasModifier("modifier_item_jiduzhixinyan_mark_flag") then
+		if change then
+			local modifier = target:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_item_jiduzhixinyan_mark_flag", {})
+			if modifier ~= nil then
+				modifier:IncrementStackCount()
+			end
+		end
+	else
+		local modifier = target:FindModifierByName("modifier_item_jiduzhixinyan_mark_flag")
+		if change then
+			modifier:IncrementStackCount()
+		else
+			local flag = modifier:GetStackCount()
+			if flag < 1 then
+				modifier:Destroy()
+			else
+				modifier:DecrementStackCount()
+			end
+		end
+	end
+end
+
+-- 复活主体buff End
+----------------------------------------------------------------------------------------------
+-- 复活标记显示buff（未完工和实装）
+
+modifier_item_jiduzhixinyan_mark_flag = {}
+LinkLuaModifier("modifier_item_jiduzhixinyan_mark_flag","items/item_jiduzhixinyan.lua", LUA_MODIFIER_MOTION_NONE)
+function modifier_item_jiduzhixinyan_mark_flag:IsHidden() return false end
+function modifier_item_jiduzhixinyan_mark_flag:IsPurgable() return false end
+function modifier_item_jiduzhixinyan_mark_flag:IsPurgeException() return false end
+function modifier_item_jiduzhixinyan_mark_flag:RemoveOnDeath() return true end
+
+function modifier_item_jiduzhixinyan_mark_flag:OnCreated()
+	if not IsServer() then return end
+
+	self.parent = self:GetParent()
+
+	self:ShowStackCount(self:GetStackCount())
+end
+
+function modifier_item_jiduzhixinyan_mark_flag:OnStackCountChanged(count)
+	if not IsServer() then return end
+
+	if self.parent == nil then self.parent = self:GetParent() end
+
+	self:ShowStackCount(count)
+end
+
+function modifier_item_jiduzhixinyan_mark_flag:ShowStackCount(count)
+	if not IsServer() then return end
+
+	if self.parent == nil then self.parent = self:GetParent() end
+	if self.particle_ui == nil then
+		self.particle_ui = ParticleManager:CreateParticle("particles/thd2/items/item_jiduzhixinyan_number.vpcf", PATTACH_OVERHEAD_FOLLOW, self.parent)
+		ParticleManager:SetParticleControl(self.particle_ui, 0, self.parent:GetAbsOrigin()) -- position
+		ParticleManager:SetParticleControl(self.particle_ui, 2, Vector(0, 1, 0)) -- number colour
+		self:AddParticle(self.particle_ui, true, false, -1, false, true)
+	end
+
+	local stacks = self:GetStackCount()
+	local first_digit = stacks % 10
+	local second_digit = 0 -- default
+
+	-- Max Number Limit
+	if stacks >= 10 then
+		second_digit = 1 -- This is the highest second digit supported by this particle UI
+	end
+	if stacks > 19 then
+		first_digit = 9
+	end
+
+	ParticleManager:SetParticleControl(self.particle_ui, 1, Vector(second_digit, first_digit, 0)) -- showed number
+end
+
+-- 复活标记显示buff End
+----------------------------------------------------------------------------------------------
+-- 死亡光环
+
 modifier_item_jiduzhixinyan_ally_buff = {}
 LinkLuaModifier("modifier_item_jiduzhixinyan_ally_buff","items/item_jiduzhixinyan.lua", LUA_MODIFIER_MOTION_NONE)
 function modifier_item_jiduzhixinyan_ally_buff:IsHidden() return false end
@@ -194,7 +291,7 @@ function modifier_item_jiduzhixinyan_ally_buff:OnCreated(params)
 
 	self.caster = self:GetCaster()
 	self.ability = self:GetAbility()
-	self.target = self:GetParent()
+	self.parent = self:GetParent()
 
 	self.healthRegenPct = self.ability:GetSpecialValueFor("bonus_aura_health_regen_pct")
 	self.healthRegenTime = self.ability:GetSpecialValueFor("bonus_aura_duration")
@@ -211,10 +308,13 @@ function modifier_item_jiduzhixinyan_ally_buff:OnIntervalThink()
 	if (self.counter < self.healthRegenTime) then
 		self.counter = self.counter + self.interval
 
-		local heal = self.target:GetMaxHealth() * self.healthRegenPct * 0.01 / self.healthRegenTime
-		self.target:Heal(heal, self.caster)
-		SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, self.target, heal, nil)
+		local heal = self.parent:GetMaxHealth() * self.healthRegenPct * 0.01 / self.healthRegenTime
+		self.parent:Heal(heal, self.caster)
+		SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, self.parent, heal, nil)
 	else
 		self:StartIntervalThink(-1)
 	end
 end
+
+-- 死亡光环 End
+----------------------------------------------------------------------------------------------

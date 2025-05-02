@@ -134,6 +134,7 @@ function Precache( context )
 	)
 
 	LinkLuaModifier("modifier_imba_roshan_ai", "components/modifiers/modifier_imba_roshan_ai.lua", LUA_MODIFIER_MOTION_NONE )
+	LinkLuaModifier("modifier_roshan_item", "scripts/vscripts/abilities/abilityroshan.lua", LUA_MODIFIER_MOTION_NONE )
 	LinkLuaModifier("aura_ability_collection_find_master_lua", "scripts/vscripts/abilities/abilityCollection.lua", LUA_MODIFIER_MOTION_NONE)
 
 	PrecacheResource( "model", "models/thd2/point.vmdl", context )--真の点数
@@ -2224,6 +2225,18 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 			0.2
 			)
 		end
+		-- 为肉山添加道具
+		GameRules:GetGameModeEntity():SetContextThink("roshanItem_delay",
+		function()
+			local roshan = Entities:FindByClassname(nil, "npc_dota_roshan")
+			if roshan == nil then
+				print("roshan is nil")
+			else
+				local m = roshan:AddNewModifier(roshan, nil, "modifier_roshan_item", {})
+			end
+			return nil
+		end, 1)
+
 		if THD2_GetBotMode() == true then
 			Tutorial:StartTutorialMode()
 			HostSay("Bot Difficulty: " .. THD2_GetBotDiffName())
