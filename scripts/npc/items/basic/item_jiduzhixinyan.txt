@@ -12,17 +12,21 @@
 		// Stats
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"	"0.0"
-		"AbilityCooldown"	"0"
+		"AbilityCooldown"	"1"
 		"AbilityManaCost"	"0"
 		"AbilityCastRange"	"0"
 		// Item Info
 		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"3000"
+		"ItemCost"	"4000"
 		"ItemShopTags"	"mana_pool"
-		"ItemPurchasable"				"0"
-		"ItemDroppable"					"0"
-		"ItemSellable"					"0"
+		"ItemPurchasable"				"1"
+		"ItemDroppable"					"1"
+		"ItemSellable"					"1"
 		"AllowedInBackpack"				"0"
+		"ItemStockMax"					"2"
+		"ItemStockInitial"				"0"
+		"ItemStockTime"					"1800.0"
+		"ItemInitialStockTime"			"690.0"
 		"Model"	"models/props_gameplay/neutral_box.vmdl"
 		"precache"
 		{

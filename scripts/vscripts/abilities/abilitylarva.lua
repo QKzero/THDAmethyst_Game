@@ -136,6 +136,12 @@ function modifier_ability_larva01_dash:IsPurgable()     return false end     --�
 -- function modifier_ability_larva01_dash:RemoveOnDeath() 	return true  end     --死亡移除
 function modifier_ability_larva01_dash:IsDebuff()	   	return false end     --是否是DEBUFF
 
+function modifier_ability_larva01_dash:CheckState()
+    return {
+        [MODIFIER_STATE_NO_UNIT_COLLISION] = true
+    }
+end
+
 function modifier_ability_larva01_dash:OnCreated(params)
 	if not IsServer() then return end
 

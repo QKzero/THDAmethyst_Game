@@ -663,7 +663,6 @@ function ability_thdots_seija04:OnSpellStart()
 	if self:GetCaster():HasModifier("modifier_ability_thdots_seijaEx_talent_4") then
 		self.radius = self:GetSpecialValueFor("talent_radius")
 	end
-	--print(self.caster:GetAbsOrigin())
 	self.isReverse 			= true --true顺时针，false逆时针
 	local dummy = CreateUnitByName(
 			"npc_dummy_unit"
@@ -701,19 +700,16 @@ function ability_thdots_seija04:OnSpellStart()
 	self.cast_range 		= 0
 	local targets  			= FindUnitsInRadius(self.caster:GetTeam(),self.center, nil, self.radius, 
 												self:GetAbilityTargetTeam(),self:GetAbilityTargetType(),0,0,false)
-	print(self.isReverse)
 	for _,v in pairs(targets) do
 		if self.isReverse == true then
-			if v:HasModifier("modifier_ability_thdots_seijaEx") then
+			if v:HasModifier("modifier_ability_thdots_seijaEx") or v:HasModifier("modifier_ability_thdots_seijaEx_passive") then
 				v:AddNewModifier(self.caster, self, "modifier_ability_thdots_seija04", {duration = 10})
 			end
 		else
-			if v:HasModifier("modifier_ability_thdots_seijaEx") then
-			else
+			if not (v:HasModifier("modifier_ability_thdots_seijaEx") or v:HasModifier("modifier_ability_thdots_seijaEx_passive")) then
 				v:AddNewModifier(self.caster, self, "modifier_ability_thdots_seija04", {duration = 10})
 			end
 		end
-		print(v:GetName())
 	end
 	if self.target ~= nil then
 		self.target:RemoveModifierByName("modifier_ability_thdots_seija04")
