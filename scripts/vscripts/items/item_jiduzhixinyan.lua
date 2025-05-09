@@ -94,7 +94,7 @@ function modifier_item_jiduzhixinyan_passive:OnDeath(keys)
 	if self.caster == nil then self.caster = self:GetCaster() end
 	if self.ability == nil then self.ability = self:GetAbility() end
 
-	if keys.unit ~= self.caster then return end
+	if keys.unit ~= self.caster or not self.caster:IsRealHero() then return end
 
 	if self.bonusAuraDuration == nil then self.bonusAuraDuration = self.ability:GetSpecialValueFor("bonus_aura_duration") end
 
@@ -175,7 +175,7 @@ function modifier_item_jiduzhixinyan_mark:OnDeath(keys)
 	if self.caster == nil then self.caster = self:GetCaster() end
 	if self.ability == nil then self.ability = self:GetAbility() end
 
-	if keys.unit ~= self.caster then return end
+	if keys.unit ~= self.caster or not self.caster:IsRealHero() then return end
 
 	if self:IsMarkValid() then
 		local target = PlayerResource:GetPlayer(self:GetStackCount()):GetAssignedHero()
