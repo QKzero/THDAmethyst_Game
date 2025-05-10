@@ -49,7 +49,7 @@ function modifier_item_tishen_passive:OnTakeDamage(keys)
     local parent  = self:GetParent()
     local ability = self:GetAbility()
     if parent:GetContext("ability_yuyuko_Ex_deadflag") == TRUE or parent:HasModifier("modifier_item_mr_yang_slowdown_debuff") then return end
-    if parent ~= keys.unit or (not ability:IsCooldownReady()) or bit.band(keys.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS) == DOTA_DAMAGE_FLAG_HPLOSS then return end
+    if parent ~= keys.unit or not parent:IsRealHero() or (not ability:IsCooldownReady()) or bit.band(keys.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS) == DOTA_DAMAGE_FLAG_HPLOSS then return end
     local health = parent:GetHealth()
     local hp_pct = health/parent:GetMaxHealth()
     if hp_pct < ability:GetSpecialValueFor("hp_threshold_pct")*0.01 or keys.damage > health then
