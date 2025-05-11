@@ -1549,7 +1549,7 @@ function THDOTSGameMode:OnHeroSpawned( keys )
 		--print(owner:GetClassname())
 		hero.owner = owner
 	end
-	if hero:IsHero() then
+	if hero:IsHero() and not hero:IsIllusion() then
 
 		--print('THDOTSGameMode:OnHeroSpawned:')
 		--print(hero:GetClassname())
