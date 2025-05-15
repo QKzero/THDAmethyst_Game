@@ -147,7 +147,7 @@ G_BOT_USED =
 	true ,			--永琳
 	true ,			--紫
 	
-	true ,			--16
+	false ,			--16
 	true ,			--小爱
 	false ,			--毒人偶
 	true ,			--正邪
