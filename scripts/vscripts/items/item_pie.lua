@@ -63,7 +63,34 @@ function modifier_item_mushroom_kebab:GetModifierBonusStats_Intellect()   return
 function modifier_item_mushroom_kebab:GetModifierStatusResistanceStacking()   return self:GetAbility():GetSpecialValueFor("bonus_resist") end
 
 
+-- 立即生效的派
+item_mushroom_kebab_immediate = {}
 
+function item_mushroom_kebab_immediate:GetIntrinsicModifierName()
+	return "modifier_item_mushroom_kebab_immediate"
+end
+
+modifier_item_mushroom_kebab_immediate = {}
+LinkLuaModifier("modifier_item_mushroom_kebab_immediate","items/item_pie.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_item_mushroom_kebab_immediate:IsHidden() return true end
+function modifier_item_mushroom_kebab_immediate:IsPurgable() return false end
+function modifier_item_mushroom_kebab_immediate:IsPurgeException() return false end
+function modifier_item_mushroom_kebab_immediate:RemoveOnDeath() return false end
+function modifier_item_mushroom_kebab_immediate:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
+
+function modifier_item_mushroom_kebab_immediate:OnCreated()
+    if not IsServer() then return end
+
+	local caster = self:GetCaster()
+	local ability = self:GetAbility()
+
+	caster:ModifyStrength(ability:GetSpecialValueFor("increase_strength"))
+
+	if (ability:IsItem()) then
+		UTIL_Remove(ability)
+	end
+end
 
 
 item_mushroom_pie={}
@@ -130,9 +157,34 @@ function modifier_item_mushroom_pie:GetModifierBonusStats_Agility()   return sel
 function modifier_item_mushroom_pie:GetModifierBonusStats_Intellect()   return self:GetAbility():GetSpecialValueFor("bonus_intellect") end
 function modifier_item_mushroom_pie:GetModifierMoveSpeedBonus_Percentage()   return self:GetAbility():GetSpecialValueFor("bonus_speed") end
 
+-- 立即生效的派
+item_mushroom_pie_immediate = {}
 
+function item_mushroom_pie_immediate:GetIntrinsicModifierName()
+	return "modifier_item_mushroom_pie_immediate"
+end
 
+modifier_item_mushroom_pie_immediate = {}
+LinkLuaModifier("modifier_item_mushroom_pie_immediate","items/item_pie.lua", LUA_MODIFIER_MOTION_NONE)
 
+function modifier_item_mushroom_pie_immediate:IsHidden() return true end
+function modifier_item_mushroom_pie_immediate:IsPurgable() return false end
+function modifier_item_mushroom_pie_immediate:IsPurgeException() return false end
+function modifier_item_mushroom_pie_immediate:RemoveOnDeath() return false end
+function modifier_item_mushroom_pie_immediate:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
+
+function modifier_item_mushroom_pie_immediate:OnCreated()
+    if not IsServer() then return end
+
+	local caster = self:GetCaster()
+	local ability = self:GetAbility()
+
+	caster:ModifyAgility(ability:GetSpecialValueFor("increase_agility"))
+
+	if (ability:IsItem()) then
+		UTIL_Remove(ability)
+	end
+end
 
 item_mushroom_soup={}
 
@@ -197,3 +249,33 @@ function modifier_item_mushroom_soup:GetModifierBonusStats_Strength()  return se
 function modifier_item_mushroom_soup:GetModifierBonusStats_Agility()   return self:GetAbility():GetSpecialValueFor("bonus_agility") end
 function modifier_item_mushroom_soup:GetModifierBonusStats_Intellect()   return self:GetAbility():GetSpecialValueFor("bonus_intellect") end
 function modifier_item_mushroom_soup:GetModifierPercentageCooldown()   return self:GetAbility():GetSpecialValueFor("bonus_cooldown_reduction") end
+
+
+-- 立即生效的派
+item_mushroom_soup_immediate = {}
+
+function item_mushroom_soup_immediate:GetIntrinsicModifierName()
+	return "modifier_item_mushroom_soup_immediate"
+end
+
+modifier_item_mushroom_soup_immediate = {}
+LinkLuaModifier("modifier_item_mushroom_soup_immediate","items/item_pie.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_item_mushroom_soup_immediate:IsHidden() return true end
+function modifier_item_mushroom_soup_immediate:IsPurgable() return false end
+function modifier_item_mushroom_soup_immediate:IsPurgeException() return false end
+function modifier_item_mushroom_soup_immediate:RemoveOnDeath() return false end
+function modifier_item_mushroom_soup_immediate:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
+
+function modifier_item_mushroom_soup_immediate:OnCreated()
+    if not IsServer() then return end
+
+	local caster = self:GetCaster()
+	local ability = self:GetAbility()
+
+	caster:ModifyIntellect(ability:GetSpecialValueFor("increase_intellect"))
+
+	if (ability:IsItem()) then
+		UTIL_Remove(ability)
+	end
+end
