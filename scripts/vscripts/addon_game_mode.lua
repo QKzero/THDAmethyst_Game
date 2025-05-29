@@ -190,6 +190,9 @@ function Precache( context )
 		end
 	end
 
+	PrecacheResource( "model", "models/props_gameplay/donkey.vmdl", context )--信使
+	PrecacheResource( "model", "models/props_gameplay/donkey_wings.vmdl", context )--飞行信使
+
 	PrecacheResource( "model", "models/thd2/yyy.vmdl", context )--灵梦D
 	PrecacheResource( "model", "models/thd2/fantasy_seal.vmdl", context )--灵梦F
 

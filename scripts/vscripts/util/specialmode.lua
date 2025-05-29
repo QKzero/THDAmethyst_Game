@@ -720,10 +720,11 @@ function THD2_AddBot()
 					else 
 						badcnt = badcnt + 1
 					end
+
 					--table.insert(G_Bot_List,i)
-					print(H_name)
 					-- hero name, line('top','mid','bottom'), diff, team 
 					Tutorial:AddBot(H_name,'','',bot_team)
+
 					-- clear it temporary
 					for i=0,233 do
 						if PlayerResource:GetPlayer(i) ~= nil and
