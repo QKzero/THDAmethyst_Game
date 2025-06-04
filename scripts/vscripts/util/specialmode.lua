@@ -190,7 +190,7 @@ G_BOT_USED =
 	
 	true ,			--紫苑
 	false ,			--女苑
-	true ,			--莉莉白
+	false ,			--莉莉白
 }
 
 G_Bot_Random_Hero = 
