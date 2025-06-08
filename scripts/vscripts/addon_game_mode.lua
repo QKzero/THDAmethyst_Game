@@ -67,6 +67,7 @@ THD2_BAN_LIST ={
 }
 -- 载入项目所有文件
 require	("timers")
+dofile  ( "util/neutral_items" )
 require ( "util/constants" )
 require ( "util/container" )
 require ( "util/damage" )
@@ -113,6 +114,10 @@ require ( "util/innate_ability")
 require ( "util/occult_ball" )
 require ( "util/notifications" )
 
+local botTable = {
+    [DOTA_TEAM_GOODGUYS]    = {},
+    [DOTA_TEAM_BADGUYS]     = {}
+}
 
 if THDOTSGameMode == nil then
 	THDOTSGameMode = {}
@@ -1628,7 +1633,6 @@ function THDOTSGameMode:OnHeroSpawned( keys )
 				end
 			end
 		end
-		
 		--print('THDOTSGameMode:OnHeroSpawned:')
 		--print(hero:GetClassname())
 		--print('ended')
@@ -2251,6 +2255,13 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 		THD2_BotPushAllWithDelay()
 		GameRules:SetTimeOfDay(0.25)
 		MushRoomStart() 		--刷蘑菇系统
+		AddBotsToTable()
+		local TeamRadiant = botTable[DOTA_TEAM_GOODGUYS]
+    	local TeamDire = botTable[DOTA_TEAM_BADGUYS]
+		Timers:CreateTimer(function()
+        NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
+		return 1
+		end)
 		if EnableMegaCreeps then
 			siege_start_interval()	--超级兵系统
 		end
@@ -2867,6 +2878,32 @@ function THDOTSGameMode:On_dota_inventory_item_added(keys)
 			end
 		end
 	end
+end
+
+function AddBotsToTable()
+    for nTeam = 0, 3 do
+        local pNum = PlayerResource:GetPlayerCountForTeam(nTeam)
+        for i = 0, pNum do
+            local playerID = PlayerResource:GetNthPlayerIDOnTeam(nTeam, i)
+            local player = PlayerResource:GetPlayer(playerID)
+            -- local connectionState = PlayerResource:GetConnectionState(playerID)
+            -- print('Setting up Buff for player: '..playerID..', connection state: '..tostring(connectionState))
+            if player then
+                local hero = player:GetAssignedHero()
+                local team = player:GetTeam()
+                if hero ~= nil then
+                    if PlayerResource:GetSteamID(hero:GetMainControllingPlayer()) == PlayerResource:GetSteamID(100) then
+                        -- print('Instering bot player: '..hero:GetUnitName()..', to team: '..team)
+                        table.insert(botTable[team], hero)
+                    end
+                else
+                    -- print('[WARN] Failed to add player '.. playerID .. ' to bots list. Spectator?')
+                end
+            else
+                -- print('[WARN] Failed to add player '.. playerID .. ' to bots list. Spectator?')
+            end
+        end
+    end
 end
 
 -- local lmmTestCmd = {}
