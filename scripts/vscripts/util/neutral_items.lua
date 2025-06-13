@@ -128,7 +128,7 @@ function NeutralItems:GetRandomEnhanByTier(tier)
     end
 
     -- Return a random enhancement from the filtered list.
-    return filtered[math.random(#filtered)]
+    return filtered[RandomInt(1, #filtered)]
 end
 
 
@@ -140,7 +140,6 @@ function NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
     if DotaTime() >= 3.5 * 60
     and not isTierOneDone
     then
-        GameRules:SendCustomMessage('Bots receiving Tier 1 Neutral Items...', 0, 0)
 
         for _, h in pairs(TeamRadiant) do
             NeutralItems.GiveItem(Tier1NeutralItems[RandomInt(1, #Tier1NeutralItems)], h, isTierOneDone, 1)
@@ -157,8 +156,6 @@ function NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
     if DotaTime() >= 8.5 * 60
     and not isTierTwoDone
     then
-        GameRules:SendCustomMessage('Bots receiving Tier 2 Neutral Items...', 0, 0)
-
         for _, h in pairs(TeamRadiant) do
             NeutralItems.GiveItem(Tier2NeutralItems[RandomInt(1, #Tier2NeutralItems)], h, isTierOneDone, 2)
         end
@@ -174,8 +171,6 @@ function NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
     if DotaTime() >= 13.5 * 60
     and not isTierThreeDone
     then
-        GameRules:SendCustomMessage('Bots receiving Tier 3 Neutral Items...', 0, 0)
-
         for _, h in pairs(TeamRadiant) do
             NeutralItems.GiveItem(Tier3NeutralItems[RandomInt(1, #Tier3NeutralItems)], h, isTierTwoDone, 3)
         end
@@ -191,7 +186,6 @@ function NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
     if DotaTime() >= 18.5 * 60
     and not isTierFourDone
     then
-        GameRules:SendCustomMessage('Bots receiving Tier 4 Neutral Items...', 0, 0)
 
         for _, h in pairs(TeamRadiant) do
             NeutralItems.GiveItem(Tier4NeutralItems[RandomInt(1, #Tier4NeutralItems)], h, isTierThreeDone, 4)
@@ -208,7 +202,6 @@ function NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
     if DotaTime() >= 25 * 60
     and not isTierFiveDone
     then
-        GameRules:SendCustomMessage('Bots receiving Tier 5 Neutral Items...', 0, 0)
 
         for _, h in pairs(TeamRadiant) do
             NeutralItems.GiveItem(Tier5NeutralItems[RandomInt(1, #Tier5NeutralItems)], h, isTierFourDone, 5)
