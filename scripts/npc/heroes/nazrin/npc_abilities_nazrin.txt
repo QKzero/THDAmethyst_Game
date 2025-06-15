@@ -478,7 +478,7 @@
 		"AbilityValues"
 		{
 			"AbilityCastRange"				"250"
-			"AbilityCooldown"				"40.0"
+			"AbilityCooldown"				"20.0"
 			"AbilityCastPoint"				"0.1"
 			"AbilityChannelTime"			"2"
 			
