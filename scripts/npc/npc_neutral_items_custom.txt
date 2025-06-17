@@ -17,13 +17,11 @@
 			
 			"items"
 			{
-				"item_trusty_shovel"			  	"1"		// 可靠铁铲
 				"item_occult_bracelet"				"1"		// 玄奥手镯
-				"item_unstable_wand"				"1"		// 豚杆
 				"item_polliwog_charm"			  	"1"		// 蝌蚪护符
 				"item_spark_of_courage"				"1"		// 勇气之光
-				// "item_royal_jelly"					"1"		// 蜂王浆
-				// "item_rippers_lash"					"1"		// 撕裂之鞭
+				"item_chipped_vest"					"1"		// 碎裂背心
+				"item_rippers_lash"					"1"		// 撕裂之鞭
 
 				// 7.39
 				"item_dormant_curio"				"1"		// 休眠珍品
@@ -51,12 +49,11 @@
 			"items"
 			{
 				"item_essence_ring"					"1"		// 精华指环
-				// "item_iron_talon"					"1"		// 寒铁钢爪
-				"item_gossamer_cape"				"1"		// 蛛丝斗篷
 				"item_searing_signet"				"1"		// 炽热纹章
 				"item_mana_draught"					"1"		// 魔力药水
 				"item_misericorde"					"1"		// 飞贼之刃
 				"item_pogo_stick"					"1"		// 杂技玩具
+				"item_poor_mans_shield"				"1"		// 穷鬼盾
 			}
 
 			"enhancements"
@@ -83,8 +80,7 @@
 
 			"items"
 			{
-				"item_serrated_shiv"				"1"		// 锯齿短刀 
-				"item_nemesis_curse"				"1"		// 天诛之咒
+				"item_serrated_shiv"				"1"		// 锯齿短刀
 				"item_gale_guard"					"1"		// 烈风护体
 				"item_gunpowder_gauntlets"			"1"		// 火药手套
 				"item_whisper_of_the_dread"			"1"		// 邪道私语
@@ -122,7 +118,6 @@
 				// "item_ogre_seal_totem"				"1"		// 食人魔海豹图腾
 				"item_crippling_crossbow"			"1"		// 致残之弩
 				"item_magnifying_monocle"			"1"		// 放大单片
-				"item_ceremonial_robe"				"1"		// 祭礼长袍
 				// "item_mind_breaker"					"1"		// 智灭
 				"item_pyrrhic_cloak"				"1"		// 皮洛士斗篷
 
@@ -163,13 +158,12 @@
 				"item_demonicon"					"1"		// 冥灵书
 				"item_minotaur_horn"				"1"		// 恶牛角
 				"item_spider_legs"					"1"		// 网虫腿
-				"item_panic_button"					"1"		// 神妙明灯
 				"item_unrelenting_eye"				"1"		// 不屈之眼
-				"item_pirate_hat"					"1"		// 海盗帽
+				// "item_pirate_hat"					"1"		// 海盗帽
 
 				// 7.39
 				"item_divine_regalia"				"1"		// 天赐华冠
-				"item_helm_of_the_undying"			"1"		// 不朽尸王的头盔
+				// "item_helm_of_the_undying"			"1"		// 不朽尸王的头盔
 			}
 
 			"enhancements"

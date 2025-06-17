@@ -13,27 +13,26 @@ local DOTA_ITEM_NEUTRAL_SLOT = 16
 print("NeutralItems.lua loaded")
 
 local Tier1NeutralItems = {
-    "item_trusty_shovel",
     "item_occult_bracelet",
-    "item_unstable_wand",
     "item_polliwog_charm",
     "item_spark_of_courage",
     "item_kobold_cup",
     "item_sisters_shroud",
+    "item_chipped_vest",
+    "item_rippers_lash",
 }
 
 local Tier2NeutralItems = {
     "item_essence_ring",
-    "item_gossamer_cape",
     "item_searing_signet",
     "item_mana_draught",
     "item_misericorde",
     "item_pogo_stick",
+    "item_poor_mans_shield",
 }
 
 local Tier3NeutralItems = {
     "item_serrated_shiv",
-    "item_nemesis_curse",
     "item_gale_guard",
     "item_gunpowder_gauntlets",
     "item_whisper_of_the_dread",
@@ -44,7 +43,6 @@ local Tier3NeutralItems = {
 local Tier4NeutralItems = {
     "item_crippling_crossbow",
     "item_magnifying_monocle",
-    "item_ceremonial_robe",
     "item_giant_maul",
     "item_outworld_staff",
     "item_pyrrhic_cloak",
@@ -57,10 +55,7 @@ local Tier5NeutralItems = {
     "item_demonicon",
     "item_minotaur_horn",
     "item_spider_legs",
-    "item_panic_button",
     "item_unrelenting_eye",
-    "item_pirate_hat",
-    "item_helm_of_the_undying",
 }
 
 local enhancements = {
@@ -92,6 +87,7 @@ local enhancements = {
     { name = "item_enhancement_vast",      tier = 3, realName = "Vast Enhancement" , level = 2},
     { name = "item_enhancement_greedy",    tier = 3, realName = "Greedy Enhancement" , level = 2},
     { name = "item_enhancement_vampiric",  tier = 3, realName = "Vampiric Enhancement" , level = 2},
+    { name = "item_enhancement_wise",      tier = 3, realName = "Wise Enhancement" , level = 1},
 
     -- Tier 4 enhancements
     { name = "item_enhancement_mystical",  tier = 4, realName = "Mystical Enhancement" , level = 4},
@@ -103,6 +99,7 @@ local enhancements = {
     { name = "item_enhancement_timeless",  tier = 4, realName = "Timeless Enhancement" , level = 1},
     { name = "item_enhancement_titanic",   tier = 4, realName = "Titanic Enhancement" , level = 1},
     { name = "item_enhancement_crude",     tier = 4, realName = "Crude Enhancement" , level = 1},
+    { name = "item_enhancement_wise",      tier = 4, realName = "Wise Enhancement" , level = 1},
 
     -- Tier 5 enhancements
     { name = "item_enhancement_timeless",  tier = 5, realName = "Timeless Enhancement" , level = 2},
@@ -113,6 +110,7 @@ local enhancements = {
     { name = "item_enhancement_audacious", tier = 5, realName = "Audacious Enhancement" , level = 1},
     { name = "item_enhancement_evolved",   tier = 5, realName = "Evolved Enhancement" , level = 1},
     { name = "item_enhancement_boundless", tier = 5, realName = "Boundless Enhancement" , level = 1},
+    { name = "item_enhancement_wise",      tier = 5, realName = "Wise Enhancement" , level = 1},
 }
 
 function NeutralItems:GetRandomEnhanByTier(tier)
@@ -199,7 +197,7 @@ function NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
     end
 
     -- Tier 5 Neutral Items
-    if DotaTime() >= 25 * 60
+    if DotaTime() >= 27.5 * 60
     and not isTierFiveDone
     then
 

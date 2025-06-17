@@ -1298,7 +1298,7 @@ end
 G_Bot_Level = {0,0,0,0,0,0,0,0,0,0,0}
 
 function THDOTSGameMode:BotUpGradeAbility(hero)
-	print("THDOTSGameMode:BotUpGradeAbility")
+	-- print("THDOTSGameMode:BotUpGradeAbility")
 	
 	local hName = hero:GetClassname()
 	local hIndex = -1
