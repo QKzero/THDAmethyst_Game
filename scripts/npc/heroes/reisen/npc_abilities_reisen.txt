@@ -5,7 +5,7 @@
 		"BaseClass"	"ability_datadriven"
 		"AbilityTextureName"	"custom/ability_thdots_reisenEx"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 	}
 

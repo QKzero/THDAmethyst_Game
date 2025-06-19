@@ -337,7 +337,7 @@
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
-		// "AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		// "AbilityType"	"ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 		"IsBreakable"					"1"
 		"precache"

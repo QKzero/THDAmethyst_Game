@@ -320,7 +320,7 @@
 		"AbilityTextureName"	"custom/ability_thdots_hatateEX"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
-		// "AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		// "AbilityType"	"ABILITY_TYPE_HIDDEN"
 		"AnimationPlaybackRate"	"2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
 		"MaxLevel"	"1"

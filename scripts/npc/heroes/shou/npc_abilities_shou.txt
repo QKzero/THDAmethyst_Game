@@ -240,7 +240,7 @@
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityType"	"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityType"	"ABILITY_TYPE_BASIC"
 		"MaxLevel"	"1"
 		"IsBreakable"					"1"
 		"Modifiers"

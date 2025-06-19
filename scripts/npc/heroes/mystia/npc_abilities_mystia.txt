@@ -446,7 +446,7 @@
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
-		"AbilityType"	"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityType"	"ABILITY_TYPE_BASIC"
 		"HasScepterUpgrade"			"1"
 		"MaxLevel"	"1"
 		"AbilityCastPoint"	"0"

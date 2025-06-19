@@ -301,7 +301,7 @@
 		"BaseClass"	"ability_lua"
 		"AbilityTextureName"	"custom/ability_thdots_mokou03"
 		"ScriptFile"	"scripts/vscripts/abilities/abilityMokou.lua"
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASE"
+		"AbilityType"					"ABILITY_TYPE_BASE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"

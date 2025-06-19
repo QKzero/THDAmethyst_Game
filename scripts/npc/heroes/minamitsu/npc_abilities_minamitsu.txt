@@ -505,7 +505,7 @@
 		"AbilityTextureName"	"custom/ability_thdots_minamitsu04_unit_block"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN "
 		"AbilityUnitTargetFlags"	"DOTA_UNIT_TARGET_FLAG_INVULNERABLE | DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
-		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 		"precache"
 		{

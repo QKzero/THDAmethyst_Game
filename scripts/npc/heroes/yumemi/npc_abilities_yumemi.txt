@@ -7,7 +7,7 @@
 		"AbilityTextureName"	"custom/ability_thdots_yumemiEx"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitTargetFlags"	"DOTA_UNIT_TARGET_FLAG_INVULNERABLE | DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
-		// "AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		// "AbilityType"	"ABILITY_TYPE_HIDDEN"
 		"HasScepterUpgrade"			"1"
 		"HasShardUpgrade"			"1"
 		"MaxLevel"	"1"

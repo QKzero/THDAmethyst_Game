@@ -146,7 +146,7 @@
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityType"	"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityType"	"ABILITY_TYPE_BASIC"
 		"AbilityCooldown"	"10"
 		"MaxLevel"	"1"
 		"RequiredLevel"	"0"

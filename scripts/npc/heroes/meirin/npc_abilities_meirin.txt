@@ -526,7 +526,7 @@
 		"AbilityTextureName"	"custom/ability_thdots_meirinex"
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		// "AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		// "AbilityType"	"ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 		"AbilityManaCost"           "0"
 		"AbilityCastPoint"          "0"

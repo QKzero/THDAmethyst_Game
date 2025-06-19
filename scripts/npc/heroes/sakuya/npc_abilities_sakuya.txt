@@ -7,7 +7,7 @@
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
-		// "AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
+		// "AbilityType"	"ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 		"AbilityCastPoint"	"0.2"
 		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"

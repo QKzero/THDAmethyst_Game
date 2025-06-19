@@ -428,7 +428,7 @@
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
 		"FightRecapLevel"	"1"
-		"AbilityType"	"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityType"	"ABILITY_TYPE_BASIC"
 		"HotKeyOverride"	"F"
 		"MaxLevel"	"1"
 		"RequiredLevel"	"1"
