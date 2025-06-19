@@ -498,7 +498,7 @@
 		
 		// Ability General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -558,7 +558,7 @@
 	"special_march_of_the_machines_disarm_duration_lua" //天赋：造成缴械
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -570,21 +570,21 @@
 	"special_bonus_unique_shizuha_1" //天赋：1技能范围 +100
 	{
 		"BaseClass"						"special_bonus_base"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 	
 	"special_bonus_unique_shizuha_2"  //天赋：大招CD减少
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 
 	"special_bonus_unique_shizuha_3" //天赋： 大招落叶数量+3
 	{
 		"BaseClass"						"special_bonus_base"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -595,7 +595,7 @@
 	"special_bonus_unique_shizuha_4"  //天赋：大招伤害倍数提升
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -606,7 +606,7 @@
 	"special_bonus_unique_shizuha_5" //天赋： 3技能 范围伤害+20
 	{
 		"BaseClass"						"special_bonus_base"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -617,7 +617,7 @@
 	"special_bonus_unique_shizuha_6"  //天赋：睡觉不被打断
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -629,21 +629,21 @@
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 	}
 
 	"special_bonus_unique_shizuha_8" //天赋： 1技能 +伤害
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 	}
 
 	"special_bonus_unique_shizuha_9" //天赋： 3技能 +光环攻击力
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 	}
 
 

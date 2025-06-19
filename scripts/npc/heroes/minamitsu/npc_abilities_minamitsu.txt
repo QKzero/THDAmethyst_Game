@@ -260,7 +260,7 @@
 		"AbilityTextureName"	"custom/ability_thdots_minamitsu04"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"	"ABILITY_TYPE_ULTIMATE"
 		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
 		"precache"
 		{
@@ -542,7 +542,7 @@
 	"special_bonus_unique_minamitsu_1"
 	{
 		"BaseClass"						"special_bonus_base"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 
@@ -552,7 +552,7 @@
 	"special_bonus_unique_minamitsu_2"
 	{
 		"BaseClass"						"special_bonus_base"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 
@@ -562,7 +562,7 @@
 	"special_bonus_unique_minamitsu_3"
 	{
 		"BaseClass"						"special_bonus_base"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 
@@ -572,7 +572,7 @@
 	"special_bonus_unique_minamitsu_4"
 	{
 		"BaseClass"						"special_bonus_base"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 
@@ -582,7 +582,7 @@
 	"special_bonus_unique_minamitsu_5"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{

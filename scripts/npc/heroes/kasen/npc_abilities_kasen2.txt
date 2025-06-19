@@ -90,7 +90,7 @@
 		"AbilityTextureName"		"custom/ability_thdots_kasen2_4"
 		"ScriptFile"			"scripts/vscripts/abilities/abilitykasen2.lua"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"	"ABILITY_TYPE_ULTIMATE"
 		"AbilityCooldown"		"100"
 		"AbilityManaCost"		"100 175 250"
 		"AbilityValues"
@@ -111,7 +111,7 @@
 		"BaseClass"			"ability_lua"
 		"AbilityTextureName"		"custom/ability_thdots_kasen2_sEx"
 		"ScriptFile"			"scripts/vscripts/abilities/abilitykasen2.lua"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"	"ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"MaxLevel"	"3"
 		"AbilityValues"
@@ -363,7 +363,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"80"
@@ -374,7 +374,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"130"
@@ -385,7 +385,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"1"
@@ -396,7 +396,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"20"
@@ -407,7 +407,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"20"
@@ -418,7 +418,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"1"
@@ -429,7 +429,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"1"
@@ -440,7 +440,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"50"

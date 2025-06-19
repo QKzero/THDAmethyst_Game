@@ -211,7 +211,7 @@
 		// "AbilityCooldown"           "0"
 		"HasScepterUpgrade"	"1"
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"	"ABILITY_TYPE_ULTIMATE"
 		"AbilityCastPoint"	"2.0"
 		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
 		"AbilityCooldown"	"110"
@@ -253,7 +253,7 @@
 	"special_bonus_unique_yuyuko_1"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -271,7 +271,7 @@
 	"special_bonus_unique_yuyuko_2"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -288,7 +288,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"ID"					"6367"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 		// Special

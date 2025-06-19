@@ -131,7 +131,7 @@
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityValues"
 		{
 			"value"	"500"
@@ -331,7 +331,7 @@
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"	"SPELL_IMMUNITY_ENEMIES_NO"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"	"ABILITY_TYPE_ULTIMATE"
 		"HasScepterUpgrade"			"1"
 		"AnimationPlaybackRate"	"2"
 		"AbilityCastPoint"	"0.3"
@@ -535,7 +535,7 @@
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityValues"
 		{
 			"value"	"3"
@@ -548,7 +548,7 @@
 	"special_bonus_unique_mystia_3"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -562,7 +562,7 @@
 	"special_bonus_unique_mystia_4"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{

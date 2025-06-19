@@ -444,7 +444,7 @@
 		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityTextureName"	"custom/ability_thdots_Margatroid04"
 		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_4"
-		"AbilityType"			   	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"			   	"ABILITY_TYPE_ULTIMATE"
         "MaxLevel"                 	"3"
 		
 		// Stats
@@ -807,7 +807,7 @@
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityValues"
 		{
 			"value"	"1"
@@ -817,7 +817,7 @@
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityValues"
 		{
 			"value"	"1"
@@ -827,7 +827,7 @@
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityValues"
 		{
 			"value"	"7"
@@ -840,7 +840,7 @@
 	"special_bonus_unique_margatroid_3"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -854,7 +854,7 @@
 	"special_bonus_unique_margatroid_4"  // +50人偶爆炸伤害
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -868,7 +868,7 @@
 	"special_bonus_unique_margatroid_6"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -882,7 +882,7 @@
 	"special_bonus_unique_margatroid_5"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -896,7 +896,7 @@
 	"special_bonus_unique_margatroid_7"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{

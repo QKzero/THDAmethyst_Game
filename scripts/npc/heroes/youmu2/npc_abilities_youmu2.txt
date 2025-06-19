@@ -166,7 +166,7 @@
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"	"ABILITY_TYPE_ULTIMATE"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
 		"AnimationPlaybackRate"	"1.5"
 		"precache"
@@ -240,21 +240,21 @@
 	{
 		"BaseClass"	"special_bonus_base"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 	}
 
 	"special_bonus_unique_youmu2_2"
 	{
 		"BaseClass"	"special_bonus_base"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 	}
 
 	"special_bonus_unique_youmu2_3"
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityValues"
 		{
 			"value"	"1"
@@ -265,19 +265,19 @@
 	{
 		"BaseClass"	"special_bonus_base"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 	}
 
 	"special_bonus_unique_youmu2_5"
 	{
 		"BaseClass"	"special_bonus_base"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 	}
 	"special_bonus_unique_youmu2_8"
 	{
 		"BaseClass"	"special_bonus_base"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
 	}
 }

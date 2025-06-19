@@ -448,7 +448,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"ID"					"5113"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityTextureName"	"custom/ability_thdots_tenshi04"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -898,7 +898,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"					    "night_stalker_darkness"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -1001,7 +1001,7 @@
 	// 	//-------------------------------------------------------------------------------------------------------------
 	// 	"ID"					"5145"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 	// 	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	// 	"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+	// 	"AbilityType"					"ABILITY_TYPE_ULTIMATE"
 
 	// 	// Time		
 	// 	//-------------------------------------------------------------------------------------------------------------
@@ -1488,7 +1488,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"ID"					"761"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 		// Special
@@ -1510,7 +1510,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"ID"					"7029"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 		// Special
@@ -1533,7 +1533,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"ID"					"5915"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 		// Special
@@ -1739,7 +1739,7 @@
 		"AbilityTextureName"			"touhoutd/thtd_sizuha_01"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"AbilitySound"					"Ability.Windrun"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
 		"MaxLevel"						"3"
 		"IsGrantedByShard"				"0"
 		// Casting

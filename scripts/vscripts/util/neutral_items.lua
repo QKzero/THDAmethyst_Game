@@ -87,7 +87,6 @@ local enhancements = {
     { name = "item_enhancement_vast",      tier = 3, realName = "Vast Enhancement" , level = 2},
     { name = "item_enhancement_greedy",    tier = 3, realName = "Greedy Enhancement" , level = 2},
     { name = "item_enhancement_vampiric",  tier = 3, realName = "Vampiric Enhancement" , level = 2},
-    { name = "item_enhancement_wise",      tier = 3, realName = "Wise Enhancement" , level = 1},
 
     -- Tier 4 enhancements
     { name = "item_enhancement_mystical",  tier = 4, realName = "Mystical Enhancement" , level = 4},

@@ -329,7 +329,7 @@
 	// 	"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 	// 	// Stats
 	// 	// ----------------------------------------------------------------
-	// 	"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+	// 	"AbilityType"	"ABILITY_TYPE_ULTIMATE"
 	// 	"precache"
 	// 	{
 	// 	}
@@ -386,7 +386,7 @@
 		"IsBreakable"					"1"
 		// Stats
 		// ----------------------------------------------------------------
-		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"	"ABILITY_TYPE_ULTIMATE"
 		"precache"
 		{
 			"particle"	"particles/units/heroes/hero_centaur/centaur_stampede_overhead.vpcf"
@@ -427,7 +427,7 @@
 	"special_bonus_unique_momiji_1"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -441,7 +441,7 @@
 	"special_bonus_unique_momiji_2"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -455,7 +455,7 @@
 	"special_bonus_unique_momiji_3"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -469,7 +469,7 @@
 	"special_bonus_unique_momiji_4"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{

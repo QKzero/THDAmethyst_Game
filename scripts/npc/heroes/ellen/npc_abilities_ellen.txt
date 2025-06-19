@@ -235,7 +235,7 @@
     		"ScriptFile"					 "scripts/vscripts/abilities/abilityellen.lua"
     		"AbilityTextureName"			"shadow_demon/immortal/shadow_demon_shadow_poison"
     		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-    	    "AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+    	    "AbilityType"					"ABILITY_TYPE_ULTIMATE"
     		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
     		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
     		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
@@ -293,7 +293,7 @@
          {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
          	{
          		"value"	"2"
@@ -304,7 +304,7 @@
     	{
     		"BaseClass"	"special_bonus_undefined"
     		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-    		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+    		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
     		"AbilityValues"
     		{
     			"value"	"90"
@@ -315,7 +315,7 @@
     	{
     		"BaseClass"	"special_bonus_undefined"
     		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-    		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+    		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
     		"AbilityValues"
     		{
     			"value"	"0.2"
@@ -325,7 +325,7 @@
     	{
     		"BaseClass"	"special_bonus_undefined"
     		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-    		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+    		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
     		"AbilityValues"
     		{
     			"value"	"100"
@@ -338,7 +338,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"BaseClass"						"special_bonus_base"
 		"SpecialBonusIntrinsicModifier" "modifier_special_bonus_strength"

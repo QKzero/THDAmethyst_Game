@@ -121,7 +121,7 @@
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"	"ABILITY_TYPE_ULTIMATE"
 		"MaxLevel"	"3"
 		"AbilityCooldown"		"100"
 		"AbilityManaCost"		"200 300 400"
@@ -174,7 +174,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"400"
@@ -185,7 +185,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"1"
@@ -196,7 +196,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"5"
@@ -207,7 +207,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"1"
@@ -218,7 +218,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"300"
@@ -229,7 +229,7 @@
     {
          	"BaseClass"	"special_bonus_undefined"
          	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
+         	"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
          	"AbilityValues"
         	{
          		"value"	"2"

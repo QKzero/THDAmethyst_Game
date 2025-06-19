@@ -195,7 +195,7 @@
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"	"ABILITY_TYPE_ULTIMATE"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
 		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
 		"AnimationPlaybackRate"	"1"
@@ -255,28 +255,28 @@
 	{
 		"BaseClass"			"special_bonus_base"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"		"ABILITY_TYPE_ATTRIBUTES"
 	}
 
 	"special_bonus_unique_seiga_2"
 	{
 		"BaseClass"			"special_bonus_base"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"		"ABILITY_TYPE_ATTRIBUTES"
 	}
 
 	"special_bonus_unique_seiga_3"
 	{
 		"BaseClass"			"special_bonus_base"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"		"ABILITY_TYPE_ATTRIBUTES"
 	}
 
 	"special_bonus_unique_seiga_4"
 	{
 		"BaseClass"			"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"		"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityValues"
 		{
 			"value"	"1"
@@ -287,7 +287,7 @@
 	{
 		"BaseClass"			"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"		"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityValues"
 		{
 			"value"	"1"
@@ -298,7 +298,7 @@
 	{
 		"BaseClass"			"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"		"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityValues"
 		{
 			"value"	"4"
@@ -308,6 +308,6 @@
 	{
 		"BaseClass"			"special_bonus_base"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"		"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"		"ABILITY_TYPE_ATTRIBUTES"
 	}
 }

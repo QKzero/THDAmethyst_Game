@@ -250,7 +250,7 @@
 		// ----------------------------------------------------------------
 		"AbilityCastRange"		"99999"
 		"AOERadius"				"%radius"
-		"AbilityType"			"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"			"ABILITY_TYPE_ULTIMATE"
 		"AbilityManaCost"		"125 150 175"
 		"AbilityDamage"			"100 200 300"
 
@@ -332,7 +332,7 @@
 	"special_bonus_unique_nue_1"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -346,7 +346,7 @@
 	"special_bonus_unique_nue_2"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{
@@ -360,7 +360,7 @@
 	"special_bonus_unique_nue_3"
 	{
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityValues"
 		{

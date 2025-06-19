@@ -237,7 +237,7 @@
 		"SpellDispellableType" 		"SPELL_DISPELLABLE_YES"
 		"AbilityCastAnimation"      "Act_DOTA_CAST_ABILITY_3"
 		"AnimationPlaybackRate"		"1.8"
-		"AbilityType"				"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityType"				"ABILITY_TYPE_ULTIMATE"
 		"MaxLevel"					"3"		
 		// Stats
 		//----------------------------------------------------------------
