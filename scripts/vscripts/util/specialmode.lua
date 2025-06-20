@@ -171,7 +171,7 @@ G_BOT_USED =
 	false ,			--红师傅
 	false ,			--小恶魔
 	
-	false ,			--爱莲
+	true ,			--爱莲
 	false ,			--果/极/羽
 	false ,			--神子
 	false ,			--宫古

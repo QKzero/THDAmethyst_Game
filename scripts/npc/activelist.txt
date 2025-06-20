@@ -1,7 +1,7 @@
 "whitelist"
 {
 	"npc_dota_hero_ancient_apparition" "1"//
-	"npc_dota_hero_arc_warden" "1"//
+	// "npc_dota_hero_arc_warden" "1"//
 
 
 	"npc_dota_hero_antimage" "1"//
@@ -113,7 +113,7 @@
 	"npc_dota_hero_warlock" "1"//
 
 	"npc_dota_hero_alchemist" "1"//
-	"npc_dota_hero_death_prophet" "1"//
+	// "npc_dota_hero_death_prophet" "1"//
 	"npc_dota_hero_ursa" "1"//
 
 
