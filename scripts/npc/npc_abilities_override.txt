@@ -641,10 +641,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.1"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30.0 26.0 22.0 18.0"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"40 50 60 70"
@@ -656,21 +652,26 @@
 			"outgoing_damage"
 			{
 				"value"	"-82 -76 -70 -64"
-				"LinkedSpecialBonus"		"special_bonus_unique_naga_siren_4"
+				"special_bonus_unique_naga_siren_4" "+29"
 			}
 			"outgoing_damage_tooltip"
 			{
 				"value"	"18 24 30 36"
-				"LinkedSpecialBonus"		"special_bonus_unique_naga_siren_4"
+				"special_bonus_unique_naga_siren_4" "+29"
 			}
 			"incoming_damage"			"150"
 			"tooltip_incoming_damage_total_pct"			"150"
 			"images_count"
 			{
 				"value"	"3 3 3 3"
-				"LinkedSpecialBonus"        ""
 			}
 			"invuln_duration"			"0.3"
+
+			"AbilityCooldown"
+			{
+				"value"								"30.0 26.0 22.0 18.0"
+				"special_bonus_unique_naga_siren_6"	"-5"
+			}
 		}
 	}
 
@@ -1479,51 +1480,6 @@
 	//"item_jinkela"     "REMOVE"
 
 	//"item_yukkuri_stick"	"REMOVE"
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_naga_siren_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"761"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"value"
-			{
-				"value"	"5"
-				"ad_linked_abilities"			"naga_siren_mirror_image"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_naga_siren_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"7029"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"value"
-			{
-				"value"	"29"
-				"ad_linked_abilities"			"naga_siren_mirror_image"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}	
 
 	//=================================================================================================================
 	// Ability: Special Bonus：+28魔法恢复

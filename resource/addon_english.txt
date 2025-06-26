@@ -874,8 +874,8 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_flandre_4"								"+{s:bonus_outgoing_damage}%「Four of a Kind」Illusion Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_flandre_5"								"-{s:bonus_AbilityCooldown}s「Four of a Kind」Cooldown"
 		
-		"DOTA_Tooltip_ability_special_bonus_unique_naga_siren_4"							"+{s:value}%「Four of a Kind」Illusion Damage"
-		"DOTA_Tooltip_ability_special_bonus_unique_naga_siren_6"							"-{s:value}s「Four of a Kind」Cooldown"
+		"DOTA_Tooltip_ability_special_bonus_unique_naga_siren_4"							"+{s:bonus_outgoing_damage_tooltip}%「Four of a Kind」Illusion Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_naga_siren_6"							"-{s:bonus_AbilityCooldown}s「Four of a Kind」Cooldown"
 
 		//--------------------
 		//Flandre v2
