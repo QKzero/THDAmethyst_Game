@@ -52,7 +52,7 @@
 		"AttackDamageMax"	"39"
 		"AttackRange"	"150"
 		"DisableWearables"	"1"	
-		"VisionDaytimeRange"	"1050"
+		"VisionDaytimeRange"	"1800"
 		// 白天视野大小
 		"VisionNighttimeRange"	"750"	
 		"ArmorPhysical"	"0"

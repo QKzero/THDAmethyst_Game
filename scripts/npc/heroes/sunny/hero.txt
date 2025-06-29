@@ -86,9 +86,9 @@
 		// 基础魔法值
 		"StatusManaRegen"	"0.6"
 		// 基础魔法恢复
-		"VisionDaytimeRange"	"1050"
+		"VisionDaytimeRange"	"1800"
 		// 白天视野大小
-		"VisionNighttimeRange"	"700"
+		"VisionNighttimeRange"	"800"
 		"Model"	"models/sunny/sunny.vmdl"
 		"SoundSet"	"Hero_LifeStealer"
 		"GameSoundsFile"	"soundevents/game_sounds_heroes/game_sounds_life_stealer.vsndevts"

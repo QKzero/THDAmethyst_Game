@@ -63,9 +63,9 @@
 		"ArmorPhysical"	"0"		
 		"StatusManaRegen"	"0.9"	
 		"StatusHealth"	"120"		
-		"VisionDaytimeRange"	"1050"
+		"VisionDaytimeRange"	"1800"
 		// 白天视野大小
-		"VisionNighttimeRange"	"700"		
+		"VisionNighttimeRange"	"800"		
 		"DisableWearables"	"1"	
 		"Complexity"	"2"		
 	}
