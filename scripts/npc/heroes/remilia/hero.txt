@@ -77,7 +77,7 @@
 		// 基础魔法值
 		"StatusManaRegen"	"2.0"
 		// 基础魔法恢复
-		"VisionDaytimeRange"	"1050"
+		"VisionDaytimeRange"	"1800"
 		// 白天视野大小
 		"VisionNighttimeRange"	"1300"
 		// 晚上视野大小
