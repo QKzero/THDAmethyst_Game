@@ -52,7 +52,7 @@
 		"MovementTurnRate"	"1.8"
 		"StatusHealthRegen"	"1.5"
 		"StatusManaRegen"	"0.7"
-		"VisionDaytimeRange"	"850"
-		"VisionNighttimeRange"	"1200"
+		"VisionDaytimeRange"	"950"
+		"VisionNighttimeRange"	"1950"
 	}
 }

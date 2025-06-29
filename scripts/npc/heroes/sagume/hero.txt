@@ -72,9 +72,9 @@
 		// 基础魔法值
 		"StatusManaRegen"	"1.5"
 		// 基础魔法恢复
-		"VisionDaytimeRange"	"700"
+		"VisionDaytimeRange"	"800"
 		// 白天视野大小
-		"VisionNighttimeRange"	"1050"
+		"VisionNighttimeRange"	"1800"
 		// 晚上视野大小
 		"DisableWearables"	"1"
 		"AttachWearables"

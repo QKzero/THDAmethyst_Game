@@ -77,7 +77,7 @@
 		// 基础魔法恢复
 		"VisionDaytimeRange"	"1050"
 		// 白天视野大小
-		"VisionNighttimeRange"	"1200"
+		"VisionNighttimeRange"	"1300"
 		"DisableWearables"	"1"
 		
 		"Ability7"	"generic_hidden"
