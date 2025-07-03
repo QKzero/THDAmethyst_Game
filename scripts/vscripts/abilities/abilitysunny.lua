@@ -191,6 +191,7 @@ function sunny02_effect(caster,radius)
 		ParticleManager:SetParticleControlEnt(effectIndex , 0, dummy, 5, "attach_hitloc", Vector(0,0,0), true)
 		ParticleManager:SetParticleControlEnt(effectIndex , 1, dummy_kid, 5, "attach_hitloc", Vector(0,0,0), true)
 		ParticleManager:SetParticleControlEnt(effectIndex , 9, dummy, 5, "attach_hitloc", Vector(0,0,0), true)
+		ParticleManager:DestroyParticleSystemTime(effectIndex,2)
 	end
 end
 
@@ -250,6 +251,7 @@ function ability_thdots_sunny03:OnSpellStart()
 					ParticleManager:SetParticleControlEnt(effectIndex , 0, target, 5, "attach_hitloc", Vector(0,0,0), true)
 					ParticleManager:SetParticleControlEnt(effectIndex , 1, v, 5, "attach_hitloc", Vector(0,0,0), true)
 					ParticleManager:SetParticleControlEnt(effectIndex , 9, target, 5, "attach_hitloc", Vector(0,0,0), true)
+					ParticleManager:DestroyParticleSystemTime(effectIndex,2)
 					v:EmitSound("Hero_Tinker.LaserImpact")
 
 					v:AddNewModifier(caster,self, "modifier_ability_thdots_sunny03_debuff", {duration = duration * (1 - v:GetStatusResistance())})
@@ -420,7 +422,8 @@ function modifier_ability_thdots_sunny04:OnIntervalThink()
 				bHasFrontalCone = false,
 				bReplaceExisting = false,
 				iUnitTargetTeam = ability:GetAbilityTargetTeam(),							
-				iUnitTargetType = ability:GetAbilityTargetType(),							
+				iUnitTargetType = ability:GetAbilityTargetType(),
+				fExpireTime = GameRules:GetGameTime() + 3.0,
 				bDeleteOnHit = false,
 				vVelocity = (caster:GetForwardVector() * Vector(1, 1, 0)):Normalized() * 1200,
 				bProvidesVision = true,	
