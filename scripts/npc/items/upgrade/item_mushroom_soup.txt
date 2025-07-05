@@ -81,14 +81,18 @@
 		// -------------------------------------------------------------------------------------------------------------
 		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
 		"ID"	"8045"
-		"ItemQuality"	"component"
+		"ItemQuality"	"secretshop"
 		// Item Info
 		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"504"
+		"ItemCost"	"540"
 		"ItemDroppable"	"1"
 		"ItemSellable"	"1"
 		"ItemShopTags"	"agi;int;str"
 		"ItemAliases"	"magicshroom soup;null talisman"
+		"ItemStockMax"					"99"
+		"ItemStockInitial"				"0"
+		"ItemStockTime"					"1.0"
+		"ItemInitialStockTime"			"390.0"
 		// Special
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityValues"

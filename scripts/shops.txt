@@ -88,6 +88,9 @@
 		"item"		"item_silver_knife"
 		"item"      "item_throwing_knive"
 		"item"		"item_hj_bug"
+		"item"		"item_mushroom_kebab_immediate"
+		"item"		"item_mushroom_pie_immediate"
+		"item"		"item_mushroom_soup_immediate"
 	}
 
 	"basics"

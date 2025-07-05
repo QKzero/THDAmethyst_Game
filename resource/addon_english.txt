@@ -6607,6 +6607,8 @@
 		"DOTA_Tooltip_ability_item_mushroom_kebab_bonus_intellect"					"+$int"
 		"DOTA_Tooltip_ability_item_mushroom_kebab_bonus_resist"						"%+$status_resist"
 		"DOTA_Tooltip_ability_item_mushroom_kebab_Description"						"<h1>Use: Scarlet Devil Essence</h1>Permanently increases strength by %increase_strength%. Cannot be used within the first 5 minutes of the game."
+		"DOTA_Tooltip_ability_item_mushroom_kebab_immediate"						"Scarlet Devil Pendant (Immediate)"
+		"DOTA_Tooltip_ability_item_mushroom_kebab_immediate_Description"			"<h1>Use: Scarlet Devil Essence</h1>Disappear and Permanently increases strength by %increase_strength% when it's moved to backpack."
 
 		"DOTA_Tooltip_ability_item_recipe_mushroom_pie"								"Recipe: Fairy Charm"
 		"DOTA_Tooltip_ability_item_mushroom_pie"									"Fairy Charm"
@@ -6615,6 +6617,8 @@
 		"DOTA_Tooltip_ability_item_mushroom_pie_bonus_intellect"					"+$int"
 		"DOTA_Tooltip_ability_item_mushroom_pie_bonus_speed"						"%+$move_speed"
 		"DOTA_Tooltip_ability_item_mushroom_pie_Description"						"<h1>Use: Fairy Essence</h1>Permanently increases agility by %increase_agility%. Cannot be used within the first 5 minutes of the game."
+		"DOTA_Tooltip_ability_item_mushroom_pie_immediate"							"Fairy Charm (Immediate)"
+		"DOTA_Tooltip_ability_item_mushroom_pie_immediate_Description"				"<h1>Use: Fairy Essence</h1>Disappear and Permanently increases agility by %increase_agility% when it's moved to backpack."
 
 		"DOTA_Tooltip_ability_item_recipe_mushroom_soup"							"Recipe: Magic Talisman"
 		"DOTA_Tooltip_ability_item_mushroom_soup"									"Magic Talisman"
@@ -6623,6 +6627,8 @@
 		"DOTA_Tooltip_ability_item_mushroom_soup_bonus_intellect"					"+$int"
 		"DOTA_Tooltip_ability_item_mushroom_soup_bonus_cooldown_reduction"			"%+$cooldown_reduction"
 		"DOTA_Tooltip_ability_item_mushroom_soup_Description"						"<h1>Use: Magical Essence</h1>Permanently increases intelligence by %increase_intellect%. Cannot be used within the first 5 minutes of the game."
+		"DOTA_Tooltip_ability_item_mushroom_soup_immediate"							"Magic Talisman (Immediate)"
+		"DOTA_Tooltip_ability_item_mushroom_soup_immediate_Description"				"<h1>Use: Magical Essence</h1>Disappear and Permanently increases intelligence by %increase_intellect% when it's moved to backpack."
 
 		"DOTA_Tooltip_ability_item_recipe_wind_gun"									"Recipe: Kappa Assault Pistol"
 		"DOTA_Tooltip_ability_item_wind_gun"										"Kappa Assault Pistol"
