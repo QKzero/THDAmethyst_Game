@@ -12,6 +12,10 @@ G_Rune_Bounty_List = {1,1,1,1,1,1}
 G_Rune_PowerUp_List = {1,1,1,1,1,1}
 G_Rune_Bounty_Spwner_List = {}
 G_Rune_PowerUp_Spwner_List = {}
+-- 在线测试白名单
+G_OnlineDebugWhiteList = {
+	[259798081] = 1, -- QKzero
+};
 DOTA_BAN_LIST={
 	"npc_dota_hero_morphling",--水人
 	"npc_dota_hero_shredder",--伐木机-
@@ -571,7 +575,36 @@ function THDOTSGameMode:OnPlayerSay( keys )
 	print("player is host: " .. tmp )
 	
 	local ss = Split( text, " " )
-	
+
+	-- 白名单用户可用
+	if G_OnlineDebugWhiteList[PlayerResource:GetSteamAccountID(plyid)] ~= nil then
+		if ss[1] == "-kill" then
+			local hero = PlayerResource:GetSelectedHeroEntity(plyid)
+			hero:Kill(nil, hero)
+		elseif ss[1] == "-replacehero" then
+			local hero = PlayerResource:GetSelectedHeroEntity(plyid)
+			local newHeroName = ss[2]
+			local properties = {}
+			for i = 3, #ss do
+				properties[ss[i]] = 1
+			end
+			if (hero ~= nil and newHeroName ~= nil) then
+				if string.sub(newHeroName, 1, string.len("npc_dota_hero_")) ~= "npc_dota_hero_" then 
+					newHeroName = "npc_dota_hero_" .. newHeroName
+				end
+				local gold = hero:GetGold()
+				local xp = hero:GetCurrentXP()
+				if properties["-ug"] then
+					gold = 0
+				end
+				if properties["-ux"] then
+					xp = 0
+				end
+				PlayerResource:ReplaceHeroWith(plyid, newHeroName, gold, xp)
+			end 
+		end
+	end
+
 	if is_host then  --主机限定的指令(所有图通用)
 		
 		if ss[1] == "-testbot" then
