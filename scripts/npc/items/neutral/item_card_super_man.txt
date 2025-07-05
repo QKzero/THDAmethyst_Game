@@ -44,9 +44,6 @@
 			"duration"    "4"
 		}
 		"AbilitySharedCooldown"	"item_card"
-		"ItemStockMax"	"2"
-		"ItemStockInitial"	"2"
-		"ItemStockTime"	"120.0"
 	}
 
 	"item_card_super_man_shop"
@@ -78,10 +75,7 @@
 		"ItemStackable"	"1"
 		"ItemShopTags"	"consumables"
 		"AbilitySharedCooldown"	"item_card"
-		"ItemStockMax"	"2"
-		"ItemStockInitial"	"2"
 		"ItemAlertable"		"1"
-		"ItemStockTime"	"120.0"
 		"IsTempestDoubleClonable"		"0"
 		"AbilityValues"
 		{

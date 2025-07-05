@@ -84,20 +84,16 @@
 		"ItemQuality"	"secretshop"
 		// Item Info
 		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"540"
+		"ItemCost"	"2700"
 		"ItemDroppable"	"1"
 		"ItemSellable"	"1"
 		"ItemShopTags"	"agi;int;str"
 		"ItemAliases"	"magicshroom kebab;bracer"
-		"ItemStockMax"					"99"
-		"ItemStockInitial"				"0"
-		"ItemStockTime"					"1.0"
-		"ItemInitialStockTime"			"390.0"
 		// Special
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"increase_strength"	"3"
+			"increase_strength"	"15"
 		}
 	}
 }

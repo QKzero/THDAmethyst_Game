@@ -84,20 +84,12 @@
 		"ItemQuality"	"secretshop"
 		// Item Info
 		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"540"
-		"ItemDroppable"	"1"
-		"ItemSellable"	"1"
-		"ItemShopTags"	"agi;int;str"
-		"ItemAliases"	"magicshroom soup;null talisman"
-		"ItemStockMax"					"99"
-		"ItemStockInitial"				"0"
-		"ItemStockTime"					"1.0"
-		"ItemInitialStockTime"			"390.0"
+		"ItemCost"	"2700"
 		// Special
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"increase_intellect"	"3"
+			"increase_intellect"	"15"
 		}
 	}
 }

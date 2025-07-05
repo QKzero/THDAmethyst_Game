@@ -84,20 +84,16 @@
 		"ItemQuality"	"secretshop"
 		// Item Info
 		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"504"
+		"ItemCost"	"2700"
 		"ItemDroppable"	"1"
 		"ItemSellable"	"1"
 		"ItemShopTags"	"agi;int;str"
 		"ItemAliases"	"magicshroom pie;wraith band"
-		"ItemStockMax"					"99"
-		"ItemStockInitial"				"0"
-		"ItemStockTime"					"1.0"
-		"ItemInitialStockTime"			"390.0"
 		// Special
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"increase_agility"	"3"
+			"increase_agility"	"15"
 		}
 	}
 }

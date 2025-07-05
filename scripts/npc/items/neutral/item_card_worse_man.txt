@@ -62,9 +62,6 @@
 			"absorb_mana_amount"	"100"
 		}
 		"AbilitySharedCooldown"	"item_card"
-		"ItemStockMax"	"2"
-		"ItemStockInitial"	"2"
-		"ItemStockTime"	"120.0"
 	}
 
 	"item_card_worse_man_shop"
@@ -95,9 +92,6 @@
 		"ItemStackable"	"1"
 		"ItemShopTags"	"consumables"
 		"AbilitySharedCooldown"	"item_card"
-		"ItemStockMax"	"2"
-		"ItemStockInitial"	"2"
-		"ItemStockTime"	"120.0"
 		"AbilityValues"
 		{
 			"absorb_damage"	"100"
