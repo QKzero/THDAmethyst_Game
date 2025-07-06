@@ -1186,6 +1186,7 @@ function modifier_ability_thdots_kokoro04_caster:OnDestroy()
 				fDistance = distance,
 				fStartRadius = 150,
 				fEndRadius = 150,
+				fExpireTime = GameRules:GetGameTime() + 10.0,
 				Source = caster,
 				bHasFrontalCone = false,
 				bReplaceExisting = false,

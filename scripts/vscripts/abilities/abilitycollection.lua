@@ -105,8 +105,8 @@ function OnGetCollection(Collection,Hero)
 			local effectIndex = ParticleManager:CreateParticle("particles/items_fx/aegis_respawn_spotlight.vpcf", PATTACH_CUSTOMORIGIN, Hero)
 			ParticleManager:SetParticleControl(effectIndex, 0, vecHero)
 			ParticleManager:ReleaseParticleIndex(effectIndex)
+			ParticleManager:DestroyParticleSystem(effectIndex,false)
 			powerCount = powerCount + 1
-			print(powerCount)
 			Hero:SetContextNum("hero_bouns_stat_power_count",powerCount,0)
 			local ability = Hero:FindAbilityByName("ability_common_power_buff")
 			if ability then

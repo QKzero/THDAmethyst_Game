@@ -126,6 +126,7 @@ function Sumireko01CreateProjectile(caster,ability,start_position,end_position,s
 				fDistance = distance,
 				fStartRadius = ability.radius,
 				fEndRadius = ability.radius,
+				fExpireTime = GameRules:GetGameTime() + 10.0,
 				-- vVelocity = ((point - caster:GetAbsOrigin()) * Vector(1, 1, 0)):Normalized() * 1500,
 				vVelocity = ((end_position - start_position) * Vector(1, 1, 0)):Normalized() * speed,
 				bReplaceExisting = false,

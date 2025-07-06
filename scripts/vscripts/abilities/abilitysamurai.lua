@@ -53,6 +53,7 @@ function ability_thdots_samurai01:OnSpellStart()
 				fDistance = distance,
 				fStartRadius = self.swidth,
 				fEndRadius = width,
+				fExpireTime = GameRules:GetGameTime() + 10.0,
 				Source = caster,
 				bHasFrontalCone = false,
 				bReplaceExisting = false,

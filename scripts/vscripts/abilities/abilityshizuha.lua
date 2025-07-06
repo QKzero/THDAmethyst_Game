@@ -828,6 +828,7 @@ function modifier_shizuha04_thinker:OnCreated( kv )
 			fDistance = distance,
 			fStartRadius = collision_radius,
 			fEndRadius = collision_radius,
+			fExpireTime = GameRules:GetGameTime() + 10.0,
 			vVelocity = direction * speed,
 
 			ExtraData = {

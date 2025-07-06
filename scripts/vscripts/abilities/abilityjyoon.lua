@@ -237,6 +237,7 @@ function ability_thdots_Jyoon_2:OnSpellStart()
         fDistance = self:calDistancePoint(target_location,current_location),
         fStartRadius = self:GetSpecialValueFor("collision_radius"),
         fEndRadius = self:GetSpecialValueFor("collision_radius"),
+        fExpireTime = GameRules:GetGameTime() + 10.0,
         -- iUnitTargetTeam	 	= ability:GetAbilityTargetTeam(),
 	   	-- iUnitTargetType 	= ability:GetAbilityTargetType(),
         -- iUnitTargetFlags = ability:GetAbilityTargetFlags(),

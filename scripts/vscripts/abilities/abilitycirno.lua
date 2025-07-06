@@ -182,6 +182,7 @@ function CirnoBreakIceboundsInRadius(caster,pos,radius)
 					ParticleManager:SetParticleControl(effectIndex, 0, effectOrigin)
 					ParticleManager:SetParticleControl(effectIndex, 2, effectOrigin)
 					caster:EmitSound("Hero_Crystal.CrystalNova.Yulsaria")
+					ParticleManager:DestroyParticleSystem(effectIndex,false)
 				end
 			)
 		end
@@ -220,6 +221,7 @@ function OnCirno01SpellStart(keys)
 	local effectIndex = ParticleManager:CreateParticle("particles/heroes/cirno/ability_cirno_02.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(effectIndex, 0, effectOrigin)
 	ParticleManager:SetParticleControl(effectIndex, 2, effectOrigin)
+	ParticleManager:DestroyParticleSystem(effectIndex,false)
 end
 
 function OnCirno02SpellStart(keys)
@@ -279,6 +281,7 @@ function OnCirno03SpellStart(keys)
 			ParticleManager:SetParticleControl(effectIndex, 0, effectOrigin)
 			ParticleManager:SetParticleControl(effectIndex, 2, effectOrigin)
 			Caster:EmitSound("Hero_Crystal.CrystalNova")
+			ParticleManager:DestroyParticleSystem(effectIndex,false)
 
 			tick=tick+1
 			if tick>=tick_max then return nil end

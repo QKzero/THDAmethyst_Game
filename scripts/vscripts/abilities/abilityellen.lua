@@ -630,12 +630,14 @@ function ability_thdots_ellen03_end:OnSpellStart()
     ParticleManager:SetParticleControl(pfx, 0, caster:GetAbsOrigin())
     ParticleManager:SetParticleControl(pfx, 1, Vector(radius,radius,radius))
     ParticleManager:ReleaseParticleIndex(pfx)
+	ParticleManager:DestroyParticleSystem(pfx,false)
 
     local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_keeper_of_the_light/keeper_of_the_light_blinding_light_aoe.vpcf", PATTACH_POINT_FOLLOW, caster)
     ParticleManager:SetParticleControl(particle, 0, position)
     ParticleManager:SetParticleControl(particle, 1, position)
     ParticleManager:SetParticleControl(particle, 2, Vector(self.radius, 0, 0))
     ParticleManager:ReleaseParticleIndex(particle)
+	ParticleManager:DestroyParticleSystem(particle,false)
 
 	local enemies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), position, nil, self.radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
     for _, enemy in pairs(enemies) do
@@ -803,6 +805,7 @@ function ability_thdots_ellen04:OnProjectileHitHandle(target, location, projecti
 	local particle_impact_fx = ParticleManager:CreateParticle(particle_impact, PATTACH_ABSORIGIN_FOLLOW, target)
 	ParticleManager:SetParticleControl(particle_impact_fx, 0, target:GetAbsOrigin())
 	ParticleManager:ReleaseParticleIndex(particle_impact_fx)
+	ParticleManager:DestroyParticleSystem(particle_impact_fx,false)
 
 	if not target:HasModifier(modifier_shadow_poison) then
 		target:AddNewModifier(target, ability, modifier_shadow_poison, {duration = stack_duration})
@@ -921,6 +924,7 @@ function modifier_ability_thdots_ellen04_debuff:OnDestroy()
 		ParticleManager:SetParticleControlEnt(self.particle_kill_fx, 2, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", self.parent:GetAbsOrigin(), true)
 		ParticleManager:SetParticleControlEnt(self.particle_kill_fx, 3, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", Vector(1,0,0), true)
 		ParticleManager:ReleaseParticleIndex(self.particle_kill_fx)
+		ParticleManager:DestroyParticleSystem(self.particle_kill_fx,false)
 
 		EmitSoundOn(self.impact_sound, self.caster)
 		local damage = self:CalculateShadowPoisonDamage()

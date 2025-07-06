@@ -28,6 +28,7 @@ function ability_thdots_yuyuko01:OnSpellStart()
 				fDistance = self:GetSpecialValueFor("range"),
 				fStartRadius = start_radius,
 				fEndRadius = end_radius,
+				fExpireTime = GameRules:GetGameTime() + 10.0,
 				vVelocity = direct * speed,
 				bReplaceExisting = false,
 				bProvidesVision = false,	
