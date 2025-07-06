@@ -52,6 +52,7 @@ function item_fan:OnSpellStart()
 				fDistance = 975,
 				fStartRadius = 200,
 				fEndRadius = 200,
+				fExpireTime = GameRules:GetGameTime() + 10.0,
 				-- vVelocity = ((point - caster:GetAbsOrigin()) * Vector(1, 1, 0)):Normalized() * 1500,
 				vVelocity = ((end_position - start_position) * Vector(1, 1, 0)):Normalized() * 1500,
 				bReplaceExisting = false,

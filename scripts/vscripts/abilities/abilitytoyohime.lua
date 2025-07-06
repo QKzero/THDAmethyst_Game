@@ -260,6 +260,7 @@ function ability_thdots_toyohime01:OnSpellStart()
 		fDistance = 700,
 		fStartRadius = 125,
 		fEndRadius = 200,
+		fExpireTime = GameRules:GetGameTime() + 10.0,
 		Source = caster,
 		bHasFrontalCone = false,
 		bReplaceExisting = false,

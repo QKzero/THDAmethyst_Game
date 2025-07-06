@@ -36,6 +36,7 @@ function ability_thdots_eirin02:OnSpellStart()
 		fDistance = self:GetSpecialValueFor("length"),
 		fStartRadius = self:GetSpecialValueFor("collision_radius"),
 		fEndRadius = self:GetSpecialValueFor("collision_radius"),
+		fExpireTime	= GameRules:GetGameTime() + 10.0,
 		bIgnoreSource = true,
 		bDeleteOnHit = true,
 		bReplaceExisting = false,

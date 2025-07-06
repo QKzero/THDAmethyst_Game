@@ -274,6 +274,7 @@ function modifier_ability_thdots_nitori02:OnDestroy()
 				fDistance = length,
 				fStartRadius = width,
 				fEndRadius = width,
+				fExpireTime = GameRules:GetGameTime() + 10.0,
 				Source = caster,
 				bHasFrontalCone = false,
 				bReplaceExisting = false,

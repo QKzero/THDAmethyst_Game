@@ -400,6 +400,7 @@ function OnChen03PassiveStart(caster,ability,damage,radius,int_bonus,duration)
 	ParticleManager:SetParticleControl(earthshock_particle_fx, 0,caster:GetAbsOrigin())
 	ParticleManager:SetParticleControl(earthshock_particle_fx, 1, Vector(radius+200,radius/2+100,1))
 	ParticleManager:ReleaseParticleIndex(earthshock_particle_fx)
+	ParticleManager:DestroyParticleSystem(earthshock_particle_fx,false)
 	caster:EmitSound("Hero_MonkeyKing.Spring.Target")
 	for _,v in pairs(targets) do
 		v:AddNewModifier(caster, ability, "modifier_ability_thdots_chen03_debuff",{duration = duration* (1 - v:GetStatusResistance())})
@@ -484,8 +485,6 @@ function modifier_ability_thdots_chen04:OnCreated()
 	self.caster 						= self:GetParent()
 	self.attack_bonus 					= self:GetAbility():GetSpecialValueFor("attack_bonus")
 	self.duration 						= self:GetAbility().duration
-	print("self.duration")
-	print(self.duration)
 
 	self.caster:EmitSound("Voice_Thdots_Chen.AbilityChen04_1")
 	self.caster:EmitSound("Voice_Thdots_Chen.AbilityChen04_2")
@@ -493,6 +492,7 @@ function modifier_ability_thdots_chen04:OnCreated()
 	--特效
 	local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_lycan/lycan_shapeshift_cast.vpcf",PATTACH_ROOTBONE_FOLLOW,self.caster)
 	ParticleManager:ReleaseParticleIndex(particle)
+	ParticleManager:DestroyParticleSystemTime(particle,self.duration)
 
 	local particle_cast = 	"particles/econ/items/lycan/blood_moon/lycan_blood_moon_weapon_ambient.vpcf"
 	local effect_cast_1 = ParticleManager:CreateParticle( particle_cast, PATTACH_POINT_FOLLOW, self:GetParent())
@@ -515,6 +515,7 @@ function modifier_ability_thdots_chen04:OnCreated()
 		false,
 		false
 	)
+	ParticleManager:DestroyParticleSystem(effect_cast_1,false)
 	-- self:AddParticle(
 	-- 	effect_cast_2,
 	-- 	false,

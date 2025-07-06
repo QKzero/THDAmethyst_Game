@@ -276,6 +276,7 @@ function OnClown03Damage(keys)
 		local clown03_effect = ParticleManager:CreateParticle("particles/units/heroes/hero_doom_bringer/doom_infernal_blade.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
 		ParticleManager:SetParticleControl(clown03_effect, 0, target:GetAbsOrigin() )
 		ParticleManager:ReleaseParticleIndex(clown03_effect)
+		ParticleManager:DestroyParticleSystemTime(clown03_effect,6.0)
 	end
 	local targets = FindUnitsInRadius(
 						caster:GetTeam(),
@@ -385,6 +386,7 @@ function OnClown04DebuffSpentMana( event )
 		local attackName = "particles/units/heroes/hero_pugna/pugna_ward_attack.vpcf" -- There are some light/medium/heavy unused versions
 		local attack = ParticleManager:CreateParticle(attackName, PATTACH_ABSORIGIN_FOLLOW, target)
 		ParticleManager:SetParticleControl(attack, 1, target:GetAbsOrigin())
+		ParticleManager:DestroyParticleSystem(attack, false)
 		target:EmitSound("Hero_Pugna.NetherWard.Target")
 		caster:EmitSound("Hero_Pugna.NetherWard.Attack")
 

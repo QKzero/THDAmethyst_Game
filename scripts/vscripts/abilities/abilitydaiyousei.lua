@@ -519,6 +519,7 @@ function ability_thdots_daiyousei05:OnSpellStart()
 	ParticleManager:SetParticleControl(effectIndex , 0, caster:GetOrigin())
 	ParticleManager:SetParticleControl(effectIndex , 1, caster:GetOrigin())
 	ParticleManager:SetParticleControlForward(effectIndex, 1, caster:GetForwardVector())
+	ParticleManager:DestroyParticleSystemTime(effectIndex,duration)
 
 	local particle_radius = radius + 200
 	local effectIndex_2 = ParticleManager:CreateParticle("particles/econ/items/juggernaut/jugg_ti8_sword/juggernaut_blade_fury_abyssal.vpcf", PATTACH_ABSORIGIN_FOLLOW,caster)

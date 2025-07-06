@@ -311,6 +311,7 @@ function modifier_ability_thdots_hina01_shield:GetModifierTotal_ConstantBlock(kv
 		local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_abaddon/abaddon_aphotic_shield_explosion.vpcf", PATTACH_ABSORIGIN, target)
 		ParticleManager:SetParticleControl(particle, 0, target_vector)
 		ParticleManager:ReleaseParticleIndex(particle)
+		ParticleManager:DestroyParticleSystem(particle, false)
 		self:Destroy()
 		return original_shield_amount
 	else
@@ -414,12 +415,14 @@ function ability_thdots_hina02:OnSpellStart()
 					ParticleManager:SetParticleControlEnt(particle_hit_fx, 0, caster, PATTACH_POINT_FOLLOW, "attach_attack1", caster:GetAbsOrigin(), true)
 					ParticleManager:SetParticleControlEnt(particle_hit_fx, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
 					ParticleManager:ReleaseParticleIndex(particle_hit_fx)
+					ParticleManager:DestroyParticleSystemTime(particle_hit_fx, duration)
 
 				else
 					local particle_hit_fx = ParticleManager:CreateParticle(particle_hit, PATTACH_CUSTOMORIGIN_FOLLOW, caster)
 					ParticleManager:SetParticleControlEnt(particle_hit_fx, 0, bond_target, PATTACH_POINT_FOLLOW, "attach_hitloc", bond_target:GetAbsOrigin(), true)
 					ParticleManager:SetParticleControlEnt(particle_hit_fx, 1, enemy, PATTACH_POINT_FOLLOW, "attach_hitloc", enemy:GetAbsOrigin(), true)
 					ParticleManager:ReleaseParticleIndex(particle_hit_fx)
+					ParticleManager:DestroyParticleSystemTime(particle_hit_fx, duration)
 				end
 				
 				bond_target	= enemy
@@ -531,6 +534,7 @@ function modifier_ability_thdots_hina02_bonds:OnTakeDamage(keys)
 					ParticleManager:SetParticleControlEnt(particle_hit_fx, 0, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", self.parent:GetAbsOrigin(), true)
 					ParticleManager:SetParticleControlEnt(particle_hit_fx, 1, bonded_enemy, PATTACH_POINT_FOLLOW, "attach_hitloc", bonded_enemy:GetAbsOrigin(), true)
 					ParticleManager:ReleaseParticleIndex(particle_hit_fx)
+					ParticleManager:DestroyParticleSystem(particle_hit_fx, false)
 
 					local damageTable = {
 						victim			= bonded_enemy,
@@ -553,6 +557,7 @@ function modifier_ability_thdots_hina02_bonds:OnTakeDamage(keys)
 				ParticleManager:SetParticleControlEnt(particle_hit_fx, 0, unit, PATTACH_POINT_FOLLOW, "attach_hitloc", unit:GetAbsOrigin(), true)
 				ParticleManager:SetParticleControlEnt(particle_hit_fx, 1, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", self.parent:GetAbsOrigin(), true)
 				ParticleManager:ReleaseParticleIndex(particle_hit_fx)
+				ParticleManager:DestroyParticleSystem(particle_hit_fx, false)
 
 				-- Apply damage
 				local damageTable = 
@@ -597,6 +602,7 @@ function ability_thdots_hina03:OnSpellStart()
 	ParticleManager:SetParticleControl( aoe_pfx, 0, vPosition )
 	ParticleManager:SetParticleControl( aoe_pfx, 1, Vector(radius, radius, radius) )
 	ParticleManager:ReleaseParticleIndex(aoe_pfx)
+	ParticleManager:DestroyParticleSystem(aoe_pfx, false)
 	for _,v in pairs(targets) do
 		v:AddNewModifier(caster,ability, "modifier_ability_thdots_hina03",{duration = duration* (1 - v:GetStatusResistance())})
 		local damageTable = 
@@ -908,17 +914,20 @@ function modifier_ability_thdots_hina04:OnDestroy()
 	ParticleManager:SetParticleControl(particle_caster_souls_fx, 1, Vector(lines, 0, 0))
 	ParticleManager:SetParticleControl(particle_caster_souls_fx, 2, caster:GetAbsOrigin())
 	ParticleManager:ReleaseParticleIndex(particle_caster_souls_fx)
+	ParticleManager:DestroyParticleSystem(particle_caster_souls_fx, false)
 
 	local particle_caster_ground_fx = ParticleManager:CreateParticle(particle_caster_ground, PATTACH_ABSORIGIN, caster)
 	ParticleManager:SetParticleControl(particle_caster_ground_fx, 0, caster:GetAbsOrigin())
 	ParticleManager:SetParticleControl(particle_caster_ground_fx, 1, Vector(lines, 0, 0))
 	ParticleManager:ReleaseParticleIndex(particle_caster_ground_fx)
+	ParticleManager:DestroyParticleSystem(particle_caster_ground_fx, false)
 
 	local particle_damage_text_fx = ParticleManager:CreateParticle(particle_damage_text, PATTACH_CUSTOMORIGIN, caster)
 	ParticleManager:SetParticleControl(particle_damage_text_fx, 0, caster:GetOrigin() + Vector(15,0,356))
 	-- ParticleManager:SetParticleControl(particle_damage_text_fx, 3, caster:GetAbsOrigin())
 	ParticleManager:SetParticleControl(particle_damage_text_fx, 1, Vector(0,math.ceil(self:GetAbility().absorb_damage), 0))
 	ParticleManager:ReleaseParticleIndex(particle_damage_text_fx)
+	ParticleManager:DestroyParticleSystem(particle_damage_text_fx, false)
 	self.dummy = CreateUnitByName("npc_dummy_unit", 
 	    	                        caster:GetOrigin(), 
 									false, 
@@ -1044,6 +1053,7 @@ function CreateRequiemSoulLine(caster, ability, line_end_position, death_cast) -
 					   fDistance = travel_distance,
 					   fStartRadius = lines_starting_width,
 					   fEndRadius = lines_end_width,
+					   fExpireTime = GameRules:GetGameTime() + 10.0,
 					   Source = caster,
 					   bHasFrontalCone = false,
 					   bReplaceExisting = false,

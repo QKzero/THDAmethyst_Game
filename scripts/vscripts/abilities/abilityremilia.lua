@@ -46,6 +46,7 @@ function ability_thdots_remilia01:OnSpellStart()
 				fDistance = length,
 				fStartRadius = collision_radius,
 				fEndRadius = collision_radius,
+				fExpireTime = GameRules:GetGameTime() + 10.0,
 				vVelocity = (end_position - start_position):Normalized() * move_speed,
 				bReplaceExisting = false,
 				bProvidesVision = true,	
