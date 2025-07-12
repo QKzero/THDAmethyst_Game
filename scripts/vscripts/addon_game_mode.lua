@@ -578,31 +578,68 @@ function THDOTSGameMode:OnPlayerSay( keys )
 
 	-- 白名单用户可用
 	if G_OnlineDebugWhiteList[PlayerResource:GetSteamAccountID(plyid)] ~= nil then
-		if ss[1] == "-kill" then
-			local hero = PlayerResource:GetSelectedHeroEntity(plyid)
-			hero:Kill(nil, hero)
-		elseif ss[1] == "-replacehero" then
-			local hero = PlayerResource:GetSelectedHeroEntity(plyid)
-			local newHeroName = ss[2]
-			local properties = {}
-			for i = 3, #ss do
-				properties[ss[i]] = 1
-			end
-			if (hero ~= nil and newHeroName ~= nil) then
-				if string.sub(newHeroName, 1, string.len("npc_dota_hero_")) ~= "npc_dota_hero_" then 
-					newHeroName = "npc_dota_hero_" .. newHeroName
+		if (ss[1] == "-k" or ss[1] == "-kill") then
+            local hero = PlayerResource:GetSelectedHeroEntity(plyid)
+            hero:Kill(nil, hero)
+        elseif (ss[1] == "-rh" or ss[1] == "-replacehero") then
+            local hero = PlayerResource:GetSelectedHeroEntity(plyid)
+            local newHeroName = ss[2]
+            local properties = {}
+            for i = 3, #ss do
+                properties[ss[i]] = 1
+            end
+            if (hero ~= nil and newHeroName ~= nil) then
+                if string.sub(newHeroName, 1, string.len("npc_dota_hero_")) ~= "npc_dota_hero_" then
+                    newHeroName = "npc_dota_hero_" .. newHeroName
+                end
+                local gold = hero:GetGold()
+                local xp = hero:GetCurrentXP()
+                if properties["-ug"] then
+                    gold = 0
+                end
+                if properties["-ux"] then
+                    xp = 0
+                end
+                PlayerResource:ReplaceHeroWith(plyid, newHeroName, gold, xp)
+            end
+        elseif (ss[1] == "-pi" or ss[1] == "-printitem") then
+            local hero = PlayerResource:GetSelectedHeroEntity(plyid)
+            if hero ~= nil then
+                local items = {}
+                for i = 0, 11 do
+                    local item = hero:GetItemInSlot(i)
+                    if item ~= nil then
+                        items[i] = item:GetName()
+                    end
+                end
+                print_r(items)
+            end
+        elseif (ss[1] == "-pm" or ss[1] == "-printmodifier") then
+            local hero = PlayerResource:GetSelectedHeroEntity(plyid)
+            if hero ~= nil then
+                local modifiers = hero:FindAllModifiers()
+				for i = 1, #modifiers do
+					modifiers[i] = modifiers[i]:GetName()
 				end
-				local gold = hero:GetGold()
-				local xp = hero:GetCurrentXP()
-				if properties["-ug"] then
-					gold = 0
-				end
-				if properties["-ux"] then
-					xp = 0
-				end
-				PlayerResource:ReplaceHeroWith(plyid, newHeroName, gold, xp)
-			end 
-		end
+				print_r(modifiers)
+            end
+        elseif (ss[1] == "-am" or ss[1] == "-addmodifier") then
+            local hero = PlayerResource:GetSelectedHeroEntity(plyid)
+            if hero ~= nil then
+                local modifier_name = ss[2]
+                if modifier_name ~= nil then
+                    hero:AddNewModifier(hero, nil, modifier_name, {})
+                end
+            end
+        elseif (ss[1] == "-rm" or ss[1] == "-removemodifier") then
+            local hero = PlayerResource:GetSelectedHeroEntity(plyid)
+            if hero ~= nil then
+                local modifier_name = ss[2]
+                if modifier_name ~= nil then
+                    hero:RemoveModifierByName(modifier_name)
+                end
+            end
+        end
 	end
 
 	if is_host then  --主机限定的指令(所有图通用)
