@@ -199,7 +199,6 @@
 			"mana_cost"
 			{
 				"value"	"160 240 320 400"
-				"special_bonus_shard"	"+80"
 			}
 			"mana_cost_percent"	"10"
 			"scepter_interval_dis"	"500"

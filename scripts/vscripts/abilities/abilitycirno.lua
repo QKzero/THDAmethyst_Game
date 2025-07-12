@@ -364,6 +364,11 @@ function OnCirno04SpellStart(keys)
 				CirnoBreakIceboundsInRadius(Caster,Caster:GetOrigin(),keys.radius)
 				-- UtilStun:UnitStunTarget(Caster,Caster,keys.stun_self_duration)
 				ParticleManager:DestroyParticleSystem(Caster.ability_cirno_04_caster_effect_index,true)
+				if #Caster.ability_cirno_04_effect_index_table > 0 then
+					for _, particle in pairs(Caster.ability_cirno_04_effect_index_table) do
+						ParticleManager:DestroyParticleSystem(particle,true)
+					end
+				end
 				return nil 
 			end
 			return TickInterval
