@@ -196,7 +196,7 @@ function NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
     end
 
     -- Tier 5 Neutral Items
-    if DotaTime() >= 24 * 60
+    if DotaTime() >= 25 * 60
     and not isTierFiveDone
     then
 
