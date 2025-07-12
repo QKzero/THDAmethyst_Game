@@ -131,7 +131,7 @@
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
 		"AbilityCastPoint"	"0.0"
 		"AbilityCooldown"	"48"
-		"AbilityManaCost"	"60"
+		"AbilityManaCost"	"0"
 		// Stats
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"	"300 400 500 600 700"
@@ -225,7 +225,7 @@
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
 		"AbilityCastPoint"	"0.0"
 		"AbilityCooldown"	"48"
-		"AbilityManaCost"	"80"
+		"AbilityManaCost"	"0"
 		// Stats
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"	"300 400 500 600 700"
@@ -319,7 +319,7 @@
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
 		"AbilityCastPoint"	"0.0"
 		"AbilityCooldown"	"48"
-		"AbilityManaCost"	"100"
+		"AbilityManaCost"	"0"
 		// Stats
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"	"300 400 500 600 700"
@@ -413,7 +413,7 @@
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
 		"AbilityCastPoint"	"0.0"
 		"AbilityCooldown"	"48"
-		"AbilityManaCost"	"120"
+		"AbilityManaCost"	"0"
 		// Stats
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"	"300 400 500 600 700"
@@ -507,7 +507,7 @@
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
 		"AbilityCastPoint"	"0.0"
 		"AbilityCooldown"	"48"
-		"AbilityManaCost"	"140"
+		"AbilityManaCost"	"0"
 		// Stats
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"	"300 400 500 600 700"

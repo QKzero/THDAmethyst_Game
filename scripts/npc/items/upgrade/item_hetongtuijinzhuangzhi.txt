@@ -42,7 +42,7 @@
 		"AbilityCastPoint"        "0.0"
 		"AbilityCooldown"       "30"
 
-		"AbilityManaCost"       "25"
+		"AbilityManaCost"       "0"
 		//"ItemCost"            "2825"
 
 		"ItemKillable" "0" 

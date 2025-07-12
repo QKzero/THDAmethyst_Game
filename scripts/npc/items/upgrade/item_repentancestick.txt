@@ -27,7 +27,7 @@
 		"AbilityUnitDamageType"	 "DAMAGE_TYPE_MAGICAL"
 		"AbilityCastPoint"	"0.0"
 		// "AbilityCooldown"	"35"
-		// "AbilityManaCost"	"29"
+		// "AbilityManaCost"	"0"
 		// Stats
 		// -------------------------------------------------------------------------------------------------------------
 		// "AbilityCastRange"	"600"

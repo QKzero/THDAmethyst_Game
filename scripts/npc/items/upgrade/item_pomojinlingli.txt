@@ -35,7 +35,7 @@
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityCastPoint"	"0.0"
 		"AbilityCooldown"	"40"
-		"AbilityManaCost"	"100"
+		"AbilityManaCost"	"0"
 		"AbilityCastRange"	"750"
 		// General
 		// -------------------------------------------------------------------------------------------------------------

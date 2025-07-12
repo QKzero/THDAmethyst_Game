@@ -43,7 +43,7 @@
 		"AbilityCooldown"				"40"
 		"AbilityCastRange"				"700"
 		"AbilityCastPoint"				"0.0"		
-		"AbilityManaCost"				"50"
+		"AbilityManaCost"				"0"
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"4000"

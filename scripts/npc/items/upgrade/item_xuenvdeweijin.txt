@@ -40,7 +40,7 @@
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"30"
-		"AbilityManaCost"				"70"
+		"AbilityManaCost"				"0"
 		"AbilityCastPoint"				"0.0"
 	
 		// Item Info
