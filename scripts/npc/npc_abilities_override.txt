@@ -1352,7 +1352,7 @@
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"60"
+		"AbilityManaCost"				"0"
 		"ItemCost"						"3225"
 		"ItemShopTags"					"int;regen_mana;move_speed;hard_to_tag"
 		"ItemQuality"					"rare"

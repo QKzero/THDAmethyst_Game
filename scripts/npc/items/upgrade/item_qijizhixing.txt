@@ -35,7 +35,7 @@
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityCastPoint"	"0.0"
 		"AbilityCooldown"	"40"
-		"AbilityManaCost"	"125"
+		"AbilityManaCost"	"0"
 		"AbilityCastRange"	"650"
 		// General
 		// -------------------------------------------------------------------------------------------------------------

@@ -51,7 +51,7 @@
 		"ItemShopTags"	"str;agi;int;armor"
 		"ItemAliases"	"blademail"
 		"AbilityCooldown"	"25"
-		"AbilityManaCost"	"50"
+		"AbilityManaCost"	"0"
 		"precache"
 		{
 			"particle"			"particles/thd2/items/item_frock.vpcf"

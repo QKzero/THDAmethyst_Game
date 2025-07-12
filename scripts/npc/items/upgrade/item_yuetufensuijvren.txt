@@ -101,7 +101,7 @@
 		{
 			"AbilityCastPoint"		"0.0"
 			"AbilityCooldown"		"45"
-			"AbilityManaCost"		"72"
+			"AbilityManaCost"		"0"
 			"AbilityCastRange"		"550"
 			"bonus_damage"			"35"
 			"bonus_strength"		"10"

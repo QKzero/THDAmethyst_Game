@@ -35,7 +35,7 @@
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"	"0.0"
 		"AbilityCooldown"	"29"
-		"AbilityManaCost"	"9"
+		"AbilityManaCost"	"0"
 		// General
 		// -------------------------------------------------------------------------------------------------------------
 		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.

@@ -43,7 +43,7 @@
 		"ItemCost"	"3750"
 		"AbilityCooldown"		"30"
 		"AbilityCastRange"	"700"
-		"AbilityManaCost"	"80"
+		"AbilityManaCost"	"0"
 		"ItemDroppable"	"1"
 		"ItemSellable"	"1"
 		"ItemShopTags"	"damage;str;regen_health"

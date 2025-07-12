@@ -36,7 +36,7 @@
 		"ItemShopTags"	"health_pool;mana_pool;damage;armor"
 		"ItemAliases"	"assault cuirass"
 		"AbilityCooldown"	"40"
-		"AbilityManaCost"	"50"
+		"AbilityManaCost"	"0"
 		"AbilityCastRange"	"1000"
 		"precache"
 		{

@@ -40,7 +40,7 @@
 		"AbilityCastPoint"	"0.0"
 		"AbilityCastRange"	"700"
 		"AbilityCooldown"	"30"
-		"AbilityManaCost"	"50"
+		"AbilityManaCost"	"0"
 		// General
 		// -------------------------------------------------------------------------------------------------------------
 		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
