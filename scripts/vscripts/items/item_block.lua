@@ -45,6 +45,7 @@ function ItemBlockXOnSpellStart(keys)
 	local caster = keys.caster
 	local shivas_guard_particle = ParticleManager:CreateParticle("particles/items2_fx/shivas_guard_active.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
 	ParticleManager:SetParticleControl(shivas_guard_particle, 1, Vector(keys.BlastFinalRadius, keys.BlastFinalRadius / keys.BlastSpeedPerSecond, keys.BlastSpeedPerSecond))
+	ParticleManager:DestroyParticleSystemTime(shivas_guard_particle,keys.BlastVisionDuration)
 	keys.ability:ApplyDataDrivenModifier(caster, caster, keys.ModifierShieldName, {})	
 	caster:EmitSound("DOTA_Item.ShivasGuard.Activate")
 	caster.xuenvdeweijin_blast_radius=0.0
@@ -65,6 +66,7 @@ function ItemBlockXOnSpellStart(keys)
 					local target_point = individual_unit:GetAbsOrigin()
 					local caster_point = individual_unit:GetAbsOrigin()
 					ParticleManager:SetParticleControl(shivas_guard_impact_particle, 1, target_point + (target_point - caster_point) * 30)
+					ParticleManager:DestroyParticleSystemTime(shivas_guard_impact_particle,keys.BlastVisionDuration)
                     keys.ability:ApplyDataDrivenModifier(caster, individual_unit, keys.ModifierBlastDebuffName, {duration = keys.BlastDebuffDuration * (1 - individual_unit:GetStatusResistance())})
 					local damage_table = {
 						ability = keys.ability,
