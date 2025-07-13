@@ -1,43 +1,3 @@
---4/26/2022 Update
-
-----------------------------------------------------------------------------------------------
-
--- function UnitDamageTarget(DamageTable)
---     local dDamage = vlua.clone(DamageTable)
---     local victim = dDamage.victim or dDamage.target
---     if victim == nil or victim:IsNull() then return end
---     if(victim:IsNightmared())then
---         victim:RemoveModifierByName("modifier_bane_nightmare")
---     end
---     --[[if dDamage.attacker:HasItemInInventory("item_bagua") then
---                         dDamage.damage = dDamage.damage * 1.25
---                     end]]
---     --[[if dDamage.attacker:HasModifier("modifier_thdots_patchouli_xianzhezhishi_sun") then
---                         dDamage.damage = dDamage.damage * 1.1
---                     end]]
-
---     -- 破魔驱散绿坝的盾
---     -- if dDamage.attacker:HasItemInInventory("item_pomojinlingli") and dDamage.damage_type == DAMAGE_TYPE_MAGICAL then
---     -- 	if victim:HasModifier("modifier_item_green_dam_barrier") then
---     -- 		victim:RemoveModifierByName("modifier_item_green_dam_barrier")
---     -- 	end
---     -- end
-    
---     if dDamage.damage_type == DAMAGE_TYPE_PURE and dDamage.damage >= 100 then
---         SendOverheadEventMessage(nil,OVERHEAD_ALERT_DAMAGE,victim,dDamage.damage,nil)
---     end
---     return ApplyDamage(dDamage)
--- end
-
--- function FindTelentValue(caster,name)
---     local ability = caster:FindAbilityByName(name)
---     if ability~=nil then
---         return ability:GetSpecialValueFor("value")
---     else
---         return 0
---     end
--- end
-
 function jyoon_generateParticleOnce(name,attach,target)
     local particle = ParticleManager:CreateParticle(name, attach, target)
     ParticleManager:ReleaseParticleIndex(particle)
@@ -175,6 +135,7 @@ function modifier_ability_thdots_Jyoon_1:OnAttackLanded(keys)
             local particle_effect = ParticleManager:CreateParticle(particle2,PATTACH_POINT,enemy)
             ParticleManager:SetParticleControlEnt(particle_effect,1,caster,PATTACH_POINT_FOLLOW,"attach_hitloc",caster:GetAbsOrigin()+Vector(0,0,100) ,true)
             ParticleManager:ReleaseParticleIndex(particle_effect)
+            ParticleManager:DestroyParticleSystem(particle_effect,false)
         end
         caster:RemoveModifierByName("modifier_ability_thdots_Jyoon_1")
     end
@@ -292,6 +253,7 @@ function ability_thdots_Jyoon_2:OnProjectileHitHandle(hTarget,vLocation,iProject
     ParticleManager:SetParticleControl(particle_effect,0,vLocation)
     ParticleManager:SetParticleControl(particle_effect,1,Vector(radius,radius,radius))
     ParticleManager:ReleaseParticleIndex(particle_effect)
+    ParticleManager:DestroyParticleSystem(particle_effect,false)
     --return true 会移除投射物
     return true
 end
@@ -506,6 +468,7 @@ function modifier_ability_thdots_Jyoon_2_wanbaochui:GetModifierIncomingDamage_Pe
             ParticleManager:SetParticleControl(particle_effect,0,caster:GetAbsOrigin())
             ParticleManager:SetParticleControl(particle_effect,1,Vector(radius,radius,radius))
             ParticleManager:ReleaseParticleIndex(particle_effect)
+            ParticleManager:DestroyParticleSystem(particle_effect,false)
             self:SetStackCount(0)
         end
     end
@@ -755,6 +718,9 @@ function modifier_ability_thdots_Jyoon_4_attackInterval:OnAttackLanded(keys)
         ParticleManager:ReleaseParticleIndex(effect)
         ParticleManager:ReleaseParticleIndex(effect2)
 
+        ParticleManager:DestroyParticleSystem(effect,false)
+        ParticleManager:DestroyParticleSystem(effect2,false)
+
         if(not enemy:IsTower() and not enemy:IsBuilding()) then
             enemy:AddNewModifier(caster, nil, "modifier_stunned", {duration = ability:GetSpecialValueFor("stun_duration")})
         end
@@ -819,25 +785,6 @@ function ability_thdots_Jyoon_passive:GetIntrinsicModifierName()
     return "modifier_thdots_Jyoon_passive_applier"
 end
 
---万宝槌测试
--- modifier_item_wanbaochui = class({})
--- LinkLuaModifier("modifier_item_wanbaochui","scripts/vscripts/abilities/abilityJyoon.lua",LUA_MODIFIER_MOTION_NONE)
--- function modifier_item_wanbaochui:IsHidden() return false end
--- function modifier_item_wanbaochui:IsPurgable() return false end
--- function modifier_item_wanbaochui:IsDebuff() return false end
--- function modifier_item_wanbaochui:RemoveOnDeath() return false end
-
--- function ability_thdots_Jyoon_passive:OnSpellStart()
---     if not IsServer() then return end
---     local caster = self:GetCaster()
---     if(caster:HasModifier("modifier_item_wanbaochui")) then
---         caster:RemoveModifierByName("modifier_item_wanbaochui")
---     else
---         caster:AddNewModifier(caster, self, "modifier_item_wanbaochui", {})
---     end
-    
--- end
-
 --Modifier
 modifier_thdots_Jyoon_passive_applier = class({})
 LinkLuaModifier("modifier_thdots_Jyoon_passive_applier","scripts/vscripts/abilities/abilityJyoon.lua",LUA_MODIFIER_MOTION_NONE)
@@ -900,12 +847,6 @@ function modifier_thdots_Jyoon_passive_dropGold:OnHeroKilled(keys)
 
     if enemy == self:GetParent() then
         local playerID = enemy:GetPlayerOwnerID()
-        --天赋
-        -- if(FindTelentValue(caster, "special_bonus_unique_Jyoon_passive_take_gold")~= 0) then
-        --     caster:SetGold(caster:GetGold() + (PlayerResource:GetUnreliableGold(playerID)), false)
-        --     enemy:SetGold(enemy:GetGold()-(PlayerResource:GetUnreliableGold(playerID)), false)
-        --     SendOverheadEventMessage(nil,OVERHEAD_ALERT_GOLD,caster,(PlayerResource:GetUnreliableGold(playerID)),nil)
-        -- end
         local dropGold = PlayerResource:GetTotalEarnedGold(playerID) / ability:GetSpecialValueFor("networth_divided_by")
         local unreliableGold = PlayerResource:GetUnreliableGold(playerID)
         if dropGold > unreliableGold then dropGold = unreliableGold end
@@ -915,8 +856,7 @@ function modifier_thdots_Jyoon_passive_dropGold:OnHeroKilled(keys)
         local effect = ParticleManager:CreateParticle(particle, PATTACH_WORLDORIGIN, enemy)
         ParticleManager:SetParticleControl(effect, 0, enemy:GetAbsOrigin())
         ParticleManager:ReleaseParticleIndex(effect)
-
+        ParticleManager:DestroyParticleSystem(effect,false)
     end
-
-    return 
+    return
 end
