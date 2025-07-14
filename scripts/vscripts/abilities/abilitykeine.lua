@@ -162,9 +162,11 @@ function ability_thdots_keine01:OnSpellStart()
 	self.particle_cast = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_cast.vpcf", PATTACH_ABSORIGIN_FOLLOW, target)
 	ParticleManager:SetParticleControl(self.particle_cast, 2, self:GetCaster():GetAbsOrigin())
 	ParticleManager:ReleaseParticleIndex(self.particle_cast)
+	ParticleManager:DestroyParticleSystemTime(self.particle_cast,duration)
 	
 	self.particle_target = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_cast_enemy.vpcf", PATTACH_ABSORIGIN_FOLLOW, target)
 	ParticleManager:ReleaseParticleIndex(self.particle_target)
+	ParticleManager:DestroyParticleSystemTime(self.particle_target,duration)
 end
 
 modifier_ability_thdots_keine01 = {}
@@ -215,10 +217,12 @@ function modifier_ability_thdots_keine01:OnDestroy()
 			if self:GetParent():GetHealthPercent() <= self.health then --特效
 				self.end_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_heal.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 				ParticleManager:ReleaseParticleIndex(self.end_particle)
+				ParticleManager:DestroyParticleSystemTime(self.end_particle,2)
 				self:GetParent():EmitSound("Hero_Oracle.FalsePromise.Healed")
 			else
 				self.end_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_dmg.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 				ParticleManager:ReleaseParticleIndex(self.end_particle)
+				ParticleManager:DestroyParticleSystemTime(self.end_particle,2)
 				self:GetParent():EmitSound("Hero_Oracle.FalsePromise.Damaged")
 			end
 			SendOverheadEventMessage(nil, OVERHEAD_ALERT_MAGICAL_BLOCK, self:GetParent(), self.health, nil)
@@ -252,10 +256,12 @@ function modifier_ability_thdots_keine01_sawa:OnDestroy()
 			if total_health >= self.health then --特效
 				self.end_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_heal.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 				ParticleManager:ReleaseParticleIndex(self.end_particle)
+				ParticleManager:DestroyParticleSystemTime(self.end_particle,2)
 				self:GetParent():EmitSound("Hero_Oracle.FalsePromise.Healed")
 			else
 				self.end_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_dmg.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 				ParticleManager:ReleaseParticleIndex(self.end_particle)
+				ParticleManager:DestroyParticleSystemTime(self.end_particle,2)
 				self:GetParent():EmitSound("Hero_Oracle.FalsePromise.Damaged")
 			end
 			local change_health = ( total_health - self.health ) * self:GetAbility():GetSpecialValueFor("extra")/100
@@ -375,14 +381,17 @@ function ability_thdots_keine02:OnSpellStart()
 	local keine2_caster = ParticleManager:CreateParticle(self.hit_particle, PATTACH_ABSORIGIN_FOLLOW, caster)
 	ParticleManager:SetParticleControlEnt(keine2_caster, 1, caster, PATTACH_POINT_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
 	ParticleManager:ReleaseParticleIndex(keine2_caster)
+	ParticleManager:DestroyParticleSystemTime(keine2_caster,2)
 	local purifying_cast_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_purifyingflames_cast.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
 	ParticleManager:SetParticleControlEnt(purifying_cast_particle, 1, caster, PATTACH_POINT_FOLLOW, "attach_attack1", caster:GetAbsOrigin(), true)
 	ParticleManager:ReleaseParticleIndex(purifying_cast_particle)
+	ParticleManager:DestroyParticleSystemTime(purifying_cast_particle,2)
 
 	if caster ~= target then
 		local keine2_target = ParticleManager:CreateParticle(self.hit_particle, PATTACH_ABSORIGIN_FOLLOW, target)
 		ParticleManager:SetParticleControlEnt(keine2_target, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
 		ParticleManager:ReleaseParticleIndex(keine2_target)
+		ParticleManager:DestroyParticleSystemTime(keine2_target,2)
 	end
 	
 end
@@ -552,10 +561,12 @@ function ability_thdots_keine03:OnSpellStart()
 	ParticleManager:SetParticleControl(particle, 1, caster:GetAbsOrigin() + forward * distance)
 	ParticleManager:SetParticleControlEnt(particle, 2, caster, PATTACH_ABSORIGIN_FOLLOW, "attach_hitloc", caster:GetForwardVector(), true)
 	ParticleManager:ReleaseParticleIndex(particle)
+	ParticleManager:DestroyParticleSystemTime(particle,2)
 
 	local aoe_pfx = ParticleManager:CreateParticle("particles/units/heroes/hero_faceless_void/faceless_void_time_walk_slow.vpcf", PATTACH_ABSORIGIN, caster)
 	ParticleManager:SetParticleControl(aoe_pfx, 1, Vector(300,300,300))
 	ParticleManager:ReleaseParticleIndex(aoe_pfx)
+	ParticleManager:DestroyParticleSystemTime(aoe_pfx,2)
 
 	UtilStun:UnitStunTarget(caster,target,act_stun)
 	damage = damage + caster:GetAverageTrueAttackDamage(caster) * attack_bonus
@@ -614,6 +625,7 @@ function ability_thdots_keine04:OnSpellStart()
 	--particle
 	local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_lycan/lycan_shapeshift_cast.vpcf",PATTACH_ROOTBONE_FOLLOW,caster)
 	ParticleManager:ReleaseParticleIndex(particle)
+	ParticleManager:DestroyParticleSystemTime(particle,duration)
 end
 
 

@@ -85,6 +85,7 @@ function ability_thdots_kisume01:OnSpellStart()
 	ParticleManager:SetParticleControl(self.kisume01_particle_start, 0, Vector(self.caster:GetOrigin().x,self.caster:GetOrigin().y,self.caster:GetOrigin().z + 100))
 	ParticleManager:SetParticleControl(self.kisume01_particle_start, 1, Vector(self.point.x,self.point.y,self.point.z + 100))
 	ParticleManager:SetParticleControl(self.kisume01_particle_start, 2, Vector(projectile_speed+50,0,0))
+	ParticleManager:DestroyParticleSystemTime(self.kisume01_particle_start,duration)
 
 	local projectile = {
 		Ability				= self,
@@ -143,9 +144,6 @@ function modifier_ability_thdots_kisume01_dummy:OnCreated()
 	self.think_damage = self.ability:GetSpecialValueFor("think_damage") * interval
 	self.stun_radius = self.ability:GetSpecialValueFor("stun_radius")
 	self.stun_duration = self.ability:GetSpecialValueFor("stun_duration") + self.ability.kisumeEx_stun_time
-	print("self.stun_duration")
-	print(self.stun_duration)
-	print(self.ability.kisumeEx_stun_time)
 	self.dummy:EmitSound("Voice_Thdots_Kisume.AbilityKisume01_3")
 	self.dummy:EmitSound("Voice_Thdots_Kisume.AbilityKisume01_4")
 	
@@ -447,10 +445,7 @@ function modifier_ability_thdots_kisume03_active:OnCreated()
 	self.ability = self:GetAbility()
 	self.defence = self.ability:GetSpecialValueFor("defence")
 	self.armor_bonus = self.ability:GetSpecialValueFor("armor_bonus")
-	print("active_number")
-	print(self.armor_bonus)
 	self.defence = self.defence + self.caster:GetPhysicalArmorValue(false) * self.armor_bonus
-	print(self.defence)
 	self:SetStackCount(self.defence)
 	local particle_name_1 = "particles/econ/items/ember_spirit/ember_ti9/ember_ti9_flameguard_shield_core.vpcf"
 	local particle_name_2 = "particles/units/heroes/hero_ember_spirit/ember_spirit_flameguard_shield.vpcf"
@@ -459,6 +454,7 @@ function modifier_ability_thdots_kisume03_active:OnCreated()
 	ParticleManager:SetParticleControlEnt(self.kisume03_guard_particle, 1, self.caster, PATTACH_POINT_FOLLOW, "attach_hitloc", self.caster:GetAbsOrigin(), true)
 	-- ParticleManager:SetParticleControl(self.kisume03_guard_particle, 2, Vector(128,128,128))
 	-- ParticleManager:SetParticleControl(self.kisume03_guard_particle, 3, Vector(128,128,128))
+
 	
 
 	self.kisume03_guard_particle_1 = ParticleManager:CreateParticle(particle_name_2, PATTACH_CUSTOMORIGIN_FOLLOW,self.caster)
@@ -466,7 +462,6 @@ function modifier_ability_thdots_kisume03_active:OnCreated()
 	-- local kisume03_guard_particle_2 = ParticleManager:CreateParticle(particle_name_1, PATTACH_ABSORIGIN_FOLLOW,self.caster)
 	-- ParticleManager:SetParticleControl(kisume03_guard_particle_2, 0, self.dummy:GetOrigin())
 	-- ParticleManager:SetParticleControl(kisume03_guard_particle_2, 1, self.dummy:GetOrigin())
-	-- ParticleManager:DestroyParticleSystem(kisume03_guard_particle_2,false)
 
 end
 
@@ -478,6 +473,7 @@ function modifier_ability_thdots_kisume03_active:OnDestroy()
 		if FindTelentValue(self:GetCaster(),"special_bonus_unique_kisume_2") ~= 0 then
 			self.end_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_oracle/oracle_false_promise_heal.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 			ParticleManager:ReleaseParticleIndex(self.end_particle)
+			ParticleManager:DestroyParticleSystem(self.end_particle,false)
 			self:GetParent():EmitSound("Voice_Thdots_Kisume.AbilityKisume03_Heal")
 			self:GetParent():Heal(self.defence, self:GetParent())
 			SendOverheadEventMessage(nil,OVERHEAD_ALERT_HEAL,self:GetParent(),self.defence,nil)
@@ -487,6 +483,7 @@ function modifier_ability_thdots_kisume03_active:OnDestroy()
 		local particle = ParticleManager:CreateParticle("particles/econ/items/abaddon/abaddon_alliance/abaddon_aphotic_shield_alliance_explosion.vpcf", PATTACH_ABSORIGIN, self:GetParent())
 		ParticleManager:SetParticleControl(particle, 0, self:GetParent():GetOrigin())
 		ParticleManager:ReleaseParticleIndex(particle)
+		ParticleManager:DestroyParticleSystem(particle,false)
 	end
 end
 
@@ -605,6 +602,7 @@ function ability_thdots_kisume04:OnSpellStart()
 	local kisume04_particle = ParticleManager:CreateParticle(particle_name_1, PATTACH_CUSTOMORIGIN_FOLLOW,self.caster)
 	ParticleManager:SetParticleControlEnt(kisume04_particle, 0, self.caster, PATTACH_POINT_FOLLOW, "attach_hitloc", point, true)
 	ParticleManager:ReleaseParticleIndex(kisume04_particle)
+	ParticleManager:DestroyParticleSystem(kisume04_particle,false)
 
 
 	local kisume04_particle_2 = ParticleManager:CreateParticle(particle_name_2, PATTACH_WORLDORIGIN, nil)
@@ -620,10 +618,12 @@ function ability_thdots_kisume04:OnSpellStart()
 		ParticleManager:SetParticleControl(kisume04_particle_2, 0, Vector(radius,radius,radius))
 		-- ParticleManager:SetParticleControlEnt(kisume04_particle_Ex, 0, self.caster, PATTACH_POINT_FOLLOW, "attach_hitloc", point, true)
 		ParticleManager:ReleaseParticleIndex(kisume04_particle_Ex)
+		ParticleManager:DestroyParticleSystem(kisume04_particle,false)
 		StartSoundEventFromPosition("Voice_Thdots_Kisume.AbilityKisume04_3",caster:GetOrigin())
 		StartSoundEventFromPosition("Voice_Thdots_Kisume.AbilityKisume04_3",caster:GetOrigin())
 		StartSoundEventFromPosition("Voice_Thdots_Kisume.AbilityKisume04_3",caster:GetOrigin())
 	end
+	ParticleManager:DestroyParticleSystem(kisume04_particle,false)
 
 	--设置20个点,10个大圈，10个小圈
 	local per_num = 30
@@ -655,6 +655,7 @@ function ability_thdots_kisume04:OnSpellStart()
 			-- ParticleManager:SetParticleControl(kisume04_particle_2, 0, Vector(particle_point.x,particle_point.y,particle_point.z+1500))
 			ParticleManager:SetParticleControl(kisume04_particle_2, 0, particle_point)
 			ParticleManager:ReleaseParticleIndex(kisume04_particle_2)
+			ParticleManager:DestroyParticleSystem(kisume04_particle_2,false)
 		end
 	---------------------
 	local targets = FindUnitsInRadius(self.caster:GetTeam(), self.caster:GetOrigin(),nil,radius,self:GetAbilityTargetTeam(),
@@ -756,6 +757,7 @@ function ability_thdots_kisume05:OnSpellStart()
 		ParticleManager:SetParticleControl(kisume05_particle, 0, target:GetAbsOrigin())
 		ParticleManager:SetParticleControlEnt(kisume05_particle, 1, caster, PATTACH_POINT_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
 		ParticleManager:ReleaseParticleIndex(kisume05_particle)
+		ParticleManager:DestroyParticleSystem(kisume05_particle,false)
 		caster:EmitSound("Voice_Thdots_Kisume.AbilityKisume05")
 		local caster_modifier = caster:AddNewModifier(caster, self, "modifier_ability_thdots_kisume05_caster", {duration = duration})
 		caster_modifier.modifier = target:AddNewModifier(caster, self, "modifier_ability_thdots_kisume05_target", {duration = duration})

@@ -239,6 +239,7 @@ function OnIku03AttackLight( keys,caster,unit,lastUnit,caster_abs,time )
 			ParticleManager:SetParticleControlEnt(particle , 0, lastUnit, 5, "attach_attack1", Vector(0,0,0), true)
 			ParticleManager:SetParticleControl(particle,1,unit:GetAbsOrigin() + Vector(0,0,150))
 			ParticleManager:ReleaseParticleIndex(particle)
+			ParticleManager:DestroyParticleSystemTime(particle,2)
 
 			local unit_abs = unit:GetAbsOrigin()
 			OnIku03Knockback(unit,(caster_abs - unit_abs):Normalized(),distance,10)
@@ -390,6 +391,7 @@ function OnIku04SpellStart( keys )
 	ParticleManager:SetParticleControl(particle,3,vec)
 	ParticleManager:SetParticleControl(particle,4,-caster_face)
 	ParticleManager:SetParticleControl(particle,5,-caster_face)
+	ParticleManager:DestroyParticleSystemTime(particle,duration)
 	effectUnit:SetContextThink(DoUniqueString('ability_iku04_effect_remove'),
     	function ()
     		if GameRules:IsGamePaused() then return 0.03 end

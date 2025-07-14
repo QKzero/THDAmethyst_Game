@@ -99,6 +99,7 @@ function OnWriggle04AttackStart(keys)
 	local target = keys.target
 	local effectIndex = ParticleManager:CreateParticle("particles/econ/courier/courier_master_chocobo/courier_master_chocobo_ambient_death_b.vpcf", PATTACH_CUSTOMORIGIN, caster) 
 	ParticleManager:SetParticleControl(effectIndex, 0, caster:GetOrigin())
+	ParticleManager:DestroyParticleSystem(effectIndex,false)
 	keys.ability:ApplyDataDrivenModifier( caster, caster, "modifier_wriggle04_noinvisible", {} )
 	caster:RemoveModifierByName("modifier_wriggle04_invisible")
 end
@@ -108,6 +109,7 @@ function OnWriggle04SpellStart(keys)
 	local target = keys.target
 	local effectIndex = ParticleManager:CreateParticle("particles/econ/courier/courier_master_chocobo/courier_master_chocobo_ambient_death_b.vpcf", PATTACH_CUSTOMORIGIN, caster) 
 	ParticleManager:SetParticleControl(effectIndex, 0, caster:GetOrigin())
+	ParticleManager:DestroyParticleSystem(effectIndex,false)
 	keys.ability:ApplyDataDrivenModifier( caster, caster, "modifier_wriggle04_noinvisible", {} )
 	caster:RemoveModifierByName("modifier_wriggle04_invisible")
 end

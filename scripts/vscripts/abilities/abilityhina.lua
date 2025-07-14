@@ -1075,4 +1075,5 @@ function CreateRequiemSoulLine(caster, ability, line_end_position, death_cast) -
 	ParticleManager:SetParticleControl(particle_lines_fx, 1, velocity)
 	ParticleManager:SetParticleControl(particle_lines_fx, 2, Vector(0, max_distance_time, 0))
 	ParticleManager:ReleaseParticleIndex(particle_lines_fx)
+	ParticleManager:DestroyParticleSystem(particle_lines_fx,false)
 end

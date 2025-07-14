@@ -28,6 +28,7 @@ function ability_thdots_kagerou01:OnSpellStart()
 		ParticleManager:SetParticleControl(step_particle, 0, cs:GetOrigin())
 		ParticleManager:SetParticleControl(step_particle, 1, cs:GetOrigin())
 		ParticleManager:ReleaseParticleIndex(step_particle)
+		ParticleManager:DestroyParticleSystem(step_particle,false)
 		EmitSoundOn("Hero_MonkeyKing.Spring.Target", cs)
 
 		--天生强化 刷新技能
@@ -80,6 +81,7 @@ function A1Start(k)
 		ParticleManager:SetParticleControl(step_particle, 0, cs:GetOrigin())
 		ParticleManager:SetParticleControl(step_particle, 1, cs:GetOrigin())
 		ParticleManager:ReleaseParticleIndex(step_particle)
+		ParticleManager:DestroyParticleSystem(step_particle,false)
 		EmitSoundOn("Hero_MonkeyKing.Spring.Target", cs)
 
 		--天生强化 刷新技能
@@ -281,6 +283,7 @@ function A3Start(k)
 	EmitSoundOn("Hero_Lycan.Howl",cs)
 	local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_lycan/lycan_shapeshift_cast.vpcf",PATTACH_ROOTBONE_FOLLOW,cs)
 	ParticleManager:ReleaseParticleIndex(particle)
+	ParticleManager:DestroyParticleSystemTime(particle,false)
 
 	if not cs.originalModel then cs.originalModel = cs:GetModelName() end
 
@@ -456,6 +459,7 @@ function A6Start(k)
 	local name = "particles/econ/items/slark/slark_ti6_blade/slark_ti6_pounce_trail.vpcf"
 	local particle = ParticleManager:CreateParticle(name, PATTACH_ABSORIGIN_FOLLOW, cs)
 	ParticleManager:ReleaseParticleIndex(particle)
+	ParticleManager:DestroyParticleSystem(particle,false)
 
 	--每次位移调用，判断是否有敌人可以被抓住
 	bf.callback = function ()
@@ -604,6 +608,7 @@ function A6End(k)
 
 	local particle = ParticleManager:CreateParticle("particles/econ/items/elder_titan/elder_titan_ti7/elder_titan_echo_stomp_ti7_ring_wave.vpcf", PATTACH_ROOTBONE_FOLLOW, t)
 	ParticleManager:ReleaseParticleIndex(particle)
+	ParticleManager:DestroyParticleSystem(particle,false)
 	EmitSoundOn("Hero_ElderTitan.EchoStomp.ti7", cs)
 	UnitDamageTarget({
 		victim = t, attacker = cs, damage = damage + cs:GetAgility() * ratio,
@@ -712,6 +717,7 @@ function partic0(p,name)
 	local id = ParticleManager:CreateParticle(name, PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(id, 0, p)
 	ParticleManager:ReleaseParticleIndex(id)
+	ParticleManager:DestroyParticleSystemTime(id,2)
 end
 
 --释放投射物

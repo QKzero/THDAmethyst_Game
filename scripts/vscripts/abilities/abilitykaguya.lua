@@ -335,7 +335,8 @@ function OnKaguya04SpellStart(keys)
 			end
 			if caster.kaguya04aimrange ~= nil then
 				ParticleManager:SetParticleControl(caster.kaguya04aimrange, 0, Vector(caster.ability_kaguya_04_radius,0,0))
-				ParticleManager:SetParticleControl(caster.kaguya04aimrange, 1, Vector(caster.ability_kaguya_04_radius,0,0))		
+				ParticleManager:SetParticleControl(caster.kaguya04aimrange, 1, Vector(caster.ability_kaguya_04_radius,0,0))
+				ParticleManager:DestroyParticleSystemTime(caster.kaguya04aimrange,10)
 				ParticleManager:SetParticleControl(caster.kaguya04aimrange2, 0, Vector((caster.ability_kaguya_04_radius*0.9),0,0))
 				ParticleManager:SetParticleControl(caster.kaguya04aimrange2, 1, Vector((caster.ability_kaguya_04_radius*0.9),0,0))		
 				ParticleManager:SetParticleControl(caster.kaguya04aimrange3, 0, Vector((caster.ability_kaguya_04_radius*0.8),0,0))
