@@ -2329,7 +2329,7 @@
 		"DOTA_Tooltip_ability_item_inaba_illusion_weapon_note0"	"阿瓦隆的兄弟写了炮火攻击溅射的代码，但是没有启用该功能。"
 		"DOTA_Tooltip_ability_item_recipe_repentancestick"	"悔悟棒制作书"
 		"DOTA_Tooltip_ability_item_repentancestick"	"悔悟棒"
-		"DOTA_Tooltip_ability_item_repentancestick_Description"	"<h1>被动：悔悟</h1>普通攻击对目标造成%repentancestick_damage%点魔法伤害，并降低目标%down_amplidy%%%的技能伤害，持续%repentancestick_duration%秒。"
+		"DOTA_Tooltip_ability_item_repentancestick_Description"	"<h1>被动：悔悟</h1>普通攻击降低目标%down_amplidy%%%的技能伤害，持续%repentancestick_duration%秒。"
 		"DOTA_Tooltip_ability_item_repentancestick_bonus_strength"	"+$str"
 		"DOTA_Tooltip_ability_item_repentancestick_bonus_attack_speed"	"+$attack"
 		"DOTA_Tooltip_ability_item_repentancestick_bonus_magical_armor"	"%+$spell_resist"

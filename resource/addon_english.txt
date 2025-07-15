@@ -7422,7 +7422,7 @@
 
 		"DOTA_Tooltip_ability_item_recipe_repentancestick"							"Recipe: Rod of Remorse"
 		"DOTA_Tooltip_ability_item_repentancestick"									"Rod of Remorse"
-		"DOTA_Tooltip_ability_item_repentancestick_Description"						"<h1>Passive: Remorse</h1>Your attacks deal %repentancestick_damage% magical damage to the target, and reduce Spell Amp by %down_amplidy%%% for %repentancestick_duration% seconds."
+		"DOTA_Tooltip_ability_item_repentancestick_Description"						"<h1>Passive: Remorse</h1>Your attacks reduce Spell Amp by %down_amplidy%%% for %repentancestick_duration% seconds."
 		"DOTA_Tooltip_ability_item_repentancestick_bonus_strength"					"+$str"
 		"DOTA_Tooltip_ability_item_repentancestick_bonus_attack_speed"				"+$attack"
 		"DOTA_Tooltip_ability_item_repentancestick_bonus_magical_armor"				"%+$spell_resist"

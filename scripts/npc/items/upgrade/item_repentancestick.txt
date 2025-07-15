@@ -100,14 +100,14 @@
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"	"12"
-			"bonus_attack_speed"	"45"
-			"bonus_magical_armor"	"25"
-			"tooltip_resist"	"25"
-			"down_amplidy"	"40"
+			"bonus_strength"	"10"
+			"bonus_attack_speed"	"30"
+			"bonus_magical_armor"	"20"
+			"tooltip_resist"	"20"
+			"down_amplidy"	"20"
 			"repentancestick_damage"	"35"
 			"int_damage"	"0.7"
-			"repentancestick_duration"	"5"
+			"repentancestick_duration"	"3.5"
 			"stun_duration"	"0.5"
 		}
 		"UIPickupSound"	"Item.PickUpRingShop"

@@ -2917,9 +2917,9 @@ function OnRepentancestickAttackLanded(keys)
 	local Caster = keys.caster
 	local Target = keys.target
 	local Duration = keys.Duration
-	local IntDamage = keys.ability:GetSpecialValueFor("int_damage")
+	--local IntDamage = keys.ability:GetSpecialValueFor("int_damage")
 	if (Caster:IsIllusion() == false and Target:IsBuilding() == false and not Caster:HasModifier("modifier_illusion")) then
-		local damage_to_deal = ItemAbility:GetSpecialValueFor("repentancestick_damage")
+		--[[local damage_to_deal = ItemAbility:GetSpecialValueFor("repentancestick_damage")
 		local damage_table = {
 			ability = ItemAbility,
 			victim = Target,
@@ -2927,7 +2927,7 @@ function OnRepentancestickAttackLanded(keys)
 			damage = damage_to_deal,
 			damage_type = DAMAGE_TYPE_MAGICAL,
 		}
-	UnitDamageTarget(damage_table)
+	UnitDamageTarget(damage_table)]]--
 	Target:AddNewModifier(Caster, ItemAbility, "modifier_itemability_repentancestick_debuff", {duration = Duration * (1 - Target:GetStatusResistance())})
 	end
 end
