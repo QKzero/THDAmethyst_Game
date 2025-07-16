@@ -987,7 +987,7 @@
 		// Armor
 		// ----------------------------------------------------------------
 		// Physical protection.
-		"ArmorPhysical"	"30"
+		"ArmorPhysical"	"27"
 		// Magical protection.
 		"MagicalResistance"	"0"
 		// Attack
@@ -1052,7 +1052,7 @@
 		// Base health.
 		"StatusHealth"	"4000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"8"
+		"StatusHealthRegen"	"5"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -1117,7 +1117,7 @@
 		// Armor
 		// ----------------------------------------------------------------
 		// Physical protection.
-		"ArmorPhysical"	"30"
+		"ArmorPhysical"	"27"
 		// Magical protection.
 		"MagicalResistance"	"0"
 		// Attack
@@ -1182,7 +1182,7 @@
 		// Base health.
 		"StatusHealth"	"4000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"8"
+		"StatusHealthRegen"	"5"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -1247,7 +1247,7 @@
 		// Armor
 		// ----------------------------------------------------------------
 		// Physical protection.
-		"ArmorPhysical"	"30"
+		"ArmorPhysical"	"27"
 		// Magical protection.
 		"MagicalResistance"	"0"
 		// Attack
@@ -1312,7 +1312,7 @@
 		// Base health.
 		"StatusHealth"	"4000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"8"
+		"StatusHealthRegen"	"5"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -1377,7 +1377,7 @@
 		// Armor
 		// ----------------------------------------------------------------
 		// Physical protection.
-		"ArmorPhysical"	"40"
+		"ArmorPhysical"	"36"
 		// Magical protection.
 		"MagicalResistance"	"0"
 		// Attack
@@ -1440,9 +1440,9 @@
 		// Status
 		// ----------------------------------------------------------------
 		// Base health.
-		"StatusHealth"	"5000"
+		"StatusHealth"	"4000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"15"
+		"StatusHealthRegen"	"12"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -2281,7 +2281,7 @@
 		// Armor
 		// ----------------------------------------------------------------
 		// Physical protection.
-		"ArmorPhysical"	"30"
+		"ArmorPhysical"	"27"
 		// Magical protection.
 		"MagicalResistance"	"0"
 		// Attack
@@ -2346,7 +2346,7 @@
 		// Base health.
 		"StatusHealth"	"4000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"8"
+		"StatusHealthRegen"	"5"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -2411,7 +2411,7 @@
 		// Armor
 		// ----------------------------------------------------------------
 		// Physical protection.
-		"ArmorPhysical"	"30"
+		"ArmorPhysical"	"27"
 		// Magical protection.
 		"MagicalResistance"	"0"
 		// Attack
@@ -2476,7 +2476,7 @@
 		// Base health.
 		"StatusHealth"	"4000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"8"
+		"StatusHealthRegen"	"5"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -2541,7 +2541,7 @@
 		// Armor
 		// ----------------------------------------------------------------
 		// Physical protection.
-		"ArmorPhysical"	"30"
+		"ArmorPhysical"	"27"
 		// Magical protection.
 		"MagicalResistance"	"0"
 		// Attack
@@ -2606,7 +2606,7 @@
 		// Base health.
 		"StatusHealth"	"4000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"8"
+		"StatusHealthRegen"	"5"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -2671,7 +2671,7 @@
 		// Armor
 		// ----------------------------------------------------------------
 		// Physical protection.
-		"ArmorPhysical"	"40"
+		"ArmorPhysical"	"36"
 		// Magical protection.
 		"MagicalResistance"	"0"
 		// Attack
@@ -2734,9 +2734,9 @@
 		// Status
 		// ----------------------------------------------------------------
 		// Base health.
-		"StatusHealth"	"5000"
+		"StatusHealth"	"4000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"15"
+		"StatusHealthRegen"	"12"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
