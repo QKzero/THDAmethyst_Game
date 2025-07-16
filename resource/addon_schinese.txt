@@ -3681,7 +3681,7 @@
 		"DOTA_Tooltip_modifier_ability_thdots_daiyouseiEx_passive_Description"	"每次大妖精或友方少女施法后，大妖精的下一次攻由将附加物理伤害。"
 		"DOTA_Tooltip_modifier_ability_thdots_daiyouseiEx_wanbaochui"	"「妖精的节奏」"
 		"DOTA_Tooltip_modifier_ability_thdots_daiyouseiEx_wanbaochui_Description"	"获取视野范围内所有树木周围视野。"
-		"DOTA_Tooltip_ability_ability_thdots_daiyouseiEx_Description"	"大妖精将妖精的节奏放在攻击敌人上，每次大妖精%aura_radius%范围内的友方少女施法后，大妖精的下一次普通攻击将附加（[大妖精攻击力-目标攻击力]*%damage_percent%%%）物理伤害。\n若目标攻击力高于大妖精攻击力，则不造成附加伤害。\n大妖精会获得视野范围内所有树木周围%radius%码的视野。（大妖精的视野依然会被树木阻挡）"
+		"DOTA_Tooltip_ability_ability_thdots_daiyouseiEx_Description"	"大妖精将妖精的节奏放在攻击敌人上，每次大妖精%aura_radius%范围内的友方少女施法后，大妖精的下一次普通攻击将附加（[大妖精攻击力-目标攻击力]*%damage_percent%%%）物理伤害。\n若目标攻击力高于大妖精攻击力，则不造成附加伤害。"
 		"DOTA_Tooltip_ability_ability_thdots_daiyouseiEx_note0"		"无法叠加。\n攻击建筑和友方单位时不触发。\n即使攻击目标的攻击力比自身高也会消耗掉这个效果，此时不造成额外伤害。"
 		"DOTA_Tooltip_ability_ability_thdots_daiyouseiEx"	"「妖精的节奏」"
 		"DOTA_Tooltip_ability_ability_thdots_daiyouseiEx_Note0"	"输入(-daiyousei01 或者 -daiyousei02)更换衣装"
