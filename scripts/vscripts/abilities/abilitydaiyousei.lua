@@ -87,13 +87,13 @@ end
 
 function modifier_ability_thdots_daiyouseiEx_passive:OnIntervalThink()
 	if not IsServer() then return end
-	local caster = self:GetParent()
+	--[[local caster = self:GetParent()
 	local radius = self:GetAbility():GetSpecialValueFor("radius")
 	local view = caster:GetCurrentVisionRange()
 	local trees = GridNav:GetAllTreesAroundPoint(caster:GetOrigin(), view, false)
 	for _,tree in pairs(trees) do
 		AddFOWViewer(caster:GetTeamNumber(), tree:GetOrigin(), radius,self.time + FrameTime(), false)
-	end
+	end]]--
 	--天赋监听
 	if FindTelentValue(self:GetCaster(),"special_bonus_unique_daiyousei_1") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_daiyouseiEx_talent1") then
 		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_daiyouseiEx_talent1",{})
