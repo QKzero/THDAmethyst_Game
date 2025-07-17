@@ -12,7 +12,7 @@
 		"Ability1"	"ability_thdots_miko01"
 		"Ability2"	"ability_thdots_miko02"
 		"Ability3"	"ability_thdots_miko03"
-		"Ability4"	"ability_thdots_mikoEx"
+		"Ability4"	"generic_hidden"
 		"Ability5"	"ability_thdots_mikoWanbao"
 		"Ability6"	"ability_thdots_miko04"
 		"Ability7"	"generic_hidden"

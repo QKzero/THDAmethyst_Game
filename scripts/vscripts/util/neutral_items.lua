@@ -44,15 +44,14 @@ local Tier4NeutralItems = {
     "item_crippling_crossbow",
     "item_magnifying_monocle",
     "item_giant_maul",
-    "item_outworld_staff",
     "item_pyrrhic_cloak",
     "item_dezun_bloodrite",
 }
 
 local Tier5NeutralItems = {
     "item_desolator_2",
-    "item_fallen_sky",
-    "item_demonicon",
+    "item_desolator_2",
+    "item_desolator_2",
     "item_minotaur_horn",
     "item_spider_legs",
     "item_unrelenting_eye",

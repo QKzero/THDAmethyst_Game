@@ -2702,7 +2702,7 @@
 		"DOTA_Tooltip_ability_ability_thdots_Merlin03_scepter_description"	"While active, Merlin will continuously play maddening music with her skillful playing skills. Deals %damage_percent%%% of her maximum health as magical damage to herself as well as all enemies within %radius% range every second. Enemies' movement speed is reduced by %slow%%%."
 
 		"DOTA_Tooltip_modifier_merlin03_buff"								"「Mania Fantasia」HP Recovery"
-		"DOTA_Tooltip_modifier_merlin03_buff_Description"					"This unit is under the influence of Merlin's exciting performance, granting increased health regeneration."
+		"DOTA_Tooltip_modifier_merlin03_buff_Description"					"With Merlin's exciting performance, her health regeneration increased."
 
 		//"DOTA_Tooltip_modifier_merlin03_buff_telent"						"「Mania Fantasia」Armor and MR Increased"
 		//"DOTA_Tooltip_modifier_merlin03_buff_telent_Description"			"This unit is under the influence of Merlin's exciting performance, granting increased armor and magic resistance."

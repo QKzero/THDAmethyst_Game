@@ -104,10 +104,10 @@ function Shikieiki01_Modifier_AccusationTimer_OnCreated(keys)
 	end
 	local ModifierAccusation=Target:FindModifierByNameAndCaster(MODIFIER_NAME_ACCUSATION,Caster)
 	local ModifierCount=GetAccusationCount(Caster,Target)
-	local effectIndex = ParticleManager:CreateParticle("particles/heroes/shikieiki/ability_shikieiki_01_guilty.vpcf", PATTACH_CUSTOMORIGIN, Caster)
+	--[[local effectIndex = ParticleManager:CreateParticle("particles/heroes/shikieiki/ability_shikieiki_01_guilty.vpcf", PATTACH_CUSTOMORIGIN, Caster)
 	ParticleManager:SetParticleControlEnt(effectIndex , 0, Target, 5, "follow_origin", Vector(0,0,0), true)
 	ParticleManager:DestroyParticleSystemTime(effectIndex,keys.Duration)
-	--[[local effectIndex = ParticleManager:CreateParticle("particles/heroes/shikieiki/ability_shikieiki_01_guilty_b.vpcf", PATTACH_CUSTOMORIGIN, Caster)
+	local effectIndex = ParticleManager:CreateParticle("particles/heroes/shikieiki/ability_shikieiki_01_guilty_b.vpcf", PATTACH_CUSTOMORIGIN, Caster)
 	ParticleManager:SetParticleControlEnt(effectIndex , 0, Target, 5, "follow_origin", Vector(0,0,0), true)
 	ParticleManager:SetParticleControl(effectIndex, 1, Vector(0,ModifierCount,0))]]--
 	--ParticleManager:SetParticleControl(effectIndex, 1, Target:GetOrigin())

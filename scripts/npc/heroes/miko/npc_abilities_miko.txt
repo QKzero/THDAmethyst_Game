@@ -91,24 +91,24 @@
 	} 
 
 
-	"ability_thdots_mikoEx" 
-	{
-		"BaseClass"			    "ability_lua"
-		"AbilityTextureName"	"custom/ability_thdots_mikoEx"
-		"ScriptFile"			"scripts/vscripts/abilities/abilitymiko.lua"
-		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"MaxLevel"	"1"
-		"IsBreakable"					"1"
-		"AbilityValues"
-		{
-			"radius"
-			{
-				"value"	"800"
-	        	"LinkedSpecialBonus"  "special_bonus_unique_miko03"
-				"affected_by_aoe_increase"	"1"
-			}
-	    }
-	}    
+	// "ability_thdots_mikoEx" 
+	// {
+	// 	"BaseClass"			    "ability_lua"
+	// 	"AbilityTextureName"	"custom/ability_thdots_mikoEx"
+	// 	"ScriptFile"			"scripts/vscripts/abilities/abilitymiko.lua"
+	// 	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	// 	"MaxLevel"	"1"
+	// 	"IsBreakable"					"1"
+	// 	"AbilityValues"
+	// 	{
+	// 		"radius"
+	// 		{
+	// 			"value"	"800"
+	//         	"LinkedSpecialBonus"  "special_bonus_unique_miko03"
+	// 			"affected_by_aoe_increase"	"1"
+	// 		}
+	//     }
+	// }    
 
 	"ability_thdots_miko04" 
 	{

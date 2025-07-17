@@ -154,7 +154,7 @@
 			"items"
 			{
 				"item_desolator_2"					"1"		// 寂灭
-				"item_fallen_sky"					"1"		// 天崩
+				// "item_fallen_sky"					"1"		// 天崩
 				"item_demonicon"					"1"		// 冥灵书
 				"item_minotaur_horn"				"1"		// 恶牛角
 				"item_spider_legs"					"1"		// 网虫腿

@@ -144,10 +144,7 @@ function modifier_merlin03_aura:OnIntervalThink()
 	local tmp1 = math.modf( (1 - (currentHealth / maxHealth ) ) / (self.ability:GetSpecialValueFor("spell_rate") / 100) )
 
 	local buffstack = tmp1 + 1
-	local targets = FindUnitsInRadius(self.caster:GetTeamNumber(), self.caster:GetOrigin(), self, self.ability:GetSpecialValueFor("aura_range"), DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, 0, 0, false)
-	for _,u in pairs (targets) do
-		u:SetModifierStackCount("modifier_merlin03_buff", self.caster, buffstack)
-	end
+	self.caster:SetModifierStackCount("modifier_merlin03_buff", self.caster, buffstack)
 end
 
 modifier_merlin03_buff = {}
