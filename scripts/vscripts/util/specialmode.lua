@@ -528,6 +528,17 @@ function THD2_UnbanBotHero(player, hero_name)
 	end
 end
 
+function THD2_BanAllBotHero(player)
+	local count = 0
+	for i, name in pairs(G_Bot_Random_Hero) do
+		if G_BOT_USED[i] == false then
+			G_BOT_USED[i] = true
+			count = count + 1
+		end
+	end
+	Say(player, "Number of banned bot hero changed: " .. count, false)
+end
+
 function THD2_BanHero(player, hero_name)
 	local index = 0
 	for name, i in pairs(Activelist) do

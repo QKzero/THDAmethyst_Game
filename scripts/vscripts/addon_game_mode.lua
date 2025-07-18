@@ -594,10 +594,10 @@ function THDOTSGameMode:OnPlayerSay( keys )
                 end
                 local gold = hero:GetGold()
                 local xp = hero:GetCurrentXP()
-                if properties["-ug"] then
+                if properties["-ug"] == 1 then
                     gold = 0
                 end
-                if properties["-ux"] then
+                if properties["-ux"] == 1 then
                     xp = 0
                 end
                 PlayerResource:ReplaceHeroWith(plyid, newHeroName, gold, xp)
@@ -1017,6 +1017,8 @@ function THDOTSGameMode:OnPlayerSay( keys )
 				for i = 2, #ss do
 					THD2_BanBotHero(plyhd, ss[i])
 				end
+			elseif ss[1] == "-banallbot" or ss[1] == "-banallbothero" then
+				THD2_BanAllBotHero(plyhd)
 			elseif ss[1] == "-unbanbot" or ss[1] == "-unbanbothero" then
 				THD2_UnbanBotHero(plyhd, ss[2])
 			elseif ss[1] == "-unbanbots" or ss[1] == "-unbanbotheroes" then
