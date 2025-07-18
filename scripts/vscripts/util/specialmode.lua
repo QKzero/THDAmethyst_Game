@@ -273,7 +273,7 @@ G_Bot_Random_Hero =
 	"npc_dota_hero_enchantress",			--妖梦v2
 	
 	"npc_dota_hero_death_prophet",			--紫苑
-	"npc_dota_hero_tusk",					--女苑
+	"npc_dota_hero_meepo",					--女苑
 	"npc_dota_hero_leshrac",				--莉莉白
 }
 

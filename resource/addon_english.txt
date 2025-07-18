@@ -6129,7 +6129,7 @@
 		// --------------------
 		// 12-01-2022 - created by Lasiace
 
-		"npc_dota_hero_tusk"														"Joon Yorigami"
+		"npc_dota_hero_meepo"														"Joon Yorigami"
 
 		// Joon01
 		"DOTA_Tooltip_ability_ability_thdots_Jyoon_1"								"Financial Ruin「Pluck Pidgeon」"
