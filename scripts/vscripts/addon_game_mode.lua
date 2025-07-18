@@ -39,7 +39,7 @@ DOTA_BAN_LIST={
 	"npc_dota_hero_windrunner",--风行者
 	"npc_dota_hero_snapfire",--电炎绝手
 	"npc_dota_hero_treant",--树人
-	"npc_dota_hero_meepo",--米波
+	"npc_dota_hero_tusk",--巨牙海民
 	"npc_dota_hero_medusa",--美杜莎
 	"npc_dota_hero_techies",--工程师
 	"npc_dota_hero_troll_warlord",--巨魔
@@ -2094,7 +2094,7 @@ function THDOTSGameMode:PrecacheHeroResource(hero)
 	elseif (heroName == "npc_dota_hero_queenofpain") then
 		abilityEx = hero:FindAbilityByName("ability_thdots_sagume_Ex")
 		abilityEx:SetLevel(1)
-	elseif (heroName == "npc_dota_hero_tusk") then
+	elseif (heroName == "npc_dota_hero_meepo") then
 		abilityEx = hero:FindAbilityByName("ability_thdots_Jyoon_passive")
 		abilityEx:SetLevel(1)
 	elseif (heroName == "npc_dota_hero_lone_druid") then
