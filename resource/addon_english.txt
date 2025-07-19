@@ -7739,7 +7739,7 @@
 		"DOTA_Tooltip_modifier_item_third_eyes_debuff_Description"					"Health regeneration and healing reduced by 35%% and taking damage."
 
 		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan"								"Angel's Raiment of Thundercloud"
-		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_Description"					"<h1>Passive: Ligning</h1>On attack, has a %chance%% chance to release a lightning bolt that bounces between up to %max_target% targets within %lock_range% range, dealing %lightning_damage% damage to each. Deals an additional %lightning_damage_creep% damage to creep units."
+		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_Description"					"<h1>Passive: Divine Dragon Whisker</h1>On attack, has a %chance%% chance to release a lightning bolt that bounces between up to %max_target% targets within %lock_range% range, dealing %lightning_damage% damage to each. Deals an additional %lightning_damage_creep% damage to creep units."
 		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_Note0"							"Hearing that we can talk to others staying in the wind using this item."
 		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_bonus_attack_damage"	"+$damage"
 		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_bonus_attack_speed"		"+$attack"

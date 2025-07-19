@@ -1794,7 +1794,7 @@
 		"DOTA_Tooltip_ability_item_donation_box_note0"	"目前使用成功后的显示效果会产生歧义，施法者头上跳出+100，被击杀者赏金数额也加了100。<br>实际效果只会让施法者获得额外100金钱。"
 		"DOTA_Tooltip_ability_item_recipe_donation_gem"	"纳税用阴阳玉制作书"
 		"DOTA_Tooltip_ability_item_donation_gem"	"纳税用阴阳玉"
-		"DOTA_Tooltip_ability_item_donation_gem_Description"	"<h1>被动：纳税</h1>击杀敌方单位后固定获得%bonus_gold%金钱。如果击杀的单位是中立生物，则额外获得%bonus_gold_creep%金钱。\n获得的金钱是不可靠金钱。"
+		"DOTA_Tooltip_ability_item_donation_gem_Description"	"<h1>被动：纳税</h1>击杀敌方单位后固定获得%bonus_gold%金钱。如果击杀的单位是中立基础生物，则额外获得%bonus_gold_creep%金钱。\n获得的金钱是不可靠金钱。"
 		"DOTA_Tooltip_ability_item_donation_gem_bonus_all_stats"	"+$all"
 		"DOTA_Tooltip_ability_item_donation_gem_bonus_damage"	"+$damage"
 		"DOTA_Tooltip_ability_item_donation_gem_note0"	"击杀任何目标都会触发，比如建筑，信使，守卫。"
@@ -6476,7 +6476,7 @@
 		"DOTA_Tooltip_modifier_item_ertianyiliu_double_attack_debuff_Description"		"被减速。"
 
 		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan"						"雷云之羽川"
-		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_Description"			"<h1>被动：雷云电光</h1>攻击时有%chance%%的几率释放一道闪电，在%lock_range%范围内最多%max_target%个目标之间跳跃，对每个目标造成%lightning_damage%伤害。对基础单位额外造成%lightning_damage_creep%魔法伤害。"
+		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_Description"			"<h1>被动：龙神之须</h1>攻击时有%chance%%的几率释放一道闪电，在%lock_range%范围内最多%max_target%个目标之间跳跃，对每个目标造成%lightning_damage%伤害。对基础单位额外造成%lightning_damage_creep%魔法伤害。"
 		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_Note0"					"据说可以用这个闪电和云中的同伴交流。"
 		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_bonus_attack_damage"	"+$damage"
 		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_bonus_attack_speed"		"+$attack"

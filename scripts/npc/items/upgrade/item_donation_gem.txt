@@ -33,7 +33,7 @@
 		"BaseClass"	"item_datadriven"
 		"AbilityTextureName"	"item_donation_gem"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityCooldown"	"1.0"
+		"AbilityCooldown"	"0.0"
 		// General
 		// -------------------------------------------------------------------------------------------------------------
 		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
@@ -88,7 +88,7 @@
 			// Gain gold by killing units
 			"bonus_gold"	"10"
 			// Gain gold by killing neutral creeps
-			"bonus_gold_creep"	"15"
+			"bonus_gold_creep"	"5"
 		}
 	}
 }
