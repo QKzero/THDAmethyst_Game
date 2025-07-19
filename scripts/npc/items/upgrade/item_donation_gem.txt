@@ -69,24 +69,12 @@
 				"RemoveOnDeath"	"0"
 				"OnKill"
 				{
-					"Random"
-					{
-						"Chance"	"%bonus_gold_chance"
-						"OnSuccess"
-						{
-							"RunScript"
-							{
-								"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
-								"Function"	"ItemAbility_DonationGem_BounsGold"
-								"GoldBountyAmount"	"%bonus_gold"
-							}
-						}
-					}
 					"RunScript"
 					{
 						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
-						"Function"	"ItemAbility_DonationGem_BounsGoldConst"
-						"GoldBountyAmount"	"%bonus_gold_const"
+						"Function"	"ItemAbility_DonationGem_BounsGold"
+						"GoldBountyAmount"	"%bonus_gold"
+						"GoldBountyCreepAmount"	"%bonus_gold_creep"
 					}
 				}
 			}
@@ -97,11 +85,10 @@
 		{
 			"bonus_all_stats"	"6"
 			"bonus_damage"	"15"
-			// Bonus influenced by chance
-			"bonus_gold_chance"	"25"
-			"bonus_gold"	"40"
-			// Bonus which is constant
-			"bonus_gold_const"	"2"
+			// Gain gold by killing units
+			"bonus_gold"	"10"
+			// Gain gold by killing neutral creeps
+			"bonus_gold_creep"	"15"
 		}
 	}
 }

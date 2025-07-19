@@ -14,92 +14,127 @@ function modifier_item_leiyunzhiyuchuan_passive:GetAttributes()	return MODIFIER_
 
 function modifier_item_leiyunzhiyuchuan_passive:DeclareFunctions()
 	return {
-		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
-		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
-		MODIFIER_PROPERTY_HEALTH_BONUS,
+		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
+		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
 	}
 end
 
-function modifier_item_leiyunzhiyuchuan_passive:GetModifierPhysicalArmorBonus()
-	return self:GetAbility():GetSpecialValueFor("bonus_armor")	
+function modifier_item_leiyunzhiyuchuan_passive:GetModifierPreAttack_BonusDamage()
+	return self:GetAbility():GetSpecialValueFor("bonus_attack_damage")	
 end
 
-function modifier_item_leiyunzhiyuchuan_passive:GetModifierMagicalResistanceBonus()
-	return self:GetAbility():GetSpecialValueFor("bonus_magical_armor")
+function modifier_item_leiyunzhiyuchuan_passive:GetModifierAttackSpeedBonus_Constant()
+	return self:GetAbility():GetSpecialValueFor("bonus_attack_speed")
 end
 
-function modifier_item_leiyunzhiyuchuan_passive:GetModifierHealthBonus()
-	return self:GetAbility():GetSpecialValueFor("bonus_health")
-end
-
--- function item_leiyunzhiyuchuan:GetCastRange(vLocation, hTarget)
--- 	return self:GetSpecialValueFor("radius")
--- end
-
-function item_leiyunzhiyuchuan:OnSpellStart()
+function modifier_item_leiyunzhiyuchuan_passive:OnCreated()
 	if not IsServer() then return end
-	local caster = self:GetCaster()
-	local target1 = self:GetCursorTarget()
-	local ability = self
-	local point = target1:GetOrigin()
-	local target1team = self:GetSpecialValueFor("targetteam")
-	local radius = self:GetSpecialValueFor("radius")
 
-	target1:EmitSound("THD_ITEM.Leiyunzhiyuchuan_Cast")
-	local particle = "particles/thd2/heroes/iku/iku_02.vpcf"
-	self.particle = ParticleManager:CreateParticle(particle,PATTACH_CUSTOMORIGIN,target1)
-	ParticleManager:SetParticleControlEnt(self.particle , 2, target1, 5, "attach_hitloc", Vector(0,0,0), true)
-	-- ParticleManager:SetParticleControl(self.particle, 1, Vector(direct.x*1500,direct.y*1500,0))
-	-- ParticleManager:SetParticleControl(self.particle, 2, Vector(200,200,200))
-	ParticleManager:DestroyParticleSystemTime(self.particle,0.4)
+	self.caster = self:GetCaster()
+	self.ability = self:GetAbility()
 
-	local targets = FindUnitsInRadius(target1:GetTeam(), point,nil,radius,DOTA_UNIT_TARGET_TEAM_ENEMY
-			,self:GetAbilityTargetType(),0,0,false)
-	for _,victim in ipairs(targets) do
-		if not victim:HasModifier("modifier_thdots_yugi04_think_interval") then
-			victim:AddNewModifier(target1, self, "modifier_item_leiyunzhiyuchuan_push",{duration = 0.2})
+	if not self.caster:HasModifier("modifier_item_leiyunzhiyuchuan_lightning") then
+		self.caster:AddNewModifier(self.caster, self.ability, "modifier_item_leiyunzhiyuchuan_lightning", {})
+	end
+end
+
+function modifier_item_leiyunzhiyuchuan_passive:OnDestroy()
+	if not IsServer() then return end
+
+	if self.caster:HasModifier("modifier_item_leiyunzhiyuchuan_lightning") then
+		self.caster:RemoveModifierByName("modifier_item_leiyunzhiyuchuan_lightning")
+	end
+end
+
+modifier_item_leiyunzhiyuchuan_lightning = {}
+LinkLuaModifier("modifier_item_leiyunzhiyuchuan_lightning","items/item_leiyunzhiyuchuan.lua", LUA_MODIFIER_MOTION_NONE)
+function modifier_item_leiyunzhiyuchuan_lightning:IsHidden() return false end
+function modifier_item_leiyunzhiyuchuan_lightning:IsPurgable() return false end
+function modifier_item_leiyunzhiyuchuan_lightning:IsPurgeException() return false end
+function modifier_item_leiyunzhiyuchuan_lightning:RemoveOnDeath() return false end
+
+function modifier_item_leiyunzhiyuchuan_lightning:Init()
+	if self.inited ~= nil and self.inited == true then return end
+	self.inited = true
+
+	self.caster = self:GetCaster()
+	self.ability = self:GetAbility()
+
+	self.chance = self.ability:GetSpecialValueFor("chance")
+	self.lockRange = self.ability:GetSpecialValueFor("lock_range")
+	self.maxTarget = self.ability:GetSpecialValueFor("max_target")
+	self.lightningDamage = self.ability:GetSpecialValueFor("lightning_damage")
+	self.lightningDamageCreep = self.ability:GetSpecialValueFor("lightning_damage_creep")
+end
+
+function modifier_item_leiyunzhiyuchuan_lightning:OnCreated()
+	if not IsServer() then return end
+
+	self:Init()
+end
+
+function modifier_item_leiyunzhiyuchuan_lightning:DeclareFunctions()
+	return {
+		MODIFIER_EVENT_ON_ATTACK_LANDED,
+	}
+end
+
+function modifier_item_leiyunzhiyuchuan_lightning:OnAttackLanded(event)
+	if not IsServer() then return end
+
+	if self:GetCaster() ~= event.attacker then return end
+
+	self:Init()
+
+	if RandomInt(1, 100) <= self.chance then
+		local targets = FindUnitsInRadius(
+			self.caster:GetTeamNumber(),
+			self.caster:GetOrigin(),
+			nil,
+			self.lockRange,
+			self.ability:GetAbilityTargetTeam(),
+			self.ability:GetAbilityTargetType(),
+			DOTA_UNIT_TARGET_FLAG_NONE,
+			FIND_ANY_ORDER,
+			false
+		)
+
+		if #targets > 0 then
+			EmitSoundOn("Hero_Zuus.ArcLightning.Cast", self.caster)
+			-- 闪电特效的上一个实体
+			local preUnit = self.caster
+			for i = 1, math.min(#targets, self.maxTarget) do
+				local target = targets[i]
+				local damage = self.lightningDamage
+				if target:IsCreep() then
+					damage = damage + self.lightningDamageCreep
+				end
+
+				local damageTable = {
+					ability = self.ability,
+					victim = target,
+					attacker = self.caster,
+					damage = damage,
+					damage_type = self.ability:GetAbilityDamageType(),
+					damage_flags = DOTA_DAMAGE_FLAG_NONE,
+				}
+				UnitDamageTarget(damageTable)
+
+				--创建特效
+				print(preUnit:GetPlayerOwnerID(), target:GetPlayerOwnerID())
+				local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_zuus/zuus_arc_lightning_head.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, preUnit)
+				print(preUnit == self.caster)
+				if preUnit == self.caster then
+					ParticleManager:SetParticleControlEnt(particle, 0, self.caster, 5, "attach_attack1", Vector(0, 0, 0), true)
+				else
+					ParticleManager:SetParticleControlEnt(particle, 0, preUnit, 5, "attach_hitloc", Vector(0, 0, 0), true)
+				end
+				ParticleManager:SetParticleControl(particle, 1, target:GetAbsOrigin() + Vector(0, 0, 150))
+				ParticleManager:ReleaseParticleIndex(particle)
+				ParticleManager:DestroyParticleSystemTime(particle, 2)
+
+				preUnit = target
+			end
 		end
 	end
-
-end
-
-modifier_item_leiyunzhiyuchuan_push = {}
-LinkLuaModifier("modifier_item_leiyunzhiyuchuan_push","items/item_leiyunzhiyuchuan.lua", LUA_MODIFIER_MOTION_NONE)
-function modifier_item_leiyunzhiyuchuan_push:IsDebuff() return true end
-function modifier_item_leiyunzhiyuchuan_push:IsHidden() return false end
-function modifier_item_leiyunzhiyuchuan_push:IsPurgable() return false end
-function modifier_item_leiyunzhiyuchuan_push:RemoveOnDeath() return true end
-
-function modifier_item_leiyunzhiyuchuan_push:OnCreated()
-	if not IsServer() then return end
-	self.point = self:GetCaster():GetOrigin()
-	self.target = self:GetParent()
-	self.direct = (self.target:GetOrigin() - self.point):Normalized()
-	local distance = self:GetAbility():GetSpecialValueFor("distance")
-	local duration = self:GetRemainingTime()
-	print(duration)
-	self.speed = distance /  (1/duration)
-	print(self.speed)
-	self:StartIntervalThink(FrameTime())
-end
-
-function modifier_item_leiyunzhiyuchuan_push:OnIntervalThink()
-	if not IsServer() then return end
-	local target = self:GetParent()
-	local position = target:GetOrigin() + self.direct * self.speed
-	if target:HasModifier("modifier_thdots_yugi04_think_interval") then
-		self:Destroy()
-	end
-	target:SetOrigin(position)
-end
-
-function modifier_item_leiyunzhiyuchuan_push:OnDestroy()
-	if not IsServer() then return end
-	ResolveNPCPositions(self:GetParent():GetAbsOrigin(), 128)
-end
-
-function modifier_item_leiyunzhiyuchuan_push:CheckState()
-	return {
-		[MODIFIER_STATE_NO_UNIT_COLLISION] = true,
-	}
 end

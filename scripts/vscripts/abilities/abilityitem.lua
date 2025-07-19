@@ -1538,40 +1538,25 @@ function ItemAbility_DonationBox_OnSpellStart(keys)
 end
 
 function ItemAbility_DonationGem_BounsGold(keys)
-	local ItemAbility = keys.ability
-	local Caster = keys.caster
-	local Target = keys.unit
-	local CasterPlayerID = Caster:GetPlayerOwnerID()
-	local GoldBountyAmount=keys.GoldBountyAmount
-	
-	if Target:GetTeam()~=Caster:GetTeam() then
-		if (ItemAbility and ItemAbility:IsCooldownReady()) then
-			--ItemAbility:StartCooldown(ItemAbility:GetCooldown(ItemAbility:GetLevel()))
-			ItemAbility:StartCooldown(GetCurrentCoolDown(ItemAbility,Caster))
-			Caster.ItemAbility_DonationGem_TriggerTime=GameRules:GetGameTime()
-			PlayerResource:SetGold(CasterPlayerID,PlayerResource:GetUnreliableGold(CasterPlayerID) + GoldBountyAmount,false)
-			
-			local effectIndex = ParticleManager:CreateParticle("particles/econ/items/alchemist/alchemist_midas_knuckles/alch_knuckles_lasthit_coins.vpcf", PATTACH_ABSORIGIN_FOLLOW, Caster)
-			ParticleManager:DestroyParticleSystem(effectIndex,false)
-			
-			SendOverheadEventMessage(Caster:GetOwner(),OVERHEAD_ALERT_GOLD,Caster,GoldBountyAmount,nil)
-		end
-	end
-end
-
-function ItemAbility_DonationGem_BounsGoldConst(keys)
 	local Caster = keys.caster
 	local Target = keys.unit
 	local GoldBountyAmount = keys.GoldBountyAmount
+	local GoldBountyCreepAmount = keys.GoldBountyCreepAmount
 
 	if Target:GetTeam() ~= Caster:GetTeam() then
 		Caster.ItemAbility_DonationGem_TriggerTime=GameRules:GetGameTime()
 		Caster:ModifyGold(GoldBountyAmount, false, DOTA_ModifyGold_AbilityGold)
+		SendOverheadEventMessage(Caster:GetOwner(), OVERHEAD_ALERT_GOLD, Caster, GoldBountyAmount, nil)
 
-		-- local effectIndex = ParticleManager:CreateParticle("particles/econ/items/alchemist/alchemist_midas_knuckles/alch_knuckles_lasthit_coins.vpcf", PATTACH_ABSORIGIN_FOLLOW, Caster)
-		-- ParticleManager:DestroyParticleSystem(effectIndex,false)
+		-- Neutral creep
+		if Target:IsCreep() and Target:IsNeutralUnitType() then
+			Caster:ModifyGold(GoldBountyCreepAmount, false, DOTA_ModifyGold_AbilityGold)
+			SendOverheadEventMessage(Caster:GetOwner(), OVERHEAD_ALERT_GOLD, Caster, GoldBountyCreepAmount, nil)
+		end
 
-		SendOverheadEventMessage(Caster:GetOwner(),OVERHEAD_ALERT_GOLD,Caster,GoldBountyAmount,nil)
+		local effectIndex = ParticleManager:CreateParticle("particles/econ/items/alchemist/alchemist_midas_knuckles/alch_knuckles_lasthit_coins.vpcf", PATTACH_ABSORIGIN_FOLLOW, Caster)
+		ParticleManager:DestroyParticleSystem(effectIndex,false)
+
 	end
 end
 

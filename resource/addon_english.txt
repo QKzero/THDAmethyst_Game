@@ -6657,7 +6657,7 @@
 
 		"DOTA_Tooltip_ability_item_recipe_donation_gem"								"Recipe: Tax-collecting Yin Yang orb"
 		"DOTA_Tooltip_ability_item_donation_gem"									"Tax-collecting Yin Yang orb"
-		"DOTA_Tooltip_ability_item_donation_gem_Description"						"<h1>Passive: Tax</h1>Kills for %bonus_gold_const% gold and have a %bonus_gold_chance%%% chance to grant %bonus_gold% bonus gold. The latter has a 1 second cooldown.\nThe gold granted is unreliable gold."
+		"DOTA_Tooltip_ability_item_donation_gem_Description"						"<h1>Passive: Tax</h1>Kills for %bonus_gold% gold. If the killed unit is neutral unit, there will be additional %bonus_gold_creep% gold. \nThe gold granted is unreliable gold."
 		"DOTA_Tooltip_ability_item_donation_gem_bonus_all_stats"					"+$all"
 		"DOTA_Tooltip_ability_item_donation_gem_bonus_damage"						"+$damage"
 
@@ -7739,14 +7739,13 @@
 		"DOTA_Tooltip_modifier_item_third_eyes_debuff_Description"					"Health regeneration and healing reduced by 35%% and taking damage."
 
 		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan"								"Angel's Raiment of Thundercloud"
-		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_Description"					"<h1>Active: Swimming Shot</h1>Pushes enemies that near the target within %radius% radius by %distance% units.<br><br>Cast Range: %AbilityCastRange%\nUsable while stunned."
-		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_Note0"							"Doesn't work with「Knock Out In Three Steps」."
-		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_bonus_armor"					"+$armor"
-		//"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_bonus_magical_armor"			"%+$spell_resist"
-		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_bonus_health"					"+$health"
+		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_Description"					"<h1>Passive: Ligning</h1>On attack, has a %chance%% chance to release a lightning bolt that bounces between up to %max_target% targets within %lock_range% range, dealing %lightning_damage% damage to each. Deals an additional %lightning_damage_creep% damage to creep units."
+		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_Note0"							"Hearing that we can talk to others staying in the wind using this item."
+		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_bonus_attack_damage"	"+$damage"
+		"DOTA_Tooltip_ability_item_leiyunzhiyuchuan_bonus_attack_speed"		"+$attack"
 
-		"DOTA_Tooltip_modifier_item_leiyunzhiyuchuan_push"							"Angel's Raiment of Thundercloud"
-		"DOTA_Tooltip_modifier_item_leiyunzhiyuchuan_push_Description"				"Being knocked back."
+		"DOTA_Tooltip_modifier_item_leiyunzhiyuchuan_lightning"						"Angel's Raiment of Thundercloud"
+		"DOTA_Tooltip_modifier_item_leiyunzhiyuchuan_lightning_Description"			"On attack, has a chance to release a lightning."
 
 		"DOTA_Tooltip_ability_item_ertianyiliu"										"Dual Swords「Niten Ichiryu」"
 		"DOTA_Tooltip_ability_item_ertianyiliu_Description"							"<h1>Passive: Niten Ichiryu (Melee Only)</h1>Causes melee attacks to attack twice in quick succession. The Double attacks deal %cooldown_crit_mult%%% damage and apply %slow_movespeed%%% movement slow for %slow_duration% seconds on each strike.\n<h1>Passive: Yuumei Gumonji</h1>Your attacks reduce the target's armor by %corruption_armor% for %corruption_armor_duration% seconds. And Grants each attack a %crit_chance%%% chance to deal %crit_mult%%% damage."
