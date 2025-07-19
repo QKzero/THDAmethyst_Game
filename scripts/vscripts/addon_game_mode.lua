@@ -1025,6 +1025,16 @@ function THDOTSGameMode:OnPlayerSay( keys )
 				for i = 2, #ss do
 					THD2_UnbanBotHero(plyhd, ss[i])
 				end
+			elseif ss[1] == "-pickbot" then
+				if #ss >= 2 then
+					THD2_BanAllBotHero(plyhd)
+					THD2_UnbanBotHero(plyhd, ss[2])
+				end
+			elseif ss[1] == "-pickbots" then
+				THD2_BanAllBotHero(plyhd)
+				for i = 2, #ss do
+					THD2_UnbanBotHero(plyhd, ss[i])
+				end
 			elseif ss[1] == "-banhero" then
 				THD2_BanHero(plyhd, ss[2])
 			elseif ss[1] == "-banheros" or ss[1] == "-banheroes" then
