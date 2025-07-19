@@ -58,6 +58,7 @@ function item_third_eyes:OnSpellStart()
 	ParticleManager:SetParticleControlEnt(sap_particle, 0, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
 	ParticleManager:SetParticleControlEnt(sap_particle, 1, caster, PATTACH_POINT_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
 	ParticleManager:ReleaseParticleIndex(sap_particle)
+	ParticleManager:DestroyParticleSystemTime(sap_particle,duration)
 end
 
 modifier_item_third_eyes_debuff = {}
@@ -102,6 +103,7 @@ function modifier_item_third_eyes_debuff:OnIntervalThink()
 	-- ParticleManager:SetParticleControl(effectIndex, 0, self:GetParent():GetAbsOrigin())
 	ParticleManager:SetParticleControl(effectIndex, 1, self:GetParent():GetAbsOrigin())
 	ParticleManager:ReleaseParticleIndex(effectIndex)
+	ParticleManager:DestroyParticleSystemTime(effectIndex,1)
 	UnitDamageTarget(damage_tabel)
 end
 
