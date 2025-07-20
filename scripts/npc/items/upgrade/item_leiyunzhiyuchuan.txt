@@ -58,7 +58,7 @@
 			// 闪电伤害
 			"lightning_damage"	"30"
 			// 闪电伤害（对基础生物）
-			"lightning_damage_creep"	"90"
+			"lightning_damage_creep"	"120"
 		}
 	}
 }

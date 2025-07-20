@@ -1101,9 +1101,6 @@ function modifier_ability_thdots_tojiko05:OnCreated()
 	self.tojiko05_particle = ParticleManager:CreateParticle(tojiko05_particle_name, PATTACH_ABSORIGIN, caster)
 	ParticleManager:SetParticleControl(self.tojiko05_particle, 1, Vector(radius,radius,1))
 
-	local tojiko05_particle_name_2 = "particles/econ/items/necrolyte/necro_ti9_immortal/necro_ti9_immortal_shroud.vpcf"
-	self.tojiko05_particle_2 = ParticleManager:CreateParticle(tojiko05_particle_name_2, PATTACH_ABSORIGIN, caster)
-
 	self:StartIntervalThink(FrameTime())
 end
 
@@ -1112,13 +1109,11 @@ function modifier_ability_thdots_tojiko05:OnIntervalThink()
 	local caster = self:GetParent()
 	local caster_origin = caster:GetOrigin()
 	ParticleManager:SetParticleControl(self.tojiko05_particle, 0, caster:GetOrigin())
-	ParticleManager:SetParticleControl(self.tojiko05_particle_2, 0, caster:GetOrigin())
 end
 
 function modifier_ability_thdots_tojiko05:OnDestroy()
 	if not IsServer() then return end
 	ParticleManager:DestroyParticleSystem(self.tojiko05_particle,true)
-	ParticleManager:DestroyParticleSystem(self.tojiko05_particle_2,true)
 end
 
 

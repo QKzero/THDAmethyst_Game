@@ -3953,6 +3953,7 @@
 		"DOTA_Tooltip_modifier_ability_thdots_tojiko05_Description"	"无法攻击或被攻击，并持续电击附近所有敌人，使他们被沉默。"
 		"DOTA_Tooltip_ability_ability_thdots_tojiko05_radius"	"影响范围："
 		"DOTA_Tooltip_ability_ability_thdots_tojiko05_duration"	"持续时间："
+		"DOTA_Tooltip_ability_ability_thdots_tojiko05_reduce_mgical_resistance"	"%魔抗减少："
 
 		"npc_dota_hero_omniknight"	"琪斯美"
 		"DOTA_Tooltip_ability_ability_thdots_kisumeEx"	"吊瓶「Well Destructor」"

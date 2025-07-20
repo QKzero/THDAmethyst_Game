@@ -207,14 +207,13 @@
 		{
 			"particle"		"particles/units/heroes/hero_pugna/pugna_decrepify.vpcf"
 			"particle"		"particles/units/heroes/hero_razor/razor_plasmafield.vpcf"
-			"particle"		"particles/econ/items/necrolyte/necro_ti9_immortal/necro_ti9_immortal_shroud.vpcf"
 			"particle"		"particles/units/heroes/hero_razor_reduced_flash/razor_static_link_beam_reduced_flash.vpcf"
 		}
 		"AbilityValues"
 		{
 			"radius"
 			{
-				"value"			"450"
+				"value"			"200"
 				"affected_by_aoe_increase"	"1"
 			}
 			"duration"	"5"

@@ -86,10 +86,14 @@ function modifier_item_leiyunzhiyuchuan_lightning:OnAttackLanded(event)
 
 	self:Init()
 
-	if RandomInt(1, 100) <= self.chance then
+	if RandomInt(1, 100) > self.chance then return end
+
+	-- 闪电索敌的上一个实体
+	local preUnit = self.caster
+	for i = 1, self.maxTarget do
 		local targets = FindUnitsInRadius(
 			self.caster:GetTeamNumber(),
-			self.caster:GetOrigin(),
+			preUnit:GetOrigin(),
 			nil,
 			self.lockRange,
 			self.ability:GetAbilityTargetTeam(),
@@ -99,42 +103,37 @@ function modifier_item_leiyunzhiyuchuan_lightning:OnAttackLanded(event)
 			false
 		)
 
-		if #targets > 0 then
-			EmitSoundOn("Hero_Zuus.ArcLightning.Cast", self.caster)
-			-- 闪电特效的上一个实体
-			local preUnit = self.caster
-			for i = 1, math.min(#targets, self.maxTarget) do
-				local target = targets[i]
-				local damage = self.lightningDamage
-				if target:IsCreep() then
-					damage = damage + self.lightningDamageCreep
-				end
+		if #targets == 0 then break end
 
-				local damageTable = {
-					ability = self.ability,
-					victim = target,
-					attacker = self.caster,
-					damage = damage,
-					damage_type = self.ability:GetAbilityDamageType(),
-					damage_flags = DOTA_DAMAGE_FLAG_NONE,
-				}
-				UnitDamageTarget(damageTable)
-
-				--创建特效
-				print(preUnit:GetPlayerOwnerID(), target:GetPlayerOwnerID())
-				local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_zuus/zuus_arc_lightning_head.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, preUnit)
-				print(preUnit == self.caster)
-				if preUnit == self.caster then
-					ParticleManager:SetParticleControlEnt(particle, 0, self.caster, 5, "attach_attack1", Vector(0, 0, 0), true)
-				else
-					ParticleManager:SetParticleControlEnt(particle, 0, preUnit, 5, "attach_hitloc", Vector(0, 0, 0), true)
-				end
-				ParticleManager:SetParticleControl(particle, 1, target:GetAbsOrigin() + Vector(0, 0, 150))
-				ParticleManager:ReleaseParticleIndex(particle)
-				ParticleManager:DestroyParticleSystemTime(particle, 2)
-
-				preUnit = target
-			end
+		local target = targets[RandomInt(1, #targets)]
+		local damage = self.lightningDamage
+		if target:IsCreep() then
+			damage = damage + self.lightningDamageCreep
 		end
+
+		local damageTable = {
+			ability = self.ability,
+			victim = target,
+			attacker = self.caster,
+			damage = damage,
+			damage_type = self.ability:GetAbilityDamageType(),
+			damage_flags = DOTA_DAMAGE_FLAG_NONE,
+		}
+		UnitDamageTarget(damageTable)
+
+		--创建音效
+		EmitSoundOn("Hero_Zuus.ArcLightning.Cast", self.caster)
+		--创建特效
+		local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_zuus/zuus_arc_lightning_head.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, preUnit)
+		if preUnit == self.caster then
+			ParticleManager:SetParticleControlEnt(particle, 0, self.caster, 5, "attach_attack1", Vector(0, 0, 0), true)
+		else
+			ParticleManager:SetParticleControlEnt(particle, 0, preUnit, 5, "attach_hitloc", Vector(0, 0, 0), true)
+		end
+		ParticleManager:SetParticleControl(particle, 1, target:GetAbsOrigin() + Vector(0, 0, 150))
+		ParticleManager:ReleaseParticleIndex(particle)
+		ParticleManager:DestroyParticleSystemTime(particle, 2)
+
+		preUnit = target
 	end
 end
