@@ -89,28 +89,19 @@ function modifier_item_leiyunzhiyuchuan_lightning:OnAttackLanded(event)
 	if RandomInt(1, 100) > self.chance then return end
 
 	-- 闪电索敌的上一个实体
-	local preUnit = self.caster
+	local preTarget = self.caster
+	local target = event.target
+	local damagedTarget = {}
 	for i = 1, self.maxTarget do
-		local targets = FindUnitsInRadius(
-			self.caster:GetTeamNumber(),
-			preUnit:GetOrigin(),
-			nil,
-			self.lockRange,
-			self.ability:GetAbilityTargetTeam(),
-			self.ability:GetAbilityTargetType(),
-			DOTA_UNIT_TARGET_FLAG_NONE,
-			FIND_ANY_ORDER,
-			false
-		)
+		-- 结算当前目标
+		if target == nil then break end
+		table.insert(damagedTarget, target)
 
-		if #targets == 0 then break end
-
-		local target = targets[RandomInt(1, #targets)]
+		-- 计算当前目标伤害
 		local damage = self.lightningDamage
 		if target:IsCreep() then
 			damage = damage + self.lightningDamageCreep
 		end
-
 		local damageTable = {
 			ability = self.ability,
 			victim = target,
@@ -124,16 +115,45 @@ function modifier_item_leiyunzhiyuchuan_lightning:OnAttackLanded(event)
 		--创建音效
 		EmitSoundOn("Hero_Zuus.ArcLightning.Cast", self.caster)
 		--创建特效
-		local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_zuus/zuus_arc_lightning_head.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, preUnit)
-		if preUnit == self.caster then
+		local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_zuus/zuus_arc_lightning_head.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, preTarget)
+		if preTarget == self.caster then
 			ParticleManager:SetParticleControlEnt(particle, 0, self.caster, 5, "attach_attack1", Vector(0, 0, 0), true)
 		else
-			ParticleManager:SetParticleControlEnt(particle, 0, preUnit, 5, "attach_hitloc", Vector(0, 0, 0), true)
+			ParticleManager:SetParticleControlEnt(particle, 0, preTarget, 5, "attach_hitloc", Vector(0, 0, 0), true)
 		end
 		ParticleManager:SetParticleControl(particle, 1, target:GetAbsOrigin() + Vector(0, 0, 150))
 		ParticleManager:ReleaseParticleIndex(particle)
 		ParticleManager:DestroyParticleSystemTime(particle, 2)
 
-		preUnit = target
+		-- 搜索下一个目标
+		if i + 1 > self.maxTarget then break end
+		local function FindNextTarget()
+			local targets = FindUnitsInRadius(
+				self.caster:GetTeamNumber(),
+				target:GetOrigin(),
+				nil,
+				self.lockRange,
+				self.ability:GetAbilityTargetTeam(),
+				self.ability:GetAbilityTargetType(),
+				DOTA_UNIT_TARGET_FLAG_NONE,
+				FIND_ANY_ORDER,
+				false
+			)
+			for i = 1, #targets do
+				local damaged = false
+				for j = 1, #damagedTarget do
+					if damagedTarget[j] ~= nil and not damagedTarget[j]:IsNull() and targets[i] == damagedTarget[j] then
+						damaged = true
+						break
+					end
+				end
+				if damaged == false then
+					return targets[i]
+				end
+			end
+			return nil
+		end
+		preTarget = target
+		target = FindNextTarget()
 	end
 end
