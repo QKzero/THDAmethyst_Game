@@ -41,6 +41,7 @@ end
 function modifier_item_leiyunzhiyuchuan_passive:OnDestroy()
 	if not IsServer() then return end
 
+	if self.caster == nil or self.caster:IsNull() then return end
 	if self.caster:HasModifier("modifier_item_leiyunzhiyuchuan_lightning") then
 		self.caster:RemoveModifierByName("modifier_item_leiyunzhiyuchuan_lightning")
 	end
@@ -83,6 +84,7 @@ function modifier_item_leiyunzhiyuchuan_lightning:OnAttackLanded(event)
 	if not IsServer() then return end
 
 	if self:GetCaster() ~= event.attacker then return end
+	if self:GetCaster():IsNull() or not self:GetCaster():IsRealHero() then return end
 
 	self:Init()
 

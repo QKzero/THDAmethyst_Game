@@ -191,19 +191,19 @@ function modifier_rumia_03_think:OnIntervalThink()
 	local ability = self:GetAbility()
 
 	if caster:IsAlive() then
-		if caster:HasModifier("modifier_rumia_03_day") == false and caster:HasModifier("modifier_rumia_03_night") == false then
-			caster:AddNewModifier(caster, ability, "modifier_rumia_03_day", {})
-		end
-
 		if GameRules:IsDaytime() then
-			if caster:HasModifier("modifier_rumia_03_day") == false and caster:HasModifier("modifier_rumia_03_night") == true then
-				caster:AddNewModifier(caster, ability, "modifier_rumia_03_day", {})
+			if caster:HasModifier("modifier_rumia_03_night") then
 				caster:RemoveModifierByName("modifier_rumia_03_night")
 			end
+			if not caster:HasModifier("modifier_rumia_03_day") then
+				caster:AddNewModifier(caster, ability, "modifier_rumia_03_day", {})
+			end
 		else
-			if caster:HasModifier("modifier_rumia_03_day") == true and caster:HasModifier("modifier_rumia_03_night") == false then
-				caster:AddNewModifier(caster, ability, "modifier_rumia_03_night", {})
+			if caster:HasModifier("modifier_rumia_03_day") and caster:HasModifier("modifier_rumia_03_night") == false then
 				caster:RemoveModifierByName("modifier_rumia_03_day")
+			end
+			if not caster:HasModifier("modifier_rumia_03_night") then
+				caster:AddNewModifier(caster, ability, "modifier_rumia_03_night", {})
 			end
 		end
 	end
