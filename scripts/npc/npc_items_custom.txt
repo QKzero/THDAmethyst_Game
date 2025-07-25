@@ -164,7 +164,10 @@
 #base "items\upgrade\item_jeweled_branch.txt"
 #base "items\upgrade\item_repentancestick.txt"
 #base "items\upgrade\item_nuetrident.txt"
-#base "items\upgrade\item_kusanagi.txt"
+#base "items\upgrade\item_kusanagi.txt"	
+#base "items\upgrade\item_hoshiguma_cup.txt"
+#base "items\upgrade\item_ibuki_gourd.txt"
+#base "items\upgrade\item_ibaraki_masu.txt"
 
 "DOTAAbilities"
 {

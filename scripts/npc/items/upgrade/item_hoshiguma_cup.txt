@@ -1,0 +1,77 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+    // Recipe: 星熊盃
+    // =================================================================================================================
+    "item_recipe_hoshiguma_cup"
+    {
+        "BaseClass" "item_datadriven"
+        "AbilityTextureName" "item_recipe_hoshiguma_cup"
+        "ItemCost" "650"
+        "ItemRecipe" "1"
+        "ItemResult" "item_hoshiguma_cup"
+        "ItemRequirements"
+        {
+            "01" "item_paper_mask;item_cherry_leaf"
+        }
+        "Model" "models/props_gameplay/recipe.vmdl"
+    }
+    "item_hoshiguma_cup"
+    {
+        "BaseClass" "item_datadriven"
+        "AbilityTextureName" "item_hoshiguma_cup"
+        "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "ItemCost" "2100"
+        "ItemPurchasable" "1"
+        "ItemDroppable" "1"
+        "ItemSellable" "1"
+        "ItemShopTags" "stg;resistance;hp_ragen_amplfy;lifesteal_amplify"
+        "Modifiers"
+        {
+            "modifier_item_hoshiguma_cup"
+            {
+                "Attributes" "MODIFIER_ATTRIBUTE_MULTIPLE"
+                "Passive" "1"
+                "IsHidden" "1"
+                "RemoveOnDeath" "0"
+                "OnCreated"
+                {
+                    "RunScript"
+                    {
+                        "ScriptFile" "scripts/vscripts/items/item_hoshiguma_cup.lua"
+                        "Function" "ItemAbility_hoshiguma_cup_status_resistance"
+                    }
+                }
+                "OnDestroy"
+                {
+                    "RunScript"
+                    {
+                        "ScriptFile" "scripts/vscripts/items/item_hoshiguma_cup.lua"
+                        "Function" "ItemAbility_hoshiguma_cup_status_resistance_destroy"
+                    }
+                }
+                "Properties"
+                {
+                    "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" "%bonus_strength"
+                    "MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE" "%bonus_hp_ragen_amplfy_percentage"
+                }
+            }
+            "modifier_item_hoshiguma_cup_status_resistance"
+            {
+                "Passive" "1"
+                "IsHidden" "1"
+                "RemoveOnDeath" "0"
+                "Properties"
+                {
+                    "MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING" "%bonus_status_resistance"
+                }
+            }
+        }
+        "AbilityValues"
+        {
+            "bonus_strength" "16"
+            "bonus_status_resistance" "20"
+            "bonus_hp_ragen_amplfy_percentage" "25"
+        }
+    }
+}

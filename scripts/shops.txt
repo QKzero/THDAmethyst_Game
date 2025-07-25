@@ -221,6 +221,9 @@
 		"item"		"item_tingshiyice"
 		"item"		"item_feixiangjian"
 		"item"		"item_UFO"
+		"item"		"item_hoshiguma_cup"
+		"item"		"item_ibuki_gourd"
+		"item"		"item_ibaraki_masu"
 	}
 
 	"sideshop1"

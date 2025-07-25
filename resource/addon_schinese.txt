@@ -6713,5 +6713,38 @@
 		"DOTA_Tooltip_ability_item_aghanims_shard" "灵异珠"
 		"DOTA_Tooltip_ability_item_aghanims_shard_description" "使英雄升级一个已有技能，或新增一个技能。"
 		"DOTA_Tooltip_ability_item_aghanims_shard_Lore" ""
+
+		//----------------------------------------------------------------------
+		// 薙刀 （暂定）
+		//----------------------------------------------------------------------
+
+		"DOTA_Tooltip_ability_item_recipe_ibuki_gourd" "薙刀制作书"
+		"DOTA_Tooltip_ability_item_ibuki_gourd" "薙刀"
+		"DOTA_Tooltip_ability_item_ibuki_gourd_bonus_agility" "+$agi"
+		"DOTA_Tooltip_ability_item_ibuki_gourd_bonus_attack_speed" "+$attack"
+		"DOTA_Tooltip_ability_item_ibuki_gourd_bonus_move_speed_percentage" "%+$move_speed"
+
+		//----------------------------------------------------------------------
+		// 星熊盃 （暂定）
+		//----------------------------------------------------------------------
+
+		"DOTA_Tooltip_ability_item_recipe_hoshiguma_cup" "星熊盃制作书"
+		"DOTA_Tooltip_ability_item_hoshiguma_cup" "星熊盃"
+		"DOTA_Tooltip_ability_item_hoshiguma_cup_bonus_strength" "+$str"
+		"DOTA_Tooltip_ability_item_hoshiguma_cup_bonus_status_resistance" "%+$status_resist"
+		"DOTA_Tooltip_ability_item_hoshiguma_cup_bonus_hp_ragen_amplfy_percentage" "%+$hp_regen"
+		"DOTA_Tooltip_ability_item_hoshiguma_cup_note0"	"状态抗性不与同名物品叠加；生命恢复为非线性叠加。"
+
+		//----------------------------------------------------------------------
+		// 笏板 （暂定）
+		//----------------------------------------------------------------------
+
+		"DOTA_Tooltip_ability_item_recipe_ibaraki_masu" "笏板制作书"
+		"DOTA_Tooltip_ability_item_ibaraki_masu" "笏板"
+		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_intellect" "+$int"
+		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_spell_amplify_percentage" "%+$spell_amp"
+		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_cast_range" "+$cast_range"
+		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_cooldown_reduction" "%+$cooldown_reduction"
+		"DOTA_Tooltip_ability_item_ibaraki_masu_note0"	"施法距离和冷却缩减不与同名物品叠加。"
 	}
 }
