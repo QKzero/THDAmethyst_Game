@@ -1,106 +1,107 @@
 "DOTAAbilities"
 {
     // =================================================================================================================
-    // Recipe: zuzhoumujian
+	// Recipe: zuzhoumujian
+	// =================================================================================================================
+	"item_recipe_zuzhoumujian"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"7991"
+		"ItemCost"	"300"
+		"AbilityTextureName"	"item_recipe_zuzhoumujian"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_zuzhoumujian"
+		"ItemRequirements"
+		{
+			"01"	"item_luna_chip;item_paper_mask"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
     // =================================================================================================================
-    "item_recipe_zuzhoumujian"
-    {
-        // unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
-        "BaseClass" "item_datadriven"
-        // General
-        // -------------------------------------------------------------------------------------------------------------
-        "ID" "7991"
-        "ItemCost" "300"
-        "AbilityTextureName" "item_recipe_zuzhoumujian"
-        "ItemRecipe" "1"
-        "ItemResult" "item_zuzhoumujian"
-        "ItemRequirements"
-        {
-            "01" "item_luna_chip;item_paper_mask"
-        }
-        "Model" "models/props_gameplay/recipe.vmdl"
-    }
-    // =================================================================================================================
-    // 诅咒木剑
-    // =================================================================================================================
-    "item_zuzhoumujian"
-    {
-        // General
-        //-------------------------------------------------------------------------------------------------------------
-        "BaseClass" "item_datadriven"
-        "ID" "7992"
-        "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_ENEMY"
-        "AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-        "Model" "models/props_gameplay/red_box.vmdl"
-        "Effect" "particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName" "item_zuzhoumujian"
-        "FightRecapLevel" "1"
-        // Stats
-        //-------------------------------------------------------------------------------------------------------------
-        // Item Info
-        //-------------------------------------------------------------------------------------------------------------
-        "ItemCost" "2800"
-        "ItemDroppable" "1"
-        "ItemSellable" "1"
-        "ItemShopTags" "str;damage"
-        // Special
-        //-------------------------------------------------------------------------------------------------------------
-        "Modifiers"
-        {
-            "modifier_item_zuzhoumujian"
-            {
-                "Passive" "1"
-                "IsHidden" "1"
-                "RemoveOnDeath" "0"
-                "Attributes" "MODIFIER_ATTRIBUTE_MULTIPLE"
-                "Properties"
-                {
-                    "MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE" "%bonus_damage"
-                    "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" "%bonus_attack_speed"
-                    "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" "%bonus_strength"
-                }
-                "OnAttackLanded"
-                {
-                    "Random"
-                    {
-                        "Chance" "%chance"
-                        "OnSuccess"
-                        {
-                            "RunScript"
-                            {
-                                "ScriptFile" "scripts/vscripts/abilities/abilityItem.lua"
-                                "Function" "zuzhoumujian_disable"
-                                "Target" "TARGET"
-                            }
-                        }
-                    }
-                }
-            }
-            "modifier_item_zuzhoumujian_disable"
-            {
-                "IsHidden" "0"
-                "IsDebuff" "1"
-                "IsPurgable" "1"
-                "RemoveOnDeath" "0"
-                "EffectName" "particles/items2_fx/sange_maim.vpcf"
-                "EffectAttachType" "PATTACH_ABSORIGIN"
-                "Properties"
-                {
-                    "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" "%maim_attack_speed"
-                    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%maim_movement_speed"
-                }
-            }
-        }
-        "AbilityValues"
-        {
-            "bonus_damage" "15"
-            "bonus_attack_speed" "35"
-            "bonus_strength" "12"
-            "chance" "20"
-            "maim_movement_speed" "-35"
-            "maim_attack_speed" "-30"
-            "duration" "4"
-        }
-    }
+	// 诅咒木剑
+	// =================================================================================================================
+	"item_zuzhoumujian"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_datadriven"
+		"ID"							"7992"  
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"Model"							"models/props_gameplay/red_box.vmdl" 
+		"Effect"						"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"			"item_zuzhoumujian"
+		"FightRecapLevel"				"1"	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"2800"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"str;damage"
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"Modifiers"
+		{
+			"modifier_item_zuzhoumujian"
+			{
+				"Passive"			"1"
+				"IsHidden"			"1"
+				"RemoveOnDeath"	"0"
+				"Attributes" 		"MODIFIER_ATTRIBUTE_MULTIPLE"				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"			"%bonus_damage"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"		"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"			"%bonus_strength"					
+				}				
+				"OnAttackLanded"
+				{
+					"Random"
+					{
+						"Chance"		"%chance"
+						"OnSuccess"
+						{
+							"RunScript"
+							{
+								"ScriptFile"  "scripts/vscripts/abilities/abilityItem.lua"
+								"Function"  "zuzhoumujian_disable"
+								"Target"  "TARGET"
+							}
+						}
+					}
+				}
+			}
+			"modifier_item_zuzhoumujian_disable"
+			{
+				"IsHidden"				"0"
+				"IsDebuff"				"1"
+				"IsPurgable"			"1"				
+				"RemoveOnDeath"		"0"
+				"EffectName"            "particles/items2_fx/sange_maim.vpcf"
+				"EffectAttachType"      "PATTACH_ABSORIGIN"				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"		"%maim_attack_speed"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"		"%maim_movement_speed"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			"bonus_damage"				"25"
+			"bonus_attack_speed"		"30"
+			"bonus_strength"			"10"
+			"chance"					"20"
+			"maim_movement_speed"		"-35"
+			"maim_attack_speed"			"-30"
+			"duration"					"4"
+		}
+	}
 }
