@@ -1,167 +1,165 @@
 "DOTAAbilities"
 {
     // =================================================================================================================
-    // Recipe: feixiangjian
+	// Recipe: feixiangjian
+	// =================================================================================================================
+	"item_recipe_feixiangjian"
+	{
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"	"item_datadriven"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"ID"	"7989"
+		"ItemCost"	"400"
+		"AbilityTextureName"	"item_recipe_feixiangjian"
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_feixiangjian"
+		"ItemRequirements"
+		{
+			"01"	"item_zuzhoumujian;item_hammer"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+	}
+
     // =================================================================================================================
-    "item_recipe_feixiangjian"
-    {
-        // unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
-        "BaseClass" "item_datadriven"
-        // General
-        // -------------------------------------------------------------------------------------------------------------
-        "ID" "7989"
-        "ItemCost" "600"
-        "AbilityTextureName" "item_recipe_feixiangjian"
-        "ItemRecipe" "1"
-        "ItemResult" "item_feixiangjian"
-        "ItemRequirements"
-        {
-            "01" "item_zuzhoumujian;item_ibuki_gourd"
-        }
-        "Model" "models/props_gameplay/recipe.vmdl"
-    }
-    // =================================================================================================================
-    // 绯想剑
-    // =================================================================================================================
-    "item_feixiangjian"
-    {
-        "BaseClass" "item_datadriven"
-        "AbilityTextureName" "item_feixiangjian"
-        "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        //"AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
-        //"AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_ENEMY"
-        //"AbilityCastPoint" "0.0"
-        //"AbilityCooldown" "55"
-        //"AbilityManaCost" "0"
-        // Stats
-        // -------------------------------------------------------------------------------------------------------------
-        //"AbilityCastRange" "700"
-        // General
-        // -------------------------------------------------------------------------------------------------------------
-        // unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
-        "ID" "7990"
-        // Item Info
-        // -------------------------------------------------------------------------------------------------------------
-        "ItemCost" "4600"
-        "ItemDroppable" "1"
-        "ItemSellable" "1"
-        "ItemShopTags" "str;damage"
-        "precache"
-        {
-            "particle" "particles/items4_fx/nullifier_mute_debuff.vpcf"
-            "particle" "particles/items2_fx/sange_maim.vpcf"
-            "particle" "particles/econ/attack/attack_modifier_ti9_launch_glow.vpcf"
-        }
-        //"OnSpellStart"
-        //{
-        //    "RunScript"
-        //    {
-        //        "ScriptFile" "scripts/vscripts/abilities/abilityItem.lua"
-        //        "Function" "ItemAbility_ModifierTarget"
-        //        "ModifierName" "modifier_item_feixiangjian_debuff"
-        //        "Blockable" "1"
-        //    }
-        //}
-        "Modifiers"
-        {
-            "modifier_item_feixiangjian"
-            {
-                "Attributes" "MODIFIER_ATTRIBUTE_MULTIPLE"
-                "Passive" "1"
-                "IsHidden" "1"
-                "RemoveOnDeath" "0"
-                "Properties"
-                {
-                    "MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE" "%bonus_damage"
-                    "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" "%bonus_attack_speed"
-                    "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" "%bonus_strength"
-                    "MODIFIER_PROPERTY_STATS_AGILITY_BONUS" "%bonus_agility"
-                    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%bonus_movespeed"
-                }
-            }
-            "modifier_item_feixiangjian_debuff"
-            {
-                "IsDebuff" "1"
-                "IsPurgable" "1"
-                "EffectName" "particles/items4_fx/nullifier_mute_debuff.vpcf"
-                "EffectAttachType" "PATTACH_ABSORIGIN"
-                "States"
-                {
-                    "MODIFIER_STATE_MUTED" "MODIFIER_STATE_VALUE_ENABLED"
-                }
-            }
-            "modifier_item_feixiangjian_attack"
-            {
-                // "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
-                "Passive" "1"
-                "IsHidden" "1"
-                "OnAttackLanded"
-                {
-                    // "Random"
-                    // {
-                    // 	"Chance"	"%damage_chance"
-                    // 	"OnSuccess"
-                    // 	{
-                    // 		"AttachEffect"
-                    // 		{
-                    // 			"EffectName"	"particles/econ/attack/attack_modifier_ti9_launch_glow.vpcf"
-                    // 			"EffectAttachType"	"follow_origin"
-                    // 			"Target"	"TARGET"
-                    // 		}
-                    // 		"RunScript"
-                    // 		{
-                    // 			"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
-                    // 			"Function"	"ItemAbility_feixiangjian_OnAttack"
-                    // 			"Caster"	"CASTER"
-                    // 			"Target"	"TARGET"
-                    // 			"PureDamage"	"%pure_damage"
-                    // 		}
-                    // 	}
-                    // }
-                    "Random"
-                    {
-                        "Chance" "%chance"
-                        "OnSuccess"
-                        {
-                            "ApplyModifier"
-                            {
-                                "ModifierName" "modifier_item_feixiangjian_disable"
-                                "Target" "TARGET"
-                                "Duration" "%debuff_duration"
-                            }
-                        }
-                    }
-                }
-            }
-            "modifier_item_feixiangjian_disable"
-            {
-                "IsHidden" "0"
-                "IsDebuff" "1"
-                "IsPurgable" "1"
-                "EffectName" "particles/items2_fx/sange_maim.vpcf"
-                "EffectAttachType" "PATTACH_ABSORIGIN"
-                "Properties"
-                {
-                    "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" "%maim_attack_speed"
-                    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%maim_movement_speed"
-                }
-            }
-        }
-        // Special
-        // -------------------------------------------------------------------------------------------------------------
-        "AbilityValues"
-        {
-            "bonus_damage" "25"
-            "bonus_attack_speed" "50"
-            "bonus_movespeed" "10"
-            "bonus_strength" "16"
-            "bonus_agility" "16"
-            "debuff_duration" "4"
-            "damage_chance" "35"
-            "duration" "5"
-            "maim_movement_speed" "-35"
-            "maim_attack_speed" "-30"
-            "chance" "35"
-        }
-    }
+	// 绯想剑
+	// =================================================================================================================
+	"item_feixiangjian"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityTextureName"	"item_feixiangjian"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCastPoint"	"0.0"
+		"AbilityCooldown"	"55"
+		"AbilityManaCost"	"0"
+		// Stats
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"	"700"
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"ID"	"7990"
+		// Item Info
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemCost"	"4600"
+		"ItemDroppable"	"1"
+		"ItemSellable"	"1"
+		"ItemShopTags"	"str;damage"
+		"precache"
+		{
+			"particle"	"particles/items4_fx/nullifier_mute_debuff.vpcf"
+			"particle"	"particles/items2_fx/sange_maim.vpcf"
+			"particle"  "particles/econ/attack/attack_modifier_ti9_launch_glow.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+				{
+					"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+					"Function"	 "ItemAbility_ModifierTarget"
+					"ModifierName"	"modifier_item_feixiangjian_debuff"
+					"Blockable"	"1"
+				}
+			
+		}
+		"Modifiers"
+		{
+			"modifier_item_feixiangjian"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"RemoveOnDeath"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"			"%bonus_damage"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"		"%bonus_attack_speed"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"			"%bonus_strength"		
+				}
+			}
+			"modifier_item_feixiangjian_debuff"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"EffectName"            "particles/items4_fx/nullifier_mute_debuff.vpcf"
+				"EffectAttachType"      "PATTACH_ABSORIGIN"
+				"States"
+				{
+					"MODIFIER_STATE_MUTED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			"modifier_item_feixiangjian_attack"
+			{
+				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnAttackLanded"
+				{
+					// "Random"
+					// {
+					// 	"Chance"	"%damage_chance"
+					// 	"OnSuccess"
+					// 	{
+					// 		"AttachEffect"
+					// 		{
+					// 			"EffectName"	"particles/econ/attack/attack_modifier_ti9_launch_glow.vpcf"
+					// 			"EffectAttachType"	"follow_origin"
+					// 			"Target"	"TARGET"
+					// 		}
+					// 		"RunScript"
+					// 		{
+					// 			"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+					// 			"Function"	"ItemAbility_feixiangjian_OnAttack"
+					// 			"Caster"	"CASTER"
+					// 			"Target"	"TARGET"
+					// 			"PureDamage"	"%pure_damage"
+					// 		}
+					// 	}
+					// }
+					"Random"
+					{
+						"Chance"		"%chance"
+						"OnSuccess"
+						{
+							"ApplyModifier"
+							{
+								"ModifierName"  "modifier_item_feixiangjian_disable"
+								"Target"  "TARGET"
+								"Duration"				"%debuff_duration"
+							}
+						}
+					}
+				}
+			}
+			"modifier_item_feixiangjian_disable"
+			{
+				"IsHidden"				"0"
+				"IsDebuff"				"1"
+				"IsPurgable"			"1"				
+				"EffectName"            "particles/items2_fx/sange_maim.vpcf"
+				"EffectAttachType"      "PATTACH_ABSORIGIN"				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"		"%maim_attack_speed"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"		"%maim_movement_speed"
+				}
+			}
+		}
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"	"45"
+			"bonus_attack_speed"	"35"
+			"bonus_strength"	"10"
+			"debuff_duration"	"4"
+			"damage_chance"	"35"
+			"duration"	"5"
+			"maim_movement_speed"		"-35"
+			"maim_attack_speed"			"-30"
+			"chance"			"35"
+		}
+	}
 }
