@@ -1244,22 +1244,67 @@ function ItemAbility_DoctorDoll_DeclineHealth(keys)
 	end
 end
 
-function ItemAbility_DummyDoll_OnSpellStart(keys)
-	local ItemAbility = keys.ability
-	local Caster = keys.caster
-	Caster:Purge(false,true,false,false,false)
-	ProjectileManager:ProjectileDodge(Caster)
+-- function ItemAbility_DummyDoll_OnSpellStart(keys)
+-- 	local ItemAbility = keys.ability
+-- 	local Caster = keys.caster
+-- 	Caster:Purge(false,true,false,false,false)
+-- 	ProjectileManager:ProjectileDodge(Caster)
 
-	local illusions = CreateIllusions(Caster, Caster, {
-		outgoing_damage = keys.illusion_outgoing_damage - 100,
-		incoming_damage	= keys.illusion_incoming_damage,
-		bounty_base		= 0,
-		bounty_growth	= 2,
-		outgoing_damage_structure	= nil,
-		outgoing_damage_roshan		= nil,
-		duration		= keys.illusions_duration
-	}
-	, 1, 0, true, false)
+-- 	local illusions = CreateIllusions(Caster, Caster, {
+-- 		outgoing_damage = keys.illusion_outgoing_damage - 100,
+-- 		incoming_damage	= keys.illusion_incoming_damage,
+-- 		bounty_base		= 0,
+-- 		bounty_growth	= 2,
+-- 		outgoing_damage_structure	= nil,
+-- 		outgoing_damage_roshan		= nil,
+-- 		duration		= keys.illusions_duration
+-- 	}
+-- 	, 2, 100, true, true)
+-- end
+
+function ItemAbility_DummyDoll_OnSpellStart(keys)
+    local ItemAbility = keys.ability
+    local Caster = keys.caster
+
+    -- Step 1: 清除负面状态并闪避弹道
+    Caster:Purge(false, true, false, false, false)
+    ProjectileManager:ProjectileDodge(Caster)
+
+    -- Step 2: 隐藏本体并设置无敌状态
+    Caster:AddNoDraw()                  -- 隐藏模型
+    Caster:AddNewModifier(Caster, nil, "modifier_invulnerable", {duration = 0.15})  -- 无敌
+
+    -- Step 3: 0.15秒后执行显形和创建幻象
+    Timers:CreateTimer(0.15, function()
+        -- 显形本体并移除无敌
+        Caster:RemoveNoDraw()
+        Caster:RemoveModifierByName("modifier_invulnerable")
+
+        -- Step 4: 创建两个幻象
+        local illusions = CreateIllusions(
+            Caster, 
+            Caster, 
+            {
+                outgoing_damage = keys.illusion_outgoing_damage - 100,
+                incoming_damage = keys.illusion_incoming_damage,
+                bounty_base = 0,
+                bounty_growth = 2,
+                duration = keys.illusions_duration
+            }, 
+            2,  -- 数量改为2（原为1）
+            108, 
+            true, 
+            true
+        )
+		for _, illusion in ipairs(illusions) do
+            illusion:AddNewModifier(
+                Caster,
+                ItemAbility,
+                "modifier_illusion_dummydoll", -- 自定义修饰符名称
+                { duration = keys.illusions_duration }
+            )
+        end
+    end)
 end
 
 
