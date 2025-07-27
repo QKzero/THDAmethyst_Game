@@ -2023,11 +2023,9 @@
 		"DOTA_Tooltip_ability_item_kafziel_bonus_strength"	"+$str"
 		"DOTA_Tooltip_ability_item_kafziel_bonus_health_regen"	"+$hp_regen"
 		"DOTA_Tooltip_ability_item_kafziel_bonus_damage"	"+$damage"
-		"DOTA_Tooltip_ability_item_kafziel_bonus_attack_range"	"+$attack_range_melee"
-		"DOTA_Tooltip_ability_item_kafziel_bonus_hp_ragen_amplfy_percentage" "%+$hp_regen"
 		"DOTA_Tooltip_modifier_item_kafziel_debuff"	"死神之大镰刀"
 		"DOTA_Tooltip_modifier_item_kafziel_debuff_Description"	 "被死神盯上，无法恢复生命值"
-		"DOTA_Tooltip_ability_item_kafziel_note0"	"对建筑的攻击无法触发。<br>幻象的攻击无法触发。攻击距离不与同类物品叠加。"
+		"DOTA_Tooltip_ability_item_kafziel_note0"	"对建筑的攻击无法触发。<br>幻象的攻击无法触发。"
 		"DOTA_Tooltip_ability_item_recipe_verity"	"真实割夺之刃制作书"
 		"DOTA_Tooltip_ability_item_verity"	"真实割夺之刃"
 		"DOTA_Tooltip_ability_item_verity_Description"	"<h1>被动：真实割夺</h1>每隔5秒，普通攻击会额外造成%attackLand_damage%点物理伤害，并扣除目标%reduce_mana%点魔法值。\n<h1>被动：法力燃烧</h1>普通攻击命中时燃烧目标%basic_remove_mana% + 最大值%penetrate_remove_mana_percent%%%的魔法值，每燃烧1点法力值，造成%penetrate_damage_factor%点物理伤害"
@@ -6733,9 +6731,9 @@
 		"DOTA_Tooltip_ability_item_recipe_hoshiguma_cup" "星熊盃制作书"
 		"DOTA_Tooltip_ability_item_hoshiguma_cup" "星熊盃"
 		"DOTA_Tooltip_ability_item_hoshiguma_cup_bonus_strength" "+$str"
-		"DOTA_Tooltip_ability_item_hoshiguma_cup_bonus_attack_range" "+$attack_range_melee"
+		"DOTA_Tooltip_ability_item_hoshiguma_cup_bonus_status_resistance" "%+$status_resist"
 		"DOTA_Tooltip_ability_item_hoshiguma_cup_bonus_hp_ragen_amplfy_percentage" "%+$hp_regen"
-		"DOTA_Tooltip_ability_item_hoshiguma_cup_note0"	"攻击距离不与同类物品叠加；生命恢复为非线性叠加。"
+		"DOTA_Tooltip_ability_item_hoshiguma_cup_note0"	"状态抗性不与同名物品叠加；生命恢复为非线性叠加。"
 
 		//----------------------------------------------------------------------
 		// 笏板 （暂定）

@@ -1096,47 +1096,6 @@ function ItemAbility_Kafziel_OnAttack(keys)
 	end
 end
 
----------------------------------------------------------------------------------------------------------
--- 大镰刀攻击距离（近战）
----------------------------------------------------------------------------------------------------------
-
-function ItemAbility_kafziel_attack_range_bonus(keys)
-    local caster = keys.caster
-    local ability = keys.ability
-    caster:AddNewModifier(caster, ability, "modifier_item_kafziel_attack_range_bonus", {})
-end
-
-function ItemAbility_kafziel_attack_range_bonus_destroy(keys)
-    local caster = keys.caster
-    if caster ~= nil and not caster:IsNull() and not caster:HasModifier("modifier_item_kafziel") then
-        caster:RemoveModifierByName("modifier_item_kafziel_attack_range_bonus")
-    end
-end
-
-modifier_item_kafziel_attack_range_bonus = {}
-LinkLuaModifier("modifier_item_kafziel_attack_range_bonus","scripts/vscripts/abilities/abilityitem.lua", LUA_MODIFIER_MOTION_NONE)
-
-function modifier_item_kafziel_attack_range_bonus:IsDebuff() return false end
-function modifier_item_kafziel_attack_range_bonus:IsHidden() return false end
-function modifier_item_kafziel_attack_range_bonus:IsPurgable() return false end
-function modifier_item_kafziel_attack_range_bonus:RemoveOnDeath() return false end
-
-function modifier_item_kafziel_attack_range_bonus:OnCreated(params)
-    if not IsServer() then return end
-end
-
-function modifier_item_kafziel_attack_range_bonus:DeclareFunctions()
-    return {
-        MODIFIER_PROPERTY_ATTACK_RANGE_BONUS
-    }
-end
-
-function modifier_item_kafziel_attack_range_bonus:GetModifierAttackRangeBonus()
-    if not self:GetCaster():IsRangedAttacker() then
-        return self:GetAbility():GetSpecialValueFor("bonus_attack_range")
-    end
-end
-
 function ItemAbility_Frock_Poison(keys)
 	local ItemAbility = keys.ability
 	local Caster = keys.caster
