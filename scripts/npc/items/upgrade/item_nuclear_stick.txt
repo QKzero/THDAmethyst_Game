@@ -1,116 +1,117 @@
 "DOTAAbilities"
 {
     // =================================================================================================================
-	// Recipe: Nuclear Stick
-	// =================================================================================================================
-	"item_recipe_nuclear_stick"
-	{
-		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
-		"BaseClass"	"item_datadriven"
-		"AbilityTextureName"	"item_recipe_nuclear_stick"
-		// General
-		// -------------------------------------------------------------------------------------------------------------
-		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
-		"ID"	"8112"
-		// Item Info
-		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"960"
-		// Recipe
-		// -------------------------------------------------------------------------------------------------------------
-		"ItemRecipe"	"1"
-		"ItemResult"	"item_nuclear_stick"
-		"ItemRequirements"
-		{
-			"01"	"item_zun_hat;item_mushroom_soup;item_mushroom_soup;item_picnic_basket"
-		}
-		"Model"	"models/props_gameplay/recipe.vmdl"
-	}
-
-	// =================================================================================================================
-	// Nuclear Stick
-	// =================================================================================================================
-	"item_nuclear_stick"
-	{
-		"BaseClass"	"item_lua"
-		"ScriptFile"            "items/item_nuclear_stick"
-		"AbilityTextureName"	"item_nuclear_stick"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		// General
-		// -------------------------------------------------------------------------------------------------------------
-		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
-		"ID"	"8113"
-		"ItemQuality"	"secret_shop"
-		// Item Info
-		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"4940"
-		"ItemDroppable"	"1"
-		"ItemSellable"	"1"
-		"ItemShopTags"	"mana_pool;regen_health;regen_mana"
-		"ItemAliases"	"octarine core"
-		// Special
-		// -------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"bonus_mana"	"225"
-			"bonus_health"	"175"
-			"bonus_health_regen"	"10"
-			"bonus_mana_regen"	"6.5"
-			"reduction_cooldown"	"25"
-			"regen_amplify"			"35"
-			"bonus_regen_amplify"			"20"
-			"bonus_intellect"	"15"
-		}
-	}
-	// "item_nuclear_stick"
-	// {
-	// 	"BaseClass"	"item_datadriven"
-	// 	"AbilityTextureName"	"item_nuclear_stick"
-	// 	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	// 	// General
-	// 	// -------------------------------------------------------------------------------------------------------------
-	// 	// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
-	// 	"ID"	"8113"
-	// 	"ItemQuality"	"secret_shop"
-	// 	// Item Info
-	// 	// -------------------------------------------------------------------------------------------------------------
-	// 	"ItemCost"	"4940"
-	// 	"ItemDroppable"	"1"
-	// 	"ItemSellable"	"1"
-	// 	"ItemShopTags"	"mana_pool;regen_health;regen_mana"
-	// 	"Modifiers"
-	// 	{
-	// 		"modifier_item_nuclear_stick"
-	// 		{
-	// 			"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
-	// 			"Passive"	"1"
-	// 			"IsHidden"	"1"
-	// 			"Properties"
-	// 			{
-	// 				"MODIFIER_PROPERTY_HEALTH_BONUS"			"%bonus_health"
-	// 				"MODIFIER_PROPERTY_MANA_BONUS"	"%bonus_mana"
-	// 				"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
-	// 				"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
-	// 			}
-	// 		}
-	// 		"modifier_item_nuclear_stick_cooldown_reduction"
-	// 		{
-	// 			"Passive"	"1"
-	// 			"Properties"
-	// 			{
-	// 				"MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE"	"%reduction_cooldown"
-	// 			}
-	// 		}
-	// 	}
-	// 	// Special
-	// 	// -------------------------------------------------------------------------------------------------------------
-	// 	"AbilityValues"
-	// 	{
-	// 		"bonus_mana"	"425"
-	// 		"bonus_health"	"175"
-	// 		"bonus_health_regen"	"5"
-	// 		"bonus_mana_regen"	"5"
-	// 		"reduction_cooldown"	"25"
-	// 		"regen_amplify"			"40"
-	// 	}
-	// }
+    // Recipe: Nuclear Stick
+    // =================================================================================================================
+    "item_recipe_nuclear_stick"
+    {
+        // unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+        "BaseClass" "item_datadriven"
+        "AbilityTextureName" "item_recipe_nuclear_stick"
+        // General
+        // -------------------------------------------------------------------------------------------------------------
+        // unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+        "ID" "8112"
+        // Item Info
+        // -------------------------------------------------------------------------------------------------------------
+        "ItemCost" "875"
+        // Recipe
+        // -------------------------------------------------------------------------------------------------------------
+        "ItemRecipe" "1"
+        "ItemResult" "item_nuclear_stick"
+        "ItemRequirements"
+        {
+            "01" "item_zun_hat;item_ibaraki_masu;item_picnic_basket"
+        }
+        "Model" "models/props_gameplay/recipe.vmdl"
+    }
+    // =================================================================================================================
+    // Nuclear Stick
+    // =================================================================================================================
+    "item_nuclear_stick"
+    {
+        "BaseClass" "item_lua"
+        "ScriptFile" "items/item_nuclear_stick"
+        "AbilityTextureName" "item_nuclear_stick"
+        "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        // General
+        // -------------------------------------------------------------------------------------------------------------
+        // unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+        "ID" "8113"
+        "ItemQuality" "secret_shop"
+        // Item Info
+        // -------------------------------------------------------------------------------------------------------------
+        "ItemCost" "4940"
+        "ItemDroppable" "1"
+        "ItemSellable" "1"
+        "ItemShopTags" "mana_pool;regen_health;regen_mana"
+        "ItemAliases" "octarine core"
+        // Special
+        // -------------------------------------------------------------------------------------------------------------
+        "AbilityValues"
+        {
+            "bonus_mana" "175"
+            "bonus_health" "175"
+            "bonus_health_regen" "8"
+            "bonus_mana_regen" "5"
+            "reduction_cooldown" "25"
+            // "regen_amplify" "35"
+            // "bonus_regen_amplify" "20"
+            "bonus_intellect" "16"
+            "bonus_spell_amplify_percentage" "10"
+            // "bonus_cast_range" "175"
+        }
+    }
+    // "item_nuclear_stick"
+    // {
+    // 	"BaseClass"	"item_datadriven"
+    // 	"AbilityTextureName"	"item_nuclear_stick"
+    // 	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    // 	// General
+    // 	// -------------------------------------------------------------------------------------------------------------
+    // 	// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+    // 	"ID"	"8113"
+    // 	"ItemQuality"	"secret_shop"
+    // 	// Item Info
+    // 	// -------------------------------------------------------------------------------------------------------------
+    // 	"ItemCost"	"4940"
+    // 	"ItemDroppable"	"1"
+    // 	"ItemSellable"	"1"
+    // 	"ItemShopTags"	"mana_pool;regen_health;regen_mana"
+    // 	"Modifiers"
+    // 	{
+    // 		"modifier_item_nuclear_stick"
+    // 		{
+    // 			"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+    // 			"Passive"	"1"
+    // 			"IsHidden"	"1"
+    // 			"Properties"
+    // 			{
+    // 				"MODIFIER_PROPERTY_HEALTH_BONUS"			"%bonus_health"
+    // 				"MODIFIER_PROPERTY_MANA_BONUS"	"%bonus_mana"
+    // 				"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health_regen"
+    // 				"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
+    // 			}
+    // 		}
+    // 		"modifier_item_nuclear_stick_cooldown_reduction"
+    // 		{
+    // 			"Passive"	"1"
+    // 			"Properties"
+    // 			{
+    // 				"MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE"	"%reduction_cooldown"
+    // 			}
+    // 		}
+    // 	}
+    // 	// Special
+    // 	// -------------------------------------------------------------------------------------------------------------
+    // 	"AbilityValues"
+    // 	{
+    // 		"bonus_mana"	"425"
+    // 		"bonus_health"	"175"
+    // 		"bonus_health_regen"	"5"
+    // 		"bonus_mana_regen"	"5"
+    // 		"reduction_cooldown"	"25"
+    // 		"regen_amplify"			"40"
+    // 	}
+    // }
 }

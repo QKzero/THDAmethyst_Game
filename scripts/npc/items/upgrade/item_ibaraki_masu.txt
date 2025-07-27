@@ -36,11 +36,11 @@
                 "RemoveOnDeath" "0"
                 "OnCreated"
                 {
-                    "RunScript"
-                    {
-                        "ScriptFile" "scripts/vscripts/items/item_ibaraki_masu.lua"
-                        "Function" "ItemAbility_ibaraki_masu_cast_range"
-                    }
+                    // "RunScript"
+                    // {
+                    //     "ScriptFile" "scripts/vscripts/items/item_ibaraki_masu.lua"
+                    //     "Function" "ItemAbility_ibaraki_masu_cast_range"
+                    // }
                     "RunScript"
                     {
                         "ScriptFile" "scripts/vscripts/items/item_ibaraki_masu.lua"
@@ -49,11 +49,11 @@
                 }
                 "OnDestroy"
                 {
-                    "RunScript"
-                    {
-                        "ScriptFile" "scripts/vscripts/items/item_ibaraki_masu.lua"
-                        "Function" "ItemAbility_ibaraki_masu_cast_range_destroy"
-                    }
+                    // "RunScript"
+                    // {
+                    //     "ScriptFile" "scripts/vscripts/items/item_ibaraki_masu.lua"
+                    //     "Function" "ItemAbility_ibaraki_masu_cast_range_destroy"
+                    // }
                     "RunScript"
                     {
                         "ScriptFile" "scripts/vscripts/items/item_ibaraki_masu.lua"
@@ -66,16 +66,16 @@
                     "MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE" "%bonus_spell_amplify_percentage"
                 }
             }
-            "modifier_item_ibaraki_masu_cast_range"
-            {
-                "Passive" "1"
-                "IsHidden" "1"
-                "RemoveOnDeath" "0"
-                "Properties"
-                {
-                    "MODIFIER_PROPERTY_CAST_RANGE_BONUS" "%bonus_cast_range"
-                }
-            }
+            // "modifier_item_ibaraki_masu_cast_range"
+            // {
+            //     "Passive" "1"
+            //     "IsHidden" "1"
+            //     "RemoveOnDeath" "0"
+            //     "Properties"
+            //     {
+            //         "MODIFIER_PROPERTY_CAST_RANGE_BONUS" "%bonus_cast_range"
+            //     }
+            // }
             "modifier_item_ibaraki_masu_cooldown_reduction"
             {
                 "Passive" "1"
@@ -91,7 +91,7 @@
         {
             "bonus_intellect" "16"
             "bonus_spell_amplify_percentage" "6"
-            "bonus_cast_range" "100"
+            // "bonus_cast_range" "100"
             "bonus_cooldown_reduction" "10"
         }
     }
