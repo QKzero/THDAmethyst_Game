@@ -18,7 +18,7 @@
         "ItemResult" "item_kafziel"
         "ItemRequirements"
         {
-            "01" "item_cake;item_cake;item_scissors;item_hoshiguma_cup;item_throwing_knive"
+            "01" "item_baozi;item_scissors;item_hoshiguma_cup;item_throwing_knive"
         }
         "Model" "models/props_gameplay/recipe.vmdl"
     }
