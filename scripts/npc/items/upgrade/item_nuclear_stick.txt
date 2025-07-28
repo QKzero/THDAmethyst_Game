@@ -14,7 +14,7 @@
         "ID" "8112"
         // Item Info
         // -------------------------------------------------------------------------------------------------------------
-        "ItemCost" "875"
+        "ItemCost" "175"
         // Recipe
         // -------------------------------------------------------------------------------------------------------------
         "ItemRecipe" "1"
@@ -55,11 +55,11 @@
             "bonus_health_regen" "8"
             "bonus_mana_regen" "5"
             "reduction_cooldown" "25"
-            // "regen_amplify" "35"
-            // "bonus_regen_amplify" "20"
+            "regen_amplify" "35"
+            "bonus_regen_amplify" "20"
             "bonus_intellect" "16"
             "bonus_spell_amplify_percentage" "10"
-            // "bonus_cast_range" "175"
+            "bonus_cast_range" "125"
         }
     }
     // "item_nuclear_stick"

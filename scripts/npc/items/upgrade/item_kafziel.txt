@@ -164,7 +164,7 @@
             "reap_chance" "25"
             "reap_health_pct" "5"
             "reap_damage" "60"
-            "bonus_attack_range" "150"
+            "bonus_attack_range" "100"
             "bonus_hp_ragen_amplfy_percentage" "45"
         }
     }
