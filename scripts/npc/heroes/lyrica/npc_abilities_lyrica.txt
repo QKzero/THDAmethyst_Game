@@ -149,10 +149,10 @@
 				"value"			"300"
 				"affected_by_aoe_increase"	"1"
 			}
-			"cooldown_limit"	"40"
+			"cooldown_limit"	"60"
 			"cooldown_max"	"75"
-			"cooldown_bonus"	"0.2"
-			"cooldown_bonus_half"	"0.1"
+			"cooldown_bonus"	"0.3"
+			"cooldown_bonus_half"	"0.15"
 		}
 	}
 
