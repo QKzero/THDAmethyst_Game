@@ -29,6 +29,8 @@ function modifier_item_nuclear_stick_basic:DeclareFunctions()
 		MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_TARGET,
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 		MODIFIER_PROPERTY_TOOLTIP,
+		MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
+		MODIFIER_PROPERTY_CAST_RANGE_BONUS,
 		-- MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
 		-- MODIFIER_PROPERTY_MANA_REGEN_PERCENTAGE
 	}
@@ -43,7 +45,7 @@ function modifier_item_nuclear_stick_basic:GetModifierConstantHealthRegen()
 	return self:GetAbility():GetSpecialValueFor("bonus_health_regen")
 end
 function modifier_item_nuclear_stick_basic:GetModifierConstantManaRegen()
-	return self:GetAbility():GetSpecialValueFor("bonus_mana_regen")
+ 	return self:GetAbility():GetSpecialValueFor("bonus_mana_regen")
 end
 function modifier_item_nuclear_stick_basic:OnTooltip()
 	return self:GetAbility():GetSpecialValueFor("regen_amplify")
@@ -54,7 +56,12 @@ end
 function modifier_item_nuclear_stick_basic:GetModifierBonusStats_Intellect()
 	return self:GetAbility():GetSpecialValueFor("bonus_intellect")
 end
-
+function modifier_item_nuclear_stick_basic:GetModifierSpellAmplify_Percentage()
+	return self:GetAbility():GetSpecialValueFor("bonus_spell_amplify_percentage")
+end
+function modifier_item_nuclear_stick_basic:GetModifierCastRangeBonus() 
+ 	return self:GetAbility():GetSpecialValueFor("bonus_cast_range") 
+end
 
 modifier_item_nuclear_stick = {}
 
@@ -90,9 +97,9 @@ function modifier_item_nuclear_stick_passive:GetModifierPercentageCooldown()
 end
 
 
--- function modifier_item_nuclear_stick:GetModifierHPRegenAmplify_Percentage()
--- 	return self:GetAbility():GetSpecialValueFor("bonus_regen_amplify")
--- end
--- function modifier_item_nuclear_stick:GetModifierPercentageManaRegen()
--- 	return self:GetAbility():GetSpecialValueFor("bonus_regen_amplify")
--- end
+function modifier_item_nuclear_stick:GetModifierHPRegenAmplify_Percentage()
+	return self:GetAbility():GetSpecialValueFor("bonus_regen_amplify")
+end
+function modifier_item_nuclear_stick:GetModifierPercentageManaRegen()
+	return self:GetAbility():GetSpecialValueFor("bonus_regen_amplify")
+end

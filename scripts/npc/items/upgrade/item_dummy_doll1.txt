@@ -1,132 +1,135 @@
 "DOTAAbilities"
 {
     // =================================================================================================================
-	// Recipe: Dummy Doll
-	// =================================================================================================================
-	"item_recipe_dummy_doll1"
-	{
-		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
-		"BaseClass"	"item_datadriven"
-		"AbilityTextureName"	"item_recipe_dummy_doll1"
-		// General
-		// -------------------------------------------------------------------------------------------------------------
-		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
-		"ID"	"8128"
-		// Item Info
-		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"1700"
-		// Recipe
-		// -------------------------------------------------------------------------------------------------------------
-		"ItemRecipe"	"1"
-		"ItemResult"	"item_dummy_doll1"
-		"ItemRequirements"
-		{
-			"01"	"item_doctor_doll;item_cat_foot;item_frog"
-		}
-		"Model"	"models/props_gameplay/recipe.vmdl"
-	}
-
-	// =================================================================================================================
-	// Dummy Doll
-	// =================================================================================================================
-	"item_dummy_doll1"
-	{ 
-		"BaseClass"	"item_datadriven"
-		"AbilityTextureName"	"item_dummy_doll1"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		// Stats
-		// -------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"	"0.0"
-		"AbilityCooldown"	"30"
-		"AbilityManaCost"	"0"
-		// General
-		// -------------------------------------------------------------------------------------------------------------
-		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
-		"ID"	"8129"
-		// Item Info
-		// -------------------------------------------------------------------------------------------------------------
-		"ItemCost"	"4700"
-		"ItemDroppable"	"1"
-		"ItemSellable"	"1"
-		"ItemShopTags"	"agi;int;damage;attack_speed"
-		"OnSpellStart"
-		{
-			"ApplyModifier"
-			{
-				"Target"	"CASTER"
-				"ModifierName"	"modifier_item_dummy_doll_invisible"
-			}
-			"RunScript"
-			{
-				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
-				"Function"	"ItemAbility_DummyDoll_OnSpellStart"
-				"illusions_duration"	"%illusions_duration"
-				"illusion_outgoing_damage"	"%illusion_outgoing_damage_Tooltip"
-				"illusion_incoming_damage"	"%illusion_incoming_damage"
-			}
-			"ApplyModifier"
-			{
-				"Target"		"CASTER"
-				"Duration"		"12"
-				"ModifierName"	"modifier_invisible"
-			}
-		}
-		"Modifiers"
-		{
-			"modifier_item_dummy_doll1"
-			{
-				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
-				"Passive"	"1"
-				"IsHidden"	"1"
-				"RemoveOnDeath"	"0"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
-					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bonus_agility"
-					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
-				}
-			}
-			"modifier_item_dummy_doll_invisible"
-			{
-				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
-				"Duration"	"%invisible_duration"
-				"IsBuff"	"1"
-				"States"
-				{
-					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_INVISIBLE"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-				"OnAttackStart"
-				{
-					"RemoveModifier"
-					{
-						"ModifierName"	"modifier_item_dummy_doll_invisible"
-						"Target"	"CASTER"
-					}
-				}
-				"OnAbilityExecuted"
-				{
-					"RemoveModifier"
-					{
-						"ModifierName"	"modifier_item_dummy_doll_invisible"
-						"Target"	"CASTER"
-					}
-				}
-			}
-		}
-		// Special
-		// -------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"bonus_damage"	"30"
-			"bonus_attack_speed"	"30"
-			"bonus_agility"	"14"
-			"bonus_intellect"	"14"
-			"invisible_duration"	"12"
-			"illusions_duration"	"12"
-			"illusion_incoming_damage"	"50"
-			"illusion_outgoing_damage_Tooltip"	"35"
-		}
-	}
+    // Recipe: Dummy Doll
+    // =================================================================================================================
+    "item_recipe_dummy_doll1"
+    {
+        // unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+        "BaseClass" "item_datadriven"
+        "AbilityTextureName" "item_recipe_dummy_doll1"
+        // General
+        // -------------------------------------------------------------------------------------------------------------
+        // unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+        "ID" "8128"
+        // Item Info
+        // -------------------------------------------------------------------------------------------------------------
+        "ItemCost" "700"
+        // Recipe
+        // -------------------------------------------------------------------------------------------------------------
+        "ItemRecipe" "1"
+        "ItemResult" "item_dummy_doll1"
+        "ItemRequirements"
+        {
+            "01" "item_ice_block;item_ibuki_gourd"
+        }
+        "Model" "models/props_gameplay/recipe.vmdl"
+    }
+    // =================================================================================================================
+    // Dummy Doll
+    // =================================================================================================================
+    "item_dummy_doll1"
+    {
+        "BaseClass" "item_datadriven"
+        "AbilityTextureName" "item_dummy_doll1"
+        "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+        // Stats
+        // -------------------------------------------------------------------------------------------------------------
+        "AbilityCastPoint" "0.0"
+        "AbilityCooldown" "28"
+        "AbilityManaCost" "0"
+        // General
+        // -------------------------------------------------------------------------------------------------------------
+        // unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+        "ID" "8129"
+        // Item Info
+        // -------------------------------------------------------------------------------------------------------------
+        "ItemCost" "4700"
+        "ItemDroppable" "1"
+        "ItemSellable" "1"
+        "ItemShopTags" "agi;int;damage;attack_speed"
+        "OnSpellStart"
+        {
+            "ApplyModifier"
+            {
+                "Target" "CASTER"
+                "ModifierName" "modifier_item_dummy_doll_invisible"
+            }
+            "RunScript"
+            {
+                "ScriptFile" "scripts/vscripts/abilities/abilityItem.lua"
+                "Function" "ItemAbility_DummyDoll_OnSpellStart"
+                "illusions_duration" "%illusions_duration"
+                "illusion_outgoing_damage" "%illusion_outgoing_damage_Tooltip"
+                "illusion_incoming_damage" "%illusion_incoming_damage"
+            }
+            "ApplyModifier"
+            {
+                "Target" "CASTER"
+                "Duration" "12"
+                "ModifierName" "modifier_invisible"
+            }
+        }
+        "Modifiers"
+        {
+            "modifier_item_dummy_doll1"
+            {
+                "Attributes" "MODIFIER_ATTRIBUTE_MULTIPLE"
+                "Passive" "1"
+                "IsHidden" "1"
+                "RemoveOnDeath" "0"
+                "Properties"
+                {
+                    // "MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE" "%bonus_damage"
+                    // "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" "%bonus_attack_speed"
+                    "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" "%bonus_strength"
+                    "MODIFIER_PROPERTY_STATS_AGILITY_BONUS" "%bonus_agility"
+                    "MODIFIER_PROPERTY_STATS_INTELLECT_BONUS" "%bonus_intellect"
+                    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%bonus_move_speed_percentage"
+                }
+            }
+            // "modifier_item_dummy_doll_invisible"
+            // {
+            // 	// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
+            // 	"Duration"	"%invisible_duration"
+            // 	"IsBuff"	"1"
+            // 	"States"
+            // 	{
+            // 		"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+            // 		"MODIFIER_STATE_INVISIBLE"	"MODIFIER_STATE_VALUE_ENABLED"
+            // 	}
+            // 	"OnAttackStart"
+            // 	{
+            // 		"RemoveModifier"
+            // 		{
+            // 			"ModifierName"	"modifier_item_dummy_doll_invisible"
+            // 			"Target"	"CASTER"
+            // 		}
+            // 	}
+            // 	"OnAbilityExecuted"
+            // 	{
+            // 		"RemoveModifier"
+            // 		{
+            // 			"ModifierName"	"modifier_item_dummy_doll_invisible"
+            // 			"Target"	"CASTER"
+            // 		}
+            // 	}
+            // }
+        }
+        // Special
+        // -------------------------------------------------------------------------------------------------------------
+        "AbilityValues"
+        {
+            // "bonus_damage" "30"
+            // "bonus_attack_speed" "30"
+            "bonus_strength" "15"
+            "bonus_agility" "30"
+            "bonus_intellect" "15"
+            "bonus_move_speed_percentage" "12"
+            //"invisible_duration" "12"
+            "illusions_duration" "15"
+            "illusion_incoming_damage" "200"
+            "illusion_outgoing_damage_Tooltip" "35"
+        }
+    }
 }

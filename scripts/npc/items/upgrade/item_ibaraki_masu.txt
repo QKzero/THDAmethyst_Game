@@ -66,16 +66,16 @@
                     "MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE" "%bonus_spell_amplify_percentage"
                 }
             }
-            "modifier_item_ibaraki_masu_cast_range"
-            {
-                "Passive" "1"
-                "IsHidden" "1"
-                "RemoveOnDeath" "0"
-                "Properties"
-                {
-                    "MODIFIER_PROPERTY_CAST_RANGE_BONUS" "%bonus_cast_range"
-                }
-            }
+            // "modifier_item_ibaraki_masu_cast_range"
+            // {
+            //     "Passive" "1"
+            //     "IsHidden" "1"
+            //     "RemoveOnDeath" "0"
+            //     "Properties"
+            //     {
+            //         "MODIFIER_PROPERTY_CAST_RANGE_BONUS" "%bonus_cast_range"
+            //     }
+            // }
             "modifier_item_ibaraki_masu_cooldown_reduction"
             {
                 "Passive" "1"

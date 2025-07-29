@@ -7528,14 +7528,14 @@
 
 		"DOTA_Tooltip_ability_item_recipe_feixiangjian"								"Recipe: Sword of Hisou"
 		"DOTA_Tooltip_ability_item_feixiangjian"									"Sword of Hisou"
-		"DOTA_Tooltip_ability_item_feixiangjian_Description"						"<h1>Active: Spirit Destruction</h1>Prevents the target from using items for %duration% seconds.<br><br>Cast Range: %AbilityCastRange%\n<h1>Passive: Curse Attack</h1>Grants each attack a %chance%%% chance to slow the target's movement speed by %maim_movement_speed%%% and attack speed by %maim_attack_speed% for %debuff_duration% seconds."
-		"DOTA_Tooltip_ability_item_feixiangjian_note0"								"Unlike Nullifier, no dispel effect is applied.<br><br>Does not use a projectile, and immediately affects the target when cast.<br>Equivalent to the earliest version of Nullifier in DotA.<br><br>Dispellable."
+		//"DOTA_Tooltip_ability_item_feixiangjian_Description"						"<h1>Active: Spirit Destruction</h1>Prevents the target from using items for %duration% seconds.<br><br>Cast Range: %AbilityCastRange%\n<h1>Passive: Curse Attack</h1>Grants each attack a %chance%%% chance to slow the target's movement speed by %maim_movement_speed%%% and attack speed by %maim_attack_speed% for %debuff_duration% seconds."
+		//"DOTA_Tooltip_ability_item_feixiangjian_note0"							"Unlike Nullifier, no dispel effect is applied.<br><br>Does not use a projectile, and immediately affects the target when cast.<br>Equivalent to the earliest version of Nullifier in DotA.<br><br>Dispellable."
 		"DOTA_Tooltip_ability_item_feixiangjian_bonus_damage"						"+$damage"
 		"DOTA_Tooltip_ability_item_feixiangjian_bonus_attack_speed"					"+$attack"
 		"DOTA_Tooltip_ability_item_feixiangjian_bonus_strength"						"+$str"
 
-		"DOTA_Tooltip_modifier_item_feixiangjian_debuff"							"Hisou Break"
-		"DOTA_Tooltip_modifier_item_feixiangjian_debuff_Description"				"Cannot use items, and passives are disabled."
+		//"DOTA_Tooltip_modifier_item_feixiangjian_debuff"							"Hisou Break"
+		//"DOTA_Tooltip_modifier_item_feixiangjian_debuff_Description"				"Cannot use items, and passives are disabled."
 
 		"DOTA_Tooltip_ability_item_quelling_blade"									"Kappa Woodworking Knives"
 		"DOTA_Tooltip_ability_item_quelling_blade_Lore"								"An outdated kappa industry product, don't expect much."
