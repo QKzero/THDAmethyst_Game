@@ -407,6 +407,9 @@ function modifier_thdots_yukari03_add_unit_to_gap:OnIntervalThink()
 	local caster = self:GetCaster()
 	local Ability02 = caster:FindAbilityByName("ability_thdots_yukari02")
 
+	-- 最低间隔5秒
+	local cooldownTime = math.max((30-ability:GetLevel()*3-caster:GetLevel()*0.75),5)
+
 	local stack_num = caster:GetModifierStackCount(Yukari02_MODIFIER_COUNTER_NAME, caster)
 
 	if stack_num >= 100 then return end
@@ -415,7 +418,7 @@ function modifier_thdots_yukari03_add_unit_to_gap:OnIntervalThink()
 		caster.add_unit_to_gap_time=caster.add_unit_to_gap_time or GameRules:GetGameTime()
 		-- if Ability02 and GameRules:GetGameTime()-caster.add_unit_to_gap_time>=(ability:GetCooldown(ability:GetLevel())-caster:GetLevel())*0.7 then
 		-- 修改了技能冷却，所以技能自动增加单位的时间也要改，+20秒
-		if Ability02 and GameRules:GetGameTime()-caster.add_unit_to_gap_time>=(30-ability:GetLevel()*2-caster:GetLevel()*0.5) then
+		if Ability02 and GameRules:GetGameTime()-caster.add_unit_to_gap_time >= cooldownTime then
 			caster.add_unit_to_gap_time=GameRules:GetGameTime()
 			local creep=CreateUnitByName(
 				g_creeps_name[RandomInt(1,#g_creeps_name)],
