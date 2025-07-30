@@ -6207,7 +6207,7 @@
 		"DOTA_Tooltip_ability_item_pomojinlingli_bonus_mana_regen"	"+$mana_regen"
 		"DOTA_Tooltip_ability_item_pomojinlingli_bonus_damage_percentage"	"%+$spell_amp"
 		"DOTA_Tooltip_ability_item_pomojinlingli_bonus_cast_range" "+$cast_range"
-		"DOTA_Tooltip_ability_item_pomojinlingli_note0"	"沉默效果可以驱散。"
+		"DOTA_Tooltip_ability_item_pomojinlingli_note0"	"沉默效果可以驱散。施法距离无法与同类型装备叠加。"
 		"DOTA_Tooltip_ability_item_recipe_yueyaomishi"	"月耀秘石制作书"
 		"DOTA_Tooltip_ability_item_yueyaomishi"	"月耀秘石"
 		"DOTA_Tooltip_ability_item_yueyaomishi_Description"	"<h1>主动：月耀祈祷</h1>为周围友军提升%radiate_regen_mana%点/秒的魔法恢复，持续%duration%秒。<br><br>作用范围：%radiate_radius%\n"
