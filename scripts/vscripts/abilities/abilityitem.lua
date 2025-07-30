@@ -2913,11 +2913,15 @@ function ItemAbility_pomojinlingli_OnSpellStart(keys)
 	end
 	Target:AddNewModifier(Caster, ItemAbility, "modifier_item_pomojinlingli_silence", {duration = duration* (1 - Target:GetStatusResistance())})
 end
-modifier_item_pomojinlingli_silence = {}
+
+modifier_item_pomojinlingli_silence = {
+	total_damage = 0,        -- 累计伤害值
+    damage_factor = 0.3,     -- 额外伤害系数
+}
 LinkLuaModifier("modifier_item_pomojinlingli_silence","scripts/vscripts/abilities/abilityitem.lua",LUA_MODIFIER_MOTION_NONE)
 
 function modifier_item_pomojinlingli_silence:IsPurgable() 		 return true end
-function modifier_item_pomojinlingli_silence:RemoveOnDeath()		 return true end
+function modifier_item_pomojinlingli_silence:RemoveOnDeath()	 return true end
 function modifier_item_pomojinlingli_silence:IsHidden()			 return false end
 function modifier_item_pomojinlingli_silence:IsDebuff()			 return true end
 function modifier_item_pomojinlingli_silence:GetEffectName()
@@ -2933,15 +2937,103 @@ function modifier_item_pomojinlingli_silence:CheckState()
 		[MODIFIER_STATE_SILENCED] = true,
 	}
 end
+
 function modifier_item_pomojinlingli_silence:OnCreated()
 	if not IsServer() then return end
 	self.caster = self:GetCaster()
 	self.particle = ParticleManager:CreateParticle("particles/econ/items/storm_spirit/storm_spirit_orchid_hat/storm_spirit_orchid.vpcf", PATTACH_OVERHEAD_FOLLOW, self:GetParent())
+    self.total_damage = 0 -- 初始化伤害记录
+    self:StartIntervalThink(0.1)  -- 绑定伤害监听事件 每0.1秒检查一次，避免频繁事件绑定
 end
+
+function modifier_item_pomojinlingli_silence:OnIntervalThink()
+    -- 确保只绑定一次伤害事件
+    if not self.damage_listener_bound then
+        self:GetParent():AddNewModifier(self:GetParent(), nil, "modifier_damage_listener", {})
+        self.damage_listener_bound = true
+        self:StartIntervalThink(-1)  -- 停止定时器
+    end
+end
+
 function modifier_item_pomojinlingli_silence:OnDestroy()
 	if not IsServer() then return end
 	ParticleManager:DestroyParticle(self.particle,true)
+
+	-- 结算额外伤害
+    if self.total_damage > 0 then
+        local damage_table = {
+            victim = self:GetParent(),
+            attacker = self.caster,
+            damage = self.total_damage * self.damage_factor,
+            damage_type = DAMAGE_TYPE_MAGICAL,
+            ability = self:GetAbility(),
+            damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION,
+        }
+        ApplyDamage(damage_table)
+    end
+    
+    -- 移除伤害监听修饰器
+    if self.damage_listener_bound then
+        self:GetParent():RemoveModifierByName("modifier_damage_listener")
+    end
 end
+
+-- 新增：伤害监听修饰器（独立存在，避免干扰）
+modifier_damage_listener = {}
+LinkLuaModifier("modifier_damage_listener", "scripts/vscripts/abilities/abilityitem.lua", LUA_MODIFIER_MOTION_NONE)
+function modifier_damage_listener:DeclareFunctions()
+    return { MODIFIER_EVENT_ON_TAKEDAMAGE }
+end
+
+function modifier_damage_listener:OnTakeDamage(event)
+    if not IsServer() then return end
+    local parent = self:GetParent()
+    local silence_modifier = parent:FindModifierByName("modifier_item_pomojinlingli_silence")
+    
+    -- 如果目标处于沉默状态且伤害来源有效
+    if silence_modifier and event.unit == parent then
+        -- 排除非敌方伤害（如自伤、环境伤害）
+        if event.attacker and event.attacker:GetTeam() ~= parent:GetTeam() then
+            silence_modifier.total_damage = silence_modifier.total_damage + event.damage
+        end
+    end
+end
+
+function ItemAbility_pomojinlingli_cast_range(keys)
+	local caster = keys.caster
+	local ability = keys.ability
+    caster:AddNewModifier(caster, ability, "modifier_item_pomojinlingli_cast_range",{ })
+end
+
+function ItemAbility_pomojinlingli_cast_range_destroy(keys)
+	local caster = keys.caster
+	if caster ~= nil and not caster:IsNull() and not caster:HasModifier("modifier_item_pomojinlingli") then
+        caster:RemoveModifierByName("modifier_item_pomojinlingli_cast_range")
+    end
+end
+
+modifier_item_pomojinlingli_cast_range = class({})
+LinkLuaModifier("modifier_item_pomojinlingli_cast_range", "scripts/vscripts/abilities/abilityitem.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_item_pomojinlingli_cast_range:IsDebuff() return false end
+function modifier_item_pomojinlingli_cast_range:IsHidden() return true end
+function modifier_item_pomojinlingli_cast_range:IsPurgable() return false end
+function modifier_item_pomojinlingli_cast_range:RemoveOnDeath() return false end
+
+function modifier_item_pomojinlingli_cast_range:OnCreated(params)
+    if not IsServer() then return end
+end
+
+function modifier_item_pomojinlingli_cast_range:DeclareFunctions()
+	return {
+		MODIFIER_PROPERTY_CAST_RANGE_BONUS
+	}
+end
+
+function modifier_item_pomojinlingli_cast_range:GetModifierCastRangeBonus() return 
+    self:GetAbility():GetSpecialValueFor("bonus_cast_range") 
+end
+
 
 function yueyaomishi_AbilityExecuted(keys)
 	local ItemAbility = keys.ability

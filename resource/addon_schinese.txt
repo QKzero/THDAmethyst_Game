@@ -6200,12 +6200,13 @@
 		"DOTA_Tooltip_ability_item_quelling_blade_Note0"				"压制效果不对己方生效。<br>多个河童木工刃效果不会叠加。"
 		"DOTA_Tooltip_ability_item_recipe_pomojinlingli"	"破魔净灵札制作书"
 		"DOTA_Tooltip_ability_item_pomojinlingli"	"破魔净灵札"
-		"DOTA_Tooltip_ability_item_pomojinlingli_Description"	"<h1>主动：净灵</h1>使目标敌方单位沉默，持续%duration%秒。<br><br>施法距离：%AbilityCastRange%\n<h1>被动：破魔</h1>造成的魔法伤害无视真澄之镜的护盾效果。"
+		"DOTA_Tooltip_ability_item_pomojinlingli_Description"	"<h1>主动：净灵</h1>使目标敌方单位沉默，持续%duration%秒，沉默结束后所受伤害的30%%将以额外魔法伤害的形式结算。<br><br>施法距离：%AbilityCastRange%\n<h1>被动：破魔</h1>造成的魔法伤害无视真澄之镜的护盾效果。"
 		"DOTA_Tooltip_ability_item_pomojinlingli_bonus_attack_speed"	"+$attack"
 		"DOTA_Tooltip_ability_item_pomojinlingli_bonus_damage"	"+$damage"
 		"DOTA_Tooltip_ability_item_pomojinlingli_bonus_intellect"	"+$int"
 		"DOTA_Tooltip_ability_item_pomojinlingli_bonus_mana_regen"	"+$mana_regen"
 		"DOTA_Tooltip_ability_item_pomojinlingli_bonus_damage_percentage"	"%+$spell_amp"
+		"DOTA_Tooltip_ability_item_pomojinlingli_bonus_cast_range" "+$cast_range"
 		"DOTA_Tooltip_ability_item_pomojinlingli_note0"	"沉默效果可以驱散。"
 		"DOTA_Tooltip_ability_item_recipe_yueyaomishi"	"月耀秘石制作书"
 		"DOTA_Tooltip_ability_item_yueyaomishi"	"月耀秘石"
@@ -6752,7 +6753,7 @@
 		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_intellect" "+$int"
 		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_spell_amplify_percentage" "%+$spell_amp"
 		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_cast_range" "+$cast_range"
-		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_cooldown_reduction" "%+$cooldown_reduction"
+		// "DOTA_Tooltip_ability_item_ibaraki_masu_bonus_cooldown_reduction" "%+$cooldown_reduction"
 		"DOTA_Tooltip_ability_item_ibaraki_masu_note0"	"冷却缩减不与同名物品叠加。"
 	}
 }

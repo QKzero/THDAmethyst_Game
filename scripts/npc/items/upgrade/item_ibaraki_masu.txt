@@ -92,7 +92,7 @@
             "bonus_intellect" "16"
             "bonus_spell_amplify_percentage" "6"
             "bonus_cast_range" "100"
-            "bonus_cooldown_reduction" "10"
+            // "bonus_cooldown_reduction" "10"
         }
     }
 }

@@ -18,7 +18,7 @@
 		"ItemResult"	"item_pomojinlingli"
 		"ItemRequirements"
 		{
-			"01"	"item_eyunzhifu;item_gran_grimoire"
+			"01"	"item_eyunzhifu;item_ibaraki_masu"
 		}
 		"Model"	"models/props_gameplay/recipe.vmdl"
 	}
@@ -72,7 +72,22 @@
 				"Passive"	"1"
 				"IsHidden"	"1"
 				"RemoveOnDeath"	"0"
-				"OnCreated"	{}
+				"OnCreated" 
+				{
+					"RunScript"
+                    {
+                        "ScriptFile" "scripts/vscripts/abilities/abilityItem.lua"
+                        "Function" "ItemAbility_pomojinlingli_cast_range"
+                    }
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+                    {
+                        "ScriptFile" "scripts/vscripts/abilities/abilityItem.lua"
+                        "Function" "ItemAbility_pomojinlingli_cast_range_destroy"
+                    }
+				}
 				"Properties"
 				{
 					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
@@ -106,6 +121,7 @@
 			"bonus_mana_regen"	"4"
 			"duration"	"5.5"
 			"bonus_damage_percentage"	"15"
+			"bonus_cast_range" "175"
 		}
 	}
 }
