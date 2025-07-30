@@ -1272,10 +1272,10 @@ function ItemAbility_DummyDoll_OnSpellStart(keys)
 
     -- Step 2: 隐藏本体并设置无敌状态
     Caster:AddNoDraw()                  -- 隐藏模型
-    Caster:AddNewModifier(Caster, nil, "modifier_invulnerable", {duration = 0.15})  -- 无敌
+    Caster:AddNewModifier(Caster, nil, "modifier_invulnerable", {duration = 0.1})  -- 无敌
 
-    -- Step 3: 0.15秒后执行显形和创建幻象
-    Timers:CreateTimer(0.15, function()
+    -- Step 3: 0.1秒后执行显形和创建幻象
+    Timers:CreateTimer(0.1, function()
         -- 显形本体并移除无敌
         Caster:RemoveNoDraw()
         Caster:RemoveModifierByName("modifier_invulnerable")
