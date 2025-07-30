@@ -1567,7 +1567,7 @@
 		"DOTA_Tooltip_ability_ability_thdots_yukari02_AbilityCastRange"	"施法距离："
 		"DOTA_Tooltip_ability_ability_thdots_yukari02_note0"		"将少女或野怪拉入间隙不会增加间隙内的单位数量。"
 		"DOTA_Tooltip_ability_ability_thdots_yukari03"	"魍魉「栖息于禅寺的妖蝶」"
-		"DOTA_Tooltip_ability_ability_thdots_yukari03_Description"	"将自己传送至地图上任意地点。需要持续施法%AbilityCastPoint%秒。\n此外，每隔<font color='#FFFFFF'>30-(技能等级*2+紫等级*0.5)</font>秒，紫会在间隙中存放多一只生物。<br><br>双击将传送至己方泉水。"
+		"DOTA_Tooltip_ability_ability_thdots_yukari03_Description"	"将自己传送至地图上任意地点。需要持续施法%AbilityCastPoint%秒。\n此外，每隔<font color='#FFFFFF'>30-(技能等级*3+紫等级*0.75)</font>秒(最低5秒)，紫会在间隙中存放多一只生物。<br><br>双击将传送至己方泉水。"
 		"DOTA_Tooltip_ability_ability_thdots_yukari03_note0"	"如果中止传送或者被打断，会返还全额冷却和魔法消耗。"
 		"DOTA_Tooltip_ability_ability_thdots_yukari03_scepter_description"	"传送完成后产生空间震，对%wanbaochui_radius%范围内的敌方单位造成%int_bonus%倍智力的魔法伤害"
 		"DOTA_Tooltip_ability_ability_thdots_yukari04"	"「深弹幕结界 - 梦幻泡影 - 」"

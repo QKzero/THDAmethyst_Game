@@ -2050,7 +2050,7 @@
 		"DOTA_Tooltip_modifier_thdots_yukari02_hidden_Description"					"You are in gap."	
 
 		"DOTA_Tooltip_ability_ability_thdots_yukari03"								"Evil Spirits「Yukari Yakumo's Spiriting Away」"
-		"DOTA_Tooltip_ability_ability_thdots_yukari03_Description"					"Yukari teleports on a target location after %AbilityCastPoint% seconds channeling.\nAlso, every <font color='#FFFFFF'>30-(ability lv*2+Yukari's lv*0.5)</font> seconds, Yukari sends a unit into her gap.<br><br>Double-click to teleport to your team's base fountain."
+		"DOTA_Tooltip_ability_ability_thdots_yukari03_Description"					"Yukari teleports on a target location after %AbilityCastPoint% seconds channeling.\nAlso, every <font color='#FFFFFF'>30-(ability lv*3+Yukari's lv*0.75)</font> seconds(5 sec at least), Yukari sends a unit into her gap.<br><br>Double-click to teleport to your team's base fountain."
 		"DOTA_Tooltip_ability_ability_thdots_yukari03_scepter_description"			"Yukari triggers spacequake at the target location after teleport, deals (%int_bonus%*intelligence) magical damage to enemies in %wanbaochui_radius% radius."
 		"DOTA_Tooltip_ability_ability_thdots_yukari03_note0"						"If stop teleporting or interrupted, return full cooldown and mana cost."
 
