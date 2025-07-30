@@ -3,7 +3,7 @@
 	"npc_dota_hero_satori"
 	{
 		"override_hero"			"npc_dota_hero_rubick"
-		"Model"                 "models/new_touhou_model/satori/satori.vmdl"
+		"Model"                 "models/satori/satori.vmdl"
 		"VoiceFile" "soundevents/voscripts/game_sounds_vo_rubick.vsndevts"
 		"ModelScale"            "1.3"
 		"VersusScale"            "1.3"

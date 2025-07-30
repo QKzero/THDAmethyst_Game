@@ -2079,8 +2079,6 @@
 		"DOTA_Tooltip_ability_item_nuclear_stick_bonus_health_regen"	"+$hp_regen"
 		"DOTA_Tooltip_ability_item_nuclear_stick_bonus_mana_regen"	"+$mana_regen"
 		"DOTA_Tooltip_ability_item_nuclear_stick_bonus_intellect"	"+$int"
-		"DOTA_Tooltip_ability_item_nuclear_stick_bonus_spell_amplify_percentage" "%+$spell_amp"
-		"DOTA_Tooltip_ability_item_nuclear_stick_bonus_cast_range"	"+$cast_range"
 		"DOTA_Tooltip_modifier_item_nuclear_stick_passive"	"原子速融"
 		"DOTA_Tooltip_modifier_item_nuclear_stick_passive_Description"	"减少25%%的技能冷却时间。"
 		"DOTA_Tooltip_ability_item_recipe_frock"	"花毒的连衣裙制作书"

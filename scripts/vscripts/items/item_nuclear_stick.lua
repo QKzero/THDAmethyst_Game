@@ -29,8 +29,6 @@ function modifier_item_nuclear_stick_basic:DeclareFunctions()
 		MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_TARGET,
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 		MODIFIER_PROPERTY_TOOLTIP,
-		MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
-		MODIFIER_PROPERTY_CAST_RANGE_BONUS,
 		-- MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
 		-- MODIFIER_PROPERTY_MANA_REGEN_PERCENTAGE
 	}
@@ -56,12 +54,7 @@ end
 function modifier_item_nuclear_stick_basic:GetModifierBonusStats_Intellect()
 	return self:GetAbility():GetSpecialValueFor("bonus_intellect")
 end
-function modifier_item_nuclear_stick_basic:GetModifierSpellAmplify_Percentage()
-	return self:GetAbility():GetSpecialValueFor("bonus_spell_amplify_percentage")
-end
-function modifier_item_nuclear_stick_basic:GetModifierCastRangeBonus() 
- 	return self:GetAbility():GetSpecialValueFor("bonus_cast_range") 
-end
+
 
 modifier_item_nuclear_stick = {}
 
