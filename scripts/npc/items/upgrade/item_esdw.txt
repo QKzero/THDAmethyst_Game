@@ -1,0 +1,46 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+	// Recipe: 八辐法轮 Eight-Spoked Dharma Wheel
+	// =================================================================================================================
+    "item_recipe_esdw"
+    {
+        "BaseClass" "item_datadriven" 
+        "AbilityTextureName"    "item_recipe_esdw"
+        "ItemCost" "800"
+        "ItemRecipe"    "1"
+        "ItemResult"    "item_esdw"
+        "ItemRequirements"
+		{
+			"01"	"item_hoshiguma_cup;item_ibaraki_masu"
+		}
+		"Model"	"models/props_gameplay/recipe.vmdl"
+    }
+    // =================================================================================================================
+	// 八辐法轮 Eight-Spoked Dharma Wheel
+	// =================================================================================================================
+    "item_esdw"
+    {
+        "BaseClass"	            "item_lua"
+        "AbilityTextureName"    "item_esdw" //图标By 橘橘子
+        "ScriptFile"            "items/item_esdw"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "ItemCost"	            "5000"
+        "ItemDroppable"	        "1"
+        "ItemPurchasable"       "1"
+		"ItemSellable"	        "1"
+		"ItemShopTags"	        "stg;int"
+		"ItemAliases"	        "bafu;falun;sanye"
+        "AbilityValues"
+		{
+			"bonus_strength"	                "16"
+			"bonus_intellect"	                "16"
+            "bonus_attack_range"                "100"
+            "bonus_hp_regen_amplify_percentage" "30"
+            "bonus_extra_health_percentage"     "10"
+            "bonus_cast_range"                  "125"
+            "bonus_spell_amplify_percentage"    "10"
+            "bonus_extra_mana_percentage"       "10"
+		}
+    }
+}

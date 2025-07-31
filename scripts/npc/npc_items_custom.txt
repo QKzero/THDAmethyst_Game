@@ -168,6 +168,7 @@
 #base "items\upgrade\item_hoshiguma_cup.txt"
 #base "items\upgrade\item_ibuki_gourd.txt"
 #base "items\upgrade\item_ibaraki_masu.txt"
+#base "items\upgrade\item_esdw.txt"
 
 "DOTAAbilities"
 {

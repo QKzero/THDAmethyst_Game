@@ -2147,6 +2147,7 @@
 		"DOTA_Tooltip_ability_item_dummy_doll1_bonus_agility"	"+$agi"
 		"DOTA_Tooltip_ability_item_dummy_doll1_bonus_intellect"	"+$int"
 		"DOTA_Tooltip_ability_item_dummy_doll1_bonus_move_speed_percentage" "%+$move_speed"
+		"DOTA_Tooltip_ability_item_dummy_doll1_note0" "有0.1秒的施法时间，期间处于无敌状态。"
 		"DOTA_Tooltip_ability_item_recipe_bone_flute"	"碎骨笛制作书"
 		"DOTA_Tooltip_ability_item_bone_flute"	"碎骨笛"
 		"DOTA_Tooltip_ability_item_bone_flute_Description"	"<h1>主动：碎骨笛</h1>为周围友军提供%movement_speed_percent_bonus%%%移动速度加成和%incoming_damage%%%伤害减免，持续%buff_duration%秒。<br><br>作用范围：%effect_radius%<br>效果无法驱散\n<h1>被动：迅捷光环</h1>提升自身与周围友军%bouns_speed%点移动速度。<br><br>光环作用范围：%effect_radius%"
@@ -6207,7 +6208,7 @@
 		"DOTA_Tooltip_ability_item_pomojinlingli_bonus_mana_regen"	"+$mana_regen"
 		"DOTA_Tooltip_ability_item_pomojinlingli_bonus_damage_percentage"	"%+$spell_amp"
 		"DOTA_Tooltip_ability_item_pomojinlingli_bonus_cast_range" "+$cast_range"
-		"DOTA_Tooltip_ability_item_pomojinlingli_note0"	"沉默效果可以驱散。施法距离无法与同类型装备叠加。"
+		"DOTA_Tooltip_ability_item_pomojinlingli_note0"	"沉默效果可以驱散。施法距离不与同类物品叠加，取最大值。"
 		"DOTA_Tooltip_ability_item_recipe_yueyaomishi"	"月耀秘石制作书"
 		"DOTA_Tooltip_ability_item_yueyaomishi"	"月耀秘石"
 		"DOTA_Tooltip_ability_item_yueyaomishi_Description"	"<h1>主动：月耀祈祷</h1>为周围友军提升%radiate_regen_mana%点/秒的魔法恢复，持续%duration%秒。<br><br>作用范围：%radiate_radius%\n"
@@ -6754,6 +6755,22 @@
 		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_spell_amplify_percentage" "%+$spell_amp"
 		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_cast_range" "+$cast_range"
 		// "DOTA_Tooltip_ability_item_ibaraki_masu_bonus_cooldown_reduction" "%+$cooldown_reduction"
-		"DOTA_Tooltip_ability_item_ibaraki_masu_note0"	"冷却缩减不与同名物品叠加。"
+		"DOTA_Tooltip_ability_item_ibaraki_masu_note0"	"施法距离不与同类物品叠加，取最大值。"
+
+		//----------------------------------------------------------------------
+		// 八辐法轮 （暂定）
+		//----------------------------------------------------------------------
+
+		"DOTA_Tooltip_ability_item_recipe_esdw" "八辐法轮制作书"
+		"DOTA_Tooltip_ability_item_esdw" "八辐法轮"
+		"DOTA_Tooltip_ability_item_esdw_bonus_strength" "+$str"
+		"DOTA_Tooltip_ability_item_esdw_bonus_intellect" "+$int"
+		"DOTA_Tooltip_ability_item_esdw_bonus_hp_regen_amplify_percentage" "%+$hp_regen"
+		"DOTA_Tooltip_ability_item_esdw_bonus_spell_amplify_percentage" "%+$spell_amp"
+		"DOTA_Tooltip_ability_item_esdw_bonus_extra_health_percentage" "%+最大生命值"
+		"DOTA_Tooltip_ability_item_esdw_bonus_extra_mana_percentage" "%+最大法力值"	
+		"DOTA_Tooltip_ability_item_esdw_bonus_attack_range" "+攻击距离"
+		"DOTA_Tooltip_ability_item_esdw_bonus_cast_range" "+$cast_range"
+		"DOTA_Tooltip_ability_item_esdw_note0" "施法距离不与同类物品叠加，取最大值。"
 	}
 }

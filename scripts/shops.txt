@@ -224,6 +224,7 @@
 		"item"		"item_hoshiguma_cup"
 		"item"		"item_ibuki_gourd"
 		"item"		"item_ibaraki_masu"
+		"item"		"item_esdw"
 	}
 
 	"sideshop1"
