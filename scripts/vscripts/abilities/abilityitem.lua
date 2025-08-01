@@ -2433,10 +2433,18 @@ function modifier_item_brother_sharp_burst:CheckState() return {[MODIFIER_STATE_
 function modifier_item_brother_sharp_burst:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
+		MODIFIER_PROPERTY_MOVESPEED_MAX_OVERRIDE,  --定义最大移速上限值
+        MODIFIER_PROPERTY_MOVESPEED_LIMIT --强制移速限制值
 	}
 end
 function modifier_item_brother_sharp_burst:GetModifierMoveSpeedBonus_Percentage()
 	return self.burst_movement_speed_percent_bonus
+end
+function modifier_item_brother_sharp_burst:GetModifierMoveSpeed_MaxOverride()
+	return 99999
+end
+function modifier_item_brother_sharp_burst:GetModifierMoveSpeed_Limit()
+	return 99999
 end
 function modifier_item_brother_sharp_burst:OnCreated()
 	if not IsServer() then return end

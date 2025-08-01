@@ -2002,7 +2002,7 @@
 		"DOTA_Tooltip_ability_item_brother_sharp_bonus_intellect"					"+$int"
 		"DOTA_Tooltip_ability_item_brother_sharp_bonus_armor"						"+$armor"
 		"DOTA_Tooltip_ability_item_brother_sharp_movement_speed_percent_bonus"		"%+$move_speed"
-		"DOTA_Tooltip_ability_item_brother_sharp_Description"	"<h1>主动：风神庇佑</h1>开启后增加%burst_movement_speed_percent_bonus%%%移速，并获得相位与减速免疫状态，持续%burst_duration%秒。\n多个风神羽翼提供的移动速度加成不叠加。"
+		"DOTA_Tooltip_ability_item_brother_sharp_Description"	"<h1>主动：风神庇佑</h1>开启后增加%burst_movement_speed_percent_bonus%%%移速，并获得相位与减速免疫状态，持续%burst_duration%秒，持续时间内可以突破移速上限。\n多个风神羽翼提供的移动速度加成不叠加。"
 		"DOTA_Tooltip_ability_item_brother_sharp_note0" "效果无法驱散。"
 		"DOTA_Tooltip_modifier_item_brother_sharp_burst"	"风神庇佑"
 		"DOTA_Tooltip_modifier_item_brother_sharp_burst_Description"				"增加移速，并获得相位与减速免疫状态"
