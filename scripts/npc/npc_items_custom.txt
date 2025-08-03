@@ -1,6 +1,5 @@
 ﻿// Dota2 Editor
 // Get latest version: https://github.com/zombieJ/nw-dota2editor
-
 // Basic Items
 #base "items\basic\item_aunt_clothes.txt"
 #base "items\basic\item_baozi.txt"
@@ -164,13 +163,13 @@
 #base "items\upgrade\item_jeweled_branch.txt"
 #base "items\upgrade\item_repentancestick.txt"
 #base "items\upgrade\item_nuetrident.txt"
-#base "items\upgrade\item_kusanagi.txt"	
+#base "items\upgrade\item_kusanagi.txt"
 #base "items\upgrade\item_hoshiguma_cup.txt"
-#base "items\upgrade\item_ibuki_gourd.txt"
-#base "items\upgrade\item_ibaraki_masu.txt"
+#base "items\upgrade\item_naginata.txt"
+#base "items\upgrade\item_cht.txt"
 #base "items\upgrade\item_esdw.txt"
-
+#base "items\upgrade\item_sss.txt"
 "DOTAAbilities"
 {
-	"Version"		"1"
+    "Version" "1"
 }
