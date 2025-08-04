@@ -1132,7 +1132,7 @@ function modifier_item_kafziel_attack_range_bonus:DeclareFunctions()
 end
 
 function modifier_item_kafziel_attack_range_bonus:GetModifierAttackRangeBonus()
-    if not self:GetCaster():IsRangedAttacker() then
+    if not self:GetCaster():IsRangedAttacker() and not self:GetCaster():HasModifier("modifier_item_esdw_passive") then
         return self:GetAbility():GetSpecialValueFor("bonus_attack_range")
     end
 end
