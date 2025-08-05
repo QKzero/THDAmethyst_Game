@@ -16,7 +16,7 @@
         "ItemResult" "item_feixiangjian"
         "ItemRequirements"
         {
-            "01" "item_zuzhoumujian;item_ibuki_gourd"
+            "01" "item_zuzhoumujian;item_naginata"
         }
         "Model" "models/props_gameplay/recipe.vmdl"
     }

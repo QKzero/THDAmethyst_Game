@@ -1,40 +1,43 @@
 "DOTAAbilities"
 {
     // =================================================================================================================
-    // Recipe: 星熊盃
+    // Recipe: 七星剑 seven_star_sword
     // =================================================================================================================
-    "item_recipe_hoshiguma_cup"
+    "item_recipe_sss"
     {
         "BaseClass" "item_datadriven"
-        "AbilityTextureName" "item_recipe_hoshiguma_cup"
-        "ItemCost" "650"
+        "AbilityTextureName" "item_recipe_sss"
+        "ItemCost" "1150"
         "ItemRecipe" "1"
-        "ItemResult" "item_hoshiguma_cup"
+        "ItemResult" "item_sss"
         "ItemRequirements"
         {
-            "01" "item_paper_mask;item_cherry_leaf"
+            "01" "item_naginata;item_cht"
         }
         "Model" "models/props_gameplay/recipe.vmdl"
     }
     // =================================================================================================================
-    //  星熊盃
+    //  七星剑 seven_star_sword
     // =================================================================================================================
-    "item_hoshiguma_cup"
+    "item_sss"
     {
         "BaseClass" "item_lua"
-        "AbilityTextureName" "item_hoshiguma_cup"
-        "ScriptFile" "items/item_hoshiguma_cup"
+        "AbilityTextureName" "item_sss" //图标By 橘橘子
+        "ScriptFile" "items/item_sss"
         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "ItemCost" "2100"
-        "ItemPurchasable" "1"
+        "ItemCost" "5500"
         "ItemDroppable" "1"
+        "ItemPurchasable" "1"
         "ItemSellable" "1"
-        "ItemShopTags" "stg;attack_range;hp_ragen_amplfy;"
+        "ItemShopTags" "agi;int"
+        "ItemAliases" "qixing;jian;huiye"
         "AbilityValues"
         {
-            "bonus_strength" "16"
-            "bonus_attack_range" "75"
-            "bonus_hp_ragen_amplfy_percentage" "30"
+            "bonus_agility" "16"
+            "bonus_intellect" "16"
+            "bonus_movespeed" "12"
+            "bonus_cast_range" "125"
+            
         }
     }
 }

@@ -1,40 +1,40 @@
 "DOTAAbilities"
 {
     // =================================================================================================================
-    // Recipe: 星熊盃
+    // Recipe: 薙刀
     // =================================================================================================================
-    "item_recipe_hoshiguma_cup"
+    "item_recipe_naginata"
     {
         "BaseClass" "item_datadriven"
-        "AbilityTextureName" "item_recipe_hoshiguma_cup"
+        "AbilityTextureName" "item_recipe_naginata"
         "ItemCost" "650"
         "ItemRecipe" "1"
-        "ItemResult" "item_hoshiguma_cup"
+        "ItemResult" "item_naginata"
         "ItemRequirements"
         {
-            "01" "item_paper_mask;item_cherry_leaf"
+            "01" "item_cat_foot;item_cat_ear"
         }
         "Model" "models/props_gameplay/recipe.vmdl"
     }
     // =================================================================================================================
-    //  星熊盃
+    //  薙刀
     // =================================================================================================================
-    "item_hoshiguma_cup"
+    "item_naginata"
     {
         "BaseClass" "item_lua"
-        "AbilityTextureName" "item_hoshiguma_cup"
-        "ScriptFile" "items/item_hoshiguma_cup"
+        "AbilityTextureName" "item_naginata"
+        "ScriptFile" "items/item_naginata"
         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         "ItemCost" "2100"
         "ItemPurchasable" "1"
         "ItemDroppable" "1"
         "ItemSellable" "1"
-        "ItemShopTags" "stg;attack_range;hp_ragen_amplfy;"
+        "ItemShopTags" "agi;attack_speed;move_speed"
         "AbilityValues"
         {
-            "bonus_strength" "16"
-            "bonus_attack_range" "75"
-            "bonus_hp_ragen_amplfy_percentage" "30"
+            "bonus_agility" "16"
+            "bonus_attack_speed" "30"
+            "bonus_move_speed_percentage" "10"
         }
     }
 }

@@ -21,7 +21,7 @@
         "ItemResult" "item_dummy_doll1"
         "ItemRequirements"
         {
-            "01" "item_ice_block;item_ibuki_gourd"
+            "01" "item_ice_block;item_naginata"
         }
         "Model" "models/props_gameplay/recipe.vmdl"
     }

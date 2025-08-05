@@ -18,7 +18,7 @@
 		"ItemResult"	"item_pomojinlingli"
 		"ItemRequirements"
 		{
-			"01"	"item_eyunzhifu;item_ibaraki_masu"
+			"01"	"item_eyunzhifu;item_cht"
 		}
 		"Model"	"models/props_gameplay/recipe.vmdl"
 	}

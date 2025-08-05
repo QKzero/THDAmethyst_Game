@@ -1,29 +1,29 @@
-LinkLuaModifier( "modifier_item_ibaraki_masu", "scripts/vscripts/items/item_ibaraki_masu.lua.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_item_cht", "scripts/vscripts/items/item_cht.lua.lua", LUA_MODIFIER_MOTION_NONE )
 --Abilities
-if item_ibaraki_masu == nil then
-	item_ibaraki_masu = class({})
+if item_cht == nil then
+	item_cht = class({})
 end
-function item_ibaraki_masu:GetIntrinsicModifierName()
-	return "modifier_item_ibaraki_masu"
+function item_cht:GetIntrinsicModifierName()
+	return "modifier_item_cht"
 end
 ---------------------------------------------------------------------
 --Modifiers
-if modifier_item_ibaraki_masu == nil then
-	modifier_item_ibaraki_masu = class({})
+if modifier_item_cht == nil then
+	modifier_item_cht = class({})
 end
-function modifier_item_ibaraki_masu:OnCreated(params)
+function modifier_item_cht:OnCreated(params)
 	if IsServer() then
 	end
 end
-function modifier_item_ibaraki_masu:OnRefresh(params)
+function modifier_item_cht:OnRefresh(params)
 	if IsServer() then
 	end
 end
-function modifier_item_ibaraki_masu:OnDestroy()
+function modifier_item_cht:OnDestroy()
 	if IsServer() then
 	end
 end
-function modifier_item_ibaraki_masu:DeclareFunctions()
+function modifier_item_cht:DeclareFunctions()
 	return {
 	}
 end

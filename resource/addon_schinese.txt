@@ -2024,7 +2024,7 @@
 		"DOTA_Tooltip_ability_item_kafziel_bonus_health_regen"	"+$hp_regen"
 		"DOTA_Tooltip_ability_item_kafziel_bonus_damage"	"+$damage"
 		"DOTA_Tooltip_ability_item_kafziel_bonus_attack_range"	"+$attack_range_melee"
-		"DOTA_Tooltip_ability_item_kafziel_bonus_hp_ragen_amplfy_percentage" "%+$hp_regen"
+		"DOTA_Tooltip_ability_item_kafziel_bonus_hp_ragen_amplfy_percentage" "%+额外生命恢复增强"
 		"DOTA_Tooltip_modifier_item_kafziel_debuff"	"死神之大镰刀"
 		"DOTA_Tooltip_modifier_item_kafziel_debuff_Description"	 "被死神盯上，无法恢复生命值"
 		"DOTA_Tooltip_ability_item_kafziel_note0"	"对建筑的攻击无法触发。<br>幻象的攻击无法触发。攻击距离不与同类物品叠加。"
@@ -6215,7 +6215,7 @@
 		"DOTA_Tooltip_ability_item_yueyaomishi_bonus_mana"	"+$mana"
 		"DOTA_Tooltip_ability_item_yueyaomishi_bonus_health"	"+$hp_regen"
 		"DOTA_Tooltip_ability_item_yueyaomishi_bonus_mana_regen"	"+$mana_regen"
-		"DOTA_Tooltip_ability_item_yueyaomishi_mana_regen_amplify"	"%+ 魔法回复效果"
+		"DOTA_Tooltip_ability_item_yueyaomishi_mana_regen_amplify"	"%+额外魔法恢复增强"
 		"DOTA_Tooltip_ability_item_yueyaomishi_bonus_armor"	"+$armor"
 		"DOTA_Tooltip_ability_item_yueyaomishi_note0"	"主动技能持续施法时为施法者添加一个月耀光环，该光环提供魔法恢复效果。<br><br>元素秘法石和月耀秘石施加的效果可以叠加。"
 		"DOTA_Tooltip_modifier_item_yueyaomishi_radiate_regen_mana_aura" "月耀充盈"
@@ -6732,30 +6732,30 @@
 		"DOTA_Tooltip_ability_item_hoshiguma_cup" "星熊盃"
 		"DOTA_Tooltip_ability_item_hoshiguma_cup_bonus_strength" "+$str"
 		"DOTA_Tooltip_ability_item_hoshiguma_cup_bonus_attack_range" "+$attack_range_melee"
-		"DOTA_Tooltip_ability_item_hoshiguma_cup_bonus_hp_ragen_amplfy_percentage" "%+$hp_regen"
-		"DOTA_Tooltip_ability_item_hoshiguma_cup_note0"	"攻击距离不与同类物品叠加；生命恢复为非线性叠加。"
+		"DOTA_Tooltip_ability_item_hoshiguma_cup_bonus_hp_ragen_amplfy_percentage" "%+额外生命恢复增强"
+		"DOTA_Tooltip_ability_item_hoshiguma_cup_note0"	"攻击距离不与同类物品叠加；额外生命恢复增强为非线性叠加。"
 
 		//----------------------------------------------------------------------
 		// 薙刀 （暂定）
 		//----------------------------------------------------------------------
 
-		"DOTA_Tooltip_ability_item_recipe_ibuki_gourd" "薙刀制作书"
-		"DOTA_Tooltip_ability_item_ibuki_gourd" "薙刀"
-		"DOTA_Tooltip_ability_item_ibuki_gourd_bonus_agility" "+$agi"
-		"DOTA_Tooltip_ability_item_ibuki_gourd_bonus_attack_speed" "+$attack"
-		"DOTA_Tooltip_ability_item_ibuki_gourd_bonus_move_speed_percentage" "%+$move_speed"
+		"DOTA_Tooltip_ability_item_recipe_naginata" "薙刀制作书"
+		"DOTA_Tooltip_ability_item_naginata" "薙刀"
+		"DOTA_Tooltip_ability_item_naginata_bonus_agility" "+$agi"
+		"DOTA_Tooltip_ability_item_naginata_bonus_attack_speed" "+$attack"
+		"DOTA_Tooltip_ability_item_naginata_bonus_move_speed_percentage" "%+$move_speed"
 
 		//----------------------------------------------------------------------
 		// 笏板 （暂定）
 		//----------------------------------------------------------------------
 
-		"DOTA_Tooltip_ability_item_recipe_ibaraki_masu" "笏板制作书"
-		"DOTA_Tooltip_ability_item_ibaraki_masu" "笏板"
-		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_intellect" "+$int"
-		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_spell_amplify_percentage" "%+$spell_amp"
-		"DOTA_Tooltip_ability_item_ibaraki_masu_bonus_cast_range" "+$cast_range"
-		// "DOTA_Tooltip_ability_item_ibaraki_masu_bonus_cooldown_reduction" "%+$cooldown_reduction"
-		"DOTA_Tooltip_ability_item_ibaraki_masu_note0"	"施法距离不与同类物品叠加，取最大值。"
+		"DOTA_Tooltip_ability_item_recipe_cht" "笏板制作书"
+		"DOTA_Tooltip_ability_item_cht" "笏板"
+		"DOTA_Tooltip_ability_item_cht_bonus_intellect" "+$int"
+		"DOTA_Tooltip_ability_item_cht_bonus_spell_amplify_percentage" "%+$spell_amp"
+		"DOTA_Tooltip_ability_item_cht_bonus_mana_regen_percentage" "%+额外魔法恢复增强"
+		// "DOTA_Tooltip_ability_item_cht_bonus_cooldown_reduction" "%+$cooldown_reduction"
+		// "DOTA_Tooltip_ability_item_cht_note0"	"施法距离不与同类物品叠加，取最大值。"
 
 		//----------------------------------------------------------------------
 		// 八辐法轮 （暂定）
@@ -6765,10 +6765,11 @@
 		"DOTA_Tooltip_ability_item_esdw" "八辐法轮"
 		"DOTA_Tooltip_ability_item_esdw_bonus_strength" "+$str"
 		"DOTA_Tooltip_ability_item_esdw_bonus_intellect" "+$int"
-		"DOTA_Tooltip_ability_item_esdw_bonus_hp_regen_amplify_percentage" "%+$hp_regen"
+		"DOTA_Tooltip_ability_item_esdw_bonus_hp_regen_amplify_percentage" "%+额外生命恢复增强"
 		"DOTA_Tooltip_ability_item_esdw_bonus_spell_amplify_percentage" "%+$spell_amp"
-		"DOTA_Tooltip_ability_item_esdw_bonus_extra_health_percentage" "%+最大生命值"
-		"DOTA_Tooltip_ability_item_esdw_bonus_extra_mana_percentage" "%+最大法力值"	
+		"DOTA_Tooltip_ability_item_esdw_bonus_mp_regen_amplify_percentage" "%+额外魔法恢复增强"
+		// "DOTA_Tooltip_ability_item_esdw_bonus_extra_health_percentage" "%+最大生命值"
+		// "DOTA_Tooltip_ability_item_esdw_bonus_extra_mana_percentage" "%+最大法力值"	
 		"DOTA_Tooltip_ability_item_esdw_bonus_attack_range" "+攻击距离"
 		"DOTA_Tooltip_ability_item_esdw_bonus_cast_range" "+$cast_range"
 		"DOTA_Tooltip_ability_item_esdw_note0" "施法距离不与同类物品叠加，取最大值。"
@@ -6777,5 +6778,7 @@
 		// THD防偷塔buff
 		//----------------------------------------------------------------------
 		"DOTA_Tooltip_modifier_thdots_anti_bd_stop" "防偷塔已解除"
+		"DOTA_Tooltip_ability_item_esdw_Description"	"<h1>被动：秘神结界</h1>当%damage_window%秒内受到%damage_threshold_percentage%%%最大生命值的伤害时，会获得一个相当于%shield_mana_percentage%%%最大魔法值的全伤害护盾，持续%shield_duration%秒。<br>这个效果有%cooldown%秒的冷却时间。"
+		"DOTA_Tooltip_ability_item_esdw_note0" "攻击距离和施法距离不与同类物品叠加，取最大值。"
 	}
 }
