@@ -6772,5 +6772,10 @@
 		"DOTA_Tooltip_ability_item_esdw_bonus_attack_range" "+攻击距离"
 		"DOTA_Tooltip_ability_item_esdw_bonus_cast_range" "+$cast_range"
 		"DOTA_Tooltip_ability_item_esdw_note0" "施法距离不与同类物品叠加，取最大值。"
+
+		//----------------------------------------------------------------------
+		// THD防偷塔buff
+		//----------------------------------------------------------------------
+		"DOTA_Tooltip_modifier_thdots_anti_bd_stop" "防偷塔已解除"
 	}
 }

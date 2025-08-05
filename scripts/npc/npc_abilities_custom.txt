@@ -1402,7 +1402,7 @@
 			"modifier_thdots_anti_bd_stop"
 			{
 				"Duration"			"%duration"
-				"IsHidden"		"1"
+				"IsHidden"		"0"
 				"IsBuff"			"1"
 			}
 		}
