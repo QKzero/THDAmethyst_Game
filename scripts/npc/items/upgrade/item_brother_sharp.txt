@@ -130,11 +130,11 @@
             "bonus_strength" "13"
             "bonus_intellect" "13"
             "movement_speed_percent_bonus" "10"
-            "burst_duration" "10"
-            "burst_run_duration" "6"
+            "burst_duration" "8"
+            "burst_run_duration" "4"
             "burst_fly_duraion" "4"
-            "burst_movement_speed_percent_bonus" "40"
-            "burst_movement_speed_percent_max" "100"
+            "burst_movement_speed_percent_bonus" "20"
+            "burst_movement_speed_percent_max" "60"
             "bonus_armor" "5"
         }
     }
