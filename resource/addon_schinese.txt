@@ -6772,6 +6772,12 @@
 		// "DOTA_Tooltip_ability_item_esdw_bonus_extra_mana_percentage" "%+最大法力值"	
 		"DOTA_Tooltip_ability_item_esdw_bonus_attack_range" "+攻击距离"
 		"DOTA_Tooltip_ability_item_esdw_bonus_cast_range" "+$cast_range"
+		"DOTA_Tooltip_ability_item_esdw_note0" "施法距离不与同类物品叠加，取最大值。"
+
+		//----------------------------------------------------------------------
+		// THD防偷塔buff
+		//----------------------------------------------------------------------
+		"DOTA_Tooltip_modifier_thdots_anti_bd_stop" "防偷塔已解除"
 		"DOTA_Tooltip_ability_item_esdw_Description"	"<h1>被动：秘神结界</h1>当%damage_window%秒内受到%damage_threshold_percentage%%%最大生命值的伤害时，会获得一个相当于%shield_mana_percentage%%%最大魔法值的全伤害护盾，持续%shield_duration%秒。<br>这个效果有%cooldown%秒的冷却时间。"
 		"DOTA_Tooltip_ability_item_esdw_note0" "攻击距离不与同类物品叠加，取最大值。"
 
