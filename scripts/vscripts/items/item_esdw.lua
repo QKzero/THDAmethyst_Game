@@ -18,7 +18,6 @@ function modifier_item_esdw_passive:DeclareFunctions() return
         MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
         MODIFIER_PROPERTY_ATTACK_RANGE_BONUS,
         MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
-        MODIFIER_PROPERTY_CAST_RANGE_BONUS,
         MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
         MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
         MODIFIER_EVENT_ON_TAKEDAMAGE
@@ -50,7 +49,6 @@ function modifier_item_esdw_passive:GetModifierAttackRangeBonus()
     return 0
 end
 function modifier_item_esdw_passive:GetModifierHPRegenAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("bonus_hp_regen_amplify_percentage") end
-function modifier_item_esdw_passive:GetModifierCastRangeBonus() return self:GetAbility():GetSpecialValueFor("bonus_cast_range") end
 function modifier_item_esdw_passive:GetModifierSpellAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("bonus_spell_amplify_percentage") end
 function modifier_item_esdw_passive:GetModifierMPRegenAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("bonus_mp_regen_amplify_percentage") end
 

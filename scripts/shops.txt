@@ -214,7 +214,7 @@
         "item" "item_naginata"
         "item" "item_cht"
         "item" "item_esdw"
-        // "item" "item_sss"
+        "item" "item_sss"
     }
     "sideshop1"
     {

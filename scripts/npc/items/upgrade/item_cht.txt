@@ -7,7 +7,7 @@
     {
         "BaseClass" "item_datadriven"
         "AbilityTextureName" "item_recipe_cht"
-        "ItemCost" "1150"
+        "ItemCost" "650"
         "ItemRecipe" "1"
         "ItemResult" "item_cht"
         "ItemRequirements"

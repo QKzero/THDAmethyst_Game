@@ -7,7 +7,7 @@
     {
         "BaseClass" "item_datadriven"
         "AbilityTextureName" "item_recipe_sss"
-        "ItemCost" "1150"
+        "ItemCost" "1300"
         "ItemRecipe" "1"
         "ItemResult" "item_sss"
         "ItemRequirements"
@@ -35,9 +35,11 @@
         {
             "bonus_agility" "16"
             "bonus_intellect" "16"
-            "bonus_movespeed" "12"
-            "bonus_cast_range" "125"
-            
+            "bonus_attack_speed" "40"
+            "bonus_move_speed" "12"
+            "bonus_spell_amplify_percentage" "12"
+            "bonus_mp_regen_amplify_percentage" "75"
+            "bonus_cast_speed" "25"
         }
     }
 }
