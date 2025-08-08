@@ -7,7 +7,7 @@
     {
         "BaseClass" "item_datadriven"
         "AbilityTextureName" "item_recipe_sss"
-        "ItemCost" "1300"
+        "ItemCost" "0"
         "ItemRecipe" "1"
         "ItemResult" "item_sss"
         "ItemRequirements"
@@ -25,7 +25,7 @@
         "AbilityTextureName" "item_sss" //图标By 橘橘子
         "ScriptFile" "items/item_sss"
         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "ItemCost" "5500"
+        "ItemCost" "4200"
         "ItemDroppable" "1"
         "ItemPurchasable" "1"
         "ItemSellable" "1"

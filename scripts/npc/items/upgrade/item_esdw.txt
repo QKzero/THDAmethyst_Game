@@ -7,7 +7,7 @@
     {
         "BaseClass" "item_datadriven"
         "AbilityTextureName" "item_recipe_esdw"
-        "ItemCost" "1300"
+        "ItemCost" "0"
         "ItemRecipe" "1"
         "ItemResult" "item_esdw"
         "ItemRequirements"
@@ -25,7 +25,7 @@
         "AbilityTextureName" "item_esdw" //图标By 橘橘子
         "ScriptFile" "items/item_esdw"
         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "ItemCost" "6000"
+        "ItemCost" "4200"
         "ItemDroppable" "1"
         "ItemPurchasable" "1"
         "ItemSellable" "1"
@@ -37,17 +37,8 @@
             "bonus_intellect" "16"
             "bonus_attack_range" "100"
             "bonus_hp_regen_amplify_percentage" "30"
-            "bonus_spell_amplify_percentage" "10"
+            "bonus_spell_amplify_percentage" "12"
             "bonus_mp_regen_amplify_percentage" "50"
-            "damage_threshold_percentage" "30"
-            // 触发阈值(最大生命值百分比)
-            "shield_mana_percentage" "30"
-            // 护盾比例(最大法力值百分比)
-            "damage_window" "1"
-            // 伤害检测时间窗(秒)
-            "shield_duration" "10"
-            // 护盾持续时间(秒)
-            "cooldown" "100"
         }
     }
 }
