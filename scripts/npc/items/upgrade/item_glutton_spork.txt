@@ -1,48 +1,46 @@
 "DOTAAbilities"
 {
     // =================================================================================================================
-    // Recipe: 八辐法轮 Eight-Spoked Dharma Wheel
+    // Recipe: 饕餮叉勺
     // =================================================================================================================
-    "item_recipe_esdw"
+    "item_recipe_glutton_spork"
     {
         "BaseClass" "item_datadriven"
-        "AbilityTextureName" "item_recipe_esdw"
+        "AbilityTextureName" "item_recipe_glutton_spork"
         "ItemCost" "0"
         "ItemRecipe" "1"
-        "ItemResult" "item_esdw"
+        "ItemResult" "item_glutton_spork"
         "ItemRequirements"
         {
-            "01" "item_hoshiguma_cup;item_cht"
+            "01" "item_hoshiguma_cup;item_naginata"
         }
         "Model" "models/props_gameplay/recipe.vmdl"
     }
     // =================================================================================================================
-    // 八辐法轮 Eight-Spoked Dharma Wheel
+    //  饕餮叉勺
     // =================================================================================================================
-    "item_esdw"
+    "item_glutton_spork"
     {
         "BaseClass" "item_lua"
-        "AbilityTextureName" "item_esdw" //图标By 橘橘子
-        "ScriptFile" "items/item_esdw"
-        "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-        "AbilityCooldown" "50"
-        "AbilityManaCost" "0"
+        "AbilityTextureName" "item_glutton_spork" //图标By 橘橘子
+        "ScriptFile" "items/item_glutton_spork"
+        "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         "ItemCost" "4200"
         "ItemDroppable" "1"
         "ItemPurchasable" "1"
         "ItemSellable" "1"
-        "ItemShopTags" "stg;int"
-        "ItemAliases" "bafu;falun;sanye"
+        "ItemShopTags" "stg;agi"
+        "ItemAliases" "taotie;shaozi;sanye"
         "AbilityValues"
         {
             "bonus_strength" "16"
-            "bonus_intellect" "16"
+            "bonus_agility" "16"
             "bonus_attack_range" "100"
             "bonus_hp_regen_amplify_percentage" "30"
-            "bonus_spell_amplify_percentage" "12"
-            "bonus_mp_regen_amplify_percentage" "50"
-            "active_shield_value" "500"
-            "active_shield_duration" "15"
+            "bonus_attack_speed" "40"
+            "bonus_move_speed" "12"
+            "lifesteal_percent" "2.5"
+            "lifesteal_exclude_building" "1"
         }
     }
 }

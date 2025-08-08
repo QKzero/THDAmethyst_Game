@@ -213,6 +213,7 @@
         "item" "item_hoshiguma_cup"
         "item" "item_naginata"
         "item" "item_cht"
+        "item" "item_glutton_spork"
         "item" "item_esdw"
         "item" "item_sss"
     }
