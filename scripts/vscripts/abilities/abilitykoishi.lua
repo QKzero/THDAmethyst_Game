@@ -364,7 +364,7 @@ function OnKoishi04Think(keys)
 		)
 	end	
 	for i=1,#targets do 
-		if targets[i]~=nil and targets[i]:IsInvisible()==false and CanEntityBeSeenByMyTeam(targets[i])
+		if targets[i]~=nil and targets[i]:IsInvisible()==false 
 			and targets[i]:GetUnitName()~="npc_reimu_04_dummy_unit" 
 			and targets[i]:GetUnitName()~="ability_yuuka_flower" 
 			and targets[i]:GetUnitName()~="npc_dota_watch_tower" 
