@@ -6758,6 +6758,20 @@
 		// "DOTA_Tooltip_ability_item_cht_note0"	"施法距离不与同类物品叠加，取最大值。"
 
 		//----------------------------------------------------------------------
+		// 饕餮叉勺 （暂定）
+		//----------------------------------------------------------------------
+
+		"DOTA_Tooltip_ability_item_recipe_glutton_spork" "饕餮叉勺制作书"
+		"DOTA_Tooltip_ability_item_glutton_spork" "饕餮叉勺"
+		"DOTA_Tooltip_ability_item_glutton_spork_bonus_strength" "+$str"
+		"DOTA_Tooltip_ability_item_glutton_spork_bonus_agility" "+$agi"
+		"DOTA_Tooltip_ability_item_glutton_spork_bonus_attack_range" "+攻击距离"
+		"DOTA_Tooltip_ability_item_glutton_spork_bonus_hp_regen_amplify_percentage" "%+额外生命恢复增强"
+		"DOTA_Tooltip_ability_item_glutton_spork_bonus_attack_speed" "+$attack"
+		"DOTA_Tooltip_ability_item_glutton_spork_bonus_move_speed" "%+$move_speed"
+		"DOTA_Tooltip_ability_item_glutton_spork_Description"	"<h1>被动：暴食</h1>攻击时获得相当于目标最大生命值%lifesteal_percent%%%的吸血。"
+
+		//----------------------------------------------------------------------
 		// 八辐法轮 （暂定）
 		//----------------------------------------------------------------------
 
@@ -6772,13 +6786,7 @@
 		// "DOTA_Tooltip_ability_item_esdw_bonus_extra_mana_percentage" "%+最大法力值"	
 		"DOTA_Tooltip_ability_item_esdw_bonus_attack_range" "+攻击距离"
 		"DOTA_Tooltip_ability_item_esdw_bonus_cast_range" "+$cast_range"
-		"DOTA_Tooltip_ability_item_esdw_note0" "施法距离不与同类物品叠加，取最大值。"
-
-		//----------------------------------------------------------------------
-		// THD防偷塔buff
-		//----------------------------------------------------------------------
-		"DOTA_Tooltip_modifier_thdots_anti_bd_stop" "防偷塔已解除"
-		"DOTA_Tooltip_ability_item_esdw_Description"	"<h1>被动：秘神结界</h1>当%damage_window%秒内受到%damage_threshold_percentage%%%最大生命值的伤害时，会获得一个相当于%shield_mana_percentage%%%最大魔法值的全伤害护盾，持续%shield_duration%秒。<br>这个效果有%cooldown%秒的冷却时间。"
+		"DOTA_Tooltip_ability_item_esdw_Description"	"<h1>主动：秘神结界</h1>获得%active_shield_value%点全伤害护盾，持续%active_shield_duration%秒。"
 		"DOTA_Tooltip_ability_item_esdw_note0" "攻击距离不与同类物品叠加，取最大值。"
 
 		//----------------------------------------------------------------------
@@ -6794,5 +6802,11 @@
 		"DOTA_Tooltip_ability_item_sss_bonus_spell_amplify_percentage" "%+$spell_amp"
 		"DOTA_Tooltip_ability_item_sss_bonus_mp_regen_amplify_percentage" "%+额外魔法恢复增强"
 		"DOTA_Tooltip_ability_item_sss_Description"	"<h1>被动：「承诏必慎」</h1>增加%bonus_cast_speed%%%施法速度。"
+
+		//----------------------------------------------------------------------
+		// THD防偷塔buff
+		//----------------------------------------------------------------------
+
+		"DOTA_Tooltip_modifier_thdots_anti_bd_stop" "防偷塔已解除"
 	}
 }

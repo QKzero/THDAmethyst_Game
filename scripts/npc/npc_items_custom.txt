@@ -167,6 +167,7 @@
 #base "items\upgrade\item_hoshiguma_cup.txt"
 #base "items\upgrade\item_naginata.txt"
 #base "items\upgrade\item_cht.txt"
+#base "items\upgrade\item_glutton_spork.txt"
 #base "items\upgrade\item_esdw.txt"
 #base "items\upgrade\item_sss.txt"
 "DOTAAbilities"

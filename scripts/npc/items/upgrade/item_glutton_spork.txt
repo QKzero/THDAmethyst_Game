@@ -1,45 +1,46 @@
 "DOTAAbilities"
 {
     // =================================================================================================================
-    // Recipe: 七星剑 seven_star_sword
+    // Recipe: 饕餮叉勺
     // =================================================================================================================
-    "item_recipe_sss"
+    "item_recipe_glutton_spork"
     {
         "BaseClass" "item_datadriven"
-        "AbilityTextureName" "item_recipe_sss"
+        "AbilityTextureName" "item_recipe_glutton_spork"
         "ItemCost" "0"
         "ItemRecipe" "1"
-        "ItemResult" "item_sss"
+        "ItemResult" "item_glutton_spork"
         "ItemRequirements"
         {
-            "01" "item_naginata;item_cht"
+            "01" "item_hoshiguma_cup;item_naginata"
         }
         "Model" "models/props_gameplay/recipe.vmdl"
     }
     // =================================================================================================================
-    //  七星剑 seven_star_sword
+    //  饕餮叉勺
     // =================================================================================================================
-    "item_sss"
+    "item_glutton_spork"
     {
         "BaseClass" "item_lua"
-        "AbilityTextureName" "item_sss" //图标By 橘橘子
-        "ScriptFile" "items/item_sss"
+        "AbilityTextureName" "item_glutton_spork" //图标By 橘橘子
+        "ScriptFile" "items/item_glutton_spork"
         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         "ItemCost" "4200"
         "ItemDroppable" "1"
         "ItemPurchasable" "1"
         "ItemSellable" "1"
-        "ItemShopTags" "agi;int"
-        "ItemAliases" "qixing;jian;huiye"
+        "ItemShopTags" "stg;agi"
+        "ItemAliases" "taotie;shaozi;sanye"
         "AbilityValues"
         {
+            "bonus_strength" "16"
             "bonus_agility" "16"
-            "bonus_intellect" "16"
+            "bonus_attack_range" "100"
+            "bonus_hp_regen_amplify_percentage" "30"
             "bonus_attack_speed" "40"
             "bonus_move_speed" "12"
-            "bonus_spell_amplify_percentage" "12"
-            "bonus_mp_regen_amplify_percentage" "75"
-            "bonus_cast_speed" "25"
+            "lifesteal_percent" "2.5"
+            "lifesteal_exclude_building" "1"
         }
     }
 }
