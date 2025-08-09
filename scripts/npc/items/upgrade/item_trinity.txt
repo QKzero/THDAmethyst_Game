@@ -1,0 +1,55 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+    // Recipe: 三位一体
+    // =================================================================================================================
+    "item_recipe_trinity"
+    {
+        "BaseClass" "item_datadriven"
+        "AbilityTextureName" "item_recipe_trinity"
+        "ItemCost" "0"
+        "ItemRecipe" "1"
+        "ItemResult" "item_trinity"
+        "ItemRequirements"
+        {
+            "01" "item_glutton_spork;item_sss;item_esdw"
+        }
+        "Model" "models/props_gameplay/recipe.vmdl"
+    }
+    // =================================================================================================================
+    //  三位一体
+    // =================================================================================================================
+    "item_trinity"
+    {
+        "BaseClass" "item_lua"
+        "AbilityTextureName" "item_trinity"
+        "ScriptFile" "items/item_trinity"
+        "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+        "AbilityCooldown" "66"
+        "AbilityManaCost" "0"
+        "ItemCost" "12600"
+        "ItemDroppable" "1"
+        "ItemPurchasable" "1"
+        "ItemSellable" "1"
+        "ItemShopTags" "stg;agi;int"
+        "ItemAliases" "sanweiyiti"
+        "AbilityValues"
+        {
+            "bonus_strength" "33"
+            "bonus_agility" "33"
+            "bonus_intellect" "33"
+            "bonus_attack_range" "233"
+            "bonus_hp_regen_amplify_percentage" "66"
+            "bonus_attack_speed" "66"
+            "bonus_move_speed" "33"
+            "bonus_spell_amplify_percentage" "33"
+            "bonus_mp_regen_amplify_percentage" "66"
+            "lifesteal_percent" "3.3"
+            "lifesteal_exclude_building" "1"
+            "bonus_cast_speed" "33"
+            "active_shield_value" "666"
+            "active_shield_duration" "6"
+            "bonus_status_resistance_stacking" "100"
+        }
+    }
+}

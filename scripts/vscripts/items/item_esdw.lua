@@ -94,7 +94,7 @@ function modifier_item_esdw_active_shield:DeclareFunctions()
     return {
         MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT,  -- 关键：客户端护盾显示
         MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK,      -- 关键：服务器端伤害吸收
-        MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING -- 防止控制穿透
+        -- MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING -- 防止控制穿透
     }
 end
 
@@ -106,15 +106,15 @@ function modifier_item_esdw_active_shield:OnCreated(params)
         -- 创建护盾特效（使用Dota标准护盾特效）
         self.particle = ParticleManager:CreateParticle(
             "particles/items3_fx/lotus_orb_shield.vpcf", -- 标准莲花护盾特效
-            PATTACH_ABSORIGIN_FOLLOW,
+            PATTACH_POINT_FOLLOW,
             self:GetParent()
         )
         ParticleManager:SetParticleControlEnt(
             self.particle, 
             0, 
             self:GetParent(), 
-            PATTACH_ABSORIGIN_FOLLOW, 
-            nil, 
+            PATTACH_POINT_FOLLOW, 
+            "attach_hitloc", 
             self:GetParent():GetAbsOrigin(), 
             true
         )
@@ -172,9 +172,9 @@ function modifier_item_esdw_active_shield:GetModifierTotal_ConstantBlock(params)
     return absorb_amount
 end
 
-function modifier_item_esdw_active_shield:GetModifierStatusResistanceStacking()
-    return 100 -- 100%状态抗性防止控制穿透
-end
+-- function modifier_item_esdw_active_shield:GetModifierStatusResistanceStacking()
+--     return 100 -- 100%状态抗性防止控制穿透
+-- end
 
 function modifier_item_esdw_active_shield:OnDestroy()
     if IsServer() then
