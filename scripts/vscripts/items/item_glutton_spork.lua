@@ -35,9 +35,10 @@ function modifier_item_glutton_spork_passive:GetModifierAttackRangeBonus()
     local hasModifier1 = caster:HasModifier("modifier_item_yuemianjidongzhuangzhi_range")
     local hasModifier2 = caster:HasModifier("modifier_item_yuemianzhinu_range")
     local hasModifier3 = caster:HasModifier("modifier_item_esdw_passive")
+    local hasModifier4 = caster:HasModifier("modifier_item_kafziel_attack_range_bonus")
     
     -- 无冲突道具时生效
-    if not (hasModifier1 or hasModifier2 or hasModifier3) then
+    if not (hasModifier1 or hasModifier2 or hasModifier3 or hasModifier4) then
         return bonus_range
     end
 end

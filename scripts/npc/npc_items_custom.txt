@@ -170,6 +170,7 @@
 #base "items\upgrade\item_glutton_spork.txt"
 #base "items\upgrade\item_esdw.txt"
 #base "items\upgrade\item_sss.txt"
+#base "items\upgrade\item_trinity.txt"
 "DOTAAbilities"
 {
     "Version" "1"

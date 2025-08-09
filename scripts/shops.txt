@@ -216,6 +216,7 @@
         "item" "item_glutton_spork"
         "item" "item_esdw"
         "item" "item_sss"
+        "item" "item_trinity"
     }
     "sideshop1"
     {
