@@ -24,6 +24,10 @@ function modifier_item_sss_passive:DeclareFunctions() return
     }
 end
 
+function modifier_item_sss_passive:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE -- 允许多个相同修饰器共存
+end
+
 function modifier_item_sss_passive:GetModifierBonusStats_Agility() return self:GetAbility():GetSpecialValueFor("bonus_agility") end
 function modifier_item_sss_passive:GetModifierBonusStats_Intellect() return self:GetAbility():GetSpecialValueFor("bonus_intellect") end
 function modifier_item_sss_passive:GetModifierAttackSpeedBonus_Constant() return self:GetAbility():GetSpecialValueFor("bonus_attack_speed") end

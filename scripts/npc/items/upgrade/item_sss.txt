@@ -35,7 +35,7 @@
         {
             "bonus_agility" "16"
             "bonus_intellect" "16"
-            "bonus_attack_speed" "40"
+            "bonus_attack_speed" "25"
             "bonus_move_speed" "12"
             "bonus_spell_amplify_percentage" "12"
             "bonus_mp_regen_amplify_percentage" "75"

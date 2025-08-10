@@ -20,6 +20,10 @@ function modifier_item_hoshiguma_cup_passive:DeclareFunctions() return
     }
 end
 
+function modifier_item_hoshiguma_cup_passive:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE -- 允许多个相同修饰器共存
+end
+
 function modifier_item_hoshiguma_cup_passive:GetModifierBonusStats_Strength() return self:GetAbility():GetSpecialValueFor("bonus_strength") end
 function modifier_item_hoshiguma_cup_passive:GetModifierHPRegenAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("bonus_hp_ragen_amplfy_percentage") end
 function modifier_item_hoshiguma_cup_passive:GetModifierAttackRangeBonus()

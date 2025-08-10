@@ -20,6 +20,10 @@ function modifier_item_cht_passive:DeclareFunctions() return
     }
 end
 
+function modifier_item_cht_passive:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE -- 允许多个相同修饰器共存
+end
+
 function modifier_item_cht_passive:GetModifierBonusStats_Intellect() return self:GetAbility():GetSpecialValueFor("bonus_intellect") end
 function modifier_item_cht_passive:GetModifierSpellAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("bonus_spell_amplify_percentage") end
 function modifier_item_cht_passive:GetModifierMPRegenAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("bonus_mana_regen_percentage") end

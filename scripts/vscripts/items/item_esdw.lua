@@ -48,6 +48,11 @@ function modifier_item_esdw_passive:GetModifierAttackRangeBonus()
     -- 默认不生效
     return 0
 end
+
+function modifier_item_esdw_passive:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE -- 允许多个相同修饰器共存
+end
+
 function modifier_item_esdw_passive:GetModifierHPRegenAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("bonus_hp_regen_amplify_percentage") end
 function modifier_item_esdw_passive:GetModifierSpellAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("bonus_spell_amplify_percentage") end
 function modifier_item_esdw_passive:GetModifierMPRegenAmplify_Percentage() return self:GetAbility():GetSpecialValueFor("bonus_mp_regen_amplify_percentage") end

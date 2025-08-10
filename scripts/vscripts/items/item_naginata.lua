@@ -20,6 +20,10 @@ function modifier_item_naginata_passive:DeclareFunctions() return
     }
 end
 
+function modifier_item_naginata_passive:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE -- 允许多个相同修饰器共存
+end
+
 function modifier_item_naginata_passive:GetModifierBonusStats_Agility() return self:GetAbility():GetSpecialValueFor("bonus_agility") end
 function modifier_item_naginata_passive:GetModifierAttackSpeedBonus_Constant() return self:GetAbility():GetSpecialValueFor("bonus_attack_speed") end
 function modifier_item_naginata_passive:GetModifierMoveSpeedBonus_Percentage() return self:GetAbility():GetSpecialValueFor("bonus_move_speed_percentage") end

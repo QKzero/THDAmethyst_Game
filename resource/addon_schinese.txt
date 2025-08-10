@@ -1949,7 +1949,7 @@
 		"DOTA_Tooltip_ability_item_hakurei_amulet_bonus_all_stats"	"+$all"
 		"DOTA_Tooltip_ability_item_hakurei_amulet_bonus_health_regen"	"+$hp_regen"
 		"DOTA_Tooltip_ability_item_hakurei_amulet_bonus_mana_regen"	"+$mana_regen"
-		"DOTA_Tooltip_ability_item_hakurei_amulet_note0""一个技能是否能触发博丽神社护身符效果，是在该技能触发的lua脚本中单独定义的，并不是一个全局的参数。<br>目前比较混乱，将在之后版本中进行统一整理列出。"
+		"DOTA_Tooltip_ability_item_hakurei_amulet_note0" "一个技能是否能触发博丽神社护身符效果，是在该技能触发的lua脚本中单独定义的，并不是一个全局的参数。<br>目前比较混乱，将在之后版本中进行统一整理列出。"
 		"DOTA_Tooltip_modifier_item_sphere_target"			"博丽神社护身符的技能抵挡效果"
 		"DOTA_Tooltip_modifier_item_sphere_target_Description"			"将抵挡下一个指向性技能或道具。"
 		"DOTA_Tooltip_ability_item_recipe_yukkuri_stick"	"油库里之杖制作书"
@@ -6788,6 +6788,8 @@
 		"DOTA_Tooltip_ability_item_esdw_bonus_cast_range" "+$cast_range"
 		"DOTA_Tooltip_ability_item_esdw_Description"	"<h1>主动：秘神结界</h1>获得%active_shield_value%点全伤害护盾，持续%active_shield_duration%秒。"
 		"DOTA_Tooltip_ability_item_esdw_note0" "攻击距离不与同类物品叠加，取最大值。"
+		"DOTA_Tooltip_modifier_item_esdw_active_shield" "秘神结界"
+		"DOTA_Tooltip_modifier_item_esdw_active_shield_Description" "你获得了隐岐奈的加护！"
 
 		//----------------------------------------------------------------------
 		// 七星剑 （暂定）
@@ -6819,7 +6821,10 @@
 		"DOTA_Tooltip_ability_item_trinity_bonus_spell_amplify_percentage" "%+$spell_amp"
 		"DOTA_Tooltip_ability_item_trinity_bonus_mp_regen_amplify_percentage" "%+额外魔法恢复增强"
 		"DOTA_Tooltip_ability_item_trinity_Description"	"<h1><font color='#ff0080ff'>主动：异「逢魔之刻」</h1>获得%active_shield_value%点全伤害护盾，期间获得%bonus_status_resistance_stacking%%%状态抗性，持续%active_shield_duration%秒。\n<h1><font color='#0051ffff'>被动：地「邪秽在身」</h1>攻击时附带相当于目标最大生命值%lifesteal_percent%%%的吸血。\n<h1><font color='#f7fa5dff'>被动：月「月狂冲击」</h1>增加%bonus_cast_speed%%%施法速度。"
-		"DOTA_Tooltip_ability_item_esdw_note0" "攻击距离不与同类物品叠加，取最大值。"
+		"DOTA_Tooltip_ability_item_trinity_note0" "攻击距离不与同类物品叠加，取最大值。"
+		"DOTA_Tooltip_ability_item_trinity_Lore" "我现在什么都不缺了！"
+		"DOTA_Tooltip_modifier_item_trinity_active_shield" "<font color='#ff0080ff'>「逢魔之刻」"
+		"DOTA_Tooltip_modifier_item_trinity_active_shield_Description" "来自地狱女神的庇护。"
 
 		//----------------------------------------------------------------------
 		// THD防偷塔buff

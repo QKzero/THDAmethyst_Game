@@ -37,7 +37,7 @@
             "bonus_agility" "16"
             "bonus_attack_range" "100"
             "bonus_hp_regen_amplify_percentage" "30"
-            "bonus_attack_speed" "40"
+            "bonus_attack_speed" "25"
             "bonus_move_speed" "12"
             "lifesteal_percent" "2.5"
             "lifesteal_exclude_building" "1"
