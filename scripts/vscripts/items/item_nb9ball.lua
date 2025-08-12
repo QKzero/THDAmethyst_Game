@@ -1,8 +1,10 @@
 item_nb9ball = {}
 
 function item_nb9ball:GetCastRange()
+    local base_range = self:GetSpecialValueFor("AbilityCastRange")
+    local bonus_range = caster:GetCastRangeBonus()  -- 获取英雄的施法距离加成
     if IsClient() then
-        return self:GetSpecialValueFor("AbilityCastRange")
+        return base_range + bonus_range
     else
         return 99999
     end
@@ -15,6 +17,8 @@ end
 function item_nb9ball:OnSpellStart()
     local caster = self:GetCaster()
     local caster_absorigin = caster:GetAbsOrigin()
+    local base_range = self:GetSpecialValueFor("AbilityCastRange")
+    local bonus_range = caster:GetCastRangeBonus()  -- 获取英雄的施法距离加成
 
     local particle = ParticleManager:CreateParticle(
         "particles/econ/events/fall_2021/blink_dagger_fall_2021_start_lvl2.vpcf", PATTACH_WORLDORIGIN, caster)
@@ -24,7 +28,7 @@ function item_nb9ball:OnSpellStart()
     if IsClient() then return end
     EmitSoundOnLocationWithCaster(caster_absorigin, "Hero_Antimage.Blink_out", caster)
     local point = self:GetCursorPosition()
-    local cast_range = self:GetSpecialValueFor("AbilityCastRange")
+    local cast_range = base_range + bonus_range
 
     local distance = (caster_absorigin - point):Length2D()
 
@@ -38,6 +42,7 @@ function item_nb9ball:OnSpellStart()
 
     local modifier_duration = self:GetSpecialValueFor("modifier_duration")
     FindClearSpaceForUnit(caster, final_point, true)
+    ProjectileManager:ProjectileDodge(caster)
     caster:AddNewModifier(caster, self, "modifier_item_nb9ball", { duration = modifier_duration })
 end
 
