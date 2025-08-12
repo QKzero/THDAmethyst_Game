@@ -47,7 +47,7 @@
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_TREE"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
-		"AbilityCastPoint"	"0.1"
+		"AbilityCastPoint"	"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
 		"SpellDispellableType" "SPELL_DISPELLABLE_NO"
 		"AnimationPlaybackRate"	"1.5"
@@ -116,7 +116,7 @@
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"SpellDispellableType" "SPELL_DISPELLABLE_YES"
-		"AbilityCastPoint"	"0.1"
+		"AbilityCastPoint"	"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
 		"AnimationPlaybackRate"	"1.5"
 		"AbilityCooldown"	"13"
@@ -129,7 +129,7 @@
 		{
 			"duration"	"6"
 			"cast_range"	"725"
-			"damage_bonus"	"20 40 60 80"
+			"damage_bonus"	"20 30 40 50"
 			"armor_bonus"	"5 10 15 20"
 		}
 	}
@@ -179,7 +179,7 @@
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
-		"AbilityCastPoint"	"0.2"
+		"AbilityCastPoint"	"0.4"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
 		"AnimationPlaybackRate"	"1.2"
 		"AbilityCooldown"	"19 16 13 10"
