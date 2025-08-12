@@ -21,12 +21,13 @@
 				"item_polliwog_charm"			  	"1"		// 蝌蚪护符
 				"item_spark_of_courage"				"1"		// 勇气之光
 				"item_chipped_vest"					"1"		// 碎裂背心
-				"item_rippers_lash"					"1"		// 撕裂之鞭
+				// "item_rippers_lash"					"1"		// 撕裂之鞭
+				"item_apex"							"1"		// 极
 
 				// 7.39
-				"item_dormant_curio"				"1"		// 休眠珍品
-				"item_kobold_cup"					"1"		// 狗头人酒杯
-				"item_sisters_shroud"				"1"		// 魅影之衣
+				// "item_dormant_curio"				"1"		// 休眠珍品
+				// "item_kobold_cup"					"1"		// 狗头人酒杯
+				// "item_sisters_shroud"				"1"		// 魅影之衣
 			}
 
 			"enhancements"
@@ -115,7 +116,7 @@
 
 			"items"
 			{
-				// "item_ogre_seal_totem"				"1"		// 食人魔海豹图腾
+				"item_ogre_seal_totem"				"1"		// 食人魔海豹图腾
 				"item_crippling_crossbow"			"1"		// 致残之弩
 				"item_magnifying_monocle"			"1"		// 放大单片
 				// "item_mind_breaker"					"1"		// 智灭
@@ -155,11 +156,16 @@
 			{
 				"item_desolator_2"					"1"		// 寂灭
 				// "item_fallen_sky"					"1"		// 天崩
-				"item_demonicon"					"1"		// 冥灵书
-				"item_minotaur_horn"				"1"		// 恶牛角
+				//"item_demonicon"					"1"		// 冥灵书
+				//"item_minotaur_horn"				"1"		// 恶牛角
 				"item_spider_legs"					"1"		// 网虫腿
-				"item_unrelenting_eye"				"1"		// 不屈之眼
+				//"item_unrelenting_eye"				"1"		// 不屈之眼
 				// "item_pirate_hat"					"1"		// 海盗帽
+				"item_wind_waker"					"1"		// 风之杖
+				"item_angels_demise"				"1"		// 绝刃
+				"item_refresher"					"1"		// 刷新球
+				"item_panic_button"					"1"		// 神妙明灯
+				"item_book_of_shadows"				"1"		// 暗影邪典
 
 				// 7.39
 				"item_divine_regalia"				"1"		// 天赐华冠
@@ -169,7 +175,7 @@
 			"enhancements"
 			{
 				"item_enhancement_timeless"			"2"		// 永恒 负面时间技能增强
-				"item_enhancement_titanic"			"2"		// 巨神 基础攻击状态抗性
+				// "item_enhancement_titanic"			"2"		// 巨神 基础攻击状态抗性
 				"item_enhancement_crude"			"2"		// 粗暴 减速抗性攻击间隔减智力
 
 				"item_enhancement_feverish"			"1"		// 狂热 冷却减少 蓝耗增加
