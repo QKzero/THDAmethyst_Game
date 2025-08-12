@@ -9,7 +9,7 @@
 		"Ability3"	"ability_thdots_yukari03"
 		"Ability4"	"ability_thdots_yukariEx"
 		
-		"Ability5"		"generic_hidden"		
+		"Ability5"	"ability_thdots_yukari05"	
 		"Ability6"	"ability_thdots_yukari04"
 		"Ability10"		"special_bonus_gold_income_90"
 		"Ability11"		"special_bonus_exp_boost_15"

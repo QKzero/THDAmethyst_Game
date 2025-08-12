@@ -22,7 +22,6 @@
 				"item_spark_of_courage"				"1"		// 勇气之光
 				"item_chipped_vest"					"1"		// 碎裂背心
 				// "item_rippers_lash"					"1"		// 撕裂之鞭
-				"item_apex"							"1"		// 极
 
 				// 7.39
 				// "item_dormant_curio"				"1"		// 休眠珍品
@@ -166,6 +165,7 @@
 				"item_refresher"					"1"		// 刷新球
 				"item_panic_button"					"1"		// 神妙明灯
 				"item_book_of_shadows"				"1"		// 暗影邪典
+				"item_apex"							"1"		// 极
 
 				// 7.39
 				"item_divine_regalia"				"1"		// 天赐华冠

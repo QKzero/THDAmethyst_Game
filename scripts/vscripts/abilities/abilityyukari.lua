@@ -1,4 +1,5 @@
 
+g_SilentCreations = {}
 
 g_creeps_name={
 	"npc_dota_goodguys_siege",
@@ -44,6 +45,10 @@ function Yukari_FalldownUnitInGap(caster,pos)
 			end
 		end
 		if unit_in_gap then
+
+			-- 清理静默标记
+        	g_SilentCreations[unit_in_gap:entindex()] = nil
+
 			local effectIndex = ParticleManager:CreateParticle("particles/heroes/yukari/ability_yukari_02_body.vpcf", PATTACH_CUSTOMORIGIN, caster)
 			ParticleManager:SetParticleControl(effectIndex, 3, pos)
 			caster:EmitSound("Hero_ObsidianDestroyer.AstralImprisonment.End")
@@ -123,6 +128,68 @@ function Yukari_killunit(keys)
 	}
 	UnitDamageTarget(damage_table)
 end
+
+function Yukari_StoreCreepInGap(caster, creep)
+    -- 添加到隙间存储系统
+    local playerid = caster:GetPlayerOwnerID()
+    g_yukari_players_gap[playerid] = g_yukari_players_gap[playerid] or {}
+    g_yukari_players_gap[playerid][creep] = creep
+    
+    -- 隐藏单位（直接实现，不通过修饰器）
+    creep:AddNoDraw()
+	creep:AddNewModifier(caster, nil, "modifier_out_of_world", {}) -- 防止碰撞
+
+	-- 移动到地图外安全位置（新增关键行）
+    creep:SetAbsOrigin(Vector(-7907, 7624, 1024))  -- 与原技能相同的位置
+    
+    -- 创建替身单位（无特效）
+    local unit = CreateUnitByName(
+        "npc_thdots_unit_yukari01_unit",
+        creep:GetOrigin(),
+        false,
+        caster,
+        caster,
+        caster:GetTeam()
+    )
+    
+    if unit then
+        local ability_dummy_unit = unit:FindAbilityByName("ability_dummy_unit")
+        if ability_dummy_unit then
+            ability_dummy_unit:SetLevel(1)
+        end
+        
+        -- 0.8秒后移除替身
+        unit:SetContextThink(DoUniqueString("ability_yukari_02_hidden_unit_remove"), 
+            function()
+                if GameRules:IsGamePaused() then return 0.03 end
+                unit:RemoveSelf()
+            end, 
+        0.8)
+    end
+    
+    if not caster:HasModifier(Yukari02_MODIFIER_COUNTER_NAME) then
+        local ability02 = caster:FindAbilityByName("ability_thdots_yukari02")
+        if ability02 then
+            ability02:ApplyDataDrivenModifier(caster, caster, Yukari02_MODIFIER_COUNTER_NAME, {})
+        end
+    end
+    
+    -- 应用反BD修饰器
+    local ability05 = caster:FindAbilityByName("ability_thdots_yukari05")
+    if ability05 then
+        ability05:ApplyDataDrivenModifier(caster, creep, anti_bd_modifier_name, {})
+        SetTHD2BlockingNeutrals(creep, false)
+    end
+
+	-- 添加隙间存储修饰器
+    if not creep:HasModifier(Yukari02_MODIFIER_HIDDEN_NAME) then
+        local ability02 = caster:FindAbilityByName("ability_thdots_yukari02")
+        if ability02 then
+            ability02:ApplyDataDrivenModifier(caster, creep, Yukari02_MODIFIER_HIDDEN_NAME, {Duration = -1})
+        end
+    end
+end
+
 function yukariEx_SpellStart(keys)
 	local ability=keys.ability
 	local caster=keys.caster
@@ -181,6 +248,13 @@ function Yukari01_OnSpellStart(keys)
 end
 
 function Yukari02_OnHiddenStart(keys)
+
+	-- 检查是否是被动创建
+    if g_SilentCreations[keys.target:entindex()] then
+        g_SilentCreations[keys.target:entindex()] = nil
+        return -- 完全跳过被动创建的处理
+    end
+
 	local caster=keys.caster
 	local target=keys.target
 	if target:IsNull()==false and target ~= nil then
@@ -216,7 +290,7 @@ function Yukari02_OnHiddenStart(keys)
 		g_yukari_players_gap[playerid]=g_yukari_players_gap[playerid] or {}
 		g_yukari_players_gap[playerid][target]=target
 
-		local stack_num=caster:GetModifierStackCount(Yukari02_MODIFIER_COUNTER_NAME,caster)+1
+		local stack_num = (caster:GetModifierStackCount(Yukari02_MODIFIER_COUNTER_NAME,caster) or 0) + 1
 		if not caster:HasModifier(Yukari02_MODIFIER_COUNTER_NAME) then
 			ability:ApplyDataDrivenModifier(caster,caster,Yukari02_MODIFIER_COUNTER_NAME,{})
 		end
@@ -298,9 +372,39 @@ function Yukari02_OnSpellStart(keys)
 		end
 	else
 		ability:ApplyDataDrivenModifier(caster, target, Yukari02_MODIFIER_HIDDEN_NAME, {Duration = duration})
-		THDReduceCooldown(ability,-(ability:GetCooldown(ability:GetLevel()-1)/2))
 	end
+	Yukari_SyncAbilityLevels(caster)
 end
+
+-- function Yukari02_OnSpellStart(keys)
+-- 	local ability=keys.ability
+-- 	local caster=keys.caster
+-- 	local target=keys.target
+-- 	local Caster = keys.caster
+-- 	local CasterName = Caster:GetClassname()
+-- 	local duration = keys.HeroHiddenDuration
+-- 	if Yukari_CanMovetoGap(target) then
+-- 		keys.ability:ApplyDataDrivenModifier(caster, target, anti_bd_modifier_name, {})
+-- 		SetTHD2BlockingNeutrals(target, false)
+-- 	end
+-- 	local stack_num=caster:GetModifierStackCount(Yukari02_MODIFIER_COUNTER_NAME,caster)
+
+-- 	if stack_num >= 9999 then return end
+
+-- 	if Yukari_CanMovetoGap(target) then
+-- 		ability:ApplyDataDrivenModifier(caster, target, Yukari02_MODIFIER_HIDDEN_NAME, {Duration = -1})
+-- 		if CasterName == "npc_dota_hero_obsidian_destroyer" then
+-- 			local AbilityEx=caster:FindAbilityByName("ability_thdots_yukariEx")
+-- 			if not AbilityEx then
+-- 				AbilityEx=caster:AddAbility("ability_thdots_yukariEx")
+-- 			end
+-- 			AbilityEx:SetLevel(1)
+-- 		end
+-- 	else
+-- 		ability:ApplyDataDrivenModifier(caster, target, Yukari02_MODIFIER_HIDDEN_NAME, {Duration = duration})
+-- 		THDReduceCooldown(ability,-(ability:GetCooldown(ability:GetLevel()-1)/2))
+-- 	end
+-- end
 
 ability_thdots_yukari03 = {}
 
@@ -426,13 +530,37 @@ function modifier_thdots_yukari03_add_unit_to_gap:OnIntervalThink()
 				false,
 				caster,
 				caster,
-				caster:GetTeam())
+				caster:GetTeam()
+			)
+
 			if creep then
-				Ability02:ApplyDataDrivenModifier(caster,creep,Yukari02_MODIFIER_HIDDEN_NAME,{Duration = -1})
-				Ability02:ApplyDataDrivenModifier(caster,creep,anti_bd_modifier_name,{})
-				SetTHD2BlockingNeutrals(creep, false)
-				--creep:AddNewModifier(caster,ability,Yukari02_MODIFIER_HIDDEN_NAME,{})
-				creep:SetHealth(creep:GetMaxHealth()*0.20)
+
+				-- 标记为静默创建
+				g_SilentCreations[creep:entindex()] = true
+				
+				-- 直接调用存储函数，绕过技能05的修饰器
+				Yukari_StoreCreepInGap(caster, creep)
+
+				creep:SetHealth(creep:GetMaxHealth() * 0.20)
+
+				-- 触发隐藏修饰器（将在此处统一计数）
+				local ability02 = caster:FindAbilityByName("ability_thdots_yukari02")
+				if ability02 then
+					ability02:ApplyDataDrivenModifier(caster, creep, Yukari02_MODIFIER_HIDDEN_NAME, {Duration = -1})
+				end
+
+				-- local Ability05 = caster:FindAbilityByName("ability_thdots_yukari05")
+                -- if Ability05 then
+                --     Ability05:ApplyDataDrivenModifier(caster, creep, Yukari02_MODIFIER_HIDDEN_NAME, {Duration = -1})
+                --     Ability05:ApplyDataDrivenModifier(caster, creep, anti_bd_modifier_name, {})
+                --     SetTHD2BlockingNeutrals(creep, false)
+                --     creep:SetHealth(creep:GetMaxHealth()*0.20)
+                -- end
+				-- Ability02:ApplyDataDrivenModifier(caster,creep,Yukari02_MODIFIER_HIDDEN_NAME,{Duration = -1})
+				-- Ability02:ApplyDataDrivenModifier(caster,creep,anti_bd_modifier_name,{})
+				-- SetTHD2BlockingNeutrals(creep, false)
+				-- --creep:AddNewModifier(caster,ability,Yukari02_MODIFIER_HIDDEN_NAME,{})
+				-- creep:SetHealth(creep:GetMaxHealth()*0.20)
 			end
 		end
 	end
@@ -717,4 +845,81 @@ function Yukari04_OnProjectileHitUnit(keys)
 	end
 end
 
+function Yukari05_OnSpellStart(keys)
+    local ability = keys.ability
+    local caster = keys.caster
+    local target = keys.target
+    local Caster = keys.caster
+    local duration = keys.HeroHiddenDuration
+    
+    if Yukari_CanMovetoGap(target) then
+        keys.ability:ApplyDataDrivenModifier(caster, target, anti_bd_modifier_name, {})
+        SetTHD2BlockingNeutrals(target, false)
+    end
+    
+    local stack_num = caster:GetModifierStackCount(Yukari02_MODIFIER_COUNTER_NAME, caster)
+    if stack_num >= 9999 then return end
 
+	-- 判断单位类型
+    local isCreep = Yukari_CanMovetoGap(target)  -- 常规小兵
+    
+    -- 应用反BD修饰器
+    keys.ability:ApplyDataDrivenModifier(caster, target, anti_bd_modifier_name, {})
+    SetTHD2BlockingNeutrals(target, false)
+    
+    if isCreep then
+        -- 小兵类单位：永久存储
+        ability:ApplyDataDrivenModifier(
+            caster, 
+            target, 
+            Yukari02_MODIFIER_HIDDEN_NAME, 
+            {Duration = -1}  -- 永久隐藏
+        )
+    else
+        -- 野怪类单位：临时存储
+        ability:ApplyDataDrivenModifier(
+            caster, 
+            target, 
+            Yukari02_MODIFIER_HIDDEN_NAME, 
+            {Duration = duration}  -- 使用技能持续时间
+        )
+    end
+    
+    -- 应用反BD修饰器
+    ability:ApplyDataDrivenModifier(caster, target, anti_bd_modifier_name, {})
+    SetTHD2BlockingNeutrals(target, false)
+end
+
+function Yukari_SyncAbilityLevels(caster)
+    if not caster:HasAbility("ability_thdots_yukari05") then
+        caster:AddAbility("ability_thdots_yukari05")
+    end
+    
+    local ability02 = caster:FindAbilityByName("ability_thdots_yukari02")
+    local ability05 = caster:FindAbilityByName("ability_thdots_yukari05")
+    
+    if ability02 and ability05 then
+        ability05:SetLevel(ability02:GetLevel())
+    end
+end
+
+-- 新增：技能02升级监听
+function Yukari02_OnUpgrade(keys)
+    local caster = keys.caster
+    Yukari_SyncAbilityLevels(caster)
+end
+
+-- 新增：英雄生成监听
+function Yukari_OnHeroSpawn(keys)
+    local hero = EntIndexToHScript(keys.hero_entindex)
+    if hero:GetUnitName() == "npc_dota_hero_obsidian_destroyer" then
+        Yukari_SyncAbilityLevels(hero)
+    end
+end
+
+-- 全局初始化（修改后）
+if not Yukari_GlobalInit then
+    ListenToGameEvent("dota_player_learned_skill", Yukari_OnHeroLevelUp, nil)
+    ListenToGameEvent("npc_spawned", Yukari_OnHeroSpawn, nil) -- 监听英雄生成
+    Yukari_GlobalInit = true
+end
