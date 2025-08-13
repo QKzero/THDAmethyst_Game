@@ -31,6 +31,54 @@ function ability_thdots_parseeEx:GetIntrinsicModifierName()
 	return "modifier_ability_thdots_parseeEx_passive"
 end
 
+modifier_ability_thdots_parseeEx_stealth = class({})
+LinkLuaModifier("modifier_ability_thdots_parseeEx_stealth", "scripts/vscripts/abilities/abilityparsee.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_ability_thdots_parseeEx_stealth:IsHidden() return false end
+function modifier_ability_thdots_parseeEx_stealth:IsPurgable() return false end
+function modifier_ability_thdots_parseeEx_stealth:RemoveOnDeath() return true end
+function modifier_ability_thdots_parseeEx_stealth:IsDebuff() return false end
+
+function modifier_ability_thdots_parseeEx_stealth:GetPriority()
+    return MODIFIER_PRIORITY_NORMAL
+end
+
+function modifier_ability_thdots_parseeEx_stealth:CheckState()
+    return {
+        [MODIFIER_STATE_INVISIBLE] = true,
+        [MODIFIER_STATE_NO_UNIT_COLLISION] = true
+    }
+end
+
+function modifier_ability_thdots_parseeEx_stealth:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK,
+        MODIFIER_EVENT_ON_ABILITY_START,
+        MODIFIER_PROPERTY_INVISIBILITY_LEVEL
+    }
+end
+
+-- 设置隐身级别（必须实现）
+function modifier_ability_thdots_parseeEx_stealth:GetModifierInvisibilityLevel()
+    return 1
+end
+
+-- 攻击时显形
+function modifier_ability_thdots_parseeEx_stealth:OnAttack(keys)
+    if not IsServer() then return end
+    if keys.attacker == self:GetParent() then
+        self:Destroy()
+    end
+end
+
+-- 施法时显形
+function modifier_ability_thdots_parseeEx_stealth:OnAbilityStart(keys)
+    if not IsServer() then return end
+    if keys.unit == self:GetParent() then
+        self:Destroy()
+    end
+end
+
 function ability_thdots_parseeEx:OnSpellStart()
 	if not IsServer() then return end
 	local caster = self:GetCaster()
@@ -91,6 +139,7 @@ function modifier_ability_thdots_parseeEx_wanbaochui_target:OnIntervalThink()
 	if target:GetHealthPercent() <= 20 and target:IsAlive() and target:IsRealHero() and self:GetStackCount() ~= 1 then
 		target:AddNewModifier(caster, self:GetAbility(), "modifier_ability_thdots_parseeEx_invin", {duration = self:GetAbility():GetSpecialValueFor("invin_time")})
 		caster:RemoveModifierByName("modifier_ability_thdots_parseeEx_wanbaochui_caster")
+		caster:AddNewModifier(caster, self:GetAbility(), "modifier_ability_thdots_parseeEx_stealth", {duration = 5.0})
 		self:Destroy()
 	end
 end
@@ -128,6 +177,11 @@ end
 
 function modifier_ability_thdots_parseeEx_wanbaochui_target:OnDestroy()
 	if not IsServer() then return end
+	local target = self:GetParent()
+    if target:IsAlive() then
+        -- 为目标添加相同隐身效果
+        target:AddNewModifier(self.caster, nil, "modifier_ability_thdots_parseeEx_stealth", {duration = 5.0})
+    end
 	self:GetParent().parseeEx_wanbaochui_caster = nil
 end
 
@@ -286,6 +340,8 @@ function modifier_ability_thdots_parseeEx_invin:OnDestroy()
 	--制造幻象
 	local illusion = CreateIllusionTHD(self,self:GetParent(),self.Illusion_point,0,0,self:GetAbility():GetSpecialValueFor("duration"),true)
 	illusion:AddNewModifier(caster, self:GetAbility(), "modifier_ability_thdots_parseeEx_illusion", {})
+
+	caster:AddNewModifier(caster, nil, "modifier_ability_thdots_parseeEx_stealth", {duration = 5.0})
 end
 
 --幻象爆炸buff

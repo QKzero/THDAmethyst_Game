@@ -21,12 +21,12 @@
 				"item_polliwog_charm"			  	"1"		// 蝌蚪护符
 				"item_spark_of_courage"				"1"		// 勇气之光
 				"item_chipped_vest"					"1"		// 碎裂背心
-				// "item_rippers_lash"					"1"		// 撕裂之鞭
+				"item_rippers_lash"					"1"		// 撕裂之鞭
 
 				// 7.39
-				// "item_dormant_curio"				"1"		// 休眠珍品
-				// "item_kobold_cup"					"1"		// 狗头人酒杯
-				// "item_sisters_shroud"				"1"		// 魅影之衣
+				"item_dormant_curio"				"1"		// 休眠珍品
+				"item_kobold_cup"					"1"		// 狗头人酒杯
+				"item_sisters_shroud"				"1"		// 魅影之衣
 			}
 
 			"enhancements"
@@ -84,7 +84,7 @@
 				"item_gale_guard"					"1"		// 烈风护体
 				"item_gunpowder_gauntlets"			"1"		// 火药手套
 				"item_whisper_of_the_dread"			"1"		// 邪道私语
-				// "item_ninja_gear"					"1"		// 忍者用具
+				"item_ninja_gear"					"1"		// 忍者用具
 
 				// 7.39
 				"item_jidi_pollen_bag"				"1"		// 基迪花粉袋
@@ -118,7 +118,7 @@
 				"item_ogre_seal_totem"				"1"		// 食人魔海豹图腾
 				"item_crippling_crossbow"			"1"		// 致残之弩
 				"item_magnifying_monocle"			"1"		// 放大单片
-				// "item_mind_breaker"					"1"		// 智灭
+				"item_mind_breaker"					"1"		// 智灭
 				"item_pyrrhic_cloak"				"1"		// 皮洛士斗篷
 
 				// 7.39
@@ -161,7 +161,6 @@
 				//"item_unrelenting_eye"				"1"		// 不屈之眼
 				// "item_pirate_hat"					"1"		// 海盗帽
 				"item_wind_waker"					"1"		// 风之杖
-				"item_angels_demise"				"1"		// 绝刃
 				"item_refresher"					"1"		// 刷新球
 				"item_panic_button"					"1"		// 神妙明灯
 				"item_book_of_shadows"				"1"		// 暗影邪典

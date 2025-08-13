@@ -3892,7 +3892,7 @@
 		"DOTA_Tooltip_modifier_ability_thdots_parseeEx_illusion_Description"	"爆炸"
 		"DOTA_Tooltip_ability_ability_thdots_parseeEx"	"舌切雀「对谦虚之富者的仇恨」"
 		"DOTA_Tooltip_ability_ability_thdots_parseeEx_scepter_description"	"指定一个友方少女，使其成为被水桥嫉妒的对象，额外受伤%wanbaochui_income_damage%%%。水桥额外获取被嫉妒者击杀获取的金币的一半，被嫉妒击杀单位额外增加%wanbaochui_gold%金币。同时水桥的被动转移到被嫉妒者身上，当触发被动效果后，技能结束。"
-		"DOTA_Tooltip_ability_ability_thdots_parseeEx_Description"	"当水桥的生命值低于%limit_health%%%时，会强制水桥消失及无敌%invin_time%秒，其后会产生一个分身。分身受到%inout_damage%%%的伤害，造成%inout_damage%%%的伤害，持续%duration%秒。\n当分身被击破时，对%radius%范围内的敌方单位造成[%damage%+少女等级*%lv_damage%]点的法术伤害。"
+		"DOTA_Tooltip_ability_ability_thdots_parseeEx_Description"	"当水桥的生命值低于%limit_health%%%时，会强制水桥消失及无敌%invin_time%秒，无敌结束后会隐身5秒并会产生一个分身。分身受到%inout_damage%%%的伤害，造成%inout_damage%%%的伤害，持续%duration%秒。\n当分身被击破时，对%radius%范围内的敌方单位造成[%damage%+少女等级*%lv_damage%]点的法术伤害。"
 		"DOTA_Tooltip_ability_ability_thdots_parsee02_slow_duration"	"减速持续时间："
 		"DOTA_Tooltip_ability_special_bonus_unique_parsee_1"	"「嫉妒之炸药」全中造成眩晕"
 		"DOTA_Tooltip_ability_special_bonus_unique_parsee_1_Description"	"造成1.5秒眩晕。"
