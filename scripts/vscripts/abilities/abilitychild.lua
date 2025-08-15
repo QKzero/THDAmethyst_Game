@@ -288,9 +288,14 @@ function modifier_ability_thdots_child02_thinker_debuff:OnCreated()
 	local caster = self:GetCaster()
 	local target = self:GetParent()
 	local ability = self:GetAbility()
-	local stun_duration 	= ability:GetSpecialValueFor("stun_duration")
+	local silence_duration = ability:GetSpecialValueFor("silence_duration")
 	local damage 			= ability:GetSpecialValueFor("damage")
-	UtilStun:UnitStunTarget(caster,target,stun_duration)
+	target:AddNewModifier(
+        caster, 
+        ability, 
+        "modifier_silence",  -- 沉默修饰器
+        {duration = silence_duration * (1 - target:GetStatusResistance())}
+    )
 	target:EmitSound("Hero_Wisp.Spirits.Target")
 	local effectIndex = ParticleManager:CreateParticle("particles/econ/items/storm_spirit/strom_spirit_ti8/storm_sprit_ti8_overload_discharge.vpcf", PATTACH_POINT, target)
 	ParticleManager:DestroyParticleSystem(effectIndex,false)
