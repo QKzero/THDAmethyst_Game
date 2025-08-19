@@ -2448,9 +2448,9 @@ function modifier_item_brother_sharp_burst:GetModifierMoveSpeedBonus_Percentage(
 	if IsClient() and self.client_current_speed then 
         return self.client_current_speed -- 客户端使用同步值
     end
-	local min_bonus = self:GetAbility():GetSpecialValueFor("burst_movement_speed_percent_bonus")  -- 起始加成比例
-    local max_bonus = self:GetAbility():GetSpecialValueFor("burst_movement_speed_percent_max") -- 最终加成比例
-    local elapsed_ratio = math.min(1, (GameRules:GetGameTime() - self.start_time) / self:GetAbility():GetSpecialValueFor("burst_run_duration"))
+	local min_bonus = 40  -- 起始加成比例40%
+    local max_bonus = 100 -- 最终加成比例100%
+    local elapsed_ratio = math.min(1, (GameRules:GetGameTime() - self.start_time) / 6.0)
     return min_bonus + (max_bonus - min_bonus) * elapsed_ratio
 	-- return self.burst_movement_speed_percent_bonus
 end
@@ -2490,7 +2490,7 @@ function modifier_item_brother_sharp_burst:OnIntervalThink()
     local elapsed = GameRules:GetGameTime() - self.start_time
 
     -- 5秒后激活飞行
-    if elapsed >= self:GetAbility():GetSpecialValueFor("burst_run_duration") and not self.is_flying then
+    if elapsed >= 6.0 and not self.is_flying then
         self.is_flying = true
         
         -- -- 添加飞行粒子特效
@@ -2498,7 +2498,7 @@ function modifier_item_brother_sharp_burst:OnIntervalThink()
         -- ParticleManager:SetParticleControlEnt(self.fly_particle, 0, self.caster, 6, "attach_origin", Vector(0,0,50), true) -- 抬高高度[7](@ref)
         
         -- 2秒后移除飞行
-        Timers:CreateTimer(self:GetAbility():GetSpecialValueFor("burst_fly_duraion"), function()
+        Timers:CreateTimer(4.0, function()
             if self.fly_particle then
                 ParticleManager:DestroyParticle(self.fly_particle, false)
                 self.is_flying = false
@@ -2507,16 +2507,16 @@ function modifier_item_brother_sharp_burst:OnIntervalThink()
     end
     
     -- 7秒后移除渐增效果（5秒渐增+2秒飞行）
-    if elapsed >= self:GetAbility():GetSpecialValueFor("burst_duration") then
+    if elapsed >= 10.0 then
         self:StartIntervalThink(-1) -- 停止计时器
     end
 	self:SetHasCustomTransmitterData(true) -- 确保启用同步
     self:SendBuffRefreshToClients() -- 强制同步数据到客户端
 end
 function modifier_item_brother_sharp_burst:AddCustomTransmitterData()
-    local min_bonus = self:GetAbility():GetSpecialValueFor("burst_movement_speed_percent_bonus")
-    local max_bonus = self:GetAbility():GetSpecialValueFor("burst_movement_speed_percent_max")
-    local elapsed_ratio = math.min(1, (GameRules:GetGameTime() - self.start_time) / self:GetAbility():GetSpecialValueFor("burst_run_duration"))
+    local min_bonus = 40
+    local max_bonus = 100
+    local elapsed_ratio = math.min(1, (GameRules:GetGameTime() - self.start_time) / 6.0)
     local current_speed = min_bonus + (max_bonus - min_bonus) * elapsed_ratio
     return { current_speed = current_speed }
 end
