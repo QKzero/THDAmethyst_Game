@@ -7,12 +7,14 @@
     {
         "BaseClass" "item_datadriven"
         "AbilityTextureName" "item_recipe_trinity"
-        "ItemCost" "3000"
+        "ItemCost" "8400"
         "ItemRecipe" "1"
         "ItemResult" "item_trinity"
         "ItemRequirements"
         {
-            "01" "item_glutton_spork;item_sss;item_esdw"
+            "01" "item_glutton_spork"
+            "02" "item_sss"
+            "03" "item_esdw"
         }
         "Model" "models/props_gameplay/recipe.vmdl"
     }
