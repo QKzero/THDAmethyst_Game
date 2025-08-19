@@ -2423,39 +2423,22 @@ end
 modifier_item_brother_sharp_burst={}
 LinkLuaModifier("modifier_item_brother_sharp_burst","scripts/vscripts/abilities/abilityitem.lua",LUA_MODIFIER_MOTION_NONE)
 function modifier_item_brother_sharp_burst:IsHidden() 		 return false end
-function modifier_item_brother_sharp_burst:IsPurgable() 		 return false end
+function modifier_item_brother_sharp_burst:IsPurgable() 		 return true end
 function modifier_item_brother_sharp_burst:RemoveOnDeath() 	 return true end
 function modifier_item_brother_sharp_burst:IsDebuff()			 return false end
 function modifier_item_brother_sharp_burst:IsBuff()			 return true end
 function modifier_item_brother_sharp_burst:GetEffectName()	return "particles/items2_fx/phase_boots.vpcf" end
 function modifier_item_brother_sharp_burst:GetEffectAttachType() return PATTACH_ABSORIGIN_FOLLOW end
-function modifier_item_brother_sharp_burst:CheckState() 
-	return {
-		[MODIFIER_STATE_UNSLOWABLE] = true,
-		[MODIFIER_STATE_NO_UNIT_COLLISION]=true,
-		[MODIFIER_STATE_FLYING] = self.is_flying
-	} 
-end
+function modifier_item_brother_sharp_burst:CheckState() return {[MODIFIER_STATE_UNSLOWABLE] = true,[MODIFIER_STATE_NO_UNIT_COLLISION]=true} end
 function modifier_item_brother_sharp_burst:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 		MODIFIER_PROPERTY_MOVESPEED_MAX_OVERRIDE,  --定义最大移速上限值
-        MODIFIER_PROPERTY_MOVESPEED_LIMIT, --强制移速限制值
-		MODIFIER_PROPERTY_IGNORE_TERRAIN_COLLISION
+        MODIFIER_PROPERTY_MOVESPEED_LIMIT --强制移速限制值
 	}
 end
 function modifier_item_brother_sharp_burst:GetModifierMoveSpeedBonus_Percentage()
-	if IsClient() and self.client_current_speed then 
-        return self.client_current_speed -- 客户端使用同步值
-    end
-	local min_bonus = 40  -- 起始加成比例40%
-    local max_bonus = 100 -- 最终加成比例100%
-    local elapsed_ratio = math.min(1, (GameRules:GetGameTime() - self.start_time) / 6.0)
-    return min_bonus + (max_bonus - min_bonus) * elapsed_ratio
-	-- return self.burst_movement_speed_percent_bonus
-end
-function modifier_item_brother_sharp_burst:GetModifierIgnoreTerrainCollision()
-    return self.is_flying and 1 or 0 -- 飞行时无视地形[2](@ref)
+	return self.burst_movement_speed_percent_bonus
 end
 function modifier_item_brother_sharp_burst:GetModifierMoveSpeed_MaxOverride()
 	return 99999
@@ -2467,12 +2450,8 @@ function modifier_item_brother_sharp_burst:OnCreated()
 	if not IsServer() then return end
 	self.caster = self:GetCaster()
 	self.ability = self:GetAbility()
-	self.start_time = GameRules:GetGameTime()
-    self.bonus_percent = 1.0
-    self.is_flying = false
-	-- self.burst_movement_speed_percent_bonus = self.ability:GetSpecialValueFor("burst_movement_speed_percent_bonus")
+	self.burst_movement_speed_percent_bonus = self.ability:GetSpecialValueFor("burst_movement_speed_percent_bonus")
 	self:SetHasCustomTransmitterData(true)
-	self:StartIntervalThink(0.1)
 	-- local particle_name = "particles/econ/items/windrunner/windranger_arcana/windranger_arcana_item_cyclone.vpcf"
 	local particle_name = "particles/econ/items/windrunner/windranger_arcana/windranger_arcana_ambient.vpcf"
 	-- local particle_name = "particles/econ/items/windrunner/windranger_arcana/windranger_arcana_debut_ambient_v2.vpcf"
@@ -2486,50 +2465,18 @@ function modifier_item_brother_sharp_burst:OnCreated()
 	ParticleManager:SetParticleControlEnt(self.caster.brother_sharp_particle , 12, self.caster, 5, "attach_hitloc", Vector(0,0,0), true)
 	-- ParticleManager:SetParticleControl(caster.brother_sharp_particle, 1, caster:GetAbsOrigin())
 end
-function modifier_item_brother_sharp_burst:OnIntervalThink()
-    local elapsed = GameRules:GetGameTime() - self.start_time
-
-    -- 5秒后激活飞行
-    if elapsed >= 6.0 and not self.is_flying then
-        self.is_flying = true
-        
-        -- -- 添加飞行粒子特效
-        -- self.fly_particle = ParticleManager:CreateParticle("particles/items_fx/ghost.vpcf", PATTACH_ABSORIGIN_FOLLOW, self.caster)
-        -- ParticleManager:SetParticleControlEnt(self.fly_particle, 0, self.caster, 6, "attach_origin", Vector(0,0,50), true) -- 抬高高度[7](@ref)
-        
-        -- 2秒后移除飞行
-        Timers:CreateTimer(4.0, function()
-            if self.fly_particle then
-                ParticleManager:DestroyParticle(self.fly_particle, false)
-                self.is_flying = false
-            end
-        end)
-    end
-    
-    -- 7秒后移除渐增效果（5秒渐增+2秒飞行）
-    if elapsed >= 10.0 then
-        self:StartIntervalThink(-1) -- 停止计时器
-    end
-	self:SetHasCustomTransmitterData(true) -- 确保启用同步
-    self:SendBuffRefreshToClients() -- 强制同步数据到客户端
-end
 function modifier_item_brother_sharp_burst:AddCustomTransmitterData()
-    local min_bonus = 40
-    local max_bonus = 100
-    local elapsed_ratio = math.min(1, (GameRules:GetGameTime() - self.start_time) / 6.0)
-    local current_speed = min_bonus + (max_bonus - min_bonus) * elapsed_ratio
-    return { current_speed = current_speed }
+    return {
+        movement_speed_percent_bonus = self.burst_movement_speed_percent_bonus
+    }
 end
 function modifier_item_brother_sharp_burst:HandleCustomTransmitterData( data )
-	self.client_current_speed = data.current_speed
+	self.burst_movement_speed_percent_bonus = data.movement_speed_percent_bonus
 end
 function modifier_item_brother_sharp_burst:OnRemoved()
 	if not IsServer() then return end
 	ParticleManager:DestroyParticle(self.caster.brother_sharp_particle, false)
 	-- ParticleManager:ReleaseParticleIndex(target.brother_sharp_particle)
-	if self.fly_particle then
-        ParticleManager:DestroyParticle(self.fly_particle, false)
-    end
 end
 
 --[[function OnFly_BirdKillSpawn(keys)
