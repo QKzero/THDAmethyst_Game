@@ -106,9 +106,6 @@ function modifier_item_feixiangjian_lightning:OnAttackLanded(event)
 
 		-- 计算当前目标伤害
 		local damage = self.lightningDamage
-		if target:IsCreep() then
-			damage = damage + self.lightningDamageCreep
-		end
 		local damageTable = {
 			ability = self.ability,
 			victim = target,
@@ -199,14 +196,14 @@ end
 
 function modifier_item_feixiangjian_disable:DeclareFunctions()
     return {
-        MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
+        -- MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
         MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE
     }
 end
 
-function modifier_item_feixiangjian_disable:GetModifierAttackSpeedBonus_Constant()
-    return self.ability:GetSpecialValueFor("maim_attack_speed")
-end
+-- function modifier_item_feixiangjian_disable:GetModifierAttackSpeedBonus_Constant()
+--     return self.ability:GetSpecialValueFor("maim_attack_speed")
+-- end
 
 function modifier_item_feixiangjian_disable:GetModifierMoveSpeedBonus_Percentage()
     return self.ability:GetSpecialValueFor("maim_movement_speed")
