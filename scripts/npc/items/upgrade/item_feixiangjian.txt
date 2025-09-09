@@ -62,12 +62,12 @@
         "AbilityValues"
         {
             "bonus_damage" "40"
-            "bonus_attack_speed" "55"
+            "bonus_attack_speed" "70"
             "bonus_strength" "15"
             "debuff_duration" "0.2"
             "maim_movement_speed" "-100"
             // 触发概率
-			"chance"		"30"
+			"chance"		"40"
 			// 索敌范围
 			"lock_range"	"650"
 			// 目标最大个数
