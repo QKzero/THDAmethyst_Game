@@ -1485,21 +1485,21 @@ function ItemAbility_Lunchbox_OnSpellStart(keys)
 		end
 	end
 end
-function ItemAbility_God_Lunchbox_OnTakeDamage(keys)
-	local ItemAbility = keys.ability
-	local Caster = keys.caster
-	local health = Caster:GetHealth()
-    if Caster ~= keys.unit or (not ItemAbility:IsCooldownReady()) or keys.DamageTaken >= health then return end
-    local hp_pct = health/Caster:GetMaxHealth()
-	print(hp_pct)
-	print(keys.Trigger_pct)
-	print(keys.DamageTaken)
+-- function ItemAbility_God_Lunchbox_OnTakeDamage(keys)
+-- 	local ItemAbility = keys.ability
+-- 	local Caster = keys.caster
+-- 	local health = Caster:GetHealth()
+--     if Caster ~= keys.unit or (not ItemAbility:IsCooldownReady()) or keys.DamageTaken >= health then return end
+--     local hp_pct = health/Caster:GetMaxHealth()
+-- 	print(hp_pct)
+-- 	print(keys.Trigger_pct)
+-- 	print(keys.DamageTaken)
 
-    if hp_pct < keys.Trigger_pct * 0.01 then
-		ItemAbility_Lunchbox_OnSpellStart(keys)
-        ItemAbility:UseResources(false, false, false, true)
-    end
-end
+--     if hp_pct < keys.Trigger_pct * 0.01 then
+-- 		ItemAbility_Lunchbox_OnSpellStart(keys)
+--         ItemAbility:UseResources(false, false, false, true)
+--     end
+-- end
 
 function ItemAbility_God_Lunchbox_OnSpellStart(keys)
 	local ItemAbility = keys.ability

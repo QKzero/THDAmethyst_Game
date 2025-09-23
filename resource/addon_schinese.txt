@@ -2246,7 +2246,7 @@
 		// "DOTA_Tooltip_ability_item_jeweled_branch_bonus_all_state"	"+$all"
 		"DOTA_Tooltip_ability_item_recipe_god_lunchbox"	"退魔御币制作书"
 		"DOTA_Tooltip_ability_item_god_lunchbox"	"退魔御币"
-		"DOTA_Tooltip_ability_item_god_lunchbox_Description"	"<h1>主动：驱邪·改</h1>立刻根据能量点数回复相应的生命和魔法，每点能量恢复%restore_per_charge%点生命和魔法，即使少女被控制也可以使用,当少女生命小于%hp_trigger_pct%%%时自动触发。\n<h1>被动：退魔</h1>如果能量点数不少于10时可以使用主动进行驱邪，移除自身的负面效果。<br>驱散类型：<span class=\"GameplayValues GameplayVariable\">强驱散</span>\n<h1>被动：充能</h1>每当周围%charge_radius%视野范围内有敌人施放技能都会自动充能（最多%max_charges%点能量）。"
+		"DOTA_Tooltip_ability_item_god_lunchbox_Description"	"<h1>主动：驱邪·改</h1>立刻根据能量点数回复相应的生命和魔法，每点能量恢复%restore_per_charge%点生命和魔法，即使少女被控制也可以使用。\n<h1>被动：退魔</h1>如果能量点数不少于10时可以使用主动进行驱邪，移除自身的负面效果。<br>驱散类型：<span class=\"GameplayValues GameplayVariable\">强驱散</span>\n<h1>被动：充能</h1>每当周围%charge_radius%视野范围内有敌人施放技能都会自动充能（最多%max_charges%点能量）。"
 		"DOTA_Tooltip_ability_item_god_lunchbox_bonus_health_regen"	"+$hp_regen"
 		"DOTA_Tooltip_ability_item_god_lunchbox_bonus_mana_regen"	"+$mana_regen"
 		"DOTA_Tooltip_ability_item_god_lunchbox_bonus_all_stats"	"+$all"
