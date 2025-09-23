@@ -118,28 +118,6 @@ function ItemAbility_UFO_OnSpellStart(keys)
 	end	
 end
 
-function ItemAbility_feixiangjian_OnAttack(keys)
-	local ItemAbility = keys.ability
-	local Caster = keys.caster
-	local Target = keys.target
-	if (Caster:IsRealHero() and Target:IsBuilding()==false) then
-		local damage_to_deal =keys.PureDamage
-		if Target:GetUnitName()=="npc_dota_roshan" then damage_to_deal=damage_to_deal*0.45 end
-		local damage_table = {
-			ability = ItemAbility,
-			victim = Target,
-			attacker = Caster,
-			damage = damage_to_deal,
-			damage_type = DAMAGE_TYPE_PURE,
-		}
-		UnitDamageTarget(damage_table)
-		
-		--SendOverheadEventMessage(nil,OVERHEAD_ALERT_BONUS_SPELL_DAMAGE,Target,damage_to_deal,nil)
-		--PrintTable(damage_table)
-		--DebugPrint("ItemAbility_Camera_OnAttack| Damage:"..damage_to_deal)
-	end
-end
-
 function ItemAbility_specialcourier_OnSpellStart(keys)
 	local Caster = keys.caster
 	local unit = CreateUnitByName(
