@@ -1297,7 +1297,7 @@
 		"AbilityValues"
 		{
 			"mana_regen"	"0 0 5 20"
-			"hp_regen"	"0 0 2 4"
+			"hp_regen"	"0 0 0 0"
 			"bouns_value"	"-5 0 8 12"
 			"interval"	"10 10 10 10"
 			"give_gold_amount"	"0 0 30 50"

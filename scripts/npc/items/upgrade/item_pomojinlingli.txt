@@ -95,6 +95,7 @@
 					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
 					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
 					"MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE"	"%bonus_damage_percentage"
+					"MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE"	"%bonus_mana_regen_percentage"
 				}
 			}
 			"modifier_item_pomojinlingli_silence"
@@ -120,6 +121,7 @@
 			"bonus_intellect"	"30"
 			"bonus_mana_regen"	"4"
 			"duration"	"5.5"
+			"bonus_mana_regen_percentage" "50"
 			"bonus_damage_percentage"	"15"
 			"bonus_cast_range" "175"
 		}

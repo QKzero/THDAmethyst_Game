@@ -363,10 +363,9 @@
 	//=================================================================================================================
 	"item_blink"
 	{
-		"ItemIsNeutralDrop"				"1"
-        "ItemPurchasable"				"0"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-		"ItemSellable"					"0"
+		"ItemIsNeutralDrop"				"0"
+        "ItemPurchasable"				"1"
+		"ItemSellable"					"1"
 	}
 	//=================================================================================================================
 	// Recipe: Arcane Blink
