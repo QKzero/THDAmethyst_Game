@@ -1269,7 +1269,7 @@ function ItemAbility_DummyDoll_OnSpellStart(keys)
                 bounty_growth = 2,
                 duration = keys.illusions_duration
             }, 
-            2,  -- 数量改为2（原为1）
+            1,  -- 幻象数量
             108, 
             true, 
             true

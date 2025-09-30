@@ -36,7 +36,7 @@
         // Stats
         // -------------------------------------------------------------------------------------------------------------
         "AbilityCastPoint" "0.0"
-        "AbilityCooldown" "28"
+        "AbilityCooldown" "35"
         "AbilityManaCost" "0"
         // General
         // -------------------------------------------------------------------------------------------------------------
@@ -63,12 +63,12 @@
                 "illusion_outgoing_damage" "%illusion_outgoing_damage_Tooltip"
                 "illusion_incoming_damage" "%illusion_incoming_damage"
             }
-            "ApplyModifier"
-            {
-                "Target" "CASTER"
-                "Duration" "12"
-                "ModifierName" "modifier_invisible"
-            }
+            // "ApplyModifier"
+            // {
+            //     "Target" "CASTER"
+            //     "Duration" "12"
+            //     "ModifierName" "modifier_invisible"
+            // }
         }
         "Modifiers"
         {
@@ -127,7 +127,7 @@
             "bonus_intellect" "15"
             "bonus_move_speed_percentage" "12"
             //"invisible_duration" "12"
-            "illusions_duration" "15"
+            "illusions_duration" "25"
             "illusion_incoming_damage" "200"
             "illusion_outgoing_damage_Tooltip" "35"
         }
