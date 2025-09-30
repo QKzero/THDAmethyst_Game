@@ -57,11 +57,12 @@ DOTA_BAN_LIST={
 	"npc_dota_hero_nevermore",--影魔
 	"npc_dota_hero_bloodseeker",--血魔
 	"npc_dota_hero_ember_spirit",--灰烬之灵
+	"npc_dota_hero_batrider",--蝙蝠骑士
+	"npc_dota_hero_undying",--不朽尸王
 }--dota乱入名单，请在activelist中同步修改
 THD2_BAN_LIST ={
 	
 	--"npc_dota_hero_queenofpain",
-	--"npc_dota_hero_batrider",
 	--"npc_dota_hero_arc_warden",
 	-- "npc_dota_hero_ember_spirit",
 	--"npc_dota_hero_dark_willow",
@@ -1152,21 +1153,13 @@ function THDOTSGameMode:OnPlayerSay( keys )
 			hero:SetContextNum("item_card_cooldown", 0, 0)
 			hero:SetContextThink("item_card_cooldown_think", nil, 0)
 		end
-	elseif text == "-zisha" then --影狼和芳香BUG自杀指令
+	elseif text == "-zisha" then --影狼BUG自杀指令
 		local hero = plyhd:GetAssignedHero()
 		local time = RandomInt(20, 40)
 		print(hero:GetName())
 		if hero:GetName() == "npc_dota_hero_lycan" then
 			Say(plyhd, "30秒后重置", true)
 			hero:SetContextThink("kagerou_kill", 
-				function()
-				hero:ForceKill(true)
-			end,
-			time)
-		end
-		if hero:GetName() == "npc_dota_hero_undying" then
-			Say(plyhd, "30秒后重置", true)
-			hero:SetContextThink("miyako_kill", 
 				function()
 				hero:ForceKill(true)
 			end,
@@ -1985,9 +1978,6 @@ function THDOTSGameMode:PrecacheHeroResource(hero)
 	elseif (heroName == "npc_dota_hero_lycan") then
 		abilityEx = hero:FindAbilityByName("ability_thdots_kagerouEx")
 		abilityEx:SetLevel(1)
-	elseif (heroName == "npc_dota_hero_batrider") then
-		abilityEx = hero:FindAbilityByName("ability_thdots_seijaEx")
-		abilityEx:SetLevel(1)
 	elseif (heroName == "npc_dota_hero_leshrac") then
 		abilityEx = hero:FindAbilityByName("ability_thdots_lily05")
 		abilityEx:SetLevel(1)
@@ -2056,11 +2046,6 @@ function THDOTSGameMode:PrecacheHeroResource(hero)
 		abilityEx:SetLevel(1)
 		abilityEx = hero:FindAbilityByName("ability_thdots_seiga05")
 		abilityEx:SetLevel(1)
-	elseif (heroName == "npc_dota_hero_undying") then
-		abilityEx = hero:FindAbilityByName("ability_thdots_miyakoEx")
-		abilityEx:SetLevel(1)
-		abilityEx = hero:FindAbilityByName("ability_thdots_miyako05")
-		abilityEx:SetLevel(1)	
 	elseif (heroName == "npc_dota_hero_bristleback") then
 		local ability = hero:FindAbilityByName("ability_thdots_kasen04_ex")
 		ability:SetHidden(true)

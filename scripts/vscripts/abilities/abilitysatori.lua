@@ -256,11 +256,6 @@ ability_can_be_stolen ={
 	"ability_thdots_kagerou02",
 	"ability_thdots_kagerou03",
 	"ability_thdots_kagerou06",
---seija
-	"ability_thdots_seija01",
-	"ability_thdots_seija02",
-	"ability_thdots_seija03",
-	"ability_thdots_seija04",
 --lily
 	"ability_thdots_lily01_lua",
 	"ability_thdots_lily02",
@@ -347,9 +342,6 @@ ability_can_be_stolen ={
 	"ability_thdots_seiga02",
 	"ability_thdots_seiga03",
 	"ability_thdots_seiga04",
---miyako
-	"ability_thdots_miyako01",
-	"ability_thdots_miyako04",
 --shizuha
 	"ability_thdots_shizuha01",
 	"ability_thdots_shizuha02",
@@ -420,7 +412,6 @@ function modifier_ability_thdots_satori01_target:OnAbilityExecuted(event)
 		self.ability.satori_stolen_name[target_name] = target_ability_name --储存偷取的技能名，索引为目标名
 		--print(self.ability.satori_stolen_name[target_name])
 	end
-	--caster:AddNewModifier(caster, self, "modifier_ability_thdots_miyako04_active", {duration = delay_time})
 end
 
 function ability_thdots_satori01:OnSpellStart()
@@ -897,8 +888,6 @@ function ability_thdots_satori01:ForgetSpell(caster)
 	caster:RemoveModifierByName("modifier_suwako03_return_mana")
 	caster:RemoveModifierByName("modifier_ability_thdots_kisume03_passive")
 	caster:RemoveModifierByName("modifier_ability_thdots_nitori03")
-	caster:RemoveModifierByName("modifier_ability_thdots_miyako01_caster")
-	caster:RemoveModifierByName("modifier_ability_thdots_miyako04_passive")
 	caster:RemoveModifierByName("modifier_ability_thdots_youmu2_02_passive")
 	caster:RemoveModifierByName("modifier_ability_thdots_Jyoon_2_wanbaochui")
 	----------------------------------------------------下面是DOTA2的BUFF

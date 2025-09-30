@@ -174,7 +174,7 @@ G_BOT_USED =
 	true ,			--爱莲
 	false ,			--果/极/羽
 	false ,			--神子
-	false ,			--宫古
+	true ,			--宫古
 	false ,			--青娥
 	
 	false ,			--探女
