@@ -1156,7 +1156,7 @@
 		"DOTA_Tooltip_ability_ability_thdots_eirin03_int_bonus"	"附加智力："
 		"DOTA_Tooltip_ability_ability_thdots_eirin03_AbilityCastRange"	"施法距离："
 		"DOTA_Tooltip_ability_ability_thdots_eirin04"	"「蓬莱之药」"
-		"DOTA_Tooltip_ability_ability_thdots_eirin04_Description"	"制造一瓶蓬莱之药。服用者会即时回复一定量的生命值，并在一定时间内获得不老不死效果。拥有不老不死效果者首次死亡将瞬间恢复至满血。"
+		"DOTA_Tooltip_ability_ability_thdots_eirin04_Description"	"制造一瓶蓬莱之药。服用者会即时回复一定量的生命值并被施加一次强驱散，在一定时间内获得不老不死效果。拥有不老不死效果者首次死亡将瞬间恢复至满血并再次被施加一次强驱散。"
 		"DOTA_Tooltip_ability_ability_thdots_eirin04_note0"	"不老不死的那次回复效果不会受到治疗增益/减益的影响。"
 		"DOTA_Tooltip_ability_ability_thdots_eirin04_buff_duration"	"持续时间："
 		"DOTA_Tooltip_ability_ability_thdots_eirin04_health_regen"	"恢复生命："

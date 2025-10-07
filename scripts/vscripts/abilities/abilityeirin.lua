@@ -298,6 +298,18 @@ function ability_thdots_eirin04:OnSpellStart()
 	local duration = self:GetSpecialValueFor("buff_duration")
 	local heal = self:GetSpecialValueFor("health_regen")
 
+	-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    -- 新增：在施加效果前对目标进行一次强驱散
+    -- 驱散所有负面效果
+    target:Purge(false, true, false, true, true)
+    -- 参数解释:
+    -- bRemovePositiveBuffs: false (不驱散正面状态)
+    -- bRemoveNegativeBuffs: true (驱散负面状态)
+    -- bFrameOnly: false
+    -- bRemoveStuns: true (驱散眩晕类控制)
+    -- bRemoveExceptions: true (驱散例外状态)
+    -- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 	target:AddNewModifier(caster, self, "modifier_ability_thdots_eirin04_effect", {duration = duration, heal = heal})
 end
 

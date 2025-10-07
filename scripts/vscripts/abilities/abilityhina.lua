@@ -486,11 +486,11 @@ function modifier_ability_thdots_hina02_bonds:OnCreated()
 end
 
 function modifier_ability_thdots_hina02_bonds:OnDestroy()
-	if not IsServer() or self:GetParent():IsAlive() then return end
+	if not IsServer() then return end
 	
 	-- Check every unit that was linked by this modifier
 	for _, enemy in pairs(self.bond_table) do
-		if enemy ~= self:GetParent() then
+		if not enemy:IsNull() and enemy ~= self:GetParent() then
 		
 			-- Find all link modifiers that that unit has
 			local bond_modifiers = enemy:FindAllModifiersByName("modifier_ability_thdots_hina02_bonds")
