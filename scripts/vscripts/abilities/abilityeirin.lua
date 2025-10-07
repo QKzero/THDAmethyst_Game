@@ -341,6 +341,17 @@ function modifier_ability_thdots_eirin04_effect:OnTakeDamage(keys)
 	if self.parent:GetHealth() == 0 and self.parent:IsRealHero() then
 		self:Destroy()
 
+		-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		-- 新增：在复活前驱散目标身上的所有负面状态
+		self.parent:Purge(false, true, false, true, true)
+		-- 参数解释:
+		-- bRemovePositiveBuffs: false (不驱散正面状态)
+		-- bRemoveNegativeBuffs: true (驱散负面状态)
+		-- bFrameOnly: false
+		-- bRemoveStuns: true (驱散眩晕类控制)
+		-- bRemoveExceptions: true (驱散例外状态)
+		-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 		local effectIndex = ParticleManager:CreateParticle(
 			"particles/units/heroes/hero_omniknight/omniknight_purification.vpcf", 
 			PATTACH_CUSTOMORIGIN, 
