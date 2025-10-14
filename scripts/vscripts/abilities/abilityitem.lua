@@ -1659,26 +1659,26 @@ function ItemAbility_9ball_OnSpellStart(keys)
 	--SetTargetToTraversable(Caster)
 end
 
-function ItemAbility_PresentBox_RestoreGold(keys)
-	local ItemAbility = keys.ability
-	if (ItemAbility:IsItem())then
-		local Caster = keys.caster
-		local CasterPlayerID = Caster:GetPlayerOwnerID()
-		local RestoreGold = ItemAbility:GetCost()*keys.RestoreGoldPercent*0.01
-		PlayerResource:SetGold(CasterPlayerID,PlayerResource:GetUnreliableGold(CasterPlayerID) + RestoreGold,false)
-		UTIL_Remove(ItemAbility)
-		SendOverheadEventMessage(Caster:GetOwner(),OVERHEAD_ALERT_GOLD,Caster,RestoreGold,nil)
-	end
-end
+-- function ItemAbility_PresentBox_RestoreGold(keys)
+-- 	local ItemAbility = keys.ability
+-- 	if (ItemAbility:IsItem())then
+-- 		local Caster = keys.caster
+-- 		local CasterPlayerID = Caster:GetPlayerOwnerID()
+-- 		local RestoreGold = ItemAbility:GetCost()*keys.RestoreGoldPercent*0.01
+-- 		PlayerResource:SetGold(CasterPlayerID,PlayerResource:GetUnreliableGold(CasterPlayerID) + RestoreGold,false)
+-- 		UTIL_Remove(ItemAbility)
+-- 		SendOverheadEventMessage(Caster:GetOwner(),OVERHEAD_ALERT_GOLD,Caster,RestoreGold,nil)
+-- 	end
+-- end
 
-function ItemAbility_PresentBox_OnInterval(keys)
-	local ItemAbility = keys.ability
-	local Caster = keys.caster
-	local CasterPlayerID = Caster:GetPlayerOwnerID()
-	--DebugPrint("now:"..PlayerResource:GetUnreliableGold(CasterPlayerID).."+"..keys.GiveGoldAmount)
-	PlayerResource:SetGold(CasterPlayerID,PlayerResource:GetUnreliableGold(CasterPlayerID) + keys.GiveGoldAmount,false)
-	--SendOverheadEventMessage(Caster:GetOwner(),OVERHEAD_ALERT_GOLD,Caster,keys.GiveGoldAmount,nil)
-end
+-- function ItemAbility_PresentBox_OnInterval(keys)
+-- 	local ItemAbility = keys.ability
+-- 	local Caster = keys.caster
+-- 	local CasterPlayerID = Caster:GetPlayerOwnerID()
+-- 	--DebugPrint("now:"..PlayerResource:GetUnreliableGold(CasterPlayerID).."+"..keys.GiveGoldAmount)
+-- 	PlayerResource:SetGold(CasterPlayerID,PlayerResource:GetUnreliableGold(CasterPlayerID) + keys.GiveGoldAmount,false)
+-- 	--SendOverheadEventMessage(Caster:GetOwner(),OVERHEAD_ALERT_GOLD,Caster,keys.GiveGoldAmount,nil)
+-- end
 
 function ItemAbility_Lifu_RestoreGold(keys)
 	local ItemAbility = keys.ability

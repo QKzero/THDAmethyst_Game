@@ -23,6 +23,7 @@
         "item" "item_ultimate_scepter"
         "item" "item_aghanims_shard"
         "item" "item_jiduzhixinyan"
+        "item" "item_bottle"
     }
     "attributes"
     {
@@ -68,6 +69,7 @@
         "item" "item_glue"
         "item" "item_jiaokeshu"
         "item" "item_gem"
+        "item" "item_present_box"
     }
     "secretshop"
     {
@@ -112,7 +114,6 @@
     }
     "support"
     {
-        "item" "item_present_box"
         "item" "item_lifu"
         "item" "item_harvest_cradle"
         "item" "item_yatagarasu"

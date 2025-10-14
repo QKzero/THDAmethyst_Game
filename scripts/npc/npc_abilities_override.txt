@@ -1244,7 +1244,7 @@
 			}
 		}
 	}
-	"item_bottle"			"REMOVE"
+	// "item_bottle"			"REMOVE"
 	"item_ward_observer"
 	{
 		"ItemStockTime"					"120.0"

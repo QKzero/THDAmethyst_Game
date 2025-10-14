@@ -1497,6 +1497,72 @@ function THDOTSGameMode:OnEntityKilled( keys )
 		end
 	end
 
+	-- 检查所有拥有 Present Box 的英雄
+	for playerID = 0, DOTA_MAX_TEAM_PLAYERS do
+		local player = PlayerResource:GetPlayer(playerID)
+		if player then
+			local hero = player:GetAssignedHero()
+			if hero and hero:IsAlive() then
+				-- 检查英雄是否拥有 Present Box
+				local presentBox = nil
+				for i = 0, 5 do
+					local item = hero:GetItemInSlot(i)
+					if item and item:GetName() == "item_present_box" then
+						presentBox = item
+						break
+					end
+				end
+				
+				if presentBox then
+					-- 检查单位是否在附近(1500范围)且不是自己击杀的
+					local distance = (hero:GetAbsOrigin() - killedUnit:GetAbsOrigin()):Length2D()
+					if distance <= 1500 and killerEntity ~= hero and killedUnit:GetTeamNumber() ~= hero:GetTeamNumber() then
+						-- 增加3金币
+						hero:ModifyGold(3, false, DOTA_ModifyGold_Unspecified)
+						SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, player, 3, nil)
+						
+						-- 初始化灵魂碎片计数
+						if not hero.soul_fragments then
+							hero.soul_fragments = 0
+							hero.soul_crystals = 0
+						end
+						
+						-- 增加灵魂碎片
+						hero.soul_fragments = hero.soul_fragments + 1
+						
+						-- 更新状态栏显示
+						if not hero:HasModifier("modifier_soul_fragments_display") then
+							hero:AddNewModifier(hero, nil, "modifier_soul_fragments_display", {})
+						end
+						if not hero:HasModifier("modifier_soul_crystals_display") then
+							hero:AddNewModifier(hero, nil, "modifier_soul_crystals_display", {})
+						end
+						
+						hero:FindModifierByName("modifier_soul_fragments_display"):SetStackCount(hero.soul_fragments)
+						hero:FindModifierByName("modifier_soul_crystals_display"):SetStackCount(hero.soul_crystals)
+
+						-- 每10个碎片转化为1个结晶(最多50个)
+						if hero.soul_fragments >= 10 and hero.soul_crystals < 50 then
+							hero.soul_fragments = hero.soul_fragments - 10
+							hero.soul_crystals = hero.soul_crystals + 1
+
+							-- 更新显示
+							hero:FindModifierByName("modifier_soul_fragments_display"):SetStackCount(hero.soul_fragments)
+							hero:FindModifierByName("modifier_soul_crystals_display"):SetStackCount(hero.soul_crystals)
+							
+							-- 播放获得结晶的效果
+							local particle = ParticleManager:CreateParticle("particles/items_fx/energy_booster.vpcf", PATTACH_ABSORIGIN_FOLLOW, hero)
+							ParticleManager:ReleaseParticleIndex(particle)
+							
+							-- 播放音效
+							hero:EmitSound("Item.PickUpGem")
+						end
+					end
+				end
+			end
+		end
+	end
+
 	if(killedUnit:IsHero()==false and killedUnit:GetUnitName()~= "ability_yuuka_flower") then
 		if killedUnit:FindAbilityByName("ability_dummy_unit") or killedUnit:FindAbilityByName("ability_invisible_dummy_unit") then return end --若被击杀的单位是马甲，则return
 		local i = RandomInt(0,100)
