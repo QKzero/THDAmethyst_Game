@@ -93,7 +93,7 @@
 		}
 		"AbilityValues"
 		{
-			"bonus_damage"	"6 9 13 18"
+			"bonus_damage"	"6 8 10 12"
 			"radius"
 			{
 				"value"			"1000"
@@ -240,8 +240,8 @@
 		}
 		"AbilityValues"
 		{
-			"damage_multi"	"150 200 250 300"
-			"criticalstrike_chance"	"15"
+			"damage_multi"	"125 150 175 200"
+			"criticalstrike_chance"	"15 20 25 30"
 			"evasion_chance"	"9 18 27 36"
 		}
 	}
@@ -466,11 +466,11 @@
 				"LinkedSpecialBonus"	"special_bonus_unique_koishi_3"
 			}
 			"move_speed_bonus"	"20 30 40"
-			"duration"	"20"
+			"duration"	"15"
 			"damage_bonus"	"4 8 12"
 			"attack_speed_bonus"	"4 8 12"
 			"movement_bonus"	"4 8 12"
-			"kill_hero_count"	"5"
+			"kill_hero_count"	"3"
 		}
 	}
 
