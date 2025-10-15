@@ -68,9 +68,9 @@
 		// 基础力量
 		"AttributeStrengthGain"	"1.9"
 		// 每级增加的力量，力量成长
-		"AttributeBaseAgility"	"26"
+		"AttributeBaseAgility"	"24"
 		// 基础敏捷
-		"AttributeAgilityGain"	"3.0"
+		"AttributeAgilityGain"	"2.7"
 		// 每级增加的敏捷，敏捷成长
 		"AttributeBaseIntelligence"	"13"
 		// 基础智力
