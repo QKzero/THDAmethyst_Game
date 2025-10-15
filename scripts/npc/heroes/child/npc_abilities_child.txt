@@ -25,11 +25,11 @@
         "AbilityValues"
         {
             "AbilityCastPoint" "0.2"
-            "AbilityCooldown" "9 7 5 3"
+            "AbilityCooldown" "9 8 7 6"
             "movespeed_slow" "-15"
             "attackspeed_slow" "-10 -15 -20 -25"
             "damage" "15 30 45 60"
-            "attack_bonus" "0.3 0.5 0.7 0.9"
+            "attack_bonus" "0.3 0.4 0.5 0.6"
             "duration" "2"
         }
     }
@@ -143,21 +143,23 @@
         {
             "damage"
             {
-                "value" "30 45 60 75"
-                "special_bonus_unique_child_4" "x3"
+                "value" "10 20 30 40"
+                "special_bonus_unique_child_4" "+45"
+                "special_bonus_unique_child_5" "x3"
             }
             "attack_reduce" "-6 -8 -10 -12"
             "debuff_stack"
             {
                 "value" "1"
-                "special_bonus_unique_child_4" "x3"
+                "special_bonus_unique_child_5" "x3"
             }
             "debuff_max"
             {
                 "value" "3"
-                "special_bonus_unique_child_4" "=infinity"
+                "special_bonus_unique_child_5" "=infinity"
             }
             "duration" "4"
+            "bonus_damage" "3"
         }
     }
     "ability_thdots_child04"
@@ -261,5 +263,23 @@
         "BaseClass" "special_bonus_base"
         "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityValues"
+        {
+            "bonus_damage" "45"
+        }
+    }
+    //=================================================================================================================
+    // Ability: Special Bonus 
+    //=================================================================================================================
+    "special_bonus_unique_child_5"
+    {
+        "BaseClass" "special_bonus_base"
+        "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+        "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityValues"
+        {
+            "value" "1"
+            "bonus_damage" "3"
+        }
     }
 }

@@ -2655,8 +2655,9 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_child_1" 					"+{s:bonus_radius}「Moon Stillness」Radius"
 		"DOTA_Tooltip_ability_special_bonus_unique_child_2" 					"「Silent Flower」Prioritizes Girls"
 		"DOTA_Tooltip_ability_special_bonus_unique_child_3" 					"+{s:bonus_damage_bonus}「Moon End Sonata」Damage per Unit Hit"
-		"DOTA_Tooltip_ability_special_bonus_unique_child_4" 					"{s:bonus_damage}x「Silent Flower」Damage & Debuff, No Limit"
-		"DOTA_Tooltip_ability_special_bonus_unique_child_4_Description"			"Multiplies damage dealt as well as the attack damage reduction, while also removing the stack limit."
+		"DOTA_Tooltip_ability_special_bonus_unique_child_4"						"+{s:bonus_damage}「Silent Flower」Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_child_5" 					"{s:bonus_damage}x「Silent Flower」Damage & Debuff, No Limit"
+		"DOTA_Tooltip_ability_special_bonus_unique_child_5_Description"			"Multiplies damage dealt as well as the attack damage reduction, while also removing the stack limit."
 
 		//--------------------
 		//merlin by 上古巨神神奈子

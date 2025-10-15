@@ -3126,7 +3126,9 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_child_1" "+{s:bonus_radius}「消寂之月」范围"
 		"DOTA_Tooltip_ability_special_bonus_unique_child_2" "「无声绽放」优先少女"
 		"DOTA_Tooltip_ability_special_bonus_unique_child_3" "+{s:bonus_damage_bonus}「月结奏曲」每个单位伤害加成"
-		"DOTA_Tooltip_ability_special_bonus_unique_child_4" "「无声绽放」{s:bonus_damage}倍伤害叠加并移除上限"
+		"DOTA_Tooltip_ability_special_bonus_unique_child_4" "「无声绽放」+{s:bonus_damage}伤害"
+		"DOTA_Tooltip_ability_special_bonus_unique_child_5" "「无声绽放」{s:bonus_damage}倍伤害叠加并移除上限"
+		"DOTA_Tooltip_ability_special_bonus_unique_child_5_Description" "不会显示在面板上，实际生效"
 		//
 		"npc_dota_hero_vengefulspirit"	"姬海棠果"
 		"DOTA_Tooltip_ability_ability_thdots_hatate01_Description"	"<h1>被动：</h1>增加果的移动速度，不与扫把类装备移速叠加。\n<h1>主动：</h1>利用天狗高速的能力，高速移动至目标位置。"

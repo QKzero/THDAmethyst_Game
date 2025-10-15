@@ -490,12 +490,17 @@ function modifier_ability_thdots_child03_light:OnIntervalThink()
 				child_03_debuff:SetDuration(duration, true)
 			end
 
-			local damage = ability:GetSpecialValueFor("damage")
+			local base_damage = ability:GetSpecialValueFor("damage")
+			local talent_bonus = 0
+			if FindTelentValue(caster, "special_bonus_unique_child_5") == 1 then
+				talent_bonus = ability:GetSpecialValueFor("bonus_damage")
+			end
+    		local total_damage = base_damage * talent_bonus
 			local damage_table = {
 					ability = ability,
 					victim = target,
 					attacker = caster,
-					damage = damage,
+					damage = total_damage,
 					damage_type = ability:GetAbilityDamageType(), 
 					damage_flags = DOTA_DAMAGE_FLAG_BYPASSES_BLOCK
 				}
