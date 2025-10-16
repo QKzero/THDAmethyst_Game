@@ -76,7 +76,7 @@
 		// 基础智力
 		"AttributeIntelligenceGain"	"1.7"
 		// 每级增加的智力，智力成长
-		"MovementSpeed"	"305"
+		"MovementSpeed"	"285"
 		// 基础移动速度
 		"MovementTurnRate"	"1.2"
 		// 转身速度

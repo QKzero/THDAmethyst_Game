@@ -491,10 +491,10 @@ function modifier_ability_thdots_child03_light:OnIntervalThink()
 			end
 
 			local base_damage = ability:GetSpecialValueFor("damage")
-			local talent_bonus = 0
-			if FindTelentValue(caster, "special_bonus_unique_child_5") == 1 then
-				talent_bonus = ability:GetSpecialValueFor("bonus_damage")
-			end
+			local talent_bonus = 1
+				if FindTelentValue(caster, "special_bonus_unique_child_5") == 1 then
+					talent_bonus = ability:GetSpecialValueFor("bonus_damage")
+				end
     		local total_damage = base_damage * talent_bonus
 			local damage_table = {
 					ability = ability,

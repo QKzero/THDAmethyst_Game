@@ -807,14 +807,14 @@
 				{
 					"MODIFIER_STATE_INVISIBLE"	"MODIFIER_STATE_VALUE_ENABLED"
 				}
-				// "OnAttackLanded"
-				// {
-				// 	"RemoveModifier"
-				// 	{
-				// 		"Target"	"CASTER"
-				// 		"ModifierName"	"ability_reisenold04_bouns_attack_speed"
-				// 	}
-				// }
+				"OnAttackLanded"
+				{
+					"RemoveModifier"
+					{
+						"Target"	"CASTER"
+						"ModifierName"	"ability_reisenold04_bouns_attack_speed"
+					}
+				}
 			}
 		}
 		"AbilityValues"

@@ -143,8 +143,8 @@
         {
             "damage"
             {
-                "value" "10 20 30 40"
-                "special_bonus_unique_child_4" "+45"
+                "value" "10 25 40 55"
+                "special_bonus_unique_child_4" "+35"
                 "special_bonus_unique_child_5" "x3"
             }
             "attack_reduce" "-6 -8 -10 -12"
@@ -265,7 +265,7 @@
         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         "AbilityValues"
         {
-            "bonus_damage" "45"
+            "bonus_damage" "35"
         }
     }
     //=================================================================================================================

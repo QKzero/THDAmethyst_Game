@@ -25,7 +25,7 @@
 				"LinkedSpecialBonus"		"special_bonus_unique_hatate_1"
 			}	
 			// "movespeed_bonus"	"15 30 45 60"
-			"movespeed_bonus"	"25 40 55 70"
+			"movespeed_bonus"	"30 50 70 90"
 			"AbilityCastRange"
 			{
 				"value"	"400 500 600 700"
