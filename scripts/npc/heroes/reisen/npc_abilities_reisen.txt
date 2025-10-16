@@ -408,6 +408,7 @@
 		"AbilityValues"
 		{
 			"ability_chance_base"	"20"
+			"agi_damage_multiplier"	"0.5"
 			"move_slow"	"-20"
 			"move_slow_duration"	"2.0"
 			"miss_change"	"30"

@@ -122,7 +122,8 @@ end
 function OnKoishi02AttackLanded(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
 	local target = keys.target
-	local manadecrease = keys.DamagePercent * keys.DamageTaken / 100 + keys.BaseDamage + FindTelentValue(caster, "special_bonus_unique_koishi_4")
+	local attacker_attack_damage = caster:GetAttackDamage()
+	local manadecrease = keys.DamagePercent * attacker_attack_damage / 100 + keys.BaseDamage + FindTelentValue(caster, "special_bonus_unique_koishi_4")
 	
 
 	if target:GetMana() >= manadecrease then

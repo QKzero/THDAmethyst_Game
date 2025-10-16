@@ -361,9 +361,11 @@ end
 
 function OnReisenOldExSpellSuccess(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
+	local ability = keys.ability
 	local target = keys.target
 	local RandomNumber = RandomInt(1,100)
-	local deal_damage = caster:GetPrimaryStatValue()*0.5
+	local agi_multiplier = ability:GetSpecialValueFor("agi_damage_multiplier") or 0.5
+	local deal_damage = caster:GetPrimaryStatValue() * agi_multiplier
 	if target:IsBuilding() then 
 		deal_damage=deal_damage*0.3
 	end

@@ -1293,6 +1293,7 @@
 		// --------------------
 		"DOTA_Tooltip_ability_ability_thdots_reisenOldex"	"弱心「丧心丧意」"
 		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_Description"	"铃仙的攻击有%ability_chance_base%%%的概率发射带有破坏精神的弹丸，造成0.5倍敏捷的伤害并降低敌人的命中和移动速度，持续%move_slow_duration%秒。\n对建筑伤害为30%%。"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_agi_damage_multiplier" "敏捷系数："
 		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_move_slow"	"降低移速："
 		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_miss_change"	"降低命中："
 		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_Lore"	"铃仙让敌人承受狂气的视线，令敌人暂时陷入混乱状态。"
