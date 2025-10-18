@@ -241,7 +241,7 @@
 		"AbilityValues"
 		{
 			"damage_multi"	"125 150 175 200"
-			"criticalstrike_chance"	"15 20 25 30"
+			"criticalstrike_chance"	"30"
 			"evasion_chance"	"9 18 27 36"
 		}
 	}
