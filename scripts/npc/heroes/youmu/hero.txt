@@ -58,7 +58,7 @@
 		// 最小攻击力
 		"AttributeBaseStrength"	"19"
 		// 基础力量
-		"AttributeStrengthGain"	"2.0"
+		"AttributeStrengthGain"	"1.6"
 		// 每级增加的力量，力量成长
 		"AttributeBaseAgility"	"26"
 		// 基础敏捷

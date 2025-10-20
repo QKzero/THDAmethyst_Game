@@ -202,7 +202,7 @@
 		"AbilityValues"
 		{
 			"decrease_armor"	"-0.75 -1.5 -2.25 -3"
-			"decrease_max_armor"	"12 24 36 48"
+			"decrease_max_armor"	"6 12 18 24"
 			"bouns_damage"	"12 20 28 36"
 			"duration"	"12.0"
 			"roshan_percent"	"25"
@@ -290,8 +290,8 @@
 		}
 		"AbilityValues"
 		{
-			"decrease_armor"	"-0.37 -0.75 -1.13 -1.5"
-			"decrease_max_armor"	"12 24 36 48"
+			"decrease_armor"	"-0.375 -0.75 -1.135 -1.5"
+			"decrease_max_armor"	"6 12 18 24"
 			"bouns_damage"	"12 20 28 36"
 			"duration"	"12"
 		}
@@ -520,12 +520,12 @@
 		}
 		"AbilityValues"
 		{
-			"ability_multi"	"3.0 4.2 5.4"
+			"ability_multi"	"4.0 4.5 5.0"
 			"wanbaochui_stun" "2.0"
 			// "RequiresScepter"			"1"
 			"AbilityCooldown"
 			{
-				"value"	"100 85 70"
+				"value"	"80 75 70"
 				"special_bonus_unique_youmu_3"	"-40"
 			}
 		}

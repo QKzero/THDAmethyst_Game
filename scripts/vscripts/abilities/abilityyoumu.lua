@@ -19,7 +19,7 @@ function OnYoumu02SpellStartDamage(keys)
 	    	    damage_flags = DOTA_DAMAGE_FLAG_BYPASSES_BLOCK
 	}
 	if FindTelentValue(caster,"special_bonus_unique_youmu_2") ~= 0 and caster:IsRealHero() then
-		damage_table.damage = damage_table.damage + target:GetMaxHealth() * 0.06
+		damage_table.damage = damage_table.damage + target:GetMaxHealth() * 0.04
 		damage_table.damage_type = DAMAGE_TYPE_PHYSICAL
 		-- SendOverheadEventMessage(nil,OVERHEAD_ALERT_BONUS_SPELL_DAMAGE,target,damage_table.damage,nil)
 	end
