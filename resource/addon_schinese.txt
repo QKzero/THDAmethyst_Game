@@ -3417,6 +3417,7 @@
 		"DOTA_Tooltip_ability_ability_thdots_hina04_travel_distance"	"释放范围："
 		"DOTA_Tooltip_ability_ability_thdots_hina02"	"创符「痛苦流路」"
 		"DOTA_Tooltip_ability_ability_thdots_hina02_Description"	"将数个敌方单的命运绑在一起,其中一人受到伤害,其他所单位都将感受厄运的一部分。<br><br>可以对自己释放"
+		"DOTA_Tooltip_ability_ability_thdots_hina02_Lore"	"传递伤害类型与伤害来源相同。"
 		"DOTA_Tooltip_ability_ability_thdots_hina02_AbilityCastRange"	"施法距离："
 		"DOTA_Tooltip_ability_ability_thdots_hina03"	"疵符「破裂的护符」"
 		"DOTA_Tooltip_ability_ability_thdots_hina03_Description"	"让敌人失去神的护佑，对该单位造成伤害，同时让该单位受到伤害时效果扩大。"
