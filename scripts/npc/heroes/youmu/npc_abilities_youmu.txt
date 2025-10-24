@@ -115,7 +115,7 @@
 			"cast_range"	"700 800 900 1000"
 			"AbilityCooldown"
 			{
-				"value"	"13 11 9 7"
+				"value"	"12 10 8 6"
 				"special_bonus_unique_youmu_4"	"-2"
 			}
 		}
@@ -204,7 +204,7 @@
 			"decrease_armor"	"-0.75 -1.5 -2.25 -3"
 			"decrease_max_armor"	"6 12 18 24"
 			"bouns_damage"	"12 20 28 36"
-			"duration"	"12.0"
+			"duration"	"8.0"
 			"roshan_percent"	"25"
 		}
 	}
