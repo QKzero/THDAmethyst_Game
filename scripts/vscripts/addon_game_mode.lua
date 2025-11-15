@@ -640,6 +640,11 @@ function THDOTSGameMode:OnPlayerSay( keys )
                     hero:RemoveModifierByName(modifier_name)
                 end
             end
+        elseif (ss[1] == "-pp" or ss[1] == "-printPosition") then
+            local hero = PlayerResource:GetSelectedHeroEntity(plyid)
+            if hero ~= nil then
+				print(hero:GetOrigin())
+            end
         end
 	end
 
@@ -1643,6 +1648,8 @@ function THDOTSGameMode:OnHeroSpawned( keys )
 			
 			THD2_FirstAddBuff(hero)
 
+			THD2_SetHeroSpawnPoint(hero)
+
 		    local ability = hero:AddAbility("ability_common_power_buff")
 			if ability ~= nil then
 				ability:SetLevel(1)
@@ -2300,8 +2307,10 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 		end
 
 		if THD2_GetBotMode() == true then
-			Tutorial:StartTutorialMode()
 			HostSay("Bot Difficulty: " .. THD2_GetBotDiffName())
+			-- 启用人机
+			Convars:SetBool("dota_bot_mode", true)
+			Convars:SetBool("dota_bot_disable", false)
 		end
 		--[[if THD2_GetFRSMode() then -- fast respawn mode
 			GameMode:SetFixedRespawnTime( THD2_GetFRSTime() )

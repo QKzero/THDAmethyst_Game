@@ -119,7 +119,7 @@ G_BOT_USED =
 	
 	true ,			--黑白
 	false ,			--恋
-	false ,			--兔子
+	true ,			--兔子
 	false ,			--妹红
 	false ,			--红三
 	
@@ -169,7 +169,7 @@ G_BOT_USED =
 	false ,			--屠自古
 	false ,			--小町
 	false ,			--红师傅
-	false ,			--小恶魔
+	true ,			--小恶魔
 	
 	true ,			--爱莲
 	false ,			--果/极/羽
@@ -732,9 +732,17 @@ function THD2_AddBot()
 						badcnt = badcnt + 1
 					end
 
-					--table.insert(G_Bot_List,i)
-					-- hero name, line('top','mid','bottom'), diff, team 
-					Tutorial:AddBot(H_name,'','',bot_team)
+					local hostPlayer = PlayerResource:GetPlayer(0)
+					print('adding bot hero: ' .. H_name)
+					DebugCreateHeroWithVariant(
+						hostPlayer,
+						H_name,
+						1, -- TODO[QKzero20251114] 这里是 facet ID, 不清楚具体是什么
+						bot_team and DOTA_TEAM_GOODGUYS or DOTA_TEAM_BADGUYS,
+						false,
+						function(____, _hero)
+                		end
+					)
 
 					-- clear it temporary
 					for i=0,233 do
@@ -820,15 +828,6 @@ function THD2_FirstAddBuff( hero )
 						if hName == "npc_dota_hero_enchantress" then
 							THD2_BotSpecialInit(hero)
 						end
-						--[[
-						for i=0,16 do
-						 	local ability = hero:GetAbilityByIndex(i)
-							if ability~=nil then
-								local level = 1 or ability:GetMaxLevel()
-								ability:SetLevel(level)
-							end
-						end
-						]]--
 				 	end
 				end
 			end
@@ -846,6 +845,41 @@ function THD2_FirstAddBuff( hero )
 					fastCDability:SetLevel(1)
 				end
 			end
+end
+
+--- 递归设置人机出生位置，这里是函数入口
+--- @param hero any 人机实体
+function THD2_SetHeroSpawnPoint(hero)
+	-- 开始递归设置出生点
+	THD2_SetHeroSpawnPointRec(hero, 0, 10)
+end
+
+--- 递归设置人机出生位置，实际执行函数
+--- @param hero any 人机实体
+--- @param retryCount number 重试次数
+--- @param retryMaxTime number 最大重试次数
+function THD2_SetHeroSpawnPointRec(hero, retryCount, retryMax)
+	-- 判断是否是人机本体（因为使用场景有且只有第一次复活，所以此处没有判断是否为人机）
+    if hero == nil or hero:IsNull() or hero:IsIllusion() then
+        return
+    end
+
+    if retryCount >= retryMax then
+        return
+    end
+
+	-- 移动
+	local posBase = hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS and Vector(-7050, -6550, 384) or Vector(6950, 6320, 384)
+	FindClearSpaceForUnit(hero, posBase, true)
+
+    Timers:CreateTimer(0.1, function()
+        local posBase = hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS and Vector(-7050, -6550, 384) or Vector(6950, 6320, 384)
+        local isInBase = hero:IsPositionInRange(posBase, 1500)
+        if not isInBase then
+            THD2_SetHeroSpawnPointRec(hero, retryCount + 1, retryMax)
+            return
+        end
+    end)
 end
 
 function THD2_BotPushAllWithDelay()
