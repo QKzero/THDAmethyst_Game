@@ -4860,7 +4860,7 @@
 		
 		"DOTA_Tooltip_modifier_kagerou_add_damage"	"「月的远吠」"
 		"DOTA_Tooltip_modifier_kagerou_add_damage_Description"	"增加敏捷，独狼状态下加成翻倍"
-		"DOTA_Tooltip_ability_special_bonus_unique_kagerou_2"	"咆哮「月返」"
+		"DOTA_Tooltip_ability_special_bonus_unique_kagerou_2"	"咆哮「月返」（当前失效）"
 		"DOTA_Tooltip_ability_special_bonus_unique_kagerou_2_Description"	"咆哮「月的远吠」到达终点后会返回影狼身边"
 		"DOTA_Tooltip_ability_special_bonus_unique_kagerou_1"	"触发孤独所需时间-1.5s"
 

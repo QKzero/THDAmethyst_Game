@@ -61,7 +61,7 @@ end
 
 function A1Start(k)
 	local cs = k.caster
-	local p = k.target_points[1]
+	local p = k.ability:GetCursorPosition()
 	local distance = (p - cs:GetOrigin()):Length2D()
 	local ab = k.ability
 	local cast_range = ab:GetSpecialValueFor("cast_range")
@@ -226,6 +226,9 @@ function A2End(k)
 	-- local back = FindTelentValue(caster,"special_bonus_unique_kagerou_2")
 
 	--天赋 技能到达终点后 立即返回施法者身边
+	-- TODO[QKzero20251119] 7.39e版本更新后无法获取起始位置（变量p），除非v社自己修复或者重写，无法修复
+	if true then return end
+
 	--150码内能找到施法者 就说明返回成功
 	if FindTelentValue(cs,"special_bonus_unique_kagerou_2") == 0 or cs:IsPositionInRange(p,150) then return end
 
@@ -427,7 +430,7 @@ end
 -- 大招施法 跳跃
 function A6Start(k)
 	local cs = k.caster
-	local p = k.target_points[1]
+	local p = k.ability:GetCursorPosition()
 	local ab = k.ability
 	local radius = ab:GetSpecialValueFor("damage_radius")
 	local damage = ab:GetSpecialValueFor("damage_const")
