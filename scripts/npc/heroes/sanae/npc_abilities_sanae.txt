@@ -88,36 +88,32 @@
 
 	"ability_thdots_sanae02"
 	{
-		"BaseClass"					"ability_datadriven"
-		"AbilityTextureName"		"touhoutd/thtd_sanae_03"
-		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
-		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetFlags"	"DOTA_UNIT_TARGET_FLAG_NONE"
-		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
-		"MaxLevel"					"4"
-		"AbilityCastPoint"			"0.1"
-		"AbilityCastAnimation"		"Act_DOTA_CAST_ABILITY_2"
-		"AbilityCooldown"			"14 13 12 11"
-		"AbilityManaCost"			"90 100 110 120"
+		"BaseClass"				"ability_lua"
+		"AbilityTextureName"	"touhoutd/thtd_sanae_03"
+		"ScriptFile"			"scripts/vscripts/abilities/abilitysanae.lua"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetFlags""DOTA_UNIT_TARGET_FLAG_NONE"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"				"4"
+		"AbilityCastPoint"		"0.1"
+		"HasScepterUpgrade"		"1"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_2"
+		"AbilityCooldown"		"14 13 12 11"
+		"AbilityManaCost"		"90 100 110 120"
 		// Stats
-		// ----------------------------------------------------------------
-		"AOERadius"					"%radius"
-		"HasScepterUpgrade"			"1"
-		// Precache
 		// ----------------------------------------------------------------
 		"precache"
 		{
-			"soundfile"				"soundevents/game_sounds_creeps.vsndevts"
-			"particle"				"particles/heroes/sanae/ability_sanea_02_effect.vpcf"
-			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_zuus.vsndevts"
-			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts"
+			"soundfile"			"soundevents/game_sounds_creeps.vsndevts"
+			"particle"			"particles/heroes/sanae/ability_sanea_02_effect.vpcf"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_zuus.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts"
 		}
-		// Values
-		// ----------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCastRange"					"700"
+			"cast_range"						"700"
 			"damage"
 			{
 				"value"							"80 140 200 260"
@@ -125,41 +121,17 @@
 				"DamageTypeTooltip"				"DAMAGE_TYPE_MAGICAL"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-
 			"delay_time"						"0.5"
-			"radius"
+			"damage_radius"
 			{
-				"value"			"350"
-				"affected_by_aoe_increase"	"1"
+				"value"							"350"
+				"affected_by_aoe_increase"		"1"
 			}
 			"scepter_bouns"						"50"
 			"stun_duration"
 			{
 				"value"							"1.2"
 				"special_bonus_unique_sanae_3"	"+0.8"
-			}
-		}
-		// Actions
-		// ----------------------------------------------------------------
-		"OnSpellStart"
-		{
-			"DelayedAction"
-			{
-				"Delay"		"%delay_time"
-				"Action"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/abilitysanae.lua"
-						"Function"		"OnSanae02SpellStart"
-						"Target"		"POINT"
-
-						"damage"		"%damage"
-						"radius"		"%radius"
-						"stun_duration"	"%stun_duration"
-						"scepter_bouns"	"%scepter_bouns"
-					}
-				}
 			}
 		}
 	}

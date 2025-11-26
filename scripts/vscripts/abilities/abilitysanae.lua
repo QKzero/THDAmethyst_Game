@@ -69,45 +69,82 @@ end
 ----------------------------------------------------------------------------------------------
 -- Sanae02
 
-function OnSanae02SpellStart(keys)
-    local caster = keys.caster
-    local ability = keys.ability
-    local targetPosition = keys.ability:GetCursorPosition()
+-- Ability Initialization
+ability_thdots_sanae02 = class({})
 
-    local damage = keys.damage
-    local radius = keys.radius
-    local stun_duration = keys.stun_duration
-    local scepter_bouns = keys.scepter_bouns
+-- Ability Basic Parameter
+function ability_thdots_sanae02:GetAbilityDamage()
+    local damage = self:GetSpecialValueFor("damage")
+    local talent = self:GetCaster():FindAbilityByName("special_bonus_unique_sanae_4")
+    if talent ~= nil and talent:GetLevel() ~= 0 then
+        damage = damage + talent:GetSpecialValueFor("value")
+    end
+    return damage
+end
 
-    local targets = FindUnitsInRadius(caster:GetTeamNumber(), targetPosition, nil, radius,
-        ability:GetAbilityTargetTeam(), ability:GetAbilityTargetType(), ability:GetAbilityTargetFlags(), FIND_ANY_ORDER,
-        false)
+function ability_thdots_sanae02:GetCastRange()
+    return self:GetSpecialValueFor("cast_range")
+end
 
-    for _, target in pairs(targets) do
-        local damageTable = {
-            ability = ability,
-            victim = target,
-            attacker = caster,
-            damage = damage,
-            damage_type = ability:GetAbilityDamageType(),
-            damage_flags = DOTA_DAMAGE_FLAG_NONE
-        }
-        if target:IsHero() and caster:HasModifier("modifier_item_wanbaochui") then
-            damageTable.damage = damageTable.damage * (1 + scepter_bouns * 0.01)
-        end
-        UnitDamageTarget(damageTable)
+function ability_thdots_sanae02:GetAOERadius()
+    return self:GetSpecialValueFor("damage_radius")
+end
 
-        UtilStun:UnitStunTarget(caster, target, stun_duration)
+-- Ability Script
+function ability_thdots_sanae02:OnSpellStart()
+    if not IsServer() then
+        return
     end
 
-    EmitSoundOnLocationWithCaster(targetPosition, "Hero_Zuus.GodsWrath.PreCast", caster)
-    EmitSoundOnLocationWithCaster(targetPosition, "Ability.Torrent", caster)
+    local caster = self:GetCaster()
 
-    local effectIndex = ParticleManager:CreateParticle("particles/heroes/sanae/ability_sanea_02_effect.vpcf",
-        PATTACH_CUSTOMORIGIN, nil)
-    ParticleManager:SetParticleControl(effectIndex, 0, targetPosition)
-    ParticleManager:SetParticleControl(effectIndex, 1, targetPosition)
-    ParticleManager:DestroyParticleSystem(effectIndex, false)
+    local delayTime = self:GetSpecialValueFor("delay_time")
+    local stunDuration = self:GetSpecialValueFor("stun_duration")
+    local scepterBouns = 1 + self:GetSpecialValueFor("scepter_bouns") * 0.01
+
+    local creationTime = GameRules:GetGameTime()
+    local targetPosition = self:GetCursorPosition()
+
+    caster:SetContextThink('sanae02_delay', function()
+        if GameRules:IsGamePaused() or GameRules:GetGameTime() - creationTime < delayTime then
+            return 0.04
+        end
+
+        local targets = FindUnitsInRadius(caster:GetTeamNumber(), targetPosition, nil, self:GetAOERadius(),
+            self:GetAbilityTargetTeam(), self:GetAbilityTargetType(), DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
+        for _, target in pairs(targets) do
+            local damageTable = {
+                ability = self,
+                victim = target,
+                attacker = caster,
+                damage = self:GetAbilityDamage(),
+                damage_type = self:GetAbilityDamageType(),
+                damage_flags = DOTA_DAMAGE_FLAG_NONE
+            }
+            if target:IsHero() and caster:HasScepter() then
+                damageTable.damage = damageTable.damage * scepterBouns
+            end
+            UnitDamageTarget(damageTable)
+
+            local talent = caster:FindAbilityByName("special_bonus_unique_sanae_3")
+            if talent == nil or talent:GetLevel() == 0 then
+                UtilStun:UnitStunTarget(caster, target, stunDuration)
+            else
+                UtilStun:UnitStunTarget(caster, target, stunDuration + talent:GetSpecialValueFor("value"))
+            end
+        end
+
+        EmitSoundOnLocationWithCaster(targetPosition, "Hero_Zuus.GodsWrath.PreCast", caster)
+        EmitSoundOnLocationWithCaster(targetPosition, "Ability.Torrent", caster)
+
+        local effectIndex = ParticleManager:CreateParticle("particles/heroes/sanae/ability_sanea_02_effect.vpcf",
+            PATTACH_CUSTOMORIGIN, nil)
+        ParticleManager:SetParticleControl(effectIndex, 0, targetPosition)
+        ParticleManager:SetParticleControl(effectIndex, 1, targetPosition)
+        ParticleManager:DestroyParticleSystem(effectIndex, false)
+
+        return nil
+    end, delayTime)
 end
 
 -- Sanae02 End
