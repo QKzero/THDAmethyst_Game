@@ -4287,7 +4287,7 @@
 		"DOTA_Tooltip_ability_ability_thdotsr_Nazrin03_ability_chance_base"	 	"%触发几率："
 
 		"DOTA_Tooltip_ability_ability_thdotsr_Nazrin04"	 		 		"财宝「Gold Rush」"
-		"DOTA_Tooltip_ability_ability_thdotsr_Nazrin04_Description" 	"指定一个目标敌方少女，打上金钱的记号。若己方少女对该少女攻击，额外附加%basedamage%法术伤害并晕眩该单位%stun_duration%秒,每人最多发生一次。\n若该少女在持续时间内死亡时,所有攻击生效的队友（包括自己）得到额外%bonus_gold%金钱。\敏捷加成：%ability_multi%"
+		"DOTA_Tooltip_ability_ability_thdotsr_Nazrin04_Description" 	"指定一个目标敌方少女，打上金钱的记号。若己方少女对该少女攻击，额外附加%basedamage%法术伤害并晕眩该单位%stun_duration%秒,每人最多发生一次。\n若该少女在持续时间内死亡时,所有攻击生效的队友（包括自己）得到额外%bonus_gold%金钱。敏捷加成：%ability_multi%"
 		"DOTA_Tooltip_ability_ability_thdotsr_Nazrin04_duration"	 	"持续时间："
 		"DOTA_Tooltip_ability_ability_thdotsr_Nazrin04_AbilityCastRange"	"施法距离："
 		"DOTA_Tooltip_modifier_nazrin04_track"	 		 				"「Gold Rush」"

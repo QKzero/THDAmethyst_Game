@@ -59,6 +59,7 @@ DOTA_BAN_LIST={
 	"npc_dota_hero_ember_spirit",--灰烬之灵
 	"npc_dota_hero_batrider",--蝙蝠骑士
 	"npc_dota_hero_undying",--不朽尸王
+	"npc_dota_hero_largo",--朗戈
 }--dota乱入名单，请在activelist中同步修改
 THD2_BAN_LIST ={
 	
