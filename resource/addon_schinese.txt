@@ -4425,7 +4425,7 @@
 		// --------------------
 		"npc_dota_hero_dragon_knight"	"红美铃"
 		"DOTA_Tooltip_ability_ability_thdots_meirinex"	"气符「猛虎内劲」"
-		"DOTA_Tooltip_ability_ability_thdots_meirinex_Description"	"被动：红美玲每5s会增加一道真气内劲。\n主动：在接下来的10秒内，使普通攻击命中时消耗1层内劲，造成额外伤害和短暂眩晕。\n额外伤害：30%美铃攻击力\n眩晕时间：0.1"
+		"DOTA_Tooltip_ability_ability_thdots_meirinex_Description"	"被动：红美玲每5s会增加一道真气内劲。\n主动：在接下来的10秒内，使普通攻击命中时消耗1层内劲，造成额外伤害和短暂眩晕。\n额外伤害：%damage_pct%% 美铃攻击力\n眩晕时间：%stun_duration%秒"
 		"DOTA_Tooltip_ability_ability_thdots_meirinex_stack_count"	"内劲上限："
 	
 		"DOTA_Tooltip_ability_ability_thdots_meirin01"	"气符「地龙天龙脚」"
@@ -4465,7 +4465,7 @@
 		"DOTA_Tooltip_modifier_thdots_meirin01_buff"   "疾风加护"
 		"DOTA_Tooltip_ability_special_bonus_unique_meirin_3" 	"+{s:value} 反击伤害"
 		"DOTA_Tooltip_ability_special_bonus_unique_meirin_2" "+{s:value} 格挡伤害"
-		"DOTA_Tooltip_ability_special_bonus_unique_meirin_1" "「猛虎内劲」继承80%攻击力"
+		"DOTA_Tooltip_ability_special_bonus_unique_meirin_1" "「猛虎内劲」额外继承{s:bonus_damage_pct}%攻击力"
 		"DOTA_Tooltip_ability_special_bonus_unique_meirin_4" "+30% 「彩光风铃」减伤"
 
 		//2020.03.26 发电车车人

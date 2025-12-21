@@ -851,6 +851,14 @@ function modifier_ability_thdots_seiga03_debuff:OnAbilityExecuted(keys)
 	local target = self:GetParent()
 
 	if keys.unit ~= target or keys.ability:IsItem() or IsNotLunchbox_ability(keys.ability) then return end
+
+	-- 持续时间内只触发一次
+	if self.stunned == nil then
+		self.stunned = true
+	else
+		return
+	end
+
 	--特效音效
 	local particle = "particles/units/heroes/hero_grimstroke/grimstroke_sfm_ink_swell_reveal.vpcf"
 	local particle_fx = ParticleManager:CreateParticle(particle, PATTACH_CUSTOMORIGIN, self.parent)

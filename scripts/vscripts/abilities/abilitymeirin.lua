@@ -15,6 +15,10 @@ function OnMeirinexDamage(keys)
     local ability = keys.ability
     local modifier = caster:FindModifierByName("modifier_thdots_meirinex_attack")
     local stackcount = keys.stackCount
+
+    local damagePct = ability:GetSpecialValueFor("damage_pct")
+    local damagePctBonus = ability:GetSpecialValueFor("damage_pct_bonus")
+
     if target:GetTeam() ~= caster:GetTeam() then
         if caster:IsRealHero() and target:IsBuilding() == false and modifier:GetStackCount() > 0 and
             caster:HasModifier("modifier_meirinex") then
@@ -30,7 +34,7 @@ function OnMeirinexDamage(keys)
             -- 	end
             -- end 
             local Damage = caster:GetAverageTrueAttackDamage(caster) *
-                               (0.3 + FindTelentValue(caster, "special_bonus_unique_meirin_1"))
+                               damagePct * 0.01
             local damage_table = {
                 ability = keys.ability,
                 victim = target,

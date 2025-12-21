@@ -88,6 +88,7 @@
 				// "item_ninja_gear"					"1"		// 忍者用具
 				// "item_jidi_pollen_bag"				"1"		// 基迪花粉袋
 				"item_psychic_headband"				"1"		// 通灵头带
+				"item_unrelenting_eye"				"1"		// 不屈之眼
 			}
 
 			"enhancements"
@@ -157,7 +158,6 @@
 				// "item_demonicon"					"1"		// 冥灵书
 				"item_minotaur_horn"				"1"		// 恶牛角
 				"item_spider_legs"					"1"		// 网虫腿
-				"item_unrelenting_eye"				"1"		// 不屈之眼
 				// "item_pirate_hat"					"1"		// 海盗帽
 				// "item_wind_waker"					"1"		// 风之杖
 				// "item_refresher"					"1"		// 刷新球

@@ -595,6 +595,12 @@
 		"AbilityValues"
 		{
 			"stack_count"	"7"
+			"damage_pct"
+			{
+				"value"	"30"
+				"special_bonus_unique_meirin_1" "+70"
+			}
+			"stun_duration"	"0.1"
 		}
 	}
 	"special_bonus_unique_meirin_1"
