@@ -480,7 +480,7 @@ function modifier_ability_thdots_keine03_passive:OnAttackStart(keys)
 	if keys.attacker == self:GetParent() then
 		self.change = self:GetAbility():GetSpecialValueFor("change") + FindTelentValue(self:GetParent(),"special_bonus_unique_keine_1")
 		print(self.change)
-		if RollPercentage(self.change) and not keys.attacker:HasModifier("modifier_ability_thdots_keine03_disable") then
+		if RollPercentage(self.change) then
 			self.success = false
 			local speed = 170
 			self.success = true
@@ -496,7 +496,7 @@ function modifier_ability_thdots_keine03_passive:OnAttackLanded(keys)
 	if not (keys.attacker == self:GetParent()) then return end
 	if target:IsBuilding() or target:IsOther() or keys.target:GetTeamNumber() == keys.attacker:GetTeamNumber() then
 		return end
-	if self.success and not caster:HasModifier("modifier_ability_thdots_keine03_disable") then
+	if self.success then
 		self.success = false
 		self.damage = self:GetAbility():GetSpecialValueFor("damage")
 		self.attack_bonus = self:GetAbility():GetSpecialValueFor("attack_bonus")
@@ -540,13 +540,10 @@ function ability_thdots_keine03:OnSpellStart()
 	local damage = self:GetSpecialValueFor("damage")
 	local attack_bonus = self:GetSpecialValueFor("attack_bonus")
 	local act_stun = self:GetSpecialValueFor("act_stun")
-	local disable_time = self:GetSpecialValueFor("disable_time")
 	local start_point = caster:GetOrigin()
 	local forward = (target:GetOrigin() - caster:GetOrigin()):Normalized()
 	local point = target:GetOrigin() - forward * 100
 	FindClearSpaceForUnit(caster, point, true)
-
-	caster:AddNewModifier(caster, self, "modifier_ability_thdots_keine03_disable",{duration = disable_time})
 
 	--特效音效
 	if caster:HasModifier("modifier_ability_thdots_keine04") then
@@ -594,13 +591,6 @@ function ability_thdots_keine03:OnSpellStart()
 	end
 
 end
-
-modifier_ability_thdots_keine03_disable = {}
-LinkLuaModifier("modifier_ability_thdots_keine03_disable","scripts/vscripts/abilities/abilitykeine.lua",LUA_MODIFIER_MOTION_NONE)
-function modifier_ability_thdots_keine03_disable:IsHidden() 		return true end
-function modifier_ability_thdots_keine03_disable:IsPurgable()		return false end
-function modifier_ability_thdots_keine03_disable:RemoveOnDeath() 	return false end
-function modifier_ability_thdots_keine03_disable:IsDebuff()		return false end
 
 --------------------------------------------------------
 --满月「未来的创造狂月」

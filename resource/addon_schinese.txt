@@ -3729,7 +3729,7 @@
 		"DOTA_Tooltip_modifier_ability_thdots_keine02_debuff_Description"	"被沉默与缴械"
 		"DOTA_Tooltip_ability_ability_thdots_keine02_cast_range"	"施法距离："
 		"DOTA_Tooltip_ability_ability_thdots_keine03"	"国符「隐藏的神器头槌」"
-		"DOTA_Tooltip_ability_ability_thdots_keine03_Description"	"<h1>被动：神器</h1>在攻击时有几率变成头槌攻击，头槌攻击时会造成额外的物理伤害并眩晕。\n<h1>主动：头槌</h1>即时移动到目标身边并发动效果，若该次伤害击杀少女，则此技能冷却重置。\n主动释放后%disable_time%秒内不会触发被动效果。"
+		"DOTA_Tooltip_ability_ability_thdots_keine03_Description"	"<h1>被动：神器</h1>在攻击时有几率变成头槌攻击，头槌攻击时会造成额外的物理伤害并眩晕。\n<h1>主动：头槌</h1>即时移动到目标身边并发动效果，若该次伤害击杀少女，则此技能冷却重置。"
 		"DOTA_Tooltip_modifier_ability_thdots_keine03_passive"	"「隐藏的神器头槌」"
 		"DOTA_Tooltip_modifier_ability_thdots_keine03_passive_Description"	"攻击时有几率变成头槌攻击，造成额外的物理伤害并眩晕。"
 		"DOTA_Tooltip_ability_ability_thdots_keine03_change"	"%头槌几率："

@@ -28,7 +28,6 @@ function passive_tensi02_attack:OnAttackLanded(keys)
 	local caster = self:GetCaster()
 	local target = keys.target
 	if caster ~= keys.attacker then return end
-	if not caster:IsRealHero() then return end
 
 	local ability = self:GetAbility()
 	local telent_chance = ability:GetSpecialValueFor("telent_chance")

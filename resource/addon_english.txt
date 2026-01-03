@@ -4878,7 +4878,7 @@
 		"DOTA_Tooltip_modifier_ability_thdots_keine02_debuff_Description"	"Silenced and disarmed"
 		"DOTA_Tooltip_ability_ability_thdots_keine02_cast_range"	"Cast Range: "
 		"DOTA_Tooltip_ability_ability_thdots_keine03"	"Land Sign「The Hidden Sacred Treasures - Head Hammer」"
-		"DOTA_Tooltip_ability_ability_thdots_keine03_Description"	"<h1>Passive: Sacred Treasures</h1>Grants a chance to turn the normal attack to head hammer, dealing additional physical damage and stunning the target.\n<h1>Active: Head Hammer</h1>Teleports beside the target enemy and triggers the passive. Refreshes if this damage leads to a kill on an enemy girl.\nThe passive won't be trigger in %disable_time%s after the active.\n<font color=\"#F00000\">Hakutaku Form: Decreases the attack animation of head hammer."
+		"DOTA_Tooltip_ability_ability_thdots_keine03_Description"	"<h1>Passive: Sacred Treasures</h1>Grants a chance to turn the normal attack to head hammer, dealing additional physical damage and stunning the target.\n<h1>Active: Head Hammer</h1>Teleports beside the target enemy and triggers the passive. Refreshes if this damage leads to a kill on an enemy girl.\n<font color=\"#F00000\">Hakutaku Form: Decreases the attack animation of head hammer."
 		"DOTA_Tooltip_modifier_ability_thdots_keine03_passive"	"「The Hidden Sacred Treasures - Head Hammer」"
 		"DOTA_Tooltip_modifier_ability_thdots_keine03_passive_Description"	"Grants a chance to turn the normal attack to head hammer, dealing additional damage and stunning the target."
 		"DOTA_Tooltip_ability_ability_thdots_keine03_change"	"%Chance: "

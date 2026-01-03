@@ -144,7 +144,6 @@
 			"attack_bonus"	"1.5"
 			"pass_stun"	"0.6 0.7 0.8 0.9"
 			"act_stun"	"0.9 1.0 1.1 1.2"
-			"disable_time"	"1"
 		}
 	}
 
