@@ -44,12 +44,16 @@
 			damage_flags 		= 1, 						--伤害标记
 		},
 	}
+
+	local function errToString(err)
+		return tostring(err)
+	end
 	
 	function UnitDamageTargetTemplate(keys)
 		local targets	= keys.target_entities	--技能施放目标(数组)
 
 		if not targets then
-			print(debug.traceback '无伤害目标！')
+			print(errToString '无伤害目标！')
 		end
 		
 		--添加默认值
@@ -60,7 +64,7 @@
 		damage.attacker				= EntIndexToHScript(keys.caster_entindex)						--伤害来源(施法者)
 		
 		if not attacker then
-			print(debug.traceback '找不到施法者！')
+			print(errToString '找不到施法者！')
 		end
 		
 		--获取伤害类型

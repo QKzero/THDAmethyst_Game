@@ -52,12 +52,18 @@ function EventDriver:CancelListener(event_name, listener_id)
 	end
 end
 
+local function errToString(err)
+    return tostring(err)
+end
 
 function EventDriver:ReportCreatedListener(callback, id, event_name)
-	if not callback then print("[Event Driver] No callback in creating listener!\n", debug.traceback()) return end
-	local callback_info = debug.getinfo(callback)
-	local traceback_line = callback_info.short_src .. ":" .. callback_info.linedefined
-	print("[Event Driver] Created listener of", event_name, "with id", id, "from:\n\t", traceback_line)
+	if not callback then print("[Event Driver] No callback in creating listener!\n", callback) return end
+	print("[Event Driver] Created listener of", event_name, "with id", id)
+
+	-- Valve 在 7.39c 中移除debug库，无法使用 debug.getinfo
+	-- local callback_info = debug.getinfo(callback)
+	-- local traceback_line = callback_info.short_src .. ":" .. callback_info.linedefined
+	-- print("[Event Driver] Created listener of", event_name, "with id", id, "from:\n\t", traceback_line)
 end
 
 

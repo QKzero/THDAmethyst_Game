@@ -30,15 +30,18 @@ function ErrorTracking.Collect(stack)
 	return stack
 end
 
+local function errToString(err)
+    return tostring(err)
+end
 
 local function print_error(...)
-	local stack = debug.traceback(...)
+	local stack = errHandler(...)
 	GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("emitError"), function() error(stack, 0) end, 0)
 	return stack
 end
 
 
-local error_handler = IsInToolsMode() and print_error or debug.traceback
+local error_handler = IsInToolsMode() and print_error or errToString
 function ErrorTracking.Try(callback, ...)
 	return xpcall(callback, error_handler, ...)
 end

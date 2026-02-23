@@ -16,3 +16,6 @@ vgui
 *.cfg
 tools_asset_info.bin
 tools_thumbnail_cache.bin
+
+# ai coding
+AGENTS.md

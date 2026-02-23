@@ -91,6 +91,10 @@ function Timers:start()
 	ent:SetThink("Think", self, "timers", TIMERS_THINK)
 end
 
+local function errToString(err)
+	return tostring(err)
+end
+
 function Timers:Think()
 	--if GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
 	--return
@@ -132,13 +136,13 @@ function Timers:Think()
 				status, nextCall = xpcall(function()
 					return v.callback(v.context, v)
 				end, function(msg)
-					return msg .. '\n' .. debug.traceback() .. '\n'
+					return msg .. '\n' ..errToString(msg) .. '\n'
 				end)
 			else
 				status, nextCall = xpcall(function()
 					return v.callback(v)
 				end, function(msg)
-					return msg .. '\n' .. debug.traceback() .. '\n'
+					return msg .. '\n' ..errToString(msg) .. '\n'
 				end)
 			end
 
