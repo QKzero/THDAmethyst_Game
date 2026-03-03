@@ -226,7 +226,7 @@ function A2End(k)
 	-- local back = FindTelentValue(caster,"special_bonus_unique_kagerou_2")
 
 	--天赋 技能到达终点后 立即返回施法者身边
-	-- TODO[QKzero20251119] 7.39e版本更新后无法获取起始位置（变量p），除非v社自己修复或者重写，无法修复
+	-- 7.39e版本更新后无法获取起始位置（变量p），无法修复，已改为lua实现
 	if true then return end
 
 	--150码内能找到施法者 就说明返回成功
@@ -756,14 +756,6 @@ function modifier_kagerou_moving:IsPurgable()		return false end
 function modifier_kagerou_moving:RemoveOnDeath() 	return false end
 function modifier_kagerou_moving:IsDebuff()		return false end
 
-modifier_kagerou_add_damage = class({})
-LinkLuaModifier("modifier_kagerou_add_damage", "scripts/vscripts/abilities/abilitykagerou.lua", LUA_MODIFIER_MOTION_NONE) --二技能被动攻击力buff
-function modifier_kagerou_add_damage:IsHidden() 		return false end
-function modifier_kagerou_add_damage:IsPurgable()		return false end
-function modifier_kagerou_add_damage:RemoveOnDeath() 	return false end
-function modifier_kagerou_add_damage:IsDebuff()		return false end
-
-
 --相位移动，防止与其他单位重叠卡死 （因为相位移动效果在释放的时候会解除卡位）
 function modifier_kagerou_moving:CheckState()
 	return {
@@ -796,10 +788,163 @@ function modifier_kagerou_moving:OnIntervalThink()
 	end
 end
 
+--################################  modifier end
+
+ability_thdots_kagerou02 = class({})
+
+function ability_thdots_kagerou02:GetIntrinsicModifierName()
+	return "modifier_kagerou_add_damage"
+end
+
+function ability_thdots_kagerou02:OnSpellStart()
+	if not IsServer() then return end
+	local cs = self:GetCaster()
+	local ab = self
+	local len = ab:GetSpecialValueFor("len")
+	local len_up = ab:GetSpecialValueFor("len_up")
+	local width = ab:GetSpecialValueFor("width")
+	local width_up = ab:GetSpecialValueFor("width_up")
+	local speed = ab:GetSpecialValueFor("speed");
+	--天生强化 长度宽度
+	--使用变量的原因：这个buff的触发是在伤害的时候，由于是弹道技能，释放技能不能马上触发buff，但是独孤强化效果必须马上移除（如果不马上移除，也会强化其他技能）
+	cs.lonely2 = false
+	if cs:HasModifier("modifier_kagerou_lonely2") then
+		cs:RemoveModifierByName("modifier_kagerou_lonely2")
+		cs.lonely2 = true
+		len = len_up; width = width_up;
+	end
+
+	local direction = cs:GetForwardVector()
+	local selfOrigin = cs:GetAbsOrigin()
+
+	function launch (direction) -- 释放在不同的角度
+		launch0({
+			cs = cs,ab = ab,len = len,origin = selfOrigin,width = width,speed = speed,direction = direction
+		})
+	end
+
+	launch(direction)
+	EmitSoundOn("Hero_VengefulSpirit.WaveOfTerror", cs)
+
+	--万宝槌额外发射
+	if cs:HasModifier("modifier_item_wanbaochui") then
+		launch(getAngleVector(direction,15))
+		launch(getAngleVector(direction,-15))
+	end
+end
+
+function ability_thdots_kagerou02:OnProjectileHit(target,VLocaton)
+	if not IsServer() then return end
+	-- print("ability_thdots_kagerou02:OnProjectileHit")
+	-- print("target is ",target)
+	-- print("VLocaton is ",VLocaton)
+	local p = VLocaton
+	local cs = self:GetCaster()
+	local tg = target
+	local ab = self
+	local selfOrigin = cs:GetOrigin()
+	if tg == nil then 
+		--月返
+		if FindTelentValue(cs,"special_bonus_unique_kagerou_2") == 0 or cs:IsPositionInRange(p,150) then return end
+		-- if cs:IsPositionInRange(p,150) then return end
+		local width = ab:GetSpecialValueFor("width")
+		local width_up = ab:GetSpecialValueFor("width_up")
+		local speed = 3200;
+		if cs.lonely2 then --距离已经固定 如果是天生化状态 提升宽度
+			width = width_up;
+		end
+
+		launch0({
+			cs = cs,ab = ab,len = getDistance(p,selfOrigin),origin = p,width = width,speed = speed
+			,direction = getAngleVector(Vector(0,0,0),getAngleByPos(p,selfOrigin))
+		})
+		return 
+	end
+	local damage = ab:GetSpecialValueFor("damage_const")
+	local ratio = ab:GetSpecialValueFor("damage_ratio")
+	local len = ab:GetSpecialValueFor("len")
+	local len_up = ab:GetSpecialValueFor("len_up")
+	local width = ab:GetSpecialValueFor("width")
+	local width_up = ab:GetSpecialValueFor("width_up")
+	local reduceMin = ab:GetSpecialValueFor("reduce_min") * 0.01 --最小受到伤害比例
+	local reduceVal = 1 - ab:GetSpecialValueFor("reduce") * 0.01 --每次递减伤害比例
+	local speed = ab:GetSpecialValueFor("speed");
+
+	--天生强化 减速效果
+	if cs.lonely2 then
+		len = len_up; width = width_up
+		tg:AddNewModifier(cs,ab,"modifier_ability_thdots_kagerou02_slow",{duration = ab:GetSpecialValueFor("slow_time")})
+	end
+
+	--多次受伤 伤害减免层数计算
+	local reduce = tg:FindModifierByName("modifier_ability_thdots_kagerou02_reduce")
+	if reduce == nil then
+		tg:AddNewModifier(cs,ab,"modifier_ability_thdots_kagerou02_reduce",{duration = ab:GetSpecialValueFor("reduce_time")})--首次受伤 添加buff
+		reduce = tg:FindModifierByName("modifier_ability_thdots_kagerou02_reduce")
+	end
+
+	--计算承受伤害比例
+	local reduceRatio = math.pow(reduceVal,reduce:GetStackCount());
+
+
+	--最小伤害
+	if reduceRatio < reduceMin then reduceRatio = reduceMin end
+	-- print("----------------")
+	-- print("reduceMin is :",reduceMin)
+	-- print("reduceVal is :",reduceVal)
+	-- print("reduce:GetStackCount() is :",reduce:GetStackCount())
+
+	damage = reduceRatio * (damage + cs:GetAverageTrueAttackDamage(cs) * ratio)
+	-- print("reduceRatio is :",reduceRatio)
+	-- print("cs:GetAverageTrueAttackDamage(cs) is :",cs:GetAverageTrueAttackDamage(cs))
+	-- print("damage is ",damage)
+	-- print("ratio is ",ratio)
+
+	local damage_table = {
+		victim = tg, attacker = cs, damage = damage, damage_type = getDamageType(), damage_flags = 0
+	}
+
+	UnitDamageTarget(damage_table)
+
+	--增加层数 刷新时间
+	reduce:IncrementStackCount(); reduce:SetDuration(1,true)
+
+	--天赋 造成伤害后有概率随即角度再次释放
+	if RandomInt(1,100) <= FindTelentValue(cs,"special_bonus_unique_kagerou_4") then
+		if tg:GetUnitName() == "npc_ability_parsee03_dummy" then return end
+		launch0({
+			cs = cs,ab = ab,len = len,origin = tg:GetOrigin(),width = width,speed = speed
+			,direction = angleToVector(RandomInt(0,360))
+		})
+	end
+end
+
+LinkLuaModifier("modifier_ability_thdots_kagerou02_slow","abilities/abilitykagerou.lua",LUA_MODIFIER_MOTION_NONE)
+modifier_ability_thdots_kagerou02_slow = class({})
+function modifier_ability_thdots_kagerou02_slow:IsDebuff() return true end
+function modifier_ability_thdots_kagerou02_slow:IsPurgable() return true end
+function modifier_ability_thdots_kagerou02_slow:RemoveOnDeath() return true end
+function modifier_ability_thdots_kagerou02_slow:GetEffectName() return "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror_slow.vpcf" end
+function modifier_ability_thdots_kagerou02_slow:GetEffectAttachType() return PATTACH_ABSORIGIN_FOLLOW end
+function modifier_ability_thdots_kagerou02_slow:DeclareFunctions() return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE} end
+function modifier_ability_thdots_kagerou02_slow:GetModifierMoveSpeedBonus_Percentage() return self:GetAbility():GetSpecialValueFor("slow_val") end
+
+LinkLuaModifier("modifier_ability_thdots_kagerou02_reduce","abilities/abilitykagerou.lua",LUA_MODIFIER_MOTION_NONE)
+modifier_ability_thdots_kagerou02_reduce = class({})
+function modifier_ability_thdots_kagerou02_reduce:IsHidden() return false end
+function modifier_ability_thdots_kagerou02_reduce:RemoveOnDeath() return true end
+
+
+modifier_kagerou_add_damage = class({})
+LinkLuaModifier("modifier_kagerou_add_damage", "scripts/vscripts/abilities/abilitykagerou.lua", LUA_MODIFIER_MOTION_NONE) --二技能被动攻击力buff
+function modifier_kagerou_add_damage:IsHidden() 		return false end
+function modifier_kagerou_add_damage:IsPurgable()		return false end
+function modifier_kagerou_add_damage:RemoveOnDeath() 	return false end
+function modifier_kagerou_add_damage:IsDebuff()		return false end
+
 function modifier_kagerou_add_damage:DeclareFunctions()
 	return {
-	--	MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,--攻击力
-		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,--敏捷
+		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,--攻击力
 	}
 end
 
@@ -813,14 +958,3 @@ function modifier_kagerou_add_damage:GetModifierPreAttack_BonusDamage()
 
 	return damage
 end
-function modifier_kagerou_add_damage:GetModifierBonusStats_Agility()
-	local damage = self:GetAbility():GetSpecialValueFor("add_damage")
-
-	if self:GetCaster():HasModifier("modifier_kagerou_lonely") then
-		damage = damage * 2
-	end
-
-	return damage
-end
-
---################################  modifier end

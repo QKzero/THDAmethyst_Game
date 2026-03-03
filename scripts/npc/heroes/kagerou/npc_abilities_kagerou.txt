@@ -185,8 +185,9 @@
 
 	"ability_thdots_kagerou02"
 	{
-		"BaseClass"	"ability_datadriven"
+		"BaseClass"	"ability_lua"
 		"AbilityTextureName"	"custom/ability_thdots_kagerou02"
+		"ScriptFile"			"scripts/vscripts/abilities/abilitykagerou.lua"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -202,79 +203,7 @@
 		"AbilityCastRange"	"800"
 		"precache"
 		{
-			"particle"	"particles/econ/items/vengeful/vengeful_weapon_talon/vengeful_wave_of_terror_weapon_talon.vpcf"
 			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_vengefulspirit.vsndevts"
-		}
-		"OnSpellStart"
-		{
-			"RunScript"
-			{
-				"Target"	"POINT"
-				"ScriptFile"	"scripts/vscripts/abilities/abilitykagerou.lua"
-				"EffectName"	"particles/basic_projectile/basic_projectile_explosion_flash.vpcf_c"
-				"Function"	"A2Start"
-			}
-		}
-		"OnProjectileHitUnit"
-		{
-			"RunScript"
-			{
-				"Target"	"TARGET"
-				"ScriptFile"	"scripts/vscripts/abilities/abilitykagerou.lua"
-				"Function"	"A2Hit"
-			}
-			"DeleteOnHit"	"0"
-		}
-		"OnUpgrade"
-		{
-			"RunScript"
-			{
-				"Target"	"CASTER"
-				"ScriptFile"	"scripts/vscripts/abilities/abilitykagerou.lua"
-				"Function"	"A2Passive"
-			}
-		}
-		"OnProjectileFinish"
-		{
-			"RunScript"
-			{
-				"Target"	"POINT"
-				"ScriptFile"	"scripts/vscripts/abilities/abilitykagerou.lua"
-				"Function"	"A2End"
-			}
-		}
-		"Modifiers"
-		{
-			"modifier_ability_thdots_kagerou02_slow"
-			{
-				"States"	{}
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"-40"
-				}
-				"IsBuff"	"0"
-				"ThinkInterval"	"1"
-				"IsDebuff"	"1"
-				"Duration"	"%slow_time"
-				"IsPurgable"	"1"
-			}
-			"modifier_ability_thdots_kagerou02_reduce"
-			{
-				"IsBuff"	"1"
-				"Duration"	"1"
-			}
-			// "modifier_kagerou_add_damage"
-			// {
-			// 	"Passive"	"1"
-			// 	"IsBuff"	"1"
-			// 	"IsHidden"	"0"
-			// 	"IsPurgable"	"0"
-			// 	"RemoveOnDeath"	"0"
-			// 	"Properties"
-			// 	{
-			// 		"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%add_damage"
-			// 	}
-			// }
 		}
 		"AbilityValues"
 		{

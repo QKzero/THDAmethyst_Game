@@ -146,6 +146,7 @@ function OnMinamitsu02SpellStart(keys)
     local caster = EntIndexToHScript(keys.caster_entindex)
     local vecCaster = caster:GetOrigin()
     local targetPoint = keys.ability:GetCursorPosition()
+	keys.targetPoint = targetPoint
     local distance = GetDistanceBetweenTwoVec2D(vecCaster, targetPoint)
     local speed = distance * 0.03
     local rad = GetRadBetweenTwoVec2D(vecCaster, targetPoint)
@@ -202,7 +203,7 @@ end
 function OnMinamitsu02Vortex(keys)
     local caster = EntIndexToHScript(keys.caster_entindex)
     local vecCaster = caster:GetOrigin()
-    local targetPoint = keys.ability:GetCursorPosition()
+    local targetPoint = keys.targetPoint
     local distance = GetDistanceBetweenTwoVec2D(vecCaster, targetPoint)
     local rad = GetRadBetweenTwoVec2D(vecCaster, targetPoint)
     local timeCount = 0
@@ -500,7 +501,13 @@ function OnMinamitsu04ShipDownload(caster)
     caster.IsDriving = false
     caster:EmitSound("Voice_Thdots_Minamitsu.AbilityMinamitsu042")
     FindClearSpaceForUnit(caster, caster:GetOrigin(), false)
-    caster:MoveToPositionAggressive(caster:GetOrigin())
+    -- caster:MoveToPositionAggressive(caster:GetOrigin())
+	ExecuteOrderFromTable({ 
+        UnitIndex = caster:entindex(), 
+        OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE, 
+        Position = caster:GetOrigin(), 
+        Queue = true, 
+    })
     caster:RemoveNoDraw()
     caster:RemoveModifierByName("modifier_minamitsu04_Invincible")
     -- print("debug")
