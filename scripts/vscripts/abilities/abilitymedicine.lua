@@ -567,8 +567,9 @@ function OnMedicine02SpellStart(keys)
     local effectIndex = ParticleManager:CreateParticle("particles/heroes/medicine/medicine02.vpcf",
         PATTACH_CUSTOMORIGIN, nil)
     local Damage = keys.Damage + FindTelentValue(caster, "special_bonus_unique_medicine_3")
-    ParticleManager:SetParticleControl(effectIndex, 0, keys.ability:GetCursorPosition())
-    local unit = CreateUnitByName("npc_dota_unit_medicine02", keys.ability:GetCursorPosition(), false, caster, caster,
+    local targetPosition = keys.ability:GetCursorPosition()
+    ParticleManager:SetParticleControl(effectIndex, 0, targetPosition)
+    local unit = CreateUnitByName("npc_dota_unit_medicine02", targetPosition, false, caster, caster,
         caster:GetTeam())
     SetTHD2BlockingNeutrals(unit, false)
     unit:SetMaxHealth(keys.ability:GetSpecialValueFor("doll_hp"))
@@ -587,7 +588,7 @@ function OnMedicine02SpellStart(keys)
         if time < keys.Duration then
             time = time + 0.5
             local targets = FindUnitsInRadius(caster:GetTeam(), -- caster team
-            keys.ability:GetCursorPosition(), -- find position
+            targetPosition, -- find position
             nil, -- find entity
             keys.Radius, -- find radius
             DOTA_UNIT_TARGET_TEAM_ENEMY, keys.ability:GetAbilityTargetType(), 0, FIND_CLOSEST, false)

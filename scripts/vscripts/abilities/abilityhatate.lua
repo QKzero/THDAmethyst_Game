@@ -173,7 +173,10 @@ end
 
 function Hatate02OnSpellStart(keys)
     local caster = keys.caster
-    local targetPoint = keys.ability:GetCursorPosition()
+    local targetPoint = keys.target_points[1]
+    if targetPoint == nil then
+        targetPoint = keys.ability:GetCursorPosition()
+    end
     -- ɵ����Ч��������,�����Ŵ��ܷ�Χ�ķ���
     --[[
 	local radius = keys.radius
