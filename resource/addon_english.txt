@@ -5342,9 +5342,7 @@
 
 		// MikoEX
         "DOTA_Tooltip_ability_ability_thdots_mikoEx"								"「The Ability to Listen to Ten People at the Same Time」"
-        "DOTA_Tooltip_ability_ability_thdots_mikoEx_lore"							"If you shout 'Help meee, Mikoemooon!', she might hear you with her sharp ears."
-        "DOTA_Tooltip_ability_ability_thdots_mikoEx_Description"					"Miko can hear her enemies' breathing. Grants a small amount of vision (but not True Sight) around nearby visible enemies."
-		"DOTA_Tooltip_ability_ability_thdots_mikoEx_radius"							"RADIUS: "
+        "DOTA_Tooltip_ability_ability_thdots_mikoEx_Description"					"Miko can gain more power after level have been reached."
 
 		// MikoWanbao
         "DOTA_Tooltip_ability_ability_thdots_mikoWanbao"							"Divine Light「Honor the Avoidance of Defiance」"
@@ -5358,7 +5356,7 @@
         "DOTA_Tooltip_ability_special_bonus_unique_miko03"							"+{s:value} Hearing Radius"
         "DOTA_Tooltip_ability_special_bonus_unique_miko04"							"「Heishi Shorinken」Stuns For 0.5s On Hit"
         "DOTA_Tooltip_ability_special_bonus_unique_miko04_Description"				"The stun caused by this talent stacks instead of refreshing. Only follow-up attacks cause the stun."
-        "DOTA_Tooltip_ability_special_bonus_unique_miko05"							"-{s:value}s「Taoist of the...」Cooldown"
+        "DOTA_Tooltip_ability_special_bonus_unique_miko05"							"-{s:bonus_AbilityCooldown}s「Taoist of the...」Cooldown"
         "DOTA_Tooltip_ability_special_bonus_unique_miko06"							"「Shikaisen」"
         "DOTA_Tooltip_ability_special_bonus_unique_miko06_Description"				"Enables Hermit Form effects."
         "DOTA_Tooltip_ability_special_bonus_unique_miko07"							"+{s:value}「Taoist of the...」Damage and Radius"

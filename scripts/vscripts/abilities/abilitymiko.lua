@@ -1,69 +1,68 @@
 ability_thdots_mikoEx = {}
 
 function ability_thdots_mikoEx:GetIntrinsicModifierName()
-	return "modifier_ability_mikoEx_vision"
+	return "modifier_miko_telent"
 end
 
-modifier_ability_mikoEx_vision = {}
-LinkLuaModifier("modifier_ability_mikoEx_vision", "scripts/vscripts/abilities/abilitymiko.lua", LUA_MODIFIER_MOTION_NONE)
-function modifier_ability_mikoEx_vision:IsHidden() return true end
-function modifier_ability_mikoEx_vision:IsDebuff() return false end
-function modifier_ability_mikoEx_vision:IsPurgable() return false end
-function modifier_ability_mikoEx_vision:RemoveOnDeath() return false end
+-- modifier_ability_mikoEx_vision = {}
+-- LinkLuaModifier("modifier_ability_mikoEx_vision", "scripts/vscripts/abilities/abilitymiko.lua", LUA_MODIFIER_MOTION_NONE)
+-- function modifier_ability_mikoEx_vision:IsHidden() return true end
+-- function modifier_ability_mikoEx_vision:IsDebuff() return false end
+-- function modifier_ability_mikoEx_vision:IsPurgable() return false end
+-- function modifier_ability_mikoEx_vision:RemoveOnDeath() return false end
 
-function modifier_ability_mikoEx_vision:OnCreated()
-	if not IsServer() then return end
-	self:StartIntervalThink(0.3)
-	self:OnIntervalThink()
-	self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_miko_telent",{})
-end
+-- function modifier_ability_mikoEx_vision:OnCreated()
+-- 	if not IsServer() then return end
+-- 	self:StartIntervalThink(0.3)
+-- 	self:OnIntervalThink()
+-- end
 
-function modifier_ability_mikoEx_vision:OnIntervalThink()        -- 每0.3秒添加一次0.31秒的高空视野
-	if not IsServer() then return end
-	if not self:GetCaster():IsAlive() then return end
-	local caster = self:GetCaster()
-	local radius = self:GetAbility():GetSpecialValueFor("radius") + FindTelentValue(self:GetCaster(),"special_bonus_unique_miko03")
-	local heros = FindUnitsInRadius(
-				   caster:GetTeam(),						--caster team
-				   caster:GetAbsOrigin(),							--find position
-				   nil,										--find entity
-				   radius,						--find radius
-				   DOTA_UNIT_TARGET_TEAM_ENEMY,
-				   DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO,
-				   0, 0,
-				   false
-			    )
-	for hh,sb in pairs(heros) do
-		if not sb:IsInvisible() then
-			AddFOWViewer( caster:GetTeam(), sb:GetAbsOrigin(), 100, 0.31, false)
-		end
-	end
-	if not (self:GetCaster():FindAbilityByName("ability_thdots_miko04"):GetLevel() == 3) then return end
-	self.castrange = self:GetCaster():FindAbilityByName("ability_thdots_miko04"):GetSpecialValueFor("max_level_cast_range")
-end
+-- function modifier_ability_mikoEx_vision:OnIntervalThink()        -- 每0.3秒添加一次0.31秒的高空视野
+-- 	if not IsServer() then return end
+-- 	if not self:GetCaster():IsAlive() then return end
+-- 	local caster = self:GetCaster()
+-- 	local radius = self:GetAbility():GetSpecialValueFor("radius") + FindTelentValue(self:GetCaster(),"special_bonus_unique_miko03")
+-- 	local heros = FindUnitsInRadius(
+-- 				   caster:GetTeam(),						--caster team
+-- 				   caster:GetAbsOrigin(),							--find position
+-- 				   nil,										--find entity
+-- 				   radius,						--find radius
+-- 				   DOTA_UNIT_TARGET_TEAM_ENEMY,
+-- 				   DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO,
+-- 				   0, 0,
+-- 				   false
+-- 			    )
+-- 	for hh,sb in pairs(heros) do
+-- 		if not sb:IsInvisible() then
+-- 			AddFOWViewer( caster:GetTeam(), sb:GetAbsOrigin(), 100, 0.31, false)
+-- 		end
+-- 	end
+-- 	if not (self:GetCaster():FindAbilityByName("ability_thdots_miko04"):GetLevel() == 3) then return end
+-- 	self.castrange = self:GetCaster():FindAbilityByName("ability_thdots_miko04"):GetSpecialValueFor("max_level_cast_range")
+-- end
 
-function modifier_ability_mikoEx_vision:DeclareFunctions()
-	return {
-		MODIFIER_PROPERTY_CAST_RANGE_BONUS,
-		MODIFIER_EVENT_ON_TAKEDAMAGE,
-	}
-end
+-- function modifier_ability_mikoEx_vision:DeclareFunctions()
+-- 	return {
+-- 		MODIFIER_PROPERTY_CAST_RANGE_BONUS,
+-- 		MODIFIER_EVENT_ON_TAKEDAMAGE,
+-- 	}
+-- end
 
-function modifier_ability_mikoEx_vision:GetModifierCastRangeBonus()
-	return self.castrange
-end
+-- function modifier_ability_mikoEx_vision:GetModifierCastRangeBonus()
+-- 	return self.castrange
+-- end
 
-function modifier_ability_mikoEx_vision:OnTakeDamage(keys)
-	if not IsServer() then return end
-	local caster = self:GetCaster()
-    if self:GetCaster():FindAbilityByName("ability_thdots_miko03"):GetLevel() ~= 4 then return end  --这一段是全能吸血 根据造成的伤害进行一个heal
-    if keys.attacker == caster then
-    	if caster:GetHealth() == 0 then return end
-		local heal_ratio = 0.01 * self:GetCaster():FindAbilityByName("ability_thdots_miko03"):GetSpecialValueFor("max_level_heal_ratio")
-        caster:Heal(keys.damage*heal_ratio,caster)
-        SendOverheadEventMessage(nil,OVERHEAD_ALERT_HEAL,caster,keys.damage*heal_ratio,nil) 
-    end
-end
+-- function modifier_ability_mikoEx_vision:OnTakeDamage(keys)
+-- 	if not IsServer() then return end
+-- 	local caster = self:GetCaster()
+--     if self:GetCaster():FindAbilityByName("ability_thdots_miko03"):GetLevel() ~= 4 then return end  --这一段是全能吸血 根据造成的伤害进行一个heal
+--     if keys.attacker == caster then
+--     	if caster:GetHealth() == 0 then return end
+-- 		local heal_ratio = 0.01 * self:GetCaster():FindAbilityByName("ability_thdots_miko03"):GetSpecialValueFor("max_level_heal_ratio")
+--         caster:Heal(keys.damage*heal_ratio,caster)
+--         SendOverheadEventMessage(nil,OVERHEAD_ALERT_HEAL,caster,keys.damage*heal_ratio,nil) 
+--     end
+-- end
 
 ----------------------------------------------------------------------------------------------------
 
@@ -414,34 +413,24 @@ end
 
 modifier_miko_telent = {}
 LinkLuaModifier("modifier_miko_telent", "scripts/vscripts/abilities/abilitymiko.lua", LUA_MODIFIER_MOTION_NONE)
-function modifier_miko_telent:IsHidden() return false end
+function modifier_miko_telent:IsHidden() return true end
 function modifier_miko_telent:IsPurgable() return false end
 function modifier_miko_telent:RemoveOnDeath() return false end
 function modifier_miko_telent:IsDebuff() return false end
 
 function modifier_miko_telent:OnCreated()
-	self:StartIntervalThink(0.03)
+	self:StartIntervalThink(0.3)
 	self:OnIntervalThink()
 end
 
 function modifier_miko_telent:OnIntervalThink() -- 天赋监听
 	if not IsServer() then return end
-	local caster = self:GetCaster()
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_miko06") ~= 0 and (self:GetCaster():HasModifier("modifier_miko_immortal") == false) then self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_miko_immortal",{}) end
-    if FindTelentValue(self:GetCaster(),"special_bonus_unique_miko01") ~= 0 and (self:GetCaster():HasModifier("modifier_miko_telent1") == false) then self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_miko_telent1",{}) end
-    if FindTelentValue(self:GetCaster(),"special_bonus_unique_miko05") ~= 0 and (self:GetCaster():HasModifier("modifier_miko_telent5") == false) then self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_miko_telent5",{}) end
-end
-
-function modifier_miko_telent:DeclareFunctions()
-	return {
-		MODIFIER_PROPERTY_EXP_RATE_BOOST,
-	}
-end
-
-function modifier_miko_telent:GetModifierPercentageExpRateBoost()
-	if not IsServer() then return end
-	if not (FindTelentValue(self:GetCaster(),"special_bonus_unique_miko02") ~= 0) then return end
-	return self:GetAbility():GetSpecialValueFor("exp")
+	local ability = self:GetAbility()
+	if ability ~= nil then
+		if ability:GetSpecialValueFor("have_immortal") ~= 0 and self:GetCaster():HasModifier("modifier_miko_immortal") == false then
+			self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_miko_immortal",{})
+		end
+	end
 end
 
 modifier_miko_immortal = {}
@@ -478,27 +467,7 @@ function modifier_miko_immortal:GetModifierAttackRangeBonus()
 	return self:GetCaster():FindAbilityByName("ability_thdots_miko03"):GetSpecialValueFor("immortal_attack_range")
 end
 
-modifier_miko_telent5 = {}
-LinkLuaModifier("modifier_miko_telent5", "scripts/vscripts/abilities/abilitymiko.lua", LUA_MODIFIER_MOTION_NONE)
-function modifier_miko_telent5:IsHidden() return true end
-function modifier_miko_telent5:IsDebuff() return false end
-function modifier_miko_telent5:IsPurgable() return false end
-function modifier_miko_telent5:RemoveOnDeath() return false end
-
-function modifier_miko_telent5:OnCreated()
-	if not IsServer() then return end
-	self:SetStackCount(FindTelentValue(self:GetCaster(),"special_bonus_unique_miko05"))
-end
-
 ability_thdots_miko01 = {}
-
-function ability_thdots_miko01:GetCooldown(level) 
-	if self:GetCaster():HasModifier("modifier_miko_telent5") then
-		return self.BaseClass.GetCooldown(self, level) - 5
-	else
-		return self.BaseClass.GetCooldown(self, level)
-	end
-end
 
 function ability_thdots_miko01:GetAOERadius()
 	return self:GetSpecialValueFor("radius")
