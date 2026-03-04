@@ -98,32 +98,25 @@
 						"Function"	"OnIkuExSpellwanbaochuiEffect"
 						"Target"	"POINT"
 			}
-			"DelayedAction"
+			"RunScript"
 			{
-				"Delay"	"1.7"
-				"Action"
+				"ScriptFile"	"scripts/vscripts/abilities/abilityIku.lua"
+				"Function"	"OnIkuExSpellStartDelay"
+				"Caster"	"CASTER"
+				"StunDuration"	"%stun_duration"
+				"Target"
 				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/abilityIku.lua"
-						"Function"	"OnIkuExSpellStart"
-						"Caster"	"CASTER"
-						"StunDuration"	"%stun_duration"
-						"Target"
-						{
-							"Center"	"POINT"
-							"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
-							"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
-							"Radius"	"%damage_radius"
-						}
-					}
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/abilityIku.lua"
-						"Function"	"OnIkuExSpellFireEffect"
-						"Target"	"POINT"
-					}
+					"Center"	"POINT"
+					"Teams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+					"Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+					"Radius"	"%damage_radius"
 				}
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityIku.lua"
+				"Function"	"OnIkuExSpellFireEffectDelay"
+				"Target"	"POINT"
 			}
 		}
 		"AbilityValues"
@@ -133,6 +126,7 @@
 				"value"			"250"
 				"affected_by_aoe_increase"	"1"
 			}
+			"delay"			"1.7"
 			"stun_duration"	"1.0"
 		}
 		"AbilityDamage"	"100"

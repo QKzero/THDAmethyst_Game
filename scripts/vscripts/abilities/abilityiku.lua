@@ -480,6 +480,13 @@ function OnIku04Attack(keys)
     end
 end
 
+function OnIkuExSpellStartDelay(keys)
+    local delay =  keys.ability:GetSpecialValueFor("delay")
+    Timer.Wait 'Ability_IkuEx_SpellStart'(delay, function()
+        OnIkuExSpellStart(keys)
+    end)
+end
+
 function OnIkuExSpellStart(keys)
     local caster = EntIndexToHScript(keys.caster_entindex)
     local targets = keys.target_entities
@@ -504,9 +511,21 @@ function OnIkuExSpellStart(keys)
     end
 end
 
+function OnIkuExSpellFireEffectDelay(keys)
+    local delay = keys.ability:GetSpecialValueFor("delay")
+
+    -- 获取技能目标点，包装进入keys中，供计时器调用
+    local targetPosition = keys.ability:GetCursorPosition()
+    keys.target_points = {targetPosition}
+
+    Timer.Wait 'Ability_IkuEx_SpellFireEffect'(delay, function()
+        OnIkuExSpellFireEffect(keys)
+    end)
+end
+
 function OnIkuExSpellFireEffect(keys)
     local caster = EntIndexToHScript(keys.caster_entindex)
-    local targetPoint = keys.ability:GetCursorPosition()
+    local targetPoint = keys.target_points[1]
     local effectIndex = ParticleManager:CreateParticle(
         "particles/econ/items/luna/luna_lucent_ti5/luna_eclipse_impact_moonfall.vpcf", PATTACH_CUSTOMORIGIN, nil)
     ParticleManager:SetParticleControl(effectIndex, 0, targetPoint)
