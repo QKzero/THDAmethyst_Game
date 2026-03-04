@@ -328,6 +328,7 @@ end
 
 function OnPatchouliFireWood(keys)
     local caster = EntIndexToHScript(keys.caster_entindex)
+    local targetPosition = keys.ability:GetCursorPosition()
     local firelevel
     local woodlevel
 
@@ -352,12 +353,12 @@ function OnPatchouliFireWood(keys)
 
     local effectIndex = ParticleManager:CreateParticle("particles/battlepass/healing_campfire_flame.vpcf",
         PATTACH_CUSTOMORIGIN, nil)
-    ParticleManager:SetParticleControl(effectIndex, 0, keys.ability:GetCursorPosition())
-    ParticleManager:SetParticleControl(effectIndex, 1, keys.ability:GetCursorPosition())
-    ParticleManager:SetParticleControl(effectIndex, 2, keys.ability:GetCursorPosition())
+    ParticleManager:SetParticleControl(effectIndex, 0, targetPosition)
+    ParticleManager:SetParticleControl(effectIndex, 1, targetPosition)
+    ParticleManager:SetParticleControl(effectIndex, 2, targetPosition)
     ParticleManager:DestroyParticleSystem(effectIndex, false)
 
-    if GridNav:IsNearbyTree(keys.ability:GetCursorPosition(),
+    if GridNav:IsNearbyTree(targetPosition,
         keys.Radius + FindTelentValue(caster, "special_bonus_unique_patchouli_10"), false) then
         tree = 1
     end
@@ -374,16 +375,16 @@ function OnPatchouliFireWood(keys)
             return nil
         end
         if time == delaytime + keys.WoodMultiple then
-            StartSoundEventFromPosition("Hero_Jakiro.LiquidFire", keys.ability:GetCursorPosition())
+            StartSoundEventFromPosition("Hero_Jakiro.LiquidFire", targetPosition)
             local effectIndex = ParticleManager:CreateParticle("particles/heroes/patchouli/fire_wood_char.vpcf",
                 PATTACH_CUSTOMORIGIN, nil)
-            ParticleManager:SetParticleControl(effectIndex, 0, keys.ability:GetCursorPosition())
+            ParticleManager:SetParticleControl(effectIndex, 0, targetPosition)
             -- ParticleManager:SetParticleControl(effectIndex, 1, Vector(2,1,1))
             -- ParticleManager:DestroyParticleSystemTime(effectIndex,5)
         end
         if time > delaytime then
             local targets = FindUnitsInRadius(caster:GetTeam(), -- caster team
-            keys.ability:GetCursorPosition(), -- find position
+            targetPosition, -- find position
             nil, -- find entity
             keys.Radius, -- find radius
             DOTA_UNIT_TARGET_TEAM_ENEMY, keys.ability:GetAbilityTargetType(), 0, FIND_CLOSEST, false)
@@ -475,7 +476,8 @@ function OnPatchouliFireEarth(keys)
     local duration = keys.Duration
     local target = keys.target
     local ability = keys.ability
-    ability.center = keys.ability:GetCursorPosition()
+    local targetPosition = keys.ability:GetCursorPosition()
+    ability.center = targetPosition
     local firelevel
     local earthlevel
     local CasterName = caster:GetClassname()
@@ -498,11 +500,11 @@ function OnPatchouliFireEarth(keys)
     -- local deal_stun_duration = keys.StunDuration + earthlevel*keys.EarthMultiple
     local deal_duration = keys.Duration + earthlevel * keys.EarthMultiple
 
-    keys.ability:ApplyDataDrivenThinker(caster, keys.ability:GetCursorPosition(), "modifier_kinetic_field_datadriven", {
+    keys.ability:ApplyDataDrivenThinker(caster, targetPosition, "modifier_kinetic_field_datadriven", {
         duration = deal_duration
     })
     local targets = FindUnitsInRadius(caster:GetTeam(), -- caster team
-    keys.ability:GetCursorPosition(), -- find position
+    targetPosition, -- find position
     nil, -- find entity
     keys.Radius, -- find radius
     DOTA_UNIT_TARGET_TEAM_ENEMY, keys.ability:GetAbilityTargetType(), 0, FIND_CLOSEST, false)
@@ -527,8 +529,8 @@ function OnPatchouliFireEarth(keys)
 
     local angle = math.pi / 8
     for i = 1, 16 do
-        local position = Vector(keys.ability:GetCursorPosition().x + radius * math.sin(angle),
-            keys.ability:GetCursorPosition().y + radius * math.cos(angle), keys.ability:GetCursorPosition().z)
+        local position = Vector(targetPosition.x + radius * math.sin(angle),
+            targetPosition.y + radius * math.cos(angle), targetPosition.z)
         angle = angle + math.pi / 8
         local effectIndex = ParticleManager:CreateParticle("particles/heroes/patchouli/patchouli_volcano.vpcf",
             PATTACH_CUSTOMORIGIN, nil)
@@ -717,6 +719,7 @@ end
 
 function OnPatchouliWaterMetal(keys)
     local caster = EntIndexToHScript(keys.caster_entindex)
+    local targetPosition = keys.ability:GetCursorPosition()
     local waterlevel
     local metallevel
     local CasterName = caster:GetClassname()
@@ -740,7 +743,7 @@ function OnPatchouliWaterMetal(keys)
     deal_resistance = keys.ReduceResistance + keys.WaterMultiple * waterlevel
     local effectIndex = ParticleManager:CreateParticle("particles/heroes/patchouli/patchouli_water_metal.vpcf",
         PATTACH_CUSTOMORIGIN, nil)
-    ParticleManager:SetParticleControl(effectIndex, 0, keys.ability:GetCursorPosition())
+    ParticleManager:SetParticleControl(effectIndex, 0, targetPosition)
     ParticleManager:SetParticleControl(effectIndex, 2, Vector(keys.Duration - 1, 0, 1))
 
     local time = 0
@@ -754,7 +757,7 @@ function OnPatchouliWaterMetal(keys)
             return nil
         end
         local targets = FindUnitsInRadius(caster:GetTeam(), -- caster team
-        keys.ability:GetCursorPosition(), -- find position
+        targetPosition, -- find position
         nil, -- find entity
         keys.Radius, -- find radius
         DOTA_UNIT_TARGET_TEAM_ENEMY, keys.ability:GetAbilityTargetType(), 0, FIND_CLOSEST, false)
@@ -921,7 +924,7 @@ function OnPatchouliWaterEarth(keys)
     local Target = keys.ability:GetCursorPosition()
     if Caster:HasModifier("modifier_item_wanbaochui") == false then
 
-        local TargetPoint = keys.ability:GetCursorPosition()
+        local TargetPoint = Target
         local Direction = (TargetPoint - VecStart):Normalized()
         local TickInterval = keys.tick_interval
         local MovePerTick = keys.speed * TickInterval
@@ -1096,6 +1099,7 @@ end
 function OnPatchouliWaterWater(keys)
     local caster = keys.caster
     local duration = keys.Duration
+    local targetPosition = keys.ability:GetCursorPosition()
     local waterlevel
     local CasterName = caster:GetClassname()
     if CasterName ~= "npc_dota_hero_invoker" then
@@ -1111,7 +1115,7 @@ function OnPatchouliWaterWater(keys)
     local deal_duration = keys.Duration + waterlevel * keys.ExDuration
     local water_water_effectIndex = ParticleManager:CreateParticle(
         "particles/heroes/patchouli/patchouli_water_water.vpcf", PATTACH_CUSTOMORIGIN, nil)
-    ParticleManager:SetParticleControl(water_water_effectIndex, 0, keys.ability:GetCursorPosition())
+    ParticleManager:SetParticleControl(water_water_effectIndex, 0, targetPosition)
 
     local time = 0
     GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("OnPatchouliWaterWater"), function()
@@ -1125,7 +1129,7 @@ function OnPatchouliWaterWater(keys)
             return nil
         end
         local targets = FindUnitsInRadius(caster:GetTeam(), -- caster team
-        keys.ability:GetCursorPosition(), -- find position
+        targetPosition, -- find position
         nil, -- find entity
         keys.Radius, -- find radius
         DOTA_UNIT_TARGET_TEAM_ENEMY, keys.ability:GetAbilityTargetType(), 0, FIND_CLOSEST, false)
@@ -1483,6 +1487,7 @@ end
 
 function OnPatchouliEarthEarth(keys)
     local caster = keys.caster
+    local targetPosition = keys.ability:GetCursorPosition()
     local earthlevel
     local CasterName = caster:GetClassname()
     if CasterName ~= "npc_dota_hero_invoker" then
@@ -1505,7 +1510,7 @@ function OnPatchouliEarthEarth(keys)
         end
 
         local targets = FindUnitsInRadius(caster:GetTeam(), -- caster team
-        keys.ability:GetCursorPosition(), -- find position
+        targetPosition, -- find position
         nil, -- find entity
         keys.Radius, -- find radius
         DOTA_UNIT_TARGET_TEAM_ENEMY, keys.ability:GetAbilityTargetType(), 0, FIND_CLOSEST, false)
