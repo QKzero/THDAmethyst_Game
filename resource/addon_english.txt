@@ -286,6 +286,7 @@
 		"DOTA_Tooltip_ability_ability_thdots_marisa03_Description"				"Marisa deploys 4 orbs of light around her to fire upon enemies nearby for %ability_duration% seconds."
         "DOTA_Tooltip_ability_ability_thdots_marisa03_ability_duration"			"DURATION: "
 		"DOTA_Tooltip_ability_ability_thdots_marisa03_attack_radius"			"ATTACK RADIUS:"
+		"DOTA_Tooltip_ability_ability_thdots_marisa03_damage"					"DAMAGE: "
 		"DOTA_Tooltip_ability_ability_thdots_marisa03_building_percent"			"%DAMAGE TO BUILDINGS:"
 		"DOTA_Tooltip_ability_ability_thdots_marisa03_Lore"						"Marisa's danmaku is her pride and joy."
 
@@ -305,7 +306,7 @@
 
 		// Talents
 		"DOTA_Tooltip_ability_special_bonus_unique_marisa_1"					"「Light of Milky Way Galaxy」"
-		"DOTA_Tooltip_ability_special_bonus_unique_marisa_1_Description"		"「Orrery's Solar System」orb attack range is increased to {s:value} and they gain max attack speed and projectile speed, but they deal half their usual damage to buildings."
+		"DOTA_Tooltip_ability_special_bonus_unique_marisa_1_Description"		"「Orrery's Solar System」orb attack range is increased for {s:bonus_attack_radius} and damage is increased for {s:bonus_damage} and they gain max attack speed and projectile speed, but they deal half their usual damage to buildings."
 		"DOTA_Tooltip_ability_special_bonus_unique_marisa_2"					"-{s:value}s「Master Spark」cooldown"
 		"DOTA_Tooltip_ability_special_bonus_unique_marisa_3"					"+{s:value}「Stardust Reverie」damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_marisa_4"					"-{s:value}s「Blazing Star」cooldown"

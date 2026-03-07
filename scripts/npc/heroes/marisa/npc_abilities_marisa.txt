@@ -21,6 +21,11 @@
 			"refresh_interval"	"10"
 			"refresh_time"		"3"
 			"refresh_time_ult"		"25"
+			"special_bonus_unique_marisa_1"
+			{
+				"value"	"0"
+				"special_bonus_unique_marisa_1" "+1"
+			}
 		}
 	}
 
@@ -113,7 +118,8 @@
 
 	"ability_thdots_marisa03"
 	{
-		"BaseClass"	"ability_datadriven"
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitymarisa.lua"
 		"AbilityTextureName"	"custom/ability_thdots_marisa03"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -133,42 +139,36 @@
 			"particle"	"particles/heroes/marisa/marisa_03_stars_c.vpcf"
 			"particle"	"particles/heroes/marisa/marisa_03_stars_d.vpcf"
 		}
-		"OnSpellStart"
-		{
-			"RunScript"
-			{
-				"ScriptFile"	"scripts/vscripts/abilities/abilityMarisa.lua"
-				"Function"	"OnMarisa03SpellStart"
-				"AbilityDuration"	"%ability_duration"
-				"Caster"	"CASTER"
-			}			
-		}
-		"Modifiers"
-		{			
-			"modifier_thdots_marisa03_think_interval"
-			{
-				"RemoveOnDeath"	"0"
-				"IsHidden"	"0"
-				"ThinkInterval"	"0.02"
-
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/abilityMarisa.lua"
-						"Function"	"OnMarisa03SpellThink"
-						"Caster"	"CASTER"
-					}
-				}
-			}
-		}
 		"AbilityValues"
 		{
 			"ability_duration"	"8"
-			"attack_radius"	"500"
 			"building_percent"	"60"
+			"special_bonus_unique_marisa_1"
+			{
+				"value"	"0"
+				"special_bonus_unique_marisa_1" "+1"
+			}
+			"attack_radius"
+			{
+				"value"	"500"
+				"special_bonus_unique_marisa_1" "+400"
+			}
+			"damage"
+			{
+				"value" "25 40 55 70"
+				"special_bonus_unique_marisa_1" "+30"
+			}
+			"star_attack_speed_bonus"
+			{
+				"value" "0"
+				"special_bonus_unique_marisa_1" "+150"
+			}
+			"star_projectile_speed_bonus"
+			{
+				"value" "0"
+				"special_bonus_unique_marisa_1" "+400"
+			}
 		}
-		"AbilityDamage"	"25 40 55 70"
 	}
 
 	"ability_thdots_marisa04"
@@ -232,13 +232,9 @@
 	//=================================================================================================================
 	"special_bonus_unique_marisa_1"
 	{
-		"BaseClass"						"special_bonus_undefined"
+		"BaseClass"						"special_bonus_base"
 		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityValues"
-		{
-			"value"				"800"
-		}
 	}
 
 	//=================================================================================================================
@@ -332,15 +328,9 @@
 					{
 						"ScriptFile"	"scripts/vscripts/abilities/abilityMarisa.lua"
 						"Function"	"OnMarisa03DealDamage"
-						"DealDamage"	"%deal_damage"
 					}
 				}
 			}
-		}
-		"AbilityValues"
-		{
-			"deal_damage"	"25 40 55 70"
-			"building_percent"	"60"
 		}
 	}
 }

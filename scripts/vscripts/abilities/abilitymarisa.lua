@@ -312,33 +312,242 @@ function OnMarisa02SpellRemove(keys)
 	end]] --
 end
 
-function OnMarisa03SpellStart(keys)
-    AbilityMarisa:OnMarisa03Start(keys)
+ability_thdots_marisa03 = class({})
+
+function ability_thdots_marisa03:GetBehavior()
+    if self:GetSpecialValueFor("special_bonus_unique_marisa_1") ~= 0 then
+        -- 开关
+        return DOTA_ABILITY_BEHAVIOR_TOGGLE
+    else
+        -- 无目标
+        return self.BaseClass.GetBehavior(self)
+    end
 end
 
-function OnMarisa03SpellThink(keys)
-    AbilityMarisa:OnMarisa03Think(keys)
+function ability_thdots_marisa03:GetManaCost(level)
+    if self:GetSpecialValueFor("special_bonus_unique_marisa_1") ~= 0 then
+        -- 开关
+        return 0
+    else
+        -- 无目标
+        return self.BaseClass.GetManaCost(self, level)
+    end
+end
+
+function ability_thdots_marisa03:GetCooldown(level)
+    if self:GetSpecialValueFor("special_bonus_unique_marisa_1") ~= 0 then
+        -- 开关
+        return 0
+    else
+        -- 无目标
+        return self.BaseClass.GetCooldown(self, level)
+    end
+end
+
+function ability_thdots_marisa03:ResetToggleOnRespawn()
+    return true
+end
+
+function ability_thdots_marisa03:OnToggle()
+    if not IsServer() then return end
+
+	if self:GetToggleState() then
+		self:ClearStar()
+		self:AddStarBatch(-1)
+	else
+		self:ClearStar()
+	end
+end
+
+function ability_thdots_marisa03:OnSpellStart()
+    if not IsServer() then return end
+
+    local duration = self:GetSpecialValueFor("ability_duration")
+
+    self:AddStarBatch(duration)
+end
+
+function ability_thdots_marisa03:AddStarBatch(starDuration)
+    if not IsServer() then return end
+
+    local caster = self:GetCaster()
+    local ability = self
+    local duration = starDuration
+
+    local intervalModifier
+    if (caster:HasModifier("modifier_thdots_marisa03_think_interval")) then
+        intervalModifier = caster:FindModifierByName("modifier_thdots_marisa03_think_interval")
+        intervalModifier:SetDuration(duration, true)
+    else
+        intervalModifier = caster:AddNewModifier(caster, ability, "modifier_thdots_marisa03_think_interval", {
+            duration = duration
+        })
+    end
+
+    for i = 0, 3 do
+        local vec = Vector(caster:GetOrigin().x + math.cos(i * math.pi / 2) * 150,
+            caster:GetOrigin().y + math.sin(i * math.pi / 2) * 150, caster:GetOrigin().z + 175)
+        local unit = CreateUnitByName("npc_thdots_unit_marisa03_star", vec, false, caster, caster, caster:GetTeam())
+        unit:SetContextNum("ability_marisa03_unit_rad", GetRadBetweenTwoVec2D(caster:GetOrigin(), vec), 0)
+        unit:AddNewModifier(caster, ability, "modifier_ability_marisa03_unit_auto_attack", {})
+        unit.hero = caster
+        unitAbility = unit:FindAbilityByName("ability_thdots_marisa03_dealdamage")
+        unitAbility:SetLevel(ability:GetLevel())
+        local ability_dummy_unit = unit:FindAbilityByName("ability_marisa03_dummy_unit")
+        ability_dummy_unit:SetLevel(1)
+        -- unit:SetBaseDamageMax(ability:GetAbilityDamage())
+        -- unit:SetBaseDamageMin(ability:GetAbilityDamage())
+        local effectIndex
+        if (i == 0) then
+            effectIndex = ParticleManager:CreateParticle("particles/heroes/marisa/marisa_03_stars.vpcf",
+                PATTACH_CUSTOMORIGIN, unit)
+        elseif (i == 1) then
+            effectIndex = ParticleManager:CreateParticle("particles/heroes/marisa/marisa_03_stars_b.vpcf",
+                PATTACH_CUSTOMORIGIN, unit)
+        elseif (i == 2) then
+            effectIndex = ParticleManager:CreateParticle("particles/heroes/marisa/marisa_03_stars_c.vpcf",
+                PATTACH_CUSTOMORIGIN, unit)
+        elseif (i == 3) then
+            effectIndex = ParticleManager:CreateParticle("particles/heroes/marisa/marisa_03_stars_d.vpcf",
+                PATTACH_CUSTOMORIGIN, unit)
+        end
+        ParticleManager:SetParticleControlEnt(effectIndex, 0, unit, 5, "follow_origin", Vector(0, 0, 0), true)
+
+        unit:AddNewModifier(caster, ability, "modifier_thdots_marisa03_unit_death", {
+            duration = duration
+        })
+        
+        intervalModifier:AddStar(unit)
+    end
+end
+
+function ability_thdots_marisa03:ClearStar()
+    if not IsServer() then return end
+
+    local modifier = self:GetCaster():FindModifierByName("modifier_thdots_marisa03_think_interval")
+    if modifier ~= nil then
+        modifier:ClearStar()
+    end
+end
+
+modifier_thdots_marisa03_think_interval = class({})
+LinkLuaModifier("modifier_thdots_marisa03_think_interval", "scripts/vscripts/abilities/abilitymarisa.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_thdots_marisa03_think_interval:IsHidden() return false end
+function modifier_thdots_marisa03_think_interval:IsDebuff() return false end
+function modifier_thdots_marisa03_think_interval:IsPurgable() return false end
+function modifier_thdots_marisa03_think_interval:IsPurgeException() return false end
+function modifier_thdots_marisa03_think_interval:RemoveOnDeath() return false end
+
+function modifier_thdots_marisa03_think_interval:OnCreated(param)
+    if not IsServer() then return end
+
+    self.caster = self:GetCaster()
+    self.ability = self:GetAbility()
+
+    self:StartIntervalThink(FrameTime())
+end
+
+function modifier_thdots_marisa03_think_interval:OnIntervalThink()
+    if not IsServer() then return end
+
+    local vCaster = self.caster:GetOrigin()
+
+    if (self.Marisa03Stars == nil) then 
+        self.Marisa03Stars = {}
+    end
+
+    local stars = self.Marisa03Stars
+    for i, v in pairs(stars) do
+        if (v == nil or v:IsNull() or not v:IsAlive()) then
+            table.remove(stars, i)
+        else
+            local vVec = v:GetOrigin()
+            local turnRad = v:GetContext("ability_marisa03_unit_rad") + math.pi / 120
+            v:SetContextNum("ability_marisa03_unit_rad", turnRad, 0)
+            local turnVec =
+                Vector(vCaster.x + math.cos(turnRad) * 150, vCaster.y + math.sin(turnRad) * 150, vCaster.z + 175)
+            v:SetOrigin(turnVec)
+        end
+    end
+end
+
+function modifier_thdots_marisa03_think_interval:ClearStar()
+    if not IsServer() then return end
+
+    if (self.Marisa03Stars == nil) then 
+        self.Marisa03Stars = {}
+    end
+
+    local stars = self.Marisa03Stars
+    for i, v in pairs(stars) do
+        if (v == nil or v:IsNull() or not v:IsAlive()) then
+            table.remove(stars, i)
+        else
+            local deathModifier = v:FindModifierByName("modifier_thdots_marisa03_unit_death")
+            if (deathModifier ~= nil) then
+                -- 销毁该modifier，间接触发天仪销毁
+                deathModifier:Destroy()
+            else
+                -- 找不到modifier，硬删除
+                v:RemoveSelf()
+            end
+        end
+    end
+end
+
+function modifier_thdots_marisa03_think_interval:AddStar(unit)
+    if not IsServer() then return end
+
+    if (self.Marisa03Stars == nil) then 
+        self.Marisa03Stars = {}
+    end
+
+    table.insert(self.Marisa03Stars, unit)
+end
+
+modifier_thdots_marisa03_unit_death = {}
+LinkLuaModifier("modifier_thdots_marisa03_unit_death", "scripts/vscripts/abilities/abilityMarisa.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_thdots_marisa03_unit_death:IsHidden() return false end
+function modifier_thdots_marisa03_unit_death:IsPurgable() return false end
+function modifier_thdots_marisa03_unit_death:RemoveOnDeath() return true end
+function modifier_thdots_marisa03_unit_death:IsDebuff() return false end
+
+function modifier_thdots_marisa03_unit_death:OnDestroy()
+    if not IsServer() then return end
+    
+    -- self:GetParent():ForceKill(true)
+    -- self:GetParent():AddNoDraw()
+    self:GetParent():RemoveSelf()
 end
 
 function OnMarisa03DealDamage(keys)
-    local caster = EntIndexToHScript(keys.caster_entindex)
-    local dealdamage
+    local star = EntIndexToHScript(keys.caster_entindex)
+    local caster = star.hero
+
+    local ability = caster:FindAbilityByName("ability_thdots_marisa03")
+    if ability == nil or ability:GetLevel() == 0 then
+        return
+    end
+
+    local dealdamage = ability:GetSpecialValueFor("damage")
     if keys.unit:IsBuilding() then
-        dealdamage = keys.DealDamage * keys.ability:GetSpecialValueFor("building_percent") / 100
-        if caster:HasModifier("modifier_ability_marisa03_special_bonus") then
+        dealdamage = dealdamage * ability:GetSpecialValueFor("building_percent") / 100
+        if ability:GetSpecialValueFor("special_bonus_unique_marisa_1") ~= 0 then
             dealdamage = dealdamage / 2;
         end
-    else
-        dealdamage = keys.DealDamage
     end
+
     local damage_table = {
-        ability = keys.ability,
+        ability = ability,
         victim = keys.unit,
-        attacker = caster.hero,
-        damage = dealdamage, -- * (1+FindTelentValue(caster.hero,"special_bonus_unique_marisa_1")),
-        damage_type = keys.ability:GetAbilityDamageType(),
-        damage_flags = keys.ability:GetAbilityTargetFlags()
+        attacker = star.hero,
+        damage = dealdamage,
+        damage_type = ability:GetAbilityDamageType(),
+        damage_flags = ability:GetAbilityTargetFlags()
     }
+
     UnitDamageTarget(damage_table)
 end
 
@@ -689,73 +898,33 @@ function AbilityMarisa:OnMarisa02Damage(keys)
     end
 end
 
-function AbilityMarisa:OnMarisa03Start(keys)
-    local caster = EntIndexToHScript(keys.caster_entindex)
-    local duration = keys.AbilityDuration -- FindTelentValue(caster,"special_bonus_unique_marisa_1")
-    self.Marisa03Stars = {}
-    for i = 0, 3 do
-        local vec = Vector(caster:GetOrigin().x + math.cos(i * math.pi / 2) * 150,
-            caster:GetOrigin().y + math.sin(i * math.pi / 2) * 150, caster:GetOrigin().z + 300)
-        local unit = CreateUnitByName("npc_thdots_unit_marisa03_star", vec, false, caster, caster, caster:GetTeam())
-        unit:SetContextNum("ability_marisa03_unit_rad", GetRadBetweenTwoVec2D(caster:GetOrigin(), vec), 0)
-        unit:AddNewModifier(caster, keys.ability, "modifier_ability_marisa03_unit_auto_attack", {})
-        if FindTelentValue(caster, "special_bonus_unique_marisa_1") > 0 then
-            unit:AddNewModifier(caster, keys.ability, "modifier_ability_marisa03_special_bonus", {})
-        end
-        unit.hero = caster
-        unitAbility = unit:FindAbilityByName("ability_thdots_marisa03_dealdamage")
-        unitAbility:SetLevel(keys.ability:GetLevel())
-        local ability_dummy_unit = unit:FindAbilityByName("ability_marisa03_dummy_unit")
-        ability_dummy_unit:SetLevel(1)
-        -- unit:SetBaseDamageMax(keys.ability:GetAbilityDamage())
-        -- unit:SetBaseDamageMin(keys.ability:GetAbilityDamage())
-        local effectIndex
-        if (i == 0) then
-            effectIndex = ParticleManager:CreateParticle("particles/heroes/marisa/marisa_03_stars.vpcf",
-                PATTACH_CUSTOMORIGIN, unit)
-        elseif (i == 1) then
-            effectIndex = ParticleManager:CreateParticle("particles/heroes/marisa/marisa_03_stars_b.vpcf",
-                PATTACH_CUSTOMORIGIN, unit)
-        elseif (i == 2) then
-            effectIndex = ParticleManager:CreateParticle("particles/heroes/marisa/marisa_03_stars_c.vpcf",
-                PATTACH_CUSTOMORIGIN, unit)
-        elseif (i == 3) then
-            effectIndex = ParticleManager:CreateParticle("particles/heroes/marisa/marisa_03_stars_d.vpcf",
-                PATTACH_CUSTOMORIGIN, unit)
-        end
-        ParticleManager:SetParticleControlEnt(effectIndex, 0, unit, 5, "follow_origin", Vector(0, 0, 0), true)
-
-        -- Timer.Wait 'ability_marisa03_star_release' (duration,
-        -- 	function()
-        -- 		unit:ForceKill(true)
-        -- 		unit:AddNoDraw()
-        -- 		caster:RemoveModifierByName("modifier_thdots_marisa03_think_interval")
-        -- 	end
-        --    )
-        unit:AddNewModifier(caster, keys.ability, "modifier_thdots_marisa03_unit_death", {
-            duration = duration
-        })
-        table.insert(self.Marisa03Stars, unit)
-    end
-    keys.ability:ApplyDataDrivenModifier(caster, caster, "modifier_thdots_marisa03_think_interval", {
-        Duration = duration
-    })
-end
-
 modifier_ability_marisa03_unit_auto_attack = {}
-LinkLuaModifier("modifier_ability_marisa03_unit_auto_attack", "scripts/vscripts/abilities/abilityMarisa.lua",
-    LUA_MODIFIER_MOTION_NONE)
-function modifier_ability_marisa03_unit_auto_attack:IsHidden()
-    return false
+LinkLuaModifier("modifier_ability_marisa03_unit_auto_attack", "scripts/vscripts/abilities/abilityMarisa.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_ability_marisa03_unit_auto_attack:IsHidden() return false end
+function modifier_ability_marisa03_unit_auto_attack:IsPurgable() return false end
+function modifier_ability_marisa03_unit_auto_attack:RemoveOnDeath() return true end
+function modifier_ability_marisa03_unit_auto_attack:IsDebuff() return false end
+
+function modifier_ability_marisa03_unit_auto_attack:DeclareFunctions()
+    local funcs = {
+        MODIFIER_PROPERTY_ATTACK_RANGE_BASE_OVERRIDE,
+        MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
+        MODIFIER_PROPERTY_PROJECTILE_SPEED_BONUS,
+    }
+    return funcs
 end
-function modifier_ability_marisa03_unit_auto_attack:IsPurgable()
-    return false
+
+function modifier_ability_marisa03_unit_auto_attack:GetModifierAttackRangeOverride()
+    return self:GetAbility():GetSpecialValueFor("attack_radius")
 end
-function modifier_ability_marisa03_unit_auto_attack:RemoveOnDeath()
-    return true
+
+function modifier_ability_marisa03_unit_auto_attack:GetModifierAttackSpeedBonus_Constant()
+    return self:GetAbility():GetSpecialValueFor("star_attack_speed_bonus")
 end
-function modifier_ability_marisa03_unit_auto_attack:IsDebuff()
-    return false
+
+function modifier_ability_marisa03_unit_auto_attack:GetModifierProjectileSpeedBonus()
+    return self:GetAbility():GetSpecialValueFor("star_projectile_speed_bonus")
 end
 
 function modifier_ability_marisa03_unit_auto_attack:OnCreated()
@@ -791,78 +960,6 @@ function modifier_ability_marisa03_unit_auto_attack:OnIntervalThink()
     else
         star.attackingTarget = nil
     end
-end
-
-modifier_thdots_marisa03_unit_death = {}
-LinkLuaModifier("modifier_thdots_marisa03_unit_death", "scripts/vscripts/abilities/abilityMarisa.lua",
-    LUA_MODIFIER_MOTION_NONE)
-function modifier_thdots_marisa03_unit_death:IsHidden()
-    return false
-end
-function modifier_thdots_marisa03_unit_death:IsPurgable()
-    return false
-end
-function modifier_thdots_marisa03_unit_death:RemoveOnDeath()
-    return true
-end
-function modifier_thdots_marisa03_unit_death:IsDebuff()
-    return false
-end
-function modifier_thdots_marisa03_unit_death:OnDestroy()
-    if not IsServer() then
-        return
-    end
-    self:GetParent():ForceKill(true)
-    self:GetParent():AddNoDraw()
-end
-
-function AbilityMarisa:OnMarisa03Think(keys)
-    local caster = EntIndexToHScript(keys.caster_entindex)
-    local vCaster = caster:GetOrigin()
-    local stars = self.Marisa03Stars
-    for _, v in pairs(stars) do
-        local vVec = v:GetOrigin()
-        local turnRad = v:GetContext("ability_marisa03_unit_rad") + math.pi / 120
-        v:SetContextNum("ability_marisa03_unit_rad", turnRad, 0)
-        local turnVec =
-            Vector(vCaster.x + math.cos(turnRad) * 150, vCaster.y + math.sin(turnRad) * 150, vCaster.z + 300)
-        v:SetOrigin(turnVec)
-    end
-end
-modifier_ability_marisa03_special_bonus = {}
-LinkLuaModifier("modifier_ability_marisa03_special_bonus", "scripts/vscripts/abilities/abilityMarisa.lua",
-    LUA_MODIFIER_MOTION_NONE)
-function modifier_ability_marisa03_special_bonus:IsHidden()
-    return false
-end
-function modifier_ability_marisa03_special_bonus:IsPurgable()
-    return false
-end
-function modifier_ability_marisa03_special_bonus:RemoveOnDeath()
-    return true
-end
-function modifier_ability_marisa03_special_bonus:IsDebuff()
-    return false
-end
-function modifier_ability_marisa03_special_bonus:GetAttributes()
-    return MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE
-end
-function modifier_ability_marisa03_special_bonus:DeclareFunctions()
-    local funcs = {MODIFIER_PROPERTY_ATTACK_RANGE_BASE_OVERRIDE, MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
-                   MODIFIER_PROPERTY_PROJECTILE_SPEED_BONUS}
-    return funcs
-end
-
-function modifier_ability_marisa03_special_bonus:GetModifierAttackRangeOverride()
-    return 800
-end
-
-function modifier_ability_marisa03_special_bonus:GetModifierAttackSpeedBonus_Constant()
-    return 150
-end
-
-function modifier_ability_marisa03_special_bonus:GetModifierProjectileSpeedBonus()
-    return 400
 end
 
 ability_thdots_marisaEx = {}
@@ -926,6 +1023,11 @@ function modifier_thdots_marisaEx_passive:OnAbilityExecuted(keys)
     local caster = self:GetParent()
     local ability = keys.ability
     if keys.unit ~= caster or ability:IsItem() then
+        return
+    end
+
+    -- 3技能变为开关以后不消耗冷却时间，所以不触发刷新效果
+    if ability:GetName() == "ability_thdots_marisa03" and self.ability:GetSpecialValueFor("special_bonus_unique_marisa_1") ~= 0 then
         return
     end
 

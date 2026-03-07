@@ -620,6 +620,7 @@
 		"DOTA_Tooltip_ability_ability_thdots_marisa03_Description"	"放出4个环绕自身的光球，能够自动攻击附近目标，持续%ability_duration%秒。"
 		"DOTA_Tooltip_ability_ability_thdots_marisa03_ability_duration"	"持续时间："
 		"DOTA_Tooltip_ability_ability_thdots_marisa03_attack_radius"	"攻击距离："
+		"DOTA_Tooltip_ability_ability_thdots_marisa03_damage"			"攻击伤害："
 		"DOTA_Tooltip_ability_ability_thdots_marisa03_building_percent"	"%对防御塔伤害百分比："
 		"DOTA_Tooltip_ability_ability_thdots_marisa03_Lore"	"魔理沙引以为傲的弹幕"
 		"DOTA_Tooltip_ability_ability_thdots_marisa04"	"魔炮「Master Spark」"
@@ -635,6 +636,8 @@
 		"DOTA_Tooltip_ability_lina_fiery_soul_fiery_soul_move_speed_bonus"	"增加移速："
 		"DOTA_Tooltip_ability_lina_fiery_soul_fiery_soul_max_stacks"	"最高叠加："
 		"DOTA_Tooltip_ability_lina_fiery_soul_fiery_soul_stack_duration"	"持续时间："
+		"DOTA_Tooltip_ability_special_bonus_unique_marisa_1"	"「光影银河系」"
+		"DOTA_Tooltip_ability_special_bonus_unique_marisa_1_Description"	"天球仪变为开关技能，不再消耗天生，攻击距离增加{s:bonus_attack_radius}，伤害增加{s:bonus_damage}，攻击速度与弹道速度提高至极限，但对建筑伤害再降低一半"
 		
 		
 		// --------------------
@@ -5992,8 +5995,6 @@
 
 		"DOTA_Tooltip_ability_special_bonus_unique_clinkz_1"		"隐身不再显形"
         "DOTA_Tooltip_ability_special_bonus_mp_regen_1"		"+28魔法恢复"
-		"DOTA_Tooltip_ability_special_bonus_unique_marisa_1"	"「光影银河系」"
-		"DOTA_Tooltip_ability_special_bonus_unique_marisa_1_Description"	"天球仪攻击距离增加至{s:value}，攻击速度与弹道速度提高至极限，但对建筑伤害再降低一半"
 		"DOTA_Tooltip_ability_special_bonus_unique_marisa_2"	"-{s:value}秒 魔炮冷却时间"
 		"DOTA_Tooltip_ability_special_bonus_unique_marisa_3"	"+{s:value}魔符「星尘狂欢」伤害"
 		"DOTA_Tooltip_ability_special_bonus_unique_marisa_4"	"-{s:value}秒「炽热之星」冷却时间"
