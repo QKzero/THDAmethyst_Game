@@ -156,7 +156,7 @@
 			"damage"
 			{
 				"value" "25 40 55 70"
-				"special_bonus_unique_marisa_1" "+30"
+				"special_bonus_unique_marisa_1" "+10"
 			}
 			"star_attack_speed_bonus"
 			{
