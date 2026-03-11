@@ -1133,165 +1133,17 @@
 			}
 		}
 	}
-	"ability_ex_bot_buff"
-	{
-			// General
-		// -------------------------------------------------------------------------------------------------------------
-		"BaseClass"	"ability_datadriven"
-		"AbilityTextureName"	"custom/ability_thdots_sanae03"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"AbilityType"	"ABILITY_TYPE_HIDDEN"
-		"MaxLevel"	"1"
-		"Modifiers"
-		{	
-			"modifier_ex_bot"
-			{
-				"IsHidden"	"0"
-				"Passive"				"1"	
-				"RemoveOnDeath"	"0"
-				"OnRespawn"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/bot_buff.lua"
-						"Function"	"Noob"
-						"Target"	"CASTER"
-					}
-				}
-			}
-			"modifier_ex_bot_buff"
-			{
-				"IsHidden"	"0"
-				"Duration"	"40"
-				"RemoveOnDeath"	"1"
-				"OnDeath"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/bot_buff.lua"
-						"Function"	"NoobBuff"
-						"Target"	"CASTER"
-						"BonusOnDeath" 		"%bouns_value"
-						"Bonus" 			"%bouns_gold"
-					}
-				}		
-			}
-		}
-		"AbilityValues"
-		{
-			"bouns_gold"  "100"
-			"bouns_value" "5"
-		}
-	}
 	"ability_common_bot_buff"
 	{
 		// General
 		// -------------------------------------------------------------------------------------------------------------
-		"BaseClass"	"ability_datadriven"
+		"BaseClass" "ability_lua"
+        "ScriptFile" "scripts/vscripts/abilities/bot_buff.lua"
 		"AbilityTextureName"	"custom/ability_thdots_sanae03"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_AURA"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityType"	"ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"4"
-		// Data driven
-		// -------------------------------------------------------------------------------------------------------------
-		
-		"OnOwnerDied"
-		{
-			"RunScript"
-			{
-				"ScriptFile"	"scripts/vscripts/abilities/bot_buff.lua"
-				"Function"	"DeathBuff"
-				"Target"	"CASTER"
-				"BonusOnDeath"	"%ex_death_gold"
-			}
-		}
-		
-		
-		"Modifiers"
-		{
-			"modifier_bot_buff"
-			{
-				"Passive"	"1"
-				"IsHidden"	"0"
-				"RemoveOnDeath"	"0"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%mana_regen"
-					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%hp_regen"
-					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%bouns_value"
-					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"	"%bouns_value"
-					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bouns_value"
-				}
-			}
-			"modifier_bot_debuff"
-			{
-				"Passive"	"1"
-				"IsHidden"	"1"
-				"RemoveOnDeath"	"0"
-				"OnAttackStart"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/bot_buff.lua"
-						"Function"	"Ability_Bot_SelfStun"
-						"Target"	"CASTER"
-						"SelfStunDuration"	"%self_stun_duration_atk"
-						"SelfStunChance"	"%SelfStunchanceATK"
-					}
-				}
-				
-				"OnUnitMoved"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/bot_buff.lua"
-						"Function"	"Ability_Bot_SelfStun"
-						"Target"	"CASTER"
-						"SelfStunDuration"	"%self_stun_duration_mov"
-						"SelfStunChance"	"%SelfStunchanceMOV"
-					}
-				}
-			}
-			"modifier_bot_give_gold"
-			{
-				"Passive"	"1"
-				"IsHidden"	"1"
-				"RemoveOnDeath"	"0"
-				"ThinkInterval"	"%interval"
-				"AllowIllusionDuplicate"	"0"
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/bot_buff.lua"
-						"Function"	"Ability_Bot_Buff_OnInterval"
-						"Target"	"CASTER"
-						"GiveGoldAmount"	"%give_gold_amount"
-						"GiveExpAmount"	"%give_exp_amount"
-						"GiveSpecialBonus"	"%give_exp_amount"
-						"IncreaseAllstat"	"%increaseallstat"
-					}
-				}
-			}
-			"modifier_bot_corrector"
-			{
-				"Passive"	"1"
-				"IsHidden"	"0"
-				"RemoveOnDeath"	"0"
-				"ThinkInterval"	"0.1"
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/bot_buff.lua"
-						"Function"	"Ability_Bot_Buff_DeleteRune_OnInterval"
-						"Target"	"CASTER"
-					}
-				}
-			}
-		}
 		// Special
 		// -------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -1309,6 +1161,24 @@
 			"self_stun_duration_mov"	"3 0 0 0"
 			"increaseallstat"	"0 0 0.1 0.2"
 			"ex_death_gold"	"0 0 300 600"
+		}
+	}
+
+	"ability_common_bot_corrector"
+	{
+		// General
+		// -------------------------------------------------------------------------------------------------------------
+		"BaseClass" "ability_lua"
+        "ScriptFile" "scripts/vscripts/abilities/bot_buff.lua"
+		"AbilityTextureName"	"custom/ability_thdots_sanae03"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"	"ABILITY_TYPE_HIDDEN"
+		"MaxLevel"	"1"
+		// Special
+		// -------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
 		}
 	}
 

@@ -3,7 +3,6 @@ G_IsAIMode = false
 G_IsFastCDMode = false
 G_IsFastRespawnMode = false
 G_IsCloneMode = false
-G_IsExMode = false
 -- G_IsFCloneMode = false
 local team_hero = {}
 Bot_Mode = false
@@ -426,17 +425,12 @@ function THD2_ChangeBotDifficulty( player, dif )
 		print("THDOTSGameMode:ChangeBotDifficulty: Error: Can't Change difficulty after bot spawned")
 		return
 	end
-	if dif <=0 or dif > 5 then --invalid difficulty
+	if dif <= 0 or dif > 4 then --invalid difficulty
 		Say(player, "invalid difficulty!",false)
 		print("THDOTSGameMode:ChangeBotDifficulty: Error: invalid difficulty")
 		return
 	end
-	if dif == 5 then
-		G_IsExMode = true
-	else
-		cur_bot_dif = dif
-		G_IsExMode = false
-	end
+	cur_bot_dif = dif
 	local text = G_Bot_Diff_Text[dif]
 	Say(player, "Bot Difficulty set to " .. text, false)
 	print("Bot Difficulty set to " .. text)
@@ -811,15 +805,13 @@ function THD2_FirstAddBuff( hero )
 			    	if v == plyID then
 						local bot_buff_ability = hero:AddAbility("ability_common_bot_buff") --bot mana buff
 						if bot_buff_ability ~= nil then
-							table.insert(G_Bot_Buff_List,bot_buff_ability)
+							table.insert(G_Bot_Buff_List, bot_buff_ability)
 							bot_buff_ability:SetLevel(cur_bot_dif) -- bot's default difficulty
 						end
-						if G_IsExMode then --ex
-							local ex_ability = hero:AddAbility("ability_ex_bot_buff")
-							if ex_ability ~= nil then
-								table.insert(G_Bot_Buff_List,ex_ability)
-								ex_ability:SetLevel(1) -- bot's default difficulty
-							end
+						local bot_buff_corrector = hero:AddAbility("ability_common_bot_corrector") --bot collect buff
+						if bot_buff_corrector ~= nil then
+							table.insert(G_Bot_Buff_List, bot_buff_ability)
+							bot_buff_corrector:SetLevel(1)
 						end
 						hero:SetBotDifficulty(cur_bot_dif)
 						G_Bot_Level[hero:GetPlayerOwnerID()] = nil
