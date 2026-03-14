@@ -24,9 +24,67 @@ botDifficultyDefaultData = {
 		selfStunChanceOnMove = 0.002, -- 移动时自我眩晕触发概率
 		selfStunDurationOnMove = 3, -- 移动时自我眩晕持续时间
 
-		giveAttrBonus = -5, -- 三围定时增加
-		giveGoldAmount = 0, -- 金币定时增加
-		giveExpAmount = 0, -- 经验定时增加
+		-- 金币定时增加（每5分钟到下一等级）
+		giveGoldAmount = {
+			0, -- 0-5 min
+			0, -- 5-10 min
+			0, -- 10-15 min
+			0, -- 15-20 min
+			0, -- 20-25 min
+			0, -- 25-30 min
+			0, -- 30+ min
+		},
+		-- 经验定时增加（每5分钟到下一等级）
+		giveExpAmount = {
+			0, -- 0-5 min
+			0, -- 5-10 min
+			0, -- 10-15 min
+			0, -- 15-20 min
+			0, -- 20-25 min
+			0, -- 25-30 min
+			0, -- 30+ min
+		},
+
+		-- 三围固定增加（力量、敏捷、智力）
+		giveAttrBase = { -5, -5, -5 },
+
+		-- 三围定时增加
+		giveAttrBonus = {
+			-- 主属性区分
+			{
+				-- 力量主属性
+				-- 力量、敏捷、智力增强（每5分钟到下一等级）
+				{ 0, 0, 0 }, -- 0-5 min
+				{ 0, 0, 0 }, -- 5-10 min
+				{ 0, 0, 0 }, -- 10-15 min
+				{ 0, 0, 0 }, -- 15-20 min
+				{ 0, 0, 0 }, -- 20-25 min
+				{ 0, 0, 0 }, -- 25-30 min
+				{ 0, 0, 0 }, -- 30+ min
+			},
+			{
+				-- 敏捷主属性
+				-- 力量、敏捷、智力增强（每5分钟到下一等级）
+				{ 0, 0, 0 }, -- 0-5 min
+				{ 0, 0, 0 }, -- 5-10 min
+				{ 0, 0, 0 }, -- 10-15 min
+				{ 0, 0, 0 }, -- 15-20 min
+				{ 0, 0, 0 }, -- 20-25 min
+				{ 0, 0, 0 }, -- 25-30 min
+				{ 0, 0, 0 }, -- 30+ min
+			},
+			{
+				-- 智力主属性
+				-- 力量、敏捷、智力增强（每5分钟到下一等级）
+				{ 0, 0, 0 }, -- 0-5 min
+				{ 0, 0, 0 }, -- 5-10 min
+				{ 0, 0, 0 }, -- 10-15 min
+				{ 0, 0, 0 }, -- 15-20 min
+				{ 0, 0, 0 }, -- 20-25 min
+				{ 0, 0, 0 }, -- 25-30 min
+				{ 0, 0, 0 }, -- 30+ min
+			},
+		},
 	},
 	[2] = {
 		name = "Normal",
@@ -40,9 +98,67 @@ botDifficultyDefaultData = {
 		selfStunChanceOnMove = 0, -- 移动时自我眩晕触发概率
 		selfStunDurationOnMove = 0, -- 移动时自我眩晕持续时间
 
-		giveAttrBonus = 0, -- 三围定时增加
-		giveGoldAmount = 0, -- 金币定时增加
-		giveExpAmount = 0, -- 经验定时增加
+		-- 金币定时增加（每5分钟到下一等级）
+		giveGoldAmount = {
+			0, -- 0-5 min
+			0, -- 5-10 min
+			0, -- 10-15 min
+			0, -- 15-20 min
+			0, -- 20-25 min
+			0, -- 25-30 min
+			0, -- 30+ min
+		},
+		-- 经验定时增加（每5分钟到下一等级）
+		giveExpAmount = {
+			0, -- 0-5 min
+			0, -- 5-10 min
+			0, -- 10-15 min
+			0, -- 15-20 min
+			0, -- 20-25 min
+			0, -- 25-30 min
+			0, -- 30+ min
+		},
+
+		-- 三围固定增加（力量、敏捷、智力）
+		giveAttrBase = { 0, 0, 0 },
+
+		-- 三围定时增加
+		giveAttrBonus = {
+			-- 主属性区分
+			{
+				-- 力量主属性
+				-- 力量、敏捷、智力增强（每5分钟到下一等级）
+				{ 0, 0, 0 }, -- 0-5 min
+				{ 0, 0, 0 }, -- 5-10 min
+				{ 0, 0, 0 }, -- 10-15 min
+				{ 0, 0, 0 }, -- 15-20 min
+				{ 0, 0, 0 }, -- 20-25 min
+				{ 0, 0, 0 }, -- 25-30 min
+				{ 0, 0, 0 }, -- 30+ min
+			},
+			{
+				-- 敏捷主属性
+				-- 力量、敏捷、智力增强（每5分钟到下一等级）
+				{ 0, 0, 0 }, -- 0-5 min
+				{ 0, 0, 0 }, -- 5-10 min
+				{ 0, 0, 0 }, -- 10-15 min
+				{ 0, 0, 0 }, -- 15-20 min
+				{ 0, 0, 0 }, -- 20-25 min
+				{ 0, 0, 0 }, -- 25-30 min
+				{ 0, 0, 0 }, -- 30+ min
+			},
+			{
+				-- 智力主属性
+				-- 力量、敏捷、智力增强（每5分钟到下一等级）
+				{ 0, 0, 0 }, -- 0-5 min
+				{ 0, 0, 0 }, -- 5-10 min
+				{ 0, 0, 0 }, -- 10-15 min
+				{ 0, 0, 0 }, -- 15-20 min
+				{ 0, 0, 0 }, -- 20-25 min
+				{ 0, 0, 0 }, -- 25-30 min
+				{ 0, 0, 0 }, -- 30+ min
+			},
+		},
 	},
 	[3] = {
 		name = "Hard",
@@ -56,9 +172,67 @@ botDifficultyDefaultData = {
 		selfStunChanceOnMove = 0, -- 移动时自我眩晕触发概率
 		selfStunDurationOnMove = 0, -- 移动时自我眩晕持续时间
 
-		giveAttrBonus = 8, -- 三围定时增加
-		giveGoldAmount = 30, -- 金币定时增加
-		giveExpAmount = 15, -- 经验定时增加
+		-- 金币定时增加（每5分钟到下一等级）
+		giveGoldAmount = {
+			0, -- 0-5 min
+			37.5, -- 5-10 min
+			45, -- 10-15 min
+			45, -- 15-20 min
+			52.5, -- 20-25 min
+			52.5, -- 25-30 min
+			75, -- 30+ min
+		},
+		-- 经验定时增加（每5分钟到下一等级）
+		giveExpAmount = {
+			0, -- 0-5 min
+			15, -- 5-10 min
+			37.5, -- 10-15 min
+			37.5, -- 15-20 min
+			41.25, -- 20-25 min
+			41.25, -- 25-30 min
+			45, -- 30+ min
+		},
+
+		-- 三围固定增加（力量、敏捷、智力）
+		giveAttrBase = { 8, 8, 8 },
+
+		-- 三围定时增加（每5分钟到下一等级）
+		giveAttrBonus = {
+			-- 主属性区分
+			{
+				-- 力量主属性
+				-- 力量、敏捷、智力增强（每5分钟到下一等级）
+				{ 0, 0, 0 }, -- 0-5 min
+				{ 0, 0, 0 }, -- 5-10 min
+				{ 0.08, 0.02, 0.02 }, -- 10-15 min
+				{ 0.08, 0.02, 0.02 }, -- 15-20 min
+				{ 0.10, 0.025, 0.025 }, -- 20-25 min
+				{ 0.10, 0.025, 0.025 }, -- 25-30 min
+				{ 0.12, 0.03, 0.03 }, -- 30+ min
+			},
+			{
+				-- 敏捷主属性
+				-- 力量、敏捷、智力增强（每5分钟到下一等级）
+				{ 0, 0, 0 }, -- 0-5 min
+				{ 0, 0, 0 }, -- 5-10 min
+				{ 0.04, 0.12, 0.02 }, -- 10-15 min
+				{ 0.04, 0.12, 0.02 }, -- 15-20 min
+				{ 0.05, 0.15, 0.025 }, -- 20-25 min
+				{ 0.05, 0.15, 0.025  }, -- 25-30 min
+				{ 0.06, 0.18, 0.03 }, -- 30+ min
+			},
+			{
+				-- 智力主属性
+				-- 力量、敏捷、智力增强（每5分钟到下一等级）
+				{ 0, 0, 0 }, -- 0-5 min
+				{ 0, 0, 0 }, -- 5-10 min
+				{ 0.04, 0.04, 0.112 }, -- 10-15 min
+				{ 0.04, 0.04, 0.112 }, -- 15-20 min
+				{ 0.05, 0.05, 0.14 }, -- 20-25 min
+				{ 0.05, 0.05, 0.14 }, -- 25-30 min
+				{ 0.06, 0.06, 0.168 }, -- 30+ min
+			},
+		},
 	},
 	[4] = {
 		name = "Lunatic",
@@ -72,9 +246,67 @@ botDifficultyDefaultData = {
 		selfStunChanceOnMove = 0, -- 移动时自我眩晕触发概率
 		selfStunDurationOnMove = 0, -- 移动时自我眩晕持续时间
 
-		giveAttrBonus = 12, -- 三围定时增加
-		giveGoldAmount = 50, -- 金币定时增加
-		giveExpAmount = 20, -- 经验定时增加
+		-- 金币定时增加（每5分钟到下一等级）
+		giveGoldAmount = {
+			0, -- 0-5 min
+			62.5, -- 5-10 min
+			75, -- 10-15 min
+			75, -- 15-20 min
+			87.5, -- 20-25 min
+			87.5, -- 25-30 min
+			125, -- 30+ min
+		},
+		-- 经验定时增加（每5分钟到下一等级）
+		giveExpAmount = {
+			0, -- 0-5 min
+			20, -- 5-10 min
+			50, -- 10-15 min
+			50, -- 15-20 min
+			55, -- 20-25 min
+			55, -- 25-30 min
+			60, -- 30+ min
+		},
+
+		-- 三围固定增加（力量、敏捷、智力）
+		giveAttrBase = { 12, 12, 12 },
+
+		-- 三围定时增加
+		giveAttrBonus = {
+			-- 主属性区分
+			{
+				-- 力量主属性
+				-- 力量、敏捷、智力增强（每5分钟到下一等级）
+				{ 0, 0, 0 }, -- 0-5 min
+				{ 0, 0, 0 }, -- 5-10 min
+				{ 0.16, 0.04, 0.04 }, -- 10-15 min
+				{ 0.16, 0.04, 0.04 }, -- 15-20 min
+				{ 0.20, 0.05, 0.05 }, -- 20-25 min
+				{ 0.20, 0.05, 0.05 }, -- 25-30 min
+				{ 0.24, 0.06, 0.06 }, -- 30+ min
+			},
+			{
+				-- 敏捷主属性
+				-- 力量、敏捷、智力增强（每5分钟到下一等级）
+				{ 0, 0, 0 }, -- 0-5 min
+				{ 0, 0, 0 }, -- 5-10 min
+				{ 0.08, 0.24, 0.04 }, -- 10-15 min
+				{ 0.08, 0.24, 0.04 }, -- 15-20 min
+				{ 0.1, 0.3, 0.05 }, -- 20-25 min
+				{ 0.1, 0.3, 0.05  }, -- 25-30 min
+				{ 0.12, 0.36, 0.06 }, -- 30+ min
+			},
+			{
+				-- 智力主属性
+				-- 力量、敏捷、智力增强（每5分钟到下一等级）
+				{ 0, 0, 0 }, -- 0-5 min
+				{ 0, 0, 0 }, -- 5-10 min
+				{ 0.08, 0.08, 0.224 }, -- 10-15 min
+				{ 0.08, 0.08, 0.224 }, -- 15-20 min
+				{ 0.10, 0.10, 0.28 }, -- 20-25 min
+				{ 0.10, 0.10, 0.28 }, -- 25-30 min
+				{ 0.12, 0.12, 0.336 }, -- 30+ min
+			},
+		},
 	},
 }
 
@@ -152,4 +384,29 @@ end
 function BotModSelect()
 	CustomUI:DynamicHud_Create(-1, "BotSelect", "file://{resources}/layout/custom_game/mode_select.xml", nil)
 	CustomGameEventManager:Send_ServerToAllClients("BotModSelect", { botModeSelect })  --然后将LUA表里的数据传给重连的玩家
+end
+
+
+-- 难度数据
+function SetBotDifficultyData(data)
+	if not IsServer() then return end
+
+	botDifficultyData = data
+	CustomNetTables:SetTableValue(
+			"selection",
+			"botDifficultyData",
+			botDifficultyData
+	)
+end
+
+function GetBotDifficultyData()
+	if IsServer() then
+		return botDifficultyData
+	else
+		return CustomNetTables:GetTableValue("selection", "botDifficultyData")
+	end
+end
+
+if IsServer() then
+	SetBotDifficultyData(botDifficultyDefaultData[1])
 end

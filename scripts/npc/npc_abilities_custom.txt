@@ -1141,7 +1141,7 @@
         "ScriptFile" "scripts/vscripts/abilities/bot_buff.lua"
 		"AbilityTextureName"	"custom/ability_thdots_sanae03"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | ABILITY_TYPE_HIDDEN"
 		"AbilityType"	"ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"4"
 		// Special

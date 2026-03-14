@@ -1,4 +1,4 @@
---require("util/mode_select")
+require("util/mode_select")
 
 -- Bot 基础管理器
 ability_common_bot_buff = class({})
@@ -15,26 +15,7 @@ function ability_common_bot_buff:OnOwnerDied()
 
 	if caster:IsIllusion() then return end
 
-	local now_time = GameRules:GetDOTATime(false, false)
-	if (now_time < 300.0) then return end --do not bonus on death before 5min
-
-	local bonus = ability:GetSpecialValueFor("ex_death_gold")
-	local casterPlayerID = caster:GetPlayerOwnerID()
-
-	PlayerResource:SetGold(casterPlayerID,PlayerResource:GetUnreliableGold(casterPlayerID) + bonus,false)
-
-	if (now_time > 900.0) then
-		local mul = 0.005
-		if caster:GetPrimaryAttribute() == 0 then
-			caster:SetBaseStrength(caster:GetBaseStrength() + bonus * mul)
-		end
-		if caster:GetPrimaryAttribute() == 1 then
-			caster:SetBaseAgility(caster:GetBaseAgility() + bonus * mul)
-		end
-		if caster:GetPrimaryAttribute() == 2 then
-			caster:SetBaseIntellect(caster:GetBaseIntellect() + bonus * mul)
-		end
-	end
+    caster:ModifyGold(botDifficultyData.goldGainOnDeath, false, DOTA_ModifyGold_AbilityGold)
 end
 
 modifier_bot_buff = class({})
@@ -59,23 +40,43 @@ function modifier_bot_buff:DeclareFunctions()
 end
 
 function modifier_bot_buff:GetModifierConstantManaRegen()
-	return self:GetAbility():GetSpecialValueFor("mana_regen")
+    if self.manaRegen == nil then
+        self.manaRegen = GetBotDifficultyData().manaRegen
+    end
+
+	return self.manaRegen
 end
 
 function modifier_bot_buff:GetModifierConstantHealthRegen()
-	return self:GetAbility():GetSpecialValueFor("hp_regen")
+    if self.hpRegen == nil then
+        self.hpRegen = GetBotDifficultyData().hpRegen
+    end
+
+	return self.hpRegen
 end
 
  function modifier_bot_buff:GetModifierBonusStats_Strength()
-	return self:GetAbility():GetSpecialValueFor("bouns_value")
+     if self.giveAttrBase == nil then
+         self.giveAttrBase = GetBotDifficultyData().giveAttrBase
+     end
+
+	return self.giveAttrBase[1]
 end
 
 function modifier_bot_buff:GetModifierBonusStats_Agility()
-	return self:GetAbility():GetSpecialValueFor("bouns_value")
+    if self.giveAttrBase == nil then
+        self.giveAttrBase = GetBotDifficultyData().giveAttrBase
+    end
+
+	return self.giveAttrBase[2]
 end
 
  function modifier_bot_buff:GetModifierBonusStats_Intellect()
-	return self:GetAbility():GetSpecialValueFor("bouns_value")
+     if self.giveAttrBase == nil then
+         self.giveAttrBase = GetBotDifficultyData().giveAttrBase
+     end
+
+     return self.giveAttrBase[3]
 end
 
 function modifier_bot_buff:OnCreated(params)
@@ -83,15 +84,17 @@ function modifier_bot_buff:OnCreated(params)
     
     self.caster = self:GetCaster()
     self.ability = self:GetAbility()
+
+    local botDifficultyData = GetBotDifficultyData()
     
-    self.giveGoldAmount = self.ability:GetSpecialValueFor("give_gold_amount")
-    self.giveExpAmount = self.ability:GetSpecialValueFor("give_exp_amount")
-    self.giveAttrBonus = self.ability:GetSpecialValueFor("increaseallstat")
+    self.giveGoldAmount = botDifficultyData.giveGoldAmount
+    self.giveExpAmount = botDifficultyData.giveExpAmount
+    self.giveAttrBonus = botDifficultyData.giveAttrBonus
     
-    self.selfStunChanceOnAttack = self.ability:GetSpecialValueFor("SelfStunchanceATK")
-    self.selfStunDurationOnAttack = self.ability:GetSpecialValueFor("self_stun_duration_atk")
-    self.selfStunChanceOnMove = self.ability:GetSpecialValueFor("SelfStunchanceMOV")
-    self.selfStunDurationOnMove = self.ability:GetSpecialValueFor("self_stun_duration_mov")
+    self.selfStunChanceOnAttack = botDifficultyData.selfStunChanceOnAttack
+    self.selfStunDurationOnAttack = botDifficultyData.selfStunDurationOnAttack
+    self.selfStunChanceOnMove = botDifficultyData.selfStunChanceOnMove
+    self.selfStunDurationOnMove = botDifficultyData.selfStunDurationOnMove
     
     self.interval = self.ability:GetSpecialValueFor("interval")
     self:StartIntervalThink(self.interval)
@@ -102,81 +105,59 @@ function modifier_bot_buff:OnIntervalThink()
 
     if self.caster:IsIllusion() then return end
 
-    local now_time = GameRules:GetDOTATime(false, false)
-    if (now_time < 1.0) then return end
-    local caster = self.caster
-    local casterPlayerID = caster:GetPlayerOwnerID()
-    local add_gold = self.giveGoldAmount
-    local add_exp = self.giveExpAmount
-    if now_time >= 300.0 and now_time < 600.0 then --30 times
-        add_gold = add_gold * 1.25
-        add_exp = add_exp * 2
-    elseif now_time >= 600.0 and now_time < 1200.0 then --60 times
-        add_gold = add_gold * 1.5
-        add_exp = add_exp * 2.5
-    elseif now_time >= 1200.0 and now_time < 1800.0 then --60 times
-        add_gold = add_gold * 1.75
-        add_exp = add_exp * 2.75
-    elseif now_time >= 1800.0 then
-        add_gold = add_gold * 2.5
-        add_exp = add_exp * 3
+    -- 游戏还未开始，不生效
+    local nowTime = GameRules:GetDOTATime(false, false)
+    if (nowTime < 1.0) then return end
+
+    -- 按照5分钟分批的索引
+    local timeIndex5 = math.ceil(nowTime / 300.0)
+    -- 按照10分钟分批的索引
+    local timeIndex10 = math.ceil(nowTime / 600.0)
+
+    -- 定时增加金币（5分钟批次）
+    local addGold = botDifficultyData.giveGoldAmount[math.min(timeIndex5, #botDifficultyData.giveGoldAmount)]
+    self.caster:ModifyGold(addGold, false, DOTA_ModifyGold_AbilityGold)
+
+    -- 定时增加经验（5分钟批次）
+    local addExp = botDifficultyData.giveExpAmount[math.min(timeIndex5, #botDifficultyData.giveExpAmount)]
+    self.caster:AddExperience(addExp, DOTA_ModifyXP_HeroAbility, false, true)
+
+    -- 定时增加三围（5分钟批次）
+    local addStrength = 0
+    local addAgility = 0
+    local addIntelligence = 0
+    if self.caster:GetPrimaryAttribute() == DOTA_ATTRIBUTE_STRENGTH then
+        local attrBonusTable = botDifficultyData.giveAttrBonus[1][math.min(timeIndex5, #botDifficultyData.giveAttrBonus[1])]
+
+        addStrength = attrBonusTable[1]
+        addAgility = attrBonusTable[2]
+        addIntelligence = attrBonusTable[3]
+    elseif self.caster:GetPrimaryAttribute() == DOTA_ATTRIBUTE_AGILITY then
+        local attrBonusTable = botDifficultyData.giveAttrBonus[2][math.min(timeIndex5, #botDifficultyData.giveAttrBonus[2])]
+
+        addStrength = attrBonusTable[1]
+        addAgility = attrBonusTable[2]
+        addIntelligence = attrBonusTable[3]
+    elseif self.caster:GetPrimaryAttribute() == DOTA_ATTRIBUTE_INTELLECT then
+        local attrBonusTable = botDifficultyData.giveAttrBonus[3][math.min(timeIndex5, #botDifficultyData.giveAttrBonus[3])]
+
+        addStrength = attrBonusTable[1]
+        addAgility = attrBonusTable[2]
+        addIntelligence = attrBonusTable[3]
     end
-    if now_time <= 600.0 then
-        local hcnt = FindUnitsInRadius(
-                caster:GetTeam(),
-                caster:GetOrigin(),
-                nil,
-                1200,
-                DOTA_UNIT_TARGET_TEAM_FRIENDLY,
-                DOTA_UNIT_TARGET_HERO,
-                0, FIND_CLOSEST,
-                false
-        )
-        add_exp = add_exp / math.max(#hcnt,1.0)
-    else
-        local mm=0.1	--6
-        if now_time>=600.0 then
-            mm=0.2		--12(18)
-        end
-        if now_time>=1200.0 then
-            mm=0.25		--15(33)
-        end
-        if now_time>=1800.0 then
-            mm=0.3		--18(51)
-        end
-        if now_time>=2400.0 then
-            mm=0.15		--9(60)
-        end
-        if now_time>=3000.0 then
-            mm=0.05		--3
-        end
-        local tmm = {[0]=mm,[1]=mm,[2]=mm};
-        tmm[caster:GetPrimaryAttribute()]=tmm[caster:GetPrimaryAttribute()]*5.0;
-        if caster:GetPrimaryAttribute() == 0 then
-            tmm[0]=tmm[0]*0.8;
-        end
-        if caster:GetPrimaryAttribute() == 1 then
-            tmm[0]=tmm[0]*2.0;
-            tmm[1]=tmm[1]*1.2;
-        end
-        if caster:GetPrimaryAttribute() == 2 then
-            tmm[0]=tmm[0]*2.0;
-            tmm[1]=tmm[1]*2.0;
-            tmm[2]=tmm[2]*1.4;
-        end
-        caster:SetBaseStrength(caster:GetBaseStrength() + self.giveAttrBonus * tmm[0])
-        caster:SetBaseAgility(caster:GetBaseAgility() + self.giveAttrBonus * tmm[1])
-        caster:SetBaseIntellect(caster:GetBaseIntellect() + self.giveAttrBonus * tmm[2])
-    end
-    if PlayerResource:GetUnreliableGold(casterPlayerID) < 9000 then
-        PlayerResource:SetGold(casterPlayerID,PlayerResource:GetUnreliableGold(casterPlayerID) + add_gold,false)
-    else
-        PlayerResource:SetGold(casterPlayerID,9000,false)
-    end
-    if caster:GetLevel() < 29 then
-        caster:AddExperience(add_exp,DOTA_ModifyXP_CreepKill,false,false)
-    end
-    --SendOverheadEventMessage(Caster:GetOwner(),OVERHEAD_ALERT_GOLD,Caster,self.GiveGoldAmount,nil)
+    self.caster:ModifyStrength(addStrength)
+    self.caster:ModifyAgility(addAgility)
+    self.caster:ModifyIntellect(addIntelligence)
+
+    print_r({
+        HeroName = self.caster:GetName(),
+        time = nowTime,
+        addGold = addGold,
+        addExp = addExp,
+        addStrength = addStrength,
+        addAgility = addAgility,
+        addIntelligence = addIntelligence,
+    })
 end
 
 function modifier_bot_buff:OnAttackStart(event)
@@ -184,7 +165,7 @@ function modifier_bot_buff:OnAttackStart(event)
 
     if event.attacker ~= self.caster then return end
 
-    self:SelfStun(self.selfStunChanceOnAttack, self.selfStunDurationOnAttack)
+    self:SelfStun(botDifficultyData.selfStunChanceOnAttack, botDifficultyData.selfStunDurationOnAttack)
 end
 
 function modifier_bot_buff:OnUnitMoved(event)
@@ -192,7 +173,7 @@ function modifier_bot_buff:OnUnitMoved(event)
 
     if event.unit ~= self.caster then return end
 
-    self:SelfStun(self.selfStunChanceOnMove, self.selfStunDurationOnMove)
+    self:SelfStun(botDifficultyData.selfStunChanceOnMove, botDifficultyData.selfStunDurationOnMove)
 end
 
 function modifier_bot_buff:SelfStun(chance, duration)

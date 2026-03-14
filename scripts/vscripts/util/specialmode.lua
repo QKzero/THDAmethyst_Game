@@ -430,7 +430,10 @@ function THD2_ChangeBotDifficulty( player, dif )
 		print("THDOTSGameMode:ChangeBotDifficulty: Error: invalid difficulty")
 		return
 	end
+
 	cur_bot_dif = dif
+	SetBotDifficultyData(botDifficultyDefaultData[dif])
+
 	local text = G_Bot_Diff_Text[dif]
 	Say(player, "Bot Difficulty set to " .. text, false)
 	print("Bot Difficulty set to " .. text)
