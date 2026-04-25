@@ -2125,6 +2125,7 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 		ModeSelect()
 		if THD2_GetBotMode() then
 			BotModSelect()
+			OpenBotDifficultyEditorOnGameRulesStateChange()
 			GameRules:SendCustomMessage("#BotMode_Explain1",0,0)
 			GameRules:SendCustomMessage("#BotMode_Explain2",0,0)
 			GameRules:SendCustomMessage("#BotMode_Explain3",0,0)
@@ -2855,7 +2856,9 @@ RegisterCustomEventListener("ChangeGameMaxPlayer", ChangeGameMaxPlayer)
 RegisterCustomEventListener("ChangeGameMaxBot", ChangeGameMaxBot)
 
 -- 人机难度模式
-RegisterCustomEventListener("ChangeBotDifficultyData", ChangeBotDifficultyData)
+RegisterCustomEventListener("OpenBotDifficultyEditor", OpenBotDifficultyEditor)
+RegisterCustomEventListener("SaveBotDifficultyData", SaveBotDifficultyData)
+RegisterCustomEventListener("ResetBotDifficulty", ResetBotDifficulty)
 
 RegisterCustomEventListener("get_camera_yaw_callback",get_camera_yaw_callback)
 

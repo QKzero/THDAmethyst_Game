@@ -410,3 +410,165 @@ end
 if IsServer() then
 	SetBotDifficultyData(botDifficultyDefaultData[1])
 end
+
+function OpenBotDifficultyEditorOnGameRulesStateChange()
+	CustomGameEventManager:Send_ServerToAllClients("OpenBotDifficultyEditor", { GetBotDifficultyData() })
+end
+
+-- 打开难度编辑器
+function OpenBotDifficultyEditor(data)
+	if data == nil then return end
+	local plyhd = PlayerResource:GetPlayer(data.PlayerID)
+	if not GameRules:PlayerHasCustomGameHostPrivileges(plyhd) then
+		Say(plyhd, "只有主机可以编辑难度数据！", false)
+		return
+	end
+
+	local difficulty = botModeSelect.Difficulty
+	local diffData = botDifficultyData
+
+	if diffData == nil then
+		Say(plyhd, "无效的难度等级：" .. tostring(difficulty), false)
+		return
+	end
+
+	-- 转换Lua表为可以序列化的格式
+	local sendData = {
+		difficulty = difficulty,
+		name = diffData.name,
+		manaRegen = diffData.manaRegen,
+		hpRegen = diffData.hpRegen,
+		goldGainOnDeath = diffData.goldGainOnDeath,
+		selfStunChanceOnAttack = diffData.selfStunChanceOnAttack,
+		selfStunDurationOnAttack = diffData.selfStunDurationOnAttack,
+		selfStunChanceOnMove = diffData.selfStunChanceOnMove,
+		selfStunDurationOnMove = diffData.selfStunDurationOnMove,
+		giveGoldAmount = diffData.giveGoldAmount,
+		giveExpAmount = diffData.giveExpAmount,
+		giveAttrBase = diffData.giveAttrBase,
+		giveAttrBonus = diffData.giveAttrBonus
+	}
+
+	-- 发送当前难度数据给前端
+	CustomGameEventManager:Send_ServerToPlayer(plyhd, "OpenDifficultyEditor", sendData)
+
+	Say(plyhd, "正在编辑 " .. diffData.name .. " 难度的数据...", false)
+end
+
+-- 保存难度数据
+function SaveBotDifficultyData(data)
+	if data == nil then return end
+	local plyhd = PlayerResource:GetPlayer(data.PlayerID)
+	if not GameRules:PlayerHasCustomGameHostPrivileges(plyhd) then
+		Say(plyhd, "只有主机可以保存难度数据！", false)
+		return
+	end
+
+	local difficulty = data.difficulty
+	if difficulty == nil or difficulty < 1 or difficulty > 4 then
+		Say(plyhd, "无效的难度等级", false)
+		return
+	end
+
+	-- 构建新的难度数据表
+	local newData = {
+		name = data.name or botDifficultyDefaultData[difficulty].name,
+
+		manaRegen = data.manaRegen or 0,
+		hpRegen = data.hpRegen or 0,
+		goldGainOnDeath = data.goldGainOnDeath or 0,
+
+		selfStunChanceOnAttack = data.selfStunChanceOnAttack or 0,
+		selfStunDurationOnAttack = data.selfStunDurationOnAttack or 0,
+		selfStunChanceOnMove = data.selfStunChanceOnMove or 0,
+		selfStunDurationOnMove = data.selfStunDurationOnMove or 0,
+
+		giveGoldAmount = {},
+		giveExpAmount = {},
+		giveAttrBase = {},
+		giveAttrBonus = {{}, {}, {}}
+	}
+
+	-- 填充时间相关数据
+	for i = 1, 7 do
+		newData.giveGoldAmount[i] = data.giveGoldAmount[tostring(i)] or data.giveGoldAmount[i] or 0
+		newData.giveExpAmount[i] = data.giveExpAmount[tostring(i)] or data.giveExpAmount[i] or 0
+	end
+
+	-- 填充固定三围
+	for i = 1, 3 do
+		newData.giveAttrBase[i] = data.giveAttrBase[tostring(i)] or data.giveAttrBase[i] or 0
+	end
+
+	-- 填充定时三围加成
+	for attrIdx = 1, 3 do
+		for timeIdx = 1, 7 do
+			local attrData = data.giveAttrBonus[tostring(attrIdx-1)] or data.giveAttrBonus[attrIdx] or {}
+			local timeData = attrData[tostring(timeIdx)] or attrData[timeIdx] or {}
+
+			newData.giveAttrBonus[attrIdx][timeIdx] = {
+				timeData["1"] or timeData[1] or 0,
+				timeData["2"] or timeData[2] or 0,
+				timeData["3"] or timeData[3] or 0
+			}
+		end
+	end
+
+	-- 更新数据
+	botDifficultyDefaultData[difficulty] = newData
+
+	-- 如果当前正在使用这个难度，立即更新
+	if botModeSelect.Difficulty == difficulty then
+		SetBotDifficultyData(newData)
+	end
+
+	-- 通知保存成功
+	CustomGameEventManager:Send_ServerToPlayer(plyhd, "SaveDifficultySuccess", {success = true})
+
+	Say(plyhd, "难度 " .. newData.name .. " 数据已更新！", false)
+	print("[BotDifficulty] 难度 " .. difficulty .. " 数据已更新")
+end
+
+-- 重置为默认
+function ResetBotDifficulty(data)
+	if data == nil then return end
+	local plyhd = PlayerResource:GetPlayer(data.PlayerID)
+	if not GameRules:PlayerHasCustomGameHostPrivileges(plyhd) then
+		return
+	end
+
+	local difficulty = data.difficulty or 1
+
+	-- 重新初始化默认数据
+	InitDefaultDifficultyData()
+
+	-- 发送更新后的数据给前端
+	local diffData = botDifficultyDefaultData[difficulty]
+	if diffData then
+		local sendData = {
+			difficulty = difficulty,
+			name = diffData.name,
+			manaRegen = diffData.manaRegen,
+			hpRegen = diffData.hpRegen,
+			goldGainOnDeath = diffData.goldGainOnDeath,
+			selfStunChanceOnAttack = diffData.selfStunChanceOnAttack,
+			selfStunDurationOnAttack = diffData.selfStunDurationOnAttack,
+			selfStunChanceOnMove = diffData.selfStunChanceOnMove,
+			selfStunDurationOnMove = diffData.selfStunDurationOnMove,
+			giveGoldAmount = diffData.giveGoldAmount,
+			giveExpAmount = diffData.giveExpAmount,
+			giveAttrBase = diffData.giveAttrBase,
+			giveAttrBonus = diffData.giveAttrBonus
+		}
+		CustomGameEventManager:Send_ServerToPlayer(plyhd, "OpenDifficultyEditor", sendData)
+	end
+
+	Say(plyhd, "难度 " .. (diffData and diffData.name or "未知") .. " 已重置为默认！", false)
+end
+
+-- 初始化默认难度数据（用于重置）
+function InitDefaultDifficultyData()
+	-- 这里重新定义默认数据，用于重置功能
+	-- 由于原文件已经有定义，这里只是确保引用正确
+	print("[BotDifficulty] 重置难度数据为默认值")
+end
