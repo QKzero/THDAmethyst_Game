@@ -81,9 +81,9 @@ require ( "util/stun" )
 require ( "util/pauseunit" )
 require ( "util/silence" )
 require ( "util/magic_immune" )
-require ( "util/mode_select" )
 require ( "util/timers" )
 require ( "util/util" )
+require ( "util/mode_select" )
 require ( "util/disarmed" )
 require ( "util/invulnerable" )
 require ( "util/graveunit" )
@@ -2125,6 +2125,7 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 		ModeSelect()
 		if THD2_GetBotMode() then
 			BotModSelect()
+			OpenBotDifficultyEditorOnGameRulesStateChange()
 			GameRules:SendCustomMessage("#BotMode_Explain1",0,0)
 			GameRules:SendCustomMessage("#BotMode_Explain2",0,0)
 			GameRules:SendCustomMessage("#BotMode_Explain3",0,0)
@@ -2845,12 +2846,19 @@ function THDOTSGameMode:On_dota_item_purchased(keys)
 end
 
 RegisterCustomEventListener("Shuffle_Pressed", Shuffle_Pressed)
+
+-- 人机基本模式
 RegisterCustomEventListener("ChangeGamePause", ChangeGamePause)
 RegisterCustomEventListener("ChangeGameDotaInter", ChangeGameDotaInter)
 RegisterCustomEventListener("ChangeGameBotMode", ChangeGameBotMode)
 RegisterCustomEventListener("ChangeGameDifficulty", ChangeGameDifficulty)
 RegisterCustomEventListener("ChangeGameMaxPlayer", ChangeGameMaxPlayer)
 RegisterCustomEventListener("ChangeGameMaxBot", ChangeGameMaxBot)
+
+-- 人机难度模式
+RegisterCustomEventListener("OpenBotDifficultyEditor", OpenBotDifficultyEditor)
+RegisterCustomEventListener("SaveBotDifficultyData", SaveBotDifficultyData)
+RegisterCustomEventListener("ResetBotDifficulty", ResetBotDifficulty)
 
 RegisterCustomEventListener("get_camera_yaw_callback",get_camera_yaw_callback)
 
