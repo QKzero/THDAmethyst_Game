@@ -312,7 +312,9 @@
 					"item_enhancement_timeless"		"2"		// 永恒 负面时间技能增强
 					"item_enhancement_evolved"		"1"		// 进化 主属性
 					"item_enhancement_fleetfooted"	"1"		// 捷足 移速
-					"item_enhancement_vampiric"		"1"		// 吸血鬼 双吸血
+					"item_enhancement_vampiric"		"1"		// 吸血鬼 双吸血 主属性
+                    "item_enhancement_boundless"	"1"		// 无边 攻击距离施法距离
+                    "item_enhancement_wise"			"1"		// 睿智 每分钟经验
 
 					// 原力量
 					"item_enhancement_hulking"		"1"     // 笨重 增加生命 减少生命回复 减少攻速
