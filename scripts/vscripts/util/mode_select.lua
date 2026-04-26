@@ -474,14 +474,14 @@ function SaveBotDifficultyData(data)
 	local newData = {
 		name = data.name or botDifficultyDefaultData[difficulty].name,
 
-		manaRegen = data.manaRegen or 0,
-		hpRegen = data.hpRegen or 0,
-		goldGainOnDeath = data.goldGainOnDeath or 0,
+		manaRegen = tonumber(data.manaRegen) or 0,
+		hpRegen = tonumber(data.hpRegen) or 0,
+		goldGainOnDeath = tonumber(data.goldGainOnDeath) or 0,
 
-		selfStunChanceOnAttack = data.selfStunChanceOnAttack or 0,
-		selfStunDurationOnAttack = data.selfStunDurationOnAttack or 0,
-		selfStunChanceOnMove = data.selfStunChanceOnMove or 0,
-		selfStunDurationOnMove = data.selfStunDurationOnMove or 0,
+		selfStunChanceOnAttack = tonumber(data.selfStunChanceOnAttack) or 0,
+		selfStunDurationOnAttack = tonumber(data.selfStunDurationOnAttack) or 0,
+		selfStunChanceOnMove = tonumber(data.selfStunChanceOnMove) or 0,
+		selfStunDurationOnMove = tonumber(data.selfStunDurationOnMove) or 0,
 
 		giveGoldAmount = {},
 		giveExpAmount = {},
@@ -491,25 +491,25 @@ function SaveBotDifficultyData(data)
 
 	-- 填充时间相关数据
 	for i = 1, 7 do
-		newData.giveGoldAmount[i] = data.giveGoldAmount[tostring(i)] or data.giveGoldAmount[i] or 0
-		newData.giveExpAmount[i] = data.giveExpAmount[tostring(i)] or data.giveExpAmount[i] or 0
+		newData.giveGoldAmount[i] = tonumber(data.giveGoldAmount[tostring(i)]) or data.giveGoldAmount[i] or 0
+		newData.giveExpAmount[i] = tonumber(data.giveExpAmount[tostring(i)]) or data.giveExpAmount[i] or 0
 	end
 
 	-- 填充固定三围
 	for i = 1, 3 do
-		newData.giveAttrBase[i] = data.giveAttrBase[tostring(i)] or data.giveAttrBase[i] or 0
+		newData.giveAttrBase[i] = tonumber(data.giveAttrBase[tostring(i)]) or data.giveAttrBase[i] or 0
 	end
 
 	-- 填充定时三围加成
 	for attrIdx = 1, 3 do
 		for timeIdx = 1, 7 do
-			local attrData = data.giveAttrBonus[tostring(attrIdx-1)] or data.giveAttrBonus[attrIdx] or {}
+			local attrData = data.giveAttrBonus[tostring(attrIdx)] or data.giveAttrBonus[attrIdx] or {}
 			local timeData = attrData[tostring(timeIdx)] or attrData[timeIdx] or {}
 
 			newData.giveAttrBonus[attrIdx][timeIdx] = {
-				timeData["1"] or timeData[1] or 0,
-				timeData["2"] or timeData[2] or 0,
-				timeData["3"] or timeData[3] or 0
+				tonumber(timeData["1"]) or tonumber(timeData[1]) or 0,
+				tonumber(timeData["2"]) or tonumber(timeData[2]) or 0,
+				tonumber(timeData["3"]) or tonumber(timeData[3]) or 0
 			}
 		end
 	end

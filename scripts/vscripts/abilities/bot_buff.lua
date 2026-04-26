@@ -86,6 +86,7 @@ function modifier_bot_buff:OnCreated(params)
     self.ability = self:GetAbility()
 
     local botDifficultyData = GetBotDifficultyData()
+    print_r(botDifficultyData)
     
     self.giveGoldAmount = botDifficultyData.giveGoldAmount
     self.giveExpAmount = botDifficultyData.giveExpAmount
@@ -149,15 +150,15 @@ function modifier_bot_buff:OnIntervalThink()
     self.caster:ModifyAgility(addAgility)
     self.caster:ModifyIntellect(addIntelligence)
 
-    print_r({
-        HeroName = self.caster:GetName(),
-        time = nowTime,
-        addGold = addGold,
-        addExp = addExp,
-        addStrength = addStrength,
-        addAgility = addAgility,
-        addIntelligence = addIntelligence,
-    })
+    -- print_r({
+    --     HeroName = self.caster:GetName(),
+    --     time = nowTime,
+    --     addGold = addGold,
+    --     addExp = addExp,
+    --     addStrength = addStrength,
+    --     addAgility = addAgility,
+    --     addIntelligence = addIntelligence,
+    -- })
 end
 
 function modifier_bot_buff:OnAttackStart(event)
