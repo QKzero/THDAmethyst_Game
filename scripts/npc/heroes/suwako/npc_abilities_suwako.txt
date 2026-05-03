@@ -5,21 +5,20 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"				"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityBehavior"          "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
+		"AbilityUnitTargetTeam"    "DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"    "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
-		
+		"HasShardUpgrade"			"1"
 		"AbilityCastRange"				"600"
 		"AbilityCastPoint"				"0.2"
 		"AOERadius"						"%suwakoex_radius"
 		"AbilityTextureName"	"touhoutd/thtd_suwako_01"
-		//"AbilityCastAnimation"	"SUWAKO_INNATE"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"		
 		"MaxLevel"				"1"	
-		//////"ID"	"30069"				
-		// Precache
-		//-------------------------------------------------------------------------------------------------------------
+		
 		"precache"
 		{
 			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_lina.vsndevts"
@@ -31,21 +30,11 @@
 			"particle"			"particles/econ/items/storm_spirit/strom_spirit_ti8/gold_storm_sprit_ti8_overload_discharge.vpcf"			
 		}
 		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"2.2"
+		"AbilityCooldown"				"0"      // 基础冷却设为0，冷却由脚本动态管理
 		"AbilityDuration"				"0.1"
-	
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"25"
-	
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDamage"					"22"
 		"AbilityManaCost"				"2"
-	
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
+		
 		"AbilityValues"
 		{
 			"suwakoex_radius"
@@ -53,28 +42,31 @@
 				"value"			"200"
 				"affected_by_aoe_increase"	"1"
 			}
-			"int_multi"	"1.0"
+			"int_multi"	"0.8"
 			"max_target"		"4"
 			"show_cast_range"	"1"
 		}
-	
+		
+		// 技能升级时添加永久被动修饰器
+		"OnUpgrade"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilitysuwako.lua"
+				"Function"		"ApplySuwako05Passive"
+			}
+		}
+
+		// 主动施法
 		"OnSpellStart"
 		{
 			"RunScript"
 			{
-				//"Target"	"TARGET"
 				"ScriptFile"	"scripts/vscripts/abilities/abilitysuwako.lua"
-				"Function"	"suwakoexvoice"
+				"Function"		"OnsuwakoexSpellStart2"
 			}
-			"RunScript"
-			{
-				//"Target"	"TARGET"
-				"ScriptFile"	"scripts/vscripts/abilities/abilitysuwako.lua"
-				"Function"	"OnsuwakoexSpellStart2"
-				"Target"	"POINT"				
-			}	
 		}
-	
+
 		"Modifiers"
 		{
 			"modifier_suwako_innate"
@@ -91,8 +83,55 @@
 						"intscale" "%int_multi"
 					}
 				}
-			}			
+			}
 			
+			// 永久被动修饰器：监听攻击事件、控制攻击距离
+			"modifier_suwako05_passive"
+			{
+				"IsHidden"      "1"
+				"IsPurgable"    "0"
+				"IsDebuff"      "0"
+				"Passive"       "1"
+				"RemoveOnDeath" "0"
+				"ThinkInterval" "0.2"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "scripts/vscripts/abilities/abilitysuwako.lua"
+						"Function"      "Suwako05PassiveThink"
+					}
+				}
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "scripts/vscripts/abilities/abilitysuwako.lua"
+						"Function"      "Suwako05OnAttackLanded"
+					}
+				}
+			}
+			
+			// 攻击距离加成修饰器（自动施法开启且技能冷却就绪时生效）
+			"modifier_suwako05_attack_range"
+			{
+				"IsHidden"          "1"
+				"IsPurgable"        "0"
+				"IsDebuff"          "0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACK_RANGE_BONUS"    "600"
+				}
+			}
+
+			// 手动冷却修饰器（魔晶后手动施法专用）
+			"modifier_suwako05_manual_cooldown"
+			{
+				"IsHidden"          "0"
+				"IsPurgable"        "0"
+				"IsDebuff"          "1"
+				"Duration"          "0.5"
+			}
 		}
 	}	
 	
@@ -257,7 +296,7 @@
 		}
 		
 		// Data driven
-		//-------------------------------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------------------------------
 		"precache"
 		{
 			"soundfile"					"soundevents/game_sounds_heroes/game_sounds_puck.vsndevts"
@@ -1205,6 +1244,45 @@
 		"AbilityValues"
 		{
 			"value"	"1"
+		}
+	}
+	
+	
+	//=================================================================================================================
+	// 诹访子万宝槌
+	//=================================================================================================================		
+	"ability_thdots_suwako_aghs"
+	{
+		"BaseClass"                     "ability_lua"
+		"ScriptFile"                    "scripts/vscripts/abilities/abilitysuwako.lua"
+		"AbilityBehavior"                "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"          "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"          "DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType"              "SPELL_IMMUNITY_FRIENDLY_YES"
+		"FightRecapLevel"                "1"
+		"AbilityCastRange"                "600"
+		"AbilityCastPoint"                "0.2"
+		"AbilityCooldown"                 "22"
+		"AbilityManaCost"                 "0"
+		"AbilityTextureName"              "touhoutd/thtd_suwako_05"
+		"AbilityCastAnimation"            "ACT_DOTA_CAST_ABILITY_1"
+		"IsGrantedByScepter"               "1"
+		"MaxLevel"                         "1"
+		"precache"
+		{
+			"soundfile"					  "soundevents/thdots_hero_sounds/thdots_suwako_sounds.vsndevts"
+			"soundfile"                   "soundevents/game_sounds_heroes/game_sounds_medusa.vsndevts"
+			"particle"                    "particles/econ/items/medusa/medusa_daughters/medusa_daughters_mana_shield.vpcf"
+			"particle"                    "particles/units/heroes/hero_medusa/medusa_mana_shield_end.vpcf"
+			"particle"				      "particles/thd2/items/item_qijizhixing.vpcf"
+		}
+		"AbilityValues"
+		{
+			"mana_cost"					"50"
+			"shield_base"				"222"
+			"shield_factor"				"2.2"
+			"duration"					"2.2"
+			"heal_percent"				"22"
 		}
 	}
 }

@@ -12,7 +12,7 @@
 		"Ability2"				"ability_thdots_suwako02"
 		"Ability3"				"ability_thdots_suwako03z"
 		"Ability4"				"ability_thdots_suwako05"
-		"Ability5"				"generic_hidden"
+		"Ability5"				"ability_thdots_suwako_aghs"
 		//"Ability3"				"ability_thdotsr_suwako03"
 		"Ability6"				"ability_thdots_suwako04new"
 		"Ability7"				"generic_hidden"
@@ -24,6 +24,7 @@
 		"Ability15"				"special_bonus_unique_suwako_6"
 		"Ability16"				"special_bonus_unique_suwako_7"
 		"Ability17"				"special_bonus_unique_suwako_8"
+		//"AbilityScepter"        "ability_thdots_suwako_aghs"   // 神杖技能
 
 		"Facets"
 		{

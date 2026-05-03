@@ -291,10 +291,14 @@ function modifier_ability_thdots_medicine01_debuff:OnIntervalThink()
     if not IsServer() then
         return
     end
-    local damage = self.ability:GetSpecialValueFor("damage") / 2
-    if FindTelentValue(self:GetCaster(), "special_bonus_unique_medicine_2") ~= 0 then
-        damage = damage + self.parent:GetHealth() * 0.1 / 2
+    local damage = self.ability:GetSpecialValueFor("damage")
+    local damage_bonus_pct = self.ability:GetSpecialValueFor("damage_bonus_pct")
+    if damage_bonus_pct ~= 0 then
+        damage = damage + self.parent:GetHealth() * damage_bonus_pct * 0.01
     end
+    -- 每0.5秒对目标造成伤害
+    damage = damage / 2
+
     local damageTable = {
         attacker = self.caster,
         ability = self.ability,
@@ -310,6 +314,7 @@ end
 function modifier_ability_thdots_medicine01_caster:DeclareFunctions()
     return {MODIFIER_EVENT_ON_ATTACK_LANDED}
 end
+
 function modifier_ability_thdots_medicine01_caster:OnAttackLanded(keys)
     if not IsServer() then
         return
@@ -317,8 +322,49 @@ function modifier_ability_thdots_medicine01_caster:OnAttackLanded(keys)
     if keys.attacker ~= self:GetParent() then
         return
     end
-    local mods = keys.target:FindAllModifiers()
+
+    local caster = keys.attacker
+    local target = keys.target
     local ability = self:GetAbility()
+
+    -- 自动施法处理（仅当开启自动施法时）
+    if ability:GetAutoCastState() then
+        -- 检查目标是否为建筑（原技能目标类型不包括建筑）
+        if target:IsBuilding() then
+            return
+        end
+        -- 检查技能是否就绪（冷却、魔法、目标合法性）
+        if ability:IsCooldownReady() and caster:GetMana() >= ability:GetManaCost(ability:GetLevel()) then
+            -- 使用原技能的法术阻挡检查（自定义函数，通常包括魔免、技能免疫等）
+            if is_spell_blocked(target, caster) then
+                return
+            end
+
+            -- 消耗魔法并启动冷却
+            local manaCost = ability:GetManaCost(ability:GetLevel())
+            caster:SpendMana(manaCost, ability)
+            ability:StartCooldown(ability:GetCooldown(ability:GetLevel()))
+
+            -- 播放施法音效并发射追踪投射物（完全复用原技能逻辑）
+            caster:EmitSound("Hero_Viper.poisonAttack.Cast")
+            local info = {
+                EffectName = "particles/econ/items/viper/viper_ti7_immortal/viper_poison_attack_ti7.vpcf",
+                Ability = ability,
+                iMoveSpeed = 1000,
+                Source = caster,
+                Target = target,
+                bProvidesVision = true,
+                iVisionRadius = 300,
+                bReplaceExisting = false,
+                flExpireTime = GameRules:GetGameTime() + 10,
+                iSourceAttachment = DOTA_PROJECTILE_ATTACHMENT_ATTACK_1
+            }
+            ProjectileManager:CreateTrackingProjectile(info)
+        end
+    end
+
+    -- 原有减冷却逻辑保持不变（攻击带有“medicine”修饰器的目标时减少冷却）
+    local mods = keys.target:FindAllModifiers()
     for _, m in pairs(mods) do
         if string.find(m:GetName(), "medicine") then
             local new_cooldown = ability:GetCooldownTimeRemaining() -

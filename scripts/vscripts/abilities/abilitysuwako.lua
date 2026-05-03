@@ -499,3 +499,347 @@ function suwako03toggleoff(keys)
     local ability = keys.ability
     ability:StartCooldown(5)
 end
+
+
+-- 技能升级时添加永久被动修饰器
+function ApplySuwako05Passive(keys)
+    local caster = keys.caster
+    local ability = keys.ability
+    if not caster:HasModifier("modifier_suwako05_passive") then
+        caster:AddNewModifier(caster, ability, "modifier_suwako05_passive", {})
+    end
+end
+
+-- 公共伤害函数（在目标位置施放技能效果）
+function CastSuwako05AtLocation(caster, ability, targetLoc)
+    if not ability or ability:IsNull() then return end
+
+    local damageradius = ability:GetLevelSpecialValueFor("suwakoex_radius", ability:GetLevel() - 1)
+    local suwakointscale = ability:GetLevelSpecialValueFor("int_multi", ability:GetLevel() - 1)
+    local baseDamage = ability:GetAbilityDamage()
+    local damage = ((caster:GetIntellect(false) * suwakointscale) + baseDamage) *
+                       (1 + FindTelentValue(caster, "special_bonus_unique_suwako_8"))
+    local maxTarget = FindValueTHD("max_target", ability)
+
+    local targets = FindUnitsInRadius(caster:GetTeam(), targetLoc, nil, damageradius,
+        DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP, 0, FIND_CLOSEST, false)
+
+    local targetCount = 0
+    local playedEffect = false
+    for _, v in pairs(targets) do
+        targetCount = targetCount + 1
+        if targetCount > maxTarget then break end
+        local damage_table = {
+            ability = ability,
+            victim = v,
+            attacker = caster,
+            damage = damage,
+            damage_type = ability:GetAbilityDamageType(),
+            damage_flags = 0
+        }
+        if not playedEffect then
+            local effectIndex = ParticleManager:CreateParticle(
+                "particles/econ/items/storm_spirit/strom_spirit_ti8/gold_storm_sprit_ti8_overload_discharge.vpcf",
+                PATTACH_CUSTOMORIGIN, caster)
+            ParticleManager:SetParticleControl(effectIndex, 0, targetLoc)
+            ParticleManager:SetParticleControl(effectIndex, 1, targetLoc)
+            ParticleManager:SetParticleControl(effectIndex, 2, targetLoc)
+            ParticleManager:SetParticleControl(effectIndex, 5, targetLoc)
+            v:EmitSound("Hero_VengefulSpirit.MagicMissileImpact")
+            playedEffect = true
+            ParticleManager:DestroyParticleSystem(effectIndex, false)
+        end
+        UnitDamageTarget(damage_table)
+    end
+end
+
+-- 主动施法（手动施放）
+function OnsuwakoexSpellStart2(keys)
+    local caster = keys.caster
+    local ability = keys.ability
+    local targetUnit = keys.target
+    if not targetUnit then return end
+
+    -- 检查手动冷却修饰器（魔晶后专用）
+    if caster:HasModifier("modifier_suwako05_manual_cooldown") then
+        -- 仍在冷却中，拒绝施放
+        return
+    end
+
+    -- 播放语音
+    caster:EmitSound("suwako_innate_" .. math.random(1, 3))
+
+    -- 施放技能效果
+    CastSuwako05AtLocation(caster, ability, targetUnit:GetOrigin())
+
+    -- 处理冷却
+    if caster:HasModifier("modifier_item_aghanims_shard") then
+        -- 魔晶后手动冷却为0.5秒（添加手动冷却修饰器）
+        ability:ApplyDataDrivenModifier(caster, caster, "modifier_suwako05_manual_cooldown", {})
+    else
+        -- 无魔晶时，启动2.2秒技能冷却
+        ability:StartCooldown(2.2)
+    end
+end
+
+-- 攻击命中回调（自动施法触发）
+function Suwako05OnAttackLanded(keys)
+    local caster = keys.attacker
+    local target = keys.target
+    if not caster or not target then return end
+
+    local ability = caster:FindAbilityByName("ability_thdots_suwako05")
+    if not ability then return end
+
+    if ability:GetAutoCastState() then
+        local manaCost = ability:GetManaCost(ability:GetLevel() - 1)
+        if caster:GetMana() >= manaCost then
+            caster:SpendMana(manaCost, ability)
+            -- 施放技能
+            CastSuwako05AtLocation(caster, ability, target:GetOrigin())
+            -- 处理冷却
+            if not caster:HasModifier("modifier_item_aghanims_shard") then
+                -- 无魔晶时，启动2.2秒冷却
+                ability:StartCooldown(2.2)
+            end
+            -- 有魔晶时，不启动冷却（技能保持0冷却，自动施法无限制）
+        end
+    end
+end
+
+-- 定时检查自动施法状态和技能冷却，动态控制攻击距离加成
+function Suwako05PassiveThink(keys)
+    local caster = keys.caster
+    local ability = keys.ability
+    if not caster or not ability then return end
+
+    local autoCast = ability:GetAutoCastState()
+    local cooldownReady = ability:IsCooldownReady()   -- 技能冷却是否就绪（魔晶后始终为真）
+    local rangeMod = caster:FindModifierByName("modifier_suwako05_attack_range")
+
+    if autoCast and cooldownReady then
+        if not rangeMod then
+            ability:ApplyDataDrivenModifier(caster, caster, "modifier_suwako05_attack_range", {})
+        end
+    else
+        if rangeMod then
+            rangeMod:Destroy()
+        end
+    end
+end
+
+
+
+
+-- Aghanim技能：护盾（基于yorihime_03重构）
+ability_thdots_suwako_aghs = class({})
+
+LinkLuaModifier("modifier_suwako_aghs_shield", "scripts/vscripts/abilities/abilitysuwako.lua", LUA_MODIFIER_MOTION_NONE)
+
+-- 动态魔法消耗（UI显示）
+function ability_thdots_suwako_aghs:GetManaCost(level)
+    local caster = self:GetCaster()
+    if caster then
+        return caster:GetMana() * self:GetSpecialValueFor("mana_cost") * 0.01
+    end
+    return 0
+end
+
+function ability_thdots_suwako_aghs:OnSpellStart()
+    if not IsServer() then return end
+    local caster = self:GetCaster()
+    local target = self:GetCursorTarget()
+    if not target then return end
+
+    -- 消耗当前50%魔法值
+    local mana_cost = caster:GetMana() * 0.5
+    --[[caster:SpendMana(mana_cost, self)--]]
+	
+	-- ========== 音效 ==========
+    -- 施法者（suwako）播放音效（需替换为实际事件名）
+	caster:EmitSound("suwako_innate_" .. math.random(1, 3))
+    -- 施法目标播放美杜莎音效
+    target:EmitSound("Hero_Medusa.ManaShield.On") 
+
+    -- 计算护盾值
+    local shield_base = self:GetSpecialValueFor("shield_base")
+    local shield_factor = self:GetSpecialValueFor("shield_factor")
+    local shield_value = shield_base + mana_cost * shield_factor
+    local duration = self:GetSpecialValueFor("duration")
+
+    -- 移除旧护盾（防止叠加）
+    if target:HasModifier("modifier_suwako_aghs_shield") then
+        target:RemoveModifierByName("modifier_suwako_aghs_shield")
+    end
+
+    -- 施加护盾修饰器
+    target:AddNewModifier(caster, self, "modifier_suwako_aghs_shield", {
+        duration = duration,
+        shield = shield_value
+    })
+
+	-- -- 对目标造成1点纯粹伤害（触发效果但不致死）
+    -- local damageTable = {
+    --     victim = target,
+    --     attacker = caster,
+    --     damage = 1,
+    --     damage_type = DAMAGE_TYPE_PURE,
+    --     ability = self,
+    --     damage_flags = DOTA_DAMAGE_FLAG_NONE
+    -- }
+    -- ApplyDamage(damageTable)
+end
+
+-- 护盾修饰器（完全基于yorihime_03的实现重构）
+modifier_suwako_aghs_shield = {}
+
+function modifier_suwako_aghs_shield:IsHidden() return false end
+function modifier_suwako_aghs_shield:IsDebuff() return false end
+function modifier_suwako_aghs_shield:IsPurgable() return false end
+function modifier_suwako_aghs_shield:RemoveOnDeath() return true end
+
+function modifier_suwako_aghs_shield:OnCreated(keys)
+    if not IsServer() then return end
+    local parent = self:GetParent()
+    local caster = self:GetCaster()
+
+    self.shieldRemaining = keys.shield
+
+    -- 施加强驱散（移除负面状态、眩晕）
+	parent:Purge(false, true, false, true, false)
+
+	-- 护盾持续特效（美杜莎女儿珍藏版）—— 完全仿照 yorihime_03 的写法
+    self.particle = ParticleManager:CreateParticle(
+        "particles/econ/items/medusa/medusa_daughters/medusa_daughters_mana_shield.vpcf",
+        PATTACH_ROOTBONE_FOLLOW,
+        parent
+    )
+    -- 设置垂直偏移（负值向下，例如 -80 使特效围绕腰部）
+    local offset = Vector(0, 0, -80)   -- 可根据实际效果调整数值
+    -- 控制点0：特效主位置
+    ParticleManager:SetParticleControlEnt(self.particle, 0, parent,
+        PATTACH_ABSORIGIN_FOLLOW, "attach_hitloc", parent:GetAbsOrigin() + offset, true)
+    -- 控制点1：通常用于特效朝向或次要位置，同样添加偏移
+    ParticleManager:SetParticleControlEnt(self.particle, 1, parent,
+        PATTACH_ABSORIGIN_FOLLOW, "attach_hitloc", parent:GetAbsOrigin() + offset, true)
+
+    -- 在状态栏显示剩余护盾值（堆叠计数）
+    self:SetStackCount(self.shieldRemaining)
+end
+
+function ApplyHealWithAmplification(target, healer, base_heal, ability)
+    if not IsServer() then return end
+    
+    -- 获取目标身上的治疗增强修正值
+    local heal_amp = 0
+    
+    -- 方法1：通过修饰器属性获取（如果使用标准修饰器属性）
+    if target.GetHealAmplification then
+        heal_amp = target:GetHealAmplification()
+    end
+    
+    -- 方法2：手动检查常见治疗增强来源
+    -- 核棒（nuclear_stick）
+	if target:HasModifier("modifier_item_nuclear_stick_basic") then
+		local modifiers = target:FindAllModifiersByName("modifier_item_nuclear_stick_basic")
+		for _, mod in ipairs(modifiers) do
+			-- 调用修饰器实现的函数获取治疗增强值
+			local amp = mod:GetModifierHealAmplify_PercentageTarget() * 0.01 or 0
+			heal_amp = heal_amp + amp
+		end
+	end
+    
+    -- 计算最终治疗量
+    local final_heal = base_heal * (1 + heal_amp)
+    
+    -- 应用治疗
+    target:Heal(final_heal, healer)
+    
+    -- 显示治疗数值
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, target, final_heal, nil)
+    
+    return final_heal
+end
+
+
+function modifier_suwako_aghs_shield:OnDestroy()
+    if not IsServer() then return end
+    local parent = self:GetParent()
+    local caster = self:GetCaster()
+    local ability = self:GetAbility()
+
+    -- 护盾摧毁时播放音效（美杜莎音效）
+    parent:EmitSound("Hero_Medusa.ManaShield.Off") 
+	
+    -- 再次强驱散
+	parent:Purge(false, true, false, true, false)
+
+	-- 添加驱散特效
+	local dispelParticle = ParticleManager:CreateParticle(
+		"particles/thd2/items/item_qijizhixing.vpcf", 
+		PATTACH_ABSORIGIN_FOLLOW, 
+		parent
+	)
+	-- 立即释放，让特效播放完自动销毁	
+	ParticleManager:ReleaseParticleIndex(dispelParticle)
+
+    -- 美杜莎护盾结束特效（一次性）
+    local endParticle = ParticleManager:CreateParticle(
+        "particles/units/heroes/hero_medusa/medusa_mana_shield_end.vpcf",
+        PATTACH_ABSORIGIN_FOLLOW,
+        parent
+    )
+    ParticleManager:ReleaseParticleIndex(endParticle)
+	
+    -- 手动销毁护盾持续特效
+    if self.particle then
+        ParticleManager:DestroyParticle(self.particle, true)
+        ParticleManager:ReleaseParticleIndex(self.particle)
+    end
+	
+    -- 剩余护盾转化为生命
+    if self.shieldRemaining and self.shieldRemaining > 0 then
+        local heal_percent = ability:GetSpecialValueFor("heal_percent") * 0.01
+        local base_heal = self.shieldRemaining * heal_percent
+        ApplyHealWithAmplification(parent, caster, base_heal, ability)
+    end
+	
+	ParticleManager:CreateParticle("particles/thd2/items/item_qijizhixing.vpcf", PATTACH_ABSORIGIN_FOLLOW, v)
+end
+
+
+function modifier_suwako_aghs_shield:DeclareFunctions()
+	return {
+		MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK,   -- 常量格挡（核心护盾机制）
+		MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT, -- 客户端显示剩余值
+	}
+end
+
+-- 护盾格挡逻辑（完全照搬yorihime_03的实现）
+function modifier_suwako_aghs_shield:GetModifierTotal_ConstantBlock(keys)
+	if not IsServer() then return 0 end
+	if bit.band(keys.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS) == DOTA_DAMAGE_FLAG_HPLOSS then 
+		return 0 
+	end
+
+	local damage = keys.damage
+	if damage < self.shieldRemaining then
+		-- 完全格挡本次伤害，剩余护盾减少
+		self.shieldRemaining = self.shieldRemaining - damage
+		self:SetStackCount(self.shieldRemaining)
+		return damage
+
+	else
+		-- 护盾耗尽，格挡剩余部分并销毁
+		local absorb = self.shieldRemaining
+		self:Destroy()   -- 会触发OnDestroy
+		return absorb
+	end
+end
+
+-- 客户端显示剩余护盾值（与堆叠计数一致）
+function modifier_suwako_aghs_shield:GetModifierIncomingDamageConstant(keys)
+	if IsClient() then
+		return self:GetStackCount()
+	end
+end

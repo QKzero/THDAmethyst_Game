@@ -2684,7 +2684,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_medicine_1"	"+{s:bonus_slow_amount}%「忧郁之毒」移速/魔抗降低"
 		"DOTA_Tooltip_ability_special_bonus_unique_medicine_3"	"+200「毒气花园」伤害"
 		"DOTA_Tooltip_ability_special_bonus_unique_medicine_2"	"「甜蜜毒素」"
-		"DOTA_Tooltip_ability_special_bonus_unique_medicine_2_Description"	"+10%目标当前生命值「神经之毒」每秒伤害"
+		"DOTA_Tooltip_ability_special_bonus_unique_medicine_2_Description"	"+{s:bonus_damage_bonus_pct}%目标当前生命值「神经之毒」每秒伤害"
 		"DOTA_Tooltip_ability_special_bonus_unique_medicine_4"	"「盛开的铃兰花」"
 		"DOTA_Tooltip_ability_special_bonus_unique_medicine_4_Description"	"「猛毒气息」嘲讽周围450码敌人1.6秒"
 		//"DOTA_Tooltip_ability_special_bonus_unique_meepo_3"	"「神经之毒」范围释放"
@@ -4351,11 +4351,16 @@
 		
 		"DOTA_Tooltip_ability_ability_thdots_suwako04new_air_time"				"空中时间： "
 		
+		"DOTA_Tooltip_ability_ability_thdots_suwako_aghs"				    "蛙休「总是能够冬眠」"
+		"DOTA_Tooltip_ability_ability_thdots_suwako_aghs_Description"	    "消耗自身%mana_cost%%当前魔法值，给予友方%shield_base%+消耗魔法值*%shield_factor%的全伤害护盾，持续时间%duration%s。\n施加护盾、护盾被摧毁或持续时间结束时，对目标施加驱散效果。\n护盾持续时间结束时，将剩余护盾的%heal_percent%%转为生命值治疗。"
+		"DOTA_Tooltip_modifier_suwako_aghs_shield"							"蛙休「总是能够冬眠」"
+		"DOTA_Tooltip_modifier_suwako_aghs_shield_Description"	    		"护盾效果"
 		
 		"DOTA_Tooltip_ability_ability_thdots_suwako05"						"神具「洩矢之小铁轮」"		
-		"DOTA_Tooltip_ability_ability_thdots_suwako05_Description"			"向前发射铁轮，对目标点%suwakoex_radius%范围内随机%max_target%个目标造成伤害。"
+		"DOTA_Tooltip_ability_ability_thdots_suwako05_Description"			"向前发射铁轮，对目标点%suwakoex_radius%范围内随机%max_target%个目标造成伤害。\n自动施法开启时，可通过普通攻击触发，本次攻击攻击距离将提高至%AbilityCastRange%。"
 		"DOTA_Tooltip_ability_ability_thdots_suwako05_int_multi"						"智力加成："
 		"DOTA_Tooltip_ability_ability_thdots_suwako05_AbilityCastRange"		"施法距离："
+		"DOTA_Tooltip_ability_ability_thdots_suwako05_shard_description"	"移除本技能冷却时间。"
 		// "DOTA_Tooltip_ability_ability_thdots_suwako05_light_strike_array_aoe"			"影响范围： "																										
 		// "DOTA_Tooltip_ability_special_bonus_unique_suwako_1"				"+50 「赤口吞噬」伤害"																																																				
 		"DOTA_Tooltip_ability_special_bonus_unique_suwako_2"				"-7秒 「岩浆的两栖类」冷却"

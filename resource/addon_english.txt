@@ -3769,7 +3769,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_medicine_1"					"+{s:bonus_slow_amount}%「Melancholic Poison」Movespeed/Magic Resistance Reduction"
 		"DOTA_Tooltip_ability_special_bonus_unique_medicine_3"					"+{s:value}「Gassing Garden」DPS"
 		"DOTA_Tooltip_ability_special_bonus_unique_medicine_2"					"「Sweet Poison」"
-		"DOTA_Tooltip_ability_special_bonus_unique_medicine_2_Description"		"Poison Sign「Nerve Poison」deals an extra 10% of the enemy's current health as damage per second."
+		"DOTA_Tooltip_ability_special_bonus_unique_medicine_2_Description"		"Poison Sign「Nerve Poison」deals an extra {s:bonus_damage_bonus_pct}% of the enemy's current health as damage per second."
 		"DOTA_Tooltip_ability_special_bonus_unique_medicine_4"					"「Blooming Lily of the Valley」"
 		"DOTA_Tooltip_ability_special_bonus_unique_medicine_4_Description"		"「Poison Breath」taunts enemies within 450 range for 1.6 seconds."
 
@@ -4150,11 +4150,17 @@
 		"DOTA_Tooltip_ability_ability_thdots_suwako01_Description"			"Roots and disarms all enemies within area around Suwako and does damage \n Bonus damage per INT:%int_scale%"
 		"DOTA_Tooltip_ability_ability_thdots_suwako01_light_strike_array_aoe" "Area: "
 		"DOTA_Tooltip_ability_ability_thdots_suwako01_root_duration"		"Root duration: "
+		"DOTA_Tooltip_modifier_suwako01" 									"「Mishaguji-sama」"
+		"DOTA_Tooltip_modifier_suwako01_Description" 						"Rooted and disarmed."
 
 		"DOTA_Tooltip_ability_ability_thdots_suwako02"						"Native God「Magma Amphibian」"
 		"DOTA_Tooltip_ability_ability_thdots_suwako02_Description"			"Suwako goes underground.becoming invulnerable during the time, creating a water vortex around her that deals damage to enemy units inside the area effect.Gains additional %movement_speed_percent_bonus_suwako% movement speed and slow enemy by %slow_speed_percent_bonus_suwako%%  last %slow_duration% s . Suwako may not attack,skills or items while underground. \n Bonus damage per INT:%int_scale% "
 		"DOTA_Tooltip_ability_ability_thdots_suwako02_ability_duration"		"DURATION: "
 		"DOTA_Tooltip_ability_ability_thdots_suwako02_burn_damage_radius"				"Area: "
+		"DOTA_Tooltip_modifier_suwako02_slow" 								"「Magma Amphibian」"
+		"DOTA_Tooltip_modifier_suwako02_slow_Description" 					"Slowed"
+		"DOTA_Tooltip_aura_suwako_02_checker" 								"「Magma Amphibian」"
+		"DOTA_Tooltip_aura_suwako_02_checker_Description" 					"Underground"
 
 		"DOTA_Tooltip_ability_ability_thdots_suwako03"						"Native God「Kero-chan Braves the Elements」"
 		"DOTA_Tooltip_ability_ability_thdots_suwako03_Description"			"Activates a magic shield, which absorbs damage using spirit. Absorbs 60% of total damage taken.Has a passive effect of returning the damage dealt by the usage of skills as mana(mana gain does not work on ultimate)."
@@ -4173,8 +4179,9 @@
 		"DOTA_Tooltip_modifier_suwako03_return_mana_new_Description"		"Suwako gain mana when dealing damage."
 
 		"DOTA_Tooltip_modifier_suwako03shield"								"Native God「Kero-chan Braves the Elements」"
-		"DOTA_Tooltip_modifier_suwako03_return_mana"						"Suwako gain mana when dealing damage."
-		"DOTA_Tooltip_modifier_suwako03shield_Description"					"absorb incoming damage"
+		"DOTA_Tooltip_modifier_suwako03shield_Description"					"Consumes mana to absorb damage"
+		"DOTA_Tooltip_modifier_suwako03_return_mana"						"Native God「Kero-chan Braves the Elements」"
+		"DOTA_Tooltip_modifier_suwako03_return_mana_Description" 			"Dealing damage returns mana."
 
 		"DOTA_Tooltip_modifier_suwako03shield_new"								"Native God「Kero-chan Braves the Elements」"
 	//	"DOTA_Tooltip_modifier_suwako03_return_mana_new"						"Suwako gain mana when dealing damage."
@@ -4197,16 +4204,20 @@
 
 		"DOTA_Tooltip_ability_ability_thdots_suwako04new_air_time"				"Air time: "
 
+		"DOTA_Tooltip_ability_ability_thdots_suwako_aghs"				    "Frog Rest「Always Able to Hibernate」"
+		"DOTA_Tooltip_ability_ability_thdots_suwako_aghs_Description"	    "Consumes %mana_cost%% of current mana, granting an ally a shield that absorbs all damage for %shield_base% + consumed mana * %shield_factor%, lasting %duration%s.\nWhen the shield is applied, destroyed, or expires, a dispel effect is applied to the target.\nWhen the shield expires, %heal_percent%% of the remaining shield is converted to health."
 
 		"DOTA_Tooltip_ability_ability_thdots_suwako05"						"Divine Instrument「Moriya's Iron Ring」"
-		"DOTA_Tooltip_ability_ability_thdots_suwako05_Description"			"Launches an iron ring forward dealing damage to the target. \n Maximum %max_target% targets  "
-		"DOTA_Tooltip_ability_ability_thdots_suwako05_light_strike_array_aoe"			"Area: "
-		"DOTA_Tooltip_ability_ability_thdots_suwako05_int_multi"			" Bonus damage per INT:" 
+		"DOTA_Tooltip_ability_ability_thdots_suwako05_Description"			"Launches an iron ring forward dealing damage to the target. \n Maximum %max_target% targets.\nWhen autocast is enabled, can be triggered by normal attacks, increasing attack range to %AbilityCastRange%."
+		"DOTA_Tooltip_ability_ability_thdots_suwako05_int_multi"						"Bonus damage per INT:"
+		"DOTA_Tooltip_ability_ability_thdots_suwako05_AbilityCastRange"		"Cast Range:"
+		"DOTA_Tooltip_ability_ability_thdots_suwako05_shard_description"	"Removes this ability's cooldown."
+		"DOTA_Tooltip_ability_ability_thdots_suwako05_light_strike_array_aoe"			"Area: " 
 		// "DOTA_Tooltip_ability_special_bonus_unique_suwako_1"				"+50 Curse God「Mishaguji-sama」damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_suwako_2"				"-7s cd Native God「Magma Amphibian」"
 		// "DOTA_Tooltip_ability_special_bonus_unique_suwako_3"				"-30s cd Native God「Gushing Spring of the Ancient」"
 		// "DOTA_Tooltip_ability_special_bonus_unique_suwako_4"				"+300 damage Native God「Gushing Spring of the Ancient」"
-		"DOTA_Tooltip_ability_special_bonus_unique_suwako_6"				"+100 bind range Curse God「Mishaguji-sama」"
+		"DOTA_Tooltip_ability_special_bonus_unique_suwako_6"				"+{s:bonus_AbilityCastRange} bind range Curse God「Mishaguji-sama」"
 		"DOTA_Tooltip_ability_special_bonus_unique_suwako_7"				"Native God「Magma Amphibian」 Double move speed and no longer silences and mutes Suwako"
 		"DOTA_Tooltip_ability_special_bonus_unique_suwako_8"				" damage x2 Divine Instrument「Moriya's Iron Ring」"
 
