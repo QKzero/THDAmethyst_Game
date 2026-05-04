@@ -915,7 +915,7 @@
 	// General
 	//-------------------------------------------------------------------------------------------------------------
 	"BaseClass"				"ability_datadriven"
-	"AbilityType"					"ABILITY_TYPE_ULTIMATE"
+	"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 	"AbilityTargetTeam"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
 	"AbilityTargetType"				"DOTA_UNIT_TARGET_HERO"
@@ -1050,7 +1050,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"				"ability_datadriven"
-		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityTargetTeam"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityTargetType"				"DOTA_UNIT_TARGET_HERO"
@@ -1151,7 +1151,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		//"ID"							"40200"	
 
@@ -1167,7 +1167,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		//"ID"							"40201"			
 
@@ -1183,7 +1183,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		//"ID"							"40202"			
 
@@ -1199,7 +1199,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		//"ID"							"40203"			
 
@@ -1214,7 +1214,7 @@
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityValues"
 		{
 			"value"	"7"
@@ -1223,14 +1223,14 @@
 	"special_bonus_unique_suwako_6"
 	{
 		"BaseClass"						"special_bonus_base"
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 	"special_bonus_unique_suwako_7"
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityValues"
 		{
 			"value"	"1"
@@ -1240,7 +1240,7 @@
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityValues"
 		{
 			"value"	"1"

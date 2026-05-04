@@ -195,7 +195,7 @@
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AURA"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityType"			"ABILITY_TYPE_ULTIMATE"
+		"AbilityType"			"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityCastPoint"		"0.3"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
 		"AbilityManaCost"		"200 300 400"
@@ -366,7 +366,7 @@
 	"special_bonus_unique_sanae_1"
 	{
 		"BaseClass"						"special_bonus_base"
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 
@@ -376,7 +376,7 @@
 	"special_bonus_unique_sanae_2"
 	{
 		"BaseClass"						"special_bonus_base"
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 
@@ -386,7 +386,7 @@
 	"special_bonus_unique_sanae_3"
 	{
 		"BaseClass"						"special_bonus_base"
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 
@@ -396,7 +396,7 @@
 	"special_bonus_unique_sanae_4"
 	{
 		"BaseClass"						"special_bonus_base"
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 }
