@@ -13,48 +13,52 @@ local DOTA_ITEM_NEUTRAL_SLOT = 16
 print("NeutralItems.lua loaded")
 
 local Tier1NeutralItems = {
+    "item_trusty_shovel",
     "item_occult_bracelet",
+    "item_unstable_wand",
+    "item_mana_draught",
     "item_polliwog_charm",
     "item_spark_of_courage",
-    "item_kobold_cup",
-    "item_sisters_shroud",
-    "item_chipped_vest",
     "item_rippers_lash",
+    "item_orb_of_destruction",
 }
 
 local Tier2NeutralItems = {
     "item_essence_ring",
+    "item_iron_talon",
+    "item_gossamer_cape",
     "item_searing_signet",
-    "item_mana_draught",
     "item_misericorde",
     "item_pogo_stick",
-    "item_poor_mans_shield",
 }
 
 local Tier3NeutralItems = {
     "item_serrated_shiv",
     "item_gale_guard",
+    "item_nemesis_curse",
     "item_gunpowder_gauntlets",
     "item_whisper_of_the_dread",
-    "item_jidi_pollen_bag",
-    "item_psychic_headband",
+    "item_ninja_gear",
 }
 
 local Tier4NeutralItems = {
-    "item_crippling_crossbow",
+    "item_ogre_seal_totem",
     "item_magnifying_monocle",
-    "item_giant_maul",
+    "item_crippling_crossbow",
+    "item_ceremonial_robe",
+    "item_mind_breaker",
     "item_pyrrhic_cloak",
-    "item_dezun_bloodrite",
 }
 
 local Tier5NeutralItems = {
     "item_desolator_2",
     "item_desolator_2",
-    "item_desolator_2",
+    "item_fallen_sky",
     "item_minotaur_horn",
     "item_spider_legs",
     "item_unrelenting_eye",
+    "item_panic_button",
+    "item_pirate_hat",
 }
 
 local enhancements = {
