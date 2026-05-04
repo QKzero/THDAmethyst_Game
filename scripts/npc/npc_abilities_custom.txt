@@ -394,7 +394,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		//"ID"							"0"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"ABILITY_TYPE_BASIC"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NONE"
 		"OnCastbar"						"1"
 		"OnLearnbar"					"1"
@@ -437,7 +437,7 @@
 		"BaseClass"	"ability_datadriven"
 		"AbilityTextureName"	"custom/ability_system_fly"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"AbilityType"	"ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 		"OnSpellStart"	{}
 		"Modifiers"
@@ -505,7 +505,7 @@
 		"BaseClass"	"ability_datadriven"
 		"AbilityTextureName"	"custom/ability_collection_power"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"AbilityType"	"ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 		"Modifiers"
 		{
@@ -907,7 +907,7 @@
 		"BaseClass"	"ability_datadriven"
 		"AbilityTextureName"	"custom/ability_system_criticalstrike"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"AbilityType"	"ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 		"OnSpellStart"	{}
 		"Modifiers"
@@ -965,7 +965,7 @@
 		"BaseClass"	"ability_datadriven"
 		"AbilityTextureName"	"custom/ability_system_criticalstrike"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"AbilityType"	"ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 		"OnSpellStart"	{}
 		"Modifiers"
@@ -1023,7 +1023,7 @@
 		"BaseClass"	"ability_datadriven"
 		"AbilityTextureName"	"custom/ability_system_reborn"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"AbilityType"	"ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 		"OnSpellStart"	{}
 		"Modifiers"
@@ -1110,7 +1110,7 @@
 		"AbilityTextureName"	"custom/ability_collection_power"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityType"	"ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 		"AbilityCastPoint"	"0"
 		"AbilityCooldown"	"0"
@@ -1142,7 +1142,7 @@
 		"AbilityTextureName"	"custom/ability_thdots_sanae03"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"AbilityType"	"ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"4"
 		// Special
 		// -------------------------------------------------------------------------------------------------------------
@@ -1173,7 +1173,7 @@
 		"AbilityTextureName"	"custom/ability_thdots_sanae03"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"AbilityType"	"ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 		// Special
 		// -------------------------------------------------------------------------------------------------------------
@@ -1189,7 +1189,7 @@
 		"AbilityTextureName"	"custom/ability_thdots_sanae03"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_AURA"
-		"AbilityType"	"ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 	}
 
@@ -1199,7 +1199,7 @@
 		"AbilityTextureName"	"custom/ability_thdots_sanae03"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_AURA"
-		"AbilityType"	"ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
 		"MaxLevel"	"1"
 		"Modifiers"
 		{
@@ -1302,7 +1302,7 @@
 	{
 		"BaseClass"	"ability_datadriven"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"ABILITY_TYPE_HIDDEN"
+		"AbilityType"	"DOTA_ABILITY_TYPE_HIDDEN"
 		// Stats
 		// ----------------------------------------------------------------
 		"MaxLevel"	"0"	
