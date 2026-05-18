@@ -135,7 +135,7 @@ function modifier_thdots_meirin01_think_interval:OnCreated()
         return
     end
     self.meirin01time = self:GetDuration()
-    self:StartIntervalThink(0.01)
+    self:StartIntervalThink(0.03)
 end
 
 function modifier_thdots_meirin01_think_interval:OnDestroy()

@@ -390,7 +390,13 @@ function mystiaExOnAttacked( keys )
 end
 
 --Ex高空视野
+local MYSTIA_INNATE_VISION_INTERVAL = 0.2
+local MYSTIA_INNATE_VISION_DURATION = 0.25
+
 function mystiainnatevision(keys)
   local caster = keys.caster
-    AddFOWViewer(caster:GetTeamNumber(), caster:GetAbsOrigin(), caster:GetCurrentVisionRange(), 0.051, false)
+  local now = GameRules:GetGameTime()
+  if caster.__mystia_innate_vision_time ~= nil and now < caster.__mystia_innate_vision_time then return end
+  caster.__mystia_innate_vision_time = now + MYSTIA_INNATE_VISION_INTERVAL
+  THD_AddFOWViewer(caster:GetTeamNumber(), caster:GetAbsOrigin(), caster:GetCurrentVisionRange(), MYSTIA_INNATE_VISION_DURATION, false, "mystia_innate")
 end

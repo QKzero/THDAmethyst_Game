@@ -442,8 +442,13 @@ end
 
 function ability_thdots_sunny04:OnProjectileHit_ExtraData(target, location, data)
 	if not IsServer() then return end
+	if data ~= nil and data.orb_thinker ~= nil then
+		local orb = EntIndexToHScript(data.orb_thinker)
+		if orb ~= nil and not orb:IsNull() then
+			orb:RemoveSelf()
+		end
+	end
 	if target then
-		print(self.damage)
 		target:EmitSound("Hero_Puck.IIllusory_Orb_Damage")
 		local damage_table = {
 					ability = self,
@@ -459,7 +464,18 @@ end
 
 function modifier_ability_thdots_sunny04:OnDestroy()
 	if not IsServer() then return end
-	--取消特效
+	if self.orbs ~= nil then
+		for _, entIndex in pairs(self.orbs) do
+			local orb = EntIndexToHScript(entIndex)
+			if orb ~= nil and not orb:IsNull() then
+				orb:RemoveSelf()
+			end
+		end
+		self.orbs = nil
+	end
+	if self.sun ~= nil and not self.sun:IsNull() then
+		self.sun:ForceKill(true)
+	end
 end
 
 --------------------------------------------------------
@@ -480,7 +496,6 @@ function ability_thdots_sunny05:OnInventoryContentsChanged()
 					function()
 						if v:HasModifier("modifier_ability_thdots_sunny05") then
 							v:ForceKill(true)
-							print("2")
 						end
 					end,
 				0.03)

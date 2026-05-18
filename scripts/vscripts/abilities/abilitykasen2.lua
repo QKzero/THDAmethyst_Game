@@ -19,6 +19,8 @@ function ability_thdots_kasen2_1:OnSpellStart()
 	local thinker = CreateModifierThinker(self:GetCaster(),self,"modifier_ability_kasen2_1thinker",{},self:GetCaster():GetAbsOrigin(),self:GetCaster():GetTeamNumber(),false)
 	local vec = thinker:GetAbsOrigin()
 	thinker:SetAbsOrigin(Vector(vec.x,vec.y,vec.z+150))
+	-- 优化：保存 thinker 引用，以便 modifier_ability_kasen2_1c 结束时显式清理，防止 thinker 泄漏。
+	self.kasen2_1_thinker = thinker
 	self:GetCaster():AddNewModifier(thinker,self,"modifier_ability_kasen2_1c",{})
 end
 
@@ -45,13 +47,10 @@ function modifier_ability_kasen2_1c:OnCreated()
     self.effectIndex = ParticleManager:CreateParticle("particles/thd2/items/item_lily.vpcf", PATTACH_CUSTOMORIGIN,self:GetParent())
 	ParticleManager:SetParticleControlEnt(self.effectIndex , 0, self:GetParent(), 5, "attach_hitloc", Vector(0,0,0), true)
 	ParticleManager:SetParticleControlEnt(self.effectIndex , 1, self:GetCaster(), 5, "attach_hitloc", Vector(0,0,0), true)
-	local heroes = FindUnitsInRadius(self:GetParent():GetTeam(),Vector(0,0,0),nil,999999,DOTA_UNIT_TARGET_TEAM_BOTH,DOTA_UNIT_TARGET_HERO,0,1,false)
-	self.damage = 0
-	for hh,sb in pairs(heroes) do
-		if FindTelentValue(sb,"special_bonus_unique_kasen2_2") ~= 0 then
-			self.damage = FindTelentValue(sb,"special_bonus_unique_kasen2_2")
-		end
-	end
+	-- 优化：原实现以 Vector(0,0,0) 为中心、半径 999999 搜索双方全图英雄，
+	-- 仅为了读一个天赋值，开销完全没必要。这里 modifier 是挂在 caster 身上的，
+	-- 正确语义应是读取 caster 自己的天赋。
+	self.damage = FindTelentValue(self:GetCaster(), "special_bonus_unique_kasen2_2") or 0
 end
 
 function modifier_ability_kasen2_1c:OnIntervalThink()
@@ -112,6 +111,15 @@ end
 function modifier_ability_kasen2_1c:OnRemoved()
 	if not IsServer() then return end
 	ParticleManager:DestroyParticle(self.effectIndex,true)
+	-- 优化：清理 ability_thdots_kasen2_1 在 OnSpellStart 中创建的 thinker，避免实体泄漏。
+	local ability = self:GetAbility()
+	if ability ~= nil and ability.kasen2_1_thinker ~= nil then
+		local thinker = ability.kasen2_1_thinker
+		if thinker:IsNull() == false then
+			thinker:RemoveSelf()
+		end
+		ability.kasen2_1_thinker = nil
+	end
 end
 
 modifier_ability_kasen2_1thinker = {}

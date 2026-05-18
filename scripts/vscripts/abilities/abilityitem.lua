@@ -1691,9 +1691,9 @@ function ItemAbility_DonationBox_OnSpellStart(keys)
             return nil
         end
 
-        Duration = Duration + 0.02
+        Duration = Duration + 0.05
         ParticleManager:SetParticleControl(effectIndex, 0, Caster:GetAbsOrigin())
-        return 0.02
+        return 0.05
     end)
 end
 

@@ -194,19 +194,22 @@ function modifier_wriggle_check:IsPurgable() return false end
 function modifier_wriggle_check:IsDebuff() return false end
 function modifier_wriggle_check:RemoveOnDeath() return true end
 
+local WRIGGLE_VISION_INTERVAL = 0.2
+local WRIGGLE_VISION_DURATION = 0.25
+
 function modifier_wriggle_check:OnCreated()
     if not IsServer() then return end
-    self:StartIntervalThink(0.03)
+    self:StartIntervalThink(WRIGGLE_VISION_INTERVAL)
     local caster = self:GetCaster()
-	self.effectIndex = ParticleManager:CreateParticle("particles/econ/items/outworld_devourer/od_shards_exile/od_shards_exile_prison_top_orb.vpcf", PATTACH_CUSTOMORIGIN, caster) 
+	self.effectIndex = ParticleManager:CreateParticle("particles/econ/items/outworld_devourer/od_shards_exile/od_shards_exile_prison_top_orb.vpcf", PATTACH_CUSTOMORIGIN, caster)
 	ParticleManager:SetParticleControlEnt(self.effectIndex , 0, caster, 5, "attach_hitloc", Vector(0,0,0), true)
 	self.vision = self:GetAbility():GetSpecialValueFor("vision")
 end
- 
+
 function modifier_wriggle_check:OnIntervalThink()
 	if not IsServer() then return end
 	local caster = self:GetCaster()
-	AddFOWViewer(caster:GetTeam(),caster:GetAbsOrigin(),self.vision,0.03,false)
+	THD_AddFOWViewer(caster:GetTeam(),caster:GetAbsOrigin(),self.vision,WRIGGLE_VISION_DURATION,false,"wriggle_check")
 end
 
 function modifier_wriggle_check:OnRemoved()

@@ -429,7 +429,7 @@
 							"RunScript"
 							{
 								"ScriptFile"	"scripts/vscripts/abilities/abilityIku.lua"
-								"Target"	"UNIT"
+								"Target"	"TARGET"
 								"Function"	"OnIku03Attack"
 							}
 					//	}
@@ -562,7 +562,7 @@
 							"RunScript"
 							{
 								"ScriptFile"	"scripts/vscripts/abilities/abilityIku.lua"
-								"Target"	"UNIT"
+								"Target"	"TARGET"
 								"Function"	"OnIku04Attack"
 							}
 					//	}

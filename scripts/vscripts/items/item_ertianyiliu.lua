@@ -36,7 +36,7 @@ function modifier_item_ertianyiliu_passive:IsPurgeException() return false end
 function modifier_item_ertianyiliu_passive:RemoveOnDeath() return false end
 function modifier_item_ertianyiliu_passive:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.5)
 end
 function modifier_item_ertianyiliu_passive:OnIntervalThink()
 	if not IsServer() then return end

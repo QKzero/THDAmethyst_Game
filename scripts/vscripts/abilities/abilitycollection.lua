@@ -59,7 +59,7 @@ function modifier_ability_collection_move_lua:OnIntervalThink()
 end
 
 function OnCollectionPower(keys)
-	print("OnCollectionPower")
+	-- 优化：移除调试 print。
 	local caster = EntIndexToHScript(keys.caster_entindex)
 	caster:SetContextNum("ability_collection_power_speed",2,0)
 	local vecCaster = caster:GetOrigin()
@@ -81,8 +81,7 @@ end
 
 function OnGetCollection(Collection,Hero)
 	local vecHero = Hero:GetOrigin()
-	print("GEtPOWER")
-	print(Collection.IsGet)
+	-- 优化：移除调试 print。
 	if((Collection:GetUnitName()=="npc_coin_up_unit"))then
 		local effectIndex = ParticleManager:CreateParticle("particles/items2_fx/hand_of_midas.vpcf", PATTACH_CUSTOMORIGIN, caster)
 		ParticleManager:SetParticleControl(effectIndex, 0, vecHero)

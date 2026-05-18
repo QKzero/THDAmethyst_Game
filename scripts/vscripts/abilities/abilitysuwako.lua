@@ -153,6 +153,7 @@ function OnSuwako02SpellStart(keys)
     caster:SetModelScale(4)
     -- caster:SetModel(model)	
     caster:EmitSound("suwako02_1")
+    print(FindTelentValue(caster, "special_bonus_unique_suwako_7"))
     local ability_duration = keys.ability:GetSpecialValueFor("ability_duration")
     local suwako02_modifier = caster:AddNewModifier(caster, keys.ability, "modifier_ability_thdots_suwako02_telent", {
         duration = ability_duration
@@ -447,6 +448,7 @@ function OnSuwako03DealDamage(keys)
     local caster = keys.caster
     local dmg = keys.DealDamage
     local returnmana = keys.Manareturn
+    print(dmg)
     local getmana = dmg * returnmana * 0.01
     caster:GiveMana(getmana)
 end
@@ -457,6 +459,8 @@ function OnSuwako03TakeDamage(keys)
     local ability = keys.ability
     local attacker = keys.attacker
     local damagetaken = keys.DamageTaken
+    print(damagetaken)
+    -- print(damagetaken)
     local reduction = ability:GetLevelSpecialValueFor("damage_reduction", ability:GetLevel() - 1)
     local positivereduction = reduction * (-1)
     local rawdamage = (damagetaken * 100) / positivereduction
@@ -587,7 +591,7 @@ function Suwako05OnAttackLanded(keys)
     local ability = caster:FindAbilityByName("ability_thdots_suwako05")
     if not ability then return end
 
-    if ability:GetAutoCastState() and ability:IsCooldownReady() then
+    if ability:GetAutoCastState() then
         local manaCost = ability:GetManaCost(ability:GetLevel() - 1)
         if caster:GetMana() >= manaCost then
             caster:SpendMana(manaCost, ability)

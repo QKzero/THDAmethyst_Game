@@ -368,7 +368,7 @@ function ability_thdots_kasen01:OnSpellStart()
     self.pfx = ParticleManager:CreateParticle("particles/heroes/kasen/kasen01.vpcf", PATTACH_CUSTOMORIGIN, nil)
     ParticleManager:SetParticleControl(self.pfx, 0, PointPosition)
     ParticleManager:SetParticleControl(self.pfx, 1, Vector(radius, radius, radius))
-    GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("kasen01"), function()
+    THD_SetGlobalContextThink(DoUniqueString("kasen01"), function()
         if GameRules:IsGamePaused() then
             return 0.03
         end

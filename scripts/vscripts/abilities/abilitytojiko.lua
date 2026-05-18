@@ -197,7 +197,8 @@ function modifier_ability_thdots_tojikoEx:OnCreated()
 	self.ability = self:GetAbility()
 	-- self.abi_table = {}
 	self.ability_thdots_tojiko01 = nil
-	self:StartIntervalThink(FrameTime())
+	-- 优化：原来是 FrameTime 每帧轮询，但 OnIntervalThink 内部只是根据天赋状态添加 modifier，属于离散事件，1 秒检查一次完全足够。
+	self:StartIntervalThink(1.0)
 end
 
 function modifier_ability_thdots_tojikoEx:OnTakeDamage(keys)
@@ -316,8 +317,12 @@ end
 
 function modifier_ability_thdots_tojikoEx_passive_dummy:OnDestroy()
 	if not IsServer() then return end
-	-- print("22222222222222222222222")
-	-- ParticleManager:DestroyParticleSystem(self.particle,true)
+	-- 优化：修复粒子注释问题，防止长期粒子泄漏。
+	if self.particle ~= nil then
+		ParticleManager:DestroyParticle(self.particle, true)
+		ParticleManager:ReleaseParticleIndex(self.particle)
+		self.particle = nil
+	end
 end
 --------------------------------------------------------
 --神明「稻目之怨」

@@ -303,6 +303,7 @@ function OnCirno04SpellStart(keys)
     ParticleManager:SetParticleControlEnt(effectIndex, 0, Caster, 5, "follow_origin", Vector(0, 0, 0), true)
     ParticleManager:SetParticleControlEnt(effectIndex, 3, Caster, 5, "follow_origin", Vector(0, 0, 0), true)
     Caster.ability_cirno_04_caster_effect_index = effectIndex
+    Caster.ability_cirno_04_effect_index_table = {}
 
     Caster:SetContextThink("cirno04_in_spelling", function()
         if GameRules:IsGamePaused() then
@@ -337,7 +338,7 @@ function OnCirno04SpellStart(keys)
                         ParticleManager:SetParticleControl(effectIndex, 0, effectOrigin + Vector(0, 0, 175))
                         ParticleManager:SetParticleControl(effectIndex, 3, effectOrigin + Vector(0, 0, 175))
                         v.ability_cirno_04_effect_index = effectIndex
-                        Caster.ability_cirno_04_effect_index_table = {}
+                        Caster.ability_cirno_04_effect_index_table = Caster.ability_cirno_04_effect_index_table or {}
                         table.insert(Caster.ability_cirno_04_effect_index_table, effectIndex)
                     end
                 end
@@ -351,11 +352,13 @@ function OnCirno04SpellStart(keys)
             CirnoBreakIceboundsInRadius(Caster, Caster:GetOrigin(), keys.radius)
             -- UtilStun:UnitStunTarget(Caster,Caster,keys.stun_self_duration)
             ParticleManager:DestroyParticleSystem(Caster.ability_cirno_04_caster_effect_index, true)
-            if #Caster.ability_cirno_04_effect_index_table > 0 then
-                for _, particle in pairs(Caster.ability_cirno_04_effect_index_table) do
+            local effectTable = Caster.ability_cirno_04_effect_index_table or {}
+            if #effectTable > 0 then
+                for _, particle in pairs(effectTable) do
                     ParticleManager:DestroyParticleSystem(particle, true)
                 end
             end
+            Caster.ability_cirno_04_effect_index_table = nil
             return nil
         end
         return TickInterval

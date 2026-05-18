@@ -120,14 +120,14 @@ end
 function AddObViews()
 	if GetMapName() ~= "1_thdots_map" then
 		print("AddObViews")
-		AddFOWViewer(5,Vector(0,0,0),4000,9999,false)
-		AddFOWViewer(5,Vector(0,4000,0),4000,9999,false)
-		AddFOWViewer(5,Vector(0,-4000,0),4000,9999,false)
-		AddFOWViewer(5,Vector(4000,0,0),4000,9999,false)
-		AddFOWViewer(5,Vector(4000,4000,0),4000,9999,false)
-		AddFOWViewer(5,Vector(4000,-4000,0),4000,9999,false)
-		AddFOWViewer(5,Vector(-4000,0,0),4000,9999,false)
-		AddFOWViewer(5,Vector(-4000,4000,0),4000,9999,false)
-		AddFOWViewer(5,Vector(-4000,-4000,0),4000,9999,false)
+		THD_AddFOWViewer(5,Vector(0,0,0),4000,9999,false,"observe_grid")
+		THD_AddFOWViewer(5,Vector(0,4000,0),4000,9999,false,"observe_grid")
+		THD_AddFOWViewer(5,Vector(0,-4000,0),4000,9999,false,"observe_grid")
+		THD_AddFOWViewer(5,Vector(4000,0,0),4000,9999,false,"observe_grid")
+		THD_AddFOWViewer(5,Vector(4000,4000,0),4000,9999,false,"observe_grid")
+		THD_AddFOWViewer(5,Vector(4000,-4000,0),4000,9999,false,"observe_grid")
+		THD_AddFOWViewer(5,Vector(-4000,0,0),4000,9999,false,"observe_grid")
+		THD_AddFOWViewer(5,Vector(-4000,4000,0),4000,9999,false,"observe_grid")
+		THD_AddFOWViewer(5,Vector(-4000,-4000,0),4000,9999,false,"observe_grid")
 	end
 end

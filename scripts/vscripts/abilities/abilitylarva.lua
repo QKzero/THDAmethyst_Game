@@ -282,18 +282,21 @@ function modifier_ability_larva01_fly:CheckState()  --飞行 没有高空视野
 	}
 end
 
+local LARVA_FLY_VISION_INTERVAL = 0.2
+local LARVA_FLY_VISION_DURATION = 0.25
+
 function modifier_ability_larva01_fly:OnCreated()  --高空视野
 	if not IsServer() then return end
 
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(LARVA_FLY_VISION_INTERVAL)
 	self:OnIntervalThink()
 end
 
-function modifier_ability_larva01_fly:OnIntervalThink()  
+function modifier_ability_larva01_fly:OnIntervalThink()
 	if not IsServer() then return end
 
 	local target = self:GetParent()
-    AddFOWViewer(target:GetTeamNumber(), target:GetOrigin(), target:GetCurrentVisionRange(), FrameTime() * 2, false)  --高空视野
+    THD_AddFOWViewer(target:GetTeamNumber(), target:GetOrigin(), target:GetCurrentVisionRange(), LARVA_FLY_VISION_DURATION, false, "larva_fly")  --高空视野
 end
 
 ---------------------------------------------------------------------------------------------------------------------------------

@@ -25,7 +25,7 @@
 			dummy:CastAbilityOnTarget(target, STUN_TARGET, 0 )
 			target:SetContextThink('ability_system_nodamage',
 				function ()
-					if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 0.1 end
 					local systemStunDuration = target:GetContext("ability_system_nodamagetime_duration")
 					if(systemStunDuration>0)then
 						systemStunDuration = systemStunDuration - 0.1

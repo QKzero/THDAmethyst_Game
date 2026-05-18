@@ -58,7 +58,8 @@ function modifier_item_shanbibu_active:OnCreated()
 	if not IsServer() then return end
 	self.time = 0
 	self.react_time = self:GetAbility():GetSpecialValueFor("react_time")
-	self:StartIntervalThink(FrameTime())
+	self.update_interval = 0.05
+	self:StartIntervalThink(self.update_interval)
 end
 
 function modifier_item_shanbibu_active:OnIntervalThink()
@@ -67,7 +68,7 @@ function modifier_item_shanbibu_active:OnIntervalThink()
 		self:GetParent():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_invisible", {duration = self:GetRemainingTime()})
 		self.time = 0
 	else
-		self.time = self.time + FrameTime()
+		self.time = self.time + self.update_interval
 	end
 end
 

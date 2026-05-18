@@ -195,6 +195,9 @@ end
 modifier_bot_corrector = class({})
 LinkLuaModifier("modifier_bot_corrector", "scripts/vscripts/abilities/bot_buff.lua", LUA_MODIFIER_MOTION_NONE)
 
+local BOT_CORRECTOR_THINK_INTERVAL = 0.75
+local BOT_CORRECTOR_PICKUP_RADIUS = 300
+
 function modifier_bot_corrector:IsHidden() return true end
 --function modifier_bot_corrector:IsDebuff() return false end
 function modifier_bot_corrector:IsPurgable() return false end
@@ -206,17 +209,17 @@ function modifier_bot_corrector:OnCreated(params)
     self.caster = self:GetCaster()
     self.ability = self:GetAbility()
 
-    self:StartIntervalThink(0.1)
+    self:StartIntervalThink(BOT_CORRECTOR_THINK_INTERVAL)
 end
 
 function modifier_bot_corrector:OnIntervalThink()
     if not IsServer() then return end
-	
+
 	if self.caster:IsIllusion() then return end
-	
+
 	-- from rune_fixer.lua
 	local vec = Vector(0.0,0.0,-512.0)
-	local checklen = 300
+	local checklen = BOT_CORRECTOR_PICKUP_RADIUS
 
 	local Caster = self.caster
 	local Bounty_Spwner_List = Entities:FindAllByClassnameWithin("dota_item_rune_spawner_bounty", Caster:GetOrigin() + vec, checklen)

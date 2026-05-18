@@ -49,13 +49,14 @@ function ItemBlockXOnSpellStart(keys)
 	keys.ability:ApplyDataDrivenModifier(caster, caster, keys.ModifierShieldName, {})	
 	caster:EmitSound("DOTA_Item.ShivasGuard.Activate")
 	caster.xuenvdeweijin_blast_radius=0.0
+	local blockThinkInterval = 0.05
 	caster:SetThink(function ()
 		if (caster.xuenvdeweijin_blast_radius>=keys.BlastFinalRadius) then 
 			return nil 
 		end
 		--
 		keys.ability:CreateVisibilityNode(caster:GetAbsOrigin(), keys.BlastVisionRadius, keys.BlastVisionDuration)
-		caster.xuenvdeweijin_blast_radius = caster.xuenvdeweijin_blast_radius + (keys.BlastSpeedPerSecond *0.03)
+		caster.xuenvdeweijin_blast_radius = caster.xuenvdeweijin_blast_radius + (keys.BlastSpeedPerSecond * blockThinkInterval)
 		local nearby_enemy_units = FindUnitsInRadius(caster:GetTeam(), caster:GetAbsOrigin(), nil, caster.xuenvdeweijin_blast_radius, DOTA_UNIT_TARGET_TEAM_ENEMY,
 			DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
 

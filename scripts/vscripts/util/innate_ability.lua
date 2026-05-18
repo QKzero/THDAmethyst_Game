@@ -15,7 +15,7 @@ function InitInnateAbilityForHero(hero)
         if ability ~= nil and ability:InnateAbilityType() > 0 then
             local target_ability = ability
             hero:SetContextThink(target_ability:GetAbilityName(), function ()
-                if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 0.1 end
                 local new_level = GetInnateAbilityLevel(target_ability,hero)
                 if new_level ~= target_ability:GetLevel() then
                     target_ability:SetLevel(new_level)

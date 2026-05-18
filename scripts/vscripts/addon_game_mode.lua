@@ -119,6 +119,310 @@ require ( "util/heroselectoverlay")
 require ( "util/innate_ability")
 require ( "util/occult_ball" )
 require ( "util/notifications" )
+local perfDiagnosticsLoaded, perfDiagnosticsError = pcall(require, "util/perf_diagnostics")
+if not perfDiagnosticsLoaded then
+	print("[PERF] Failed to load perf diagnostics: " .. tostring(perfDiagnosticsError))
+end
+
+local function SetNativeBotThinkingForTest(enable, source)
+	local ok, err = pcall(function()
+		THD2_SetBotThinking(enable)
+	end)
+	local msg
+	if ok then
+		msg = string.format("[BOT] native BotThinking %s by %s", enable and "ENABLED" or "DISABLED", tostring(source or "manual"))
+	else
+		msg = "[BOT] failed to set native BotThinking: " .. tostring(err)
+	end
+	print(msg)
+	GameRules:SendCustomMessage(msg, 0, 0)
+end
+
+Convars:RegisterCommand("thd_botthink", function(_, value)
+	local arg = value ~= nil and string.lower(tostring(value)) or ""
+	if arg == "on" or arg == "1" or arg == "true" then
+		SetNativeBotThinkingForTest(true, "console")
+	elseif arg == "off" or arg == "0" or arg == "false" then
+		SetNativeBotThinkingForTest(false, "console")
+	else
+		print("[BOT] usage: thd_botthink 1/0 or on/off")
+	end
+end, "Toggle native Dota BotThinking for performance tests", 0)
+
+Convars:RegisterCommand("thd_botthink_on", function()
+	SetNativeBotThinkingForTest(true, "console")
+end, "Enable native Dota BotThinking", 0)
+
+Convars:RegisterCommand("thd_botthink_off", function()
+	SetNativeBotThinkingForTest(false, "console")
+end, "Disable native Dota BotThinking", 0)
+
+local function SetFOWViewerForTest(enable, source)
+	local ok, err = pcall(function()
+		THD_SetFOWViewerEnabled(enable)
+	end)
+	local msg
+	if ok then
+		msg = string.format("[THD][FOW] AddFOWViewer %s by %s", enable and "ENABLED" or "DISABLED", tostring(source or "manual"))
+	else
+		msg = "[THD][FOW] failed to toggle AddFOWViewer: " .. tostring(err)
+	end
+	print(msg)
+	GameRules:SendCustomMessage(msg, 0, 0)
+end
+
+local function SetContextThinkForTest(enable, source)
+	local ok, err = pcall(function()
+		THD_SetContextThinkEnabled(enable)
+	end)
+	local status = enable and "ENABLED" or "DISABLED"
+	local message
+	if ok then
+		message = "[THD][ContextThink] " .. status .. " by " .. tostring(source or "unknown")
+	else
+		message = "[THD][ContextThink] failed: " .. tostring(err)
+	end
+	print(message)
+	GameRules:SendCustomMessage(message, 0, 0)
+end
+
+local function SetNeutralSanitizerForTest(enable, source)
+	local ok, err = pcall(function()
+		THD_SetNeutralAbilitySanitizerEnabled(enable)
+	end)
+	local status = enable and "ENABLED" or "DISABLED"
+	local message
+	if ok then
+		message = "[THD][NeutralSanitizer] " .. status .. " by " .. tostring(source or "unknown")
+	else
+		message = "[THD][NeutralSanitizer] failed: " .. tostring(err)
+	end
+	print(message)
+	GameRules:SendCustomMessage(message, 0, 0)
+end
+
+Convars:RegisterCommand("thd_contextthink", function(_, value)
+	local arg = value ~= nil and string.lower(tostring(value)) or ""
+	local enable = arg == "1" or arg == "true" or arg == "on"
+	if not enable and not (arg == "0" or arg == "false" or arg == "off") then
+		print("[THD][ContextThink] usage: thd_contextthink 0/1")
+		return
+	end
+	SetContextThinkForTest(enable, "console")
+end, "Enable or disable THI wrapped SetContextThink calls", 0)
+
+Convars:RegisterCommand("thd_contextthink_off", function()
+	SetContextThinkForTest(false, "console")
+end, "Disable THI wrapped SetContextThink calls", 0)
+
+Convars:RegisterCommand("thd_contextthink_on", function()
+	SetContextThinkForTest(true, "console")
+end, "Enable THI wrapped SetContextThink calls", 0)
+
+Convars:RegisterCommand("thd_sanitize_neutrals", function(_, value)
+	local arg = value ~= nil and string.lower(tostring(value)) or ""
+	local enable = arg == "1" or arg == "true" or arg == "on"
+	if not enable and not (arg == "0" or arg == "false" or arg == "off") then
+		print("[THD][NeutralSanitizer] usage: thd_sanitize_neutrals 0/1")
+		return
+	end
+	SetNeutralSanitizerForTest(enable, "console")
+end, "Enable or disable THI neutral native ability sanitizer", 0)
+
+Convars:RegisterCommand("thd_sanitize_neutrals_off", function()
+	SetNeutralSanitizerForTest(false, "console")
+end, "Disable THI neutral native ability sanitizer", 0)
+
+Convars:RegisterCommand("thd_sanitize_neutrals_on", function()
+	SetNeutralSanitizerForTest(true, "console")
+end, "Enable THI neutral native ability sanitizer", 0)
+
+Convars:RegisterCommand("thd_neutral_spawner_fixer", function(_, value)
+	local arg = value ~= nil and string.lower(tostring(value)) or ""
+	local enable = arg == "1" or arg == "true" or arg == "on"
+	if not enable and not (arg == "0" or arg == "false" or arg == "off") then
+		print("[THD][NeutralSpawnerFixer] usage: thd_neutral_spawner_fixer 0/1")
+		return
+	end
+	if THD_SetNeutralSpawnerFixerEnabled ~= nil then
+		THD_SetNeutralSpawnerFixerEnabled(enable, "console")
+	end
+end, "Enable or disable THI neutral spawner fixer", 0)
+
+Convars:RegisterCommand("thd_neutral_spawner_fixer_off", function()
+	if THD_SetNeutralSpawnerFixerEnabled ~= nil then
+		THD_SetNeutralSpawnerFixerEnabled(false, "console")
+	end
+end, "Disable THI neutral spawner fixer", 0)
+
+Convars:RegisterCommand("thd_neutral_spawner_fixer_on", function()
+	if THD_SetNeutralSpawnerFixerEnabled ~= nil then
+		THD_SetNeutralSpawnerFixerEnabled(true, "console")
+	end
+end, "Enable THI neutral spawner fixer", 0)
+
+Convars:RegisterCommand("thd_hidden_neutral_cleanup", function(_, value)
+	local arg = value ~= nil and string.lower(tostring(value)) or ""
+	local enable = arg == "1" or arg == "true" or arg == "on"
+	if not enable and not (arg == "0" or arg == "false" or arg == "off") then
+		print("[THD][HiddenNeutralCleanup] usage: thd_hidden_neutral_cleanup 0/1")
+		return
+	end
+	if THD_SetHiddenNeutralCleanupEnabled ~= nil then
+		THD_SetHiddenNeutralCleanupEnabled(enable, "console")
+	end
+end, "Enable or disable hidden invulnerable neutral cleanup", 0)
+
+Convars:RegisterCommand("thd_hidden_neutral_cleanup_off", function()
+	if THD_SetHiddenNeutralCleanupEnabled ~= nil then
+		THD_SetHiddenNeutralCleanupEnabled(false, "console")
+	end
+end, "Disable hidden invulnerable neutral cleanup", 0)
+
+Convars:RegisterCommand("thd_hidden_neutral_cleanup_on", function()
+	if THD_SetHiddenNeutralCleanupEnabled ~= nil then
+		THD_SetHiddenNeutralCleanupEnabled(true, "console")
+	end
+end, "Enable hidden invulnerable neutral cleanup", 0)
+
+Convars:RegisterCommand("thd_hidden_neutral_cleanup_now", function()
+	if THD_ForceCleanupHiddenInvulnerableNeutrals ~= nil then
+		THD_ForceCleanupHiddenInvulnerableNeutrals("console")
+	end
+end, "Immediately cleanup hidden invulnerable neutrals ignoring grace", 0)
+
+Convars:RegisterCommand("thd_hidden_neutral_cleanup_grace", function(_, value)
+	if THD_SetHiddenNeutralCleanupGraceSeconds == nil or not THD_SetHiddenNeutralCleanupGraceSeconds(value) then
+		print("[THD][HiddenNeutralCleanup] usage: thd_hidden_neutral_cleanup_grace seconds")
+	end
+end, "Set hidden neutral cleanup grace seconds", 0)
+
+Convars:RegisterCommand("thd_neutral_cleanup_all", function()
+	if THD_ForceCleanupAllNeutralUnits ~= nil then
+		THD_ForceCleanupAllNeutralUnits("console")
+	end
+end, "Immediately remove all neutral creep units", 0)
+
+Convars:RegisterCommand("thd_disable_neutrals_late", function()
+	if THD_DisableNeutralsForLateGame ~= nil then
+		THD_DisableNeutralsForLateGame("console")
+	end
+end, "Late-game emergency: remove all neutral creeps and enable hidden neutral cleanup with grace=0", 0)
+
+Convars:RegisterCommand("thd_neutral_cleanup_all_on", function()
+	if THD_SetAllNeutralCleanupEnabled ~= nil then
+		THD_SetAllNeutralCleanupEnabled(true, "console")
+	end
+end, "Enable periodic all neutral creep cleanup", 0)
+
+Convars:RegisterCommand("thd_neutral_cleanup_all_off", function()
+	if THD_SetAllNeutralCleanupEnabled ~= nil then
+		THD_SetAllNeutralCleanupEnabled(false, "console")
+	end
+end, "Disable periodic all neutral creep cleanup", 0)
+
+Convars:RegisterCommand("thd_neutral_cleanup_all_toggle", function(_, value)
+	local arg = value ~= nil and string.lower(tostring(value)) or ""
+	local enable = arg == "1" or arg == "true" or arg == "on"
+	if not enable and not (arg == "0" or arg == "false" or arg == "off") then
+		print("[THD][AllNeutralCleanup] usage: thd_neutral_cleanup_all_toggle 0/1")
+		return
+	end
+	if THD_SetAllNeutralCleanupEnabled ~= nil then
+		THD_SetAllNeutralCleanupEnabled(enable, "console")
+	end
+end, "Enable or disable periodic all neutral creep cleanup", 0)
+
+local function SetCombatExperimentFromConsole(flag, value)
+	local arg = value ~= nil and string.lower(tostring(value)) or ""
+	local enable = arg == "1" or arg == "true" or arg == "on"
+	if not enable and not (arg == "0" or arg == "false" or arg == "off") then
+		print("[THD][CombatExperiment] usage: 0/1 or on/off")
+		return
+	end
+	if THD_SetCombatExperimentFlag ~= nil then
+		THD_SetCombatExperimentFlag(flag, enable, "console")
+	end
+end
+
+Convars:RegisterCommand("thd_hidden_neutral_no_attack", function(_, value)
+	SetCombatExperimentFromConsole("hiddenNoAttack", value)
+end, "Toggle hidden neutral no attack experiment", 0)
+
+Convars:RegisterCommand("thd_hidden_neutral_no_acquire", function(_, value)
+	SetCombatExperimentFromConsole("hiddenNoAcquire", value)
+end, "Toggle hidden neutral no acquire experiment", 0)
+
+Convars:RegisterCommand("thd_hidden_neutral_strip_abilities", function(_, value)
+	SetCombatExperimentFromConsole("hiddenStripAbilities", value)
+end, "Toggle hidden neutral strip all abilities experiment", 0)
+
+Convars:RegisterCommand("thd_neutral_strip_abilities", function(_, value)
+	SetCombatExperimentFromConsole("neutralStripAbilities", value)
+end, "Toggle all neutral strip all abilities experiment", 0)
+
+Convars:RegisterCommand("thd_neutral_remove_modifiers", function(_, value)
+	SetCombatExperimentFromConsole("neutralRemoveSelectedModifiers", value)
+end, "Toggle selected neutral modifier removal experiment", 0)
+
+Convars:RegisterCommand("thd_lane_creep_low_acquire", function(_, value)
+	SetCombatExperimentFromConsole("laneLowAcquire", value)
+end, "Toggle lane creep low acquire experiment", 0)
+
+Convars:RegisterCommand("thd_lane_creep_strip_abilities", function(_, value)
+	SetCombatExperimentFromConsole("laneStripAbilities", value)
+end, "Toggle lane creep strip all abilities experiment", 0)
+
+Convars:RegisterCommand("thd_lane_creep_remove_modifiers", function(_, value)
+	SetCombatExperimentFromConsole("laneRemoveSelectedModifiers", value)
+end, "Toggle selected lane creep modifier removal experiment", 0)
+
+Convars:RegisterCommand("thd_hero_attrs", function(_, value)
+	if THD_SetAllHeroBaseAttributes == nil or not THD_SetAllHeroBaseAttributes(value, "console") then
+		print("[THD][HeroExperiment] usage: thd_hero_attrs value")
+	end
+end, "Set all real heroes base str/agi/int", 0)
+
+Convars:RegisterCommand("thd_hero_attrs_1", function()
+	if THD_SetAllHeroBaseAttributes ~= nil then THD_SetAllHeroBaseAttributes(1, "console") end
+end, "Set all real heroes base str/agi/int to 1", 0)
+
+Convars:RegisterCommand("thd_hero_attrs_1000", function()
+	if THD_SetAllHeroBaseAttributes ~= nil then THD_SetAllHeroBaseAttributes(1000, "console") end
+end, "Set all real heroes base str/agi/int to 1000", 0)
+
+Convars:RegisterCommand("thd_hero_vision", function(_, value)
+	if THD_SetAllHeroVision == nil or not THD_SetAllHeroVision(value, "console") then
+		print("[THD][HeroExperiment] usage: thd_hero_vision value")
+	end
+end, "Set all real heroes day/night vision", 0)
+
+Convars:RegisterCommand("thd_hero_vision_100", function()
+	if THD_SetAllHeroVision ~= nil then THD_SetAllHeroVision(100, "console") end
+end, "Set all real heroes day/night vision to 100", 0)
+
+Convars:RegisterCommand("thd_hero_restore", function()
+	if THD_RestoreHeroExperiment ~= nil then THD_RestoreHeroExperiment("console") end
+end, "Restore hero experiment attrs and vision", 0)
+
+Convars:RegisterCommand("thd_fowviewer", function(_, value)
+	local arg = value ~= nil and string.lower(tostring(value)) or ""
+	if arg == "on" or arg == "1" or arg == "true" then
+		SetFOWViewerForTest(true, "console")
+	elseif arg == "off" or arg == "0" or arg == "false" then
+		SetFOWViewerForTest(false, "console")
+	else
+		print("[THD][FOW] usage: thd_fowviewer 1/0 or on/off")
+	end
+end, "Toggle THI AddFOWViewer wrapper for accumulation tests", 0)
+
+Convars:RegisterCommand("thd_fowviewer_on", function()
+	SetFOWViewerForTest(true, "console")
+end, "Enable THI AddFOWViewer wrapper", 0)
+
+Convars:RegisterCommand("thd_fowviewer_off", function()
+	SetFOWViewerForTest(false, "console")
+end, "Disable THI AddFOWViewer wrapper", 0)
 
 local botTable = {
     [DOTA_TEAM_GOODGUYS]    = {},
@@ -423,6 +727,19 @@ end
 function THDOTSGameMode:InitGameMode()
 	print('[THDOTS] Starting to load THDots gamemode...')
 
+	if PerfDiagnostics ~= nil then
+		local ok, err = pcall(function()
+			PerfDiagnostics:Start()
+		end)
+		if not ok then
+			local message = "[PERF] failed to start diagnostics: " .. tostring(err)
+			print(message)
+			GameRules:SendCustomMessage(message, 0, 0)
+		end
+	else
+		print("[PERF] diagnostics module is not loaded")
+	end
+
 	InitLogFile( "log/dota2x.txt","")
 	-- 初始化记录文件
 	-- 这个记录文件的路径是 dota 2 beta/dota/log/dota2x.txt
@@ -434,6 +751,10 @@ function THDOTSGameMode:InitGameMode()
 	-- ListenToGameEvent(API定义的事件名称或者我们自己程序发出的事件名称,事件触发之后执行的函数,LUA所有者)
 	-- 这里所使用的 Dynamic_Wrap(THDOTSGameMode, 'OnEntityKilled') 其实就相当于self:OnEntityKilled
 	-- 使用Dynamic_Wrap的好处是可以在控制台输入 developer 1之后，控制台显示一些额外的信息
+	if self.__thd_event_listeners_registered == true then
+		print("[THD][Event] main listeners already registered, skip")
+	else
+		self.__thd_event_listeners_registered = true
 
 	ListenToGameEvent('entity_killed', Dynamic_Wrap(THDOTSGameMode, 'OnEntityKilled'), self)
 	-- 监听单位被击杀的事件
@@ -470,6 +791,7 @@ function THDOTSGameMode:InitGameMode()
 	ListenToGameEvent("dota_pause_event", Dynamic_Wrap(THDOTSGameMode, 'On_dota_pause_event'), self)
 
 	ListenToGameEvent("dota_inventory_item_added", Dynamic_Wrap(THDOTSGameMode, 'On_dota_inventory_item_added'), self)
+	end
 
 end
 
@@ -577,6 +899,218 @@ function THDOTSGameMode:OnPlayerSay( keys )
 	print("player is host: " .. tmp )
 	
 	local ss = Split( text, " " )
+	local command = ss[1]
+	if command ~= nil then
+		command = string.lower(command)
+	end
+
+	if command == "-botthinkoff" or command == "-botthinkon" or command == "-botthink" then
+		local enable = command == "-botthinkon"
+		if command == "-botthink" then
+			local arg = ss[2] ~= nil and string.lower(ss[2]) or ""
+			enable = arg == "on" or arg == "1" or arg == "true"
+			if not enable and not (arg == "off" or arg == "0" or arg == "false") then
+				GameRules:SendCustomMessage("[BOT] usage: -botthink on/off, -botthinkon, -botthinkoff", 0, 0)
+				return
+			end
+		end
+
+		SetNativeBotThinkingForTest(enable, "chat")
+		return
+	end
+
+	if command == "-contextthinkoff" or command == "-contextthinkon" or command == "-contextthink" then
+		local enable = command == "-contextthinkon"
+		if command == "-contextthink" then
+			local arg = ss[2] ~= nil and string.lower(ss[2]) or ""
+			enable = arg == "on" or arg == "1" or arg == "true"
+			if not enable and not (arg == "off" or arg == "0" or arg == "false") then
+				GameRules:SendCustomMessage("[THD][ContextThink] usage: -contextthink on/off, -contextthinkon, -contextthinkoff", 0, 0)
+				return
+			end
+		end
+
+		SetContextThinkForTest(enable, "chat")
+		return
+	end
+
+	if command == "-sanitize_neutrals_off" or command == "-sanitize_neutrals_on" or command == "-sanitize_neutrals" then
+		local enable = command == "-sanitize_neutrals_on"
+		if command == "-sanitize_neutrals" then
+			local arg = ss[2] ~= nil and string.lower(ss[2]) or ""
+			enable = arg == "on" or arg == "1" or arg == "true"
+			if not enable and not (arg == "off" or arg == "0" or arg == "false") then
+				GameRules:SendCustomMessage("[THD][NeutralSanitizer] usage: -sanitize_neutrals on/off", 0, 0)
+				return
+			end
+		end
+
+		SetNeutralSanitizerForTest(enable, "chat")
+		return
+	end
+
+	if command == "-neutral_spawner_fixer_off" or command == "-neutral_spawner_fixer_on" or command == "-neutral_spawner_fixer" then
+		local enable = command == "-neutral_spawner_fixer_on"
+		if command == "-neutral_spawner_fixer" then
+			local arg = ss[2] ~= nil and string.lower(ss[2]) or ""
+			enable = arg == "on" or arg == "1" or arg == "true"
+			if not enable and not (arg == "off" or arg == "0" or arg == "false") then
+				GameRules:SendCustomMessage("[THD][NeutralSpawnerFixer] usage: -neutral_spawner_fixer on/off", 0, 0)
+				return
+			end
+		end
+
+		if THD_SetNeutralSpawnerFixerEnabled ~= nil then
+			THD_SetNeutralSpawnerFixerEnabled(enable, "chat")
+		else
+			GameRules:SendCustomMessage("[THD][NeutralSpawnerFixer] setter is not loaded", 0, 0)
+		end
+		return
+	end
+
+	if command == "-hidden_neutral_cleanup_off" or command == "-hidden_neutral_cleanup_on" or command == "-hidden_neutral_cleanup" then
+		local enable = command == "-hidden_neutral_cleanup_on"
+		if command == "-hidden_neutral_cleanup" then
+			local arg = ss[2] ~= nil and string.lower(ss[2]) or ""
+			enable = arg == "on" or arg == "1" or arg == "true"
+			if not enable and not (arg == "off" or arg == "0" or arg == "false") then
+				GameRules:SendCustomMessage("[THD][HiddenNeutralCleanup] usage: -hidden_neutral_cleanup on/off", 0, 0)
+				return
+			end
+		end
+
+		if THD_SetHiddenNeutralCleanupEnabled ~= nil then
+			THD_SetHiddenNeutralCleanupEnabled(enable, "chat")
+		else
+			GameRules:SendCustomMessage("[THD][HiddenNeutralCleanup] setter is not loaded", 0, 0)
+		end
+		return
+	end
+
+	if command == "-hidden_neutral_cleanup_now" then
+		if THD_ForceCleanupHiddenInvulnerableNeutrals ~= nil then
+			THD_ForceCleanupHiddenInvulnerableNeutrals("chat")
+		else
+			GameRules:SendCustomMessage("[THD][HiddenNeutralCleanup] force cleanup is not loaded", 0, 0)
+		end
+		return
+	end
+
+	if command == "-neutral_cleanup_all" then
+		if THD_ForceCleanupAllNeutralUnits ~= nil then
+			THD_ForceCleanupAllNeutralUnits("chat")
+		else
+			GameRules:SendCustomMessage("[THD][AllNeutralCleanup] cleanup is not loaded", 0, 0)
+		end
+		return
+	end
+
+	if command == "-disable_neutrals_late" then
+		if THD_DisableNeutralsForLateGame ~= nil then
+			THD_DisableNeutralsForLateGame("chat")
+		else
+			GameRules:SendCustomMessage("[THD][DisableNeutralsLate] function is not loaded", 0, 0)
+		end
+		return
+	end
+
+	if command == "-neutral_cleanup_all_on" or command == "-neutral_cleanup_all_off" or command == "-neutral_cleanup_all_toggle" then
+		local enable = command == "-neutral_cleanup_all_on"
+		if command == "-neutral_cleanup_all_toggle" then
+			local arg = ss[2] ~= nil and string.lower(ss[2]) or ""
+			enable = arg == "on" or arg == "1" or arg == "true"
+			if not enable and not (arg == "off" or arg == "0" or arg == "false") then
+				GameRules:SendCustomMessage("[THD][AllNeutralCleanup] usage: -neutral_cleanup_all_toggle on/off", 0, 0)
+				return
+			end
+		end
+		if THD_SetAllNeutralCleanupEnabled ~= nil then
+			THD_SetAllNeutralCleanupEnabled(enable, "chat")
+		end
+		return
+	end
+
+	if command == "-hidden_no_attack" or command == "-hidden_no_acquire" or command == "-hidden_strip_abilities" or command == "-neutral_strip_abilities" or command == "-neutral_remove_modifiers" or command == "-lane_low_acquire" or command == "-lane_strip_abilities" or command == "-lane_remove_modifiers" then
+		local flagByCommand = {
+			["-hidden_no_attack"] = "hiddenNoAttack",
+			["-hidden_no_acquire"] = "hiddenNoAcquire",
+			["-hidden_strip_abilities"] = "hiddenStripAbilities",
+			["-neutral_strip_abilities"] = "neutralStripAbilities",
+			["-neutral_remove_modifiers"] = "neutralRemoveSelectedModifiers",
+			["-lane_low_acquire"] = "laneLowAcquire",
+			["-lane_strip_abilities"] = "laneStripAbilities",
+			["-lane_remove_modifiers"] = "laneRemoveSelectedModifiers",
+		}
+		local arg = ss[2] ~= nil and string.lower(ss[2]) or ""
+		local enable = arg == "on" or arg == "1" or arg == "true"
+		if not enable and not (arg == "off" or arg == "0" or arg == "false") then
+			GameRules:SendCustomMessage("[THD][CombatExperiment] usage: " .. command .. " on/off", 0, 0)
+			return
+		end
+		if THD_SetCombatExperimentFlag ~= nil then
+			THD_SetCombatExperimentFlag(flagByCommand[command], enable, "chat")
+		else
+			GameRules:SendCustomMessage("[THD][CombatExperiment] setter is not loaded", 0, 0)
+		end
+		return
+	end
+
+	if command == "-hero_attrs" or command == "-hero_vision" or command == "-hero_restore" then
+		if command == "-hero_restore" then
+			if THD_RestoreHeroExperiment ~= nil then THD_RestoreHeroExperiment("chat") end
+			return
+		end
+		local value = ss[2]
+		if command == "-hero_attrs" then
+			if THD_SetAllHeroBaseAttributes == nil or not THD_SetAllHeroBaseAttributes(value, "chat") then
+				GameRules:SendCustomMessage("[THD][HeroExperiment] usage: -hero_attrs value", 0, 0)
+			end
+		else
+			if THD_SetAllHeroVision == nil or not THD_SetAllHeroVision(value, "chat") then
+				GameRules:SendCustomMessage("[THD][HeroExperiment] usage: -hero_vision value", 0, 0)
+			end
+		end
+		return
+	end
+
+	if command == "-fowvieweroff" or command == "-fowvieweron" or command == "-fowviewer" then
+		local enable = command == "-fowvieweron"
+		if command == "-fowviewer" then
+			local arg = ss[2] ~= nil and string.lower(ss[2]) or ""
+			enable = arg == "on" or arg == "1" or arg == "true"
+			if not enable and not (arg == "off" or arg == "0" or arg == "false") then
+				GameRules:SendCustomMessage("[THD][FOW] usage: -fowviewer on/off, -fowvieweron, -fowvieweroff", 0, 0)
+				return
+			end
+		end
+
+		SetFOWViewerForTest(enable, "chat")
+		return
+	end
+
+	if command == "-perfdiag" or command == "-perfdump" or command == "-perfdetail" or command == "-perfdumpdetail" then
+		if PerfDiagnostics == nil then
+			GameRules:SendCustomMessage("[PERF] PerfDiagnostics is not loaded", 0, 0)
+		else
+			local ok, err = pcall(function()
+				if command == "-perfdump" then
+					PerfDiagnostics:DumpHistory(false)
+				elseif command == "-perfdumpdetail" then
+					PerfDiagnostics:DumpHistory(true)
+				elseif command == "-perfdetail" then
+					PerfDiagnostics:PrintSnapshot("manual_detail")
+				else
+					PerfDiagnostics:PrintSnapshot("manual")
+				end
+			end)
+			if not ok then
+				local msg = "[PERF] " .. tostring(command) .. " failed: " .. tostring(err)
+				print(msg)
+				GameRules:SendCustomMessage(msg, 0, 0)
+			end
+		end
+		return
+	end
 
 	-- 白名单用户可用
 	if G_OnlineDebugWhiteList[PlayerResource:GetSteamAccountID(plyid)] ~= nil then
@@ -650,8 +1184,7 @@ function THDOTSGameMode:OnPlayerSay( keys )
 	end
 
 	if is_host then  --主机限定的指令(所有图通用)
-		
-		if ss[1] == "-testbot" then
+		if command == "-testbot" then
 			local hero_name = ss[2]
 			if hero_name == nil then
 				--hero_name = "npc_dota_hero_mirana"
@@ -684,10 +1217,10 @@ function THDOTSGameMode:OnPlayerSay( keys )
 		end
 		
 		
-		if ss[1] == "-perf_test1" then
+		if ss[1] == "-perf_test1" and IsInToolsMode() then
 			local x = tonumber(ss[2])
 			if x == nil then x=1 end
-			plyhd:GetAssignedHero():SetContextThink(DoUniqueString("perf_test1"), 
+			THD_SetContextThink(plyhd:GetAssignedHero(), DoUniqueString("perf_test1"),
 				function()
 					local c_dummy = 0
 					local targets = {}
@@ -710,10 +1243,10 @@ function THDOTSGameMode:OnPlayerSay( keys )
 						end
 					end
 					HostSay( "一共有" .. #targets .. "个单位" )
-					
+
 					HostSay( "一共有" .. c_dummy .. "个dummy" )
-				end, 
-			0.03) 
+				end,
+			0.03, "perf_test1")
 		end
 		
 		if text == "-CountUnits" then
@@ -1280,6 +1813,12 @@ end
 -- 这个函数是在有玩家连接到游戏之后，调用的，请查看 THDOTSGameMode:AutoAssignPlayer里面调用这个函数的部分
 -- 主要是设置属于游戏模式的相关规则，并且开启循环计时器
 function THDOTSGameMode:CaptureGameMode()
+	if self.__thd_capture_game_mode_done == true then
+		print("THDOTSGameMode:CaptureGameMode already captured, skip")
+		return
+	end
+	self.__thd_capture_game_mode_done = true
+
 	print("THDOTSGameMode:CaptureGameMode")
 	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue( DOTA_ATTRIBUTE_STRENGTH_HP, 20 )
 	GameRules:GetGameModeEntity():SetFreeCourierModeEnabled(true)
@@ -1288,6 +1827,7 @@ function THDOTSGameMode:CaptureGameMode()
 	GameRules:SetHideBlacklistedHeroes(true)				-- 隐藏黑名单英雄
 
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter(Dynamic_Wrap(THDOTSGameMode, 'OnTHDOTSOrderFilter'), self)
+	GameRules:GetGameModeEntity():SetDamageFilter(Dynamic_Wrap(THDOTSGameMode, 'OnTHDOTSDamageFilter'), self)
 
 	-- 补dota地图的thd_blue_entity
 	local thd_blue_entity = Entities:FindByName(nil, "thd_blue_entity")
@@ -1296,7 +1836,9 @@ function THDOTSGameMode:CaptureGameMode()
 		dummy:SetEntityName("thd_blue_entity")
 		thd_blue_entity = dummy
 	end
-	thd_blue_entity:AddNewModifier(nil, nil, "modifier_event_proxy", {duration = -1})
+	if thd_blue_entity:FindModifierByName("modifier_event_proxy") == nil then
+		thd_blue_entity:AddNewModifier(nil, nil, "modifier_event_proxy", {duration = -1})
+	end
 
 	if GetMapName() == "dota" then
 		-- 人机地图
@@ -1649,8 +2191,6 @@ function THDOTSGameMode:OnHeroSpawned( keys )
 			
 			THD2_FirstAddBuff(hero)
 
-			THD2_SetHeroSpawnPoint(hero)
-
 		    local ability = hero:AddAbility("ability_common_power_buff")
 			if ability ~= nil then
 				ability:SetLevel(1)
@@ -1788,7 +2328,7 @@ function THDOTSGameMode:PrecacheHeroResource(hero)
 	elseif(heroName == "npc_dota_hero_necrolyte")then
 		require( 'abilities/abilityYuyuko' )
 		hero:SetContextNum("ability_yuyuko_Ex_deadflag",FALSE,0)
-		GameRules:GetGameModeEntity():SetDamageFilter(Dynamic_Wrap(THDOTSGameMode, 'OnTHDOTSDamageFilter'), self)
+		-- Damage filter is registered once in CaptureGameMode.
 		abilityEx = hero:FindAbilityByName("ability_thdots_yuyukoEx")
 		abilityEx:SetLevel(1)
 	elseif(heroName == "npc_dota_hero_templar_assassin")then
@@ -1855,7 +2395,7 @@ function THDOTSGameMode:PrecacheHeroResource(hero)
 		abilityEx = hero:FindAbilityByName("ability_thdots_RanEx")
 		abilityEx:SetLevel(1)
 	elseif(heroName == "npc_dota_hero_venomancer")then
-		GameRules:GetGameModeEntity():SetDamageFilter(Dynamic_Wrap(THDOTSGameMode, 'OnTHDOTSDamageFilter'), self)
+		-- Damage filter is registered once in CaptureGameMode.
 		abilityEx = hero:FindAbilityByName("ability_thdots_YuukaEx")
 		abilityEx:SetLevel(1)
 		abilityEx2 = hero:FindAbilityByName("ability_thdots_YuukaEx2")
@@ -1933,7 +2473,7 @@ function THDOTSGameMode:PrecacheHeroResource(hero)
 	   	abilityEx = hero:FindAbilityByName("ability_thdots_koakumaex")
 	    abilityEx:SetLevel(1)
 	elseif (heroName == "npc_dota_hero_dazzle") then
-		GameRules:GetGameModeEntity():SetDamageFilter(Dynamic_Wrap(THDOTSGameMode, 'OnTHDOTSDamageFilter'), self)
+		-- Damage filter is registered once in CaptureGameMode.
 		abilityEx = hero:FindAbilityByName("ability_thdots_lunasaEx")
 		abilityEx:SetLevel(1)
 		abilityEx = hero:FindAbilityByName("ability_thdots_lunasa_wanbaochui")
@@ -2351,7 +2891,7 @@ function THDOTSGameMode:OnGameRulesStateChange(keys)
 		AddObViews() --添加未分配玩家的观战视野
 		G_Player_sighted = {}
 		
-		GameRules:GetGameModeEntity():SetContextThink( "observe sight", function ( ... )
+		THD_SetGlobalContextThink( "observe sight", function ( ... )
 			for i = 0,63 do
 				if G_Player_sighted[i] == nil and PlayerResource:GetPlayer(i) ~= nil then
 					print(i)
@@ -2577,25 +3117,24 @@ function THDOTSGameMode:OnTHDOTSDamageFilter(keys)
 								local vec = vecCaster - CasterPos
 								local MaxSpeed = 800
 								local MoveDistance = (Distance-FirstDistance)
-								MoveDistance=(MoveDistance*MoveDistance)/(200*200)*MaxSpeed*0.02
+								MoveDistance=(MoveDistance*MoveDistance)/(200*200)*MaxSpeed*0.05
 								if MoveDistance>1.0 then
 									target:SetAbsOrigin(CasterPos + vec:Normalized()*MoveDistance)
 								end
 							end
-							return 0.03
+							return 0.05
 						else
 							if(unit~=nil)then
 								target:SetHealth(1)
 								target:Kill(keys.ability, unit)
 						    else
-	                            local heroes = FindUnitsInRadius(target:GetTeam(),target:GetAbsOrigin(),nil,100000,DOTA_UNIT_TARGET_TEAM_ENEMY,DOTA_UNIT_TARGET_HERO,0,1,false)
-						    	target:Kill(keys.ability, heroes[1])
+						    	target:Kill(keys.ability, target)
 						    end
 						    target:SetContextNum("ability_yuyuko_Ex_deadflag",FALSE,0)
 						    return nil
 						end
 					end, 
-				0.03) 
+				0.05)
 				return false
 			end
 		end
@@ -2639,9 +3178,11 @@ function THDOTSGameMode:OnTHDOTSOrderFilter(keys)
 	end
 
 	------------------------------------------------------------------------------------
-	-- OnMinamitsu04Order
+		-- OnMinamitsu04Order
 	------------------------------------------------------------------------------------
-	if keys.units["0"] ~= nil then
+	if keys.units["0"] ~= nil
+	and (keys.order_type == DOTA_UNIT_ORDER_MOVE_TO_TARGET or keys.order_type == DOTA_UNIT_ORDER_MOVE_TO_POSITION)
+	then
 		--local orderUnit = EntIndexToHScript(keys.units["0"])
 		if orderUnit ~= nil then
 		  if keys.order_type == DOTA_UNIT_ORDER_MOVE_TO_TARGET then
@@ -2936,19 +3477,21 @@ function THDOTSGameMode:On_dota_inventory_item_added(keys)
 			end			
 			if itemEntity:GetPurchaser():GetClassname() ~= heroEntity:GetClassname() then 
 				--print("not Purchaser")
-				heroEntity:SetContextThink(
+				THD_SetContextThink(heroEntity,
 					"not Purchaser",
 					function ()
-						if GameRules:IsGamePaused() then return 0.03 end
-						if heroEntity:IsRealHero() == false then 
+						if GameRules:IsGamePaused() then return 0.05 end
+						if heroEntity == nil or heroEntity:IsNull() then return nil end
+						if itemEntity == nil or itemEntity:IsNull() then return nil end
+						if heroEntity:IsRealHero() == false then
 							--print("not hero")
-							return
+							return nil
 						end
 						if heroEntity:HasModifier("modifier_illusion") then
 							--print("is illusion")
-							return
+							return nil
 						end
-						if heroEntity:IsConsideredHero() == true then 
+						if heroEntity:IsConsideredHero() == true then
 							--print("not hero")
 							return nil
 						end
@@ -2956,7 +3499,8 @@ function THDOTSGameMode:On_dota_inventory_item_added(keys)
 						heroEntity:DropItemAtPositionImmediate(itemEntity, heroEntity:GetOrigin())
 						return nil
 					end,
-					0.03)
+					0.05,
+					"inventory_not_purchaser")
 			else
 				--print("my item")
 				--print("itemEntity: "..itemEntity:GetName())
@@ -2966,6 +3510,9 @@ function THDOTSGameMode:On_dota_inventory_item_added(keys)
 end
 
 function AddBotsToTable()
+    botTable[DOTA_TEAM_GOODGUYS] = {}
+    botTable[DOTA_TEAM_BADGUYS] = {}
+
     for nTeam = 0, 3 do
         local pNum = PlayerResource:GetPlayerCountForTeam(nTeam)
         for i = 0, pNum do
@@ -2976,7 +3523,7 @@ function AddBotsToTable()
             if player then
                 local hero = player:GetAssignedHero()
                 local team = player:GetTeam()
-                if hero ~= nil then
+                if hero ~= nil and botTable[team] ~= nil then
                     if PlayerResource:GetSteamID(hero:GetMainControllingPlayer()) == PlayerResource:GetSteamID(100) then
                         -- print('Instering bot player: '..hero:GetUnitName()..', to team: '..team)
                         table.insert(botTable[team], hero)

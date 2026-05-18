@@ -3,6 +3,779 @@ STARTING_GOLD = 500--650
 DEBUG = true
 GameMode = nil
 
+THD_FOW_VIEWER_ENABLED = true
+THD_FOW_VIEWER_STATS = THD_FOW_VIEWER_STATS or {
+	calls = 0,
+	blocked = 0,
+	maxRadius = 0,
+	maxDuration = 0,
+	byTag = {},
+}
+
+THD_CONTEXT_THINK_ENABLED = true
+THD_CONTEXT_THINK_STATS = THD_CONTEXT_THINK_STATS or {
+	calls = 0,
+	blocked = 0,
+	uniqueNameCalls = 0,
+	byTag = {},
+}
+
+function THD_SetContextThinkEnabled(enabled)
+	THD_CONTEXT_THINK_ENABLED = enabled == true
+	print("[THD][ContextThink] " .. (THD_CONTEXT_THINK_ENABLED and "ENABLED" or "DISABLED"))
+end
+
+function THD_GetContextThinkStats()
+	return THD_CONTEXT_THINK_STATS
+end
+
+function THD_SetContextThink(entity, name, callback, delay, tag)
+	local stats = THD_CONTEXT_THINK_STATS
+	stats.calls = (stats.calls or 0) + 1
+	local key = tag or name or "unknown"
+	stats.byTag[key] = (stats.byTag[key] or 0) + 1
+	if type(name) == "string" and string.find(name, "__") ~= nil then
+		stats.uniqueNameCalls = (stats.uniqueNameCalls or 0) + 1
+	end
+
+	if THD_CONTEXT_THINK_ENABLED ~= true then
+		stats.blocked = (stats.blocked or 0) + 1
+		return
+	end
+
+	if entity ~= nil and entity.SetContextThink ~= nil then
+		return entity:SetContextThink(name, callback, delay)
+	end
+end
+
+function THD_SetGlobalContextThink(name, callback, delay, tag)
+	return THD_SetContextThink(GameRules:GetGameModeEntity(), name, callback, delay, tag)
+end
+
+function THD_SetFOWViewerEnabled(enabled)
+	THD_FOW_VIEWER_ENABLED = enabled == true
+	print("[THD][FOW] AddFOWViewer " .. (THD_FOW_VIEWER_ENABLED and "ENABLED" or "DISABLED"))
+end
+
+function THD_GetFOWViewerStats()
+	return THD_FOW_VIEWER_STATS
+end
+
+function THD_AddFOWViewer(team, location, radius, duration, unobstructed, tag)
+	local stats = THD_FOW_VIEWER_STATS
+	stats.calls = (stats.calls or 0) + 1
+	stats.maxRadius = math.max(stats.maxRadius or 0, radius or 0)
+	stats.maxDuration = math.max(stats.maxDuration or 0, duration or 0)
+	local key = tag or "unknown"
+	stats.byTag[key] = (stats.byTag[key] or 0) + 1
+
+	if THD_FOW_VIEWER_ENABLED ~= true then
+		stats.blocked = (stats.blocked or 0) + 1
+		return
+	end
+
+	AddFOWViewer(team, location, radius, duration, unobstructed)
+end
+
+THD_NEUTRAL_ABILITY_SANITIZER_ENABLED = true
+THD_NEUTRAL_ABILITY_SANITIZER_STATS = THD_NEUTRAL_ABILITY_SANITIZER_STATS or {
+	scans = 0,
+	neutralUnits = 0,
+	removed = 0,
+	byAbility = {},
+}
+
+local THD_NEUTRAL_ABILITIES_TO_SANITIZE = {
+	neutral_upgrade = true,
+	creep_irresolute = true,
+	frogmen_riverborn_aura = true,
+	frogmen_arm_of_the_deep = true,
+	twin_gate_portal_warp = true,
+}
+
+local function THD_FindAllByClassname(classname)
+	if Entities == nil then return {} end
+	if Entities.FindAllByClassname ~= nil then
+		return Entities:FindAllByClassname(classname) or {}
+	end
+
+	local result = {}
+	local entity = nil
+	repeat
+		entity = Entities:FindByClassname(entity, classname)
+		if entity ~= nil then
+			table.insert(result, entity)
+		end
+	until entity == nil
+	return result
+end
+
+local function THD_SanitizeNeutralAbilityOnUnit(unit)
+	if unit == nil or unit.IsNull == nil then return 0 end
+	local okUnit, isNull = pcall(function() return unit:IsNull() end)
+	if not okUnit or isNull then return 0 end
+	if unit.FindAbilityByName == nil or unit.RemoveAbility == nil then return 0 end
+	local classname = ""
+	if unit.GetClassname ~= nil then
+		local okClassname, unitClassname = pcall(function() return unit:GetClassname() end)
+		if okClassname and unitClassname ~= nil then
+			classname = unitClassname
+		end
+	end
+	if unit.IsNeutralUnitType ~= nil then
+		local okNeutral, isNeutral = pcall(function() return unit:IsNeutralUnitType() end)
+		if okNeutral and isNeutral ~= true and classname ~= "npc_dota_creep_lane" then return 0 end
+	end
+
+	local removed = 0
+	local stats = THD_NEUTRAL_ABILITY_SANITIZER_STATS
+	for abilityName, _ in pairs(THD_NEUTRAL_ABILITIES_TO_SANITIZE) do
+		local okFind, ability = pcall(function() return unit:FindAbilityByName(abilityName) end)
+		if okFind and ability ~= nil then
+			local okRemove = pcall(function() unit:RemoveAbility(abilityName) end)
+			if okRemove then
+				removed = removed + 1
+				stats.removed = (stats.removed or 0) + 1
+				stats.byAbility[abilityName] = (stats.byAbility[abilityName] or 0) + 1
+			end
+		end
+	end
+	return removed
+end
+
+function THD_SetNeutralAbilitySanitizerEnabled(enabled)
+	THD_NEUTRAL_ABILITY_SANITIZER_ENABLED = enabled == true
+	print("[THD][NeutralSanitizer] " .. (THD_NEUTRAL_ABILITY_SANITIZER_ENABLED and "ENABLED" or "DISABLED"))
+end
+
+function THD_GetNeutralAbilitySanitizerStats()
+	return THD_NEUTRAL_ABILITY_SANITIZER_STATS
+end
+
+function THD_SanitizeNeutralNativeAbilities(tag)
+	if THD_NEUTRAL_ABILITY_SANITIZER_ENABLED ~= true then return end
+
+	local stats = THD_NEUTRAL_ABILITY_SANITIZER_STATS
+	stats.scans = (stats.scans or 0) + 1
+	stats.lastTag = tag or "unknown"
+
+	local units = THD_FindAllByClassname("npc_dota_creep_neutral")
+	local laneCreeps = THD_FindAllByClassname("npc_dota_creep_lane")
+	for _, unit in pairs(laneCreeps) do
+		table.insert(units, unit)
+	end
+	stats.neutralUnits = (stats.neutralUnits or 0) + #units
+	for _, unit in pairs(units) do
+		THD_SanitizeNeutralAbilityOnUnit(unit)
+	end
+end
+
+-- Backward-compatible names kept for older test hooks.
+THD_NATIVE_NEUTRAL_ABILITY_STRIP_ENABLED = THD_NEUTRAL_ABILITY_SANITIZER_ENABLED
+THD_NATIVE_NEUTRAL_ABILITY_STRIP_STATS = THD_NEUTRAL_ABILITY_SANITIZER_STATS
+
+function THD_SetNativeNeutralAbilityStripEnabled(enabled)
+	THD_SetNeutralAbilitySanitizerEnabled(enabled)
+	THD_NATIVE_NEUTRAL_ABILITY_STRIP_ENABLED = THD_NEUTRAL_ABILITY_SANITIZER_ENABLED
+end
+
+THD_HIDDEN_NEUTRAL_CLEANUP_ENABLED = THD_HIDDEN_NEUTRAL_CLEANUP_ENABLED or false
+THD_HIDDEN_NEUTRAL_CLEANUP_GRACE_SECONDS = THD_HIDDEN_NEUTRAL_CLEANUP_GRACE_SECONDS or 180
+THD_HIDDEN_NEUTRAL_CLEANUP_SEEN_AT = THD_HIDDEN_NEUTRAL_CLEANUP_SEEN_AT or {}
+THD_HIDDEN_NEUTRAL_CLEANUP_STATS = THD_HIDDEN_NEUTRAL_CLEANUP_STATS or {
+	scans = 0,
+	candidates = 0,
+	deferred = 0,
+	removed = 0,
+	byName = {},
+}
+
+local function THD_GetVisibleObserverForTeam(team)
+	for _, hero in pairs(THD_FindAllByClassname("npc_dota_hero*")) do
+		if hero ~= nil and hero.IsNull ~= nil then
+			local okValid, valid = pcall(function()
+				return not hero:IsNull() and hero.GetTeamNumber ~= nil and hero:GetTeamNumber() == team
+			end)
+			if okValid and valid == true and hero.CanEntityBeSeenByMyTeam ~= nil then
+				return hero
+			end
+		end
+	end
+	return nil
+end
+
+local function THD_IsEntityVisibleToTeam(unit, team)
+	local observer = THD_GetVisibleObserverForTeam(team)
+	if observer == nil or observer.CanEntityBeSeenByMyTeam == nil then return false end
+	local ok, visible = pcall(function() return observer:CanEntityBeSeenByMyTeam(unit) end)
+	return ok and visible == true
+end
+
+local function THD_IsHiddenInvulnerableNeutral(unit)
+	if unit == nil or unit.IsNull == nil then return false end
+	local okNull, isNull = pcall(function() return unit:IsNull() end)
+	if not okNull or isNull then return false end
+	local okAlive, alive = pcall(function() return unit.IsAlive ~= nil and unit:IsAlive() end)
+	if not okAlive or alive ~= true then return false end
+	local okNeutral, isNeutral = pcall(function() return unit.IsNeutralUnitType ~= nil and unit:IsNeutralUnitType() end)
+	if not okNeutral or isNeutral ~= true then return false end
+	local visibleRadiant = THD_IsEntityVisibleToTeam(unit, DOTA_TEAM_GOODGUYS)
+	local visibleDire = THD_IsEntityVisibleToTeam(unit, DOTA_TEAM_BADGUYS)
+	if visibleRadiant or visibleDire then return false end
+	local okInvulnerable, invulnerable = pcall(function()
+		return unit.IsInvulnerable ~= nil and unit:IsInvulnerable()
+	end)
+	return okInvulnerable and invulnerable == true
+end
+
+function THD_SetHiddenNeutralCleanupEnabled(enabled, source)
+	THD_HIDDEN_NEUTRAL_CLEANUP_ENABLED = enabled == true
+	THD_HIDDEN_NEUTRAL_CLEANUP_SEEN_AT = THD_HIDDEN_NEUTRAL_CLEANUP_SEEN_AT or {}
+	local message = string.format(
+		"[THD][HiddenNeutralCleanup] enabled=%s source=%s",
+		tostring(THD_HIDDEN_NEUTRAL_CLEANUP_ENABLED),
+		tostring(source or "unknown")
+	)
+	print(message)
+	if THD_HIDDEN_NEUTRAL_CLEANUP_ENABLED and THD_CleanupHiddenInvulnerableNeutrals ~= nil then
+		THD_CleanupHiddenInvulnerableNeutrals("enabled_immediate_scan", false)
+	end
+end
+
+function THD_SetHiddenNeutralCleanupGraceSeconds(seconds)
+	local value = tonumber(seconds)
+	if value == nil or value < 0 then return false end
+	THD_HIDDEN_NEUTRAL_CLEANUP_GRACE_SECONDS = value
+	local message = string.format("[THD][HiddenNeutralCleanup] graceSeconds=%.1f", value)
+	print(message)
+	return true
+end
+
+function THD_GetHiddenNeutralCleanupStats()
+	return THD_HIDDEN_NEUTRAL_CLEANUP_STATS
+end
+
+function THD_CleanupHiddenInvulnerableNeutrals(tag, force)
+	if THD_HIDDEN_NEUTRAL_CLEANUP_ENABLED ~= true and force ~= true then return end
+	local stats = THD_HIDDEN_NEUTRAL_CLEANUP_STATS
+	stats.scans = (stats.scans or 0) + 1
+	stats.lastTag = tag or "unknown"
+	local neutrals = THD_FindAllByClassname("npc_dota_creep_neutral")
+	local now = GameRules ~= nil and GameRules:GetGameTime() or 0
+	local seenAt = THD_HIDDEN_NEUTRAL_CLEANUP_SEEN_AT or {}
+	local currentSeen = {}
+	for _, unit in pairs(neutrals) do
+		if unit ~= nil and unit.IsNull ~= nil then
+			local okEnt, entindex = pcall(function() return unit:entindex() end)
+			if okEnt and entindex ~= nil then
+				currentSeen[entindex] = true
+			end
+		end
+		if THD_IsHiddenInvulnerableNeutral(unit) then
+			stats.candidates = (stats.candidates or 0) + 1
+			local entindex = -1
+			local okEnt, unitEntindex = pcall(function() return unit:entindex() end)
+			if okEnt and unitEntindex ~= nil then entindex = unitEntindex end
+			if seenAt[entindex] == nil then
+				seenAt[entindex] = now
+			end
+			local hiddenDuration = now - (seenAt[entindex] or now)
+			if not force and hiddenDuration < (THD_HIDDEN_NEUTRAL_CLEANUP_GRACE_SECONDS or 180) then
+				stats.deferred = (stats.deferred or 0) + 1
+			else
+				local name = "<unknown>"
+				local okName, unitName = pcall(function()
+					if unit.GetUnitName == nil then return "<unknown>" end
+					return unit:GetUnitName()
+				end)
+				if okName and unitName ~= nil and unitName ~= "" then name = unitName end
+				stats.byName[name] = (stats.byName[name] or 0) + 1
+				local okRemove = pcall(function() UTIL_Remove(unit) end)
+				if okRemove then
+					stats.removed = (stats.removed or 0) + 1
+					seenAt[entindex] = nil
+				end
+			end
+		end
+	end
+	for entindex, _ in pairs(seenAt) do
+		if currentSeen[entindex] ~= true then
+			seenAt[entindex] = nil
+		end
+	end
+	THD_HIDDEN_NEUTRAL_CLEANUP_SEEN_AT = seenAt
+end
+
+function THD_ForceCleanupHiddenInvulnerableNeutrals(source)
+	if THD_CleanupHiddenInvulnerableNeutrals ~= nil then
+		THD_CleanupHiddenInvulnerableNeutrals(source or "manual_force", true)
+	end
+	local stats = THD_HIDDEN_NEUTRAL_CLEANUP_STATS or {}
+	local message = string.format(
+		"[THD][HiddenNeutralCleanup] forceCleanup scans=%d candidates=%d deferred=%d removed=%d",
+		stats.scans or 0,
+		stats.candidates or 0,
+		stats.deferred or 0,
+		stats.removed or 0
+	)
+	print(message)
+end
+
+THD_ALL_NEUTRAL_CLEANUP_ENABLED = THD_ALL_NEUTRAL_CLEANUP_ENABLED or false
+THD_ALL_NEUTRAL_CLEANUP_STATS = THD_ALL_NEUTRAL_CLEANUP_STATS or {
+	scans = 0,
+	removed = 0,
+	byName = {},
+}
+
+local function THD_IsCleanupNeutralUnit(unit)
+	if unit == nil or unit.IsNull == nil then return false end
+	local okNull, isNull = pcall(function() return unit:IsNull() end)
+	if not okNull or isNull then return false end
+	local okNeutral, isNeutral = pcall(function()
+		return unit.IsNeutralUnitType ~= nil and unit:IsNeutralUnitType()
+	end)
+	return okNeutral and isNeutral == true
+end
+
+function THD_SetAllNeutralCleanupEnabled(enabled, source)
+	THD_ALL_NEUTRAL_CLEANUP_ENABLED = enabled == true
+	local message = string.format("[THD][AllNeutralCleanup] enabled=%s source=%s", tostring(THD_ALL_NEUTRAL_CLEANUP_ENABLED), tostring(source or "unknown"))
+	print(message)
+	if THD_ALL_NEUTRAL_CLEANUP_ENABLED then
+		THD_CleanupAllNeutralUnits("enabled_immediate")
+	end
+end
+
+function THD_GetAllNeutralCleanupStats()
+	return THD_ALL_NEUTRAL_CLEANUP_STATS
+end
+
+function THD_CleanupAllNeutralUnits(tag)
+	local stats = THD_ALL_NEUTRAL_CLEANUP_STATS or { scans = 0, removed = 0, byName = {} }
+	stats.scans = (stats.scans or 0) + 1
+	stats.lastTag = tag or "unknown"
+	stats.byName = stats.byName or {}
+	local removedThisScan = 0
+	for _, unit in pairs(THD_FindAllByClassname("npc_dota_creep_neutral")) do
+		if THD_IsCleanupNeutralUnit(unit) then
+			local name = "<unknown>"
+			local okName, unitName = pcall(function()
+				if unit.GetUnitName == nil then return "<unknown>" end
+				return unit:GetUnitName()
+			end)
+			if okName and unitName ~= nil and unitName ~= "" then name = unitName end
+			local okRemove = pcall(function() UTIL_Remove(unit) end)
+			if okRemove then
+				removedThisScan = removedThisScan + 1
+				stats.removed = (stats.removed or 0) + 1
+				stats.byName[name] = (stats.byName[name] or 0) + 1
+			end
+		end
+	end
+	THD_ALL_NEUTRAL_CLEANUP_STATS = stats
+	local message = string.format("[THD][AllNeutralCleanup] tag=%s removedThisScan=%d totalRemoved=%d", tostring(tag or "manual"), removedThisScan, stats.removed or 0)
+	print(message)
+	return removedThisScan
+end
+
+function THD_ForceCleanupAllNeutralUnits(source)
+	return THD_CleanupAllNeutralUnits(source or "manual_force")
+end
+
+function THD_EnableLateGameNeutralShutdown(source)
+	local oldGrace = THD_HIDDEN_NEUTRAL_CLEANUP_GRACE_SECONDS or 180
+	if THD_SetHiddenNeutralCleanupGraceSeconds ~= nil then
+		THD_SetHiddenNeutralCleanupGraceSeconds(0)
+	else
+		THD_HIDDEN_NEUTRAL_CLEANUP_GRACE_SECONDS = 0
+	end
+	if THD_SetHiddenNeutralCleanupEnabled ~= nil then
+		THD_SetHiddenNeutralCleanupEnabled(true, source or "late_game_neutral_shutdown")
+	end
+	if THD_SetAllNeutralCleanupEnabled ~= nil then
+		THD_SetAllNeutralCleanupEnabled(true, source or "late_game_neutral_shutdown")
+	else
+		THD_ALL_NEUTRAL_CLEANUP_ENABLED = true
+	end
+	if THD_CleanupAllNeutralUnits ~= nil then
+		THD_CleanupAllNeutralUnits(source or "late_game_neutral_shutdown")
+	end
+	if THD_ForceCleanupHiddenInvulnerableNeutrals ~= nil then
+		THD_ForceCleanupHiddenInvulnerableNeutrals(source or "late_game_neutral_shutdown")
+	end
+	local message = string.format(
+		"[THD][LateGameNeutralShutdown] enabled=true oldHiddenGrace=%.1f newHiddenGrace=0 allNeutralCleanup=true hiddenCleanup=true",
+		oldGrace
+	)
+	print(message)
+end
+function THD_DisableNeutralsForLateGame(source)
+	return THD_EnableLateGameNeutralShutdown(source)
+end
+
+
+
+function THD_GetNativeNeutralAbilityStripStats()
+	return THD_GetNeutralAbilitySanitizerStats()
+end
+
+function THD_StripNativeNeutralAbilities(unit)
+	if THD_NEUTRAL_ABILITY_SANITIZER_ENABLED ~= true then return end
+	THD_SanitizeNeutralAbilityOnUnit(unit)
+end
+
+THD_COMBAT_EXPERIMENT_FLAGS = THD_COMBAT_EXPERIMENT_FLAGS or {
+	hiddenNoAttack = false,
+	hiddenNoAcquire = false,
+	hiddenStripAbilities = false,
+	neutralStripAbilities = false,
+	neutralRemoveSelectedModifiers = false,
+	laneLowAcquire = false,
+	laneStripAbilities = false,
+	laneRemoveSelectedModifiers = false,
+}
+THD_COMBAT_EXPERIMENT_STATE = THD_COMBAT_EXPERIMENT_STATE or {}
+THD_COMBAT_EXPERIMENT_STATS = THD_COMBAT_EXPERIMENT_STATS or {
+	scans = 0,
+	hidden = 0,
+	hiddenNoAttack = 0,
+	hiddenNoAcquire = 0,
+	hiddenStripped = 0,
+	neutral = 0,
+	neutralStripped = 0,
+	neutralModifiersRemoved = 0,
+	lane = 0,
+	laneLowAcquire = 0,
+	laneStripped = 0,
+	laneModifiersRemoved = 0,
+	restored = 0,
+}
+
+local function THD_GetEntityIndex(unit)
+	if unit == nil or unit.entindex == nil then return nil end
+	local ok, entindex = pcall(function() return unit:entindex() end)
+	if ok then return entindex end
+	return nil
+end
+
+local function THD_IsHiddenNeutralForExperiment(unit)
+	if unit == nil or unit.IsNull == nil then return false end
+	local okNull, isNull = pcall(function() return unit:IsNull() end)
+	if not okNull or isNull then return false end
+	local okAlive, alive = pcall(function() return unit.IsAlive ~= nil and unit:IsAlive() end)
+	if not okAlive or alive ~= true then return false end
+	local okNeutral, isNeutral = pcall(function() return unit.IsNeutralUnitType ~= nil and unit:IsNeutralUnitType() end)
+	if not okNeutral or isNeutral ~= true then return false end
+	return not THD_IsEntityVisibleToTeam(unit, DOTA_TEAM_GOODGUYS) and not THD_IsEntityVisibleToTeam(unit, DOTA_TEAM_BADGUYS)
+end
+
+local function THD_CombatExperimentSafeCall(defaultValue, fn)
+	local ok, result = pcall(fn)
+	if ok and result ~= nil then return result end
+	return defaultValue
+end
+
+local function THD_RememberCombatState(unit)
+	local entindex = THD_GetEntityIndex(unit)
+	if entindex == nil then return nil end
+	local state = THD_COMBAT_EXPERIMENT_STATE[entindex]
+	if state == nil then
+		state = {}
+		state.attackCapability = THD_CombatExperimentSafeCall(nil, function()
+			if unit.GetAttackCapability == nil then return nil end
+			return unit:GetAttackCapability()
+		end)
+		state.acquisitionRange = THD_CombatExperimentSafeCall(nil, function()
+			if unit.GetAcquisitionRange == nil then return nil end
+			return unit:GetAcquisitionRange()
+		end)
+		THD_COMBAT_EXPERIMENT_STATE[entindex] = state
+	end
+	state.lastSeen = GameRules ~= nil and GameRules:GetGameTime() or 0
+	return state
+end
+
+local function THD_RestoreCombatState(unit, entindex)
+	local index = entindex or THD_GetEntityIndex(unit)
+	if index == nil then return false end
+	local state = THD_COMBAT_EXPERIMENT_STATE[index]
+	if state == nil then return false end
+	if unit ~= nil and unit.IsNull ~= nil then
+		local okNull, isNull = pcall(function() return unit:IsNull() end)
+		if okNull and not isNull then
+			if state.attackCapability ~= nil and unit.SetAttackCapability ~= nil then
+				pcall(function() unit:SetAttackCapability(state.attackCapability) end)
+			end
+			if state.acquisitionRange ~= nil and unit.SetAcquisitionRange ~= nil then
+				pcall(function() unit:SetAcquisitionRange(state.acquisitionRange) end)
+			end
+			if unit.SetIdleAcquire ~= nil then
+				pcall(function() unit:SetIdleAcquire(true) end)
+			end
+		end
+	end
+	THD_COMBAT_EXPERIMENT_STATE[index] = nil
+	THD_COMBAT_EXPERIMENT_STATS.restored = (THD_COMBAT_EXPERIMENT_STATS.restored or 0) + 1
+	return true
+end
+
+local function THD_StripAllAbilities(unit)
+	if unit == nil or unit.GetAbilityCount == nil then return 0 end
+	local names = {}
+	local okCount, count = pcall(function() return unit:GetAbilityCount() end)
+	if not okCount or count == nil then return 0 end
+	for i = 0, count - 1 do
+		local okAbility, ability = pcall(function() return unit:GetAbilityByIndex(i) end)
+		if okAbility and ability ~= nil and ability.GetAbilityName ~= nil then
+			local okName, name = pcall(function() return ability:GetAbilityName() end)
+			if okName and name ~= nil and name ~= "" then table.insert(names, name) end
+		end
+	end
+	local removed = 0
+	for _, name in ipairs(names) do
+		if unit.RemoveAbility ~= nil then
+			local okRemove = pcall(function() unit:RemoveAbility(name) end)
+			if okRemove then removed = removed + 1 end
+		end
+	end
+	return removed
+end
+
+local function THD_RemoveSelectedCombatModifiers(unit)
+	if unit == nil or unit.RemoveModifierByName == nil then return 0 end
+	local modifierNames = {
+		"modifier_neutral_sleep_ai",
+		"modifier_neutral_upgrade",
+		"modifier_creep_irresolute",
+		"modifier_frogmen_riverborn_aura",
+		"modifier_frogmen_arm_of_the_deep",
+	}
+	local removed = 0
+	for _, name in ipairs(modifierNames) do
+		local hasModifier = false
+		if unit.HasModifier ~= nil then
+			local okHas, result = pcall(function() return unit:HasModifier(name) end)
+			hasModifier = okHas and result == true
+		end
+		if hasModifier then
+			local okRemove = pcall(function() unit:RemoveModifierByName(name) end)
+			if okRemove then removed = removed + 1 end
+		end
+	end
+	return removed
+end
+
+local function THD_ApplyHiddenNeutralExperiment(unit)
+	local flags = THD_COMBAT_EXPERIMENT_FLAGS
+	if not THD_IsHiddenNeutralForExperiment(unit) then
+		local entindex = THD_GetEntityIndex(unit)
+		if entindex ~= nil and THD_COMBAT_EXPERIMENT_STATE[entindex] ~= nil then
+			THD_RestoreCombatState(unit, entindex)
+		end
+		return
+	end
+	local stats = THD_COMBAT_EXPERIMENT_STATS
+	stats.hidden = (stats.hidden or 0) + 1
+	if flags.hiddenNoAttack or flags.hiddenNoAcquire or flags.hiddenStripAbilities then
+		THD_RememberCombatState(unit)
+	end
+	if flags.hiddenNoAttack and unit.SetAttackCapability ~= nil then
+		pcall(function() unit:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK) end)
+		stats.hiddenNoAttack = (stats.hiddenNoAttack or 0) + 1
+	end
+	if flags.hiddenNoAcquire then
+		if unit.SetAcquisitionRange ~= nil then pcall(function() unit:SetAcquisitionRange(0) end) end
+		if unit.SetIdleAcquire ~= nil then pcall(function() unit:SetIdleAcquire(false) end) end
+		if unit.Stop ~= nil then pcall(function() unit:Stop() end) end
+		stats.hiddenNoAcquire = (stats.hiddenNoAcquire or 0) + 1
+	end
+	if flags.hiddenStripAbilities then
+		local removed = THD_StripAllAbilities(unit)
+		if removed > 0 then stats.hiddenStripped = (stats.hiddenStripped or 0) + removed end
+	end
+	if flags.neutralStripAbilities then
+		local removed = THD_StripAllAbilities(unit)
+		if removed > 0 then stats.neutralStripped = (stats.neutralStripped or 0) + removed end
+	end
+	if flags.neutralRemoveSelectedModifiers then
+		local removed = THD_RemoveSelectedCombatModifiers(unit)
+		if removed > 0 then stats.neutralModifiersRemoved = (stats.neutralModifiersRemoved or 0) + removed end
+	end
+end
+
+local function THD_ApplyLaneCreepExperiment(unit)
+	if unit == nil or unit.IsNull == nil then return end
+	local okNull, isNull = pcall(function() return unit:IsNull() end)
+	if not okNull or isNull then return end
+	local okAlive, alive = pcall(function() return unit.IsAlive ~= nil and unit:IsAlive() end)
+	if not okAlive or alive ~= true then return end
+	local stats = THD_COMBAT_EXPERIMENT_STATS
+	stats.lane = (stats.lane or 0) + 1
+	local flags = THD_COMBAT_EXPERIMENT_FLAGS
+	if flags.laneLowAcquire then
+		THD_RememberCombatState(unit)
+		if unit.SetAcquisitionRange ~= nil then pcall(function() unit:SetAcquisitionRange(300) end) end
+		if unit.SetIdleAcquire ~= nil then pcall(function() unit:SetIdleAcquire(false) end) end
+		stats.laneLowAcquire = (stats.laneLowAcquire or 0) + 1
+	else
+		local entindex = THD_GetEntityIndex(unit)
+		if entindex ~= nil and THD_COMBAT_EXPERIMENT_STATE[entindex] ~= nil then
+			THD_RestoreCombatState(unit, entindex)
+		end
+	end
+	if flags.laneStripAbilities then
+		local removed = THD_StripAllAbilities(unit)
+		if removed > 0 then stats.laneStripped = (stats.laneStripped or 0) + removed end
+	end
+	if flags.laneRemoveSelectedModifiers then
+		local removed = THD_RemoveSelectedCombatModifiers(unit)
+		if removed > 0 then stats.laneModifiersRemoved = (stats.laneModifiersRemoved or 0) + removed end
+	end
+end
+
+function THD_SetCombatExperimentFlag(flag, enabled, source)
+	if THD_COMBAT_EXPERIMENT_FLAGS[flag] == nil then return false end
+	THD_COMBAT_EXPERIMENT_FLAGS[flag] = enabled == true
+	local message = string.format("[THD][CombatExperiment] %s=%s source=%s", flag, tostring(enabled == true), tostring(source or "unknown"))
+	print(message)
+	return true
+end
+
+function THD_GetCombatExperimentStats()
+	return THD_COMBAT_EXPERIMENT_STATS
+end
+
+function THD_ApplyCombatExperiments(tag)
+	local stats = THD_COMBAT_EXPERIMENT_STATS
+	stats.scans = (stats.scans or 0) + 1
+	stats.lastTag = tag or "unknown"
+	stats.hidden = 0
+	stats.hiddenNoAttack = 0
+	stats.hiddenNoAcquire = 0
+	stats.neutral = 0
+	stats.neutralStripped = 0
+	stats.neutralModifiersRemoved = 0
+	stats.lane = 0
+	stats.laneLowAcquire = 0
+	stats.laneStripped = 0
+	stats.laneModifiersRemoved = 0
+	for _, unit in pairs(THD_FindAllByClassname("npc_dota_creep_neutral")) do
+		stats.neutral = (stats.neutral or 0) + 1
+		THD_ApplyHiddenNeutralExperiment(unit)
+	end
+	for _, unit in pairs(THD_FindAllByClassname("npc_dota_creep_lane")) do
+		THD_ApplyLaneCreepExperiment(unit)
+	end
+end
+
+THD_HERO_EXPERIMENT_STATE = THD_HERO_EXPERIMENT_STATE or {}
+THD_HERO_EXPERIMENT_STATS = THD_HERO_EXPERIMENT_STATS or {
+	attrValue = nil,
+	visionValue = nil,
+	attrApplied = 0,
+	visionApplied = 0,
+	restored = 0,
+}
+
+local function THD_ForEachHero(fn)
+	local heroes = THD_FindAllByClassname("npc_dota_hero*")
+	for _, hero in pairs(heroes) do
+		if hero ~= nil and hero.IsRealHero ~= nil then
+			local okReal, isReal = pcall(function() return hero:IsRealHero() end)
+			if okReal and isReal == true then
+				fn(hero)
+			end
+		end
+	end
+end
+
+local function THD_RememberHeroExperimentState(hero)
+	local entindex = THD_GetEntityIndex(hero)
+	if entindex == nil then return nil end
+	local state = THD_HERO_EXPERIMENT_STATE[entindex]
+	if state == nil then
+		state = {}
+		state.strength = THD_CombatExperimentSafeCall(nil, function() return hero:GetBaseStrength() end)
+		state.agility = THD_CombatExperimentSafeCall(nil, function() return hero:GetBaseAgility() end)
+		state.intellect = THD_CombatExperimentSafeCall(nil, function() return hero:GetBaseIntellect() end)
+		state.dayVision = THD_CombatExperimentSafeCall(nil, function()
+			if hero.GetDayTimeVisionRange == nil then return nil end
+			return hero:GetDayTimeVisionRange()
+		end)
+		state.nightVision = THD_CombatExperimentSafeCall(nil, function()
+			if hero.GetNightTimeVisionRange == nil then return nil end
+			return hero:GetNightTimeVisionRange()
+		end)
+		THD_HERO_EXPERIMENT_STATE[entindex] = state
+	end
+	return state
+end
+
+function THD_SetAllHeroBaseAttributes(value, source)
+	local attr = tonumber(value)
+	if attr == nil or attr < 0 then return false end
+	local applied = 0
+	THD_ForEachHero(function(hero)
+		THD_RememberHeroExperimentState(hero)
+		if hero.SetBaseStrength ~= nil then pcall(function() hero:SetBaseStrength(attr) end) end
+		if hero.SetBaseAgility ~= nil then pcall(function() hero:SetBaseAgility(attr) end) end
+		if hero.SetBaseIntellect ~= nil then pcall(function() hero:SetBaseIntellect(attr) end) end
+		if hero.CalculateStatBonus ~= nil then pcall(function() hero:CalculateStatBonus(true) end) end
+		applied = applied + 1
+	end)
+	THD_HERO_EXPERIMENT_STATS.attrValue = attr
+	THD_HERO_EXPERIMENT_STATS.attrApplied = applied
+	local message = string.format("[THD][HeroExperiment] attrs=%.1f applied=%d source=%s", attr, applied, tostring(source or "unknown"))
+	print(message)
+	return true
+end
+
+function THD_SetAllHeroVision(value, source)
+	local vision = tonumber(value)
+	if vision == nil or vision < 0 then return false end
+	local applied = 0
+	THD_ForEachHero(function(hero)
+		THD_RememberHeroExperimentState(hero)
+		if hero.SetDayTimeVisionRange ~= nil then pcall(function() hero:SetDayTimeVisionRange(vision) end) end
+		if hero.SetNightTimeVisionRange ~= nil then pcall(function() hero:SetNightTimeVisionRange(vision) end) end
+		applied = applied + 1
+	end)
+	THD_HERO_EXPERIMENT_STATS.visionValue = vision
+	THD_HERO_EXPERIMENT_STATS.visionApplied = applied
+	local message = string.format("[THD][HeroExperiment] vision=%.1f applied=%d source=%s", vision, applied, tostring(source or "unknown"))
+	print(message)
+	return true
+end
+
+function THD_RestoreHeroExperiment(source)
+	local restored = 0
+	THD_ForEachHero(function(hero)
+		local entindex = THD_GetEntityIndex(hero)
+		local state = entindex ~= nil and THD_HERO_EXPERIMENT_STATE[entindex] or nil
+		if state ~= nil then
+			if state.strength ~= nil and hero.SetBaseStrength ~= nil then pcall(function() hero:SetBaseStrength(state.strength) end) end
+			if state.agility ~= nil and hero.SetBaseAgility ~= nil then pcall(function() hero:SetBaseAgility(state.agility) end) end
+			if state.intellect ~= nil and hero.SetBaseIntellect ~= nil then pcall(function() hero:SetBaseIntellect(state.intellect) end) end
+			if state.dayVision ~= nil and hero.SetDayTimeVisionRange ~= nil then pcall(function() hero:SetDayTimeVisionRange(state.dayVision) end) end
+			if state.nightVision ~= nil and hero.SetNightTimeVisionRange ~= nil then pcall(function() hero:SetNightTimeVisionRange(state.nightVision) end) end
+			if hero.CalculateStatBonus ~= nil then pcall(function() hero:CalculateStatBonus(true) end) end
+			restored = restored + 1
+		end
+	end)
+	THD_HERO_EXPERIMENT_STATE = {}
+	THD_HERO_EXPERIMENT_STATS.attrValue = nil
+	THD_HERO_EXPERIMENT_STATS.visionValue = nil
+	THD_HERO_EXPERIMENT_STATS.restored = (THD_HERO_EXPERIMENT_STATS.restored or 0) + restored
+	local message = string.format("[THD][HeroExperiment] restored=%d source=%s", restored, tostring(source or "unknown"))
+	print(message)
+	return true
+end
+
+function THD_GetHeroExperimentStats()
+	return THD_HERO_EXPERIMENT_STATS
+end
+
 TRUE = 1
 FALSE = 0
 
@@ -465,8 +1238,7 @@ end
 
 --P点掉落
 function OnCollectionDrop(killedUnit,num)
-    print("drop power")
-    print(num)
+    -- 优化：移除调试 print，避免后期大量掉落日志干扰性能。
     local point = killedUnit:GetOrigin()
     local radius = 250
     local time = 0
@@ -482,6 +1254,10 @@ function OnCollectionDrop(killedUnit,num)
 			false
 		)
         unit.IsGet = false
+        pcall(function()
+            if unit.SetHullRadius ~= nil then unit:SetHullRadius(0) end
+            if unit.SetNeverMoveToClearSpace ~= nil then unit:SetNeverMoveToClearSpace(true) end
+        end)
         unit:SetThink(
 				function()
 					if GameRules:IsGamePaused() then return 0.03 end

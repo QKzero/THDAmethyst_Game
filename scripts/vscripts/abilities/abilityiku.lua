@@ -7,7 +7,7 @@ function OnIku01Toggle(keys)
     -- 标记施法者开始技能
     caster:SetContextNum("Iku01", 1, 0)
 
-    GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("OnIku01Toggle"), function()
+    THD_SetGlobalContextThink(DoUniqueString("OnIku01Toggle"), function()
         if GameRules:IsGamePaused() then
             return 0.03
         end
@@ -75,7 +75,7 @@ function OnIku02Knockback(unit, caster_face, unit_abs, distance, speed)
 
     unit.is_Iku_02_knock = true
 
-    GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("OnIku02Knockback"), function()
+    THD_SetGlobalContextThink(DoUniqueString("OnIku02Knockback"), function()
         if GameRules:IsGamePaused() then
             return 0.03
         end
@@ -105,7 +105,7 @@ function OnIku03Knockback(unit, caster_face, distance, speed)
     unit.is_Iku_02_knock = true
     -- local rooted_modifier = unit:AddNewModifier(nil, nil, "modifier_ability_thdots_iku_knockback_rooted", {duration=-1})
 
-    GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("OnIku02Knockback"), function()
+    THD_SetGlobalContextThink(DoUniqueString("OnIku02Knockback"), function()
         if GameRules:IsGamePaused() then
             return 0.03
         end
@@ -254,7 +254,7 @@ function OnIku03AttackLight(keys, caster, unit, lastUnit, caster_abs, time)
     -- 获取牵引距离
     local distance = keys.ability:GetLevelSpecialValueFor("distance", i)
 
-    GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("OnIku03AttackLight"), function()
+    THD_SetGlobalContextThink(DoUniqueString("OnIku03AttackLight"), function()
         if GameRules:IsGamePaused() then
             return 0.03
         end

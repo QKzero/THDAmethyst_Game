@@ -91,7 +91,11 @@ function modifier_ability_thdots_nitori01:OnIntervalThink()
 		end
 		self.caster:SetOrigin(self.caster:GetAbsOrigin() + self.forward*10)
 		self.forward = self.caster:GetForwardVector()
-		AddFOWViewer(self.caster:GetTeamNumber(), self.caster:GetAbsOrigin(), self.caster:GetCurrentVisionRange(), 0.051, false)
+		local now = GameRules:GetGameTime()
+		if self.nextFowViewerTime == nil or now >= self.nextFowViewerTime then
+			self.nextFowViewerTime = now + 0.2
+			THD_AddFOWViewer(self.caster:GetTeamNumber(), self.caster:GetAbsOrigin(), self.caster:GetCurrentVisionRange(), 0.25, false, "nitori01")
+		end
 		-- ParticleManager:SetParticleControl(self.pfx, 0, self.caster:GetAbsOrigin() + self.caster:GetRightVector() * 32 )
 	else
 		self:Destroy()

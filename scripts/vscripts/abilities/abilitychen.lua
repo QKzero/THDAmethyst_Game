@@ -25,18 +25,29 @@ end
 function modifier_ability_thdots_chenEx:OnCreated()
 	if not IsServer() then return end
 	self.caster = self:GetCaster()
-	self:StartIntervalThink(0.03)
+	-- 优化：原来 0.03 秒每帧检查天赋，改为 1 秒已足够，且三条天赋全部处理完之后停止 interval。
+	self:StartIntervalThink(1.0)
 end
 function modifier_ability_thdots_chenEx:OnIntervalThink()
 	if not IsServer() then return end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_cheng_1") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_chenEx_telent_1") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_chenEx_telent_1",{})
+	local caster = self:GetCaster()
+	local has1 = caster:HasModifier("modifier_ability_thdots_chenEx_telent_1")
+	local has2 = caster:HasModifier("modifier_ability_thdots_chenEx_telent_2")
+	local has4 = caster:HasModifier("modifier_ability_thdots_chenEx_telent_4")
+	if not has1 and FindTelentValue(caster,"special_bonus_unique_cheng_1") ~= 0 then
+		caster:AddNewModifier(caster,self:GetAbility(),"modifier_ability_thdots_chenEx_telent_1",{})
+		has1 = true
 	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_cheng_2") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_chenEx_telent_2") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_chenEx_telent_2",{})
+	if not has2 and FindTelentValue(caster,"special_bonus_unique_cheng_2") ~= 0 then
+		caster:AddNewModifier(caster,self:GetAbility(),"modifier_ability_thdots_chenEx_telent_2",{})
+		has2 = true
 	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_cheng_4") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_chenEx_telent_4") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_chenEx_telent_4",{})
+	if not has4 and FindTelentValue(caster,"special_bonus_unique_cheng_4") ~= 0 then
+		caster:AddNewModifier(caster,self:GetAbility(),"modifier_ability_thdots_chenEx_telent_4",{})
+		has4 = true
+	end
+	if has1 and has2 and has4 then
+		self:StartIntervalThink(-1)
 	end
 end
 

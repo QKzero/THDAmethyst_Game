@@ -41,7 +41,7 @@ function rune_fixer_init()
 		next_remove_time2 = rune_init_time + 120.2
 		next_reset_time2 = rune_init_time + 0.2
 		
-		GameRules:GetGameModeEntity():SetContextThink(
+		THD_SetGlobalContextThink(
 			"Rune_Power_Controller",
 			function()
 				--print('[Rune_Power]:'.. string.format("%.2f",GameRules:GetGameTime()))
@@ -90,13 +90,13 @@ function rune_fixer_init()
 					if y < 0.2 then next_reset_time1 = next_reset_time1 + 0.1 end
 					
 				end
-				return 0.1
+				return 1.0
 			end,
-			0.1
+			1.0
 		)
 		
 		
-		GameRules:GetGameModeEntity():SetContextThink(
+		THD_SetGlobalContextThink(
 			"Rune_Bounty_Controller", --check if the old -5min bounty picked
 			function()
 				--print('[Rune_Bounty]:'.. string.format("%.2f",GameRules:GetGameTime()))
@@ -140,9 +140,9 @@ function rune_fixer_init()
 					if y < 0.2 then next_remove_time2 = next_remove_time2 + 0.1 end
 					
 				end
-				return 0.1
+				return 1.0
 			end,
-			0.1
+			1.0
 		)
 		
 end
@@ -174,7 +174,7 @@ function rune_fixer_init()
 		
 		print('[Rune_Init]:'.. string.format("%.2f",next_remove_time1))
 		
-		GameRules:GetGameModeEntity():SetContextThink(
+		THD_SetGlobalContextThink(
 			"Rune_Power_Controller",
 			function()
 				--print('[Rune_Power]:'.. string.format("%.2f",GameRules:GetGameTime()))
@@ -218,7 +218,7 @@ function rune_fixer_init()
 		)
 		
 		
-		GameRules:GetGameModeEntity():SetContextThink(
+		THD_SetGlobalContextThink(
 			"Rune_Bounty_Controller", --check if the old -5min bounty picked
 			function()
 				--print('[Rune_Bounty]:'.. string.format("%.2f",GameRules:GetGameTime()))

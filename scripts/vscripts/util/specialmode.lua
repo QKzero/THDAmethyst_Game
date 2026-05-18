@@ -95,7 +95,7 @@ function THD2_GetFRSMode() return G_IsFastRespawnMode end
 function THD2_GetFRSValue() return fast_respawn_val end					--原THD2_GetFRSTime
 function THD2_GetBotDiff() return cur_bot_dif end
 function THD2_GetBotDiffName() return G_Bot_Diff_Text[cur_bot_dif] end
-function THD2_GetBotThinking(val) G_IsAIMode = val end
+function THD2_GetBotThinking() return G_IsAIMode end
 function THD2_GetPlayerPerTeam() return player_per_team end
 function THD2_GetCloneMode() return G_IsCloneMode end
 function THD2_GetDotaMixedMode() return DotaMixed end
@@ -106,7 +106,7 @@ function THD2_GetJFFMode() return cur_jff end
 
 
 --to ban some girls(which is not work done XD)
-cur_bot_heros_size = 45
+cur_bot_heros_size = 43
 tot_bot_heros_size = 67
 G_BOT_USED = 
 {
@@ -168,7 +168,7 @@ G_BOT_USED =
 	false ,			--屠自古
 	false ,			--小町
 	false ,			--红师傅
-	true ,			--小恶魔
+	false ,			--小恶魔
 	
 	true ,			--爱莲
 	false ,			--果/极/羽
@@ -729,17 +729,7 @@ function THD2_AddBot()
 						badcnt = badcnt + 1
 					end
 
-					local hostPlayer = PlayerResource:GetPlayer(0)
-					print('adding bot hero: ' .. H_name)
-					DebugCreateHeroWithVariant(
-						hostPlayer,
-						H_name,
-						1, -- TODO[QKzero20251114] 这里是 facet ID, 不清楚具体是什么
-						bot_team and DOTA_TEAM_GOODGUYS or DOTA_TEAM_BADGUYS,
-						false,
-						function(____, _hero)
-                		end
-					)
+					Tutorial:AddBot(H_name,'','',bot_team)
 
 					-- clear it temporary
 					for i=0,233 do
@@ -758,6 +748,8 @@ function THD2_AddBot()
 			
 			print('bbbbb')
 			
+			G_Bot_List = {}
+			G_Bot_Buff_List = {}
 			for i=0,233 do
 				ply = PlayerResource:GetPlayer(i)
 				if ply ~= nil and PlayerResource:GetConnectionState(i) == 1 then
@@ -799,21 +791,73 @@ function THD2_AddBot()
 			
 end
 
+function THD2_AddBotBuffListAbility(ability)
+	if ability == nil then return end
+
+	local abilityName = nil
+	local playerId = -1
+	local ok = pcall(function()
+		abilityName = ability:GetAbilityName()
+		local owner = ability:GetOwner()
+		if owner ~= nil and owner.GetPlayerOwnerID ~= nil then
+			playerId = owner:GetPlayerOwnerID()
+		end
+	end)
+	if not ok or abilityName == nil then return end
+
+	local filtered = {}
+	for _, oldAbility in pairs(G_Bot_Buff_List or {}) do
+		local keep = true
+		pcall(function()
+			if oldAbility == nil or (oldAbility.IsNull ~= nil and oldAbility:IsNull()) then
+				keep = false
+			else
+				local oldName = oldAbility:GetAbilityName()
+				local oldOwner = oldAbility:GetOwner()
+				local oldPlayerId = -1
+				if oldOwner ~= nil and oldOwner.GetPlayerOwnerID ~= nil then
+					oldPlayerId = oldOwner:GetPlayerOwnerID()
+				end
+
+				if oldPlayerId == playerId and oldName == abilityName then
+					keep = false
+				end
+			end
+		end)
+		if keep then
+			table.insert(filtered, oldAbility)
+		end
+	end
+
+	table.insert(filtered, ability)
+	G_Bot_Buff_List = filtered
+end
+
 function THD2_FirstAddBuff( hero )
+
+			if hero == nil or hero:IsNull() then return end
+			if hero.__thd2_first_add_buff_done == true then return end
+			hero.__thd2_first_add_buff_done = true
 
 			-- set bot's default ability level
 		    if THD2_GetBotMode() == true then
 			    local plyID = hero:GetPlayerOwnerID()
 			    for k,v in pairs(G_Bot_List) do
 			    	if v == plyID then
-						local bot_buff_ability = hero:AddAbility("ability_common_bot_buff") --bot mana buff
+						local bot_buff_ability = hero:FindAbilityByName("ability_common_bot_buff")
+						if bot_buff_ability == nil then
+							bot_buff_ability = hero:AddAbility("ability_common_bot_buff") --bot mana buff
+						end
 						if bot_buff_ability ~= nil then
-							table.insert(G_Bot_Buff_List, bot_buff_ability)
+							THD2_AddBotBuffListAbility(bot_buff_ability)
 							bot_buff_ability:SetLevel(cur_bot_dif) -- bot's default difficulty
 						end
-						local bot_buff_corrector = hero:AddAbility("ability_common_bot_corrector") --bot collect buff
+						local bot_buff_corrector = hero:FindAbilityByName("ability_common_bot_corrector")
+						if bot_buff_corrector == nil then
+							bot_buff_corrector = hero:AddAbility("ability_common_bot_corrector") --bot collect buff
+						end
 						if bot_buff_corrector ~= nil then
-							table.insert(G_Bot_Buff_List, bot_buff_ability)
+							THD2_AddBotBuffListAbility(bot_buff_corrector)
 							bot_buff_corrector:SetLevel(1)
 						end
 						hero:SetBotDifficulty(cur_bot_dif)
@@ -840,41 +884,6 @@ function THD2_FirstAddBuff( hero )
 					fastCDability:SetLevel(1)
 				end
 			end
-end
-
---- 递归设置人机出生位置，这里是函数入口
---- @param hero any 人机实体
-function THD2_SetHeroSpawnPoint(hero)
-	-- 开始递归设置出生点
-	THD2_SetHeroSpawnPointRec(hero, 0, 10)
-end
-
---- 递归设置人机出生位置，实际执行函数
---- @param hero any 人机实体
---- @param retryCount number 重试次数
---- @param retryMaxTime number 最大重试次数
-function THD2_SetHeroSpawnPointRec(hero, retryCount, retryMax)
-	-- 判断是否是人机本体（因为使用场景有且只有第一次复活，所以此处没有判断是否为人机）
-    if hero == nil or hero:IsNull() or hero:IsIllusion() then
-        return
-    end
-
-    if retryCount >= retryMax then
-        return
-    end
-
-	-- 移动
-	local posBase = hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS and Vector(-7050, -6550, 384) or Vector(6950, 6320, 384)
-	FindClearSpaceForUnit(hero, posBase, true)
-
-    Timers:CreateTimer(0.1, function()
-        local posBase = hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS and Vector(-7050, -6550, 384) or Vector(6950, 6320, 384)
-        local isInBase = hero:IsPositionInRange(posBase, 1500)
-        if not isInBase then
-            THD2_SetHeroSpawnPointRec(hero, retryCount + 1, retryMax)
-            return
-        end
-    end)
 end
 
 function THD2_BotPushAllWithDelay()

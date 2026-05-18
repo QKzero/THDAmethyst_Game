@@ -50,9 +50,9 @@ function siege_start_interval()
 	if GetMapName() ~= "1_thdots_map" then return end
 	local siege_time = 0
 	local say = true
-	GameRules:GetGameModeEntity():SetContextThink("siege_time", 
+	THD_SetGlobalContextThink("siege_time",
 		function()
-			if GameRules:IsGamePaused() then return 0.03 end
+			if GameRules:IsGamePaused() then return 1.0 end
 			if math.floor(GameRules:GetDOTATime(false, false)) >= START_TIME then
 				START_TIME = START_TIME + INTERVAL_TIME
 				if say then
@@ -63,8 +63,8 @@ function siege_start_interval()
 				CreateSiege_Hakurei()
 				CreateSiege_Moriya()
 			end
-			siege_time = siege_time + 0.03
-			return 0.03
+			siege_time = siege_time + 1.0
+			return 1.0
 		end
 		,
 		0)
@@ -91,7 +91,7 @@ function CreateSiege_Hakurei()
 	super_siege.point = PATH[super_siege.path_count]
 	super_siege:SetContextThink("siege_Path",
 		function()
-			if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 0.2 end
 			if super_siege ~= nil then
 				if not super_siege:IsAlive() then return nil end
 				super_siege:MoveToPositionAggressive(super_siege.point)
@@ -103,7 +103,7 @@ function CreateSiege_Hakurei()
 		0)
 	super_siege:SetContextThink("siege_Next",
 		function()
-			if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 0.2 end
 			if super_siege ~= nil then
 				if not super_siege:IsAlive() then return nil end
 				if (super_siege:GetOrigin() - super_siege.point):Length2D() <= 200 then
@@ -114,8 +114,8 @@ function CreateSiege_Hakurei()
 					end
 				end
 			end
-			siege_time = siege_time + 0.03
-			return 0.03
+siege_time = siege_time + 0.2
+			return 0.2
 		end
 		,
 		0)
@@ -137,7 +137,7 @@ function CreateSiege_Moriya()
 	super_siege.point = PATH[super_siege.path_count]
 	super_siege:SetContextThink("siege_Path",
 		function()
-			if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 0.2 end
 			if super_siege ~= nil then
 				if not super_siege:IsAlive() then return nil end
 				super_siege:MoveToPositionAggressive(super_siege.point)
@@ -149,7 +149,7 @@ function CreateSiege_Moriya()
 		0)
 	super_siege:SetContextThink("siege_Next",
 		function()
-			if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 0.2 end
 			if super_siege ~= nil then
 				if not super_siege:IsAlive() then return nil end
 				if (super_siege:GetOrigin() - super_siege.point):Length2D() <= 200 then
@@ -160,8 +160,8 @@ function CreateSiege_Moriya()
 					end
 				end
 			end
-			siege_time = siege_time + 0.03
-			return 0.03
+siege_time = siege_time + 0.2
+			return 0.2
 		end
 		,
 		0)

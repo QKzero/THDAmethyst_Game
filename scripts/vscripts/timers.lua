@@ -69,7 +69,9 @@ TIMERS_VERSION = "1.05"
 
 
 
-TIMERS_THINK = 0.01
+-- 优化：原为 0.01。Timer 系统每 tick 会遍历所有活跃 timer，后期 timer 数量比较多时这本身也是全局热点。
+-- 0.05 对绝大多数技能循环和 UI 更新都足够精细，同时涻度降至原来的 1/5。
+TIMERS_THINK = 0.05
 
 if Timers == nil then
 	print('[Timers] creating Timers')

@@ -28,8 +28,7 @@ function item_jiduzhixinyan:OnSpellStart()
 	ParticleManager:SetParticleControl(particle, 0, caster:GetOrigin() + Vector(0, 0, 50))
 	ParticleManager:SetParticleControl(particle, 1, target:GetOrigin() + Vector(0, 0, 50))
 	ParticleManager:SetParticleControl(particle, 2, target:GetOrigin() + Vector(0, 0, 50))
-	ParticleManager:ReleaseParticleIndex(particle)
-	ParticleManager:DestroyParticle(particle, false)
+	ParticleManager:DestroyParticleSystem(particle, false)
 
 	target:EmitSound("THD_ITEM.Jiduzhixinyan_Damage")
 end
@@ -98,25 +97,22 @@ function modifier_item_jiduzhixinyan_passive:OnDeath(keys)
 
 	if self.bonusAuraDuration == nil then self.bonusAuraDuration = self.ability:GetSpecialValueFor("bonus_aura_duration") end
 
-	local units = FindUnitsInRadius(
-		self.caster:GetTeamNumber(),
-		self.caster:GetOrigin(),
-		nil,
-		99999,
-		self.ability:GetAbilityTargetTeam(),
-		self.ability:GetAbilityTargetType(),
-		DOTA_UNIT_TARGET_FLAG_NONE,
-		FIND_ANY_ORDER,
-		false
-	)
-
-	for _, v in pairs(units) do
-		if not v:HasModifier("modifier_item_jiduzhixinyan_ally_buff") then
-			v:AddNewModifier(self.caster, self.ability, "modifier_item_jiduzhixinyan_ally_buff", {
-				duration = self.bonusAuraDuration
-			})
-		else
-			v:FindModifierByName("modifier_item_jiduzhixinyan_ally_buff"):SetDuration(self.bonusAuraDuration, true)
+	for playerId = 0, DOTA_MAX_TEAM_PLAYERS - 1 do
+		if PlayerResource:IsValidPlayerID(playerId) then
+			local v = PlayerResource:GetSelectedHeroEntity(playerId)
+			if v ~= nil
+			and not v:IsNull()
+			and v:IsRealHero()
+			and v:GetTeamNumber() == self.caster:GetTeamNumber()
+			then
+				if not v:HasModifier("modifier_item_jiduzhixinyan_ally_buff") then
+					v:AddNewModifier(self.caster, self.ability, "modifier_item_jiduzhixinyan_ally_buff", {
+						duration = self.bonusAuraDuration
+					})
+				else
+					v:FindModifierByName("modifier_item_jiduzhixinyan_ally_buff"):SetDuration(self.bonusAuraDuration, true)
+				end
+			end
 		end
 	end
 end

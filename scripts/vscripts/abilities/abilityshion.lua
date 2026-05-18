@@ -772,7 +772,7 @@ function modifier_ability_thdots_shion_oilManager:OnCreated()
     -- 石油矩阵缓存
     self.oilMatrixMemory = {}
     
-    self:StartIntervalThink(FrameTime())
+    self:StartIntervalThink(0.1)
 end
 
 function modifier_ability_thdots_shion_oilManager:OnIntervalThink()
@@ -785,12 +785,16 @@ function modifier_ability_thdots_shion_oilManager:OnIntervalThink()
 
     self:RemoveOilFromBackByDuration()
 
+    local hasOil = self.oilQue ~= nil and not self.oilQue:IsEmpty()
+
     -- 判定施法者
-    if not self.caster:HasModifier("modifier_ability_thdots_shion_casterOnOil") and self:IsOnOil(self.caster) then
+    if hasOil and not self.caster:HasModifier("modifier_ability_thdots_shion_casterOnOil") and self:IsOnOil(self.caster) then
         self.caster:AddNewModifier(self.caster, self.ability, "modifier_ability_thdots_shion_casterOnOil", {})
-    elseif self.caster:HasModifier("modifier_ability_thdots_shion_casterOnOil") and not self:IsOnOil(self.caster) then
+    elseif self.caster:HasModifier("modifier_ability_thdots_shion_casterOnOil") and (not hasOil or not self:IsOnOil(self.caster)) then
         self.caster:RemoveModifierByName("modifier_ability_thdots_shion_casterOnOil")
     end
+
+    if not hasOil then return end
 
     -- 判定目标单位
     local targets = FindUnitsInRadius(
@@ -819,7 +823,7 @@ function modifier_ability_thdots_shion_oilManager:OnDestroy()
         while not self.oilQue:IsEmpty() do
 
             if self.oilQue:Back().effectIndex ~= nil then
-                ParticleManager:DestroyParticle(self.oilQue:Back().effectIndex, false)
+                ParticleManager:DestroyParticleSystem(self.oilQue:Back().effectIndex, false)
             end
 
             self.oilQue:PopBack()
@@ -867,7 +871,7 @@ function modifier_ability_thdots_shion_oilManager:RemoveOilFromBackByDuration()
         -- 石油矩阵移除
         self:RemoveOilFromAuraMatrix(self.oilQue:Back())
 
-        ParticleManager:DestroyParticle(self.oilQue:Back().effectIndex, false)
+        ParticleManager:DestroyParticleSystem(self.oilQue:Back().effectIndex, false)
 
         self.oilQue:PopBack()
     end
@@ -952,6 +956,12 @@ function modifier_ability_thdots_shion_oilManager:RemoveOilFromAuraMatrix(oilTab
         local y = matrix.y
         if self.oilAuraMatrix[x] ~= nil and self.oilAuraMatrix[x][y] ~= nil then
             self.oilAuraMatrix[x][y] = self.oilAuraMatrix[x][y] - 1
+            if self.oilAuraMatrix[x][y] <= 0 then
+                self.oilAuraMatrix[x][y] = nil
+            end
+            if next(self.oilAuraMatrix[x]) == nil then
+                self.oilAuraMatrix[x] = nil
+            end
         end
     end
 end
@@ -1625,7 +1635,7 @@ function modifier_ability_thdots_shion_04_caster:OnCreated()
         "modifier_ability_thdots_shion_02_caster_debuff",
         "modifier_ability_thdots_shion_03_caster_debuff",
     }
-    self:StartIntervalThink(FrameTime())
+    self:StartIntervalThink(0.1)
 end
 
 function modifier_ability_thdots_shion_04_caster:OnIntervalThink()
@@ -1799,7 +1809,7 @@ function modifier_ability_thdots_shion_04_passive:OnCreated()
     self.ability = self:GetAbility()
     self.invisibleTime = 0
     self.invisibleDelayTime = self:GetAbility():GetSpecialValueFor("invisibleDelayTime")
-    self:StartIntervalThink(FrameTime())
+    self:StartIntervalThink(0.1)
 end
 
 function modifier_ability_thdots_shion_04_passive:OnIntervalThink()

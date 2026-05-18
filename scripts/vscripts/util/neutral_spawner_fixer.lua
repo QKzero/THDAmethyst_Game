@@ -1,6 +1,57 @@
 Neutrals = Neutrals or class({})
 
+require("util.util")
+
 Neutrals.Spanwers = {}
+THD_NEUTRAL_SPAWNER_FIXER_ENABLED = true
+THD_NEUTRAL_SPAWNER_FIXER_STATS = {
+	ticks = 0,
+	disabledTicks = 0,
+	spawnersChecked = 0,
+	spawned = 0,
+}
+
+function THD_ResetNeutralSpawnerFixerStats()
+	THD_NEUTRAL_SPAWNER_FIXER_STATS = {
+		ticks = 0,
+		disabledTicks = 0,
+		spawnersChecked = 0,
+		spawned = 0,
+	}
+end
+
+function THD_SetNeutralSpawnerFixerEnabled(enabled, source)
+	THD_NEUTRAL_SPAWNER_FIXER_ENABLED = enabled == true
+	local message = string.format(
+		"[THD][NeutralSpawnerFixer] enabled=%s source=%s",
+		tostring(THD_NEUTRAL_SPAWNER_FIXER_ENABLED),
+		tostring(source or "unknown")
+	)
+	print(message)
+	if GameRules ~= nil then
+		GameRules:SendCustomMessage(message, 0, 0)
+	end
+end
+
+function THD_GetNeutralSpawnerFixerEnabled()
+	return THD_NEUTRAL_SPAWNER_FIXER_ENABLED == true
+end
+
+function THD_GetNeutralSpawnerFixerStats()
+	local stats = THD_NEUTRAL_SPAWNER_FIXER_STATS or {}
+	local mappedSpawners = 0
+	for _ in pairs(Neutrals.Spanwers or {}) do
+		mappedSpawners = mappedSpawners + 1
+	end
+	return {
+		enabled = THD_NEUTRAL_SPAWNER_FIXER_ENABLED == true,
+		ticks = stats.ticks or 0,
+		disabledTicks = stats.disabledTicks or 0,
+		spawnersChecked = stats.spawnersChecked or 0,
+		spawned = stats.spawned or 0,
+		mappedSpawners = mappedSpawners,
+	}
+end
 
 function THD2_neutral_spawner_fixer()
 
@@ -27,17 +78,40 @@ function THD2_neutral_spawner_fixer()
 	end
 
 	-- timer
-    GameRules:GetGameModeEntity():SetContextThink("neutral_spawner_fixer",
+	-- 优化：原实现每帧 Think，但真正触发间隔是 60 秒，改为秒级轮询。
+	local NEUTRAL_SPAWNER_THINK_INTERVAL = 1.0
+    THD_SetGlobalContextThink("neutral_spawner_fixer",
 		function()
-			if GameRules:IsGamePaused() then return FrameTime() end
+			if GameRules:IsGamePaused() then return NEUTRAL_SPAWNER_THINK_INTERVAL end
 			if math.floor(GameRules:GetDOTATime(false, false)) >= start_time then
                 --print("start_time: "..start_time)
 				start_time = start_time + interval_time
 
-				CheckNeutralSpawn()
+				if THD_GetNeutralSpawnerFixerEnabled == nil or THD_GetNeutralSpawnerFixerEnabled() then
+					local stats = THD_NEUTRAL_SPAWNER_FIXER_STATS or {}
+					stats.ticks = (stats.ticks or 0) + 1
+					THD_NEUTRAL_SPAWNER_FIXER_STATS = stats
+					CheckNeutralSpawn()
+				else
+					local stats = THD_NEUTRAL_SPAWNER_FIXER_STATS or {}
+					stats.disabledTicks = (stats.disabledTicks or 0) + 1
+					THD_NEUTRAL_SPAWNER_FIXER_STATS = stats
+					if THD_SanitizeNeutralNativeAbilities ~= nil then
+						THD_SanitizeNeutralNativeAbilities("neutral_spawner_fixer_disabled")
+					end
+				end
+				if THD_CleanupHiddenInvulnerableNeutrals ~= nil then
+					THD_CleanupHiddenInvulnerableNeutrals("neutral_spawner_fixer_timer")
+				end
+				if THD_ALL_NEUTRAL_CLEANUP_ENABLED == true and THD_CleanupAllNeutralUnits ~= nil then
+					THD_CleanupAllNeutralUnits("neutral_spawner_fixer_timer")
+				end
+				if THD_ApplyCombatExperiments ~= nil then
+					THD_ApplyCombatExperiments("neutral_spawner_fixer_timer")
+				end
 			end
 
-			return FrameTime()
+			return NEUTRAL_SPAWNER_THINK_INTERVAL
 		end
 		,
 		0)
@@ -45,6 +119,10 @@ end
 
 function CheckNeutralSpawn()
 	for i, spawner in pairs(Entities:FindAllByClassname("npc_dota_neutral_spawner") or {}) do
+		local stats = THD_NEUTRAL_SPAWNER_FIXER_STATS or {}
+		stats.spawnersChecked = (stats.spawnersChecked or 0) + 1
+		THD_NEUTRAL_SPAWNER_FIXER_STATS = stats
+
 		local trigger = Neutrals.Spanwers[spawner]
 
 		-- 附近可能阻止中立刷新的单位
@@ -87,9 +165,16 @@ function CheckNeutralSpawn()
 			-- 没有阻止中立刷新的单位，刷新中立
 			if #units == 0 then
 				spawner:SpawnNextBatch(true)
+				local stats = THD_NEUTRAL_SPAWNER_FIXER_STATS or {}
+				stats.spawned = (stats.spawned or 0) + 1
+				THD_NEUTRAL_SPAWNER_FIXER_STATS = stats
 				--print("spawn ingore thd2 blockers")
 			end
 		end
+	end
+
+	if THD_SanitizeNeutralNativeAbilities ~= nil then
+		THD_SanitizeNeutralNativeAbilities("neutral_spawner_fixer")
 	end
 end
 
