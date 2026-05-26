@@ -66,18 +66,12 @@ end
 
 function modifier_ability_thdots_keineEx_passive:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(FrameTime())
+	THD2_RefreshTalentModifiers(self:GetCaster(), "ability_thdots_keineEx")
 end
 
 function modifier_ability_thdots_keineEx_passive:OnIntervalThink()
 	if not IsServer() then return end
 	--天赋监听
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_keine_3") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_keineEx_talent3") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_keineEx_talent3",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_keine_2") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_keineEx_talent2") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_keineEx_talent2",{})
-	end
 end
 
 modifier_ability_thdots_keineEx_talent2 = {}  --天赋监听

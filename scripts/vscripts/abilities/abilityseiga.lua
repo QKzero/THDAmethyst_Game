@@ -116,6 +116,12 @@ function ability_thdots_seigaEx:OnSpellStart()
 
 	portal_1.dual = portal_2
 	portal_2.dual = portal_1
+	portal_1.seiga_ex_is_scanner = true
+
+	local portal_modifier = portal_1:FindModifierByName("modifier_ability_thdots_seigaEx_portal")
+	if portal_modifier then
+		portal_modifier:StartPortalPairThink()
+	end
 end
 
 modifier_ability_thdots_seigaEx_portal = {}
@@ -138,28 +144,52 @@ function modifier_ability_thdots_seigaEx_portal:OnCreated()
 	self.transport_cooldown = self.ability:GetSpecialValueFor("transport_cooldown")
 
 	if not IsServer() then return end
+end
 
-	self:StartIntervalThink(0.1)
+function modifier_ability_thdots_seigaEx_portal:StartPortalPairThink()
+	if not IsServer() then return end
+	self:StartIntervalThink(0.2)
+end
+
+function modifier_ability_thdots_seigaEx_portal:TransportHero(hero, from_portal, to_portal)
+	local effectIndex_1 = ParticleManager:CreateParticle("particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_explode.vpcf", PATTACH_POINT, from_portal)
+	ParticleManager:SetParticleControlEnt(effectIndex_1, 0, from_portal, PATTACH_POINT_FOLLOW, "attach_origin", from_portal:GetAbsOrigin(), true)
+	ParticleManager:DestroyParticleSystem(effectIndex_1, false)
+
+	local effectIndex_2 = ParticleManager:CreateParticle("particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_explode.vpcf", PATTACH_POINT, to_portal)
+	ParticleManager:SetParticleControlEnt(effectIndex_2, 0, to_portal, PATTACH_POINT_FOLLOW, "attach_origin", to_portal:GetAbsOrigin(), true)
+	ParticleManager:DestroyParticleSystem(effectIndex_2, false)
+
+	hero:EmitSound("Voice_Thdots_Seiga.AbilitySeigaEx.Transport")
+	hero:AddNewModifier(self.caster, self.ability, "modifier_ability_thdots_seigaEx_transport_cooldown", {duration = self.transport_cooldown})
+	FindClearSpaceForUnit(hero, to_portal:GetAbsOrigin(), false)
+end
+
+function modifier_ability_thdots_seigaEx_portal:ScanPortal(from_portal, to_portal)
+	if not from_portal or from_portal:IsNull() or not to_portal or to_portal:IsNull() then return end
+	local heroes = FindUnitsInRadius(self.caster:GetTeamNumber(), from_portal:GetAbsOrigin(), nil, self.trigger_distance, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false)
+	for _, hero in pairs(heroes) do
+		if not hero:FindModifierByName("modifier_ability_thdots_seigaEx_transport_cooldown") then
+			self:TransportHero(hero, from_portal, to_portal)
+		end
+	end
 end
 
 function modifier_ability_thdots_seigaEx_portal:OnIntervalThink()
 	if not IsServer() then return end
-	local heroes = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), self:GetParent():GetAbsOrigin(), nil, self.trigger_distance, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false)
-	for _, hero in pairs(heroes) do
-		if not hero:FindModifierByName("modifier_ability_thdots_seigaEx_transport_cooldown") and hero:GetTeam() == self:GetCaster():GetTeam() then
-			local effectIndex_1 = ParticleManager:CreateParticle("particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_explode.vpcf", PATTACH_POINT, self.portal)
-			ParticleManager:SetParticleControlEnt(effectIndex_1, 0, self.portal, PATTACH_POINT_FOLLOW, "attach_origin", self.portal:GetAbsOrigin(), true)
-			ParticleManager:DestroyParticleSystem(effectIndex_1, false)
-
-			local effectIndex_2 = ParticleManager:CreateParticle("particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_explode.vpcf", PATTACH_POINT, self.portal.dual)
-			ParticleManager:SetParticleControlEnt(effectIndex_2, 0, self.portal.dual, PATTACH_POINT_FOLLOW, "attach_origin", self.portal.dual:GetAbsOrigin(), true)
-			ParticleManager:DestroyParticleSystem(effectIndex_2, false)
-
-			hero:EmitSound("Voice_Thdots_Seiga.AbilitySeigaEx.Transport")
-			hero:AddNewModifier(self.caster, self.ability, "modifier_ability_thdots_seigaEx_transport_cooldown", {duration = self.transport_cooldown})
-			FindClearSpaceForUnit(hero, self.portal.dual:GetAbsOrigin(), false)
-		end
+	if not self.portal.seiga_ex_is_scanner then
+		self:StartIntervalThink(-1)
+		return
 	end
+
+	local dual = self.portal.dual
+	if not dual or dual:IsNull() then
+		self:StartIntervalThink(-1)
+		return
+	end
+
+	self:ScanPortal(self.portal, dual)
+	self:ScanPortal(dual, self.portal)
 end
 
 modifier_ability_thdots_seigaEx_transport_cooldown = {}
@@ -243,7 +273,7 @@ function modifier_ability_thdots_seigaEx_passive:OnCreated()
 	self.link_particle = false
     self.seiga_weapon = ParticleManager:CreateParticle("models/kaku_seiga/kaku_seiga_ambient.vpcf", PATTACH_POINT_FOLLOW,self:GetCaster())
     ParticleManager:SetParticleControlEnt(self.seiga_weapon,0,self:GetCaster(),PATTACH_ROOTBONE_FOLLOW,"attach_hitloc",Vector(0,0,0),true)
-	self:StartIntervalThink(1.0)
+	THD2_RefreshTalentModifiers(caster, "ability_thdots_seigaEx")
 end
 
 function modifier_ability_thdots_seigaEx_passive:OnDestroy()
@@ -276,27 +306,6 @@ function modifier_ability_thdots_seigaEx_passive:OnIntervalThink()
 		-- local seiga_link = ParticleManager:CreateParticle("models/kaku_seiga/kaku_seiga_and_ibaraki_kasen_ambient.vpcf", PATTACH_POINT_FOLLOW,self:GetCaster())
 	    -- ParticleManager:SetParticleControlEnt(seiga_link,0,self:GetCaster(),PATTACH_ROOTBONE_FOLLOW,"attach_hitloc",Vector(0,0,0),true)
 	end
-	local hasAllTalentModifiers = true
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_seiga_2") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_seigaEx_telent_2") then
-		caster:AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_seigaEx_telent_2",{})
-		local modifier = caster:FindModifierByName("modifier_ability_thdots_seigaEx_telent_2")
-		modifier:SetStackCount(FindTelentValue(self:GetCaster(),"special_bonus_unique_seiga_2"))
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_seiga_3") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_seigaEx_telent_3") then
-		caster:AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_seigaEx_telent_3",{})
-		local modifier = caster:FindModifierByName("modifier_ability_thdots_seigaEx_telent_3")
-		modifier:SetStackCount(FindTelentValue(self:GetCaster(),"special_bonus_unique_seiga_3"))
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_seiga_6") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_seigaEx_telent_6") then
-		caster:AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_seigaEx_telent_6",{})
-		local modifier = caster:FindModifierByName("modifier_ability_thdots_seigaEx_telent_6")
-		modifier:SetStackCount(FindTelentValue(self:GetCaster(),"special_bonus_unique_seiga_6"))
-	end
-
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_seiga_2") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_seigaEx_telent_2") then hasAllTalentModifiers = false end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_seiga_3") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_seigaEx_telent_3") then hasAllTalentModifiers = false end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_seiga_6") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_seigaEx_telent_6") then hasAllTalentModifiers = false end
-	if hasAllTalentModifiers then self:StartIntervalThink(-1) end
 end
 
 modifier_ability_thdots_seigaEx_telent_2 = modifier_ability_thdots_seigaEx_telent_2 or {}  --天赋监听
@@ -991,18 +1000,40 @@ function ability_thdots_seiga05:GetIntrinsicModifierName()
 	return "modifier_ability_thdots_seiga05_caster"
 end
 
+function ability_thdots_seiga05:RegisterIllusion(illusion)
+	if not IsServer() then return end
+	if not self.seiga05_illusions then
+		self.seiga05_illusions = {}
+	end
+	table.insert(self.seiga05_illusions, illusion)
+end
+
+function ability_thdots_seiga05:UnregisterIllusion(illusion)
+	if not IsServer() or not self.seiga05_illusions then return end
+	for i = #self.seiga05_illusions, 1, -1 do
+		if self.seiga05_illusions[i] == illusion then
+			table.remove(self.seiga05_illusions, i)
+		end
+	end
+end
+
+function ability_thdots_seiga05:ClearCachedIllusions()
+	if not IsServer() then return end
+	local illusions = self.seiga05_illusions or {}
+	self.seiga05_illusions = {}
+	for _, illusion in pairs(illusions) do
+		if illusion and not illusion:IsNull() and illusion:HasModifier("modifier_ability_thdots_seiga05_target") then
+			illusion:ForceKill(true)
+		end
+	end
+end
+
 function ability_thdots_seiga05:OnInventoryContentsChanged()
 	if IsServer() then
 		if self:GetCaster():HasModifier("modifier_item_wanbaochui") then
 			self:SetHidden(false)
 		else
-			local illusion = FindUnitsInRadius(self:GetCaster():GetTeam(),self:GetCaster():GetAbsOrigin(),nil,99999,DOTA_UNIT_TARGET_TEAM_FRIENDLY,
-				DOTA_UNIT_TARGET_BASIC+ DOTA_UNIT_TARGET_HERO,0,0,false)
-			for _,v in pairs(illusion) do
-				if v:HasModifier("modifier_ability_thdots_seiga05_target") then
-					v:ForceKill(true)
-				end
-			end
+			self:ClearCachedIllusions()
 			self:SetHidden(true)
 		end
 	end
@@ -1050,6 +1081,7 @@ function modifier_ability_thdots_seiga05_caster:OnDeath(keys)
 				if keys.unit:GetTimeUntilRespawn() > 5 then
 					self.ability.target = keys.unit
 					self.illusion = CreateIllusionTHD(self.ability,self.ability.target,nil,0,illusion_outgoing_damage,duration,false)
+					self.ability:RegisterIllusion(self.illusion)
 					self.illusion:AddNewModifier(self.caster, self.ability, "modifier_ability_thdots_seiga05_target", {duration = duration})	
 					FindClearSpaceForUnit(self.illusion,self.illusion:GetOrigin(),true)
 					-- local effectIndex = ParticleManager:CreateParticle("particles/thd2/items/item_donation_box.vpcf", PATTACH_CUSTOMORIGIN, caster)
@@ -1115,13 +1147,15 @@ function modifier_ability_thdots_seiga05_target:OnDestroy()
 	if not IsServer() then return end
 	ParticleManager:DestroyParticle(self.particle_fx, false)
 	ParticleManager:ReleaseParticleIndex(self.particle_fx)
+	if self.ability then
+		self.ability:UnregisterIllusion(self.parent)
+	end
 end
 
 function modifier_ability_thdots_seiga05_target:OnAttackLanded(keys)
 	if not IsServer() then return end
 	if keys.target == self.parent and keys.attacker:GetTeamNumber() ~= keys.target:GetTeamNumber() and 
 		(keys.attacker:IsHero() or keys.attacker:IsBuilding()) then
-		print(keys.attacker:GetUnitName())
 		self:DecrementStackCount()
 		local health = self.parent:GetBaseMaxHealth() * self:GetStackCount() / self.attacked_limit
 		if self:GetStackCount() <= 0 then

@@ -1,7 +1,7 @@
 function jyoon_generateParticleOnce(name,attach,target)
     local particle = ParticleManager:CreateParticle(name, attach, target)
-    ParticleManager:ReleaseParticleIndex(particle)
     ParticleManager:DestroyParticle(particle,false)
+    ParticleManager:ReleaseParticleIndex(particle)
     return particle
 end
 
@@ -31,34 +31,7 @@ function ability_thdots_Jyoon_1:IsStealable()           return false end
 
 --技能
 function ability_thdots_Jyoon_1:GetIntrinsicModifierName()
-    return  "modifier_ability_thdots_Jyoon_1_thinker"
-end
-
---Modifiers
-modifier_ability_thdots_Jyoon_1_thinker = class({})
-LinkLuaModifier("modifier_ability_thdots_Jyoon_1_thinker","scripts/vscripts/abilities/abilityJyoon.lua",LUA_MODIFIER_MOTION_NONE)
---modifier 基础判定
-function modifier_ability_thdots_Jyoon_1_thinker:IsHidden()      return true end
-function modifier_ability_thdots_Jyoon_1_thinker:IsPurgable()        return false end
-function modifier_ability_thdots_Jyoon_1_thinker:RemoveOnDeath()     return false end
-function modifier_ability_thdots_Jyoon_1_thinker:IsDebuff()      return false end
-function modifier_ability_thdots_Jyoon_1_thinker:AllowIllusionDuplicate() return false end
-
-
-function modifier_ability_thdots_Jyoon_1_thinker:OnCreated()
-    if not IsServer() then return end
-    self:StartIntervalThink(FrameTime())
-end
-
-function modifier_ability_thdots_Jyoon_1_thinker:OnIntervalThink()
-    if not IsServer() then return end
-    local ability = self:GetAbility()
-    local caster = self:GetCaster()
-
-    if ability:IsCooldownReady() then
-        caster:AddNewModifier(caster,ability,"modifier_ability_thdots_Jyoon_1",{})
-    end
-
+    return  "modifier_ability_thdots_Jyoon_1"
 end
 
 --Modifiers
@@ -66,10 +39,11 @@ modifier_ability_thdots_Jyoon_1 = class({})
 LinkLuaModifier("modifier_ability_thdots_Jyoon_1","scripts/vscripts/abilities/abilityJyoon.lua",LUA_MODIFIER_MOTION_NONE)
 
 --modifier 基础判定
-function modifier_ability_thdots_Jyoon_1:IsHidden()      return false end
+function modifier_ability_thdots_Jyoon_1:IsHidden()      return not self:GetAbility():IsCooldownReady() end
 function modifier_ability_thdots_Jyoon_1:IsPurgable()        return false end
 function modifier_ability_thdots_Jyoon_1:RemoveOnDeath()     return false end
 function modifier_ability_thdots_Jyoon_1:IsDebuff()      return false end
+function modifier_ability_thdots_Jyoon_1:AllowIllusionDuplicate() return false end
 
 --modifier 修改列表
 function modifier_ability_thdots_Jyoon_1:DeclareFunctions()
@@ -84,6 +58,7 @@ end
 function modifier_ability_thdots_Jyoon_1:GetModifierPreAttack_CriticalStrike(keys)
     if not IsServer() then return end
     local caster = self:GetCaster()
+    if keys.attacker ~= caster or not self:GetAbility():IsCooldownReady() then return 0 end
     local ability = caster:FindAbilityByName("special_bonus_unique_Jyoon_ability1_crit")
     local value = 0
     if(ability ~= nil) then
@@ -97,6 +72,7 @@ end
 
 -- 攻击距离加成
 function modifier_ability_thdots_Jyoon_1:GetModifierAttackRangeBonus()
+    if not self:GetAbility():IsCooldownReady() then return 0 end
     return self:GetAbility():GetSpecialValueFor("range")
 end
 --攻击判定
@@ -137,7 +113,6 @@ function modifier_ability_thdots_Jyoon_1:OnAttackLanded(keys)
             ParticleManager:ReleaseParticleIndex(particle_effect)
             ParticleManager:DestroyParticleSystem(particle_effect,false)
         end
-        caster:RemoveModifierByName("modifier_ability_thdots_Jyoon_1")
     end
 end
 ----------------------------------------------------------------------------------------------
@@ -282,7 +257,7 @@ end
 
 function modifier_ability_thdots_Jyoon_2_debuff:OnCreated()
     if not IsServer() then return end
-    debuff_list = {
+    local debuff_list = {
         "modifier_ability_thdots_Jyoon_2_stunned","modifier_ability_thdots_Jyoon_2_silence","modifier_ability_thdots_Jyoon_2_rooted","modifier_fear","modifier_ability_thdots_Jyoon_2_disarm"
         --modifier_ability_thdots_Jyoon_2_fear
     }
@@ -426,13 +401,16 @@ end
 
 function modifier_ability_thdots_Jyoon_2_wanbaochui:GetModifierIncomingDamage_Percentage(keys)
     if not IsServer() then return end
+    if self.isTriggering then return 0 end
     --基本信息
     local caster = self:GetCaster()
     local ability = self:GetAbility()
     local radius = ability:GetSpecialValueFor("radius") + FindTelentValue(caster,"special_bonus_unique_Jyoon_ability2_radius")
 
-    if(keys.attacker:IsHero() and keys.target == caster) then
+    if(keys.attacker ~= nil and keys.attacker:IsHero() and keys.target == caster) then
         if(caster:HasModifier("modifier_item_wanbaochui") and self:GetStackCount() >= ability:GetSpecialValueFor("wanbaochui_charge_time")) then
+            self.isTriggering = true
+            self:SetStackCount(0)
 
             --寻找附近单位
             local enemy = FindUnitsInRadius(
@@ -458,7 +436,7 @@ function modifier_ability_thdots_Jyoon_2_wanbaochui:GetModifierIncomingDamage_Pe
                     damage          = ability:GetSpecialValueFor("damage"),
                     damage_type     = ability:GetAbilityDamageType(),
                     damage_flags    = DOTA_DAMAGE_FLAG_NONE,
-                    ability = self
+                    ability = ability
                 }
                 UnitDamageTarget(damage_table)
             end
@@ -469,7 +447,7 @@ function modifier_ability_thdots_Jyoon_2_wanbaochui:GetModifierIncomingDamage_Pe
             ParticleManager:SetParticleControl(particle_effect,1,Vector(radius,radius,radius))
             ParticleManager:ReleaseParticleIndex(particle_effect)
             ParticleManager:DestroyParticleSystem(particle_effect,false)
-            self:SetStackCount(0)
+            self.isTriggering = false
         end
     end
     return 0
@@ -629,7 +607,7 @@ function modifier_ability_thdots_Jyoon_4_buff:OnCreated()
     if not IsServer() then return end
         self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_ability_thdots_Jyoon_4_attackInterval", {duration = self:GetAbility():GetSpecialValueFor("duration")})
         local particle = "particles/units/heroes/hero_marci/marci_unleash_cast.vpcf"
-        local effect = ParticleManager:CreateParticle(particle, PATTACH_POINT_FOLLOW , self:GetCaster())
+        jyoon_generateParticleOnce(particle, PATTACH_POINT_FOLLOW, self:GetCaster())
     return
 end
 
@@ -688,8 +666,6 @@ function modifier_ability_thdots_Jyoon_4_attackInterval:OnAttackLanded(keys)
     local ability = self:GetAbility()
     local enemy = keys.target
     local caster = self:GetCaster()
-    local stackCount = self:GetStackCount()
-    local caster_loc = caster:GetAbsOrigin()
     local knockback = self:GetAbility():GetSpecialValueFor("knockback_distance")
 
     --天赋吸血
@@ -704,29 +680,14 @@ function modifier_ability_thdots_Jyoon_4_attackInterval:OnAttackLanded(keys)
     if keys.attacker == caster then
         self:SetStackCount(self:GetStackCount()-1)
         ParticleManager:SetParticleControl(self.effect,1,Vector(0,self:GetStackCount(),0))
-        --特效
-        local particle = "particles/units/heroes/hero_marci/marci_unleash_attack_model.vpcf"
-        local particle2 = "particles/units/heroes/hero_marci/marci_dispose_land.vpcf"
-        local effect = ParticleManager:CreateParticle(particle, PATTACH_POINT_FOLLOW, caster)
-        local effect2 = ParticleManager:CreateParticle(particle2, PATTACH_POINT_FOLLOW, enemy)
-        --effect
-        ParticleManager:SetParticleControl(effect, 0, Vector(0,0,0))
-        --effect2
-        ParticleManager:SetParticleControlEnt(effect2, 1, enemy, PATTACH_POINT_FOLLOW, nil, enemy:GetAbsOrigin(), true)
-
-        --Free Index
-        ParticleManager:ReleaseParticleIndex(effect)
-        ParticleManager:ReleaseParticleIndex(effect2)
-
-        ParticleManager:DestroyParticleSystem(effect,false)
-        ParticleManager:DestroyParticleSystem(effect2,false)
-
         if(not enemy:IsTower() and not enemy:IsBuilding()) then
             enemy:AddNewModifier(caster, nil, "modifier_stunned", {duration = ability:GetSpecialValueFor("stun_duration")})
         end
         if(self:GetStackCount()<1) then
             self:GetCaster():StartGestureWithPlaybackRate(ACT_DOTA_CAST_ABILITY_5,4)
             if(not enemy:IsTower() and not enemy:IsBuilding()) then
+                local particle = "particles/units/heroes/hero_marci/marci_dispose_land.vpcf"
+                jyoon_generateParticleOnce(particle, PATTACH_POINT_FOLLOW, enemy)
                 jyoon_createKnockBack(self:GetCaster(),enemy,knockback,100,1,self:GetAbility())
             end
             self:Destroy()

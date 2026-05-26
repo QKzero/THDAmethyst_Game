@@ -592,6 +592,7 @@ end
 function modifier_thdots_yorihime_ex:OnCreated()
 	if not IsServer() then return end
 
+	THD2_RefreshTalentModifiers(self:GetParent(), "ability_thdots_yorihime_Ex")
 	self:StartIntervalThink(0.1)
 end
 
@@ -620,9 +621,6 @@ function modifier_thdots_yorihime_ex:OnIntervalThink()
 	if self:GetAbility():IsCooldownReady() then
 
 		self:GetParent():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_thdots_yorihime_ex_crit",{duration = -1})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_yorihime_1") ~= 0 and not self:GetCaster():HasModifier("ability_thdots_yorihime_talent_1") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"ability_thdots_yorihime_talent_1",{})
 	end
 end
 

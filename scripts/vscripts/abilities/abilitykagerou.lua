@@ -1,5 +1,12 @@
 
 -- 一级能施法 跳跃
+modifier_ability_thdots_kagerouEx_talent1 = modifier_ability_thdots_kagerouEx_talent1 or {}
+LinkLuaModifier("modifier_ability_thdots_kagerouEx_talent1","scripts/vscripts/abilities/abilitykagerou.lua",LUA_MODIFIER_MOTION_NONE)
+function modifier_ability_thdots_kagerouEx_talent1:IsHidden() return true end
+function modifier_ability_thdots_kagerouEx_talent1:IsPurgable() return false end
+function modifier_ability_thdots_kagerouEx_talent1:RemoveOnDeath() return false end
+function modifier_ability_thdots_kagerouEx_talent1:IsDebuff() return false end
+
 ability_thdots_kagerou01 = {}
 
 function ability_thdots_kagerou01:GetCastRange()
@@ -365,7 +372,7 @@ function A4OnInterval(k)
 	local cs =  k.caster
 	local radius = ab:GetSpecialValueFor("trig_radius")
 	local trigTime = ab:GetSpecialValueFor("trig_time")
-	if FindTelentValue(cs,"special_bonus_unique_kagerou_1") ~= 0 then
+	if cs:HasModifier("modifier_ability_thdots_kagerouEx_talent1") then
 		trigTime = trigTime-1.5
 	end
 	-- GetAllModifierName(cs)
@@ -411,8 +418,7 @@ function A4OnInterval(k)
 	if lonely then
 		--天赋强化
 		-- print(FindTelentValue(cs,"special_bonus_unique_kagerou_1"))
-		if FindTelentValue(cs,"special_bonus_unique_kagerou_1") ~= 0 and not cs:HasModifier("modifier_ability_thdots_kagerouEx_up")  then
-			print("args")
+		if cs:HasModifier("modifier_ability_thdots_kagerouEx_talent1") and not cs:HasModifier("modifier_ability_thdots_kagerouEx_up")  then
 			ab:ApplyDataDrivenModifier(cs,cs,"modifier_ability_thdots_kagerouEx_up",{})
 		end
 		if not cs:HasModifier("modifier_kagerou_lonely") then

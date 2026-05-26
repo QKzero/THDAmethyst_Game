@@ -346,7 +346,7 @@ end
 
 function modifier_sagumeEx_basic:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(0.03)
+	THD2_RefreshTalentModifiers(self:GetParent(), "ability_thdots_sagume_Ex")
 	self:SetStackCount(0)
 end
 
@@ -365,10 +365,6 @@ end
 
 function modifier_sagumeEx_basic:OnIntervalThink()
 	if not IsServer() then return end
-	if FindTelentValue(self:GetParent(),"special_bonus_unique_sagume_5") ~= 0 and not self:GetParent():HasModifier("modifier_ability_sagume_telent5") then 
-    self:GetParent():AddNewModifier(self:GetParent(),self:GetAbility(),"modifier_ability_sagume_telent5",{}) end
-	if FindTelentValue(self:GetParent(),"special_bonus_unique_sagume_6") ~= 0 and not self:GetParent():HasModifier("modifier_ability_sagume_telent6") then 
-    self:GetParent():AddNewModifier(self:GetParent(),self:GetAbility(),"modifier_ability_sagume_telent6",{}) end
 end
 
 modifier_ability_sagume_telent5 = {}

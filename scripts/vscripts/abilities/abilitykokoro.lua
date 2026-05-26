@@ -1472,6 +1472,7 @@ function modifier_ability_thdots_kokoroEx_2:OnCreated() --设置层数，1层怒
 	self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_kokoroEx_2_Strength",{})
 	self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_kokoroEx_2_Agility",{})
 	self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_kokoroEx_2_Intellect",{})
+	THD2_RefreshTalentModifiers(self:GetCaster(), "ability_thdots_kokoroEx_2")
 end
 
 
@@ -1505,18 +1506,6 @@ function modifier_ability_thdots_kokoroEx_2:OnIntervalThink()
 	end
 	if not IsServer() then return end
 	self:GetCaster():SetPrimaryAttribute(self.num) --设置主属性，0是力量，1是敏捷，2是智力
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_kokoro_1") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_kokoroEx_2_talent1") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_kokoroEx_2_talent1",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_kokoro_2") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_kokoroEx_2_talent2") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_kokoroEx_2_talent2",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_kokoro_3") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_kokoroEx_2_talent3") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_kokoroEx_2_talent3",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_kokoro_4") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_kokoroEx_2_talent4") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_kokoroEx_2_talent4",{})
-	end
 end
 -- function modifier_ability_thdots_kokoroEx_2:DeclareFunctions()
 -- 	return {

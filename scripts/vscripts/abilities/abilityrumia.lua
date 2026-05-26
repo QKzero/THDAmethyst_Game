@@ -103,6 +103,7 @@ function passive_rumia02_attack:OnAttackLanded(keys)
 			PATTACH_ABSORIGIN_FOLLOW,
 			target)
 		ParticleManager:DestroyParticle(effectIndex, false)
+		ParticleManager:ReleaseParticleIndex(effectIndex)
 		target:AddNewModifier(parent, ability, "modifier_rumia02_bleed", {duration = ability:GetSpecialValueFor("duration")})
 	end
 end
@@ -184,27 +185,28 @@ function modifier_rumia_03_think:IsDebuff()			return false end
 function modifier_rumia_03_think:OnCreated()
 	if not IsServer() then return end
 	self:StartIntervalThink(0.3)
+	self:OnIntervalThink()
 end
 function modifier_rumia_03_think:OnIntervalThink()
 	if not IsServer() then return end
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
 
-	if caster:IsAlive() then
-		if GameRules:IsDaytime() then
-			if caster:HasModifier("modifier_rumia_03_night") then
-				caster:RemoveModifierByName("modifier_rumia_03_night")
-			end
-			if not caster:HasModifier("modifier_rumia_03_day") then
-				caster:AddNewModifier(caster, ability, "modifier_rumia_03_day", {})
-			end
-		else
-			if caster:HasModifier("modifier_rumia_03_day") and caster:HasModifier("modifier_rumia_03_night") == false then
-				caster:RemoveModifierByName("modifier_rumia_03_day")
-			end
-			if not caster:HasModifier("modifier_rumia_03_night") then
-				caster:AddNewModifier(caster, ability, "modifier_rumia_03_night", {})
-			end
+	if not caster:IsAlive() then return end
+
+	local isNight = (not GameRules:IsDaytime()) or GameRules:IsNightstalkerNight()
+	if self.isNight == isNight then return end
+	self.isNight = isNight
+
+	if isNight then
+		caster:RemoveModifierByName("modifier_rumia_03_day")
+		if not caster:HasModifier("modifier_rumia_03_night") then
+			caster:AddNewModifier(caster, ability, "modifier_rumia_03_night", {})
+		end
+	else
+		caster:RemoveModifierByName("modifier_rumia_03_night")
+		if not caster:HasModifier("modifier_rumia_03_day") then
+			caster:AddNewModifier(caster, ability, "modifier_rumia_03_day", {})
 		end
 	end
 end
@@ -300,6 +302,7 @@ function ability_thdots_rumia04:OnSpellStart()
 		local infest_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_life_stealer/life_stealer_infest_cast.vpcf", PATTACH_POINT, caster)
 		ParticleManager:SetParticleControl(infest_particle, 0, target:GetAbsOrigin())
 		ParticleManager:SetParticleControlEnt(infest_particle, 1, caster, PATTACH_POINT_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
+		ParticleManager:DestroyParticle(infest_particle, false)
 		ParticleManager:ReleaseParticleIndex(infest_particle)
 
 		if DamageTable.damage == 99999 then
@@ -402,6 +405,8 @@ function passive_rumia04_wanbaochui:OnAttackLanded(keys)
 				ParticleManager:SetParticleControl(effectIndex, 3, vec)
 				ParticleManager:SetParticleControl(effectIndex, 4, vec)
 				ParticleManager:SetParticleControl(effectIndex, 8, vec)
+				ParticleManager:DestroyParticle(effectIndex, false)
+				ParticleManager:ReleaseParticleIndex(effectIndex)
 			end
 		end
 	end

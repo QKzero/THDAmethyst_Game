@@ -219,6 +219,7 @@ function modifier_ability_thdots_parseeEx_passive:OnCreated()
 	if not IsServer() then return end
 	self:GetCaster().parseeEx_wanbaochui_target = nil
 	self.gold = 0
+	THD2_RefreshTalentModifiers(self:GetCaster(), "ability_thdots_parseeEx")
 	self:StartIntervalThink(0.1)
 end
 
@@ -232,12 +233,6 @@ function modifier_ability_thdots_parseeEx_passive:OnIntervalThink()
 		ability:StartCooldown(ability:GetCooldown(ability:GetLevel() - 1))
 	end
 	--天赋监听
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_parsee_4") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_parseeEx_talent1") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_parseeEx_talent1",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_parsee_5") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_parseeEx_talent2") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_parseeEx_talent2",{})
-	end
 	--万宝槌监听
 	if not self:GetCaster():HasModifier("modifier_item_wanbaochui") then
 		self:SetStackCount(0)

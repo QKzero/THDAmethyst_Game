@@ -3,13 +3,36 @@
 --------------------------------------------------------
 ability_thdots_tojikoEx = {}
 
+local TOJIKO_EX_RESIDUAL_HEIGHT = 32
+
+local function TojikoGetResidualPoint(point)
+	return GetGroundPosition(point, nil) + Vector(0, 0, TOJIKO_EX_RESIDUAL_HEIGHT)
+end
+
+local function TojikoUpdateExResidualPoints(ability, caster, table_name, points, use_set_origin)
+	if not caster or caster:IsNull() or not caster:IsHero() or not caster:HasModifier("modifier_ability_thdots_tojikoEx") then return end
+	ability[table_name] = ability[table_name] or {}
+	for i, point in ipairs(points) do
+		point = TojikoGetResidualPoint(point)
+		if ability[table_name][i] == nil then
+			ability[table_name][i] = {
+				think_modifier = nil,
+			}
+		end
+		local thinker = ability[table_name][i].think_modifier
+		if thinker == nil or thinker:IsNull() then
+			ability[table_name][i].think_modifier = CreateModifierThinker(caster, ability, "modifier_ability_thdots_tojikoEx_passive_dummy", {}, point, caster:GetTeamNumber(), false)
+		elseif use_set_origin then
+			thinker:SetOrigin(point)
+		else
+			thinker:SetAbsOrigin(point)
+		end
+	end
+end
+
 function ability_thdots_tojikoEx:GetIntrinsicModifierName()
 	return "modifier_ability_thdots_tojikoEx"
 end
-
--- function ability_thdots_tojikoEx:OnSpellStart()
--- 	self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_ability_thdots_tojikoEx", {duration = 20})
--- end
 
 modifier_ability_thdots_tojikoEx = {}
 LinkLuaModifier("modifier_ability_thdots_tojikoEx","scripts/vscripts/abilities/abilitytojiko.lua",LUA_MODIFIER_MOTION_NONE)
@@ -27,178 +50,146 @@ function modifier_ability_thdots_tojikoEx:DeclareFunctions()
 	}
 end
 
-function modifier_ability_thdots_tojikoEx:OnCreated()
-	if not IsServer() then return end
-	self.ability_1 = false
-	self.ability_2 = false
-	self.ability_3 = false
-	self.ability_4 = false
-	print("do it")
-	print(self:GetParent():GetModelName())
-	if self:GetParent():GetModelName() == "models/tojiko/tojiko.vmdl" then
-		local tojikoEx_particle = ParticleManager:CreateParticle("models/tojiko/tojiko/lightning.vpcf", PATTACH_CUSTOMORIGIN, self:GetParent())
-		ParticleManager:SetParticleControlEnt(tojikoEx_particle , 0, self:GetParent(), 5, "attach_wq_fx", Vector(0,0,0), true)
-		ParticleManager:CreateParticle("models/tojiko/tojiko/cloud.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
+function modifier_ability_thdots_tojikoEx:CastCopiedAbility(cast_ability, point, origin)
+	cast_ability.tojiko_is_ex_copy = true
+	cast_ability.tojiko_ex_point = point
+	cast_ability.tojiko_ex_origin = origin
+	cast_ability:OnSpellStart()
+	cast_ability.tojiko_is_ex_copy = nil
+	cast_ability.tojiko_ex_point = nil
+	cast_ability.tojiko_ex_origin = nil
+end
+
+function modifier_ability_thdots_tojikoEx:RefreshCurrentResidual(ability_name, cast_ability, point, origin)
+	local caster = self:GetParent()
+	if ability_name == "ability_thdots_tojiko01" then
+		local cast_range = cast_ability:GetSpecialValueFor("cast_range") + caster:GetCastRangeBonus()
+		local width = cast_ability:GetSpecialValueFor("width")
+		local length = cast_ability:GetSpecialValueFor("length")
+		if (point - origin):Length2D() + length > cast_range then
+			point = origin + (point - origin):Normalized() * (cast_range - length)
+		end
+		local ap1 = point
+		local ap2 = ap1 + (ap1 - origin):Normalized() * length / 3
+		local ap3 = ap1 + (ap1 - origin):Normalized() * length / 3 * 2
+		local ap4 = ap1 + (ap1 - origin):Normalized() * length
+		local position_1 = ap1 + (ap1 - origin):Normalized() * width
+		local position_2 = ap2 + (ap2 - origin):Normalized() * width
+		local position_3 = ap3 + (ap3 - origin):Normalized() * width
+		local position_4 = ap4 + (ap4 - origin):Normalized() * width
+		TojikoUpdateExResidualPoints(cast_ability, caster, "tojiko01_table", {
+			RotatePosition(ap1, QAngle(0, 90, 0), position_1),
+			RotatePosition(ap1, QAngle(0, -90, 0), position_1),
+			RotatePosition(ap2, QAngle(0, 90, 0), position_2),
+			RotatePosition(ap2, QAngle(0, -90, 0), position_2),
+			RotatePosition(ap3, QAngle(0, 90, 0), position_3),
+			RotatePosition(ap3, QAngle(0, -90, 0), position_3),
+			RotatePosition(ap4, QAngle(0, 90, 0), position_4),
+			RotatePosition(ap4, QAngle(0, -90, 0), position_4),
+		}, false)
+	elseif ability_name == "ability_thdots_tojiko02" then
+		local delay = cast_ability:GetSpecialValueFor("delay")
+		caster:SetContextThink(DoUniqueString("tojiko02_ex_residual_refresh"), function()
+			if GameRules:IsGamePaused() then return FrameTime() end
+			local radius = cast_ability:GetSpecialValueFor("radius")
+			local cp = Vector(origin.x, origin.y, origin.z)
+			cp.x = cp.x + 0.01
+			local position = point + (point - cp):Normalized() * radius
+			local points = {}
+			for i = 1, 8 do
+				points[i] = position
+				position = RotatePosition(point, QAngle(0, 44, 0), position)
+			end
+			TojikoUpdateExResidualPoints(cast_ability, caster, "tojiko02_table", points, false)
+			return nil
+		end, delay)
+	elseif ability_name == "ability_thdots_tojiko03" then
+		TojikoUpdateExResidualPoints(cast_ability, caster, "tojiko03_table", {point}, false)
+	elseif ability_name == "ability_thdots_tojiko04" then
+		local delay = cast_ability:GetSpecialValueFor("delay")
+		caster:SetContextThink(DoUniqueString("tojiko04_ex_residual_refresh"), function()
+			if GameRules:IsGamePaused() then return FrameTime() end
+			local radius = cast_ability:GetSpecialValueFor("radius")
+			local num_2 = 10
+			local num = 20
+			local cp = Vector(origin.x, origin.y, origin.z)
+			cp.x = cp.x + 0.01
+			local position = point + (point - cp):Normalized() * radius
+			local position_2 = point + (point - cp):Normalized() * (radius - 150)
+			local points = {}
+			for i = 1, num do
+				points[i] = position
+				if i ~= num_2 then
+					position = RotatePosition(point, QAngle(0, 360 / 10, 0), position)
+				else
+					position = position_2
+				end
+			end
+			TojikoUpdateExResidualPoints(cast_ability, caster, "tojiko04_table", points, true)
+			return nil
+		end, delay)
 	end
 end
 
 function modifier_ability_thdots_tojikoEx:OnAbilityFullyCast(keys)
 	if not IsServer() then return end
-	if keys.unit == self:GetParent() then
-		local caster = self:GetParent()
-		local cast_ability = keys.ability
-		local cast_ability_point = cast_ability:GetCursorPosition()
-		local ability_1 = "ability_thdots_tojiko01"
-		local ability_2 = "ability_thdots_tojiko02"
-		local ability_3 = "ability_thdots_tojiko03"
-		local ability_4 = "ability_thdots_tojiko04"
-		if cast_ability:GetName() == ability_1 then
-			caster.tojiko01_dummy_create_position = caster.tojiko01_dummy_create_position or cast_ability_point
-			caster.tojiko01_dummy_cast_direct = caster.tojiko01_dummy_cast_direct or cast_ability_point
-			caster.tojiko01_dummy = CreateUnitByName("npc_vision_dummy_unit",
-			-- caster.tojiko01_dummy = CreateUnitByName("npc_ability_hina01_doll",
-									caster.tojiko01_dummy_create_position, 
-									false, 
-								    caster, 
-									caster, 
-									caster:GetTeamNumber()
-									)
-			caster.tojiko01_dummy:FindAbilityByName("ability_invisible_dummy_unit"):SetLevel(1)
-			caster.tojiko01_dummy.tojiko01_caster = caster
-			caster.tojiko01_dummy:SetControllableByPlayer(caster:GetPlayerOwnerID(), true)
-				caster.tojiko01_dummy:AddAbility(ability_1)
-			local tojiko01_ability = caster.tojiko01_dummy:FindAbilityByName(ability_1)
-			tojiko01_ability:SetLevel(cast_ability:GetLevel())
+	local caster = self:GetParent()
+	if keys.unit ~= caster then return end
 
-			caster.tojiko01_dummy_cast_position = caster.tojiko01_dummy:GetOrigin() + caster.tojiko01_dummy_cast_direct
-			--延迟释放
-			caster.tojiko01_dummy:SetContextThink("tojiko01_dummy_cast", function ()
-				if self.ability_1 then
-					caster.tojiko01_dummy:CastAbilityOnPosition(caster.tojiko01_dummy_cast_position , tojiko01_ability , caster:GetPlayerOwnerID())
-				else
-					self.ability_1 = true
-				end
-				caster.tojiko01_dummy_create_position = caster:GetOrigin()
-				end,FrameTime())
-
-			caster.tojiko01_dummy_cast_direct = caster:GetForwardVector()
-
-			--延时删除dummy
-			local tojiko01_dummy_kill = caster.tojiko01_dummy
-			tojiko01_dummy_kill:SetContextThink("tojiko01_dummy_kill", function ()
-				tojiko01_dummy_kill:RemoveSelf()
-			end,1)
-
-		elseif cast_ability:GetName() == ability_2 then
-			caster.tojiko02_dummy_cast_position = caster.tojiko02_dummy_cast_position or cast_ability_point
-			caster.tojiko02_dummy = CreateUnitByName("npc_vision_dummy_unit",
-			-- caster.tojiko02_dummy = CreateUnitByName("npc_ability_hina01_doll",
-									caster.tojiko02_dummy_cast_position, 
-									false, 
-								    caster, 
-									caster, 
-									caster:GetTeamNumber()
-									)
-			caster.tojiko02_dummy:FindAbilityByName("ability_invisible_dummy_unit"):SetLevel(1)
-			caster.tojiko02_dummy.tojiko02_caster = caster
-			caster.tojiko02_dummy:SetControllableByPlayer(caster:GetPlayerOwnerID(), true)
-			caster.tojiko02_dummy:AddAbility(ability_2) 
-			local tojiko02_ability = caster.tojiko02_dummy:FindAbilityByName(ability_2)
-			tojiko02_ability:SetLevel(cast_ability:GetLevel())
-			
-
-			caster.tojiko02_dummy:SetContextThink("tojiko02_dummy_cast", function ()
-				if self.ability_2 then
-					caster.tojiko02_dummy:CastAbilityOnPosition(caster.tojiko02_dummy_cast_position , tojiko02_ability , caster:GetPlayerOwnerID())
-				else
-					self.ability_2 = true
-				end
-				caster.tojiko02_dummy_cast_position = cast_ability_point
-			end,FrameTime())
-
-			--延时删除dummy
-			local tojiko02_dummy_kill = caster.tojiko02_dummy
-			tojiko02_dummy_kill:SetContextThink("tojiko02_dummy_kill", function ()
-				tojiko02_dummy_kill:RemoveSelf()
-			end,2)
-		elseif cast_ability:GetName() == ability_3 then
-			caster.tojiko03_dummy_cast_position = caster.tojiko03_dummy_cast_position or cast_ability_point
-			caster.tojiko03_dummy = CreateUnitByName("npc_vision_dummy_unit",
-			-- caster.tojiko03_dummy = CreateUnitByName("npc_ability_hina01_doll",
-									caster.tojiko03_dummy_cast_position, 
-									false, 
-								    caster, 
-									caster, 
-									caster:GetTeamNumber()
-									)
-			caster.tojiko03_dummy:FindAbilityByName("ability_invisible_dummy_unit"):SetLevel(1)
-			caster.tojiko03_dummy.tojiko03_caster = caster
-			caster.tojiko03_dummy:SetControllableByPlayer(caster:GetPlayerOwnerID(), true)
-			caster.tojiko03_dummy:AddAbility(ability_3) 
-			local tojiko03_ability = caster.tojiko03_dummy:FindAbilityByName(ability_3)
-			tojiko03_ability:SetLevel(cast_ability:GetLevel())
-			
-
-			caster.tojiko03_dummy:SetContextThink("tojiko03_dummy_cast", function ()
-				if self.ability_3 then
-					caster.tojiko03_dummy:CastAbilityOnPosition(caster.tojiko03_dummy_cast_position , tojiko03_ability , caster:GetPlayerOwnerID())
-				else
-					self.ability_3 = true
-				end
-				caster.tojiko03_dummy_cast_position = cast_ability_point
-			end,FrameTime())
-
-			--延时删除dummy
-			local tojiko03_dummy_kill = caster.tojiko03_dummy
-			tojiko03_dummy_kill:SetContextThink("tojiko03_dummy_kill", function ()
-				tojiko03_dummy_kill:RemoveSelf()
-			end,1)
-
-		elseif cast_ability:GetName() == ability_4 then
-			caster.tojiko04_dummy_cast_position = caster.tojiko04_dummy_cast_position or cast_ability_point
-			caster.tojiko04_dummy = CreateUnitByName("npc_vision_dummy_unit",
-			-- caster.tojiko04_dummy = CreateUnitByName("npc_ability_hina01_doll",
-									caster.tojiko04_dummy_cast_position, 
-									false, 
-								    caster, 
-									caster, 
-									caster:GetTeamNumber()
-									)
-			caster.tojiko04_dummy:FindAbilityByName("ability_invisible_dummy_unit"):SetLevel(1)
-			caster.tojiko04_dummy.tojiko04_caster = caster
-			caster.tojiko04_dummy:SetControllableByPlayer(caster:GetPlayerOwnerID(), true)
-			caster.tojiko04_dummy:AddAbility(ability_4) 
-			local tojiko04_ability = caster.tojiko04_dummy:FindAbilityByName(ability_4)
-			tojiko04_ability:SetLevel(cast_ability:GetLevel())
-			
-
-			caster.tojiko04_dummy:SetContextThink("tojiko04_dummy_cast", function ()
-				if self.ability_4 then
-					caster.tojiko04_dummy:CastAbilityOnPosition(caster.tojiko04_dummy_cast_position , tojiko04_ability , caster:GetPlayerOwnerID())
-				else
-					self.ability_4 = true
-				end
-				caster.tojiko04_dummy_cast_position = cast_ability_point
-			end,FrameTime())
-
-			--延时删除dummy
-			local tojiko04_dummy_kill = caster.tojiko04_dummy
-			tojiko04_dummy_kill:SetContextThink("tojiko04_dummy_kill", function ()
-				tojiko04_dummy_kill:RemoveSelf()
-			end,3)
-
-		end
+	local cast_ability = keys.ability
+	if not cast_ability then return end
+	local ability_name = cast_ability:GetName()
+	if ability_name ~= "ability_thdots_tojiko01" and ability_name ~= "ability_thdots_tojiko02"
+		and ability_name ~= "ability_thdots_tojiko03" and ability_name ~= "ability_thdots_tojiko04" then
+		return
 	end
+	local cast_ability_point = cast_ability:GetCursorPosition()
+
+	if ability_name == "ability_thdots_tojiko01" then
+		if self.ability_1 and caster.tojiko01_ex_origin and caster.tojiko01_ex_direction then
+			self:CastCopiedAbility(cast_ability, caster.tojiko01_ex_origin + caster.tojiko01_ex_direction, caster.tojiko01_ex_origin)
+		else
+			self.ability_1 = true
+		end
+		caster.tojiko01_ex_origin = caster:GetOrigin()
+		caster.tojiko01_ex_direction = caster:GetForwardVector()
+	elseif ability_name == "ability_thdots_tojiko02" then
+		if self.ability_2 and caster.tojiko02_ex_point then
+			self:CastCopiedAbility(cast_ability, caster.tojiko02_ex_point, caster.tojiko02_ex_point)
+		else
+			self.ability_2 = true
+		end
+		caster.tojiko02_ex_point = cast_ability_point
+	elseif ability_name == "ability_thdots_tojiko03" then
+		if self.ability_3 and caster.tojiko03_ex_point then
+			self:CastCopiedAbility(cast_ability, caster.tojiko03_ex_point, caster.tojiko03_ex_point)
+		else
+			self.ability_3 = true
+		end
+		caster.tojiko03_ex_point = cast_ability_point
+	elseif ability_name == "ability_thdots_tojiko04" then
+		if self.ability_4 and caster.tojiko04_ex_point then
+			self:CastCopiedAbility(cast_ability, caster.tojiko04_ex_point, caster.tojiko04_ex_point)
+		else
+			self.ability_4 = true
+		end
+		caster.tojiko04_ex_point = cast_ability_point
+	end
+
+	self:RefreshCurrentResidual(ability_name, cast_ability, cast_ability_point, caster:GetOrigin())
 end
 
 function modifier_ability_thdots_tojikoEx:OnCreated()
 	if not IsServer() then return end
 	self.caster = self:GetCaster()
 	self.ability = self:GetAbility()
-	-- self.abi_table = {}
 	self.ability_thdots_tojiko01 = nil
-	-- 优化：原来是 FrameTime 每帧轮询，但 OnIntervalThink 内部只是根据天赋状态添加 modifier，属于离散事件，1 秒检查一次完全足够。
-	self:StartIntervalThink(1.0)
+	self.ability_1 = false
+	self.ability_2 = false
+	self.ability_3 = false
+	self.ability_4 = false
+	-- 天赋由统一刷新函数处理，不再启动空的 OnIntervalThink。
+	THD2_RefreshTalentModifiers(self.caster, "ability_thdots_tojikoEx")
 end
 
 function modifier_ability_thdots_tojikoEx:OnTakeDamage(keys)
@@ -207,8 +198,6 @@ function modifier_ability_thdots_tojikoEx:OnTakeDamage(keys)
 	if keys.inflictor == nil then return end
 	local caster = keys.attacker
 	local target = keys.unit
-	if caster:IsHero() then
-	end
 	if keys.attacker == self:GetParent() and keys.damage_type == 2 and not keys.inflictor:IsItem() then
 		--天赋易伤
 		if FindTelentValue(self:GetParent(),"special_bonus_unique_tojiko_2") ~= 0 and target:IsAlive() then
@@ -226,24 +215,12 @@ function modifier_ability_thdots_tojikoEx:OnTakeDamage(keys)
 			local reduce_time = self:GetAbility():GetSpecialValueFor("reduce_time")
 			local tojiko04 = caster:FindAbilityByName("ability_thdots_tojiko04")
 			local cooldown = tojiko04:GetCooldownTimeRemaining() - reduce_time
-			print(reduce_time)
 			tojiko04:EndCooldown()
 			tojiko04:StartCooldown(cooldown)
 		end
 	end
 end
 
-
---天赋监听
-function modifier_ability_thdots_tojikoEx:OnIntervalThink()
-	if not IsServer() then return end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_tojiko_1") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_tojikoEx_telent_1") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_tojikoEx_telent_1",{}):SetStackCount(FindTelentValue(self:GetCaster(),"special_bonus_unique_tojikog_1"))
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_tojiko_4") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_tojikoEx_telent_4") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_tojikoEx_telent_4",{}):SetStackCount(FindTelentValue(self:GetCaster(),"special_bonus_unique_tojikog_4"))
-	end
-end
 
 modifier_ability_thdots_tojikoEx_telent_1 = modifier_ability_thdots_tojikoEx_telent_1 or {}  --天赋监听
 LinkLuaModifier("modifier_ability_thdots_tojikoEx_telent_1","scripts/vscripts/abilities/abilitytojiko.lua",LUA_MODIFIER_MOTION_NONE)
@@ -300,19 +277,11 @@ function modifier_ability_thdots_tojikoEx_passive_dummy:IsDebuff()		return false
 
 function modifier_ability_thdots_tojikoEx_passive_dummy:OnCreated()
 	if not IsServer() then return end
-	-- print("11111111111111111111111")
-	-- print(self)
 	local point = self:GetParent():GetOrigin()
-	self.particle = ParticleManager:CreateParticle("particles/units/heroes/hero_leshrac/leshrac_lightning_slow.vpcf", PATTACH_CUSTOMORIGIN, self:GetParent())
-	-- ParticleManager:SetParticleControl(self.particle, 0, Vector(point.x,point.y,point.z+500))
-	-- print(self.particle)
-	-- self:StartIntervalThink(FrameTime())
-end
+	-- 残留点只保留电特效，跟随 thinker 位置；不写 CP1，避免额外光晕固定在首次施法点。
 
-function modifier_ability_thdots_tojikoEx_passive_dummy:OnIntervalThink()
-	if not IsServer() then return end
-	local point = self:GetParent():GetOrigin()
-	-- self:GetParent():SetOrigin(Vector(point.x,point.y,point.z+500))
+	self.particle = ParticleManager:CreateParticle("particles/units/heroes/hero_leshrac/leshrac_lightning_slow.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
+	ParticleManager:SetParticleControlEnt(self.particle, 0, self:GetParent(), PATTACH_ABSORIGIN_FOLLOW, "attach_origin", point, true)
 end
 
 function modifier_ability_thdots_tojikoEx_passive_dummy:OnDestroy()
@@ -346,7 +315,9 @@ end
 function ability_thdots_tojiko01:OnSpellStart()
 	if not IsServer() then return end
 	local caster 				= self:GetCaster()
-	local point 				= self:GetCursorPosition()
+	local point 				= self.tojiko_ex_point or self:GetCursorPosition()
+	local cast_origin 			= self.tojiko_ex_origin or caster:GetOrigin()
+	local is_ex_copy 			= self.tojiko_is_ex_copy
 	local cast_range  			= self:GetSpecialValueFor("cast_range") + caster:GetCastRangeBonus()
 	local width  				= self:GetSpecialValueFor("width")
 	local length  				= self:GetSpecialValueFor("length")
@@ -357,18 +328,16 @@ function ability_thdots_tojiko01:OnSpellStart()
 
 
 
-	local distance = (point - caster:GetOrigin()):Length2D() + length
+	local distance = (point - cast_origin):Length2D() + length
 	if distance > cast_range then
-		point = caster:GetOrigin() + (point - caster:GetOrigin()):Normalized() * ( cast_range - length )
+		point = cast_origin + (point - cast_origin):Normalized() * ( cast_range - length )
 	end
-	local end_position = point + ( point - caster:GetOrigin()):Normalized() * length
+	local end_position = point + ( point - cast_origin):Normalized() * length
 	caster.tojiko01_end_position = end_position
-	local radius = 300
 	
 	--设置8个点
 	local num = 8
-	local qangle = QAngle(0, 90, 0)
-	local cp = caster:GetOrigin()
+	local cp = cast_origin
 	local ap1 = point
 	local ap2 = ap1 + (ap1 - cp):Normalized() * length / 3
 	local ap3 = ap1 + (ap1 - cp):Normalized() * length / 3 * 2
@@ -387,7 +356,7 @@ function ability_thdots_tojiko01:OnSpellStart()
 	pt[7] = RotatePosition(ap4, QAngle(0, 90, 0), position_4)
 	pt[8] = RotatePosition(ap4, QAngle(0, -90, 0), position_4)
 	--特效音效
-	if caster:IsHero() then
+	if not is_ex_copy then
 		StartSoundEventFromPosition("Voice_Thdots_Tojiko.AbilityTojiko01",point)
 	else
 		StartSoundEventFromPosition("Voice_Thdots_Tojiko.AbilityTojiko01_dummy",point)
@@ -409,27 +378,10 @@ function ability_thdots_tojiko01:OnSpellStart()
 
 
 	--只有英雄触发table操作，马甲不触发
-	-- if caster:IsHero() and caster:HasModifier("modifier_ability_thdots_tojikoEx") then
-
-	-- 	self.tojiko01_table = self.tojiko01_table or {}
-	-- 	print(#self.tojiko01_table)
-	-- 	for i=1,num do
-	-- 		if self.tojiko01_table[i] ~= nil then
-	-- 			self.tojiko01_table[i].think_modifier:RemoveSelf()
-	-- 		end
-	-- 		self.tojiko01_table[i] = {
-	-- 			point = nil,
-	-- 			think_modifier = nil,
-	-- 		}
-	-- 		local point = pt[i]
-	-- 		self.tojiko01_table[i].think_modifier = CreateModifierThinker(caster, self, "modifier_ability_thdots_tojikoEx_passive_dummy", {}, point, caster:GetTeamNumber(), false)
-	-- 	end
-	-- end
-
-	if caster:IsHero() and caster:HasModifier("modifier_ability_thdots_tojikoEx") then
+	if not is_ex_copy and caster:IsHero() and caster:HasModifier("modifier_ability_thdots_tojikoEx") then
 		self.tojiko01_table = self.tojiko01_table or {}
 		for i=1,num do
-			local point = pt[i]
+			local point = TojikoGetResidualPoint(pt[i])
 			if self.tojiko01_table[i] == nil then
 					self.tojiko01_table[i] = {
 					think_modifier = nil,
@@ -446,23 +398,17 @@ function ability_thdots_tojiko01:OnSpellStart()
 	for _,vic in ipairs(targets) do
 		if vic:IsHero() then
 			HitHero = true
-			print("tojiko01_hero")
 			break
 		end
-	end
-	local ability = self
-	if not caster:IsHero() then
-		caster = caster.tojiko01_caster
-		ability = caster:FindAbilityByName("ability_thdots_tojiko01")
 	end
 	for _,vic in pairs (targets) do
 		local vic_damage = damage + vic:GetPhysicalArmorValue(false) * armor_damage_bonus
 		local damage_tabel = {
 				victim 			= vic,
 				damage 			= vic_damage,
-				damage_type		= ability:GetAbilityDamageType(),
+				damage_type		= self:GetAbilityDamageType(),
 				attacker 		= caster,
-				ability 		= ability
+				ability 		= self
 			}
 		if HitHero then
 			UtilStun:UnitStunTarget(caster,vic,stun_duration)
@@ -496,14 +442,16 @@ end
 function ability_thdots_tojiko02:OnSpellStart()
 	if not IsServer() then return end
 	local caster 				= self:GetCaster()
-	local point 				= self:GetCursorPosition()
+	local point 				= self.tojiko_ex_point or self:GetCursorPosition()
+	local cast_origin 			= self.tojiko_ex_origin or caster:GetOrigin()
+	local is_ex_copy 			= self.tojiko_is_ex_copy
 	local radius  				= self:GetSpecialValueFor("radius")
 	local damage  				= self:GetSpecialValueFor("damage")
 	local armor_damage_bonus  	= self:GetSpecialValueFor("armor_damage_bonus")
 	local delay  				= self:GetSpecialValueFor("delay")
 	local damage_bonus  		= self:GetSpecialValueFor("damage_bonus") / 100
 	AddFOWViewer(caster:GetTeamNumber(), point,radius,delay+0.5, false)
-	if caster:IsHero() then
+	if not is_ex_copy then
 		StartSoundEventFromPosition("Voice_Thdots_Tojiko.AbilityTojiko02_1",point)
 	else
 		StartSoundEventFromPosition("Voice_Thdots_Tojiko.AbilityTojiko02_1_dummy",point)
@@ -526,12 +474,12 @@ function ability_thdots_tojiko02:OnSpellStart()
 	ParticleManager:DestroyParticleSystem(strike_particle_fx,false)
 
 
-	caster:SetContextThink("tojiko02_delay", function ()	
+	caster:SetContextThink(DoUniqueString("tojiko02_delay"), function ()
 		if GameRules:IsGamePaused() then return FrameTime() end
 		--设置8个点
 		local num = 8
 		local qangle = QAngle(0, 44, 0)
-		local cp = caster:GetOrigin()
+		local cp = Vector(cast_origin.x, cast_origin.y, cast_origin.z)
 		cp.x = cp.x + 0.01 --设置技能点偏移，不然特效会出BUG
 		local position = point + (point - cp):Normalized() * radius
 		local pt = {}
@@ -541,7 +489,7 @@ function ability_thdots_tojiko02:OnSpellStart()
 		end
 
 		--特效音效
-		if caster:IsHero() then
+		if not is_ex_copy then
 			StartSoundEventFromPosition("Voice_Thdots_Tojiko.AbilityTojiko02_2",point)
 		else
 			StartSoundEventFromPosition("Voice_Thdots_Tojiko.AbilityTojiko02_2_dummy",point)
@@ -550,7 +498,6 @@ function ability_thdots_tojiko02:OnSpellStart()
 		local tojiko02_particle_name_2 = "particles/econ/items/arc_warden/arc_warden_ti9_immortal/arc_warden_ti9_wraith_cast.vpcf"
 		for i=1,num do
 			local particle_point = pt[i]
-			-- print(particle_point)
 			local tojiko02_particle_1 = ParticleManager:CreateParticle(tojiko02_particle_name, PATTACH_CUSTOMORIGIN, nil)
 			ParticleManager:SetParticleControl(tojiko02_particle_1, 0, Vector(particle_point.x,particle_point.y,particle_point.z+1500))
 			ParticleManager:SetParticleControl(tojiko02_particle_1, 1, particle_point)
@@ -565,26 +512,10 @@ function ability_thdots_tojiko02:OnSpellStart()
 			ParticleManager:DestroyParticleSystem(tojiko02_particle_2,false)
 		end
 		--只有英雄触发table操作，马甲不触发
-		-- if caster:IsHero() and caster:HasModifier("modifier_ability_thdots_tojikoEx") then
-
-		-- 	self.tojiko02_table = self.tojiko02_table or {}
-		-- 	for i=1,num do
-		-- 		if self.tojiko02_table[i] ~= nil then
-		-- 			self.tojiko02_table[i].think_modifier:RemoveSelf()
-		-- 		end
-		-- 		self.tojiko02_table[i] = {
-		-- 			point = nil,
-		-- 			think_modifier = nil,
-		-- 		}
-		-- 		local point = pt[i]
-		-- 		self.tojiko02_table[i].think_modifier = CreateModifierThinker(caster, self, "modifier_ability_thdots_tojikoEx_passive_dummy", {}, point, caster:GetTeamNumber(), false)
-		-- 	end
-		-- end
-
-		if caster:IsHero() and caster:HasModifier("modifier_ability_thdots_tojikoEx") then
+		if not is_ex_copy and caster:IsHero() and caster:HasModifier("modifier_ability_thdots_tojikoEx") then
 			self.tojiko02_table = self.tojiko02_table or {}
 			for i=1,num do
-				local point = pt[i]
+				local point = TojikoGetResidualPoint(pt[i])
 				if self.tojiko02_table[i] == nil then
 						self.tojiko02_table[i] = {
 						think_modifier = nil,
@@ -606,20 +537,14 @@ function ability_thdots_tojiko02:OnSpellStart()
 				break
 			end
 		end
-		local ability = self
-		if not caster:IsHero() then
-			caster = caster.tojiko02_caster
-			ability = caster:FindAbilityByName("ability_thdots_tojiko02")
-		end
-
 		for _,vic in pairs (targets) do
 			local vic_damage = damage + vic:GetPhysicalArmorValue(false) * armor_damage_bonus
 			local damage_tabel = {
 					victim 			= vic,
 					damage 			= vic_damage,
-					damage_type		= ability:GetAbilityDamageType(),
+					damage_type		= self:GetAbilityDamageType(),
 					attacker 		= caster,
-					ability 		= ability
+					ability 		= self
 				}
 			UnitDamageTarget(damage_tabel)
 		end
@@ -651,7 +576,8 @@ end
 function ability_thdots_tojiko03:OnSpellStart()
 	if not IsServer() then return end
 	local caster 				= self:GetCaster()
-	local point 				= self:GetCursorPosition()
+	local point 				= self.tojiko_ex_point or self:GetCursorPosition()
+	local is_ex_copy 			= self.tojiko_is_ex_copy
 	local radius  				= self:GetSpecialValueFor("radius")
 	local damage  				= self:GetSpecialValueFor("damage")
 	local armor_damage_bonus  	= self:GetSpecialValueFor("armor_damage_bonus")
@@ -660,38 +586,8 @@ function ability_thdots_tojiko03:OnSpellStart()
 	local vision_radius  		= self:GetSpecialValueFor("vision_radius")
 
 	AddFOWViewer(caster:GetTeamNumber(), point,vision_radius,vision_time, false)
-	local unit = CreateUnitByName(
-		"npc_vision_momiji_dummy_unit"
-		,caster:GetOrigin()
-		,false
-		,caster
-		,caster
-		,caster:GetTeam()
-	)
-
-	unit:SetOrigin(point)
-
-	unit:SetDayTimeVisionRange(vision_radius)
-	unit:SetNightTimeVisionRange(vision_radius)
-	local abilityGEM = unit:FindAbilityByName("ability_thdots_momiji02_unit")
-	if abilityGEM ~= nil then
-		abilityGEM:SetLevel(4)
-		unit:CastAbilityImmediately(abilityGEM, 0)
-	end
-
-	local ability_invisible_dummy_unit = unit:FindAbilityByName("ability_invisible_dummy_unit")
-	ability_invisible_dummy_unit:SetLevel(1)
-
-	unit:SetContextThink("ability_momiji_02_vision", 
-		function ()
-			if GameRules:IsGamePaused() then return 0.03 end
-			unit:ForceKill(true)
-		end, 
-	vision_time)
 	--设置1个点
 	local num = 1
-	local qangle = QAngle(0, 44, 0)
-	local cp = caster:GetOrigin()
 
 	local pt = {}
 	for i=1,num do
@@ -699,25 +595,18 @@ function ability_thdots_tojiko03:OnSpellStart()
 	end
 
 	--特效音效
-	if caster:IsHero() then
+	if not is_ex_copy then
 		StartSoundEventFromPosition("Voice_Thdots_Tojiko.AbilityTojiko03",point)
 	else
 		StartSoundEventFromPosition("Voice_Thdots_Tojiko.AbilityTojiko03_dummy",point)
 	end
 	local tojiko03_particle_name = "particles/econ/items/zeus/lightning_weapon_fx/zuus_lightning_bolt_immortal_lightning.vpcf"
-	-- local tojiko03_particle_name = "particles/units/heroes/hero_arc_warden/arc_warden_flux_cast.vpcf"
-	local tojiko03_particle_name_2 = "particles/econ/items/arc_warden/arc_warden_ti9_immortal/arc_warden_ti9_wraith_cast.vpcf"
 	for i=1,num do
 		local particle_point = pt[i]
 		local tojiko03_particle_1 = ParticleManager:CreateParticle(tojiko03_particle_name, PATTACH_CUSTOMORIGIN,nil)
 		ParticleManager:SetParticleControl(tojiko03_particle_1, 0, Vector(particle_point.x,particle_point.y,particle_point.z+5000))
 		ParticleManager:SetParticleControl(tojiko03_particle_1, 1, particle_point)
 		ParticleManager:DestroyParticleSystem(tojiko03_particle_1,false)
-
-		-- local tojiko01_particle_2 = ParticleManager:CreateParticle(tojiko03_particle_name_2, PATTACH_CUSTOMORIGIN, nil)
-		-- ParticleManager:SetParticleControl(tojiko01_particle_2, 0, particle_point)
-		-- ParticleManager:SetParticleControl(tojiko01_particle_2, 1, particle_point)
-		-- ParticleManager:ReleaseParticleIndex(tojiko01_particle_2)
 
 		local strike_particle = "particles/units/heroes/hero_disruptor/disruptor_thunder_strike_bolt.vpcf"
 		local strike_particle_fx = ParticleManager:CreateParticle(strike_particle, PATTACH_ABSORIGIN, caster)
@@ -730,10 +619,10 @@ function ability_thdots_tojiko03:OnSpellStart()
 
 	
 	--只有英雄触发table操作，马甲不触发
-	if caster:IsHero() and caster:HasModifier("modifier_ability_thdots_tojikoEx") then
+	if not is_ex_copy and caster:IsHero() and caster:HasModifier("modifier_ability_thdots_tojikoEx") then
 		self.tojiko03_table = self.tojiko03_table or {}
 		for i=1,num do
-			local point = pt[i]
+			local point = TojikoGetResidualPoint(pt[i])
 			if self.tojiko03_table[i] == nil then
 					self.tojiko03_table[i] = {
 					think_modifier = nil,
@@ -752,28 +641,17 @@ function ability_thdots_tojiko03:OnSpellStart()
 	for _,vic in ipairs(targets) do
 		if vic:IsHero() then
 			caster:AddNewModifier(caster, self, "modifier_ability_thdots_tojiko03", {duration = duration})
-			print("add_modifier")
-			if caster.tojiko03_caster ~= nil then
-				local caster_ability_tojiko03 = caster.tojiko03_caster:FindAbilityByName("ability_thdots_tojiko03")
-				caster.tojiko03_caster:AddNewModifier(caster.tojiko03_caster, caster_ability_tojiko03, "modifier_ability_thdots_tojiko03", {duration = duration})
-				print(caster.tojiko03_caster:GetName())
-			end
 			break
 		end
-	end
-	local ability = self
-	if not caster:IsHero() then
-		caster = caster.tojiko03_caster
-		ability = caster:FindAbilityByName("ability_thdots_tojiko03")
 	end
 	for _,vic in pairs (targets) do
 		local vic_damage = damage + vic:GetPhysicalArmorValue(false) * armor_damage_bonus
 		local damage_tabel = {
 				victim 			= vic,
 				damage 			= vic_damage,
-				damage_type		= ability:GetAbilityDamageType(),
+				damage_type		= self:GetAbilityDamageType(),
 				attacker 		= caster,
-				ability 		= ability
+				ability 		= self
 			}
 		UnitDamageTarget(damage_tabel)
 	end
@@ -818,7 +696,6 @@ function modifier_ability_thdots_tojiko03:GetModifierTotal_ConstantBlock(kv)
 	if not IsServer() then return end
 	if bit.band(kv.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS) == DOTA_DAMAGE_FLAG_HPLOSS then return 0 end
 	if kv.target == self:GetParent() and kv.damage_type == 1 then
-		print(self:GetAbility():GetSpecialValueFor("physical_reduce"))
 		return kv.damage * self:GetAbility():GetSpecialValueFor("physical_reduce") / 100
 	else
 		return 0
@@ -850,7 +727,9 @@ end
 function ability_thdots_tojiko04:OnSpellStart()
 	if not IsServer() then return end
 	local caster 				= self:GetCaster()
-	local point 				= self:GetCursorPosition()
+	local point 				= self.tojiko_ex_point or self:GetCursorPosition()
+	local cast_origin 			= self.tojiko_ex_origin or caster:GetOrigin()
+	local is_ex_copy 			= self.tojiko_is_ex_copy
 	local radius  				= self:GetSpecialValueFor("radius")
 	local damage  				= self:GetSpecialValueFor("damage")
 	local delay  				= self:GetSpecialValueFor("delay")
@@ -858,7 +737,7 @@ function ability_thdots_tojiko04:OnSpellStart()
 	local regen_mana  			= self:GetSpecialValueFor("regen_mana")
 
 
-	if caster:IsHero() then
+	if not is_ex_copy then
 		caster:EmitSound("Voice_Thdots_Tojiko.AbilityTojiko04_1")
 		StartSoundEventFromPosition("Voice_Thdots_Tojiko.AbilityTojiko04_3",point)
 	else
@@ -870,7 +749,7 @@ function ability_thdots_tojiko04:OnSpellStart()
 	ParticleManager:SetParticleControl(tojiko04_cast_particle, 1, Vector(radius,radius,1))
 	ParticleManager:DestroyParticleSystemTime(tojiko04_cast_particle,delay)
 
-	if caster:IsHero() then
+	if not is_ex_copy then
 		local tojiko04_cast_particle_2 = ParticleManager:CreateParticle("particles/econ/items/zeus/arcana_chariot/zeus_arcana_thundergods_wrath_start.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, caster)
 		ParticleManager:SetParticleControl(tojiko04_cast_particle_2, 0, caster:GetOrigin())
 		ParticleManager:SetParticleControl(tojiko04_cast_particle_2, 1, caster:GetOrigin())
@@ -881,7 +760,7 @@ function ability_thdots_tojiko04:OnSpellStart()
 	end
 
 
-	caster:SetContextThink("tojiko04_delay", function ()	
+	caster:SetContextThink(DoUniqueString("tojiko04_delay"), function ()
 		if GameRules:IsGamePaused() then return FrameTime() end
 
 		--设置20个点,10个大圈，10个小圈
@@ -889,7 +768,7 @@ function ability_thdots_tojiko04:OnSpellStart()
 		local num_2 = 10
 		local qangle = QAngle(0, 360/num, 0)
 		num = num + num_2
-		local cp = caster:GetOrigin()
+		local cp = Vector(cast_origin.x, cast_origin.y, cast_origin.z)
 		cp.x = cp.x + 0.01 --设置技能点偏移，不然特效会出BUG
 		local position = point + (point - cp):Normalized() * radius
 		local position_2 = point + (point - cp):Normalized() * ( radius - 150 )
@@ -904,7 +783,7 @@ function ability_thdots_tojiko04:OnSpellStart()
 		end
 
 		--特效音效
-		if caster:IsHero() then
+		if not is_ex_copy then
 			StartSoundEventFromPosition("Voice_Thdots_Tojiko.AbilityTojiko04_2",point)
 		else
 			StartSoundEventFromPosition("Voice_Thdots_Tojiko.AbilityTojiko04_2_dummy",point)
@@ -914,7 +793,6 @@ function ability_thdots_tojiko04:OnSpellStart()
 		local tojiko04_particle_name_2 = "particles/econ/items/zeus/arcana_chariot/zeus_arcana_thundergods_wrath.vpcf"
 		for i=1,num do
 			local particle_point = pt[i]
-			-- print(particle_point)
 			local tojiko04_particle_1 = ParticleManager:CreateParticle(tojiko04_particle_name, PATTACH_CUSTOMORIGIN, nil)
 			ParticleManager:SetParticleControl(tojiko04_particle_1, 0, Vector(particle_point.x,particle_point.y,particle_point.z+1500))
 			ParticleManager:SetParticleControl(tojiko04_particle_1, 1, particle_point)
@@ -932,34 +810,16 @@ function ability_thdots_tojiko04:OnSpellStart()
 		ParticleManager:SetParticleControl(tojiko04_cast_particle_end, 1, Vector(radius,radius,radius))
 		ParticleManager:DestroyParticleSystem(tojiko04_cast_particle_end,false)
 		--只有英雄触发table操作，马甲不触发
-		-- if caster:IsHero() and caster:HasModifier("modifier_ability_thdots_tojikoEx") then
-
-		-- 		print("do it")
-		-- 	self.tojiko04_table = self.tojiko04_table or {}
-		-- 	for i=1,num do
-		-- 		if self.tojiko04_table[i] ~= nil then
-		-- 			self.tojiko04_table[i].think_modifier:RemoveSelf()
-		-- 		end
-		-- 		self.tojiko04_table[i] = {
-		-- 			point = nil,
-		-- 			think_modifier = nil,
-		-- 		}
-		-- 		local point = pt[i]
-		-- 		self.tojiko04_table[i].think_modifier = CreateModifierThinker(caster, self, "modifier_ability_thdots_tojikoEx_passive_dummy", {}, point, caster:GetTeamNumber(), false)
-		-- 	end
-		-- end
-
-		if caster:IsHero() and caster:HasModifier("modifier_ability_thdots_tojikoEx") then
+		if not is_ex_copy and caster:IsHero() and caster:HasModifier("modifier_ability_thdots_tojikoEx") then
 			self.tojiko04_table = self.tojiko04_table or {}
 			for i=1,num do
-				local point = pt[i]
+				local point = TojikoGetResidualPoint(pt[i])
 				if self.tojiko04_table[i] == nil then
 						self.tojiko04_table[i] = {
 						think_modifier = nil,
 					}
 					self.tojiko04_table[i].think_modifier = CreateModifierThinker(caster, self, "modifier_ability_thdots_tojikoEx_passive_dummy", {}, point, caster:GetTeamNumber(), false)
 				else
-					-- self.tojiko04_table[i].think_modifier:SetAbsOrigin(point)
 					self.tojiko04_table[i].think_modifier:SetOrigin(point)
 				end
 			end
@@ -971,40 +831,21 @@ function ability_thdots_tojiko04:OnSpellStart()
 
 		for _,vic in ipairs(targets) do
 			if vic:IsHero() then
-				print("mana")
-				if caster.tojiko04_caster ~= nil then
-					print("caster.tojiko04_caster")
-					print(caster.tojiko04_caster:GetName())
-					caster.tojiko04_caster:SetMana(caster.tojiko04_caster:GetMana() + regen_mana)
-					SendOverheadEventMessage(nil,OVERHEAD_ALERT_MANA_ADD,caster.tojiko04_caster,regen_mana,nil)
-				else
-					print("caster")
-					print(caster:GetName())
-					caster:SetMana(caster:GetMana() + regen_mana)
-					SendOverheadEventMessage(nil,OVERHEAD_ALERT_MANA_ADD,caster,regen_mana,nil)
-				end
+				caster:SetMana(caster:GetMana() + regen_mana)
+				SendOverheadEventMessage(nil,OVERHEAD_ALERT_MANA_ADD,caster,regen_mana,nil)
 				break
 			end
 		end
-		local ability = self
-		if not caster:IsHero() then
-			caster = caster.tojiko04_caster
-			ability = caster:FindAbilityByName("ability_thdots_tojiko04")
-		end
 		for _,vic in pairs (targets) do
-			print(vic:GetPhysicalArmorValue(false))
-			print(vic:GetPhysicalArmorValue(false) * armor_damage_bonus)
 			local vic_damage = damage + vic:GetPhysicalArmorValue(false) * armor_damage_bonus
 			local damage_tabel = {
 					victim 			= vic,
 					damage 			= vic_damage,
-					damage_type		= ability:GetAbilityDamageType(),
+					damage_type		= self:GetAbilityDamageType(),
 					attacker 		= caster,
-					ability 		= ability
+					ability 		= self
 				}
 			if not vic:HasModifier("modifier_fountain_aura_buff") then
-				-- local tojiko04_cast_particle_damage = ParticleManager:CreateParticle("particles/econ/items/zeus/arcana_chariot/zeus_tgw_screen_damage.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, vic)
-				-- ParticleManager:ReleaseParticleIndex(tojiko04_cast_particle_damage)
 				UnitDamageTarget(damage_tabel)
 			end
 		end
@@ -1051,7 +892,6 @@ end
 function ability_thdots_tojiko05:OnSpellStart()
 	if not IsServer() then return end
 	local caster 				= self:GetCaster()
-	local radius  				= self:GetSpecialValueFor("radius")
 	local duration  			= self:GetSpecialValueFor("duration")
 	caster:EmitSound("Voice_Thdots_Tojiko.AbilityTojiko05_Cast")
 	caster:AddNewModifier(caster, self, "modifier_ability_thdots_tojiko05",{duration = duration})
@@ -1103,17 +943,9 @@ function modifier_ability_thdots_tojiko05:OnCreated()
 	local caster = self:GetParent()
 	local radius = self:GetAbility():GetSpecialValueFor("radius")
 	local tojiko05_particle_name = "particles/units/heroes/hero_razor/razor_plasmafield.vpcf"
-	self.tojiko05_particle = ParticleManager:CreateParticle(tojiko05_particle_name, PATTACH_ABSORIGIN, caster)
+	self.tojiko05_particle = ParticleManager:CreateParticle(tojiko05_particle_name, PATTACH_ABSORIGIN_FOLLOW, caster)
+	ParticleManager:SetParticleControlEnt(self.tojiko05_particle, 0, caster, PATTACH_ABSORIGIN_FOLLOW, "attach_origin", caster:GetAbsOrigin(), true)
 	ParticleManager:SetParticleControl(self.tojiko05_particle, 1, Vector(radius,radius,1))
-
-	self:StartIntervalThink(FrameTime())
-end
-
-function modifier_ability_thdots_tojiko05:OnIntervalThink()
-	if not IsServer() then return end
-	local caster = self:GetParent()
-	local caster_origin = caster:GetOrigin()
-	ParticleManager:SetParticleControl(self.tojiko05_particle, 0, caster:GetOrigin())
 end
 
 function modifier_ability_thdots_tojiko05:OnDestroy()
@@ -1147,10 +979,6 @@ function modifier_ability_thdots_tojiko05_debuff:OnCreated()
 	self.tojiko05_particle_debuff = ParticleManager:CreateParticle(tojiko05_particle_debuff_name, PATTACH_ABSORIGIN_FOLLOW,self.target)
 	ParticleManager:SetParticleControlEnt(self.tojiko05_particle_debuff , 0, self.target, 5, "attach_hitloc", Vector(0,0,0), true)
 	ParticleManager:SetParticleControlEnt(self.tojiko05_particle_debuff , 1, self.caster, 5, "attach_hitloc", Vector(0,0,0), true)
-end
-
-function modifier_ability_thdots_tojiko05_debuff:OnIntervalThink()
-	if not IsServer() then return end
 end
 
 function modifier_ability_thdots_tojiko05_debuff:OnDestroy()

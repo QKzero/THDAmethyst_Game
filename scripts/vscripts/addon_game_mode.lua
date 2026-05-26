@@ -1916,6 +1916,9 @@ function THDOTSGameMode:AbilityLearn(keys)
 	    return
 	  end
 	local caster = ply:GetAssignedHero()
+	if caster ~= nil and keys.abilityname ~= nil then
+		THD2_OnAbilityLearned(caster, keys.abilityname)
+	end
 end
 
 G_Bot_Level = {0,0,0,0,0,0,0,0,0,0,0}
@@ -1946,8 +1949,12 @@ function THDOTSGameMode:BotUpGradeAbility(hero)
 			local j = G_Bots_Ability_Add[hIndex][i] - 1 --abilitys is 0~n-1, but vals set as 1~n
 			local ability = hero:GetAbilityByIndex(j)
 			if ability~=nil then
+				local oldLevel = ability:GetLevel()
 				local level = math.min((ability:GetLevel() + 1),ability:GetMaxLevel())
 				ability:SetLevel(level)
+				if level > oldLevel then
+					THD2_OnAbilityLearned(hero, ability)
+				end
 			end
 		end
 		

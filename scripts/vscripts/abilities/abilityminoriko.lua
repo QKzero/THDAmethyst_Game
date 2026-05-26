@@ -1,3 +1,5 @@
+local MINORIKO02_AURA_PARTICLE_INTERVAL = 3.0
+
 ability_thdots_minoriko01 = {}
 
 function ability_thdots_minoriko01:GetAOERadius()
@@ -101,6 +103,7 @@ function ability_thdots_minoriko01:OnProjectileHit(hTarget, vLocation)
             "particles/units/heroes/hero_ogre_magi/ogre_magi_fireblast.vpcf", PATTACH_CUSTOMORIGIN, target)
         ParticleManager:SetParticleControl(effectIndex, 0, target:GetOrigin())
         ParticleManager:SetParticleControl(effectIndex, 1, target:GetOrigin())
+        ParticleManager:ReleaseParticleIndex(effectIndex)
 
     elseif target:GetUnitName() == "npc_thdots_unit_minoriko02_box" and caster:GetPlayerOwner() ==
         target:GetPlayerOwner() and caster:FindAbilityByName("ability_thdots_minoriko02") ~= nil then -- 砸车
@@ -368,6 +371,50 @@ end
 -- function modifier_thdots_minoriko02_box:RemoveOnDeath()		return false end
 -- function modifier_thdots_minoriko02_box:IsDebuff()			return false end
 
+function modifier_thdots_minoriko02_box:RefreshAuraParticle()
+    if self.aura_particle then
+        ParticleManager:DestroyParticleSystem(self.aura_particle, true)
+        self.aura_particle = nil
+    end
+
+    local parent = self:GetParent()
+    if parent == nil or parent:IsNull() then
+        return
+    end
+
+    -- aura_circle_common 是短动画，低频重播保证回血范围覆盖整个技能周期。
+    self.aura_particle = ParticleManager:CreateParticle("particles/heroes/misc/aura_circle_common.vpcf",
+        PATTACH_OVERHEAD_FOLLOW, parent)
+    ParticleManager:SetParticleControl(self.aura_particle, 1, Vector(self.aura_radius, 0, 0))
+    ParticleManager:SetParticleControl(self.aura_particle, 2, Vector(1, 0, 0))
+    ParticleManager:SetParticleControl(self.aura_particle, 3, Vector(216, 111, 0))
+end
+
+function modifier_thdots_minoriko02_box:OnCreated()
+    if not IsServer() then
+        return
+    end
+    local ability = self:GetAbility()
+    self.aura_radius = ability:GetSpecialValueFor("aura_radius")
+    self:RefreshAuraParticle()
+    self:StartIntervalThink(MINORIKO02_AURA_PARTICLE_INTERVAL)
+end
+
+function modifier_thdots_minoriko02_box:OnIntervalThink()
+    self:RefreshAuraParticle()
+end
+
+function modifier_thdots_minoriko02_box:OnDestroy()
+    if not IsServer() then
+        return
+    end
+    self:StartIntervalThink(-1)
+    if self.aura_particle then
+        ParticleManager:DestroyParticleSystem(self.aura_particle, true)
+        self.aura_particle = nil
+    end
+end
+
 function modifier_thdots_minoriko02_box:DeclareFunctions()
     return {MODIFIER_PROPERTY_HEALTHBAR_PIPS}
 end
@@ -391,6 +438,7 @@ function OnMinoriko04SpellStart(keys)
             local effectIndex1 = ParticleManager:CreateParticle("particles/heroes/minoriko/ability_minoriko_04.vpcf",
                 PATTACH_CUSTOMORIGIN, target)
             ParticleManager:SetParticleControlEnt(effectIndex1, 0, target, 5, "attach_hitloc", Vector(0, 0, 0), true)
+            ParticleManager:ReleaseParticleIndex(effectIndex1)
         else
             return nil
         end
@@ -417,6 +465,7 @@ function OnMinoriko04SpellStart(keys)
                     ParticleManager:SetParticleControlEnt(effectIndex, 1, target, 5, "attach_hitloc", Vector(0, 0, 0),
                         true)
                     ParticleManager:SetParticleControlEnt(effectIndex, 9, v, 5, "attach_hitloc", Vector(0, 0, 0), true)
+                    ParticleManager:ReleaseParticleIndex(effectIndex)
 
                     keys.ability:ApplyDataDrivenModifier(caster, v, "aura_thdots_minoriko04_debuff", {})
                     stackCount = v:GetModifierStackCount("aura_thdots_minoriko04_debuff", caster)
@@ -444,6 +493,7 @@ function OnMinoriko04SpellStart(keys)
                     ParticleManager:SetParticleControlEnt(effectIndex, 1, target, 5, "attach_hitloc", Vector(0, 0, 0),
                         true)
                     ParticleManager:SetParticleControlEnt(effectIndex, 9, v, 5, "attach_hitloc", Vector(0, 0, 0), true)
+                    ParticleManager:ReleaseParticleIndex(effectIndex)
 
                     keys.ability:ApplyDataDrivenModifier(caster, v, "aura_thdots_minoriko04_buff", {})
                     stackCount = v:GetModifierStackCount("aura_thdots_minoriko04_buff", caster)

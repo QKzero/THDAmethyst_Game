@@ -405,8 +405,12 @@ function THD2_BotUpGradeAbility(hero)
 			local j = G_Bots_Ability_Add[hIndex][i] - 1 --abilitys is 0~n-1, but vals set as 1~n
 			local ability = hero:GetAbilityByIndex(j)
 			if ability~=nil then
+				local oldLevel = ability:GetLevel()
 				local level = math.min((ability:GetLevel() + 1),ability:GetMaxLevel())
 				ability:SetLevel(level)
+				if level > oldLevel then
+					THD2_OnAbilityLearned(hero, ability)
+				end
 			end
 		end
 		

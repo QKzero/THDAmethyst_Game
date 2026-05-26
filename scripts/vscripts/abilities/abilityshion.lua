@@ -3,6 +3,12 @@
 
 if AbilityShion == nil then AbilityShion = class({}) end
 
+local function ShionDestroyParticle(effectIndex, destroyImmediately)
+    if effectIndex == nil then return end
+    ParticleManager:DestroyParticle(effectIndex, destroyImmediately or false)
+    ParticleManager:ReleaseParticleIndex(effectIndex)
+end
+
 -----------------------
 --------- Oil ---------
 -----------------------
@@ -41,424 +47,55 @@ function AbilityShion:CreateDanmaku(caster, danmakuTable)
     danmakuTable.ability = caster:FindAbilityByName("ability_thdots_shion_02")
     if danmakuTable.ability == nil or danmakuTable.ability:GetLevel() == 0 then return end
 
-    danmakuTable.creationTime = GameRules:GetDOTATime(false, true)
-    danmakuTable.startPosition = danmakuTable.position
-    danmakuTable.targetPosition = danmakuTable.position
-    danmakuTable.interval = 0.04
-
-    danmakuTable.maxExistTime = danmakuTable.ability:GetSpecialValueFor("maxExistTime")
-    danmakuTable.damageBonusPct = danmakuTable.ability:GetSpecialValueFor("damageBonusPct")
-    danmakuTable.maxDamageBonusPct = danmakuTable.ability:GetSpecialValueFor("maxDamageBonusPct")
-    danmakuTable.maxDamageBonusDuration = danmakuTable.ability:GetSpecialValueFor("maxDamageBonusDuration")
-    danmakuTable.maxRadius = danmakuTable.ability:GetSpecialValueFor("maxRadius")
-    danmakuTable.danmakuHigh = danmakuTable.ability:GetSpecialValueFor("danmakuHigh")
-
-    danmakuTable.initialDiretion = danmakuTable.direction -- 初始方向
-    danmakuTable.initialSpeed = danmakuTable.ability:GetSpecialValueFor("initialSpeed") -- 初始速度
-    danmakuTable.initialSpeedAcc = danmakuTable.ability:GetSpecialValueFor("initialSpeedAcc") -- 初始加速度
-    danmakuTable.centriDirection = Vector(0, 0, 0) -- 向心方向
-    danmakuTable.centriSpeed = 0 -- 向心速度
-    danmakuTable.centriSpeedAcc = danmakuTable.ability:GetSpecialValueFor("centriSpeedAcc") -- 向心加速度
-    danmakuTable.locked = false -- 是否已经索敌
-    danmakuTable.lockedTaget = nil
-    danmakuTable.targetPosition = danmakuTable.startPosition -- 目标位置
-
+    local ability = danmakuTable.ability
+    local now = GameRules:GetDOTATime(false, true)
     local effectIndex = ParticleManager:CreateParticle("models/shion/shion_fx/shion_cast2.vpcf", PATTACH_WORLDORIGIN, caster)
     ParticleManager:SetParticleControl(effectIndex, 0, danmakuTable.position)
 
-    caster:SetContextThink(DoUniqueString("shion_danmaku_particle"),
-        function()
-            if GameRules:IsGamePaused() then return danmakuTable.interval end
+    local manager = caster:FindModifierByName("modifier_ability_thdots_shion_danmakuManager")
+    if manager == nil then
+        manager = caster:AddNewModifier(caster, ability, "modifier_ability_thdots_shion_danmakuManager", {})
+    end
+    if manager == nil then
+        ShionDestroyParticle(effectIndex, false)
+        return
+    end
 
-            if caster:IsNull() then
-                ParticleManager:DestroyParticle(effectIndex, false)
-                return
-            end
-
-            local existTime = GameRules:GetDOTATime(false, true) - danmakuTable.creationTime
-
-            -- 超时销毁
-            if existTime >= danmakuTable.maxExistTime then
-                ParticleManager:DestroyParticle(effectIndex, false)
-                return
-            end
-
-            -- 1-碰撞检测与效果施加
-            -- 索敌
-            local targets = FindUnitsInRadius(
-                caster:GetTeamNumber(),
-                danmakuTable.position,
-                nil,
-                36,
-                danmakuTable.ability:GetAbilityTargetTeam(),
-                danmakuTable.ability:GetAbilityTargetType(),
-                DOTA_UNIT_TARGET_FLAG_NONE,
-                FIND_ANY_ORDER,
-                false
-            )
-            DeleteDummy(targets)
-            for _, target in pairs(targets) do
-                -- 「厄貧負損」 天赋触发
-                local telent = caster:FindAbilityByName("special_bonus_unique_shion_08")
-                if telent ~= nil and telent:GetLevel() ~= 0 then
-                    shion_telent_08_SpellStart(caster, danmakuTable.ability, target)
-                end
-
-                -- 施加减速
-                if not target:IsMagicImmune() then
-                    target:AddNewModifier(caster, danmakuTable.ability, "modifier_ability_thdots_shion_02_target", {
-                        duration = danmakuTable.ability:GetSpecialValueFor("moveSpeedBonusTime")
-                    })
-                end
-
-                -- 伤害施加
-                local damage = danmakuTable.ability:GetSpecialValueFor("danmakuDamage")
-
-                -- 伤害衰减
-                if target:IsHero() then
-                    if target:HasModifier("modifier_ability_thdots_shion_02_damageBouns") then
-                        local modifier = target:FindModifierByName("modifier_ability_thdots_shion_02_damageBouns")
-                        damage = damage * (100 - modifier:GetStackCount()) * 0.01
-                        local newDamageBonusPercent = modifier:GetStackCount() + danmakuTable.damageBonusPct
-                        if newDamageBonusPercent <= danmakuTable.maxDamageBonusPct then
-                            modifier:SetStackCount(newDamageBonusPercent)
-                        else
-                            modifier:SetStackCount(danmakuTable.maxDamageBonusPct)
-                        end
-                        modifier:SetDuration(danmakuTable.maxDamageBonusDuration, true)
-                    else
-                        target:AddNewModifier(caster, danmakuTable.ability, "modifier_ability_thdots_shion_02_damageBouns", {
-                            duration = danmakuTable.maxDamageBonusDuration
-                        }):SetStackCount(danmakuTable.damageBonusPct)
-                    end
-                end
-
-                local damageTable = {
-                    victim = target,
-                    damage = damage,
-                    damage_type = danmakuTable.ability:GetAbilityDamageType(),
-                    damage_flags = DOTA_DAMAGE_FLAG_NONE,
-                    attacker = caster,
-                    ability = danmakuTable.ability
-                }
-
-                UnitDamageTarget(damageTable)
-            end
-
-            if #targets > 0 then 
-                -- 「贫乏神式污染」 天赋触发
-                local telent = caster:FindAbilityByName("special_bonus_unique_shion_07")
-                if telent ~= nil and telent:GetLevel() ~= 0 then
-                    -- 冷却判定
-                    local telentOn = false
-                    local createOilCooldown = 1 -- 冷却时间
-                    for _, target in pairs(targets) do
-                        if not target:HasModifier("modifier_ability_thdots_shion_telent_07_danmakuCooldown") then
-                            telentOn = true
-                            break
-                        end
-                    end
-                    if telentOn then
-                        for _, target in pairs(targets) do
-                            if target:HasModifier("modifier_ability_thdots_shion_telent_07_danmakuCooldown") then
-                                target:FindModifierByName("modifier_ability_thdots_shion_telent_07_danmakuCooldown"):SetDuration(createOilCooldown, true)
-                            else
-                                target:AddNewModifier(caster, danmakuTable.ability, "modifier_ability_thdots_shion_telent_07_danmakuCooldown", {duration = createOilCooldown})
-                            end
-                        end
-                        local oilTable = {
-                            position = danmakuTable.position,
-                            oilDuringDichotomy = true,
-                        }
-                        AbilityShion:CreateOil(caster, oilTable)
-                    end
-                end
-
-                StartSoundEventFromPosition("Voice_Thdots_Shion.AbilityShion02_4", danmakuTable.position)
-                ParticleManager:DestroyParticle(effectIndex, false)
-                return
-            end
-
-            -- 2-移动
-            -- 索敌
-            if not danmakuTable.locked and GetDistanceBetweenTwoVec2D(danmakuTable.startPosition, danmakuTable.position) >= 60 then
-                targets = FindUnitsInRadius(
-                    caster:GetTeamNumber(),
-                    danmakuTable.position,
-                    nil,
-                    danmakuTable.maxRadius,
-                    danmakuTable.ability:GetAbilityTargetTeam(),
-                    danmakuTable.ability:GetAbilityTargetType(),
-                    DOTA_UNIT_TARGET_FLAG_NONE,
-                    FIND_CLOSEST,
-                    false
-                )
-                if #targets > 0 then
-                    local target = targets[1]
-                    danmakuTable.locked = true
-                    danmakuTable.lockedTaget = target
-                    danmakuTable.targetPosition = target:GetOrigin()
-                end
-            end
-
-            -- 确定向心方向
-            if danmakuTable.locked then
-                -- 若目标存在则跟踪
-                if danmakuTable.lockedTaget ~= nil and not danmakuTable.lockedTaget:IsNull() then
-                    danmakuTable.targetPosition = danmakuTable.lockedTaget:GetOrigin()
-                end
-                danmakuTable.centriDirection = (danmakuTable.targetPosition - danmakuTable.position):Normalized()
-            end
-
-            -- 计算速度向量
-            if danmakuTable.initialSpeed > 0 then
-                danmakuTable.initialSpeed = danmakuTable.initialSpeed - danmakuTable.initialSpeedAcc * danmakuTable.interval
-            else
-                danmakuTable.initialSpeed = 0
-                -- 初速减到零还未索敌则销毁
-                if not danmakuTable.locked then
-                    ParticleManager:DestroyParticle(effectIndex, false)
-                    return
-                end
-            end
-            if danmakuTable.locked then
-                danmakuTable.centriSpeed = danmakuTable.centriSpeed + danmakuTable.centriSpeedAcc * danmakuTable.interval
-            end
-            local velocity = (danmakuTable.initialSpeed * danmakuTable.initialDiretion + danmakuTable.centriSpeed * danmakuTable.centriDirection)
-
-            -- 改变位置
-            danmakuTable.position = danmakuTable.position + velocity * danmakuTable.interval
-
-            -- 特效同步
-            ParticleManager:SetParticleControl(effectIndex, 0,
-                Vector(danmakuTable.position.x, danmakuTable.position.y, danmakuTable.startPosition.z + danmakuTable.danmakuHigh))
-
-            -- 到达索敌位置则销毁
-            if danmakuTable.locked and GetDistanceBetweenTwoVec2D(danmakuTable.targetPosition, danmakuTable.position) <= 10 then
-                ParticleManager:DestroyParticle(effectIndex, false)
-                return
-            end
-
-            -- 超出最大范围则销毁
-            local danmakuDistance = GetDistanceBetweenTwoVec2D(danmakuTable.startPosition, danmakuTable.position)
-            if danmakuDistance > danmakuTable.maxRadius then
-                ParticleManager:DestroyParticle(effectIndex, false)
-                return
-            end
-
-            return danmakuTable.interval
-        end,
-        0
-    )
+    -- 弹幕数据集中缓存，后续由 manager 统一移动、索敌、碰撞和销毁
+    manager:AddDanmaku({
+        ability = ability,
+        caster = caster,
+        effectIndex = effectIndex,
+        creationTime = now,
+        startPosition = danmakuTable.position,
+        position = danmakuTable.position,
+        targetPosition = danmakuTable.position,
+        moveInterval = 0.04,
+        lockInterval = 0.2,
+        nextLockTime = now,
+        maxExistTime = ability:GetSpecialValueFor("maxExistTime"),
+        damageBonusPct = ability:GetSpecialValueFor("damageBonusPct"),
+        maxDamageBonusPct = ability:GetSpecialValueFor("maxDamageBonusPct"),
+        maxDamageBonusDuration = ability:GetSpecialValueFor("maxDamageBonusDuration"),
+        maxRadius = ability:GetSpecialValueFor("maxRadius"),
+        danmakuHigh = ability:GetSpecialValueFor("danmakuHigh"),
+        damage = ability:GetSpecialValueFor("danmakuDamage"),
+        damageType = ability:GetAbilityDamageType(),
+        moveSpeedBonusTime = ability:GetSpecialValueFor("moveSpeedBonusTime"),
+        targetTeam = ability:GetAbilityTargetTeam(),
+        targetType = ability:GetAbilityTargetType(),
+        talent07 = caster:FindAbilityByName("special_bonus_unique_shion_07"),
+        talent08 = caster:FindAbilityByName("special_bonus_unique_shion_08"),
+        initialDirection = danmakuTable.direction,
+        initialSpeed = ability:GetSpecialValueFor("initialSpeed"),
+        initialSpeedAcc = ability:GetSpecialValueFor("initialSpeedAcc"),
+        centriDirection = Vector(0, 0, 0),
+        centriSpeed = 0,
+        centriSpeedAcc = ability:GetSpecialValueFor("centriSpeedAcc"),
+        locked = false,
+        lockedTarget = nil,
+    })
 end
-
--- function AbilityShion:CreateDanmaku(caster, danmakuTable)
---     if danmakuTable.direction == nil then return end
---     if danmakuTable.position == nil then return end
-
---     danmakuTable.ability = caster:FindAbilityByName("ability_thdots_shion_02")
---     if danmakuTable.ability == nil or danmakuTable.ability:GetLevel() == 0 then return end
-
---     danmakuTable.creationTime = GameRules:GetDOTATime(false, true)
---     danmakuTable.startPosition = danmakuTable.position
---     danmakuTable.interval = 0.04
-
---     danmakuTable.maxExistTime = danmakuTable.ability:GetSpecialValueFor("maxExistTime")
---     danmakuTable.danmakuStartTime = danmakuTable.ability:GetSpecialValueFor("danmakuStartTime")
---     danmakuTable.danmakuSpeed = danmakuTable.ability:GetSpecialValueFor("danmakuSpeed")
---     danmakuTable.damageBonusPct = danmakuTable.ability:GetSpecialValueFor("damageBonusPct")
---     danmakuTable.maxDamageBonusPct = danmakuTable.ability:GetSpecialValueFor("maxDamageBonusPct")
---     danmakuTable.maxDamageBonusDuration = danmakuTable.ability:GetSpecialValueFor("maxDamageBonusDuration")
---     danmakuTable.lockDistance = danmakuTable.ability:GetSpecialValueFor("lockDistance")
---     danmakuTable.unlockDistance = danmakuTable.ability:GetSpecialValueFor("unlockDistance")
---     danmakuTable.danmakuHigh = danmakuTable.ability:GetSpecialValueFor("danmakuHigh")
---     danmakuTable.maxRadius = danmakuTable.ability:GetSpecialValueFor("maxRadius")
-
---     local effectIndex = ParticleManager:CreateParticle("models/shion/shion_fx/shion_cast2.vpcf", PATTACH_WORLDORIGIN, caster)
---     ParticleManager:SetParticleControl(effectIndex, 0, danmakuTable.position)
-
---     caster:SetContextThink(DoUniqueString("shion_danmaku_particle"),
---         function()
---             if GameRules:IsGamePaused() then return danmakuTable.interval end
-
---             if caster:IsNull() then
---                 ParticleManager:DestroyParticle(effectIndex, false)
---                 return
---             end
-
---             local existTime = GameRules:GetDOTATime(false, true) - danmakuTable.creationTime
-
---             -- 超时销毁
---             if existTime >= danmakuTable.maxExistTime then
---                 ParticleManager:DestroyParticle(effectIndex, false)
---                 return
---             end
-
---             -- 伤害
---             -- 大于一段时间时，弹幕碰撞检测
---             if existTime >= danmakuTable.danmakuStartTime then
---                 -- 碰撞检测与效果施加
---                 local targets = FindUnitsInRadius(
---                     caster:GetTeamNumber(),
---                     danmakuTable.position,
---                     nil,
---                     36,
---                     danmakuTable.ability:GetAbilityTargetTeam(),
---                     danmakuTable.ability:GetAbilityTargetType(),
---                     DOTA_UNIT_TARGET_FLAG_NONE,
---                     FIND_ANY_ORDER,
---                     false
---                 )
---                 DeleteDummy(targets)
---                 for _, target in pairs(targets) do
---                     -- 「厄貧負損」 天赋触发
---                     local telent = caster:FindAbilityByName("special_bonus_unique_shion_08")
---                     if telent ~= nil and telent:GetLevel() ~= 0 then
---                         shion_telent_08_SpellStart(caster, danmakuTable.ability, target)
---                     end
-
---                     -- 每个减速修饰器的持续时间单独计算
---                     local modifier = target:AddNewModifier(caster, danmakuTable.ability, "modifier_ability_thdots_shion_02_target", {
---                         duration = danmakuTable.ability:GetSpecialValueFor("moveSpeedBonusTime")
---                     })
-
---                     -- 伤害施加
---                     local damage = danmakuTable.ability:GetSpecialValueFor("danmakuDamage")
-
---                     -- 伤害衰减
---                     if target:IsHero() then
---                         if target:HasModifier("modifier_ability_thdots_shion_02_damageBouns") then
---                             local modifier = target:FindModifierByName("modifier_ability_thdots_shion_02_damageBouns")
---                             damage = damage * (100 - modifier:GetStackCount()) * 0.01
---                             local newDamageBonusPercent = modifier:GetStackCount() + danmakuTable.damageBonusPct
---                             if newDamageBonusPercent <= danmakuTable.maxDamageBonusPct then
---                                 modifier:SetStackCount(newDamageBonusPercent)
---                             else
---                                 modifier:SetStackCount(danmakuTable.maxDamageBonusPct)
---                             end
---                             modifier:SetDuration(danmakuTable.maxDamageBonusDuration, true)
---                         else
---                             target:AddNewModifier(caster, danmakuTable.ability, "modifier_ability_thdots_shion_02_damageBouns", {
---                                 duration = danmakuTable.maxDamageBonusDuration
---                             }):SetStackCount(danmakuTable.damageBonusPct)
---                         end
---                     end
-
---                     local damageTable = {
---                         victim = target,
---                         damage = damage,
---                         damage_type = danmakuTable.ability:GetAbilityDamageType(),
---                         damage_flags = DOTA_DAMAGE_FLAG_NONE,
---                         attacker = caster,
---                         ability = danmakuTable.ability
---                     }
-
---                     UnitDamageTarget(damageTable)
---                     end
-
---                 if #targets > 0 then 
---                     -- 「贫乏神式污染」 天赋触发
---                     local telent = caster:FindAbilityByName("special_bonus_unique_shion_07")
---                     if telent ~= nil and telent:GetLevel() ~= 0 then
---                         -- 冷却判定
---                         local telentOn = false
---                         local createOilCooldown = 1 -- 冷却时间
---                         for _, target in pairs(targets) do
---                             if not target:HasModifier("modifier_ability_thdots_shion_telent_07_danmakuCooldown") then
---                                 telentOn = true
---                                 break
---                             end
---                         end
---                         if telentOn then
---                             for _, target in pairs(targets) do
---                                 if target:HasModifier("modifier_ability_thdots_shion_telent_07_danmakuCooldown") then
---                                     target:FindModifierByName("modifier_ability_thdots_shion_telent_07_danmakuCooldown"):SetDuration(createOilCooldown, true)
---                                 else
---                                     target:AddNewModifier(caster, danmakuTable.ability, "modifier_ability_thdots_shion_telent_07_danmakuCooldown", {duration = createOilCooldown})
---                                 end
---                             end
---                             local oilTable = {
---                                 position = danmakuTable.position,
---                                 oilDuringDichotomy = true,
---                             }
---                             AbilityShion:CreateOil(caster, oilTable)
---                         end
---                     end
-
---                     StartSoundEventFromPosition("Voice_Thdots_Shion.AbilityShion02_4", danmakuTable.position)
---                     ParticleManager:DestroyParticle(effectIndex, false)
---                     return
---                 end
---             end
-
---             -- 移动
---             local existTime = GameRules:GetDOTATime(false, true) - danmakuTable.creationTime
---             -- 大于一段时间时，弹幕索敌移动
---             if existTime >= danmakuTable.danmakuStartTime then
---                 -- 若目标距离在 150 内，则锁定该目标；若被锁定的目标距离在 300 以外，则解锁目标
---                 if danmakuTable.lockedTarget ~= nil 
---                     and not danmakuTable.lockedTarget:IsNull() and danmakuTable.lockedTarget:IsAlive() and not danmakuTable.lockedTarget:IsInvisible()
---                     and not danmakuTable.lockedTarget:IsMagicImmune() and danmakuTable.lockedTarget:GetTeamNumber() ~= caster:GetTeamNumber()
---                     and GetDistanceBetweenTwoVec2D(danmakuTable.position, danmakuTable.lockedTarget:GetOrigin()) <= danmakuTable.unlockDistance then
---                     danmakuTable.direction = (danmakuTable.lockedTarget:GetOrigin() - danmakuTable.position):Normalized()
---                 else
---                     local radius = danmakuTable.lockDistance
---                     if caster:HasModifier("modifier_item_wanbaochui") then
---                         radius = danmakuTable.maxRadius + GetDistanceBetweenTwoVec2D(danmakuTable.startPosition, danmakuTable.position)
---                     end
---                     local targets = FindUnitsInRadius(
---                         caster:GetTeamNumber(),
---                         danmakuTable.position,
---                         nil,
---                         radius,
---                         danmakuTable.ability:GetAbilityTargetTeam(),
---                         danmakuTable.ability:GetAbilityTargetType(),
---                         DOTA_UNIT_TARGET_FLAG_NONE,
---                         FIND_CLOSEST,
---                         false
---                     )
---                     local target = nil
---                     for _, val in ipairs(targets) do
---                         if not val:IsInvisible() 
---                             and GetDistanceBetweenTwoVec2D(danmakuTable.startPosition, val:GetOrigin()) <= danmakuTable.maxRadius then
-
---                             target = val
---                             break
---                         end
---                     end
---                     if target ~= nil then
---                         danmakuTable.direction = (target:GetOrigin() - danmakuTable.position):Normalized()
---                         if GetDistanceBetweenTwoVec2D(target:GetOrigin(), danmakuTable.position) < danmakuTable.lockDistance then
---                             danmakuTable.lockedTarget = target
---                         else
---                             danmakuTable.lockedTarget = nil
---                         end
---                     else
---                         danmakuTable.lockedTarget = nil
---                     end
---                 end
---             end
-
---             danmakuTable.position = danmakuTable.position + danmakuTable.direction * danmakuTable.danmakuSpeed * danmakuTable.interval
-
---             -- 特效同步
---             ParticleManager:SetParticleControl(effectIndex, 0,
---                 Vector(danmakuTable.position.x, danmakuTable.position.y, danmakuTable.startPosition.z + danmakuTable.danmakuHigh))
-
---             -- 超出最大范围则销毁
---             local danmakuDistance = GetDistanceBetweenTwoVec2D(danmakuTable.startPosition, danmakuTable.position)
---             if danmakuDistance > danmakuTable.maxRadius then
---                 ParticleManager:DestroyParticle(effectIndex, false)
---                 return
---             end
-
---             return danmakuTable.interval
---         end,
---         0
---     )
--- end
-
--- 对象 End
 ----------------------------------------------------------------------------------------------
 -- 天生技能
 
@@ -511,7 +148,7 @@ end
 
 function modifier_ability_thdots_shion_ex_caster:OnDestroy()
     if not IsServer() then return end
-    ParticleManager:DestroyParticle(self.effectIndex, false)
+    ShionDestroyParticle(self.effectIndex, false)
 end
 
 -- modifier 修改列表
@@ -771,8 +408,68 @@ function modifier_ability_thdots_shion_oilManager:OnCreated()
     self.oilMatrix = {}
     -- 石油矩阵缓存
     self.oilMatrixMemory = {}
+    self.oilScanMergeGap = 128
     
     self:StartIntervalThink(0.1)
+end
+
+function modifier_ability_thdots_shion_oilManager:AddOilToScanCluster(cluster, oilTable)
+    local position = oilTable.position
+    local oilRange = oilTable.oilRange or 0
+
+    table.insert(cluster.oils, oilTable)
+    cluster.minX = cluster.minX == nil and position.x or math.min(cluster.minX, position.x)
+    cluster.maxX = cluster.maxX == nil and position.x or math.max(cluster.maxX, position.x)
+    cluster.minY = cluster.minY == nil and position.y or math.min(cluster.minY, position.y)
+    cluster.maxY = cluster.maxY == nil and position.y or math.max(cluster.maxY, position.y)
+    cluster.maxOilRange = math.max(cluster.maxOilRange or 0, oilRange)
+    cluster.origin = Vector((cluster.minX + cluster.maxX) * 0.5, (cluster.minY + cluster.maxY) * 0.5, self.caster:GetOrigin().z)
+    cluster.radius = GetDistanceBetweenTwoVec2D(cluster.origin, Vector(cluster.maxX, cluster.maxY, cluster.origin.z)) + cluster.maxOilRange + self.oilScanMergeGap
+end
+
+function modifier_ability_thdots_shion_oilManager:IsOilInScanCluster(oilTable, cluster)
+    local position = oilTable.position
+    if position == nil or cluster.origin == nil then return false end
+
+    local oilRange = oilTable.oilRange or 0
+    return GetDistanceBetweenTwoVec2D(position, cluster.origin) <= cluster.radius + oilRange + self.oilScanMergeGap
+end
+
+function modifier_ability_thdots_shion_oilManager:BuildOilScanClusters()
+    local clusters = {}
+
+    for i = self.oilQue.backIndex, self.oilQue.frontIndex do
+        local oilTable = self.oilQue.table[i]
+        if oilTable ~= nil and oilTable.position ~= nil then
+            local matchedIndexes = {}
+            for clusterIndex, cluster in ipairs(clusters) do
+                if self:IsOilInScanCluster(oilTable, cluster) then
+                    table.insert(matchedIndexes, clusterIndex)
+                end
+            end
+
+            if #matchedIndexes == 0 then
+                local cluster = { oils = {}, maxOilRange = 0 }
+                self:AddOilToScanCluster(cluster, oilTable)
+                table.insert(clusters, cluster)
+            else
+                local targetCluster = clusters[matchedIndexes[1]]
+                self:AddOilToScanCluster(targetCluster, oilTable)
+
+                -- 新油池可能连接两个原本分离的区域，此时把相关簇合并
+                for matchIndex = #matchedIndexes, 2, -1 do
+                    local sourceIndex = matchedIndexes[matchIndex]
+                    local sourceCluster = clusters[sourceIndex]
+                    for _, sourceOil in ipairs(sourceCluster.oils) do
+                        self:AddOilToScanCluster(targetCluster, sourceOil)
+                    end
+                    table.remove(clusters, sourceIndex)
+                end
+            end
+        end
+    end
+
+    return clusters
 end
 
 function modifier_ability_thdots_shion_oilManager:OnIntervalThink()
@@ -796,22 +493,30 @@ function modifier_ability_thdots_shion_oilManager:OnIntervalThink()
 
     if not hasOil then return end
 
-    -- 判定目标单位
-    local targets = FindUnitsInRadius(
-        self.caster:GetTeamNumber(),
-        Vector(0, 0, 256),
-        nil,
-        9999,
-        self.ability:GetAbilityTargetTeam(),
-        self.ability:GetAbilityTargetType(),
-        DOTA_UNIT_TARGET_FLAG_NONE,
-        FIND_ANY_ORDER,
-        false
-    )
-    DeleteDummy(targets)
-    for _, target in pairs(targets) do
-        if not target:HasModifier("modifier_ability_thdots_shion_targetOnOil") and self:IsOnOil(target) then
-            target:AddNewModifier(self.caster, self.ability, "modifier_ability_thdots_shion_targetOnOil", {})
+    -- 传送等远距离生成油池时拆成多个局部扫描簇，避免单个包围范围被拉得过大
+    local scanClusters = self:BuildOilScanClusters()
+    local checkedTargets = {}
+    for _, cluster in ipairs(scanClusters) do
+        local targets = FindUnitsInRadius(
+            self.caster:GetTeamNumber(),
+            cluster.origin,
+            nil,
+            cluster.radius,
+            self.ability:GetAbilityTargetTeam(),
+            self.ability:GetAbilityTargetType(),
+            DOTA_UNIT_TARGET_FLAG_NONE,
+            FIND_ANY_ORDER,
+            false
+        )
+        DeleteDummy(targets)
+        for _, target in pairs(targets) do
+            local targetIndex = target:entindex()
+            if checkedTargets[targetIndex] == nil then
+                checkedTargets[targetIndex] = true
+                if not target:HasModifier("modifier_ability_thdots_shion_targetOnOil") and self:IsOnOil(target) then
+                    target:AddNewModifier(self.caster, self.ability, "modifier_ability_thdots_shion_targetOnOil", {})
+                end
+            end
         end
     end
 end
@@ -1066,7 +771,6 @@ function modifier_ability_thdots_shion_targetOnOil:OnIntervalThink()
     if self.timer >= 1 then
         -- 伤害施加
         local damage = self.ability:GetSpecialValueFor("oilDamage")
-        print("daamge == "..damage)
         local damageTable = {
             victim = self.parent,
             attacker = self.caster,
@@ -1157,7 +861,7 @@ end
 function modifier_ability_thdots_shion_targetOnOil_healthBonus:OnDestroy()
     if not IsServer() then return end
     -- 特效销毁
-    ParticleManager:DestroyParticle(self.effectIndex, false)
+    ShionDestroyParticle(self.effectIndex, false)
 end
 
 -- modifier 修改列表
@@ -1192,6 +896,213 @@ modifier_ability_thdots_shion_02_caster_passive = class({})
 LinkLuaModifier("modifier_ability_thdots_shion_02_caster_passive", "scripts/vscripts/abilities/abilityshion.lua", LUA_MODIFIER_MOTION_NONE)
 modifier_ability_thdots_shion_danmakuManager = class({})
 LinkLuaModifier("modifier_ability_thdots_shion_danmakuManager", "scripts/vscripts/abilities/abilityshion.lua", LUA_MODIFIER_MOTION_NONE)
+function modifier_ability_thdots_shion_danmakuManager:IsHidden() return true end
+function modifier_ability_thdots_shion_danmakuManager:IsDebuff() return false end
+function modifier_ability_thdots_shion_danmakuManager:IsPurgable() return false end
+function modifier_ability_thdots_shion_danmakuManager:RemoveOnDeath() return true end
+
+function modifier_ability_thdots_shion_danmakuManager:OnCreated()
+    if not IsServer() then return end
+    self.danmakuList = {}
+end
+
+function modifier_ability_thdots_shion_danmakuManager:OnDestroy()
+    if not IsServer() then return end
+    if self.danmakuList == nil then return end
+    -- manager 被移除时清理所有仍存在的弹幕粒子
+    for _, danmaku in pairs(self.danmakuList) do
+        ShionDestroyParticle(danmaku.effectIndex, false)
+    end
+    self.danmakuList = {}
+end
+
+function modifier_ability_thdots_shion_danmakuManager:AddDanmaku(danmaku)
+    if not IsServer() then return end
+    if self.danmakuList == nil then self.danmakuList = {} end
+    table.insert(self.danmakuList, danmaku)
+    self:StartIntervalThink(0.04)
+end
+
+function modifier_ability_thdots_shion_danmakuManager:OnIntervalThink()
+    if not IsServer() then return end
+    if GameRules:IsGamePaused() then return end
+    if self.danmakuList == nil or #self.danmakuList == 0 then
+        self:Destroy()
+        return
+    end
+
+    local now = GameRules:GetDOTATime(false, true)
+    -- 倒序更新，方便在命中、超时或超距时直接移除弹幕
+    for i = #self.danmakuList, 1, -1 do
+        local danmaku = self.danmakuList[i]
+        if self:UpdateDanmaku(danmaku, now) then
+            ShionDestroyParticle(danmaku.effectIndex, false)
+            table.remove(self.danmakuList, i)
+        end
+    end
+
+    if #self.danmakuList == 0 then
+        self:Destroy()
+    end
+end
+
+function modifier_ability_thdots_shion_danmakuManager:UpdateDanmaku(danmaku, now)
+    local caster = danmaku.caster
+    -- 施法者失效时销毁弹幕
+    if caster == nil or caster:IsNull() then return true end
+
+    local existTime = now - danmaku.creationTime
+    -- 超过最大存在时间时销毁弹幕
+    if existTime >= danmaku.maxExistTime then return true end
+
+    -- 保留原始 36 命中半径，并按当前速度补偿穿透风险
+    local currentVelocity = danmaku.initialSpeed * danmaku.initialDirection + danmaku.centriSpeed * danmaku.centriDirection
+    local hitRadius = 36 + math.sqrt(currentVelocity.x * currentVelocity.x + currentVelocity.y * currentVelocity.y) * danmaku.moveInterval * 0.5
+    local targets = FindUnitsInRadius(
+        caster:GetTeamNumber(),
+        danmaku.position,
+        nil,
+        hitRadius,
+        danmaku.targetTeam,
+        danmaku.targetType,
+        DOTA_UNIT_TARGET_FLAG_NONE,
+        FIND_ANY_ORDER,
+        false
+    )
+    DeleteDummy(targets)
+    for _, target in pairs(targets) do
+        -- 命中时保留天赋 08 的随机负面状态触发
+        if danmaku.talent08 ~= nil and danmaku.talent08:GetLevel() ~= 0 then
+            shion_telent_08_SpellStart(caster, danmaku.ability, target)
+        end
+
+        -- 命中时保留原减速效果
+        if not target:IsMagicImmune() then
+            target:AddNewModifier(caster, danmaku.ability, "modifier_ability_thdots_shion_02_target", {
+                duration = danmaku.moveSpeedBonusTime
+            })
+        end
+
+        local damage = danmaku.damage
+        if target:IsHero() then
+            -- 英雄重复命中时保留原伤害衰减叠层逻辑
+            if target:HasModifier("modifier_ability_thdots_shion_02_damageBouns") then
+                local modifier = target:FindModifierByName("modifier_ability_thdots_shion_02_damageBouns")
+                damage = damage * (100 - modifier:GetStackCount()) * 0.01
+                local newDamageBonusPercent = modifier:GetStackCount() + danmaku.damageBonusPct
+                if newDamageBonusPercent <= danmaku.maxDamageBonusPct then
+                    modifier:SetStackCount(newDamageBonusPercent)
+                else
+                    modifier:SetStackCount(danmaku.maxDamageBonusPct)
+                end
+                modifier:SetDuration(danmaku.maxDamageBonusDuration, true)
+            else
+                target:AddNewModifier(caster, danmaku.ability, "modifier_ability_thdots_shion_02_damageBouns", {
+                    duration = danmaku.maxDamageBonusDuration
+                }):SetStackCount(danmaku.damageBonusPct)
+            end
+        end
+
+        local damageTable = {
+            victim = target,
+            damage = damage,
+            damage_type = danmaku.damageType,
+            damage_flags = DOTA_DAMAGE_FLAG_NONE,
+            attacker = caster,
+            ability = danmaku.ability
+        }
+        UnitDamageTarget(damageTable)
+    end
+
+    if #targets > 0 then
+        -- 命中后保留天赋 07 生成半持续油池的逻辑
+        if danmaku.talent07 ~= nil and danmaku.talent07:GetLevel() ~= 0 then
+            local telentOn = false
+            local createOilCooldown = 1
+            for _, target in pairs(targets) do
+                if not target:HasModifier("modifier_ability_thdots_shion_telent_07_danmakuCooldown") then
+                    telentOn = true
+                    break
+                end
+            end
+            if telentOn then
+                for _, target in pairs(targets) do
+                    if target:HasModifier("modifier_ability_thdots_shion_telent_07_danmakuCooldown") then
+                        target:FindModifierByName("modifier_ability_thdots_shion_telent_07_danmakuCooldown"):SetDuration(createOilCooldown, true)
+                    else
+                        target:AddNewModifier(caster, danmaku.ability, "modifier_ability_thdots_shion_telent_07_danmakuCooldown", {duration = createOilCooldown})
+                    end
+                end
+                local oilTable = {
+                    position = danmaku.position,
+                    oilDuringDichotomy = true,
+                }
+                AbilityShion:CreateOil(caster, oilTable)
+            end
+        end
+
+        StartSoundEventFromPosition("Voice_Thdots_Shion.AbilityShion02_4", danmaku.position)
+        -- 命中任意目标后销毁弹幕
+        return true
+    end
+
+    -- 未锁定时每 0.2 秒做一次大范围索敌，避免每帧重复搜索
+    if not danmaku.locked
+        and now >= danmaku.nextLockTime
+        and GetDistanceBetweenTwoVec2D(danmaku.startPosition, danmaku.position) >= 60 then
+        danmaku.nextLockTime = now + danmaku.lockInterval
+        targets = FindUnitsInRadius(
+            caster:GetTeamNumber(),
+            danmaku.position,
+            nil,
+            danmaku.maxRadius,
+            danmaku.targetTeam,
+            danmaku.targetType,
+            DOTA_UNIT_TARGET_FLAG_NONE,
+            FIND_CLOSEST,
+            false
+        )
+        if #targets > 0 then
+            local target = targets[1]
+            danmaku.locked = true
+            danmaku.lockedTarget = target
+            danmaku.targetPosition = target:GetOrigin()
+        end
+    end
+
+    if danmaku.locked then
+        -- 锁定目标仍存在时持续追踪目标当前位置
+        if danmaku.lockedTarget ~= nil and not danmaku.lockedTarget:IsNull() then
+            danmaku.targetPosition = danmaku.lockedTarget:GetOrigin()
+        end
+        danmaku.centriDirection = (danmaku.targetPosition - danmaku.position):Normalized()
+    end
+
+    if danmaku.initialSpeed > 0 then
+        danmaku.initialSpeed = danmaku.initialSpeed - danmaku.initialSpeedAcc * danmaku.moveInterval
+    else
+        danmaku.initialSpeed = 0
+        -- 初速耗尽且仍未锁敌时销毁弹幕
+        if not danmaku.locked then return true end
+    end
+    if danmaku.locked then
+        danmaku.centriSpeed = danmaku.centriSpeed + danmaku.centriSpeedAcc * danmaku.moveInterval
+    end
+
+    local velocity = danmaku.initialSpeed * danmaku.initialDirection + danmaku.centriSpeed * danmaku.centriDirection
+    danmaku.position = danmaku.position + velocity * danmaku.moveInterval
+    -- 同步粒子到当前弹幕位置
+    ParticleManager:SetParticleControl(danmaku.effectIndex, 0,
+        Vector(danmaku.position.x, danmaku.position.y, danmaku.startPosition.z + danmaku.danmakuHigh))
+
+    -- 到达锁敌位置时销毁弹幕
+    if danmaku.locked and GetDistanceBetweenTwoVec2D(danmaku.targetPosition, danmaku.position) <= 10 then
+        return true
+    end
+
+    -- 超出最大飞行范围时销毁弹幕
+    return GetDistanceBetweenTwoVec2D(danmaku.startPosition, danmaku.position) > danmaku.maxRadius
+end
 modifier_ability_thdots_shion_02_target = class({})
 LinkLuaModifier("modifier_ability_thdots_shion_02_target", "scripts/vscripts/abilities/abilityshion.lua", LUA_MODIFIER_MOTION_NONE)
 modifier_ability_thdots_shion_02_damageBouns = class({})
@@ -1470,7 +1381,7 @@ end
 
 function modifier_ability_thdots_shion_03_target:OnDestroy()
     if not IsServer() then return end
-    ParticleManager:DestroyParticle(self.effectIndex, false)
+    ShionDestroyParticle(self.effectIndex, false)
 end
 
 -- modifier 修改列表
@@ -1733,7 +1644,7 @@ end
 
 function modifier_ability_thdots_shion_04_target:OnDestroy()
     if not IsServer() then return end
-    ParticleManager:DestroyParticle(self.effectIndex, false)
+    ShionDestroyParticle(self.effectIndex, false)
 end
 
 -- 凭依时施加飞行效果的modifier（万宝槌效果）

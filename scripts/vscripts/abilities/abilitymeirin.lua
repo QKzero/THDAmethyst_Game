@@ -59,6 +59,7 @@ function OnMeirinexDamage(keys)
 end
 
 ability_thdots_meirin01 = {}
+local MEIRIN01_INTERVAL = 0.03
 
 function ability_thdots_meirin01:GetCastRange(location, target)
     if IsServer() then
@@ -69,23 +70,21 @@ end
 function ability_thdots_meirin01:OnSpellStart()
     local caster = self:GetCaster()
     local range = self:GetLevelSpecialValueFor("range", self:GetLevel() - 1)
+    local skewer_speed = self:GetLevelSpecialValueFor("skewer_speed", self:GetLevel() - 1)
     local targetPoint = self:GetCursorPosition()
 
     caster:EmitSound("Hero_Magnataur.Skewer.Cast")
 
     -- Distance and direction variables
     self.direction = (targetPoint - caster:GetAbsOrigin()):Normalized()
-    local Meirin01rad = GetRadBetweenTwoVec2D(caster:GetOrigin(), targetPoint)
     local Meirin01dis = GetDistanceBetweenTwoVec2D(caster:GetOrigin(), targetPoint)
     -- If the caster targets over the max range, sets the distance to the max
     if Meirin01dis > range then
         Meirin01dis = range
     end
-    self:SetContextNum("ability_Meirin01_Rad", Meirin01rad, 0)
-    self:SetContextNum("ability_Meirin01_Dis", Meirin01dis, 0)
 
     -- Applies the disable modifier
-    local move_duration = Meirin01dis / 900
+    local move_duration = Meirin01dis / skewer_speed
     caster:AddNewModifier(caster, self, "modifier_thdots_meirin01_think_interval", {
         Duration = move_duration
     })
@@ -135,7 +134,10 @@ function modifier_thdots_meirin01_think_interval:OnCreated()
         return
     end
     self.meirin01time = self:GetDuration()
-    self:StartIntervalThink(0.03)
+    self.interval = MEIRIN01_INTERVAL
+    self.skewer_speed = self:GetAbility():GetLevelSpecialValueFor("skewer_speed", self:GetAbility():GetLevel() - 1)
+    self.remaining_distance = self.skewer_speed * self.meirin01time
+    self:StartIntervalThink(self.interval)
 end
 
 function modifier_thdots_meirin01_think_interval:OnDestroy()
@@ -163,51 +165,48 @@ function modifier_thdots_meirin01_think_interval:OnIntervalThink()
     local caster = self:GetCaster()
     local target = self:GetParent()
     local ability = self:GetAbility()
-    local vecTaget = target:GetOrigin()
-    local Meirin01rad = ability:GetContext("ability_Meirin01_Rad")
-    local Meirin01dis = ability:GetContext("ability_Meirin01_Dis")
-    self.meirin01time = self.meirin01time - 0.01
+    self.meirin01time = self.meirin01time - self.interval
     local skewer_radius = ability:GetLevelSpecialValueFor("skewer_radius", ability:GetLevel() - 1)
     local hero_offset = ability:GetLevelSpecialValueFor("hero_offset", ability:GetLevel() - 1)
-
-    -- Units to be caught in the skewer
-    -- local units = FindUnitsInRadius(caster:GetTeamNumber(), caster:GetAbsOrigin(), nil, skewer_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0, 0, false)
-    -- local units = FindUnitsInLine(caster:GetTeamNumber(), caster:GetOrigin(), caster:GetAbsOrigin() + 10*ability.direction, nil, 125 , DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, false)
-    local units = FindUnitsInLine(caster:GetTeam(), caster:GetAbsOrigin(),
-        caster:GetAbsOrigin() + 10 * ability.direction, nil, 75, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0)
-    -- Loops through target
-    for i, unit in ipairs(units) do
-        -- Checks if the target is already affected by skewer
-        if not unit:HasModifier("modifier_thdots_meirin01_think_interval") and
-            not unit:HasModifier("modifier_item_dragon_star_buff") then
-            -- If not, move it offset in front of the caster
-            -- if (unit:GetOrigin() - caster:GetOrigin()):Length2D() < 200 then
-            -- 	break 
-            -- end
-            local new_position = caster:GetAbsOrigin() + hero_offset * ability.direction
-            unit:SetAbsOrigin(new_position)
-            -- Apply the motion controller to the target
-            unit:AddNewModifier(caster, ability, "modifier_thdots_meirin01_think_interval", {
-                Duration = self.meirin01time
-            })
-        end
-        print("Unit: " .. unit:GetUnitName())
-    end
+    local move_distance = math.min(self.skewer_speed * self.interval, self.remaining_distance)
 
     if target:HasModifier("modifier_ability_thdots_hina04") then -- 踢转转大招BUG
         target:RemoveModifierByName("modifier_thdots_meirin01_think_interval")
+        return
     end
-    local skewer_speed = ability:GetLevelSpecialValueFor("skewer_speed", ability:GetLevel() - 1)
 
-    local vec = Vector(vecTaget.x + math.cos(Meirin01rad) * skewer_speed / 100,
-        vecTaget.y + math.sin(Meirin01rad) * skewer_speed / 100, GetGroundPosition(target:GetAbsOrigin(), target).z)
+    if target == caster and self.meirin01time > 0 and move_distance > 0 then
+        -- Units to be caught in the skewer
+        -- local units = FindUnitsInRadius(caster:GetTeamNumber(), caster:GetAbsOrigin(), nil, skewer_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0, 0, false)
+        -- local units = FindUnitsInLine(caster:GetTeamNumber(), caster:GetOrigin(), caster:GetAbsOrigin() + 10*ability.direction, nil, 125 , DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, false)
+        local scan_distance = move_distance + 10
+        local units = FindUnitsInLine(caster:GetTeam(), caster:GetAbsOrigin(),
+            caster:GetAbsOrigin() + scan_distance * ability.direction, nil, 75, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0)
+        -- Loops through target
+        for i, unit in ipairs(units) do
+            -- Checks if the target is already affected by skewer
+            if not unit:HasModifier("modifier_thdots_meirin01_think_interval") and
+                not unit:HasModifier("modifier_item_dragon_star_buff") then
+                -- If not, move it offset in front of the caster
+                -- if (unit:GetOrigin() - caster:GetOrigin()):Length2D() < 200 then
+                -- 	break
+                -- end
+                local new_position = caster:GetAbsOrigin() + hero_offset * ability.direction
+                unit:SetAbsOrigin(new_position)
+                -- Apply the motion controller to the target
+                unit:AddNewModifier(caster, ability, "modifier_thdots_meirin01_think_interval", {
+                    Duration = self.meirin01time
+                })
+            end
+        end
+    end
+
+    local next_position = target:GetAbsOrigin() + ability.direction * move_distance
+    local vec = Vector(next_position.x, next_position.y, GetGroundPosition(next_position, target).z)
     target:SetOrigin(vec)
-    if (Meirin01dis < 0) then
-        ability:SetContextNum("Meirin01dis", 0, 0)
+    self.remaining_distance = self.remaining_distance - move_distance
+    if (self.remaining_distance <= 0) then
         target:RemoveModifierByName("modifier_thdots_meirin01_think_interval")
-    else
-        Meirin01dis = Meirin01dis - skewer_speed / 100
-        ability:SetContextNum("Meirin01dis", Meirin01dis, 0)
     end
 end
 

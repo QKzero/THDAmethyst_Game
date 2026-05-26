@@ -626,6 +626,7 @@ function modifier_ability_thdots_nitoriEx:OnCreated()
 	if IsServer() then
 		-- local damage = self:GetCaster():GetAverageTrueAttackDamage(self:GetCaster()) * self:GetAbility():GetSpecialValueFor("spell_bonus")
 		-- print(damage)
+		THD2_RefreshTalentModifiers(self:GetCaster(), "ability_thdots_nitoriEx")
 		self:StartIntervalThink(0.1)
 	end
 end
@@ -633,12 +634,6 @@ end
 function modifier_ability_thdots_nitoriEx:OnIntervalThink()
 	if not IsServer() then return end
 	self:SetStackCount(self:GetCaster():GetAverageTrueAttackDamage(self:GetCaster()) * self:GetAbility():GetSpecialValueFor("spell_bonus"))
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_nitori_6") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_nitoriEx_talent6") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_nitoriEx_talent6",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_nitori_1") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_nitoriEx_talent1") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_nitoriEx_talent1",{})
-	end
 end
 
 function modifier_ability_thdots_nitoriEx:GetModifierBaseAttack_BonusDamage()

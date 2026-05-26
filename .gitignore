@@ -23,3 +23,5 @@ tools_thumbnail_cache
 
 # ai coding
 AGENTS.md
+SERVER_API_REFERENCE.md
+BOT_API_REFERENCE.md

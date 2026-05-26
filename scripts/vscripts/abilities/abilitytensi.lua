@@ -83,43 +83,128 @@ function passive_tensi02_attack:OnAttackLanded(keys)
 	end
 end
 
-function OnTensi03Passive(keys)
-	local caster = EntIndexToHScript(keys.caster_entindex)
-	caster:Heal(keys.BounsHealth, caster)
-	caster:GiveMana(keys.BounsMana)
+ability_thdots_tensi03 = ability_thdots_tensi03 or class({})
+
+function ability_thdots_tensi03:GetIntrinsicModifierName()
+	-- 3技能被动改为Lua实现，统一处理命中回复和万宝槌EX状态。
+	return "passive_tensi03_attacked"
+end
+
+function ability_thdots_tensi03:OnSpellStart()
+	if not IsServer() then return end
+	local caster = self:GetCaster()
+	-- 主动期间通过Lua modifier监听受伤叠加攻速。
+	caster:AddNewModifier(caster, self, "active_tensi03_attacked", {duration = self:GetSpecialValueFor("duration")})
+end
+
+LinkLuaModifier("passive_tensi03_attacked","scripts/vscripts/abilities/abilityTensi.lua",LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("active_tensi03_attacked","scripts/vscripts/abilities/abilityTensi.lua",LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_tensi03_bonus_attackspeed","scripts/vscripts/abilities/abilityTensi.lua",LUA_MODIFIER_MOTION_NONE)
+
+passive_tensi03_attacked = passive_tensi03_attacked or class({})
+function passive_tensi03_attacked:IsHidden() return true end
+function passive_tensi03_attacked:IsPurgable() return false end
+function passive_tensi03_attacked:IsDebuff() return false end
+function passive_tensi03_attacked:RemoveOnDeath() return false end
+
+function passive_tensi03_attacked:OnCreated()
+	if not IsServer() then return end
+	self.has_wanbaochui_ex = nil
+	-- 保留1秒检查，但只在万宝槌状态变化时写EX技能等级。
+	self:StartIntervalThink(1)
+	self:OnIntervalThink()
+end
+
+function passive_tensi03_attacked:DeclareFunctions()
+	return {
+		MODIFIER_EVENT_ON_ATTACK_LANDED,
+	}
+end
+
+function passive_tensi03_attacked:OnAttackLanded(keys)
+	if not IsServer() then return end
+	local caster = self:GetParent()
+	-- 被动回复从被攻击改为攻击实际命中后触发。
+	if keys.target ~= caster then return end
+	local ability = self:GetAbility()
+	if not ability or ability:GetLevel() <= 0 or caster:PassivesDisabled() then return end
+
+	local bonus_health = ability:GetSpecialValueFor("bonus_health")
+	caster:Heal(bonus_health, caster)
+	caster:GiveMana(ability:GetSpecialValueFor("bonus_mana"))
 	if caster:HasModifier("active_tensi03_attacked") then
-		caster:Heal(keys.BounsHealth, caster)
+		caster:Heal(bonus_health, caster)
 	end
 end
 
-function OnTensi03SpellStart(keys)
-	local caster=keys.caster
-	local MaxStackCount = keys.MaxStackCount
-	
-	if caster:HasModifier("modifier_tensi03_bonus_attackspeed")~=true then
-		caster.ModifierCount = 0
-	end
-	if caster.ModifierCount >= MaxStackCount then
-		caster.ModifierCount = MaxStackCount
-	else
-		caster.ModifierCount = caster.ModifierCount+1
-	end
-	keys.ability:ApplyDataDrivenModifier(caster,caster,"modifier_tensi03_bonus_attackspeed",{})
-	caster:SetModifierStackCount("modifier_tensi03_bonus_attackspeed",keys.ability,caster.ModifierCount)
-	
+function passive_tensi03_attacked:OnIntervalThink()
+	if not IsServer() then return end
+	local caster = self:GetParent()
+	local abilityEx = caster:FindAbilityByName("ability_thdots_tensiex")
+	if not abilityEx then return end
+
+	local has_wanbaochui = caster:GetClassname() == "npc_dota_hero_earthshaker" and caster:HasModifier("modifier_item_wanbaochui")
+	if self.has_wanbaochui_ex == has_wanbaochui then return end
+	self.has_wanbaochui_ex = has_wanbaochui
+	-- 只有状态切换时才SetLevel，避免每秒重复写技能等级。
+	abilityEx:SetLevel(has_wanbaochui and 1 or 0)
 end
 
-function Tensiwanbaochuicheck(keys)
-	local caster = keys.caster
-	local casterName = caster:GetClassname()
-	local abilityEx=nil
-	if casterName == "npc_dota_hero_earthshaker" and caster:HasModifier("modifier_item_wanbaochui") then
-		abilityEx = caster:FindAbilityByName("ability_thdots_tensiex")
-		abilityEx:SetLevel(1)
+active_tensi03_attacked = active_tensi03_attacked or class({})
+function active_tensi03_attacked:IsPurgable() return true end
+function active_tensi03_attacked:IsDebuff() return false end
+function active_tensi03_attacked:GetEffectName() return "particles/units/heroes/hero_demonartist/demonartist_spiritwalk_buff_start_rope.vpcf" end
+function active_tensi03_attacked:GetEffectAttachType() return PATTACH_ABSORIGIN_FOLLOW end
+
+function active_tensi03_attacked:DeclareFunctions()
+	return {
+		MODIFIER_EVENT_ON_TAKEDAMAGE,
+	}
+end
+
+function active_tensi03_attacked:OnTakeDamage(keys)
+	if not IsServer() then return end
+	local caster = self:GetParent()
+	if keys.unit ~= caster then return end
+
+	local ability = self:GetAbility()
+	if not ability or ability:GetLevel() <= 0 then return end
+
+	local max_stack_count = ability:GetSpecialValueFor("max_stack_count")
+	local duration = ability:GetSpecialValueFor("duration")
+	local modifier = caster:FindModifierByName("modifier_tensi03_bonus_attackspeed")
+	local stack_count = 0
+	if modifier then
+		stack_count = modifier:GetStackCount()
 	else
-		abilityEx = caster:FindAbilityByName("ability_thdots_tensiex")
-		abilityEx:SetLevel(0)
+		modifier = caster:AddNewModifier(caster, ability, "modifier_tensi03_bonus_attackspeed", {duration = duration})
 	end
+
+	if not modifier then return end
+
+	if stack_count < max_stack_count then
+		stack_count = stack_count + 1
+		modifier:SetStackCount(stack_count)
+	end
+	-- 受伤时仍刷新攻速buff持续时间，满层后不再重复写层数。
+	modifier:SetDuration(duration, true)
+end
+
+modifier_tensi03_bonus_attackspeed = modifier_tensi03_bonus_attackspeed or class({})
+function modifier_tensi03_bonus_attackspeed:IsHidden() return false end
+function modifier_tensi03_bonus_attackspeed:IsPurgable() return true end
+function modifier_tensi03_bonus_attackspeed:IsDebuff() return false end
+
+function modifier_tensi03_bonus_attackspeed:DeclareFunctions()
+	return {
+		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
+	}
+end
+
+function modifier_tensi03_bonus_attackspeed:GetModifierAttackSpeedBonus_Constant()
+	local ability = self:GetAbility()
+	if not ability then return 0 end
+	return ability:GetSpecialValueFor("bonus_attackspeed") * self:GetStackCount()
 end
 
 

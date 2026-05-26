@@ -1035,6 +1035,93 @@ end
 
 
 
+THD2_TALENT_MODIFIER_REGISTRY = THD2_TALENT_MODIFIER_REGISTRY or {
+    special_bonus_unique_cheng_1 = {{ ability = "ability_thdots_chenEx", modifier = "modifier_ability_thdots_chenEx_telent_1" }},
+    special_bonus_unique_cheng_2 = {{ ability = "ability_thdots_chenEx", modifier = "modifier_ability_thdots_chenEx_telent_2" }},
+    special_bonus_unique_cheng_4 = {{ ability = "ability_thdots_chenEx", modifier = "modifier_ability_thdots_chenEx_telent_4" }},
+    special_bonus_unique_daiyousei_1 = {{ ability = "ability_thdots_daiyouseiEx", modifier = "modifier_ability_thdots_daiyouseiEx_talent1" }},
+    special_bonus_unique_daiyousei_4 = {{ ability = "ability_thdots_daiyouseiEx", modifier = "modifier_ability_thdots_daiyouseiEx_talent4" }},
+    special_bonus_unique_daiyousei_5 = {{ ability = "ability_thdots_daiyouseiEx", modifier = "modifier_ability_thdots_daiyouseiEx_talent5" }},
+    special_bonus_unique_daiyousei_6 = {{ ability = "ability_thdots_daiyouseiEx", modifier = "modifier_ability_thdots_daiyouseiEx_talent6" }},
+    special_bonus_unique_eirin_1 = {{ ability = "ability_thdots_eirinex", modifier = "modifier_special_bonus_unique_eirin_1" }},
+    special_bonus_unique_eirin_4 = {{ ability = "ability_thdots_eirinex", modifier = "modifier_special_bonus_unique_eirin_4" }},
+    special_bonus_unique_eirin_5 = {{ ability = "ability_thdots_eirinex", modifier = "modifier_special_bonus_unique_eirin_5", stack = true }},
+    special_bonus_unique_hina_6 = {{ ability = "ability_thdots_hinaEx", modifier = "modifier_ability_thdots_hinaEx_talent6" }},
+    special_bonus_unique_kagerou_1 = {{ ability = "ability_thdots_kagerouEx", modifier = "modifier_ability_thdots_kagerouEx_talent1" }},
+    special_bonus_unique_keine_2 = {{ ability = "ability_thdots_keineEx", modifier = "modifier_ability_thdots_keineEx_talent2" }},
+    special_bonus_unique_keine_3 = {{ ability = "ability_thdots_keineEx", modifier = "modifier_ability_thdots_keineEx_talent3" }},
+    special_bonus_unique_kisume_1 = {{ ability = "ability_thdots_kisumeEx", modifier = "modifier_ability_thdots_kisumeEx_telent_1", stack = true }},
+    special_bonus_unique_kokoro_1 = {{ ability = "ability_thdots_kokoroEx_2", modifier = "modifier_ability_thdots_kokoroEx_2_talent1" }},
+    special_bonus_unique_kokoro_2 = {{ ability = "ability_thdots_kokoroEx_2", modifier = "modifier_ability_thdots_kokoroEx_2_talent2" }},
+    special_bonus_unique_kokoro_3 = {{ ability = "ability_thdots_kokoroEx_2", modifier = "modifier_ability_thdots_kokoroEx_2_talent3" }},
+    special_bonus_unique_kokoro_4 = {{ ability = "ability_thdots_kokoroEx_2", modifier = "modifier_ability_thdots_kokoroEx_2_talent4" }},
+    special_bonus_unique_larva_6 = {{ ability = "ability_thdots_larvaEx", modifier = "modifier_ability_thdots_larva_telent_2" }},
+    special_bonus_unique_medicine_0 = {{ ability = "ability_thdots_medicineEx", modifier = "modifier_ability_thdots_medicine0_talent" }},
+    special_bonus_unique_medicine_2 = {{ ability = "ability_thdots_medicineEx", modifier = "modifier_ability_thdots_medicine2_talent" }},
+    special_bonus_unique_nitori_1 = {{ ability = "ability_thdots_nitoriEx", modifier = "modifier_ability_thdots_nitoriEx_talent1" }},
+    special_bonus_unique_nitori_6 = {{ ability = "ability_thdots_nitoriEx", modifier = "modifier_ability_thdots_nitoriEx_talent6" }},
+    special_bonus_unique_parsee_4 = {{ ability = "ability_thdots_parseeEx", modifier = "modifier_ability_thdots_parseeEx_talent1" }},
+    special_bonus_unique_parsee_5 = {{ ability = "ability_thdots_parseeEx", modifier = "modifier_ability_thdots_parseeEx_talent2" }},
+    special_bonus_unique_Reisen_2_ability2_add_const = {{ ability = "ability_thdots_reisen_2_04", modifier = "modifier_ability_thdots_reisen2_04_telent_1" }},
+    special_bonus_unique_remilia_1 = {{ ability = "ability_thdots_remilia01", modifier = "modifier_ability_thdots_remilia_talent_1" }},
+    special_bonus_unique_sagume_5 = {{ ability = "ability_thdots_sagume_Ex", modifier = "modifier_ability_sagume_telent5" }},
+    special_bonus_unique_sagume_6 = {{ ability = "ability_thdots_sagume_Ex", modifier = "modifier_ability_sagume_telent6" }},
+    special_bonus_unique_seiga_2 = {{ ability = "ability_thdots_seigaEx", modifier = "modifier_ability_thdots_seigaEx_telent_2", stack = true }},
+    special_bonus_unique_seiga_3 = {{ ability = "ability_thdots_seigaEx", modifier = "modifier_ability_thdots_seigaEx_telent_3", stack = true }},
+    special_bonus_unique_seiga_6 = {{ ability = "ability_thdots_seigaEx", modifier = "modifier_ability_thdots_seigaEx_telent_6", stack = true }},
+    special_bonus_unique_sumireko_1 = {{ ability = "ability_thdots_sumirekoEx", modifier = "modifier_ability_thdots_sumirekoEx_talent_1" }},
+    special_bonus_unique_sumireko_4 = {{ ability = "ability_thdots_sumirekoEx", modifier = "modifier_ability_thdots_sumirekoEx_talent_2" }},
+    special_bonus_unique_tojiko_1 = {{ ability = "ability_thdots_tojikoEx", modifier = "modifier_ability_thdots_tojikoEx_telent_1", stack = true }},
+    special_bonus_unique_tojiko_4 = {{ ability = "ability_thdots_tojikoEx", modifier = "modifier_ability_thdots_tojikoEx_telent_4", stack = true }},
+    special_bonus_unique_yorihime_1 = {{ ability = "ability_thdots_yorihime_Ex", modifier = "ability_thdots_yorihime_talent_1" }},
+}
+
+function THD2_ApplyTalentModifier(hero, talentName, entry)
+    if not hero or hero:IsNull() or not talentName or not entry then return false end
+    local talentValue = FindTelentValue(hero, talentName)
+    if talentValue == 0 then return false end
+    if hero:HasModifier(entry.modifier) then return true end
+
+    local sourceAbility = hero:FindAbilityByName(entry.ability)
+    if not sourceAbility then return false end
+
+    local modifier = hero:AddNewModifier(hero, sourceAbility, entry.modifier, {})
+    if modifier and entry.stack then
+        modifier:SetStackCount(FindTelentValue(hero, entry.stackTalent or talentName))
+    end
+    return modifier ~= nil
+end
+
+function THD2_OnAbilityLearned(hero, ability)
+    if not hero or hero:IsNull() or not ability then return end
+    local abilityName = ability
+    if type(ability) ~= "string" then
+        if ability:IsNull() then return end
+        abilityName = ability:GetAbilityName()
+    end
+
+    local entries = THD2_TALENT_MODIFIER_REGISTRY[abilityName]
+    if not entries then return end
+    for _, entry in pairs(entries) do
+        THD2_ApplyTalentModifier(hero, abilityName, entry)
+    end
+end
+
+function THD2_RefreshTalentModifiers(hero, sourceAbilityName)
+    if not hero or hero:IsNull() then return true end
+    local allApplied = true
+    for talentName, entries in pairs(THD2_TALENT_MODIFIER_REGISTRY) do
+        for _, entry in pairs(entries) do
+            if not sourceAbilityName or entry.ability == sourceAbilityName then
+                if FindTelentValue(hero, talentName) ~= 0 and not THD2_ApplyTalentModifier(hero, talentName, entry) then
+                    allApplied = false
+                end
+            end
+        end
+    end
+    return allApplied
+end
+
 function FindValueTHD(name,ability)
 
     if ability == nil then

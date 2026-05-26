@@ -505,6 +505,23 @@ end
 --------------------------------------------------------
 ability_thdots_letty03 = {}
 
+local function Letty03_IsSearingSignetDamage(keys, caster)
+	local inflictor_name = nil
+	if keys.inflictor ~= nil and keys.inflictor.GetAbilityName ~= nil then
+		inflictor_name = keys.inflictor:GetAbilityName()
+	elseif keys.inflictor ~= nil and keys.inflictor.GetName ~= nil then
+		inflictor_name = keys.inflictor:GetName()
+	end
+	if inflictor_name == "item_searing_signet" or inflictor_name == "modifier_item_searing_signet_burn" then
+		return true
+	end
+	return keys.inflictor == nil
+		and keys.unit ~= nil
+		and keys.unit:HasModifier("modifier_item_searing_signet_burn")
+		and keys.attacker == caster
+		and keys.damage_type == DAMAGE_TYPE_MAGICAL
+end
+
 function ability_thdots_letty03:GetIntrinsicModifierName()
 	return "modifier_ability_thdots_letty03"
 end
@@ -536,7 +553,8 @@ function modifier_ability_thdots_letty03:OnTakeDamage(keys)
 	if not IsServer() then return end
 	local caster = self:GetParent()
 	if keys.attacker:GetTeam() == keys.unit:GetTeam() or caster.Poison == true then caster.Poison = false return end
-	if keys.attacker == self:GetParent() and keys.damage_type == DAMAGE_TYPE_MAGICAL and self:GetStackCount() == 0 then
+	if Letty03_IsSearingSignetDamage(keys, caster) then return end
+	if keys.attacker == caster and keys.damage_type == DAMAGE_TYPE_MAGICAL and self:GetStackCount() == 0 then
 		local duration = self:GetAbility():GetSpecialValueFor("duration")
 		local damage = self:GetAbility():GetSpecialValueFor("damage_perdamage")
 		local count_limit = self:GetAbility():GetSpecialValueFor("count_limit") + FindTelentValue(self:GetCaster(),"special_bonus_unique_letty_7")

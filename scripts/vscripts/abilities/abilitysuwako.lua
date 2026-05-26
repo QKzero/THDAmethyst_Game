@@ -93,13 +93,11 @@ function suwako01soundeffect(keys)
     local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_ursa/ursa_earthshock.vpcf",
         PATTACH_ABSORIGIN_FOLLOW, caster)
     ParticleManager:SetParticleControl(particle, 1, Vector(radius, radius, radius))
-    ParticleManager:ReleaseParticleIndex(particle)
     ParticleManager:DestroyParticleSystem(particle, false)
 
     local particle_demo = ParticleManager:CreateParticle("particles/heroes/seija/seija04.vpcf",
         PATTACH_ABSORIGIN_FOLLOW, caster)
     ParticleManager:SetParticleControl(particle_demo, 2, Vector(radius, radius, radius))
-    ParticleManager:ReleaseParticleIndex(particle_demo)
     caster:EmitSound("suwako01effectvoice_" .. math.random(1, 3))
     ParticleManager:DestroyParticleSystem(particle_demo, false)
 end
@@ -153,7 +151,6 @@ function OnSuwako02SpellStart(keys)
     caster:SetModelScale(4)
     -- caster:SetModel(model)	
     caster:EmitSound("suwako02_1")
-    print(FindTelentValue(caster, "special_bonus_unique_suwako_7"))
     local ability_duration = keys.ability:GetSpecialValueFor("ability_duration")
     local suwako02_modifier = caster:AddNewModifier(caster, keys.ability, "modifier_ability_thdots_suwako02_telent", {
         duration = ability_duration
@@ -239,13 +236,14 @@ function suwako02damage(keys)
     local suwako02dealdamage = ((caster:GetIntellect(false) * intscale) + ability:GetAbilityDamage()) * intervals
     -- ApplyDamage({victim = target, attacker = caster, damage = ((caster:GetIntellect(false)*0.5) +  ability:GetAbilityDamage())*0.5, damage_type = keys.ability:GetAbilityDamageType()})
 
-    caster:EmitSound("suwako_02")
-
-    local effectIndex = ParticleManager:CreateParticle("particles/econ/events/ti7/shivas_guard_impact_ti7.vpcf",
-        PATTACH_CUSTOMORIGIN, caster)
-    ParticleManager:SetParticleControl(effectIndex, 0, target:GetOrigin())
-    ParticleManager:SetParticleControl(effectIndex, 1, target:GetOrigin())
-    ParticleManager:DestroyParticleSystemTime(effectIndex, 1)
+    if target:IsHero() then
+        caster:EmitSound("suwako_02")
+        local effectIndex = ParticleManager:CreateParticle("particles/econ/events/ti7/shivas_guard_impact_ti7.vpcf",
+            PATTACH_CUSTOMORIGIN, caster)
+        ParticleManager:SetParticleControl(effectIndex, 0, target:GetOrigin())
+        ParticleManager:SetParticleControl(effectIndex, 1, target:GetOrigin())
+        ParticleManager:DestroyParticleSystemTime(effectIndex, 1)
+    end
 
     local suwakoslowduration = 0
     if caster:HasModifier("modifier_suwako02_change") then
@@ -448,7 +446,6 @@ function OnSuwako03DealDamage(keys)
     local caster = keys.caster
     local dmg = keys.DealDamage
     local returnmana = keys.Manareturn
-    print(dmg)
     local getmana = dmg * returnmana * 0.01
     caster:GiveMana(getmana)
 end
@@ -459,8 +456,6 @@ function OnSuwako03TakeDamage(keys)
     local ability = keys.ability
     local attacker = keys.attacker
     local damagetaken = keys.DamageTaken
-    print(damagetaken)
-    -- print(damagetaken)
     local reduction = ability:GetLevelSpecialValueFor("damage_reduction", ability:GetLevel() - 1)
     local positivereduction = reduction * (-1)
     local rawdamage = (damagetaken * 100) / positivereduction
@@ -501,7 +496,55 @@ function suwako03toggleoff(keys)
 end
 
 
--- 技能升级时添加永久被动修饰器
+-- 5技能永久被动：用 Lua modifier 监听攻击，避免 KV 定时轮询
+modifier_suwako05_passive = class({})
+LinkLuaModifier("modifier_suwako05_passive", "scripts/vscripts/abilities/abilitysuwako.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_suwako05_passive:IsHidden() return true end
+function modifier_suwako05_passive:IsPurgable() return false end
+function modifier_suwako05_passive:IsDebuff() return false end
+function modifier_suwako05_passive:RemoveOnDeath() return false end
+
+function modifier_suwako05_passive:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED,
+        MODIFIER_PROPERTY_ATTACK_RANGE_BONUS
+    }
+end
+
+function modifier_suwako05_passive:GetModifierAttackRangeBonus()
+    local ability = self:GetAbility()
+    if not ability then return 0 end
+    -- 自动施法开启且技能可用时，提供原本的额外攻击距离
+    if ability:GetAutoCastState() and ability:IsCooldownReady() then
+        return 600
+    end
+    return 0
+end
+
+function modifier_suwako05_passive:OnAttackLanded(keys)
+    if not IsServer() then return end
+    local caster = self:GetParent()
+    if keys.attacker ~= caster then return end
+
+    local target = keys.target
+    local ability = self:GetAbility()
+    if not target or not ability or ability:IsNull() then return end
+    -- 命中时再检查自动施法和冷却，保持原自动触发条件
+    if not ability:GetAutoCastState() or not ability:IsCooldownReady() then return end
+
+    local manaCost = ability:GetManaCost(ability:GetLevel() - 1)
+    if caster:GetMana() < manaCost then return end
+
+    caster:SpendMana(manaCost, ability)
+    CastSuwako05AtLocation(caster, ability, target:GetOrigin())
+
+    if not caster:HasModifier("modifier_item_aghanims_shard") then
+        -- 无魔晶时沿用脚本冷却；魔晶时不启动冷却
+        ability:StartCooldown(2.2)
+    end
+end
+
 function ApplySuwako05Passive(keys)
     local caster = keys.caster
     local ability = keys.ability
@@ -583,7 +626,9 @@ function OnsuwakoexSpellStart2(keys)
 end
 
 -- 攻击命中回调（自动施法触发）
-function Suwako05OnAttackLanded(keys)
+--[[
+-- 旧版5技能被动：已由 modifier_suwako05_passive 接管，保留注释仅作对照
+function Suwako05OnAttackLanded_Deprecated(keys)
     local caster = keys.attacker
     local target = keys.target
     if not caster or not target then return end
@@ -591,7 +636,7 @@ function Suwako05OnAttackLanded(keys)
     local ability = caster:FindAbilityByName("ability_thdots_suwako05")
     if not ability then return end
 
-    if ability:GetAutoCastState() then
+    if ability:GetAutoCastState() and ability:IsCooldownReady() then
         local manaCost = ability:GetManaCost(ability:GetLevel() - 1)
         if caster:GetMana() >= manaCost then
             caster:SpendMana(manaCost, ability)
@@ -608,18 +653,18 @@ function Suwako05OnAttackLanded(keys)
 end
 
 -- 定时检查自动施法状态和技能冷却，动态控制攻击距离加成
-function Suwako05PassiveThink(keys)
+function Suwako05PassiveThink_Deprecated(keys)
     local caster = keys.caster
     local ability = keys.ability
     if not caster or not ability then return end
 
     local autoCast = ability:GetAutoCastState()
     local cooldownReady = ability:IsCooldownReady()   -- 技能冷却是否就绪（魔晶后始终为真）
-    local rangeMod = caster:FindModifierByName("modifier_suwako05_attack_range")
+    local rangeMod = caster:FindModifierByName("modifier_suwako05_attack_range_deprecated")
 
     if autoCast and cooldownReady then
         if not rangeMod then
-            ability:ApplyDataDrivenModifier(caster, caster, "modifier_suwako05_attack_range", {})
+            ability:ApplyDataDrivenModifier(caster, caster, "modifier_suwako05_attack_range_deprecated", {})
         end
     else
         if rangeMod then
@@ -627,6 +672,7 @@ function Suwako05PassiveThink(keys)
         end
     end
 end
+]]
 
 
 
@@ -804,7 +850,6 @@ function modifier_suwako_aghs_shield:OnDestroy()
         ApplyHealWithAmplification(parent, caster, base_heal, ability)
     end
 	
-	ParticleManager:CreateParticle("particles/thd2/items/item_qijizhixing.vpcf", PATTACH_ABSORIGIN_FOLLOW, v)
 end
 
 

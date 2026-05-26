@@ -42,23 +42,109 @@ function Nazrin01Horizontal(keys)
 	end
 
 end
+local NAZRIN03_COMBO_INTERVAL = 0.2
+local NAZRIN03_COMBO_PENDING_TIMEOUT = 1.5
 
+modifier_ability_nazrin03_combo = {}
+LinkLuaModifier("modifier_ability_nazrin03_combo", "scripts/vscripts/abilities/abilitynazrin.lua", LUA_MODIFIER_MOTION_NONE)
+function modifier_ability_nazrin03_combo:IsHidden() return true end
+function modifier_ability_nazrin03_combo:IsDebuff() return false end
+function modifier_ability_nazrin03_combo:IsPurgable() return false end
+function modifier_ability_nazrin03_combo:RemoveOnDeath() return true end
 
+function modifier_ability_nazrin03_combo:OnCreated(params)
+	if not IsServer() then return end
+	self.target_entindex = params and tonumber(params.target_entindex) or nil
+	self.combo_pending = false
+	self.pending_expire_time = 0
+	self:StartIntervalThink(NAZRIN03_COMBO_INTERVAL)
+end
 
+function modifier_ability_nazrin03_combo:OnRefresh(params)
+	if not IsServer() then return end
+	if params and params.target_entindex then
+		self.target_entindex = tonumber(params.target_entindex)
+	end
+end
+
+function modifier_ability_nazrin03_combo:OnDestroy()
+	if not IsServer() then return end
+	self:GetParent().nazrin03_comboing = false
+end
+
+function modifier_ability_nazrin03_combo:DeclareFunctions()
+	return {
+		MODIFIER_EVENT_ON_ATTACK_LANDED,
+	}
+end
+
+function modifier_ability_nazrin03_combo:PlayComboAttackGesture()
+	local caster = self:GetParent()
+	-- 连击发生在上一次普攻后，先清掉未结束的攻击动作再重播一次攻击动作。
+	caster:RemoveGesture(ACT_DOTA_ATTACK)
+	caster:RemoveGesture(ACT_DOTA_ATTACK2)
+	caster:StartGestureWithPlaybackRate(ACT_DOTA_ATTACK, 1.5)
+end
+
+function modifier_ability_nazrin03_combo:OnIntervalThink()
+	if not IsServer() then return end
+	local caster = self:GetParent()
+	if not caster or caster:IsNull() or not caster:IsAlive() then
+		if caster and not caster:IsNull() then
+			caster:RemoveModifierByName("modifier_ability_nazrin03_combo")
+		end
+		return
+	end
+
+	if self.combo_pending then
+		if GameRules:GetGameTime() >= self.pending_expire_time then
+			self.combo_pending = false
+			caster.nazrin03_comboing = false
+			caster:RemoveModifierByName("modifier_ability_nazrin03_combo")
+		end
+		return
+	end
+
+	local target = nil
+	if self.target_entindex then
+		target = EntIndexToHScript(self.target_entindex)
+	end
+	if not target or target:IsNull() or not target:IsAlive() then
+		caster:RemoveModifierByName("modifier_ability_nazrin03_combo")
+		return
+	end
+
+	self.combo_pending = true
+	self.pending_expire_time = GameRules:GetGameTime() + NAZRIN03_COMBO_PENDING_TIMEOUT
+	caster.nazrin03_comboing = true
+	caster:PerformAttack(target, false, true, true, true, true, false, false)
+	self:PlayComboAttackGesture()
+end
+
+function modifier_ability_nazrin03_combo:OnAttackLanded(keys)
+	if not IsServer() then return end
+	local caster = self:GetParent()
+	if keys.attacker ~= caster then return end
+	if not self.combo_pending then return end
+	if self.target_entindex and keys.target and not keys.target:IsNull() and keys.target:entindex() ~= self.target_entindex then return end
+	caster.nazrin03_comboing = false
+	caster:RemoveModifierByName("modifier_ability_nazrin03_combo")
+end
 
 function OnNazrin03Attacklanded(keys)
 
 
 	local caster = keys.caster
-	local target = keys.caster	
+	local target = keys.target
 	local ability = keys.ability
+	if caster.nazrin03_comboing then return end
+	if caster:HasModifier("modifier_ability_nazrin03_combo") then return end
+	if target == nil or target:IsNull() or not target:IsAlive() then return end
 	
 	local totalchance = keys.basechance
 	
 	if RollPercentage(totalchance) then	
-
-	ability:ApplyDataDrivenModifier(caster, caster, "passive_nazrin03_attack_double", {})
-	--caster:PerformAttack(target,true,false,true,false,true,false,true)
+		caster:AddNewModifier(caster, ability, "modifier_ability_nazrin03_combo", {target_entindex = target:entindex()})
 	end
 end
 
@@ -216,7 +302,11 @@ end
 
 function modifier_ability_thdots_nazrin02_effect:OnDestroy()
 	if not IsServer() then return end
-	ParticleManager:DestroyParticle(self.effect,true)
+	if self.effect then
+		ParticleManager:DestroyParticle(self.effect,true)
+		ParticleManager:ReleaseParticleIndex(self.effect)
+		self.effect = nil
+	end
 end
 
 function OnNazrin02spellstart(keys)
@@ -323,17 +413,8 @@ end
 
 function modifier_nazrin04_track:OnCreated(keys)
 	if not IsServer() then return end
-	
-	local ability = self:GetAbility()
-	local target = self:GetParent()
-	local caster = self:GetCaster()
-	
+
 	self.group = {}
-	local bonus_gold = ability:GetSpecialValueFor("bonus_gold")
-	
-	print("totalgoldtoget=="..bonus_gold)
-	
-	
 end
 
 function modifier_nazrin04_track:OnRefresh(keys)
@@ -404,23 +485,15 @@ function modifier_nazrin04_track:OnRemoved(keys)
 		return
 	
 	end
-	print(target:GetTimeUntilRespawn())
 	if not target:IsRealHero() then 
-		print("11111")
 		return end
 	--判断是否有盾
 	target:SetContextThink("HasAegis",
 		function()
 			if target:GetTimeUntilRespawn() > 5 then
-				print(target:GetTimeUntilRespawn())
-				print("no aeigs")
-
-				print("Nazrin04Start")
-				print(PlayerResource:GetNetWorth(caster:GetPlayerOwnerID()))
 				EmitGlobalSound("Nazrin04_4")	
 				local bonus_gold = ability:GetSpecialValueFor("bonus_gold")
 				
-				print("totalgoldtoget=="..bonus_gold)
 				for _,v in pairs(self.group) do
 					if v ~= caster then
 						local PlayerID = v:GetPlayerOwnerID()
@@ -443,7 +516,6 @@ function modifier_nazrin04_track:OnRemoved(keys)
 
 				local PlayerID = caster:GetPlayerOwnerID()
 				PlayerResource:SetGold(PlayerID,PlayerResource:GetUnreliableGold(PlayerID) + bonus_gold,false)
-				print(PlayerResource:GetNetWorth(caster:GetPlayerOwnerID()))
 
 			end
 		end
@@ -487,42 +559,22 @@ function modifier_ability_thdots_nazrinEx:IsDebuff()		return false end
 function modifier_ability_thdots_nazrinEx:OnCreated()
 	if not IsServer() then return end
 	self.caster = self:GetCaster()
-	self.caster:SetContextThink("nazrinEx",
-		function()
-		local team = FindUnitsInRadius(self.caster:GetTeam(),self.caster:GetOrigin(),nil,99999,self:GetAbility():GetAbilityTargetTeam(),
-									self:GetAbility():GetAbilityTargetType(),0,0,false)
-		print("#team is:",#team)
-			if #team > 0 then
-				for _,v in pairs(team) do
-					if v:IsRealHero() then
-						v:AddNewModifier(self.caster, self:GetAbility(), "modifier_ability_thdots_nazrinEx_gold", {})
-					end
-				end
-			end
-		end
-	,10)
-end
-
-modifier_ability_thdots_nazrinEx_gold = {}
-LinkLuaModifier("modifier_ability_thdots_nazrinEx_gold","scripts/vscripts/abilities/abilitynazrin.lua",LUA_MODIFIER_MOTION_NONE)
-function modifier_ability_thdots_nazrinEx_gold:IsHidden() 		return false end
-function modifier_ability_thdots_nazrinEx_gold:IsPurgable()		return false end
-function modifier_ability_thdots_nazrinEx_gold:RemoveOnDeath() 	return false end
-function modifier_ability_thdots_nazrinEx_gold:IsDebuff()		return false end
-
-function modifier_ability_thdots_nazrinEx_gold:OnCreated()
-	if not IsServer() then return end
 	self.give_gold_amount 			= self:GetAbility():GetSpecialValueFor("give_gold_amount")
 	self.give_gold_interval 		= self:GetAbility():GetSpecialValueFor("give_gold_interval")
 	self:StartIntervalThink(self.give_gold_interval)
 end
 
-function modifier_ability_thdots_nazrinEx_gold:OnIntervalThink()
+function modifier_ability_thdots_nazrinEx:OnIntervalThink()
 	if not IsServer() then return end
-	local Caster = self:GetParent()
-	local CasterPlayerID = Caster:GetPlayerOwnerID()
 	if GameRules:GetDOTATime(false, false) == 0 then return end
-	PlayerResource:SetGold(CasterPlayerID,PlayerResource:GetUnreliableGold(CasterPlayerID) + self.give_gold_amount,false)
+
+	local heroes = HeroList:GetAllHeroes()
+	for _,v in pairs(heroes) do
+		if v:IsRealHero() and v:GetTeamNumber() == self.caster:GetTeamNumber() then
+			local playerID = v:GetPlayerOwnerID()
+			PlayerResource:SetGold(playerID, PlayerResource:GetUnreliableGold(playerID) + self.give_gold_amount, false)
+		end
+	end
 end
 
 function ability_thdotsr_NazrinEx:OnSpellStart()

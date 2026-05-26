@@ -37,7 +37,8 @@
 
 	"ability_thdots_tensi03"
 	{
-		"BaseClass"	"ability_datadriven"
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityTensi.lua"
 		"AbilityTextureName"	"custom/ability_thdots_tensi03"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"MaxLevel"	"4"
@@ -67,73 +68,6 @@
 			"duration"	"10.0"
 			"bonus_attackspeed"	"2 3 4 5"
 			"max_stack_count"	"20"
-		}
-		"OnSpellStart"
-		{			
-			"ApplyModifier"
-			{
-				"Target"	"CASTER"
-				"ModifierName"	"active_tensi03_attacked"
-			}
-				
-		}
-		"Modifiers"
-		{
-			"passive_tensi03_attacked"
-			{
-				"Passive"	"1"
-				"OnAttacked"
-				{
-					"RunScript"
-					{
-						"Target"	"TARGET"
-						"BounsHealth"	"%bonus_health"
-						"BounsMana"	"%bonus_mana"
-						"ScriptFile"	"scripts/vscripts/abilities/abilityTensi.lua"
-						"Function"	"OnTensi03Passive"
-					}
-				}
-			}
-			"active_tensi03_attacked"
-			{	
-
-				"EffectName"		"particles/units/heroes/hero_demonartist/demonartist_spiritwalk_buff_start_rope.vpcf"
-				"EffectAttachType"	"follow_origin"
-				"Duration"	"%duration"
-				"OnTakeDamage"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/abilityTensi.lua"
-						"Function"	"OnTensi03SpellStart"
-						"MaxStackCount"		"%max_stack_count"
-					}
-				}
-			}
-			"modifier_tensi03_bonus_attackspeed"
-			{
-				"IsBuff"	"1"
-				"Duration"	"%duration"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed"
-				}
-			}
-			"modifier_thdotstensi_wanbaochui_check"
-			{
-				"Passive"	"1"
-				"IsHidden"			"1"
-				"RemoveOnDeath"	"0"
-				"ThinkInterval"	"1"
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/abilityTensi.lua"
-						"Function"	"Tensiwanbaochuicheck"
-					}
-				}
-			}	
 		}
 	}
 

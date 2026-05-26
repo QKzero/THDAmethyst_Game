@@ -457,6 +457,10 @@ end
 
 --技能3
 
+local REISEN2_03_READY_ATTACK_TIMEOUT = 1.5
+local REISEN2_03_READY_ATTACK_GESTURE_RATE = 7.0
+local REISEN2_03_READY_ATTACK_GESTURE_TIMEOUT = 0.25
+
 ability_thdots_reisen_2_03=class({})
 
 --被动技能链接modifier
@@ -477,6 +481,7 @@ function modifier_ability_thdots_reisen2_03:IsDebuff()      return false end
 --modifier 修改列表
 function modifier_ability_thdots_reisen2_03:DeclareFunctions()
     local funcs = {
+        MODIFIER_EVENT_ON_ATTACK_START,
         MODIFIER_EVENT_ON_ATTACKED,
         MODIFIER_EVENT_ON_ATTACK_LANDED,
         MODIFIER_EVENT_ON_MODIFIER_ADDED,
@@ -496,6 +501,22 @@ function modifier_ability_thdots_reisen2_03:OnCreated()
     self:SetStackCount(self.count)
     --计时
     self:StartIntervalThink(1)
+end
+
+function modifier_ability_thdots_reisen2_03:StopSpecialAttackGesture()
+    local caster = self:GetParent()
+    if not caster.reisen2_03_special_gesture_active then return end
+    caster:RemoveGesture(ACT_DOTA_ATTACK)
+    caster:RemoveGesture(ACT_DOTA_ATTACK2)
+    caster.reisen2_03_special_gesture_active = false
+end
+
+function modifier_ability_thdots_reisen2_03:OnAttackStart(keys)
+    if not IsServer() then return end
+    local caster = self:GetParent()
+    if keys.attacker ~= caster then return end
+    if caster.reisen2_03_ready_attacking then return end
+    self:StopSpecialAttackGesture()
 end
 
 function modifier_ability_thdots_reisen2_03:OnAttacked(keys)
@@ -532,6 +553,14 @@ function modifier_ability_thdots_reisen2_03:OnAttackLanded(keys)
     --如果攻击是施法者
 
     if keys.attacker==self:GetParent() and not keys.attacker:HasModifier("modifier_illusion") then
+        -- ready 特殊攻击本身不计入下一轮充能。
+        local skip_count = self.caster.reisen2_03_skip_count_record ~= nil and keys.record == self.caster.reisen2_03_skip_count_record
+        if not skip_count and self.caster.reisen2_03_skip_count_until ~= nil and GameRules:GetGameTime() <= self.caster.reisen2_03_skip_count_until then
+            skip_count = keys.target ~= nil and not keys.target:IsNull() and keys.target:entindex() == self.caster.reisen2_03_skip_count_target
+        end
+        if skip_count then
+            return
+        end
 
         --天赋判定：倍数
         --if self.caster:HasAbility(abilityName) and self.caster:FindAbilityByName(abilityName):GetLevel()>0 then 
@@ -597,8 +626,8 @@ function modifier_ability_thdots_reisen2_03_attack_buff:IsDebuff()      return f
 --modifier 修改列表
 function modifier_ability_thdots_reisen2_03_attack_buff:DeclareFunctions()
     local funcs = {
+        MODIFIER_EVENT_ON_ATTACK_START,
         MODIFIER_EVENT_ON_ATTACK_LANDED,
-        MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
     }
     return funcs
 end
@@ -608,48 +637,117 @@ end
 --最高攻速是攻击间隔决定的
 function modifier_ability_thdots_reisen2_03_attack_buff:GetModifierAttackSpeedBonus_Constant()
     --if not IsServer() then return end
-    return 1000
+    return 0
 end
 
---modifier 事件：攻击成功
+--modifier 事件：ready 特殊攻击
+function modifier_ability_thdots_reisen2_03_attack_buff:StopReadyAttackGesture()
+    local caster = self:GetCaster()
+    -- ready 攻击触发前只清掉原本这次普攻的动作，避免破坏当前攻击记录。
+    caster:RemoveGesture(ACT_DOTA_ATTACK)
+    caster:RemoveGesture(ACT_DOTA_ATTACK2)
+    caster.reisen2_03_special_gesture_active = false
+end
+
+function modifier_ability_thdots_reisen2_03_attack_buff:PlayReadyAttackGesture()
+    local caster = self:GetCaster()
+    -- 特殊攻击按旧实现约 700 攻速的动作速度播放。
+    caster:StartGestureWithPlaybackRate(ACT_DOTA_ATTACK, REISEN2_03_READY_ATTACK_GESTURE_RATE)
+    caster.reisen2_03_special_gesture_active = true
+    caster.reisen2_03_special_gesture_token = (caster.reisen2_03_special_gesture_token or 0) + 1
+    local token = caster.reisen2_03_special_gesture_token
+    caster:SetContextThink("reisen2_03_special_gesture_timeout", function()
+        if caster:IsNull() then return nil end
+        if caster.reisen2_03_special_gesture_token == token then
+            caster.reisen2_03_special_gesture_active = false
+        end
+        return nil
+    end, REISEN2_03_READY_ATTACK_GESTURE_TIMEOUT)
+end
+
+function modifier_ability_thdots_reisen2_03_attack_buff:ClearReadyAttackState(caster)
+    if caster == nil or caster:IsNull() then return end
+    caster.reisen2_03_ready_attacking = false
+    caster.reisen2_03_ready_target = nil
+end
+
+function modifier_ability_thdots_reisen2_03_attack_buff:OnAttackStart(keys)
+    if not IsServer() then return end
+    local caster= self:GetCaster()
+    local enemy= keys.target
+    if keys.attacker ~= caster then return end
+    if caster.reisen2_03_ready_attacking then return end
+    if enemy == nil or enemy:IsNull() or not enemy:IsAlive() then return end
+
+    self:StopReadyAttackGesture()
+    caster.reisen2_03_ready_attacking = true
+    caster.reisen2_03_ready_target = enemy:entindex()
+    caster.reisen2_03_skip_cleave_target = enemy:entindex()
+    caster.reisen2_03_skip_cleave_until = GameRules:GetGameTime() + REISEN2_03_READY_ATTACK_TIMEOUT
+    caster.reisen2_03_ready_attack_token = (caster.reisen2_03_ready_attack_token or 0) + 1
+    local token = caster.reisen2_03_ready_attack_token
+
+    caster:PerformAttack(enemy, false, true, true, true, true, false, false)
+    self:PlayReadyAttackGesture()
+
+    caster:SetContextThink("reisen2_03_ready_attack_timeout", function()
+        if caster:IsNull() then return nil end
+        if caster.reisen2_03_ready_attack_token == token then
+            self:ClearReadyAttackState(caster)
+        end
+        return nil
+    end, REISEN2_03_READY_ATTACK_TIMEOUT)
+end
+
 function modifier_ability_thdots_reisen2_03_attack_buff:OnAttackLanded(keys)
     if not IsServer() then return end
     local caster= self:GetCaster()
     local enemy= keys.target
     local ability= self:GetAbility()
-    --如果攻击者是施法者
-    if keys.attacker==caster then
+    if keys.attacker ~= caster then return end
+    if not caster.reisen2_03_ready_attacking then return end
+    if enemy == nil or enemy:IsNull() then return end
+    if caster.reisen2_03_ready_target and enemy:entindex() ~= caster.reisen2_03_ready_target then return end
 
-        --创造特效
-        local name="particles/units/heroes/hero_void_spirit/astral_step/void_spirit_astral_step_dmg_blood.vpcf"
-        local particle=ParticleManager:CreateParticle(name,PATTACH_RENDERORIGIN_FOLLOW,keys.target)
-        --立马摧毁特效 false 默认消除时间是4秒
-        ParticleManager:DestroyParticle(particle, false)
+    self:ClearReadyAttackState(caster)
 
-        --音效
-        EmitSoundOn("Hero_VoidSpirit.AstralStep.MarkExplosionAOE", caster)
+    local name="particles/units/heroes/hero_void_spirit/astral_step/void_spirit_astral_step_dmg_blood.vpcf"
+    local particle=ParticleManager:CreateParticle(name,PATTACH_RENDERORIGIN_FOLLOW,enemy)
+    ParticleManager:DestroyParticle(particle, false)
+    ParticleManager:ReleaseParticleIndex(particle)
 
-        --计算伤害
-        local total_damage= (ability:GetSpecialValueFor("damage"))+(caster:GetAgility()*ability:GetSpecialValueFor("agility_bonus"))
-        local damage_table=
-        {
-            victim=enemy,
-            attacker=caster,
-            damage          = total_damage,
-            damage_type     = DAMAGE_TYPE_PURE,
-            damage_flags    = DOTA_DAMAGE_FLAG_NONE,
-            ability= self:GetAbility()
-        }
-        if not enemy:IsBuilding() then 
-            UnitDamageTarget(damage_table)
-            --治疗
-            local heal=total_damage*(ability:GetSpecialValueFor("heal_percent")/100)
-            caster:Heal(heal,caster)
-            SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, caster, heal, nil)
-        end
-        --消除modifier
-        caster:RemoveModifierByName("modifier_ability_thdots_reisen2_03_attack_buff")
+    EmitSoundOn("Hero_VoidSpirit.AstralStep.MarkExplosionAOE", caster)
+
+    local total_damage= (ability:GetSpecialValueFor("damage"))+(caster:GetAgility()*ability:GetSpecialValueFor("agility_bonus"))
+    local damage_table=
+    {
+        victim=enemy,
+        attacker=caster,
+        damage          = total_damage,
+        damage_type     = DAMAGE_TYPE_PURE,
+        damage_flags    = DOTA_DAMAGE_FLAG_NONE,
+        ability= self:GetAbility()
+    }
+    if not enemy:IsBuilding() then
+        UnitDamageTarget(damage_table)
+        local heal=total_damage*(ability:GetSpecialValueFor("heal_percent")/100)
+        caster:Heal(heal,caster)
+        SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, caster, heal, nil)
     end
+    -- 标记当前 attack record，避免特殊攻击被 3 技能充能逻辑重复计数。
+    caster.reisen2_03_skip_count_record = keys.record
+    caster.reisen2_03_skip_count_target = enemy:entindex()
+    caster.reisen2_03_skip_count_until = GameRules:GetGameTime() + FrameTime()
+    caster:RemoveModifierByName("modifier_ability_thdots_reisen2_03_attack_buff")
+    caster:SetContextThink("reisen2_03_clear_skip_cleave", function()
+        if caster:IsNull() then return nil end
+        caster.reisen2_03_skip_cleave_target = nil
+        caster.reisen2_03_skip_cleave_until = nil
+        caster.reisen2_03_skip_count_record = nil
+        caster.reisen2_03_skip_count_target = nil
+        caster.reisen2_03_skip_count_until = nil
+        return nil
+    end, FrameTime())
 end
 
 --技能3 end
@@ -684,9 +782,6 @@ function ability_thdots_reisen_2_ultimate:OnSpellStart()
 
     --保存：天赋信息
     local abilityName="special_bonus_unique_Reisen_2_ability4_cooldown_reduce"
-    self.original_attack_time=caster:GetBaseAttackTime()
-    self.Caster=caster
-
     --万宝槌判定：给自己驱散
     -- if caster:HasModifier("modifier_item_wanbaochui") then
     --     caster:Purge(false, true, false, true, false)
@@ -790,12 +885,16 @@ function modifier_ability_thdots_reisen2_ultimate:DeclareFunctions()
         MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
         MODIFIER_EVENT_ON_ATTACK_LANDED
     }
+    local caster = self:GetCaster()
+    local abilityName="special_bonus_unique_Reisen_2_ability4_reduce_attacktime"
+    if caster and caster:HasAbility(abilityName) and caster:FindAbilityByName(abilityName):GetLevel()>0 then
+        table.insert(funcs, MODIFIER_PROPERTY_BASE_ATTACK_TIME_CONSTANT)
+    end
     
     return funcs
 end
 
 function modifier_ability_thdots_reisen2_ultimate:OnCreated()
-    if not IsServer() then return end
 
     --基础信息
     local caster=self:GetCaster()
@@ -803,8 +902,10 @@ function modifier_ability_thdots_reisen2_ultimate:OnCreated()
 
     --天赋判定：减少攻击间隔
     if caster:HasAbility(abilityName) and caster:FindAbilityByName(abilityName):GetLevel()>0 then
-        caster:SetBaseAttackTime(caster:FindAbilityByName(abilityName):GetSpecialValueFor("value"))
+        self.ultimate_base_attack_time = caster:FindAbilityByName(abilityName):GetSpecialValueFor("value")
     end
+
+    if not IsServer() then return end
 
     --持续时间信息
     self.buff_duration=self:GetAbility():GetSpecialValueFor("duration")
@@ -818,8 +919,6 @@ function modifier_ability_thdots_reisen2_ultimate:OnDestroy()
     --print("Called Destroy")
 
     --重置攻击间隔
-    self:GetAbility().Caster:SetBaseAttackTime(self:GetAbility().original_attack_time)
-
     --删除特效
     for i=1, #self:GetAbility().particles do
         ParticleManager:DestroyParticle(self:GetAbility().particles[i],true)
@@ -873,6 +972,10 @@ end
 function modifier_ability_thdots_reisen2_ultimate:GetModifierAttackSpeedBonus_Constant()
     --if not IsServer() then return end
     return self:GetAbility():GetSpecialValueFor("attack_speed")
+end
+
+function modifier_ability_thdots_reisen2_ultimate:GetModifierBaseAttackTimeConstant()
+    return self.ultimate_base_attack_time
 end
 
 modifier_ability_thdots_reisen2_ultimate_dealy=class({})
@@ -949,8 +1052,9 @@ function modifier_ability_thdots_reisen2_04:DeclareFunctions()
 end
 
 function modifier_ability_thdots_reisen2_04:OnCreated()
-    if not IsServer() then end
-    self:StartIntervalThink(FrameTime())
+    if not IsServer() then return end
+    THD2_RefreshTalentModifiers(self:GetCaster(), "ability_thdots_reisen_2_04")
+    self:StartIntervalThink(0.5)
     --武器特效
     local reisen2_weapon = ParticleManager:CreateParticle("particles/econ/items/phantom_lancer/phantom_lancer_sunwarrior/pl_sw_lance.vpcf", PATTACH_POINT_FOLLOW,self:GetCaster())
     ParticleManager:SetParticleControlEnt(reisen2_weapon,0,self:GetCaster(),PATTACH_POINT_FOLLOW,"attach_attack1",Vector(0,0,0),true)
@@ -973,10 +1077,6 @@ function modifier_ability_thdots_reisen2_04:OnIntervalThink()
     elseif caster:GetLevel()>=15 and ability:GetLevel()==3 then
         ability:SetLevel(ability:GetLevel()+1)
     end
-    --天赋监听
-    if FindTelentValue(self:GetCaster(),"special_bonus_unique_Reisen_2_ability2_add_const") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_reisen2_04_telent_1") then
-        self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_reisen2_04_telent_1",{})
-    end
 end
 
 modifier_ability_thdots_reisen2_04_telent_1 = modifier_ability_thdots_reisen2_04_telent_1 or {}  --天赋监听
@@ -988,10 +1088,19 @@ function modifier_ability_thdots_reisen2_04_telent_1:IsDebuff()       return fal
 
 --modifier 事件：攻击成功
 function modifier_ability_thdots_reisen2_04:OnAttackLanded( keys )
-    if not IsServer() then end
+    if not IsServer() then return end
+    local caster = self:GetParent()
+    if keys.attacker == caster
+        and keys.target ~= nil
+        and not keys.target:IsNull()
+        and caster.reisen2_03_skip_cleave_target == keys.target:entindex()
+        and caster.reisen2_03_skip_cleave_until ~= nil
+        and GameRules:GetGameTime() <= caster.reisen2_03_skip_cleave_until then
+        return 0
+    end
     --如果攻击者是 modifier持有者 而且自己不是幻象 执行分裂攻击
     --这个代码是 valve 提供的sven 例子
-    if keys.attacker == self:GetParent() then
+    if keys.attacker == caster then
         self.cleaveDamage= self:GetAbility():GetSpecialValueFor("cleave_damage")
         self.radius=self:GetAbility():GetSpecialValueFor("cleave_range")
         local target = keys.target

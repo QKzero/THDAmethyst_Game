@@ -143,7 +143,8 @@
 
 	"ability_thdots_wriggle04"
 	{
-		"BaseClass"	"ability_datadriven"
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilitywriggle.lua"
 		"AbilityTextureName"	"custom/ability_thdots_wriggle04"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"HasScepterUpgrade"			"1"
@@ -155,105 +156,6 @@
 		{
 			"particle"	"particles/econ/courier/courier_master_chocobo/courier_master_chocobo_ambient_death_b.vpcf"
 			"particle"	"particles/units/heroes/hero_mirana/mirana_moonlight_owner.vpcf"
-		}
-		"Modifiers"
-		{
-			"passive_wriggle04_invisible"
-			{
-				"Passive"	"1"
-				"ThinkInterval"	"0.03"
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"Target"	"CASTER"
-						"ScriptFile"	"scripts/vscripts/abilities/abilityWriggle.lua"
-						"Function"	"OnWriggle04Order"
-					}
-				}
-//				"OnAbilityExecuted"
-//				{
-//					"RunScript"
-//					{
-//						"Target"	"CASTER"
-//						"ScriptFile"	"scripts/vscripts/abilities/abilityWriggle.lua"
-//						"Function"	"OnWriggle04SpellStart"
-//					}
-//				}
-				"OnAttackStart"
-				{
-					"RunScript"
-					{
-						"Target"	"CASTER"
-						"ScriptFile"	"scripts/vscripts/abilities/abilityWriggle.lua"
-						"Function"	"OnWriggle04AttackStart"
-					}
-				}
-			}
-			"modifier_wriggle04_invisible"
-			{
-				"Passive"	"0"
-				"IsHidden"	"1"
-				"EffectName"	"particles/units/heroes/hero_mirana/mirana_moonlight_owner.vpcf"
-				"EffectAttachType"	"attach_hitloc"
-				"States"
-				{
-					"MODIFIER_STATE_INVISIBLE"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-			}
-			"modifier_wriggle04_noinvisible"
-			{
-				"Duration"	"%invisible_interval"
-				"Passive"	"0"
-			}
-			"wriggle_wanbaochui_check"
-			{
-				"Passive"	"1"
-				"ThinkInterval"	"0.1"
-				"IsHidden"	"1"
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"Target"	"CASTER"
-						"ScriptFile"	"scripts/vscripts/abilities/abilityWriggle.lua"
-						"Function"	"wriggle_wanbaochui"
-						"Radius"	"900"
-					}
-				}
-			}
-			"wriggle_wanbaochui_buff"
-			{
-				"IsBuff"	"1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE"	"3"
-					"MODIFIER_PROPERTY_MANA_REGEN_TOTAL_PERCENTAGE"	"3"
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"40"
-				}
-			}
-			"wriggle_wanbaochui_buff_2"
-			{
-				"IsBuff"	"1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE"	"30"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"30"
-				}
-			}
-			"wriggle_talent_modifier_spell_amplify_40"
-			{
-				"IsHidden"			"1"
-				"IsPurgable"		"0"
-				"IsBuff"			"1"
-				"IsDebuff"			"0"
-				"IsStunDebuff"		"0"
-				"RemoveOnDeath"		"0"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE"	"40"
-				}
-			}
 		}
 		"AbilityValues"
 		{

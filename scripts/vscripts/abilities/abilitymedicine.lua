@@ -138,7 +138,7 @@ function modifier_ability_thdots_medicineEx_caster:OnCreated()
     -- ��Ч
     self.parent:EmitSound("Voice_Thdots_Miyako.Abilitymiyako01_Loop")
     local particle_name_1 = "particles/heroes/medicine/medicine_ex4.vpcf"
-    self:StartIntervalThink(FrameTime())
+    THD2_RefreshTalentModifiers(self.caster, "ability_thdots_medicineEx")
     self.medicineEx_particle = ParticleManager:CreateParticle(particle_name_1, PATTACH_CUSTOMORIGIN_FOLLOW, self.caster)
     -- ParticleManager:SetParticleControlEnt(self.medicineEx_particle, 0, self.parent, PATTACH_ROOTBONE_FOLLOW, "attach_hitloc", self.parent:GetAbsOrigin(), true)
     -- ParticleManager:SetParticleControlEnt(self.medicineEx_particle, 1, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", self.parent:GetAbsOrigin(), true)
@@ -147,16 +147,6 @@ end
 function modifier_ability_thdots_medicineEx_caster:OnIntervalThink()
     if not IsServer() then
         return
-    end
-    local caster = self:GetCaster()
-    local ability = self:GetAbility()
-    if FindTelentValue(self:GetCaster(), "special_bonus_unique_medicine_0") ~= 0 and
-        not caster:HasModifier("modifier_ability_thdots_medicine0_talent") then
-        caster:AddNewModifier(caster, ability, "modifier_ability_thdots_medicine0_talent", {})
-    end
-    if FindTelentValue(self:GetCaster(), "special_bonus_unique_medicine_2") ~= 0 and
-        not caster:HasModifier("modifier_ability_thdots_medicine2_talent") then
-        caster:AddNewModifier(caster, ability, "modifier_ability_thdots_medicine2_talent", {})
     end
 end
 

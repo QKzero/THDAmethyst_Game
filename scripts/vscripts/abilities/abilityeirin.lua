@@ -472,20 +472,11 @@ function modifier_ability_thdots_eirinex_passive:IsDebuff()		return false end
 
 function modifier_ability_thdots_eirinex_passive:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(FrameTime())
+	THD2_RefreshTalentModifiers(self:GetCaster(), "ability_thdots_eirinex")
 end
 
 function modifier_ability_thdots_eirinex_passive:OnIntervalThink()
 	if not IsServer() then return end
-	if FindTelentValue(self:GetCaster(), "special_bonus_unique_eirin_4") ~= 0 and not self:GetCaster():HasModifier("modifier_special_bonus_unique_eirin_4") then
-		self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_special_bonus_unique_eirin_4", {})
-	end
-	if FindTelentValue(self:GetCaster(), "special_bonus_unique_eirin_5") ~= 0 and not self:GetCaster():HasModifier("modifier_special_bonus_unique_eirin_5") then
-		self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_special_bonus_unique_eirin_5", {}):SetStackCount(FindTelentValue(self:GetCaster(), "special_bonus_unique_eirin_5"))
-	end
-	if FindTelentValue(self:GetCaster(), "special_bonus_unique_eirin_1") ~= 0 and not self:GetCaster():HasModifier("modifier_special_bonus_unique_eirin_1") then
-		self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_special_bonus_unique_eirin_1", {})
-	end
 end
 
 modifier_special_bonus_unique_eirin_4 = {}
