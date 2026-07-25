@@ -106,8 +106,8 @@ function THD2_GetJFFMode() return cur_jff end
 
 
 --to ban some girls(which is not work done XD)
-cur_bot_heros_size = 43
-tot_bot_heros_size = 67
+cur_bot_heros_size = 46
+tot_bot_heros_size = 68
 G_BOT_USED = 
 {
 	false ,			--红白
@@ -125,7 +125,7 @@ G_BOT_USED =
 	true ,			--西瓜
 	false ,			--虫子
 	false ,			--⑨
-	true ,			--二妹
+	false ,			--二妹
 	false ,			--四季
 	
 	false ,			--衣玖
@@ -142,7 +142,7 @@ G_BOT_USED =
 	
 	true ,			--神妈
 	true ,			--大妹
-	true ,			--狗花
+	false ,			--狗花
 	true ,			--永琳
 	true ,			--紫
 	
@@ -190,6 +190,7 @@ G_BOT_USED =
 	true ,			--紫苑
 	false ,			--女苑
 	false ,			--莉莉白
+	false ,			--帕秋莉
 }
 
 G_Bot_Random_Hero = 
@@ -274,6 +275,7 @@ G_Bot_Random_Hero =
 	"npc_dota_hero_death_prophet",			--紫苑
 	"npc_dota_hero_meepo",					--女苑
 	"npc_dota_hero_leshrac",				--莉莉白
+	"npc_dota_hero_invoker",				--帕秋莉
 }
 
 G_Bots_Ability_Add = {
@@ -294,7 +296,7 @@ G_Bots_Ability_Add = {
 	{1,2,1,2,1,  6,1,2,2,11,  3,6,3,3,13, 3,0,6,0,14,  0,0,0,0,16,  0,10,12,15,17  }, -- suika wait for fix
 	{2,1,2,3,2,  6,2,3,3,11,  3,6,1,1,13, 1,0,6,0,14,  0,0,0,0,17,  0,10,12,15,16  },
 	{3,2,1,3,1,  6,3,1,2,11,  3,6,1,2,13, 2,0,6,0,14,  0,0,0,0,16,  0,10,12,15,17  }, --cirno
-	{1,2,1,2,1,  6,1,2,2,10,  3,6,3,3,13, 3,0,6,0,14,  0,0,0,0,17,  0,11,12,15,16  },
+	{2,1,3,2,2,  6,2,1,1,10,  1,6,3,3,12, 3,0,6,0,15,  0,0,0,0,17,  0,11,13,14,16  }, --flandre
 	{3,2,1,2,2,  6,2,3,1,11,  1,6,1,3,13, 3,0,6,0,14,  0,0,0,0,16,  0,10,12,15,17  }, --shikieiki
 	
 	{3,1,2,3,1,  6,3,1,3,10,  1,6,2,2,12, 2,0,6,0,15,  0,0,0,0,16,  0,11,13,14,17  }, --iku(x)
@@ -312,7 +314,7 @@ G_Bots_Ability_Add = {
 	
 	{1,2,1,2,1,  6,1,2,2,11,  3,6,3,3,13, 3,0,6,0,14,  0,0,0,0,16,  0,10,12,15,17  },
 	{1,2,1,2,1,  6,1,2,2,11,  3,6,3,3,13, 3,0,6,0,14,  0,0,0,0,17,  0,10,12,15,16  },
-	{1,2,1,2,1,  6,1,2,2,11,  3,6,3,3,12, 3,0,6,0,15,  0,0,0,0,17,  0,10,15,14,16  },
+	{1,3,1,2,1,  6,1,3,3,11,  3,6,2,2,12, 2,0,6,0,14,  0,0,0,0,16,  0,10,13,15,17  }, --momiji
 	{1,2,1,2,1,  6,1,2,2,10,  3,6,3,3,13, 3,0,6,0,14,  0,0,0,0,17,  0,11,12,15,16  },
 	{1,2,3,1,1,  6,1,3,3,11,  3,6,2,2,12, 2,0,6,0,15,  0,0,0,0,16,  0,10,15,14,17  },
 	
@@ -364,7 +366,31 @@ G_Bots_Ability_Add = {
 	{2,1,3,1,3,  6,1,3,1,10,  3,6,2,2,13, 2,0,6,0,14,  0,0,0,0,17,  0,11,12,15,16  }, --shion
 	{1,2,3,1,2,  6,1,2,1,10,  2,6,3,3,12, 3,0,6,0,15,  0,0,0,0,16,  0,11,13,14,17  }, --Jyoon
 	{1,3,1,1,3,  6,1,2,3,11,  3,6,2,2,13, 2,0,6,0,15,  0,0,0,0,17,  0,10,12,14,16  }, --lily
+	{0,0,0,0,0,  0,0,0,0,0,   0,0,0,0,0,  0,0,0,0,0,   0,0,0,0,0,   0,0,0,0,0  }, --patchouli: special multi-point plan
 }
+
+-- 帕秋莉在3的倍数等级会获得额外技能点。
+-- 普通单槽加点表无法表达同一级多次升级，因此按实际等级逐级回放。
+local THD2_PATCHOULI_LEVEL_PLAN = {
+	[1] = {4}, [2] = {1}, [3] = {2, 4}, [4] = {2}, [5] = {1}, [6] = {5, 3},
+	[7] = {4}, [8] = {4}, [9] = {4, 5}, [10] = {23}, [11] = {4}, [12] = {2, 5},
+	[13] = {4}, [14] = {2}, [15] = {25, 5}, [16] = {2}, [17] = {5}, [18] = {2, 5},
+	[19] = {2}, [20] = {26}, [21] = {5, 1}, [22] = {1}, [23] = {1}, [24] = {1, 1},
+	[25] = {28}, [26] = {3}, [27] = {22, 3}, [28] = {24},
+	[29] = {27, 3, 3, 3, 3}, [30] = {29},
+}
+
+local function THD2_UpgradeAbilitySlot(hero, abilitySlot)
+	if abilitySlot == nil or abilitySlot <= 0 or abilitySlot > hero:GetAbilityCount() then return end
+	local ability = hero:GetAbilityByIndex(abilitySlot - 1)
+	if ability == nil then return end
+	local oldLevel = ability:GetLevel()
+	local newLevel = math.min(oldLevel + 1, ability:GetMaxLevel())
+	ability:SetLevel(newLevel)
+	if newLevel > oldLevel then
+		THD2_OnAbilityLearned(hero, ability)
+	end
+end
 
 function check_H_name(H_name)
 	for i=1,tot_bot_heros_size do
@@ -398,6 +424,17 @@ function THD2_BotUpGradeAbility(hero)
 		end
 		if G_Bot_Level[v] == nil then
 			G_Bot_Level[v] = 0
+		end
+		if hName == "npc_dota_hero_invoker" then
+			-- 帕秋莉30级时五元素满级且八个天赋全部生效；不复现玩家侧反复补15点。
+			for i = G_Bot_Level[v] + 1, math.min(lvl, 30) do
+				for _, abilitySlot in ipairs(THD2_PATCHOULI_LEVEL_PLAN[i] or {}) do
+					THD2_UpgradeAbilitySlot(hero, abilitySlot)
+				end
+			end
+			G_Bot_Level[v] = lvl
+			hero:SetAbilityPoints(0)
+			return
 		end
 		--print(lvl)
 		for i=G_Bot_Level[v]+1,lvl do
