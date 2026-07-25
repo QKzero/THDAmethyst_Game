@@ -455,19 +455,8 @@ function modifier_suwako05_passive:RemoveOnDeath() return false end
 
 function modifier_suwako05_passive:DeclareFunctions()
     return {
-        MODIFIER_EVENT_ON_ATTACK_LANDED,
-        MODIFIER_PROPERTY_ATTACK_RANGE_BONUS
+        MODIFIER_EVENT_ON_ATTACK_LANDED
     }
-end
-
-function modifier_suwako05_passive:GetModifierAttackRangeBonus()
-    local ability = self:GetAbility()
-    if not ability then return 0 end
-    -- 自动施法开启且技能可用时，提供原本的额外攻击距离
-    if ability:GetAutoCastState() and ability:IsCooldownReady() then
-        return 600
-    end
-    return 0
 end
 
 function modifier_suwako05_passive:OnAttackLanded(keys)
@@ -483,14 +472,12 @@ function modifier_suwako05_passive:OnAttackLanded(keys)
 
     local manaCost = ability:GetManaCost(ability:GetLevel() - 1)
     if caster:GetMana() < manaCost then return end
+    local cooldown = ability:GetSpecialValueFor("cooldown")
 
     caster:SpendMana(manaCost, ability)
     CastSuwako05AtLocation(caster, ability, target:GetOrigin())
 
-    if not caster:HasModifier("modifier_item_aghanims_shard") then
-        -- 无魔晶时沿用脚本冷却；魔晶时不启动冷却
-        ability:StartCooldown(2.2)
-    end
+    ability:StartCooldown(cooldown)
 end
 
 function ApplySuwako05Passive(keys)
@@ -590,27 +577,6 @@ function Suwako05OnAttackLanded_Deprecated(keys)
             CastSuwako05AtLocation(caster, ability, target:GetOrigin())
             -- 处理冷却
             ability:StartCooldown(cooldown)
-        end
-    end
-end
-
--- 定时检查自动施法状态和技能冷却，动态控制攻击距离加成
-function Suwako05PassiveThink_Deprecated(keys)
-    local caster = keys.caster
-    local ability = keys.ability
-    if not caster or not ability then return end
-
-    local autoCast = ability:GetAutoCastState()
-    local cooldownReady = ability:IsCooldownReady()   -- 技能冷却是否就绪（魔晶后始终为真）
-    local rangeMod = caster:FindModifierByName("modifier_suwako05_attack_range_deprecated")
-
-    if autoCast and cooldownReady then
-        if not rangeMod then
-            ability:ApplyDataDrivenModifier(caster, caster, "modifier_suwako05_attack_range_deprecated", {})
-        end
-    else
-        if rangeMod then
-            rangeMod:Destroy()
         end
     end
 end
