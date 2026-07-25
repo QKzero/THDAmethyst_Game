@@ -2,7 +2,7 @@
 {
 	"madstone_limits"
 	{
-		"madstone_no_limit_time"			"24:00"
+		"madstone_no_limit_time"			"22:00"
 	}
 	
 	"neutral_tiers"
