@@ -218,6 +218,7 @@
         "item" "item_esdw"
         "item" "item_sss"
         "item" "item_trinity"
+        "item" "item_wind_waker"
     }
     "sideshop1"
     {
