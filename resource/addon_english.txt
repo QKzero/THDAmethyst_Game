@@ -3617,6 +3617,8 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_patchouli_3"   					    "-5s「Vine Root」cooldown"
 		"DOTA_Tooltip_ability_special_bonus_unique_patchouli_9" 						"+40「Emerald Megalith」DPS"
 		"DOTA_Tooltip_ability_special_bonus_unique_patchouli_10"  					    "+250「Forest Blaze」tree area"
+		"DOTA_Tooltip_ability_special_bonus_unique_patchouli_11"						"Sun Sign 「Royal Flare」"
+		"DOTA_Tooltip_ability_special_bonus_unique_patchouli_11_Description"			"+{s:bonus_sun_damage}% pct damage, +{s:bonus_sun_stun_duration}s stun, +{s:bonus_sun_range} range"
 		//--------------------
 		//koakuma by 「水色绒毯」
 		//--------------------

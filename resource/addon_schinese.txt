@@ -2885,6 +2885,8 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_patchouli_3" 						"-5s「纠缠藤蔓」冷却时间"
 		"DOTA_Tooltip_ability_special_bonus_unique_patchouli_9"							"+40「翡翠巨石」每秒伤害"
 		"DOTA_Tooltip_ability_special_bonus_unique_patchouli_10"						"+250「森林大火」树木判定范围"
+		"DOTA_Tooltip_ability_special_bonus_unique_patchouli_11"						"日符「皇家烈焰」"
+		"DOTA_Tooltip_ability_special_bonus_unique_patchouli_11_Description"			"+{s:bonus_sun_damage}%百分比伤害，+{s:bonus_sun_stun_duration}秒眩晕，+{s:bonus_sun_range}范围"
 
 		// --------------------
 		// Satori
