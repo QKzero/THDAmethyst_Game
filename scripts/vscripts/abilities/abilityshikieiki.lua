@@ -163,7 +163,11 @@ function modifier_thdots_shikieiki1_accusation_slow:DeclareFunctions()
     return funcs
 end
 function modifier_thdots_shikieiki1_accusation_slow:GetModifierMoveSpeedBonus_Percentage()
-	local ability = self:GetCaster():FindAbilityByName("ability_thdots_shikieiki01")
+	local caster = self:GetCaster()
+	if caster == nil or caster.FindAbilityByName == nil then
+		return 0
+	end
+	local ability = caster:FindAbilityByName("ability_thdots_shikieiki01")
 	if not ability or ability:GetLevel()== 0 then
 		return 0
 	else
@@ -178,8 +182,14 @@ function modifier_thdots_shikieiki1_accusation_slow:OnIntervalThink(keys)
 	if not IsServer() then return end
 	local Caster=self:GetCaster()
 	local Target=self:GetParent()
+	if Caster == nil or Target == nil or Caster.FindAbilityByName == nil or Target.FindModifierByNameAndCaster == nil then
+		self:SetStackCount(0)
+		self:StartIntervalThink(-1)
+		return
+	end
+	local ability = Caster:FindAbilityByName("ability_thdots_shikieiki01")
 	local ModifierAccusation=Target:FindModifierByNameAndCaster(MODIFIER_NAME_ACCUSATION,Caster)
-	local level = Caster:FindAbilityByName("ability_thdots_shikieiki01"):GetLevel()
+	local level = ability and ability:GetLevel() or 0
 	if not ModifierAccusation or level == 0 then 
 		self:SetStackCount(0)
 	else

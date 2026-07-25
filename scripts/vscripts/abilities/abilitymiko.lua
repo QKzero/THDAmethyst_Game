@@ -1,3 +1,6 @@
+local MIKO03_COMBO_INTERVAL = 0.2
+local MIKO03_COMBO_PENDING_TIMEOUT = 1.5
+
 ability_thdots_mikoEx = {}
 
 function ability_thdots_mikoEx:GetIntrinsicModifierName()
@@ -96,8 +99,10 @@ function modifier_ability_miko03_passive:OnAttackLanded(keys)
 	if not IsServer() then return end
 	if keys.attacker ~= self:GetCaster() then return end
 	if not self:GetAbility():IsCooldownReady() then return end --检测是否是CD中 CD中无法触发效果
+	if not keys.target or keys.target:IsNull() then return end
+	if not keys.target:IsAlive() then return end
 	if not keys.attacker:HasModifier("modifier_ability_miko03_next") then
-		keys.attacker:AddNewModifier(keys.attacker,self:GetAbility(),"modifier_ability_miko03_next",{})
+		keys.attacker:AddNewModifier(keys.attacker,self:GetAbility(),"modifier_ability_miko03_next",{target_entindex = keys.target:entindex()})
 	end
 end
 
@@ -131,43 +136,102 @@ function modifier_ability_miko03_next:IsDebuff() return false end
 function modifier_ability_miko03_next:IsPurgable() return false end
 function modifier_ability_miko03_next:RemoveOnDeath() return true end
 
-function modifier_ability_miko03_next:OnCreated()
+function modifier_ability_miko03_next:OnCreated(params)
 	if not IsServer() then return end
 	self.attacktimes = self:GetAbility():GetSpecialValueFor("fast_attack_times")
-	self.original_attacktime = self:GetCaster():GetBaseAttackTime()
-	self:GetCaster():SetBaseAttackTime(1.0)
+	self.target_entindex = params and tonumber(params.target_entindex) or nil
+	self.combo_pending = false
+	self.combo_started = false
+	self.pending_expire_time = 0
+	self:StartIntervalThink(MIKO03_COMBO_INTERVAL)
+end
+
+function modifier_ability_miko03_next:OnRefresh(params)
+	if not IsServer() then return end
+	if params and params.target_entindex then
+		self.target_entindex = tonumber(params.target_entindex)
+	end
 end
 
 function modifier_ability_miko03_next:OnRemoved()
 	if not IsServer() then return end
-	self:GetCaster():SetBaseAttackTime(self.original_attacktime)
-	self:GetAbility():StartCooldown(self:GetAbility():GetCooldown(self:GetAbility():GetLevel() - 1))
+	self:StartIntervalThink(-1)
+	if self.combo_started then
+		self:GetAbility():StartCooldown(self:GetAbility():GetCooldown(self:GetAbility():GetLevel() - 1))
+	end
 end
 
 function modifier_ability_miko03_next:DeclareFunctions()
 	return {
-		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
 		MODIFIER_PROPERTY_ATTACK_RANGE_BONUS,
 		MODIFIER_PROPERTY_TRANSLATE_ATTACK_SOUND,
-		MODIFIER_EVENT_ON_ATTACK_START,
 		MODIFIER_EVENT_ON_ATTACK_LANDED,
 	}
 end
 
-function modifier_ability_miko03_next:OnAttackStart(keys)
+function modifier_ability_miko03_next:PlayComboGesture()
+	local caster = self:GetParent()
+	if caster:HasModifier("modifier_miko_immortal") then return end
+	-- PerformAttack 会启动普通攻击动作，这里主动覆盖回原 3 技能连击动作。
+	caster:RemoveGesture(ACT_DOTA_ATTACK)
+	caster:RemoveGesture(ACT_DOTA_ATTACK2)
+	caster:StartGestureWithPlaybackRate(ACT_DOTA_CAST_ABILITY_3, 1.8)
+end
+
+function modifier_ability_miko03_next:OnIntervalThink()
 	if not IsServer() then return end
-	if keys.attacker:HasModifier("modifier_miko_immortal") then return end
-	self:GetCaster():StartGestureWithPlaybackRate(ACT_DOTA_CAST_ABILITY_3,1.8)
+	local caster = self:GetParent()
+	if not caster or caster:IsNull() or not caster:IsAlive() then
+		if caster and not caster:IsNull() then
+			caster:RemoveModifierByName("modifier_ability_miko03_next")
+		end
+		return
+	end
+
+	if self.combo_pending then
+		if GameRules:GetGameTime() >= self.pending_expire_time then
+			self.combo_pending = false
+			if self.attacktimes <= 0 then
+				caster:RemoveModifierByName("modifier_ability_miko03_next")
+			end
+		end
+		return
+	end
+
+	if self.attacktimes <= 0 then
+		caster:RemoveModifierByName("modifier_ability_miko03_next")
+		return
+	end
+
+	local target = nil
+	if self.target_entindex then
+		target = EntIndexToHScript(self.target_entindex)
+	end
+	if not target or target:IsNull() or not target:IsAlive() then
+		caster:RemoveModifierByName("modifier_ability_miko03_next")
+		return
+	end
+
+	self.combo_pending = true
+	self.combo_started = true
+	self.pending_expire_time = GameRules:GetGameTime() + MIKO03_COMBO_PENDING_TIMEOUT
+	self.attacktimes = self.attacktimes - 1
+	caster:PerformAttack(target, false, true, true, true, true, false, false)
+	self:PlayComboGesture()
 end
 
 function modifier_ability_miko03_next:OnAttackLanded(keys)
 	if not IsServer() then return end
 	if keys.attacker ~= self:GetCaster() then return end
+	if not self.combo_pending then return end
 
 	local damage = self:GetAbility():GetSpecialValueFor("damage") 
 	local dmg_type = DAMAGE_TYPE_MAGICAL
 	if keys.attacker:HasModifier("modifier_miko_immortal") then dmg_type = DAMAGE_TYPE_PURE end
 	if not keys.target or keys.target:IsNull() then return end
+	if self.target_entindex and keys.target:entindex() ~= self.target_entindex then return end
+	self.combo_pending = false
+	self.pending_expire_time = 0
 	if keys.target:IsBuilding() then damage = damage * 0.2 end
 	if keys.target:GetTeam() == keys.attacker:GetTeam() then damage = 0 end
 	local damage_table = {
@@ -176,13 +240,9 @@ function modifier_ability_miko03_next:OnAttackLanded(keys)
 		damage = damage,
 		damage_type = dmg_type,
 	}
-	ParticleManager:CreateParticle("particles/thd2/heroes/miko/miko04p.vpcf", PATTACH_ABSORIGIN,keys.target)
+	local effectIndex = ParticleManager:CreateParticle("particles/thd2/heroes/miko/miko04p.vpcf", PATTACH_ABSORIGIN,keys.target)
+	ParticleManager:ReleaseParticleIndex(effectIndex)
 	UnitDamageTarget(damage_table)
-
-	self.attacktimes = self.attacktimes - 1
-	if self.attacktimes == 0 then
-		keys.attacker:RemoveModifierByName("modifier_ability_miko03_next")
-	end
 
 	if keys.target and not keys.target:IsNull() and FindTelentValue(self:GetCaster(),"special_bonus_unique_miko04") ~= 0 then
 		local duration = keys.target:GetModifierStackCount("modifier_ability_miko03_stun", nil) * 0.1
@@ -190,10 +250,9 @@ function modifier_ability_miko03_next:OnAttackLanded(keys)
 		keys.target:AddNewModifier(keys.attacker,self:GetAbility(),"modifier_ability_miko03_stun",{duration = duration})
 		keys.target:SetModifierStackCount("modifier_ability_miko03_stun", self, duration * 10 )
 	end
-end
-
-function modifier_ability_miko03_next:GetModifierAttackSpeedBonus_Constant()
-	return 400
+	if self.attacktimes <= 0 then
+		keys.attacker:RemoveModifierByName("modifier_ability_miko03_next")
+	end
 end
 
 function modifier_ability_miko03_next:GetModifierAttackRangeBonus()

@@ -370,7 +370,7 @@ function modifier_item_card_moon_man:OnCreated()
 	self.parent = self:GetParent()
 	self.ability = self:GetAbility()
 	self.visibility_radius = self.ability:GetSpecialValueFor("visibility_radius")
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.1)
 end
 
 function modifier_item_card_moon_man:OnIntervalThink()
@@ -460,7 +460,7 @@ function modifier_item_card_super_man:OnCreated(keys)
 end
 function modifier_item_card_super_man:OnDestroy()
 	if not IsServer() then return end
-	ParticleManager:DestroyParticle(self.superman_weapon,true)
+	ParticleManager:DestroyParticleSystem(self.superman_weapon, true)
 end
 
 --商店卡片购买程序，由于中立的装备栏无法设置商店个数，所以设置买到物品栏卡自动变成中立掉落卡
@@ -504,10 +504,7 @@ LinkLuaModifier("modifier_item_card_shop","scripts/vscripts/items/item_card",LUA
 
 function modifier_item_card_shop:OnCreated()
 	if not IsServer() then return end
-	print("card-------------------------")
-	print(self:GetAbility():GetName())
-	print(self:GetAbility():GetCurrentCharges())
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.03)
 end
 
 function modifier_item_card_shop:OnIntervalThink()

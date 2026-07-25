@@ -363,7 +363,12 @@ end
 function modifier_thdots_shinki_thinker:OnIntervalThink()
 	if not IsServer() then return end
 	if self:GetStackCount() <= 0 then
+		-- 优化：在所有波次释放完毕后，显式移除宿主 thinker entity，避免泄漏。
+		local thinker = self:GetParent()
 		self:Destroy()
+		if thinker ~= nil and thinker:IsNull() == false then
+			thinker:RemoveSelf()
+		end
 		return
 	else
 		self:SetStackCount(self:GetStackCount() - 1)

@@ -91,7 +91,11 @@ function modifier_ability_thdots_nitori01:OnIntervalThink()
 		end
 		self.caster:SetOrigin(self.caster:GetAbsOrigin() + self.forward*10)
 		self.forward = self.caster:GetForwardVector()
-		AddFOWViewer(self.caster:GetTeamNumber(), self.caster:GetAbsOrigin(), self.caster:GetCurrentVisionRange(), 0.051, false)
+		local now = GameRules:GetGameTime()
+		if self.nextFowViewerTime == nil or now >= self.nextFowViewerTime then
+			self.nextFowViewerTime = now + 0.2
+			THD_AddFOWViewer(self.caster:GetTeamNumber(), self.caster:GetAbsOrigin(), self.caster:GetCurrentVisionRange(), 0.25, false, "nitori01")
+		end
 		-- ParticleManager:SetParticleControl(self.pfx, 0, self.caster:GetAbsOrigin() + self.caster:GetRightVector() * 32 )
 	else
 		self:Destroy()
@@ -622,6 +626,7 @@ function modifier_ability_thdots_nitoriEx:OnCreated()
 	if IsServer() then
 		-- local damage = self:GetCaster():GetAverageTrueAttackDamage(self:GetCaster()) * self:GetAbility():GetSpecialValueFor("spell_bonus")
 		-- print(damage)
+		THD2_RefreshTalentModifiers(self:GetCaster(), "ability_thdots_nitoriEx")
 		self:StartIntervalThink(0.1)
 	end
 end
@@ -629,12 +634,6 @@ end
 function modifier_ability_thdots_nitoriEx:OnIntervalThink()
 	if not IsServer() then return end
 	self:SetStackCount(self:GetCaster():GetAverageTrueAttackDamage(self:GetCaster()) * self:GetAbility():GetSpecialValueFor("spell_bonus"))
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_nitori_6") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_nitoriEx_talent6") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_nitoriEx_talent6",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_nitori_1") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_nitoriEx_talent1") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_nitoriEx_talent1",{})
-	end
 end
 
 function modifier_ability_thdots_nitoriEx:GetModifierBaseAttack_BonusDamage()

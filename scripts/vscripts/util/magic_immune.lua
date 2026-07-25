@@ -21,13 +21,13 @@
 	    dummy:CastAbilityOnTarget(target, BUFF_TARGET, 0 )
 		target:SetContextThink(DoUniqueString('ability_system_magicImmune'),
     	function ()
-    			if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 0.1 end
 		        target:RemoveModifierByName("modifier_system_magicImmune")
 	    	    return nil
 		end,duration)
 		dummy:SetContextThink(DoUniqueString('ability_system_magicImmune_dummy'),
     	function ()
-    			if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 0.1 end
 		        dummy:RemoveSelf()
 	    	    return nil
 		end,duration)

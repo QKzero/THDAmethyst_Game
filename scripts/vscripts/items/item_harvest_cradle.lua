@@ -37,7 +37,7 @@ function modifier_item_harvest_cradle_passive:OnCreated()
 	self.regen_health_perlevel			= self.ability:GetSpecialValueFor("regen_health_perlevel")
 	self.regen_mana_perlevel			= self.ability:GetSpecialValueFor("regen_mana_perlevel")
 	self.duration						= self.ability:GetSpecialValueFor("duration")
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.5)
 end
 
 function modifier_item_harvest_cradle_passive:OnIntervalThink()

@@ -127,7 +127,7 @@ function modifier_ability_thdots_parseeEx_wanbaochui_target:IsDebuff()		return f
 function modifier_ability_thdots_parseeEx_wanbaochui_target:OnCreated()
 	if not IsServer() then return end
 	self.gold = 0
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.1)
 end
 
 function modifier_ability_thdots_parseeEx_wanbaochui_target:OnIntervalThink()
@@ -219,7 +219,8 @@ function modifier_ability_thdots_parseeEx_passive:OnCreated()
 	if not IsServer() then return end
 	self:GetCaster().parseeEx_wanbaochui_target = nil
 	self.gold = 0
-	self:StartIntervalThink(FrameTime())
+	THD2_RefreshTalentModifiers(self:GetCaster(), "ability_thdots_parseeEx")
+	self:StartIntervalThink(0.1)
 end
 
 function modifier_ability_thdots_parseeEx_passive:OnIntervalThink()
@@ -232,12 +233,6 @@ function modifier_ability_thdots_parseeEx_passive:OnIntervalThink()
 		ability:StartCooldown(ability:GetCooldown(ability:GetLevel() - 1))
 	end
 	--天赋监听
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_parsee_4") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_parseeEx_talent1") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_parseeEx_talent1",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_parsee_5") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_parseeEx_talent2") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_parseeEx_talent2",{})
-	end
 	--万宝槌监听
 	if not self:GetCaster():HasModifier("modifier_item_wanbaochui") then
 		self:SetStackCount(0)
@@ -1179,9 +1174,13 @@ function modifier_ability_thdots_parsee04_dummy:OnIntervalThink()
 	ParticleManager:DestroyParticleSystemTime(parsee04_particle_4,0.3)
 
 	--给予视野
-	AddFOWViewer(self.caster:GetTeamNumber(), self.target:GetOrigin(),128,FrameTime(), false)
-	AddFOWViewer(self.target:GetTeamNumber(), self.caster:GetOrigin(),128,FrameTime(), false)
-	AddFOWViewer(self.target:GetTeamNumber(), self.dummy:GetOrigin(),128,FrameTime(), false)
+	local now = GameRules:GetGameTime()
+	if self.nextFowViewerTime == nil or now >= self.nextFowViewerTime then
+		self.nextFowViewerTime = now + 0.2
+		THD_AddFOWViewer(self.caster:GetTeamNumber(), self.target:GetOrigin(),128,0.25, false, "parsee04_target")
+		THD_AddFOWViewer(self.target:GetTeamNumber(), self.caster:GetOrigin(),128,0.25, false, "parsee04_caster")
+		THD_AddFOWViewer(self.target:GetTeamNumber(), self.dummy:GetOrigin(),128,0.25, false, "parsee04_dummy")
+	end
 
 	local targetLoc = self.target:GetOrigin()
 
@@ -1311,9 +1310,13 @@ function modifier_ability_thdots_parsee04_target:OnIntervalThink()
 	if not IsServer() then return end
 	--给予视野
 	if self.dummy:IsNull() then return end
-	AddFOWViewer(self.caster:GetTeamNumber(), self.target:GetOrigin(),128,FrameTime(), false)
-	AddFOWViewer(self.target:GetTeamNumber(), self.caster:GetOrigin(),128,FrameTime(), false)
-	AddFOWViewer(self.target:GetTeamNumber(), self.dummy:GetOrigin(),128,FrameTime(), false)
+	local now = GameRules:GetGameTime()
+	if self.nextFowViewerTime == nil or now >= self.nextFowViewerTime then
+		self.nextFowViewerTime = now + 0.2
+		THD_AddFOWViewer(self.caster:GetTeamNumber(), self.target:GetOrigin(),128,0.25, false, "parsee04_target")
+		THD_AddFOWViewer(self.target:GetTeamNumber(), self.caster:GetOrigin(),128,0.25, false, "parsee04_caster")
+		THD_AddFOWViewer(self.target:GetTeamNumber(), self.dummy:GetOrigin(),128,0.25, false, "parsee04_dummy")
+	end
 
 	local targetLoc = self.target:GetAbsOrigin()
 

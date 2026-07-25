@@ -14,26 +14,8 @@ function modifier_ability_thdots_kisumeEx_passive:IsPurgable()		return false end
 function modifier_ability_thdots_kisumeEx_passive:RemoveOnDeath() 	return false end
 function modifier_ability_thdots_kisumeEx_passive:IsDebuff()		return false end
 function modifier_ability_thdots_kisumeEx_passive:OnCreated()
-	self:SetStackCount(1)
-end
-
-
-function modifier_ability_thdots_kisumeEx_passive:DeclareFunctions()
-	return
-	{
-		MODIFIER_EVENT_ON_ABILITY_FULLY_CAST,
-	}
-end
-
-function modifier_ability_thdots_kisumeEx_passive:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(FrameTime())
-end
-function modifier_ability_thdots_kisumeEx_passive:OnIntervalThink()
-	if not IsServer() then return end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_kisume_1") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_kisumeEx_telent_1") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_kisumeEx_telent_1",{}):SetStackCount(FindTelentValue(self:GetCaster(),"special_bonus_unique_kisume_1"))
-	end
+	THD2_RefreshTalentModifiers(self:GetCaster(), "ability_thdots_kisumeEx")
 end
 
 modifier_ability_thdots_kisumeEx_telent_1 = modifier_ability_thdots_kisumeEx_telent_1 or {}  --天赋监听
@@ -67,10 +49,6 @@ function ability_thdots_kisume01:OnSpellStart()
 	self.stun_radius = self:GetSpecialValueFor("stun_radius")
 	self.cast_range = self:GetSpecialValueFor("cast_range")
 	self.kisumeEx_stun_time = 0
-	print(self.point)
-	print(self.cast_range)
-	print((self:GetCursorPosition() - self.caster:GetOrigin()):Normalized())
-	print(self:GetCursorPosition())
 
 	caster:EmitSound("Voice_Thdots_Kisume.AbilityKisume01")
 
@@ -283,9 +261,6 @@ function modifier_ability_thdots_kisume02_invin:OnDestroy()
 	damage = damage + caster:GetAverageTrueAttackDamage(caster) * damage_bonus
 	self.ability = self:GetAbility()
 	self.caster = caster
-	print("self.ability.kisumeEx_stun_time")
-	print(damage)
-	print(caster:GetAverageTrueAttackDamage(caster))
 
 	
 	--特效音效
@@ -321,10 +296,6 @@ function modifier_ability_thdots_kisume02_invin:OnDestroy()
 	for _,victim in pairs(targets) do
 		local damage_decrease = (victim:GetOrigin() - point):Length2D() / radius
 		local victim_damage = damage * (1 - damage_decrease)
-		print("1111111111")
-		print(damage_decrease)
-		print(damage)
-		print(victim_damage)
 		local damage_table = {
 					ability = self.ability,
 				    victim = victim,
@@ -402,7 +373,6 @@ function ability_thdots_kisume03:OnSpellStart()
 	self.duration = self:GetSpecialValueFor("duration")
 	self.radius = self:GetSpecialValueFor("radius")
 	self.damage = self:GetSpecialValueFor("damage")
-	print(self.duration)
 	caster:AddNewModifier(caster, self, "modifier_ability_thdots_kisume03_active", {duration = self.duration})
 
 	self.kisumeEx_stun_time = 0
@@ -592,16 +562,12 @@ function ability_thdots_kisume04:OnSpellStart()
 
 	--特效音效
 	caster:EmitSound("Voice_Thdots_Kisume.AbilityKisume04_1")
-	StartSoundEventFromPosition("Voice_Thdots_Kisume.AbilityKisume04_1", caster:GetOrigin())
-	StartSoundEventFromPosition("Voice_Thdots_Kisume.AbilityKisume04_1", caster:GetOrigin())
-	StartSoundEventFromPosition("Voice_Thdots_Kisume.AbilityKisume04_1", caster:GetOrigin())
 	local particle_name_1 = "particles/units/heroes/hero_invoker_kid/invoker_kid_loadout.vpcf"
 	local particle_name_2 = "particles/units/heroes/hero_batrider/batrider_flamebreak_explosion.vpcf"
 	local particle_name_3 = "particles/units/heroes/hero_warlock/warlock_rain_of_chaos.vpcf"
 	
 	local kisume04_particle = ParticleManager:CreateParticle(particle_name_1, PATTACH_CUSTOMORIGIN_FOLLOW,self.caster)
 	ParticleManager:SetParticleControlEnt(kisume04_particle, 0, self.caster, PATTACH_POINT_FOLLOW, "attach_hitloc", point, true)
-	ParticleManager:ReleaseParticleIndex(kisume04_particle)
 	ParticleManager:DestroyParticleSystem(kisume04_particle,false)
 
 
@@ -610,23 +576,19 @@ function ability_thdots_kisume04:OnSpellStart()
 	ParticleManager:SetParticleControl(kisume04_particle_2, 0, point)
 	ParticleManager:SetParticleControl(kisume04_particle_2, 3, point)
 	ParticleManager:SetParticleControl(kisume04_particle_2, 5, point)
-	ParticleManager:ReleaseParticleIndex(kisume04_particle_2)
+	ParticleManager:DestroyParticleSystem(kisume04_particle_2,false)
 
 	if self.kisumeEx_stun_time ~= 0 then
 		local kisume04_particle_Ex = ParticleManager:CreateParticle(particle_name_3, PATTACH_CUSTOMORIGIN_FOLLOW,self.caster)
-		ParticleManager:SetParticleControl(kisume04_particle_2, 0, point)
-		ParticleManager:SetParticleControl(kisume04_particle_2, 0, Vector(radius,radius,radius))
+		ParticleManager:SetParticleControl(kisume04_particle_Ex, 0, point)
+		ParticleManager:SetParticleControl(kisume04_particle_Ex, 1, Vector(radius,radius,radius))
 		-- ParticleManager:SetParticleControlEnt(kisume04_particle_Ex, 0, self.caster, PATTACH_POINT_FOLLOW, "attach_hitloc", point, true)
-		ParticleManager:ReleaseParticleIndex(kisume04_particle_Ex)
-		ParticleManager:DestroyParticleSystem(kisume04_particle,false)
-		StartSoundEventFromPosition("Voice_Thdots_Kisume.AbilityKisume04_3",caster:GetOrigin())
-		StartSoundEventFromPosition("Voice_Thdots_Kisume.AbilityKisume04_3",caster:GetOrigin())
+		ParticleManager:DestroyParticleSystem(kisume04_particle_Ex,false)
 		StartSoundEventFromPosition("Voice_Thdots_Kisume.AbilityKisume04_3",caster:GetOrigin())
 	end
-	ParticleManager:DestroyParticleSystem(kisume04_particle,false)
 
 	--设置20个点,10个大圈，10个小圈
-	local per_num = 30
+	local per_num = 12
 	local num_1 = per_num
 	local num_2 = per_num
 	local num_3 = per_num
@@ -654,7 +616,6 @@ function ability_thdots_kisume04:OnSpellStart()
 			local kisume04_particle_2 = ParticleManager:CreateParticle(particle_name_3, PATTACH_WORLDORIGIN, nil)
 			-- ParticleManager:SetParticleControl(kisume04_particle_2, 0, Vector(particle_point.x,particle_point.y,particle_point.z+1500))
 			ParticleManager:SetParticleControl(kisume04_particle_2, 0, particle_point)
-			ParticleManager:ReleaseParticleIndex(kisume04_particle_2)
 			ParticleManager:DestroyParticleSystem(kisume04_particle_2,false)
 		end
 	---------------------
@@ -670,7 +631,6 @@ function ability_thdots_kisume04:OnSpellStart()
 				    damage_type = self:GetAbilityDamageType(), 
 					damage_flags = 0
 				}
-				print(self.kisumeEx_stun_time)
 		if self.kisumeEx_stun_time ~= 0 then
 			UtilStun:UnitStunTarget(self.caster,victim,self.kisumeEx_stun_time)
 		end
@@ -807,13 +767,14 @@ function modifier_ability_thdots_kisume05_target:OnCreated()
 	if not IsServer() then return end
 	self:GetParent():AddNoDraw()
 	self.interval = 0
-	self:StartIntervalThink(FrameTime())
+	self.follow_interval = 0.03
+	self:StartIntervalThink(self.follow_interval)
 end
 
 function modifier_ability_thdots_kisume05_target:OnIntervalThink()
 	if not IsServer() then return end
 	if self.interval <= 1 then
-		self.interval = self.interval + FrameTime()
+		self.interval = self.interval + self.follow_interval
 	else
 		self:SetStackCount(1)
 	end

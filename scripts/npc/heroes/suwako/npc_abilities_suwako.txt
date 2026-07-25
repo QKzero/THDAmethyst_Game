@@ -88,23 +88,10 @@
 			}
 			
 			// 永久被动修饰器：监听攻击事件、控制攻击距离
-			"modifier_suwako05_passive"
-			{
-				"IsHidden"      "1"
-				"IsPurgable"    "0"
-				"IsDebuff"      "0"
-				"Passive"       "1"
-				"RemoveOnDeath" "0"
-				"OnAttackLanded"
-				{
-					"RunScript"
-					{
-						"ScriptFile"    "scripts/vscripts/abilities/abilitysuwako.lua"
-						"Function"      "Suwako05OnAttackLanded"
-						"cooldown"      "%cooldown"
-					}
-				}
-			}
+			// modifier_suwako05_passive is implemented in Lua.
+			
+			// 攻击距离加成修饰器（自动施法开启且技能冷却就绪时生效）
+			// modifier_suwako05_attack_range removed; Lua passive returns the range bonus directly.
 
 			// 手动冷却修饰器（魔晶后手动施法专用）
 			"modifier_suwako05_manual_cooldown"

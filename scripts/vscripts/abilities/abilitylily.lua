@@ -126,7 +126,7 @@ function modifier_lily01_cost_check:IsDebuff()			return false end
 
 function modifier_lily01_cost_check:OnCreated(keys)
 	if not IsServer() then return end
-	self:StartIntervalThink(0.01)
+self:StartIntervalThink(0.1)
 end
 
 function modifier_lily01_cost_check:OnIntervalThink( keys )
@@ -299,7 +299,7 @@ function modifier_lily02_cost_check:IsDebuff()		return false end
 
 function modifier_lily02_cost_check:OnCreated(keys)
 	if not IsServer() then return end
-	self:StartIntervalThink(0.01)
+self:StartIntervalThink(0.1)
 end
 
 function modifier_lily02_cost_check:OnIntervalThink( keys )
@@ -439,7 +439,7 @@ function modifier_lily03_cost_check:IsDebuff()		return false end
 
 function modifier_lily03_cost_check:OnCreated(keys)
 	if not IsServer() then return end
-	self:StartIntervalThink(0.01)
+self:StartIntervalThink(0.1)
 end
 
 function modifier_lily03_cost_check:OnIntervalThink( keys )
@@ -767,7 +767,7 @@ function modifier_lily04_cost_check:IsDebuff()		return false end
 
 function modifier_lily04_cost_check:OnCreated(keys)
 	if not IsServer() then return end
-	self:StartIntervalThink(0.01)
+self:StartIntervalThink(0.1)
 end
 
 function modifier_lily04_cost_check:OnIntervalThink( keys )

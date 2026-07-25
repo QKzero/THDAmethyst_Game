@@ -100,7 +100,7 @@ function CDOTA_PlayerResource:IsUnitSelected(playerID, unit)
 end
 
 function CDOTA_PlayerResource:RefreshSelection()
-	Timers:CreateTimer(0.03, function()
+	Timers:CreateTimer(0.1, function()
 		FireGameEvent("dota_player_update_selected_unit", {})
 	end)
 end

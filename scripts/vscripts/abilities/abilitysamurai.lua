@@ -536,7 +536,8 @@ function modifier_samuraiEx_basic:RemoveOnDeath() return false end
 function modifier_samuraiEx_basic:OnCreated()
 	if not IsServer() then return end
 	local caster = self:GetCaster()
-	self:StartIntervalThink(0.03)
+	-- 优化：敏捷每 0.03 秒更新一次没必要，0.2 秒已足够。
+	self:StartIntervalThink(0.2)
 	self.spd = 0
 	caster:AddNewModifier(caster,self:GetAbility(),"modifier_samurai_ExSpd",{})
 	caster:AddNewModifier(caster,self:GetAbility(),"modifier_samurai_ExAgi",{})
@@ -591,7 +592,8 @@ end
 
 function modifier_samurai_ExSpd:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(0.03)
+	-- 优化：攻速动态调整 0.1 秒已足够，不必 0.03。
+	self:StartIntervalThink(0.1)
 	self.spd = 0
 end
 
@@ -640,7 +642,8 @@ function modifier_samurai_telent4:RemoveOnDeath() return false end
 function modifier_samurai_telent4:OnCreated()
 	if not IsServer() then return end
 	self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_samurai_telent8",{})
-	self:StartIntervalThink(0.03)
+	-- 优化：天赋值是离散事件，1 秒一次已足够。
+	self:StartIntervalThink(1.0)
 end
 
 function modifier_samurai_telent4:OnIntervalThink()
@@ -657,7 +660,8 @@ function modifier_samurai_telent5:RemoveOnDeath() return false end
 
 function modifier_samurai_telent5:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(0.03)
+	-- 优化：天赋值离散更新，1 秒一次。
+	self:StartIntervalThink(1.0)
 end
 
 function modifier_samurai_telent5:OnIntervalThink()
@@ -674,7 +678,8 @@ function modifier_samurai_telent8:RemoveOnDeath() return false end
 
 function modifier_samurai_telent8:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(0.03)
+	-- 优化：天赋值离散更新，1 秒一次。
+	self:StartIntervalThink(1.0)
 end
 
 function modifier_samurai_telent8:OnIntervalThink()

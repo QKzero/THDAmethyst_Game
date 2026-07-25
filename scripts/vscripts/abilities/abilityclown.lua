@@ -60,7 +60,7 @@ function OnClown01SpellStart(keys)
         if Caster:HasModifier("modifier_item_wanbaochui") then
             radius = keys.radius + 120
         end
-        GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("OnClown01Effect"), function()
+        THD_SetGlobalContextThink(DoUniqueString("OnClown01Effect"), function()
             if GameRules:IsGamePaused() then
                 return 0.03
             end
@@ -144,7 +144,7 @@ function OnClown02SpellStart(keys)
     caster.effectIndex = ParticleManager:CreateParticle("particles/heroes/clown/clown02.vpcf", PATTACH_ABSORIGIN_FOLLOW,
         caster.unit)
     local time = 0
-    GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("OnClown02End"), function()
+    THD_SetGlobalContextThink(DoUniqueString("OnClown02End"), function()
         if GameRules:IsGamePaused() then
             return 0.03
         end

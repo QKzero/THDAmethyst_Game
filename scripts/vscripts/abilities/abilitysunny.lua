@@ -19,19 +19,20 @@ function modifier_ability_thdots_sunnyEx_passive:OnCreated()
 	self.int 							= self:GetAbility():GetSpecialValueFor("int")
 	self.resistance 					= self:GetAbility():GetSpecialValueFor("resistance")
 	self.regen_bonus 					= self:GetAbility():GetSpecialValueFor("regen_bonus")
-	self.bonus 							= nil
-	self:StartIntervalThink(0.03)
+	if IsServer() then
+		self.is_daytime = nil
+		-- EX被动只缓存昼夜状态，魔抗在属性查询时按当前智力计算。
+		self:StartIntervalThink(0.5)
+		self:OnIntervalThink()
+	end
 end
 
 function modifier_ability_thdots_sunnyEx_passive:OnIntervalThink()
-	self.caster_int 					= self.caster:GetIntellect(false)
-	self.bonus = ( self.caster_int / self.int ) * self.resistance
 	if IsServer() then
-		if GameRules:IsDaytime() then
-			self:SetStackCount(1)
-		else
-			self:SetStackCount(0)
-		end
+		local is_daytime = GameRules:IsDaytime()
+		if self.is_daytime == is_daytime then return end
+		self.is_daytime = is_daytime
+		self:SetStackCount(is_daytime and 1 or 0)
 	end
 end
 
@@ -44,13 +45,16 @@ end
 
 function modifier_ability_thdots_sunnyEx_passive:GetModifierConstantHealthRegen()
 	if self:GetStackCount() ~= 0 then
-		return self:GetParent():GetLevel() * self.regen_bonus
+		return self:GetParent():GetLevel() * (self.regen_bonus or 0)
 	else
 		return 0
 	end
 end
 function modifier_ability_thdots_sunnyEx_passive:GetModifierMagicalResistanceBonus()
-	return self.bonus
+	local int = self.int or 1
+	if int == 0 then return 0 end
+	-- 智力变化会在modifier属性查询时即时反映。
+	return (self:GetParent():GetIntellect(false) / int) * (self.resistance or 0)
 end
 
 --------------------------------------------------------
@@ -62,8 +66,8 @@ function ability_thdots_sunny01:OnSpellStart()
 	if not IsServer() then return end
 	local caster 				= self:GetCaster()
 	local duration  			= self:GetSpecialValueFor("duration")
+	-- 1技能隐身和移速合并到同一个modifier，移除0.03秒轮询。
 	caster:AddNewModifier(caster, self, "modifier_ability_thdots_sunny01", {duration = duration})
-	self.invis = caster:AddNewModifier(caster, self, "modifier_invisible", {duration = duration})
 
 	EmitSoundOn("DOTA_Item.InvisibilitySword.Activate", caster)
 end
@@ -80,23 +84,43 @@ function modifier_ability_thdots_sunny01:OnCreated()
 	if FindTelentValue(self:GetCaster(),"special_bonus_unique_sunny_1") ~= 0 then
 		self:SetStackCount(FindTelentValue(self:GetCaster(),"special_bonus_unique_sunny_1"))
 	end
-	self:StartIntervalThink(0.03)
 end
 
-function modifier_ability_thdots_sunny01:OnIntervalThink()
+function modifier_ability_thdots_sunny01:CheckState()
+	return {
+		[MODIFIER_STATE_INVISIBLE] = true,
+	}
+end
+
+function modifier_ability_thdots_sunny01:OnAttackStart(keys)
 	if not IsServer() then return end
-	if not self:GetParent():HasModifier("modifier_invisible") then
+	if keys.attacker == self:GetParent() then
 		self:Destroy()
 	end
 end
+
+function modifier_ability_thdots_sunny01:OnAbilityExecuted(keys)
+	if not IsServer() then return end
+	if keys.unit ~= self:GetParent() then return end
+	if keys.ability == self:GetAbility() then return end
+	self:Destroy()
+end
+
 function modifier_ability_thdots_sunny01:DeclareFunctions()
 	return {
-		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE
+		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
+		MODIFIER_PROPERTY_INVISIBILITY_LEVEL,
+		MODIFIER_EVENT_ON_ATTACK_START,
+		MODIFIER_EVENT_ON_ABILITY_EXECUTED,
 	}
 end
 
 function modifier_ability_thdots_sunny01:GetModifierMoveSpeedBonus_Percentage()
 	return self:GetAbility():GetSpecialValueFor("movement_speed") + self:GetStackCount()
+end
+
+function modifier_ability_thdots_sunny01:GetModifierInvisibilityLevel()
+	return 1
 end
 
 --------------------------------------------------------
@@ -138,59 +162,19 @@ function ability_thdots_sunny02:OnSpellStart()
 end
 
 function sunny02_effect(caster,radius)
-	local direct = math.acos(caster:GetForwardVector().x)
+	local origin = caster:GetAbsOrigin()
+	local forward = caster:GetForwardVector()
+	local direct = math.atan2(forward.y, forward.x)
+	local start_pos = origin + Vector(0, 0, 500)
 
-	local dummy = CreateUnitByName("npc_no_vision_dummy_unit", 
-	    	                        caster:GetOrigin(), 
-									false, 
-								    caster, 
-									caster, 
-									caster:GetTeamNumber()
-									)
-	local top = dummy:GetOrigin()
-	dummy:FindAbilityByName("ability_dummy_unit"):SetLevel(1)
-	dummy:SetAbsOrigin(Vector(top.x,top.y,top.z+500))
-	local time = 2
-	dummy:SetContextThink("dummy_kill",
-		function ( )
-			time = time - 0.03
-			if time > 0 then
-				dummy:SetAbsOrigin(Vector(top.x,top.y,top.z+500))
-				return 0.03
-			else
-				dummy:ForceKill(true)
-				return nil
-			end
-		end, 
-		0)
-	
 	for k=0,4 do
+		-- 2技能直接用SetParticleControl给坐标，替代dummy单位和0.03秒thinker。
 		local rad = Vector(math.cos(direct+math.pi/2.5*k),math.sin(direct+math.pi/2.5*k),0) --五个方向
-		local dummy_kid = CreateUnitByName("npc_no_vision_dummy_unit", 
-	    	                        caster:GetAbsOrigin()+ rad * radius, 
-									false, 
-								    caster, 
-									caster, 
-									caster:GetTeamNumber()
-									)
-		local time = 2
-		dummy_kid:FindAbilityByName("ability_dummy_unit"):SetLevel(1)
-		dummy_kid:SetContextThink("dummy_kill",
-			function ( )
-				time = time - 0.03
-				if time > 0 then
-					-- dummy_kid:SetAbsOrigin(Vector(top.x,top.y,top.z+500))
-					return 0.03
-				else
-					dummy_kid:ForceKill(true)
-					return nil
-				end
-			end, 
-		0)
-		local effectIndex = ParticleManager:CreateParticle("particles/units/heroes/hero_tinker/tinker_laser.vpcf", PATTACH_CUSTOMORIGIN,dummy)
-		ParticleManager:SetParticleControlEnt(effectIndex , 0, dummy, 5, "attach_hitloc", Vector(0,0,0), true)
-		ParticleManager:SetParticleControlEnt(effectIndex , 1, dummy_kid, 5, "attach_hitloc", Vector(0,0,0), true)
-		ParticleManager:SetParticleControlEnt(effectIndex , 9, dummy, 5, "attach_hitloc", Vector(0,0,0), true)
+		local end_pos = origin + rad * radius + Vector(0, 0, 96)
+		local effectIndex = ParticleManager:CreateParticle("particles/units/heroes/hero_tinker/tinker_laser.vpcf", PATTACH_CUSTOMORIGIN,nil)
+		ParticleManager:SetParticleControl(effectIndex, 0, start_pos)
+		ParticleManager:SetParticleControl(effectIndex, 1, end_pos)
+		ParticleManager:SetParticleControl(effectIndex, 9, start_pos)
 		ParticleManager:DestroyParticleSystemTime(effectIndex,2)
 	end
 end
@@ -200,85 +184,73 @@ end
 --------------------------------------------------------
 ability_thdots_sunny03 = {}
 
-function ability_thdots_sunny03:OnSpellStart()
-	if not IsServer() then return end
-	local caster 				= self:GetCaster()
-	local target 				= self:GetCursorTarget()
-	local targetPos     = target:GetAbsOrigin()
-	local damage  				= self:GetSpecialValueFor("damage")
-	local damage_bonus  		= self:GetSpecialValueFor("damage_bonus") / 100
-	local duration  			= self:GetSpecialValueFor("duration")
-	local regen_reduce  		= self:GetSpecialValueFor("regen_reduce")
-	local int_bonus  			= self:GetSpecialValueFor("int_bonus")
-	local radius  				= self:GetSpecialValueFor("radius")
-	local num 					= self:GetSpecialValueFor("num") + FindTelentValue(self:GetCaster(),"special_bonus_unique_sunny_2")
-	print(num)
-	damage = damage + caster:GetIntellect(false) * int_bonus
-	--特效音效
-	local effectIndex = ParticleManager:CreateParticle("particles/units/heroes/hero_tinker/tinker_laser.vpcf", PATTACH_CUSTOMORIGIN,caster)
-	ParticleManager:SetParticleControlEnt(effectIndex , 0, caster, 5, "attach_attack2", Vector(0,0,0), true)
-	ParticleManager:SetParticleControlEnt(effectIndex , 1, target, 5, "attach_hitloc", Vector(0,0,0), true)
-	ParticleManager:SetParticleControlEnt(effectIndex , 9, caster, 5, "attach_attack2", Vector(0,0,0), true)
+function ability_thdots_sunny03:ApplyBounceDamage(caster, target, damage, duration)
 	target:EmitSound("Hero_Tinker.LaserImpact")
-
 	target:AddNewModifier(caster,self, "modifier_ability_thdots_sunny03_debuff", {duration = duration * (1 - target:GetStatusResistance())})
-	target:AddNewModifier(caster,self, "modifier_ability_thdots_sunny03_sign", {duration = 0.1})
 	local damage_table = {
 				ability = self,
 				victim = target,
 				attacker = caster,
 				damage = damage,
-				damage_type = self:GetAbilityDamageType(), 
+				damage_type = self:GetAbilityDamageType(),
 				damage_flags = 0
 		}
 	UnitDamageTarget(damage_table)
-	damage = damage * damage_bonus
-	for i=0,num do
-		local targets = FindUnitsInRadius(caster:GetTeam(), targetPos, nil, radius, self:GetAbilityTargetTeam(),
-										self:GetAbilityTargetType(),0,0,false)
-		DeleteDummy(targets)
-		for i,unit in pairs(targets) do
-			if unit == target then
-				table.remove(targets, i)
-			end
-		end
-		if #targets == 0 then return end
-		for _,v in pairs(targets) do
-			if num > 0 then
-				--特效音效
-				if not v:HasModifier("modifier_ability_thdots_sunny03_sign") then
-					local effectIndex = ParticleManager:CreateParticle("particles/units/heroes/hero_tinker/tinker_laser.vpcf", PATTACH_CUSTOMORIGIN,target)
-					ParticleManager:SetParticleControlEnt(effectIndex , 0, target, 5, "attach_hitloc", Vector(0,0,0), true)
-					ParticleManager:SetParticleControlEnt(effectIndex , 1, v, 5, "attach_hitloc", Vector(0,0,0), true)
-					ParticleManager:SetParticleControlEnt(effectIndex , 9, target, 5, "attach_hitloc", Vector(0,0,0), true)
-					ParticleManager:DestroyParticleSystemTime(effectIndex,2)
-					v:EmitSound("Hero_Tinker.LaserImpact")
-
-					v:AddNewModifier(caster,self, "modifier_ability_thdots_sunny03_debuff", {duration = duration * (1 - v:GetStatusResistance())})
-					v:AddNewModifier(caster,self, "modifier_ability_thdots_sunny03_sign", {duration = 0.1})
-					local damage_table = {
-							ability = self,
-							victim = v,
-							attacker = caster,
-							damage = damage,
-							damage_type = self:GetAbilityDamageType(), 
-							damage_flags = 0
-					}
-					UnitDamageTarget(damage_table)
-					damage = damage * damage_bonus
-					print(damage)
-					target = v
-					num = num - 1
-				end
-			else
-				break
-			end
-		end
-	end
 end
 
-function ability_thdots_sunny03_damage(caster,targets)
-	-- body
+function ability_thdots_sunny03:CreateBounceParticle(source, target)
+	local effectIndex = ParticleManager:CreateParticle("particles/units/heroes/hero_tinker/tinker_laser.vpcf", PATTACH_CUSTOMORIGIN,source)
+	ParticleManager:SetParticleControlEnt(effectIndex , 0, source, 5, "attach_hitloc", Vector(0,0,0), true)
+	ParticleManager:SetParticleControlEnt(effectIndex , 1, target, 5, "attach_hitloc", Vector(0,0,0), true)
+	ParticleManager:SetParticleControlEnt(effectIndex , 9, source, 5, "attach_hitloc", Vector(0,0,0), true)
+	ParticleManager:DestroyParticleSystemTime(effectIndex,2)
+end
+
+function ability_thdots_sunny03:OnSpellStart()
+	if not IsServer() then return end
+	local caster = self:GetCaster()
+	local target = self:GetCursorTarget()
+	local damage = self:GetSpecialValueFor("damage")
+	local damage_bonus = self:GetSpecialValueFor("damage_bonus") / 100
+	local duration = self:GetSpecialValueFor("duration")
+	local int_bonus = self:GetSpecialValueFor("int_bonus")
+	local radius = self:GetSpecialValueFor("radius")
+	local bounce_count = self:GetSpecialValueFor("num") + FindTelentValue(caster,"special_bonus_unique_sunny_2")
+	damage = damage + caster:GetIntellect(false) * int_bonus
+
+	-- 初始命中保留从施法者到目标的激光表现，并释放粒子。
+	local effectIndex = ParticleManager:CreateParticle("particles/units/heroes/hero_tinker/tinker_laser.vpcf", PATTACH_CUSTOMORIGIN,caster)
+	ParticleManager:SetParticleControlEnt(effectIndex , 0, caster, 5, "attach_attack2", Vector(0,0,0), true)
+	ParticleManager:SetParticleControlEnt(effectIndex , 1, target, 5, "attach_hitloc", Vector(0,0,0), true)
+	ParticleManager:SetParticleControlEnt(effectIndex , 9, caster, 5, "attach_attack2", Vector(0,0,0), true)
+	ParticleManager:DestroyParticleSystemTime(effectIndex,2)
+
+	self:ApplyBounceDamage(caster, target, damage, duration)
+	local hit_targets = {}
+	hit_targets[target:entindex()] = true
+	local current_target = target
+	damage = damage * damage_bonus
+
+	for i=1,bounce_count do
+		local targets = FindUnitsInRadius(caster:GetTeam(), current_target:GetAbsOrigin(), nil, radius, self:GetAbilityTargetTeam(),
+										self:GetAbilityTargetType(),0,0,false)
+		DeleteDummy(targets)
+		local candidates = {}
+		for _,unit in pairs(targets) do
+			-- 每次弹射在当前目标范围内随机选一个未命中过的其他敌方单位。
+			if unit ~= current_target and not hit_targets[unit:entindex()] then
+				table.insert(candidates, unit)
+			end
+		end
+		if #candidates == 0 then break end
+
+		local next_target = candidates[RandomInt(1, #candidates)]
+		self:CreateBounceParticle(current_target, next_target)
+		self:ApplyBounceDamage(caster, next_target, damage, duration)
+		hit_targets[next_target:entindex()] = true
+		current_target = next_target
+		damage = damage * damage_bonus
+	end
 end
 
 modifier_ability_thdots_sunny03_debuff = {}
@@ -287,15 +259,6 @@ function modifier_ability_thdots_sunny03_debuff:IsHidden() 		return false end
 function modifier_ability_thdots_sunny03_debuff:IsPurgable()		return true end
 function modifier_ability_thdots_sunny03_debuff:RemoveOnDeath() 	return true end
 function modifier_ability_thdots_sunny03_debuff:IsDebuff()		return true end
-
-function modifier_ability_thdots_sunny03_debuff:OnCreated()	
-	if not IsServer() then return end
-	--特效
-end
-
-function modifier_ability_thdots_sunny03_debuff:OnDestroy()
-	if not IsServer() then return end
-end
 
 function modifier_ability_thdots_sunny03_debuff:DeclareFunctions()	
 	return {
@@ -316,13 +279,6 @@ end
 function modifier_ability_thdots_sunny03_debuff:OnTooltip()
 	return self:GetAbility():GetSpecialValueFor("regen_reduce")
 end
-
-modifier_ability_thdots_sunny03_sign = {}
-LinkLuaModifier("modifier_ability_thdots_sunny03_sign","scripts/vscripts/abilities/abilitysunny.lua",LUA_MODIFIER_MOTION_NONE)
-function modifier_ability_thdots_sunny03_sign:IsHidden() 		return true end
-function modifier_ability_thdots_sunny03_sign:IsPurgable()		return false end
-function modifier_ability_thdots_sunny03_sign:RemoveOnDeath() 	return true end
-function modifier_ability_thdots_sunny03_sign:IsDebuff()		return false end
 
 --------------------------------------------------------
 --激光「太阳爆发」
@@ -359,10 +315,8 @@ function modifier_ability_thdots_sunny04:OnCreated()
 	if not self.orbs then
 		self.orbs = {}
 	end
-	-- print("count is ",self.count)
 	self:StartIntervalThink(self.interval)
 	--特效音效
-	-- local count  = math.floor(self.duration/4)
 	self.sun = CreateUnitByName("npc_dummy_unit", 
     	                        Vector(99999,-99999,0), 
 								false, 
@@ -377,20 +331,25 @@ function modifier_ability_thdots_sunny04:OnCreated()
 	local sunness = self.sun:FindAbilityByName("phoenix_supernova")
 	sunness:SetLevel(4)
 	self.sun:CastAbilityImmediately(sunness, self.caster:GetPlayerOwnerID())
+	self.sun_supernova_hidden = nil
+	self.sun_check_interval = 0.2
 	self.sun:SetContextThink("sunny04_kill", 
 		function ()
-			if GameRules:IsGamePaused() then return 0.03 end
+			if GameRules:IsGamePaused() then return self.sun_check_interval end
 			if self.caster:HasModifier("modifier_ability_thdots_sunny04") then
-				if not self.sun:HasModifier("modifier_phoenix_supernova_hiding") then
+				local is_hidden = self.sun:HasModifier("modifier_phoenix_supernova_hiding")
+				-- 只在modifier变化为hidden时重放。
+				if self.sun_supernova_hidden ~= is_hidden and not is_hidden then
 					self.sun:CastAbilityImmediately(sunness, self.caster:GetPlayerOwnerID())
 				end
-				return 0.03
+				self.sun_supernova_hidden = is_hidden
+				return self.sun_check_interval
 			else
 				self.sun:ForceKill(true)
 				return nil
 			end
 		end,
-	0)
+	self.sun_check_interval)
 end
 
 function modifier_ability_thdots_sunny04:OnIntervalThink()
@@ -403,7 +362,7 @@ function modifier_ability_thdots_sunny04:OnIntervalThink()
 	local orb_thinker = CreateModifierThinker(
 		self:GetCaster(),
 		self,
-		nil, -- Maybe add one later
+		nil, -- 暂无额外modifier参数。
 		{},
 		self:GetCaster():GetOrigin(),
 		self:GetCaster():GetTeamNumber(),
@@ -442,8 +401,13 @@ end
 
 function ability_thdots_sunny04:OnProjectileHit_ExtraData(target, location, data)
 	if not IsServer() then return end
+	if data ~= nil and data.orb_thinker ~= nil then
+		local orb = EntIndexToHScript(data.orb_thinker)
+		if orb ~= nil and not orb:IsNull() then
+			orb:RemoveSelf()
+		end
+	end
 	if target then
-		print(self.damage)
 		target:EmitSound("Hero_Puck.IIllusory_Orb_Damage")
 		local damage_table = {
 					ability = self,
@@ -459,7 +423,18 @@ end
 
 function modifier_ability_thdots_sunny04:OnDestroy()
 	if not IsServer() then return end
-	--取消特效
+	if self.orbs ~= nil then
+		for _, entIndex in pairs(self.orbs) do
+			local orb = EntIndexToHScript(entIndex)
+			if orb ~= nil and not orb:IsNull() then
+				orb:RemoveSelf()
+			end
+		end
+		self.orbs = nil
+	end
+	if self.sun ~= nil and not self.sun:IsNull() then
+		self.sun:ForceKill(true)
+	end
 end
 
 --------------------------------------------------------
@@ -467,24 +442,38 @@ end
 --------------------------------------------------------
 ability_thdots_sunny05 = {}
 
+function ability_thdots_sunny05:ClearSunnyIllusion(delay)
+	if not IsServer() then return end
+	if not self.illusion or self.illusion:IsNull() then
+		self.illusion = nil
+		return
+	end
+
+	local illusion = self.illusion
+	local kill_func = function()
+		if illusion and not illusion:IsNull() then
+			illusion:ForceKill(true)
+		end
+		if self.illusion == illusion then
+			self.illusion = nil
+		end
+	end
+
+	if delay and delay > 0 then
+		self:GetCaster():SetContextThink("sunny05_delay", kill_func, delay)
+	else
+		kill_func()
+	end
+end
+
 function ability_thdots_sunny05:OnInventoryContentsChanged()
 	if IsServer() then
 		if not self:GetCaster():IsOwnedByAnyPlayer() then return end
 		if self:GetCaster():HasModifier("modifier_item_wanbaochui") then
 			self:SetHidden(false)
 		else
-			local illusion = FindUnitsInRadius(self:GetCaster():GetTeam(),self:GetCaster():GetAbsOrigin(),nil,99999,DOTA_UNIT_TARGET_TEAM_FRIENDLY,
-				DOTA_UNIT_TARGET_BASIC+ DOTA_UNIT_TARGET_HERO,0,0,false)
-			for _,v in pairs(illusion) do
-				self:GetCaster():SetContextThink("sunny05_delay",--延迟，不然对自己使用会瞬间消失
-					function()
-						if v:HasModifier("modifier_ability_thdots_sunny05") then
-							v:ForceKill(true)
-							print("2")
-						end
-					end,
-				0.03)
-			end
+			-- 5技能只清理当前缓存的镜像句柄，不再全图99999扫描友方单位。
+			self:ClearSunnyIllusion(0.03)
 			self:SetHidden(true)
 		end
 	end
@@ -500,18 +489,13 @@ function ability_thdots_sunny05:OnSpellStart()
 	if not self.caster:IsOwnedByAnyPlayer() then return end
 	self.target 						= self:GetCursorTarget()
 	local duration  					= self:GetSpecialValueFor("duration")
-	local illusion = FindUnitsInRadius(self.caster:GetTeam(),self.caster:GetAbsOrigin(),nil,99999,DOTA_UNIT_TARGET_TEAM_FRIENDLY,
-		DOTA_UNIT_TARGET_BASIC+ DOTA_UNIT_TARGET_HERO,0,0,false)
-	for _,v in pairs(illusion) do
-		if v:HasModifier("modifier_ability_thdots_sunny05") then
-			print("1")
-			v:ForceKill(true)
-		end
-	end
+	self:ClearSunnyIllusion()
 	self.caster:SetContextThink("sunny05",
 		function()
 			self.illusion = CreateIllusionTHD(self,self.target,nil,0,0,duration,true)
-			self.illusion:AddNewModifier(self.caster, self, "modifier_ability_thdots_sunny05", {})	
+			if self.illusion and not self.illusion:IsNull() then
+				self.illusion:AddNewModifier(self.caster, self, "modifier_ability_thdots_sunny05", {})
+			end
 		end,
 	0.03)
 end
@@ -533,79 +517,34 @@ end
 
 function modifier_ability_thdots_sunny05:OnCreated()
 	if not IsServer() then return end
-	self.caster = self:GetParent()
-	self.illusion = self:GetAbility().illusion
-	self.illusion.hero = self:GetAbility().target
-	self:StartIntervalThink(0.03)
+	self.illusion = self:GetParent()
+	self.target = self:GetAbility().target
+	-- 镜像血量同步从0.03秒降到0.1秒。
+	self:StartIntervalThink(0.1)
 end
 
 function modifier_ability_thdots_sunny05:OnIntervalThink()
 	if not IsServer() then return end
-	self.health = self.illusion.hero:GetHealth()
-	local percent = self.health/self.illusion.hero:GetMaxHealth()
-	if self.illusion.hero:IsAlive() then
+	if not self.target or self.target:IsNull() or not self.target:IsAlive() then
+		self:GetParent():ForceKill(true)
+		self:Destroy()
+		return
+	end
+
+	self.health = self.target:GetHealth()
+	local percent = self.health/self.target:GetMaxHealth()
+	if self.target:IsAlive() then
 		self.illusion:SetHealth(self.illusion:GetMaxHealth()*percent)
 	else
-		print("3")
 		self:GetParent():ForceKill(true)
 		self:Destroy()
 	end
 end
 
---[[
-function create_illusion(ability, illusion_origin, illusion_incoming_damage, illusion_outgoing_damage, illusion_duration)	
-	local player_id = ability.caster:GetPlayerID()
-	local caster_team = ability.caster:GetTeam()
-	local tmp = ability.caster
-	if not ability.caster:IsNull() then
-		if ability.caster:GetPlayerOwner() == nil then
-			if GetMapName() == "dota" then
-				tmp = nil
-			end
-		else
-			if ability.caster:GetPlayerOwner():GetContext("PlayerIsBot") == 1 then
-				tmp = nil
-			end
-		end
+function modifier_ability_thdots_sunny05:OnDestroy()
+	if not IsServer() then return end
+	local ability = self:GetAbility()
+	if ability and ability.illusion == self:GetParent() then
+		ability.illusion = nil
 	end
-	
-	local illusion = CreateUnitByName(ability.target:GetUnitName(), illusion_origin, true, ability.caster, tmp, caster_team)  --handle_UnitOwner needs to be nil, or else it will crash the game.
-	illusion:SetPlayerID(player_id)
-	illusion:SetControllableByPlayer(player_id, true)
-
-	--Level up the illusion to the caster's level.
-	local caster_level = ability.caster:GetLevel()
-	for i = 1, caster_level - 1 do
-		illusion:HeroLevelUp(false)
-	end
-
-	--Set the illusion's available skill points to 0 and teach it the abilities the caster has.
-	illusion:SetAbilityPoints(0)
-	for ability_slot = 0, 15 do
-		local individual_ability = ability.target:GetAbilityByIndex(ability_slot)
-		if individual_ability ~= nil then 
-			local illusion_ability = illusion:FindAbilityByName(individual_ability:GetAbilityName())
-			if illusion_ability ~= nil then
-				illusion_ability:SetLevel(individual_ability:GetLevel())
-			end
-		end
-	end
-
-	--Recreate the caster's items for the illusion.
-	for item_slot = 0, 5 do
-		local individual_item = ability.target:GetItemInSlot(item_slot)
-		if individual_item ~= nil then
-			local illusion_duplicate_item = CreateItem(individual_item:GetName(), illusion, illusion)
-			illusion:AddItem(illusion_duplicate_item)
-			illusion_duplicate_item:SetPurchaser(nil)
-		end
-	end
-	
-	-- modifier_illusion controls many illusion properties like +Green damage not adding to the unit damage, not being able to cast spells and the team-only blue particle 
-	illusion:AddNewModifier(ability.caster, ability, "modifier_illusion", {duration = illusion_duration, outgoing_damage = illusion_outgoing_damage, incoming_damage = illusion_incoming_damage})
-	
-	illusion:MakeIllusion()  --Without MakeIllusion(), the unit counts as a hero, e.g. if it dies to neutrals it says killed by neutrals, it respawns, etc.  Without it, IsIllusion() returns false and IsRealHero() returns true.
-
-	return illusion
 end
---]]

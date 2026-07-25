@@ -25,19 +25,10 @@ end
 function modifier_ability_thdots_chenEx:OnCreated()
 	if not IsServer() then return end
 	self.caster = self:GetCaster()
-	self:StartIntervalThink(0.03)
+	THD2_RefreshTalentModifiers(self.caster, "ability_thdots_chenEx")
 end
 function modifier_ability_thdots_chenEx:OnIntervalThink()
 	if not IsServer() then return end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_cheng_1") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_chenEx_telent_1") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_chenEx_telent_1",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_cheng_2") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_chenEx_telent_2") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_chenEx_telent_2",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_cheng_4") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_chenEx_telent_4") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_chenEx_telent_4",{})
-	end
 end
 
 -- function modifier_ability_thdots_chenEx:GetModifierTotal_ConstantBlock(kv)

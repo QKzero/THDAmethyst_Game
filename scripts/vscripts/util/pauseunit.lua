@@ -16,7 +16,7 @@
 		ability:ApplyDataDrivenModifier( caster, target, "modifier_stunsystem_pause", {Duration=pausetime} )
 		dummy:SetContextThink(DoUniqueString('ability_stunsystem_pause_timer'),
 	    	function ()
-	    			if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 0.1 end
 	    			target:RemoveModifierByName("modifier_stunsystem_pause")
 	                dummy:RemoveSelf()
 		    	    return nil

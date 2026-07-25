@@ -57,8 +57,7 @@ function modifier_item_diary_passive:IsPurgeException() return false end
 function modifier_item_diary_passive:RemoveOnDeath() return false end
 function modifier_item_diary_passive:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(FrameTime())
-	print(self:GetAbility():GetSpecialValueFor("percent_time"))
+	self:StartIntervalThink(0.5)
 end
 function modifier_item_diary_passive:OnIntervalThink()
 	if not IsServer() then return end

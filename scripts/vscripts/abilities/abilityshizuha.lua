@@ -141,7 +141,8 @@ function modifier_thdots_shizuhaEX_check_levelup_new:OnCreated()
     self.ability = self:GetAbility()
     -- mylevel = self.caster:GetLevel()
     self.caster:SetModifierStackCount("modifier_thdots_shizuhaEX_check_levelup_new", self.ability, 1)
-    self:StartIntervalThink(FrameTime())
+    -- 优化：升级是离散事件，FrameTime 空轮询完全没必要，改为 0.5 秒。
+    self:StartIntervalThink(0.5)
 end
 function modifier_thdots_shizuhaEX_check_levelup_new:OnIntervalThink()
     if not IsServer() then

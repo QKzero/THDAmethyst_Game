@@ -18,36 +18,29 @@ function modifier_ability_thdots_hinaEx_passive:OnCreated()
 	if not IsServer() then return end
 	self.caster = self:GetParent()
 	self.refresh_time = self:GetAbility():GetSpecialValueFor("refresh_time")		--护盾刷新时间
-	self.interval_time = self.refresh_time
+	self.refreshing_shield = false
 	self.caster:AddNewModifier(self.caster, self:GetAbility(),"modifier_ability_thdots_hinaEx_shield",{})
-	self:StartIntervalThink(0.1)
+	THD2_RefreshTalentModifiers(self.caster, "ability_thdots_hinaEx")
+	self:SetStackCount(1)
+	self:StartIntervalThink(-1)
 end
 
 function modifier_ability_thdots_hinaEx_passive:OnIntervalThink()
 	if not IsServer() then return end
-	self.interval_time = self.interval_time - 0.1
-	local MaxHealth_percent = self:GetAbility():GetSpecialValueFor("health_percent")
-	if self.interval_time <= 0 then
-		self.caster:EmitSound("Hero_Wisp.Tether.Stop")
-		self.caster:AddNewModifier(self.caster, self:GetAbility(),"modifier_ability_thdots_hinaEx_shield",{})
-		self.interval_time = self.refresh_time
-	end
-	if FindTelentValue(self.caster,"special_bonus_unique_hina_6") ~= 0 and not self.caster:HasModifier("modifier_ability_thdots_hinaEx_talent6") then
-		self.caster:AddNewModifier(self.caster,self:GetAbility(),"modifier_ability_thdots_hinaEx_talent6",{})
-	end
+	self.caster:EmitSound("Hero_Wisp.Tether.Stop")
+	self.caster:AddNewModifier(self.caster, self:GetAbility(),"modifier_ability_thdots_hinaEx_shield",{})
+	self.refreshing_shield = false
+	self:SetStackCount(1)
+	self:StartIntervalThink(-1)
 end
 
-function modifier_ability_thdots_hinaEx_passive:DeclareFunctions()
-	return {
-		MODIFIER_EVENT_ON_TAKEDAMAGE
-	}
-end
-
-function modifier_ability_thdots_hinaEx_passive:OnTakeDamage(keys)
-	if not IsServer() then return end
-	if keys.unit == self:GetParent() then
-		-- self.interval_time = self.refresh_time
-	end
+function modifier_ability_thdots_hinaEx_passive:StartShieldRefreshTimer()
+	if self.refreshing_shield then return end
+	self.refreshing_shield = true
+	self:SetStackCount(0)
+	self:GetAbility():StartCooldown(self.refresh_time)
+	-- 护盾未满才开始刷新计时，满盾期间不运行常驻thinker。
+	self:StartIntervalThink(self.refresh_time)
 end
 
 modifier_ability_thdots_hinaEx_shield = {}
@@ -81,6 +74,19 @@ function modifier_ability_thdots_hinaEx_shield:OnRefresh()
 	self:SetStackCount(self.shield_remaining)
 end
 
+function modifier_ability_thdots_hinaEx_shield:DestroyShieldParticle()
+	if not IsServer() then return end
+	if self.particle then
+		ParticleManager:DestroyParticleSystem(self.particle, true)
+		self.particle = nil
+	end
+end
+
+function modifier_ability_thdots_hinaEx_shield:OnDestroy()
+	if not IsServer() then return end
+	self:DestroyShieldParticle()
+end
+
 function modifier_ability_thdots_hinaEx_shield:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK,
@@ -92,6 +98,7 @@ end
 function modifier_ability_thdots_hinaEx_shield:OnRespawn(keys)
 	if not IsServer() then return end
 	if keys.unit == self:GetParent() then
+		self:DestroyShieldParticle()
 		self:OnCreated()
 	end
 end
@@ -116,10 +123,9 @@ function modifier_ability_thdots_hinaEx_shield:GetModifierTotal_ConstantBlock(kv
 	-- print(self.shield_remaining)
 	-- print(passive_modifier:GetStackCount())
 	-- print(self:GetAbility():GetSpecialValueFor("health_percent") * self:GetCaster():GetMaxHealth() / 100)
-	if passive_modifier:GetStackCount() == 1 and self.shield_remaining < self:GetAbility():GetSpecialValueFor("health_percent") * self:GetCaster():GetMaxHealth() / 100 then
+	if passive_modifier and self.shield_remaining < self:GetAbility():GetSpecialValueFor("health_percent") * self:GetCaster():GetMaxHealth() / 100 then
 		-- print("开始转CD")
-		self:GetAbility():StartCooldown(self:GetAbility():GetCooldown(self:GetAbility():GetLevel()))
-		passive_modifier:SetStackCount(0)
+		passive_modifier:StartShieldRefreshTimer()
 	end
 	if kv.damage < original_shield_amount then
 		--Emit damage blocking effect
@@ -129,7 +135,7 @@ function modifier_ability_thdots_hinaEx_shield:GetModifierTotal_ConstantBlock(kv
 	else
 		--Emit damage block effect
 		SendOverheadEventMessage(nil, OVERHEAD_ALERT_BLOCK, kv.target, original_shield_amount, nil)
-		ParticleManager:DestroyParticleSystem(self.particle, true)
+		self:DestroyShieldParticle()
 		caster:EmitSound("Hero_Abaddon.AphoticShield.Destroy")
 		local particle = ParticleManager:CreateParticle("particles/econ/items/abaddon/abaddon_alliance/abaddon_aphotic_shield_alliance_explosion.vpcf", PATTACH_ABSORIGIN, caster)
 		ParticleManager:SetParticleControl(particle, 0, target_vector)
@@ -179,7 +185,6 @@ function ability_thdots_hina01:OnSpellStart()
 	local shield_size = target:GetModelRadius() * 0.7
 	local wanbaochui_radius = self:GetSpecialValueFor("wanbaochui_radius")
 	local wanbaochui_damage = caster:GetMaxHealth() * self:GetSpecialValueFor("wanbaochui_damage") / 100
-	self.table = {}
 	if caster:HasModifier("modifier_item_wanbaochui") and caster == target then
 		local targets = FindUnitsInRadius(caster:GetTeamNumber(), caster:GetAbsOrigin(),nil,wanbaochui_radius,
 			DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, 0,0, false)
@@ -202,12 +207,6 @@ function ability_thdots_hina01:OnSpellStart()
 	else
 		hina01_CreateDoll(caster,target,self)
 	end
-	for item_slot = 0, 5 do
-		local individual_item = caster:GetItemInSlot(item_slot)
-		if individual_item ~= nil then
-			print(individual_item:GetName())
-		end
-	end
 end
 
 function hina01_CreateDoll(caster , target , self)
@@ -217,8 +216,6 @@ function hina01_CreateDoll(caster , target , self)
 	local MaxHealth = self:GetSpecialValueFor("health") + FindTelentValue(caster,"special_bonus_unique_hina_1")
 	local doll_vec = target:GetAbsOrigin() + RandomVector(300)
 	local shield_size = target:GetModelRadius() * 0.7
-	target:AddNewModifier(caster, self, "modifier_ability_thdots_hina01_shield", {duration = duration})
-	self.target = target
 	local Doll = CreateUnitByName("npc_ability_hina01_doll", 
 			doll_vec,
 			false,
@@ -236,16 +233,21 @@ function hina01_CreateDoll(caster , target , self)
 		Doll:SetBaseMagicalResistanceValue(caster:FindAbilityByName("special_bonus_unique_hina_3"):GetSpecialValueFor("magical_resistance"))
 	end
 	Doll:AddNewModifier(caster, self, "modifier_ability_thdots_hina01_doll", {duration = duration})
-	self.particle = ParticleManager:CreateParticle("particles/units/heroes/hero_abaddon/abaddon_aphotic_shield.vpcf", PATTACH_ABSORIGIN_FOLLOW, target)
+	local shield_modifier = target:AddNewModifier(caster, self, "modifier_ability_thdots_hina01_shield", {duration = duration})
+	local shield_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_abaddon/abaddon_aphotic_shield.vpcf", PATTACH_ABSORIGIN_FOLLOW, target)
 	local common_vector = Vector(shield_size,0,shield_size)
-	ParticleManager:SetParticleControl(self.particle, 1, common_vector)
-	ParticleManager:SetParticleControl(self.particle, 2, common_vector)
-	ParticleManager:SetParticleControl(self.particle, 4, common_vector)
-	ParticleManager:SetParticleControl(self.particle, 5, Vector(shield_size,0,0))
-	ParticleManager:SetParticleControlEnt(self.particle, 0, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
-	ParticleManager:DestroyParticleSystemTime(self.particle, duration)
-	local target_and_doll = {target,Doll}
-	table.insert(self.table,target_and_doll)
+	ParticleManager:SetParticleControl(shield_particle, 1, common_vector)
+	ParticleManager:SetParticleControl(shield_particle, 2, common_vector)
+	ParticleManager:SetParticleControl(shield_particle, 4, common_vector)
+	ParticleManager:SetParticleControl(shield_particle, 5, Vector(shield_size,0,0))
+	ParticleManager:SetParticleControlEnt(shield_particle, 0, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
+	if shield_modifier then
+		-- 每个护盾modifier独立持有doll和粒子，避免多目标时覆盖ability字段。
+		shield_modifier.doll = Doll
+		shield_modifier.shield_particle = shield_particle
+	else
+		ParticleManager:DestroyParticleSystem(shield_particle, true)
+	end
 end
 
 modifier_ability_thdots_hina01_shield = {}
@@ -258,6 +260,19 @@ function modifier_ability_thdots_hina01_shield:IsDebuff()		return false end
 function modifier_ability_thdots_hina01_shield:OnCreated()
 	if not IsServer() then return end
 	self.particle_hit = "particles/units/heroes/hero_warlock/warlock_fatal_bonds_hit.vpcf"
+end
+
+function modifier_ability_thdots_hina01_shield:DestroyShieldParticle()
+	if not IsServer() then return end
+	if self.shield_particle then
+		ParticleManager:DestroyParticleSystem(self.shield_particle, true)
+		self.shield_particle = nil
+	end
+end
+
+function modifier_ability_thdots_hina01_shield:OnDestroy()
+	if not IsServer() then return end
+	self:DestroyShieldParticle()
 end
 
 function modifier_ability_thdots_hina01_shield:DeclareFunctions()
@@ -273,12 +288,7 @@ function modifier_ability_thdots_hina01_shield:GetModifierTotal_ConstantBlock(kv
 	local caster 				= self:GetCaster()
 	local ability 				= self:GetAbility()
 	local target_vector			= target:GetAbsOrigin()
-	local doll
-	for i=1,#ability.table do
-		if ability.table[i][1] == target then
-			doll = ability.table[i][2]
-		end
-	end
+	local doll					= self.doll
 	if doll == nil or doll:IsNull() then
 		return
 	end
@@ -307,7 +317,7 @@ function modifier_ability_thdots_hina01_shield:GetModifierTotal_ConstantBlock(kv
 
 	if not doll or doll:IsNull() or not doll:IsAlive() then
 		caster:EmitSound("Hero_Abaddon.AphoticShield.Destroy")
-		ParticleManager:DestroyParticleSystem(ability.particle, true)
+		self:DestroyShieldParticle()
 		local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_abaddon/abaddon_aphotic_shield_explosion.vpcf", PATTACH_ABSORIGIN, target)
 		ParticleManager:SetParticleControl(particle, 0, target_vector)
 		ParticleManager:ReleaseParticleIndex(particle)
@@ -328,7 +338,6 @@ function modifier_ability_thdots_hina01_doll:IsDebuff()		return false end
 
 function modifier_ability_thdots_hina01_doll:OnDestroy()
 	if not IsServer() or self:GetParent():IsNull() then return end
-	-- ParticleManager:DestroyParticleSystem(ability.particle, true)
 	self:GetParent():ForceKill(false)
 	self:GetParent():RemoveAllModifiers(0,true,true,true)
 end
@@ -465,6 +474,8 @@ function modifier_ability_thdots_hina02_bonds:OnCreated()
 	self.particle_hit = "particles/units/heroes/hero_warlock/warlock_fatal_bonds_hit.vpcf"
 	self.modifier_bonds = "modifier_ability_thdots_hina02_bonds"
 	self.ability_hina02 = "ability_thdots_hina02"
+	self.link_particle_interval = 0.2
+	self.next_link_particle_time = {}
 
 	-- Ability specials
 	self.link_damage_share_pct = self.ability:GetSpecialValueFor("link_damage_share_pct")
@@ -518,6 +529,20 @@ function modifier_ability_thdots_hina02_bonds:DeclareFunctions()
 	return decFuncs
 end
 
+function modifier_ability_thdots_hina02_bonds:PlayLinkParticle(source, target)
+	if not source or source:IsNull() or not target or target:IsNull() then return end
+	local now = GameRules:GetGameTime()
+	local particle_key = source:GetEntityIndex() .. "_" .. target:GetEntityIndex()
+	if self.next_link_particle_time[particle_key] and now < self.next_link_particle_time[particle_key] then return end
+	self.next_link_particle_time[particle_key] = now + self.link_particle_interval
+
+	local particle_hit_fx = ParticleManager:CreateParticle(self.particle_hit, PATTACH_CUSTOMORIGIN_FOLLOW, self.parent)
+	ParticleManager:SetParticleControlEnt(particle_hit_fx, 0, source, PATTACH_POINT_FOLLOW, "attach_hitloc", source:GetAbsOrigin(), true)
+	ParticleManager:SetParticleControlEnt(particle_hit_fx, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
+	ParticleManager:ReleaseParticleIndex(particle_hit_fx)
+	ParticleManager:DestroyParticleSystem(particle_hit_fx, false)
+end
+
 function modifier_ability_thdots_hina02_bonds:OnTakeDamage(keys)
 	if IsServer() and bit.band( keys.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) ~= DOTA_DAMAGE_FLAG_REFLECTION then
 		local unit = keys.unit
@@ -529,12 +554,8 @@ function modifier_ability_thdots_hina02_bonds:OnTakeDamage(keys)
 		if unit == self:GetParent() and self.bond_table then
 			for _, bonded_enemy in pairs(self.bond_table) do
 				if not bonded_enemy:IsNull() and bonded_enemy ~= self:GetParent() then
-					-- Add particle hit effect
-					local particle_hit_fx = ParticleManager:CreateParticle(self.particle_hit, PATTACH_CUSTOMORIGIN_FOLLOW, self.parent)
-					ParticleManager:SetParticleControlEnt(particle_hit_fx, 0, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", self.parent:GetAbsOrigin(), true)
-					ParticleManager:SetParticleControlEnt(particle_hit_fx, 1, bonded_enemy, PATTACH_POINT_FOLLOW, "attach_hitloc", bonded_enemy:GetAbsOrigin(), true)
-					ParticleManager:ReleaseParticleIndex(particle_hit_fx)
-					ParticleManager:DestroyParticleSystem(particle_hit_fx, false)
+					-- 联动伤害逐次结算，粒子按连接目标节流。
+					self:PlayLinkParticle(self.parent, bonded_enemy)
 
 					local damageTable = {
 						victim			= bonded_enemy,
@@ -552,12 +573,8 @@ function modifier_ability_thdots_hina02_bonds:OnTakeDamage(keys)
 		elseif keys.attacker == self:GetParent() and string.find(keys.unit:GetUnitName(), "warlock_golem") and keys.unit:GetTeamNumber() ~= self:GetParent():GetTeamNumber() then
 			-- Check distance, if it's in range, damage the parent
 			if (keys.unit:GetAbsOrigin() - self:GetParent():GetAbsOrigin()):Length2D() <= self.golem_link_radius then
-				-- Add particle hit effect
-				local particle_hit_fx = ParticleManager:CreateParticle(self.particle_hit, PATTACH_CUSTOMORIGIN_FOLLOW, self.parent)
-				ParticleManager:SetParticleControlEnt(particle_hit_fx, 0, unit, PATTACH_POINT_FOLLOW, "attach_hitloc", unit:GetAbsOrigin(), true)
-				ParticleManager:SetParticleControlEnt(particle_hit_fx, 1, self.parent, PATTACH_POINT_FOLLOW, "attach_hitloc", self.parent:GetAbsOrigin(), true)
-				ParticleManager:ReleaseParticleIndex(particle_hit_fx)
-				ParticleManager:DestroyParticleSystem(particle_hit_fx, false)
+				-- 联动伤害逐次结算，粒子按连接目标节流。
+				self:PlayLinkParticle(unit, self.parent)
 
 				-- Apply damage
 				local damageTable = 
@@ -822,7 +839,16 @@ function modifier_ability_thdots_hina04:OnCreated()
 	if self.caster:GetName() == "npc_dota_hero_witch_doctor" then
 		self.caster:EmitSound("Voice_Thdots_Hine.AbilityHina04_1")
 	end
-	self:StartIntervalThink(0.03)
+	-- 大招持续牵引保留0.05秒tick，范围扫描和清位改为低频处理。
+	self.move_interval = 0.05
+	self.scan_interval = 0.2
+	self.clear_interval = 0.2
+	self.scan_elapsed = self.scan_interval
+	self.clear_elapsed = 0
+	self.pull_targets = {}
+	self.drain_particle_interval = 0.2
+	self.next_drain_particle_time = {}
+	self:StartIntervalThink(self.move_interval)
 	self.caster:StartGestureWithPlaybackRate(ACT_DOTA_CAST_ABILITY_4,10)
 	local pfx_name = "particles/heroes/hina/hina04.vpcf"
 	self.particle = ParticleManager:CreateParticle(pfx_name, PATTACH_ABSORIGIN_FOLLOW, self.caster)
@@ -830,20 +856,51 @@ function modifier_ability_thdots_hina04:OnCreated()
 	ParticleManager:SetParticleControl(self.particle, 10, Vector(self.radius, self.pull_radius, 0))
 end
 
+function modifier_ability_thdots_hina04:RefreshPullTargets()
+	self.pull_targets = FindUnitsInRadius(self.caster:GetTeam(),self.caster:GetAbsOrigin(),nil,
+				self.radius,self.ability:GetAbilityTargetTeam(),self.ability:GetAbilityTargetType(),0,0,false)
+end
+
 function modifier_ability_thdots_hina04:OnIntervalThink()
 	if not IsServer() then return end
 	local caster = self.caster
-	local enemies = FindUnitsInRadius(self.caster:GetTeam(),self.caster:GetAbsOrigin(),nil,
-	 			self.radius,self.ability:GetAbilityTargetTeam(),self.ability:GetAbilityTargetType(),0,0,false)
+	if not caster or caster:IsNull() then return end
+	self.scan_elapsed = self.scan_elapsed + self.move_interval
+	if self.scan_elapsed >= self.scan_interval then
+		self.scan_elapsed = 0
+		self:RefreshPullTargets()
+	end
+
+	self.clear_elapsed = self.clear_elapsed + self.move_interval
+	local should_clear_space = false
+	if self.clear_elapsed >= self.clear_interval then
+		self.clear_elapsed = 0
+		should_clear_space = true
+	end
+
 	-- local speed =  self.gravitation / distance * 2 + self:GetAbility().absorb_damage / 50 --伤害越高，离中心越近，引力越强
-	local speed = self.gravitation / 30 + self:GetAbility().absorb_damage / 150
+	local speed = (self.gravitation / 30 + self:GetAbility().absorb_damage / 150) * (self.move_interval / 0.03)
 	-- print(speed)
-	for _,v in pairs (enemies) do
-		local vec = v:GetAbsOrigin()
-		local distance = ( caster:GetAbsOrigin() - vec):Length2D()
-		local direct = ( caster:GetAbsOrigin() - vec):Normalized() * speed
-		if not v:IsInvulnerable() and not IsTHDImmune(v) then
-			FindClearSpaceForUnit(v,v:GetAbsOrigin() + direct * (1 - v:GetStatusResistance()), true)
+	local caster_origin = caster:GetAbsOrigin()
+	for i = #self.pull_targets, 1, -1 do
+		local v = self.pull_targets[i]
+		if not v or v:IsNull() or not v:IsAlive() then
+			table.remove(self.pull_targets, i)
+		else
+			local vec = v:GetAbsOrigin()
+			local offset = caster_origin - vec
+			local distance = offset:Length2D()
+			if distance > self.radius or v:IsInvulnerable() or IsTHDImmune(v) then
+				table.remove(self.pull_targets, i)
+			elseif distance > 1 then
+				local direct = offset:Normalized() * speed
+				local new_position = v:GetAbsOrigin() + direct * (1 - v:GetStatusResistance())
+				if should_clear_space then
+					FindClearSpaceForUnit(v,new_position, true)
+				else
+					v:SetAbsOrigin(new_position)
+				end
+			end
 		end
 	end
 	ParticleManager:SetParticleControl(self.particle, 0, Vector(self:GetParent():GetAbsOrigin().x,self:GetParent():GetAbsOrigin().y,self:GetParent():GetAbsOrigin().z+64))
@@ -885,6 +942,12 @@ end
 function modifier_ability_thdots_hina04:OnDestroy()
 	if not IsServer() then return end
 	local caster = self.caster
+	for _,v in pairs(self.pull_targets or {}) do
+		if v and not v:IsNull() and v:IsAlive() then
+			FindClearSpaceForUnit(v,v:GetAbsOrigin(), true)
+		end
+	end
+	self.pull_targets = nil
 	ParticleManager:DestroyParticle(self.particle, false)
 	ParticleManager:ReleaseParticleIndex(self.particle)
 	caster:RemoveGesture(ACT_DOTA_CAST_ABILITY_4)
@@ -972,6 +1035,7 @@ function modifier_ability_thdots_hina04:OnTakeDamage(keys)
 	if not IsServer() then return end
 	local caster = self:GetParent()
 	local unit = keys.unit
+	if not unit or unit:IsNull() then return end
 	local distance = (unit:GetOrigin() - caster:GetOrigin()):Length2D()
 	if distance <= self.radius then
 		local absorb = ( keys.damage * self.damage_absorb / 100)
@@ -980,12 +1044,17 @@ function modifier_ability_thdots_hina04:OnTakeDamage(keys)
 			unit:SetHealth(unit:GetHealth() - keys.damage + absorb)
 		end
 		self:GetAbility().absorb_damage = self:GetAbility().absorb_damage + absorb
-		--特效
-		local particle_drain = "particles/econ/items/lion/lion_demon_drain/lion_spell_mana_drain_demon.vpcf"
-		local particle_drain_fx = ParticleManager:CreateParticle(particle_drain, PATTACH_CUSTOMORIGIN_FOLLOW, unit)
-		ParticleManager:SetParticleControlEnt(particle_drain_fx, 0, unit, PATTACH_POINT_FOLLOW, "attach_hitloc", unit:GetAbsOrigin(), true)        
-		ParticleManager:SetParticleControlEnt(particle_drain_fx, 1, caster, PATTACH_POINT_FOLLOW, "attach_mouth", caster:GetAbsOrigin(), true)        
-		ParticleManager:DestroyParticleSystemTime(particle_drain_fx,0.2)
+		-- 伤害吸收逐事件计算，粒子按单位节流。
+		local now = GameRules:GetGameTime()
+		local ent_index = unit:entindex()
+		if not self.next_drain_particle_time[ent_index] or now >= self.next_drain_particle_time[ent_index] then
+			self.next_drain_particle_time[ent_index] = now + self.drain_particle_interval
+			local particle_drain = "particles/econ/items/lion/lion_demon_drain/lion_spell_mana_drain_demon.vpcf"
+			local particle_drain_fx = ParticleManager:CreateParticle(particle_drain, PATTACH_CUSTOMORIGIN_FOLLOW, unit)
+			ParticleManager:SetParticleControlEnt(particle_drain_fx, 0, unit, PATTACH_POINT_FOLLOW, "attach_hitloc", unit:GetAbsOrigin(), true)
+			ParticleManager:SetParticleControlEnt(particle_drain_fx, 1, caster, PATTACH_POINT_FOLLOW, "attach_mouth", caster:GetAbsOrigin(), true)
+			ParticleManager:DestroyParticleSystemTime(particle_drain_fx,0.2)
+		end
 		-- print(self:GetAbility().absorb_damage)
 	end
 end

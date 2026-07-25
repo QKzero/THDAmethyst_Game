@@ -67,15 +67,12 @@ function Merlin02( keys )
 	target:EmitSound("Voice_Thdots_Merlin.AbilityMerlin02")
 	if(FindTelentValue(caster,"special_bonus_unique_merlin") == 1)then
 		if(caster:GetTeam() ~= target:GetTeam()) then
-			print("telent debuff")
 			keys.ability:ApplyDataDrivenModifier(caster, target, "modifier_merlin02_debuff_telent", {duration = keys.buff_time})
 		else
-			print("telent buff")
 			keys.ability:ApplyDataDrivenModifier(caster, target, "modifier_merlin02_buff", {duration = keys.buff_time})
 		end
 	else
 		keys.ability:ApplyDataDrivenModifier(caster, target, "modifier_merlin02_debuff", {duration = keys.buff_time})
-		print("no telent")
 		--Purge(bool RemovePositiveBuffs, bool RemoveDebuffs, bool BuffsCreatedThisFrameOnly, bool RemoveStuns, bool RemoveExceptions)
 		--target:Purge(false,true,false,true,false)
 	end
@@ -144,7 +141,10 @@ function modifier_merlin03_aura:OnIntervalThink()
 	local tmp1 = math.modf( (1 - (currentHealth / maxHealth ) ) / (self.ability:GetSpecialValueFor("spell_rate") / 100) )
 
 	local buffstack = tmp1 + 1
-	self.caster:SetModifierStackCount("modifier_merlin03_buff", self.caster, buffstack)
+	if self.lastBuffStack ~= buffstack then
+		self.caster:SetModifierStackCount("modifier_merlin03_buff", self.caster, buffstack)
+		self.lastBuffStack = buffstack
+	end
 end
 
 modifier_merlin03_buff = {}
@@ -243,22 +243,6 @@ function modifier_thdots_Merlin03_wanbaochui:OnIntervalThink()
 		attacker 		= self:GetCaster(),
 		ability 		= self:GetAbility()
 	})
-		
-	-- Area damage
-	
-	-- Global radius due to Rot being able to damage units from anywhere as long as they have the debuff
-	for _, enemy in pairs(FindUnitsInRadius(self:GetCaster():GetTeamNumber(), self:GetParent():GetAbsOrigin(), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)) do
-		if enemy:FindModifierByNameAndCaster("modifier_thdots_Merlin03_wanbaochui_slow", self:GetCaster()) then
-			ApplyDamage({
-				victim 			= enemy,
-				damage 			= self.damage_per_tick,
-				damage_type		= DAMAGE_TYPE_MAGICAL,
-				damage_flags 	= DOTA_DAMAGE_FLAG_NONE,
-				attacker 		= self:GetCaster(),
-				ability 		= self:GetAbility()
-			})
-		end
-	end
 end
 
 function modifier_thdots_Merlin03_wanbaochui:OnDestroy()
@@ -272,7 +256,32 @@ modifier_thdots_Merlin03_wanbaochui_slow = {}
 LinkLuaModifier("modifier_thdots_Merlin03_wanbaochui_slow", "scripts/vscripts/abilities/abilitymerlin.lua", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_thdots_Merlin03_wanbaochui_slow:OnCreated()
-	self.slow = self:GetAbility():GetSpecialValueFor("slow")
+	local ability = self:GetAbility()
+	self.slow = ability:GetSpecialValueFor("slow")
+	if not IsServer() then return end
+	self.tick = ability:GetSpecialValueFor("tick")
+	self.damage_percent = ability:GetSpecialValueFor("damage_percent")
+	self:StartIntervalThink(self.tick)
+end
+
+function modifier_thdots_Merlin03_wanbaochui_slow:OnRefresh()
+	self:OnCreated()
+end
+
+function modifier_thdots_Merlin03_wanbaochui_slow:OnIntervalThink()
+	if not IsServer() then return end
+	local caster = self:GetCaster()
+	local ability = self:GetAbility()
+	local damage_per_tick = caster:GetMaxHealth() * self.damage_percent * 0.01 * self.tick
+
+	ApplyDamage({
+		victim 			= self:GetParent(),
+		damage 			= damage_per_tick,
+		damage_type		= DAMAGE_TYPE_MAGICAL,
+		damage_flags 	= DOTA_DAMAGE_FLAG_NONE,
+		attacker 		= caster,
+		ability 		= ability
+	})
 end
 
 function modifier_thdots_Merlin03_wanbaochui_slow:DeclareFunctions()
@@ -312,7 +321,7 @@ function OnMerlin04TakeDamage( keys )
 	local caster = keys.caster
 	local target = merlin04target
 	local attacker = keys.attacker
-	if target:HasModifier("modifier_merlin04_enemy") then
+	if target ~= nil and target:HasModifier("modifier_merlin04_enemy") then
 		local damage_to_deal = keys.TakenDamage * (keys.ability:GetSpecialValueFor("back_factor") + FindTelentValue(caster,"special_bonus_unique_merlin_5")) / 100 
 
 
@@ -328,10 +337,14 @@ function OnMerlin04TakeDamage( keys )
 					damage_flags = DOTA_DAMAGE_FLAG_REFLECTION
 				}
 				SendOverheadEventMessage(nil,OVERHEAD_ALERT_BONUS_POISON_DAMAGE,target,damage_to_deal,nil)
-				local effectIndex = ParticleManager:CreateParticle("particles/thd2/heroes/merlin/merlin04_thin.vpcf", PATTACH_CUSTOMORIGIN, nil)
-				ParticleManager:SetParticleControl(effectIndex, 0, caster:GetOrigin()+Vector(0, 0, 100))
-				ParticleManager:SetParticleControl(effectIndex, 1, target:GetOrigin()+Vector(0, 0, 100))
-				ParticleManager:DestroyParticleSystem(effectIndex,false)
+				local now = GameRules:GetGameTime()
+				if target.merlin04_last_particle_time == nil or now - target.merlin04_last_particle_time >= 0.2 then
+					target.merlin04_last_particle_time = now
+					local effectIndex = ParticleManager:CreateParticle("particles/thd2/heroes/merlin/merlin04_thin.vpcf", PATTACH_CUSTOMORIGIN, nil)
+					ParticleManager:SetParticleControl(effectIndex, 0, caster:GetOrigin()+Vector(0, 0, 100))
+					ParticleManager:SetParticleControl(effectIndex, 1, target:GetOrigin()+Vector(0, 0, 100))
+					ParticleManager:DestroyParticleSystem(effectIndex,false)
+				end
 				UnitDamageTarget(damage_table)
 			end
 		end
@@ -357,15 +370,8 @@ function MerlinExOnCreated ( keys )
 			MERLINEX_BONUS_COUNT = MERLINEX_BONUS_COUNT + 2
 			--caster:SetMaxHealth(caster:GetMaxHealth() + 4)
 		end
-	end
-end
-
-function MerlinExOnIntervalThink( keys )
-	-- body
-		local caster = EntIndexToHScript(keys.caster_entindex)
-		if MERLINEX_BONUS_COUNT ~= nil then
 		caster:SetModifierStackCount("modifier_MerlinEx_HealthBonus", caster, MERLINEX_BONUS_COUNT)
-		end
+	end
 end
 
 

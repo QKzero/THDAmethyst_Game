@@ -893,7 +893,7 @@ function modifier_ability_thdots_youmu2_04_lock:OnIntervalThink()
 end
 function modifier_ability_thdots_youmu2_04_lock:OnDestroy()
 	if not IsServer() then return end
-	ParticleManager:DestroyParticle(self.effectIndex2,false)
+	ParticleManager:DestroyParticleSystem(self.effectIndex2, false)
 	ResolveNPCPositions(self:GetParent():GetAbsOrigin(), 128)
 end
 

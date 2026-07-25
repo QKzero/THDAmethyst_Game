@@ -82,7 +82,7 @@ function modifier_ability_thdots_daiyouseiEx_passive:OnCreated()
     ParticleManager:SetParticleControlEnt(daiyousei_particle,0,self:GetCaster(),PATTACH_POINT_FOLLOW,"attach_origin",Vector(0,0,0),true)
 	self.time = 0.1
 	if GetMapName() == "dota" then self.time = 0.5 end
-	self:StartIntervalThink(self.time)
+	THD2_RefreshTalentModifiers(self:GetCaster(), "ability_thdots_daiyouseiEx")
 end
 
 function modifier_ability_thdots_daiyouseiEx_passive:OnIntervalThink()
@@ -94,19 +94,6 @@ function modifier_ability_thdots_daiyouseiEx_passive:OnIntervalThink()
 	for _,tree in pairs(trees) do
 		AddFOWViewer(caster:GetTeamNumber(), tree:GetOrigin(), radius,self.time + FrameTime(), false)
 	end]]--
-	--天赋监听
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_daiyousei_1") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_daiyouseiEx_talent1") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_daiyouseiEx_talent1",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_daiyousei_4") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_daiyouseiEx_talent4") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_daiyouseiEx_talent4",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_daiyousei_5") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_daiyouseiEx_talent5") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_daiyouseiEx_talent5",{})
-	end
-	if FindTelentValue(self:GetCaster(),"special_bonus_unique_daiyousei_6") ~= 0 and not self:GetCaster():HasModifier("modifier_ability_thdots_daiyouseiEx_talent6") then
-		self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_ability_thdots_daiyouseiEx_talent6",{})
-	end
 end
 
 modifier_ability_thdots_daiyouseiEx_attack = {}

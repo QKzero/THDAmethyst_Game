@@ -95,7 +95,7 @@ modifier_item_wanmeitiaoyuezhuangzhi_buff = modifier_item_wanmeitiaoyuezhuangzhi
 
 function modifier_item_wanmeitiaoyuezhuangzhi_buff:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.5)
 end
 function modifier_item_wanmeitiaoyuezhuangzhi_buff:OnIntervalThink()
 	if not IsServer() then return end

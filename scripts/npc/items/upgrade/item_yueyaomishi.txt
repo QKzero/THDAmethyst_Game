@@ -89,7 +89,7 @@
 					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"	"%bonus_mana_regen"
 					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_health"
 					"MODIFIER_PROPERTY_MANA_BONUS"	"%bonus_mana"
-					"MODIFIER_PROPERTY_MANA_DRAIN_AMPLIFY_PERCENTAGE"	"%mana_regen_amplify"
+					"MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE"	"%mana_regen_amplify"
 				}
 			}
 			"modifier_item_yueyaomishi_spell_amplify_buff"

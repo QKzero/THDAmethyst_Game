@@ -111,17 +111,12 @@ function modifier_ability_thdots_remilia_talent_Interval:OnCreated()
     if not IsServer() then
         return
     end
-    self:StartIntervalThink(FrameTime())
+    THD2_RefreshTalentModifiers(self:GetCaster(), "ability_thdots_remilia01")
 end
 
 function modifier_ability_thdots_remilia_talent_Interval:OnIntervalThink()
     if not IsServer() then
         return
-    end
-    if FindTelentValue(self:GetCaster(), "special_bonus_unique_remilia_1") ~= 0 and
-        not self:GetCaster():HasModifier("modifier_ability_thdots_remilia_talent_1") then
-        self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_ability_thdots_remilia_talent_1",
-            {})
     end
 end
 

@@ -958,7 +958,7 @@ function modifier_ability_thdots_sumirekoEx_handler:IsDebuff()				return false e
 
 function modifier_ability_thdots_sumirekoEx_handler:OnCreated()
 	if not IsServer() then return end
-	self:StartIntervalThink(FrameTime())
+	THD2_RefreshTalentModifiers(self:GetParent(), "ability_thdots_sumirekoEx")
 end
 
 -- function modifier_ability_thdots_sumirekoEx_handler:DeclareFunctions()
@@ -975,12 +975,6 @@ end
 -- end
 function modifier_ability_thdots_sumirekoEx_handler:OnIntervalThink()
 	if not IsServer() then return end
-	if FindTelentValue(self:GetParent(),"special_bonus_unique_sumireko_1") ~= 0 and not self:GetParent():HasModifier("modifier_ability_thdots_sumirekoEx_talent_1") then
-		self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ability_thdots_sumirekoEx_talent_1", {})
-	end
-	if FindTelentValue(self:GetParent(),"special_bonus_unique_sumireko_4") ~= 0 and not self:GetParent():HasModifier("modifier_ability_thdots_sumirekoEx_talent_2") then
-		self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ability_thdots_sumirekoEx_talent_2", {})
-	end
 end
 
 modifier_ability_thdots_sumirekoEx_talent_1 = {}

@@ -51,10 +51,11 @@ local Tier4NeutralItems = {
 }
 
 local Tier5NeutralItems = {
-    "item_desolator_2",
+    "item_panic_button",
     "item_desolator_2",
     "item_fallen_sky",
     "item_minotaur_horn",
+    "item_panic_button",
     "item_spider_legs",
     "item_unrelenting_eye",
     "item_panic_button",
@@ -157,11 +158,11 @@ function NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
     and not isTierTwoDone
     then
         for _, h in pairs(TeamRadiant) do
-            NeutralItems.GiveItem(Tier2NeutralItems[RandomInt(1, #Tier2NeutralItems)], h, isTierOneDone, 2)
+            NeutralItems.GiveItem(Tier2NeutralItems[RandomInt(1, #Tier2NeutralItems)], h, isTierTwoDone, 2)
         end
 
         for _, h in pairs(TeamDire) do
-            NeutralItems.GiveItem(Tier2NeutralItems[RandomInt(1, #Tier2NeutralItems)], h, isTierOneDone, 2)
+            NeutralItems.GiveItem(Tier2NeutralItems[RandomInt(1, #Tier2NeutralItems)], h, isTierTwoDone, 2)
         end
 
         isTierTwoDone = true
@@ -172,11 +173,11 @@ function NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
     and not isTierThreeDone
     then
         for _, h in pairs(TeamRadiant) do
-            NeutralItems.GiveItem(Tier3NeutralItems[RandomInt(1, #Tier3NeutralItems)], h, isTierTwoDone, 3)
+            NeutralItems.GiveItem(Tier3NeutralItems[RandomInt(1, #Tier3NeutralItems)], h, isTierThreeDone, 3)
         end
 
         for _, h in pairs(TeamDire) do
-            NeutralItems.GiveItem(Tier3NeutralItems[RandomInt(1, #Tier3NeutralItems)], h, isTierTwoDone, 3)
+            NeutralItems.GiveItem(Tier3NeutralItems[RandomInt(1, #Tier3NeutralItems)], h, isTierThreeDone, 3)
         end
 
         isTierThreeDone = true
@@ -188,11 +189,11 @@ function NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
     then
 
         for _, h in pairs(TeamRadiant) do
-            NeutralItems.GiveItem(Tier4NeutralItems[RandomInt(1, #Tier4NeutralItems)], h, isTierThreeDone, 4)
+            NeutralItems.GiveItem(Tier4NeutralItems[RandomInt(1, #Tier4NeutralItems)], h, isTierFourDone, 4)
         end
 
         for _, h in pairs(TeamDire) do
-            NeutralItems.GiveItem(Tier4NeutralItems[RandomInt(1, #Tier4NeutralItems)], h, isTierThreeDone, 4)
+            NeutralItems.GiveItem(Tier4NeutralItems[RandomInt(1, #Tier4NeutralItems)], h, isTierFourDone, 4)
         end
 
         isTierFourDone = true
@@ -204,11 +205,11 @@ function NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
     then
 
         for _, h in pairs(TeamRadiant) do
-            NeutralItems.GiveItem(Tier5NeutralItems[RandomInt(1, #Tier5NeutralItems)], h, isTierFourDone, 5)
+            NeutralItems.GiveItem(Tier5NeutralItems[RandomInt(1, #Tier5NeutralItems)], h, isTierFiveDone, 5)
         end
 
         for _, h in pairs(TeamDire) do
-            NeutralItems.GiveItem(Tier5NeutralItems[RandomInt(1, #Tier5NeutralItems)], h, isTierFourDone, 5)
+            NeutralItems.GiveItem(Tier5NeutralItems[RandomInt(1, #Tier5NeutralItems)], h, isTierFiveDone, 5)
         end
 
         isTierFiveDone = true
@@ -216,26 +217,37 @@ function NeutralItems.GiveNeutralItems(TeamRadiant, TeamDire)
 end
 
 function NeutralItems.GiveItem(itemName, hero, isTierDone, nTier)
+    if hero == nil or hero:IsNull() then return end
+
     NeutralItems:RemoveEnhan(hero)
+
+    local oldNeutralItem = hero:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)
+    if oldNeutralItem ~= nil then
+        hero:RemoveItem(oldNeutralItem)
+        UTIL_Remove(oldNeutralItem)
+    end
+
     if hero:HasRoomForItem(itemName, true, true)
     then
         local item = CreateItem(itemName, hero, hero)
         item:SetPurchaseTime(0)
 
-        if NeutralItems.HasNeutralItem(hero)
-        and isTierDone
-        then
-            hero:RemoveItem(hero:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT))
-            NeutralItems:RemoveEnhan(hero)
-            hero:AddItem(item)
-        else
-            hero:AddItem(item)
+        local addedItem = hero:AddItem(item)
+        if addedItem == nil then
+            UTIL_Remove(item)
+            return
         end
+
         local enhancement = NeutralItems:GetRandomEnhanByTier(nTier)
         if enhancement then
             local enha = CreateItem(enhancement.name, hero, hero)
             enha:SetPurchaseTime(0)
-            hero:AddItem(enha):SetLevel(enhancement.level)
+            local addedEnha = hero:AddItem(enha)
+            if addedEnha ~= nil then
+                addedEnha:SetLevel(enhancement.level)
+            else
+                UTIL_Remove(enha)
+            end
         end
     end
 end
@@ -244,10 +256,11 @@ function NeutralItems:RemoveEnhan(unit)
 	for idx = 1, 20 do
 		local currentItem = unit:GetItemInSlot(idx)
 		if currentItem ~= nil then
-			if string.find(currentItem:GetName(), "item_enhancement") then
-				unit:RemoveItem(currentItem)
-				-- return
-			end
+            if string.find(currentItem:GetName(), "item_enhancement") then
+                unit:RemoveItem(currentItem)
+                UTIL_Remove(currentItem)
+                -- return
+            end
 		end
 	end
 end

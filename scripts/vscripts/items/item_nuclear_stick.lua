@@ -67,7 +67,7 @@ function modifier_item_nuclear_stick_passive:RemoveOnDeath() return false end
 function modifier_item_nuclear_stick_passive:OnCreated()
 	self.cd=self:GetAbility():GetSpecialValueFor("reduction_cooldown")
 	if not IsServer() then return end
-	self:StartIntervalThink(FrameTime())
+	self:StartIntervalThink(0.5)
 end
 function modifier_item_nuclear_stick_passive:OnIntervalThink()
 	if not IsServer() then return end

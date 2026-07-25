@@ -130,6 +130,7 @@
 		"precache"
 		{
 			"particle"				"particles/heroes/ran/ability_ran_03_laser.vpcf"
+			"particle"				"particles/heroes/misc/aura_circle_common.vpcf"
 		}
 		"OnSpellStart"
 		{
@@ -168,7 +169,6 @@
 				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 				"Aura_Flags"	"DOTA_UNIT_TARGET_FLAG_NONE"
 				"Aura_ApplyToCaster"	"0"
-				"ThinkInterval"			"1"
 				"Properties"
 				{
 					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL"		"1"
@@ -184,36 +184,6 @@
 						"Function"			"OnMinoriko02Attacked"
 						"Caster"	"CASTER"
 						"attacker"	"ATTACKER"
-					}
-				}
-				"OnCreated"
-				{
-					"AttachEffect"
-					{
-						"EffectName"	"particles/heroes/misc/aura_circle_common.vpcf"
-						"EffectAttachType"	"follow_overhead"
-						"Target"	"CASTER"
-						"ControlPoints"
-						{
-							"01"	"%aura_radius 0 0"
-							"02"	"1 0 0"
-							"03"	"216 111 0"
-						}
-					}
-				}
-				"OnIntervalThink"
-				{
-					"AttachEffect"
-					{
-						"EffectName"	"particles/heroes/misc/aura_circle_common.vpcf"
-						"EffectAttachType"	"follow_overhead"
-						"Target"	"CASTER"
-						"ControlPoints"
-						{
-							"01"	"%aura_radius 0 0"
-							"02"	"1 0 0"
-							"03"	"216 111 0"
-						}
 					}
 				}
 			}

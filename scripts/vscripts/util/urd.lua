@@ -7,6 +7,7 @@ FLAG1 = true
 FLAG2 = true
 TIME_DURATION = 60  --投票的持续时间
 TIME_FLAG = 120		--投票的CD
+URD_THINK_INTERVAL = 1.0
 WINER_TEAM = nil
 
 Team1Name = "#DOTA_GoodGuys"
@@ -101,7 +102,7 @@ function Team1_Interval(plyid,plyhd)
 	local time = 0
 	GameRules:GetGameModeEntity():SetContextThink("urd_interval_1", 
 		function()
-			if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 1.0 end
 			if time < TIME_DURATION then
 				local count = 0
 				for _,v in pairs(Team1) do
@@ -123,14 +124,14 @@ function Team1_Interval(plyid,plyhd)
 					local end_time = 0
 					GameRules:GetGameModeEntity():SetContextThink("urd_hakurei", 
 						function()
-							if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 1.0 end
 							if end_time >= 10 then
 								GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
 								WebApi:AfterMatch()
 								return nil
 							end
-						end_time = end_time + 0.03
-						return 0.03
+end_time = end_time + 0.5
+						return 0.5
 						end
 						,
 						0)
@@ -149,8 +150,8 @@ function Team1_Interval(plyid,plyhd)
 				Team1_count = 0
 				return nil
 			end
-		time = time + 0.03
-		return 0.03
+time = time + URD_THINK_INTERVAL
+		return URD_THINK_INTERVAL
 		end
 		,
 		0)
@@ -160,7 +161,7 @@ function Team2_Interval(plyid,plyhd)
 	local time = 0
 	GameRules:GetGameModeEntity():SetContextThink("urd_interval_2", 
 		function()
-			if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 1.0 end
 			if time < TIME_DURATION then
 				local count = 0
 				for _,v in pairs(Team2) do
@@ -182,14 +183,14 @@ function Team2_Interval(plyid,plyhd)
 					local end_time = 0
 					GameRules:GetGameModeEntity():SetContextThink("urd_moriya", 
 						function()
-							if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 1.0 end
 							if end_time >= 10 then
 								GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
 								WebApi:AfterMatch()
 								return nil
 							end
-						end_time = end_time + 0.03
-						return 0.03
+end_time = end_time + 0.5
+						return 0.5
 						end
 						,
 						0)
@@ -208,8 +209,8 @@ function Team2_Interval(plyid,plyhd)
 				Team2_count = 0
 				return nil
 			end
-		time = time + 0.03
-		return 0.03
+time = time + URD_THINK_INTERVAL
+		return URD_THINK_INTERVAL
 		end
 		,
 		0)
@@ -219,13 +220,13 @@ function FLAG1_interval()
 	local end_time = 0
 	GameRules:GetGameModeEntity():SetContextThink("urd_moriya_1", 
 		function()
-			if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 1.0 end
 			if end_time >= TIME_FLAG then
 				FLAG1 = true
 				return nil
 			end
-		end_time = end_time + 0.03
-		return 0.03
+end_time = end_time + URD_THINK_INTERVAL
+		return URD_THINK_INTERVAL
 		end
 		,
 		0)
@@ -235,13 +236,13 @@ function FLAG2_interval()
 	local end_time = 0
 	GameRules:GetGameModeEntity():SetContextThink("urd_moriya_2", 
 		function()
-			if GameRules:IsGamePaused() then return 0.03 end
+if GameRules:IsGamePaused() then return 1.0 end
 			if end_time >= TIME_FLAG then
 				FLAG2 = true
 				return nil
 			end
-		end_time = end_time + 0.03
-		return 0.03
+end_time = end_time + URD_THINK_INTERVAL
+		return URD_THINK_INTERVAL
 		end
 		,
 		0)

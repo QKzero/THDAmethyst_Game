@@ -237,6 +237,6 @@ function modifier_item_yuetufensuijvren_buff:OnDestroy()
     local ability=self:GetAbility()
 
     --删除特效，停止音效
-    ParticleManager:DestroyParticle(ability.particle,true) 
+    ParticleManager:DestroyParticleSystem(ability.particle, true)
     StopSoundOn("Ability.Windrun",ability.owner)
 end

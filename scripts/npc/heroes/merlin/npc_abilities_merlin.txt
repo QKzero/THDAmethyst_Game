@@ -65,7 +65,6 @@
 						"level"		"%kill_level"
 					}
 				}
-				"ThinkInterval"	"0.1"
 				"OnDestroy"
 				{
 					"RunScript"
@@ -366,15 +365,6 @@
 				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
 				"Passive"	"1"
 				"IsPurgable"	"0"
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/abilityMerlin.lua"
-						"Function"	"MerlinExOnIntervalThink"
-					}
-				}
-				"ThinkInterval"	"0.1"
 				"States"	{}
 			}
 			"modifier_MerlinEx_AttackBonus"
