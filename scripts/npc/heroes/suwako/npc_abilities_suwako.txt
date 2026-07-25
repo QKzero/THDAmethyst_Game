@@ -42,9 +42,10 @@
 				"value"			"200"
 				"affected_by_aoe_increase"	"1"
 			}
-			"int_multi"	"0.8"
+			"int_multi"			"0.8"
 			"max_target"		"4"
 			"show_cast_range"	"1"
+			"cooldown"			"2.2"
 		}
 		
 		// 技能升级时添加永久被动修饰器
@@ -64,6 +65,7 @@
 			{
 				"ScriptFile"	"scripts/vscripts/abilities/abilitysuwako.lua"
 				"Function"		"OnsuwakoexSpellStart2"
+				"cooldown"      "%cooldown"
 			}
 		}
 
@@ -93,34 +95,14 @@
 				"IsDebuff"      "0"
 				"Passive"       "1"
 				"RemoveOnDeath" "0"
-				"ThinkInterval" "0.2"
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"ScriptFile"    "scripts/vscripts/abilities/abilitysuwako.lua"
-						"Function"      "Suwako05PassiveThink"
-					}
-				}
 				"OnAttackLanded"
 				{
 					"RunScript"
 					{
 						"ScriptFile"    "scripts/vscripts/abilities/abilitysuwako.lua"
 						"Function"      "Suwako05OnAttackLanded"
+						"cooldown"      "%cooldown"
 					}
-				}
-			}
-			
-			// 攻击距离加成修饰器（自动施法开启且技能冷却就绪时生效）
-			"modifier_suwako05_attack_range"
-			{
-				"IsHidden"          "1"
-				"IsPurgable"        "0"
-				"IsDebuff"          "0"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_ATTACK_RANGE_BONUS"    "600"
 				}
 			}
 

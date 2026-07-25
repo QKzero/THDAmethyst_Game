@@ -25,58 +25,6 @@ function OnsuwakoexSpellStart(keys)
     local suwakoexdamage = UnitDamageTarget(damage_table)
 end
 
-function OnsuwakoexSpellStart2(keys)
-    local caster = keys.caster
-    local target = keys.ability:GetCursorPosition()
-    local ability = keys.ability
-    local damageradius = ability:GetLevelSpecialValueFor("suwakoex_radius", ability:GetLevel() - 1)
-
-    local suwakointscale = ability:GetLevelSpecialValueFor("int_multi", ability:GetLevel() - 1)
-    local dealdamagesuwako = ((caster:GetIntellect(false) * suwakointscale) + ability:GetAbilityDamage()) *
-                                 (1 + FindTelentValue(caster, "special_bonus_unique_suwako_8"))
-
-    local suwakomaxtarget = FindValueTHD("max_target", ability)
-
-    -- ability:EndCooldown()
-    -- ability:StartCooldown(2.2)
-
-    local suwakotarget = 0
-    local targets = FindUnitsInRadius(caster:GetTeam(), -- caster team
-    target, -- find position
-    nil, -- find entity
-    damageradius, -- find radius
-    DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP, 0, FIND_CLOSEST, false)
-    caster.suwakoexeffect = 0
-    for _, v in pairs(targets) do
-        suwakotarget = suwakotarget + 1
-        if suwakotarget > suwakomaxtarget then
-            dealdamagesuwako = 0
-        end
-        local damage_table = {
-            ability = keys.ability,
-            victim = v,
-            attacker = caster,
-            damage = dealdamagesuwako,
-            damage_type = keys.ability:GetAbilityDamageType(),
-            damage_flags = 0
-        }
-        if caster.suwakoexeffect == 0 then
-            local effectIndex = ParticleManager:CreateParticle(
-                "particles/econ/items/storm_spirit/strom_spirit_ti8/gold_storm_sprit_ti8_overload_discharge.vpcf",
-                PATTACH_CUSTOMORIGIN, caster)
-            ParticleManager:SetParticleControl(effectIndex, 0, target)
-            ParticleManager:SetParticleControl(effectIndex, 1, target)
-            ParticleManager:SetParticleControl(effectIndex, 2, target)
-            ParticleManager:SetParticleControl(effectIndex, 5, target)
-            v:EmitSound("Hero_VengefulSpirit.MagicMissileImpact")
-            caster.suwakoexeffect = 1
-            ParticleManager:DestroyParticleSystem(effectIndex, false)
-        end
-        UnitDamageTarget(damage_table)
-    end
-    caster.suwakoexeffect = 0
-end
-
 function suwako01soundeffect(keys)
     local caster = keys.caster
     local ability = keys.ability
@@ -556,6 +504,8 @@ function OnsuwakoexSpellStart2(keys)
     local targetUnit = keys.target
     if not targetUnit then return end
 
+    local cooldown = keys.cooldown
+
     -- 检查手动冷却修饰器（魔晶后专用）
     if caster:HasModifier("modifier_suwako05_manual_cooldown") then
         -- 仍在冷却中，拒绝施放
@@ -569,13 +519,7 @@ function OnsuwakoexSpellStart2(keys)
     CastSuwako05AtLocation(caster, ability, targetUnit:GetOrigin())
 
     -- 处理冷却
-    if caster:HasModifier("modifier_item_aghanims_shard") then
-        -- 魔晶后手动冷却为0.5秒（添加手动冷却修饰器）
-        ability:ApplyDataDrivenModifier(caster, caster, "modifier_suwako05_manual_cooldown", {})
-    else
-        -- 无魔晶时，启动2.2秒技能冷却
-        ability:StartCooldown(2.2)
-    end
+    ability:StartCooldown(cooldown)
 end
 
 -- 攻击命中回调（自动施法触发）
@@ -587,6 +531,8 @@ function Suwako05OnAttackLanded(keys)
     local ability = caster:FindAbilityByName("ability_thdots_suwako05")
     if not ability then return end
 
+    local cooldown = keys.cooldown
+
     if ability:GetAutoCastState() and ability:IsCooldownReady() then
         local manaCost = ability:GetManaCost(ability:GetLevel() - 1)
         if caster:GetMana() >= manaCost then
@@ -594,32 +540,7 @@ function Suwako05OnAttackLanded(keys)
             -- 施放技能
             CastSuwako05AtLocation(caster, ability, target:GetOrigin())
             -- 处理冷却
-            if not caster:HasModifier("modifier_item_aghanims_shard") then
-                -- 无魔晶时，启动2.2秒冷却
-                ability:StartCooldown(2.2)
-            end
-            -- 有魔晶时，不启动冷却（技能保持0冷却，自动施法无限制）
-        end
-    end
-end
-
--- 定时检查自动施法状态和技能冷却，动态控制攻击距离加成
-function Suwako05PassiveThink(keys)
-    local caster = keys.caster
-    local ability = keys.ability
-    if not caster or not ability then return end
-
-    local autoCast = ability:GetAutoCastState()
-    local cooldownReady = ability:IsCooldownReady()   -- 技能冷却是否就绪（魔晶后始终为真）
-    local rangeMod = caster:FindModifierByName("modifier_suwako05_attack_range")
-
-    if autoCast and cooldownReady then
-        if not rangeMod then
-            ability:ApplyDataDrivenModifier(caster, caster, "modifier_suwako05_attack_range", {})
-        end
-    else
-        if rangeMod then
-            rangeMod:Destroy()
+            ability:StartCooldown(cooldown)
         end
     end
 end
