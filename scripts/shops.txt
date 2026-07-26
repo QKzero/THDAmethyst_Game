@@ -95,9 +95,6 @@
         "item" "item_better_lunchbox"
         "item" "item_best_lunchbox"
         "item" "item_god_lunchbox"
-        "item" "item_mushroom_kebab"
-        "item" "item_mushroom_pie"
-        "item" "item_mushroom_soup"
         "item" "item_touhou_banana"
         "item" "item_picnic_basket"
         "item" "item_eyunzhifu"
@@ -138,6 +135,7 @@
         "item" "item_hetongtuijinzhuangzhi"
         "item" "item_third_eyes"
         "item" "item_cyclone"
+        "item" "item_wind_waker"
         "item" "item_pomojinlingli"
         "item" "item_three_dimension"
         "item" "item_fan"
@@ -218,7 +216,6 @@
         "item" "item_esdw"
         "item" "item_sss"
         "item" "item_trinity"
-        "item" "item_wind_waker"
     }
     "sideshop1"
     {

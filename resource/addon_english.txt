@@ -5895,7 +5895,7 @@
 		"DOTA_Tooltip_ability_ability_dota2x_reimu03_Lore"							"A barrier is a boundary line between things, and having two barriers on top of each other is equivalent to a world with no boundaries. If you can find the gaps in space that are hiding just about everywhere, you'll be able to set up a duplex barrier."
 		"DOTA_Tooltip_ability_ability_dota2x_reimu03_duration"						"DURATION: "
 		"DOTA_Tooltip_ability_ability_dota2x_reimu03_abilitycastrange"				"CAST RANGE: "
-		"DOTA_Tooltip_ability_ability_dota2x_reimu03_scepter_description"			"Becomes an area of effect ability."
+		"DOTA_Tooltip_ability_ability_dota2x_reimu03_scepter_description"			"Becomes an area of effect ability and the range is %scepter_radius%."
 		"DOTA_Tooltip_ability_ability_dota2x_reimu03_scepter_radius"				"RADIUS: "
 
 		"DOTA_Tooltip_modifier_ability_dota2x_reimu03_ally"							"Dream Sign「Duplex Barrier」"

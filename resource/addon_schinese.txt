@@ -5770,7 +5770,7 @@
 		"DOTA_Tooltip_ability_ability_dota2x_reimu03_Lore"							"据说结界似乎就是事物的境界线的样子，而其变成二重的意思据灵梦说就和没有境界的世界一样了。好像是如果能发现潜藏于各处的空间的缝隙的话，就能张开二重结界了。"
 		"DOTA_Tooltip_ability_ability_dota2x_reimu03_duration"						"持续时间："
 		"DOTA_Tooltip_ability_ability_dota2x_reimu03_abilitycastrange"				"施法距离："
-		"DOTA_Tooltip_ability_ability_dota2x_reimu03_scepter_description"			"变成范围技能。"
+		"DOTA_Tooltip_ability_ability_dota2x_reimu03_scepter_description"			"变成范围技能，范围为%scepter_radius%。"
 		"DOTA_Tooltip_ability_ability_dota2x_reimu03_scepter_radius"				"作用范围："
 
 		"DOTA_Tooltip_modifier_ability_dota2x_reimu03_ally"							"梦符「二重结界」"

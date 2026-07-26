@@ -362,14 +362,6 @@ end
 
 ability_dota2x_reimu03 = {}
 
-function ability_dota2x_reimu03:GetBehavior()
-    if self:GetCaster():HasScepter() then
-        return DOTA_ABILITY_BEHAVIOR_POINT + DOTA_ABILITY_BEHAVIOR_AOE
-    else
-        return self.BaseClass.GetBehavior(self)
-    end
-end
-
 function ability_dota2x_reimu03:GetAOERadius()
     if not self:GetCaster():HasScepter() then
         return 0

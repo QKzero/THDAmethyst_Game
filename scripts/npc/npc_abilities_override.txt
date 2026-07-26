@@ -1778,12 +1778,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30.0"
+		"AbilityCooldown"				"19.0"
 		// "AbilityShardCooldown"			"cyclone"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"6250"
+		"ItemCost"						"6750"
 		"ItemStockTime"					"3.0"
 		"ItemInitialStockTime"			"990.0"
 
@@ -1791,7 +1791,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_intellect"		"34"
+			"bonus_intellect"		"37"
 			"bonus_mana_regen"		"4.5"
 			"bonus_movement_speed"	"30"
 			"cyclone_duration"		"2.5"
@@ -1812,7 +1812,7 @@
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"1375"
+		"ItemCost"						"1775"
 		"ItemStockTime"					"3.0"
 		"ItemInitialStockTime"			"990.0"
 
@@ -1822,7 +1822,7 @@
 		"ItemResult"	"item_wind_waker"
 		"ItemRequirements"
 		{
-			"01"	"item_cyclone;item_rocket_diagram;item_rocket_diagram"
+			"01"	"item_cyclone;item_gran_grimoire"
 		}
 	}
 }
