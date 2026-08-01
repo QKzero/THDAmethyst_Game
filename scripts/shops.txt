@@ -30,6 +30,9 @@
         "item" "item_cherry_branch"
         "item" "item_catnip"
         "item" "item_cookbook"
+        "item" "item_mushroom_kebab"
+        "item" "item_mushroom_pie"
+        "item" "item_mushroom_soup"
         "item" "item_cucumber"
         "item" "item_cherry_leaf"
         "item" "item_cat_ear"
@@ -69,7 +72,7 @@
         "item" "item_glue"
         "item" "item_jiaokeshu"
         "item" "item_gem"
-    }
+            }
     "secretshop"
     {
         "item" "item_bloodthirstiest"
