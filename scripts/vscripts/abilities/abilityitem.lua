@@ -3419,7 +3419,10 @@ function modifier_item_cirno_claymore_kill_atk_buff:DeclareFunctions()
 end
 
 function modifier_item_cirno_claymore_kill_atk_buff:GetModifierPreAttack_BonusDamage()
-    return self:GetAbility():GetSpecialValueFor("atk_per_stack") * self:GetStackCount()
+    if self.atcPerStack == nil then
+        self.atcPerStack = self:GetAbility():GetSpecialValueFor("atk_per_stack")
+    end
+    return self.atcPerStack * self:GetStackCount()
 end
 
 function ItemAbility_cirno_claymore_kill_hero(keys)
