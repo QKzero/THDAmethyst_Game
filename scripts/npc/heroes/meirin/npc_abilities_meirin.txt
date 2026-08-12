@@ -532,6 +532,7 @@
 		"AbilityCastPoint"          "0"
 		"AbilityCooldown"           "20"
 		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"HasShardUpgrade"			"1"
 		// Stats
 		// ----------------------------------------------------------------
 		"precache"
@@ -570,7 +571,8 @@
 						"ScriptFile"	"scripts/vscripts/abilities/abilityMeirin.lua"
 						"Function"	"OnMeirinexDamage"
 						"Target"	"TARGET"
-						"stackCount"			"%stack_count"	
+						"stackCount"			"%stack_count"
+						"stackCountShard"		"%stack_count_shard"
 					}
 				}
 			}
@@ -579,7 +581,7 @@
 				"IsHidden" "1"
 				"Passive" "1"
 				"RemoveOnDeath" "0"
-				"ThinkInterval"	"8"
+				"ThinkInterval"	"%stack_increase_interval"
 				"OnIntervalThink"
 				{
 					"RunScript"
@@ -587,14 +589,17 @@
 						"ScriptFile"	"scripts/vscripts/abilities/abilityMeirin.lua"
 						"Function"	"OnMeirinexSpellThink"
 						"Target"	"CASTER"
-						"stackCount"			"%stack_count"					
+						"stackCount"			"%stack_count"
+						"stackCountShard"		"%stack_count_shard"
 					}
 				}				
 			}
 		}
 		"AbilityValues"
 		{
+			"stack_increase_interval"	"6"
 			"stack_count"	"7"
+			"stack_count_shard"	"3"
 			"damage_pct"
 			{
 				"value"	"30"

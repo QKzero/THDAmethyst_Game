@@ -115,7 +115,7 @@
 				"item_magnifying_monocle"			"1"		// 放大单片
 				"item_ceremonial_robe"				"1"		// 祭礼长袍
 				"item_mind_breaker"					"1"		// 智灭
-				"item_pyrrhic_cloak"				"1"		// 皮洛士斗篷
+				// "item_pyrrhic_cloak"				"1"		// 皮洛士斗篷
 			}
 
 			"enhancements"

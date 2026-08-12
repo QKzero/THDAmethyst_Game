@@ -2,7 +2,7 @@ item_nb9ball = {}
 
 function item_nb9ball:GetCastRange()
     local base_range = self:GetSpecialValueFor("AbilityCastRange")
-    local bonus_range = caster:GetCastRangeBonus()  -- 获取英雄的施法距离加成
+    local bonus_range = self:GetCaster():GetCastRangeBonus()  -- 获取英雄的施法距离加成
     if IsClient() then
         return base_range + bonus_range
     else

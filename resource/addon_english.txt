@@ -3320,8 +3320,9 @@
 
 		// MeilingEX
 		"DOTA_Tooltip_ability_ability_thdots_meirinex"							"Chi Sign「Fierce Tiger Energy Release」"
-		"DOTA_Tooltip_ability_ability_thdots_meirinex_Description"				"<h1>Passive:</h1>Meiling stores a charge of chi energy every 5 seconds.\n<h1>Active:</h1>For the next 10 seconds, attacks consume one charge to deal <span class=\"GameplayValues GameplayVariable\">%damage_pct%%</span> of her attack damage as pure damage and stun the target for <span class=\"GameplayValues GameplayVariable\">%stun_duration%</span> seconds."
+		"DOTA_Tooltip_ability_ability_thdots_meirinex_Description"				"<h1>Passive:</h1>Meiling stores a charge of chi energy every %stack_increase_interval% seconds.\n<h1>Active:</h1>For the next 10 seconds, attacks consume one charge to deal <span class=\"GameplayValues GameplayVariable\">%damage_pct%%</span> of her attack damage as pure damage and stun the target for <span class=\"GameplayValues GameplayVariable\">%stun_duration%</span> seconds."
 		"DOTA_Tooltip_ability_ability_thdots_meirinex_stack_count"				"MAX CHARGES: "
+		"DOTA_Tooltip_ability_ability_thdots_meirinex_shard_description"		"Max changes is increased by %stack_count_shard%"
 
 		"DOTA_Tooltip_modifier_meirinex"										"Releasing the Fierce Tiger Energy"
 		"DOTA_Tooltip_modifier_thdots_meirinex_attack"							"Fierce Tiger Energy Charges"

@@ -4,7 +4,14 @@ function OnMeirinexSpellThink(keys)
     local caster = EntIndexToHScript(keys.caster_entindex)
     local modifier = caster:FindModifierByName("modifier_thdots_meirinex_attack")
     local stackcount = keys.stackCount
-    if modifier:GetStackCount() < stackcount then
+    local stackCountShard = keys.stackCountShard
+
+    local stackCountTotal = stackcount
+    if caster:HasModifier("modifier_item_aghanims_shard") then
+        stackCountTotal = stackCountTotal + stackCountShard
+    end
+
+    if modifier:GetStackCount() < stackCountTotal then
         modifier:IncrementStackCount()
     end
 end
@@ -15,6 +22,7 @@ function OnMeirinexDamage(keys)
     local ability = keys.ability
     local modifier = caster:FindModifierByName("modifier_thdots_meirinex_attack")
     local stackcount = keys.stackCount
+    local stackCountShard = keys.stackCountShard
 
     local damagePct = ability:GetSpecialValueFor("damage_pct")
     local damagePctBonus = ability:GetSpecialValueFor("damage_pct_bonus")

@@ -5,7 +5,7 @@ if AbilityShion == nil then AbilityShion = class({}) end
 
 local function ShionDestroyParticle(effectIndex, destroyImmediately)
     if effectIndex == nil then return end
-    ParticleManager:DestroyParticle(effectIndex, destroyImmediately or false)
+    ParticleManager:DestroyParticle(effectIndex, destroyImmediately or true)
     ParticleManager:ReleaseParticleIndex(effectIndex)
 end
 
@@ -57,7 +57,7 @@ function AbilityShion:CreateDanmaku(caster, danmakuTable)
         manager = caster:AddNewModifier(caster, ability, "modifier_ability_thdots_shion_danmakuManager", {})
     end
     if manager == nil then
-        ShionDestroyParticle(effectIndex, false)
+        ShionDestroyParticle(effectIndex, true)
         return
     end
 
@@ -148,7 +148,7 @@ end
 
 function modifier_ability_thdots_shion_ex_caster:OnDestroy()
     if not IsServer() then return end
-    ShionDestroyParticle(self.effectIndex, false)
+    ShionDestroyParticle(self.effectIndex, true)
 end
 
 -- modifier 修改列表
@@ -528,7 +528,7 @@ function modifier_ability_thdots_shion_oilManager:OnDestroy()
         while not self.oilQue:IsEmpty() do
 
             if self.oilQue:Back().effectIndex ~= nil then
-                ParticleManager:DestroyParticleSystem(self.oilQue:Back().effectIndex, false)
+                ParticleManager:DestroyParticleSystem(self.oilQue:Back().effectIndex, true)
             end
 
             self.oilQue:PopBack()
@@ -576,7 +576,7 @@ function modifier_ability_thdots_shion_oilManager:RemoveOilFromBackByDuration()
         -- 石油矩阵移除
         self:RemoveOilFromAuraMatrix(self.oilQue:Back())
 
-        ParticleManager:DestroyParticleSystem(self.oilQue:Back().effectIndex, false)
+        ParticleManager:DestroyParticleSystem(self.oilQue:Back().effectIndex, true)
 
         self.oilQue:PopBack()
     end
@@ -701,7 +701,7 @@ end
 
 -- 紫苑位于厄土上的modifier
 -- modifier 基础判定
-function modifier_ability_thdots_shion_casterOnOil:IsHidden() return true end
+function modifier_ability_thdots_shion_casterOnOil:IsHidden() return false end
 function modifier_ability_thdots_shion_casterOnOil:IsDebuff() return false end
 function modifier_ability_thdots_shion_casterOnOil:IsPurgable() return false end
 function modifier_ability_thdots_shion_casterOnOil:IsPurgeException() return false end
@@ -861,7 +861,7 @@ end
 function modifier_ability_thdots_shion_targetOnOil_healthBonus:OnDestroy()
     if not IsServer() then return end
     -- 特效销毁
-    ShionDestroyParticle(self.effectIndex, false)
+    ShionDestroyParticle(self.effectIndex, true)
 end
 
 -- modifier 修改列表
@@ -911,7 +911,7 @@ function modifier_ability_thdots_shion_danmakuManager:OnDestroy()
     if self.danmakuList == nil then return end
     -- manager 被移除时清理所有仍存在的弹幕粒子
     for _, danmaku in pairs(self.danmakuList) do
-        ShionDestroyParticle(danmaku.effectIndex, false)
+        ShionDestroyParticle(danmaku.effectIndex, true)
     end
     self.danmakuList = {}
 end
@@ -936,7 +936,7 @@ function modifier_ability_thdots_shion_danmakuManager:OnIntervalThink()
     for i = #self.danmakuList, 1, -1 do
         local danmaku = self.danmakuList[i]
         if self:UpdateDanmaku(danmaku, now) then
-            ShionDestroyParticle(danmaku.effectIndex, false)
+            ShionDestroyParticle(danmaku.effectIndex, true)
             table.remove(self.danmakuList, i)
         end
     end
@@ -1164,8 +1164,8 @@ function modifier_ability_thdots_shion_02_caster:OnCreated()
     self.angle = 360 / self.num
     self.qangle = QAngle(0, self.angle, 0) -- 弹幕旋转量
 
-    self.thinkTotalTime = 0
-    self.preShootTime = self.thinkTotalTime - 1
+    self.thinkStartTime = GameRules:GetGameTime()
+    self.preShootTime = - 1
     self:StartIntervalThink(FrameTime())
 end
 
@@ -1178,7 +1178,8 @@ function modifier_ability_thdots_shion_02_caster:OnIntervalThink()
     end
 
     -- 保证弹幕间隔1秒，且弹幕发出的时间界限为[0, n - 1]（n为持续时间）
-    if self.thinkTotalTime - self.preShootTime >= 1 and self.thinkTotalTime < self.duration - 0.5 then
+    local thinkTotalTime = GameRules:GetGameTime() - self.thinkStartTime
+    if thinkTotalTime - self.preShootTime >= 1 and thinkTotalTime < self.duration - 0.5 then
         local position = self.caster:GetOrigin()
         local direction = RotatePosition(Vector(0, 0, 0), QAngle(0, RandomInt(- self.angle / 4, self.angle / 4), 0), self.startDirection) -- 弹幕初始运行方向
         StartSoundEventFromPosition("Voice_Thdots_Shion.AbilityShion02_3", position)
@@ -1202,8 +1203,6 @@ function modifier_ability_thdots_shion_02_caster:OnIntervalThink()
         -- 维护变量：上一次发射的时间
         self.preShootTime = self.preShootTime + 1
     end
-
-    self.thinkTotalTime = self.thinkTotalTime + FrameTime()
 end
 
 -- 二技能被动部分
@@ -1381,7 +1380,7 @@ end
 
 function modifier_ability_thdots_shion_03_target:OnDestroy()
     if not IsServer() then return end
-    ShionDestroyParticle(self.effectIndex, false)
+    ShionDestroyParticle(self.effectIndex, true)
 end
 
 -- modifier 修改列表
@@ -1644,7 +1643,7 @@ end
 
 function modifier_ability_thdots_shion_04_target:OnDestroy()
     if not IsServer() then return end
-    ShionDestroyParticle(self.effectIndex, false)
+    ShionDestroyParticle(self.effectIndex, true)
 end
 
 -- 凭依时施加飞行效果的modifier（万宝槌效果）
@@ -1718,7 +1717,7 @@ function modifier_ability_thdots_shion_04_passive:OnCreated()
     if not IsServer() then return end
     self.caster = self:GetCaster()
     self.ability = self:GetAbility()
-    self.invisibleTime = 0
+    self.invisibleStartTime = GameRules:GetGameTime() -- 隐身延迟开始计算的时间
     self.invisibleDelayTime = self:GetAbility():GetSpecialValueFor("invisibleDelayTime")
     self:StartIntervalThink(0.1)
 end
@@ -1727,13 +1726,15 @@ function modifier_ability_thdots_shion_04_passive:OnIntervalThink()
     if not IsServer() then return end
     if not self.caster:HasModifier("modifier_ability_thdots_shion_04_caster") then
         if self.caster:HasModifier("modifier_ability_thdots_shion_casterOnOil") then
-            if self.invisibleTime < self.invisibleDelayTime then
-                self.invisibleTime = self.invisibleTime + FrameTime()
-            elseif not self.caster:HasModifier("modifier_invisible") then
-                self.caster:AddNewModifier(self.caster, self.ability, "modifier_invisible", {})
+            -- 进入石油
+            if math.abs(GameRules:GetGameTime() - self.invisibleStartTime) >= self.invisibleDelayTime then
+                if not self.caster:HasModifier("modifier_invisible") then
+                    self.caster:AddNewModifier(self.caster, self.ability, "modifier_invisible", {})
+                end
             end
         else
-            self.invisibleTime = 0
+            -- 走出石油
+            self.invisibleStartTime = GameRules:GetGameTime() -- 重置隐身开始时间
             if self.caster:HasModifier("modifier_invisible") then
                 local invisibleModifier = self.caster:FindModifierByName("modifier_invisible")
                 if invisibleModifier:GetAbility() == self.ability then

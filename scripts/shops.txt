@@ -149,6 +149,7 @@
         "item" "item_nuclear_stick"
         "item" "item_bagua"
         "item" "item_jeweled_branch"
+        "item" "item_force_boots"
     }
     "weapons"
     {

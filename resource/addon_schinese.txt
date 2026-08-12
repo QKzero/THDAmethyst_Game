@@ -995,7 +995,6 @@
 		// --------------------
 		"DOTA_Tooltip_ability_tiny_toss"	"「天手力男投」"
 		"DOTA_Tooltip_ability_tiny_toss_Description"	"随机抓起身边%grab_radius%范围内的一个单位，将它投向一个目标。落地时对目标和附近的敌方单位造成魔法伤害，对建筑有效。\n被抓起的单位是敌方时将受到%bonus_damage_pct%%%额外伤害。"
-		"DOTA_Tooltip_ability_tiny_toss_note0"		"无法投掷被己方克劳恩皮丝【擦弹地狱火】选为主要目标的敌方单位。"
 		"DOTA_Tooltip_ability_tiny_toss_Lore"	"与户隐山之投一样，萃香抓住敌人并使大块岩石吸附上去后掷飞。"
 		"DOTA_Tooltip_ability_ability_thdots_suika02"	"鬼符「大江山悉皆杀」"
 		"DOTA_Tooltip_ability_ability_thdots_suika02_Description"	"西瓜的普通攻击中将有%ability_chance_base%%%的几率用重拳重击地面造成范围伤害，并使周围敌方单位在%move_slow_duration%秒内移动速度减少%move_slow%%%，攻击速度减少%attackspeed_slow%。"
@@ -4435,8 +4434,9 @@
 		// --------------------
 		"npc_dota_hero_dragon_knight"	"红美铃"
 		"DOTA_Tooltip_ability_ability_thdots_meirinex"	"气符「猛虎内劲」"
-		"DOTA_Tooltip_ability_ability_thdots_meirinex_Description"	"被动：红美玲每5s会增加一道真气内劲。\n主动：在接下来的10秒内，使普通攻击命中时消耗1层内劲，造成额外伤害和短暂眩晕。\n额外伤害：%damage_pct%% 美铃攻击力\n眩晕时间：%stun_duration%秒"
+		"DOTA_Tooltip_ability_ability_thdots_meirinex_Description"	"被动：红美玲每%stack_increase_interval%秒会增加一道真气内劲。\n主动：在接下来的10秒内，使普通攻击命中时消耗1层内劲，造成额外伤害和短暂眩晕。\n额外伤害：%damage_pct%% 美铃攻击力\n眩晕时间：%stun_duration%秒"
 		"DOTA_Tooltip_ability_ability_thdots_meirinex_stack_count"	"内劲上限："
+		"DOTA_Tooltip_ability_ability_thdots_meirinex_shard_description"	"内劲上限增加%stack_count_shard%层"
 	
 		"DOTA_Tooltip_ability_ability_thdots_meirin01"	"气符「地龙天龙脚」"
 		"DOTA_Tooltip_ability_ability_thdots_meirin01_Description"	"向目标地点飞踢过去，把路径上的所有敌方单位踢到终点，并对她们造成伤害。"

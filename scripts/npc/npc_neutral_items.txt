@@ -156,10 +156,10 @@
 	{
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 	}
-	"item_force_boots"
-	{
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-	}				
+	// "item_force_boots" 改为商店销售，不再作为中立装备
+	// {
+	// 	"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+	// }				
 	"item_desolator_2"
 	{
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"

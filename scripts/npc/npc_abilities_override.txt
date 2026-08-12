@@ -1825,4 +1825,108 @@
 			"01"	"item_cyclone;item_gran_grimoire"
 		}
 	}
+	
+	//=================================================================================================================
+	// Force Boots 原力鞋
+	//=================================================================================================================
+	"item_force_boots"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		// "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		// "AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH | DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		// "AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_CUSTOM"
+		// "FightRecapLevel"				"1"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		// "AbilityCastRange"				"750"
+		// "AbilityCooldown"				"8.0"
+		"AbilityManaCost"				"0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"0"
+		"DisplayOverheadAlertOnReceived" "1"
+		"ItemPurchasable"				"1"
+		"ItemSellable"					"1"
+
+
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_movement_speed"	"135"
+			"push_length"			"750"
+			"push_duration"			"0.5"
+			"hp_regen"				"30"
+		}
+	}
+
+    // =================================================================================================================
+	// Recipe Force Boots 原力鞋制作卷轴
+	// =================================================================================================================
+	"item_recipe_force_boots"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		// "ID"							"100"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		// "AbilityTextureName"			"item_occult_ball"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"2400"
+		"ItemStockTime"					"3.0"
+		"ItemInitialStockTime"			"990.0"
+
+		// Recipe
+		// -------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"	"1"
+		"ItemResult"	"item_force_boots"
+		"ItemRequirements"
+		{
+			"01"	"item_hetongtuijinzhuangzhi;item_gap_creator"
+		}
+	}
+	
+
+	//=================================================================================================================
+	// Demonicon 冥灵书
+	//=================================================================================================================
+	"item_demonicon"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		// "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		// "AbilityCooldown"				"80"
+					
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"10"
+		"ItemPurchasable"				"1"
+		"ItemSellable"					"1"
+
+
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"			"0"
+			"bonus_intellect"		"0"
+			"summon_duration"				
+			{
+				"value"				"65"
+				"apply_curio_bonus"		"1"
+			}
+		}
+	}
 }
