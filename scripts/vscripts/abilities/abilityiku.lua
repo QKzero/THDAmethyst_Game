@@ -481,7 +481,12 @@ function OnIku04Attack(keys)
 end
 
 function OnIkuExSpellStartDelay(keys)
-    local delay =  keys.ability:GetSpecialValueFor("delay")
+    local delay = keys.ability:GetSpecialValueFor("delay")
+
+    -- 获取技能目标点，包装进入keys中，供计时器调用
+    local targetPosition = keys.ability:GetCursorPosition()
+    keys.target_points = {targetPosition}
+
     Timer.Wait 'Ability_IkuEx_SpellStart'(delay, function()
         OnIkuExSpellStart(keys)
     end)
@@ -489,7 +494,7 @@ end
 
 function OnIkuExSpellStart(keys)
     local caster = EntIndexToHScript(keys.caster_entindex)
-    local targets = keys.target_entities
+    local targetPoint = keys.target_points[1]
     local Damage = keys.ability:GetAbilityDamage() + caster:GetLevel() * 10 +
                        FindTelentValue(caster, "special_bonus_unique_iku")
     if caster:HasModifier("modifier_item_wanbaochui") then
@@ -497,6 +502,19 @@ function OnIkuExSpellStart(keys)
     else
         damagetype = keys.ability:GetAbilityDamageType()
     end
+
+    local targets = FindUnitsInRadius(
+        caster:GetTeam(),
+        targetPoint,
+        nil,
+        keys.DamageRadis,
+        DOTA_UNIT_TARGET_TEAM_ENEMY,
+        keys.ability:GetAbilityTargetType(),
+        0,
+        FIND_CLOSEST,
+        false
+    )
+
     for _, v in pairs(targets) do
         local damage_table = {
             ability = keys.ability,
