@@ -1846,7 +1846,7 @@
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
+		"ItemCost"						"6200"
 		"ItemIsNeutralActiveDrop"		"0"
 		"DisplayOverheadAlertOnReceived" "1"
 		"ItemPurchasable"				"1"
@@ -1878,7 +1878,7 @@
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"2400"
+		"ItemCost"						"1600"
 		"ItemStockTime"					"3.0"
 		"ItemInitialStockTime"			"990.0"
 
