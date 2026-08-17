@@ -63,7 +63,7 @@
 				"item_misericorde"					"1"		// 飞贼之刃
 				"item_pogo_stick"					"1"		// 杂技玩具
 				// "item_philosophers_stone"			"1"		// 贤者石 无法穿戴，无法使用
-				// "item_pupils_gift"					"1"		// 学徒之礼
+				// "item_pupils_gift"					"1"		// 学徒之礼 无法穿戴，无法使用
 				"item_light_collector"				"1"		// 集光器
 				"item_defiant_shell"				"1"		// 不羁甲壳
 				"item_bullwhip"						"1"		// 凌厉长鞭
@@ -144,7 +144,7 @@
 				"item_magnifying_monocle"			"1"		// 放大单片
 				"item_ceremonial_robe"				"1"		// 祭礼长袍
 				"item_mind_breaker"					"1"		// 智灭
-				// "item_pyrrhic_cloak"				"1"		// 皮洛士斗篷
+				// "item_pyrrhic_cloak"				"1"		// 皮洛士斗篷 反伤冲突，不用
 				"item_martyrs_plate"				"1"		// 烈士鳞甲
 				"item_havoc_hammer"					"1"		// 浩劫巨锤
 				"item_stormcrafter"					"1"		// 风暴宝器
