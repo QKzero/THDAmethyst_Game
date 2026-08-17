@@ -25,6 +25,16 @@
 				"item_spark_of_courage"				"1"		// 勇气之光
 				"item_rippers_lash"					"1"		// 撕裂之鞭
 				"item_orb_of_destruction"			"1"		// 毁灭灵球
+				"item_mysterious_hat"				"1"		// 仙灵饰品
+				"item_ironwood_tree"				"1"		// 铁树之木
+				"item_safety_bubble"				"1"		// 安全泡泡
+				"item_royal_jelly"					"1"		// 蜂王浆
+				"item_duelist_gloves"				"1"		// 决斗者手套
+				"item_faded_broach"					"1"		// 暗淡胸针
+				"item_seeds_of_serenity"			"1"		// 宁静种籽
+				"item_possessed_mask"				"1"		// 附魂面具
+				"item_keen_optic"					"1"		// 基恩镜片
+				"item_ocean_heart"					"1"		// 海洋之心
 			}
 
 			"enhancements"
@@ -52,6 +62,16 @@
 				"item_searing_signet"				"1"		// 炽热纹章
 				"item_misericorde"					"1"		// 飞贼之刃
 				"item_pogo_stick"					"1"		// 杂技玩具
+				// "item_philosophers_stone"			"1"		// 贤者石 无法穿戴，无法使用
+				// "item_pupils_gift"					"1"		// 学徒之礼
+				"item_light_collector"				"1"		// 集光器
+				"item_defiant_shell"				"1"		// 不羁甲壳
+				"item_bullwhip"						"1"		// 凌厉长鞭
+				"item_grove_bow"					"1"		// 林野长弓
+				"item_ring_of_aquila"				"1"		// 天鹰之城
+				// "item_eye_of_the_vizier"			"1"		// 维齐耳之眼 已变为附魔无法调用
+				// "item_vampire_fangs"				"1"		// 吸血鬼獠牙 已变为附魔无法调用
+				"item_quicksilver_amulet"			"1"		// 银闪护符
 			}
 
 			"enhancements"
@@ -78,12 +98,21 @@
 
 			"items"
 			{
-				"item_serrated_shiv"				"1"		// 锯齿短刀 
+				"item_serrated_shiv"				"1"		// 锯齿短刀
 				"item_nemesis_curse"				"1"		// 天诛之咒
 				"item_gale_guard"					"1"		// 烈风护体
 				"item_gunpowder_gauntlets"			"1"		// 火药手套
 				"item_whisper_of_the_dread"			"1"		// 邪道私语
 				"item_ninja_gear"					"1"		// 忍者用具
+				"item_vambrace"						"1"		// 臂甲
+				"item_psychic_headband"				"1"		// 通灵头带
+				// "item_paladin_sword"				"1"		// 骑士剑 已变为附魔无法调用
+				"item_doubloon"						"1"		// 双面币
+				"item_craggy_coat"					"1"		// 崎岖外衣
+				"item_quickening_charm"				"1"		// 加速护符
+				"item_penta_edged_sword"			"1"		// 五锋长剑
+				"item_enchanted_quiver"				"1"		// 魔力箭袋
+				"item_dandelion_amulet"				"1"		// 蒲公英护符
 			}
 
 			"enhancements"
@@ -116,6 +145,16 @@
 				"item_ceremonial_robe"				"1"		// 祭礼长袍
 				"item_mind_breaker"					"1"		// 智灭
 				// "item_pyrrhic_cloak"				"1"		// 皮洛士斗篷
+				"item_martyrs_plate"				"1"		// 烈士鳞甲
+				"item_havoc_hammer"					"1"		// 浩劫巨锤
+				"item_stormcrafter"					"1"		// 风暴宝器
+				"item_ascetic_cap"					"1"		// 简朴短帽
+				"item_ancient_guardian"				"1"		// 遗迹守护者
+				"item_avianas_feather"				"1"		// 艾维娜之羽
+				"item_spell_prism"					"1"		// 法术棱镜
+				"item_trickster_cloak"				"1"		// 欺诈师斗篷
+				// "item_flicker"						"1"		// 闪灵 已被删除无法调用
+				"item_heavy_blade"					"1"		// 行巫之祸
 			}
 
 			"enhancements"
@@ -151,6 +190,11 @@
 				"item_panic_button"					"1"		// 神妙明灯
 				"item_unrelenting_eye"				"1"		// 不屈之眼
 				"item_pirate_hat"					"1"		// 海盗帽
+				"item_rattlecage"					"1"		// 回响之笼
+				"item_giants_ring"					"1"		// 巨人之戒
+				"item_unwavering_condition"			"1"		// 坚毅之件
+				"item_ex_machina"					"1"		// 机械之心
+				// "item_apex"							"1"		// 极 已变为附魔无法调用
 			}
 
 			"enhancements"
