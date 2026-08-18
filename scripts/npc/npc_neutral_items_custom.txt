@@ -28,7 +28,7 @@
 				"item_mysterious_hat"				"1"		// 仙灵饰品
 				"item_ironwood_tree"				"1"		// 铁树之木
 				"item_safety_bubble"				"1"		// 安全泡泡
-				"item_royal_jelly"					"1"		// 蜂王浆
+				// "item_royal_jelly"					"1"		// 蜂王浆 可能存在版本冲突，不使用
 				"item_duelist_gloves"				"1"		// 决斗者手套
 				"item_faded_broach"					"1"		// 暗淡胸针
 				"item_seeds_of_serenity"			"1"		// 宁静种籽

@@ -13,53 +13,88 @@ local DOTA_ITEM_NEUTRAL_SLOT = 16
 print("NeutralItems.lua loaded")
 
 local Tier1NeutralItems = {
-    "item_trusty_shovel",
-    "item_occult_bracelet",
-    "item_unstable_wand",
-    "item_mana_draught",
-    "item_polliwog_charm",
-    "item_spark_of_courage",
-    "item_rippers_lash",
-    "item_orb_of_destruction",
+    "item_trusty_shovel",      -- 可靠铁铲
+    "item_occult_bracelet",    -- 玄奥手镯
+    "item_unstable_wand",      -- 豚杆
+    "item_mana_draught",       -- 魔力药水
+    "item_polliwog_charm",     -- 蝌蚪护符
+    "item_spark_of_courage",   -- 勇气之光
+    "item_rippers_lash",       -- 撕裂之鞭
+    "item_orb_of_destruction", -- 毁灭灵球
+    "item_mysterious_hat",     -- 仙灵饰品
+    "item_ironwood_tree",      -- 铁树之木
+    "item_safety_bubble",      -- 安全泡泡
+    -- "item_royal_jelly",        -- 蜂王浆 可能存在版本冲突，不使用
+    "item_duelist_gloves",     -- 决斗者手套
+    "item_faded_broach",       -- 暗淡胸针
+    "item_seeds_of_serenity",  -- 宁静种籽
+    "item_possessed_mask",     -- 附魂面具
+    "item_keen_optic",         -- 基恩镜片
+    "item_ocean_heart",        -- 海洋之心
 }
 
 local Tier2NeutralItems = {
-    "item_essence_ring",
-    "item_iron_talon",
-    "item_gossamer_cape",
-    "item_searing_signet",
-    "item_misericorde",
-    "item_pogo_stick",
+    "item_essence_ring",       -- 精华指环
+    "item_iron_talon",         -- 寒铁钢爪
+    "item_gossamer_cape",      -- 蛛丝斗篷
+    "item_searing_signet",     -- 炽热纹章
+    "item_misericorde",        -- 飞贼之刃
+    "item_pogo_stick",         -- 杂技玩具
+    "item_light_collector",    -- 集光器
+    "item_defiant_shell",      -- 不羁甲壳
+    "item_bullwhip",           -- 凌厉长鞭
+    "item_grove_bow",          -- 林野长弓
+    "item_ring_of_aquila",     -- 天鹰之城
+    "item_quicksilver_amulet", -- 银闪护符
 }
 
 local Tier3NeutralItems = {
-    "item_serrated_shiv",
-    "item_gale_guard",
-    "item_nemesis_curse",
-    "item_gunpowder_gauntlets",
-    "item_whisper_of_the_dread",
-    "item_ninja_gear",
+    "item_serrated_shiv",        -- 锯齿短刀
+    "item_gale_guard",           -- 烈风护体
+    "item_nemesis_curse",        -- 天诛之咒
+    "item_gunpowder_gauntlets",  -- 火药手套
+    "item_whisper_of_the_dread", -- 邪道私语
+    "item_ninja_gear",           -- 忍者用具
+    "item_vambrace",             -- 臂甲
+    "item_psychic_headband",     -- 通灵头带
+    "item_doubloon",             -- 双面币
+    "item_craggy_coat",          -- 崎岖外衣
+    "item_quickening_charm",     -- 加速护符
+    "item_penta_edged_sword",    -- 五锋长剑
+    "item_enchanted_quiver",     -- 魔力箭袋
+    "item_dandelion_amulet",     -- 蒲公英护符
 }
 
 local Tier4NeutralItems = {
-    "item_ogre_seal_totem",
-    "item_magnifying_monocle",
-    "item_crippling_crossbow",
-    "item_ceremonial_robe",
-    "item_mind_breaker",
-    "item_pyrrhic_cloak",
+    "item_ogre_seal_totem",    -- 食人魔海豹图腾
+    "item_magnifying_monocle", -- 放大单片
+    "item_crippling_crossbow", -- 致残之弩
+    "item_ceremonial_robe",    -- 祭礼长袍
+    "item_mind_breaker",       -- 智灭
+    -- "item_pyrrhic_cloak",      -- 皮洛士斗篷 反伤冲突，不用
+    "item_martyrs_plate",      -- 烈士鳞甲
+    "item_havoc_hammer",       -- 浩劫巨锤
+    "item_stormcrafter",       -- 风暴宝器
+    "item_ascetic_cap",        -- 简朴短帽
+    "item_ancient_guardian",   -- 遗迹守护者
+    "item_avianas_feather",    -- 艾维娜之羽
+    "item_spell_prism",        -- 法术棱镜
+    "item_trickster_cloak",    -- 欺诈师斗篷
+    "item_heavy_blade",        -- 行巫之祸
 }
 
 local Tier5NeutralItems = {
-    "item_panic_button",
-    "item_desolator_2",
-    "item_fallen_sky",
-    "item_minotaur_horn",
-    "item_panic_button",
-    "item_spider_legs",
-    "item_unrelenting_eye",
-    "item_panic_button",
-    "item_pirate_hat",
+    "item_panic_button",         -- 神妙明灯
+    "item_desolator_2",          -- 寂灭
+    "item_fallen_sky",           -- 天崩
+    "item_minotaur_horn",        -- 恶牛角
+    "item_spider_legs",          -- 网虫腿
+    "item_unrelenting_eye",      -- 不屈之眼
+    "item_pirate_hat",           -- 海盗帽
+    "item_rattlecage",           -- 回响之笼
+    "item_giants_ring",          -- 巨人之戒
+    "item_unwavering_condition", -- 坚毅之件
+    "item_ex_machina",           -- 机械之心
 }
 
 local enhancements = {
