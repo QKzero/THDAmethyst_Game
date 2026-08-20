@@ -708,9 +708,12 @@ function Precache( context )
 	PrecacheResource( "model", "models/thd2/yukari/yukari_mmd.vmdl", context)
 	PrecacheResource( "model", "models/heroes/troll_warlord/troll_warlord.vmdl", context)
 	PrecacheResource( "model", "models/flandre_scarlet_skin4/flandre_scarlet_skin4.vmdl", context)
+	PrecacheResource( "model", "models/flandre_scarlet_skin5/flandre_scarlet_skin5.vmdl", context)
+	PrecacheResource( "model", "models/flandre_scarlet_skin3/flandre_scarlet_skin3.vmdl", context)
 	PrecacheResource( "model", "models/cirno2/cirno2.vmdl", context)
 	PrecacheResource( "model", "models/hoshiguma/hoshiguma.vmdl", context)
 	PrecacheResource( "model", "models/reisen/reisen_new.vmdl", context)
+	PrecacheResource( "model", "models/thd2/hakurei_reimu/hakurei_reimu_mmd.vmdl", context)
 
 	--轮换的模型等
 	PrecacheResource( "model", "models/heroes/warlock/warlock_demon.vmdl", context)  --地狱火

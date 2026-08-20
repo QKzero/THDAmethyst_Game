@@ -25,6 +25,18 @@ Hero_Cloth =
 			1.0
 		},
 
+	["npc_dota_hero_lina"] = --红白
+		{
+			"models/new_touhou_model/reimu/reimu.vmdl",
+			"models/thd2/hakurei_reimu/hakurei_reimu_mmd.vmdl"
+		},
+
+	["npc_dota_hero_lina_size"] =
+		{
+			1.2,
+			1.0
+		},
+
 	["npc_dota_hero_crystal_maiden"] = --黑白
 		{	
 			"models/new_touhou_model/marisa/marisa.vmdl",
@@ -88,7 +100,7 @@ Hero_Cloth =
 			"models/flandre_scarlet_skin4/flandre_scarlet_skin4.vmdl",
 			"models/flandre_scarlet_skin5/flandre_scarlet_skin5.vmdl",
 			"models/flandrev2/flandrev2.vmdl",
-			--"models/flandre_scarlet_skin3/flandre_scarlet_skin3.vmdl",
+			"models/flandre_scarlet_skin3/flandre_scarlet_skin3.vmdl",
 			--"models/flandre_scarlet/flandre_scarlet.vmdl",
 		},
 
