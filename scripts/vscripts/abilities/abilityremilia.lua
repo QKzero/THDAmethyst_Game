@@ -83,6 +83,7 @@ function ability_thdots_remilia01:OnProjectileHit_ExtraData(hTarget, vLocation, 
         damage = dealdamage,
         damage_type = self:GetAbilityDamageType()
     }
+    UnitDamageTarget(damage_table)
     UtilStun:UnitStunTarget(caster, target, StunDuration)
 
     local effectIndex = ParticleManager:CreateParticle("particles/heroes/remilia/ability_remilia_01_explosion.vpcf",
@@ -93,8 +94,7 @@ function ability_thdots_remilia01:OnProjectileHit_ExtraData(hTarget, vLocation, 
     ParticleManager:DestroyParticleSystem(effectIndex, false)
 
     StartSoundEventFromPosition("Hero_Lich.ChainFrostImpact.Hero", vLocation)
-    print_r(extraData)
-    print(not (extraData.hasScepter ~= nil and extraData.hasScepter == 1))
+
     if not (extraData.hasScepter ~= nil and extraData.hasScepter == 1) then
         return true
     end

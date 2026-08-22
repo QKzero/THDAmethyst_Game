@@ -115,7 +115,7 @@
 			{
 				"value"			"80"
 			}
-			"wanbaochui_collision_bonus"	"70"
+			"wanbaochui_collision_bonus"	"50"
 			"length"	"1500"
 			"stun_duration"	"1.5"
 			"damage"	"100 180 260 340"
