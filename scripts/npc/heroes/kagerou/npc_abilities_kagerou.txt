@@ -382,7 +382,6 @@
 				"Passive"	"1"
 				"IsBuff"	"1"
 				"IsHidden"	"1"
-				"Properties"	{}
 				"States"	{}
 				"OnIntervalThink"
 				{
@@ -428,7 +427,7 @@
 		"AbilityValues"
 		{
 			"hold_time"	"6"
-			"trig_time"	"2.3"
+			"trig_time"	"0.5"
 			"trig_radius"	"650"
 		}
 	}
@@ -456,17 +455,6 @@
 	}
 
 	"special_bonus_unique_kagerou_3"
-	{
-		"BaseClass"	"special_bonus_undefined"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityValues"
-		{
-			"value"	"1"
-		}
-	}
-
-	"special_bonus_unique_kagerou_1"
 	{
 		"BaseClass"	"special_bonus_undefined"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"

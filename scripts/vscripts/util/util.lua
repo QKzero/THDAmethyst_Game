@@ -1047,7 +1047,6 @@ THD2_TALENT_MODIFIER_REGISTRY = THD2_TALENT_MODIFIER_REGISTRY or {
     special_bonus_unique_eirin_4 = {{ ability = "ability_thdots_eirinex", modifier = "modifier_special_bonus_unique_eirin_4" }},
     special_bonus_unique_eirin_5 = {{ ability = "ability_thdots_eirinex", modifier = "modifier_special_bonus_unique_eirin_5", stack = true }},
     special_bonus_unique_hina_6 = {{ ability = "ability_thdots_hinaEx", modifier = "modifier_ability_thdots_hinaEx_talent6" }},
-    special_bonus_unique_kagerou_1 = {{ ability = "ability_thdots_kagerouEx", modifier = "modifier_ability_thdots_kagerouEx_talent1" }},
     special_bonus_unique_keine_2 = {{ ability = "ability_thdots_keineEx", modifier = "modifier_ability_thdots_keineEx_talent2" }},
     special_bonus_unique_keine_3 = {{ ability = "ability_thdots_keineEx", modifier = "modifier_ability_thdots_keineEx_talent3" }},
     special_bonus_unique_kisume_1 = {{ ability = "ability_thdots_kisumeEx", modifier = "modifier_ability_thdots_kisumeEx_telent_1", stack = true }},

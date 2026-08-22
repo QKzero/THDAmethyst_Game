@@ -1,12 +1,3 @@
-
--- 一级能施法 跳跃
-modifier_ability_thdots_kagerouEx_talent1 = modifier_ability_thdots_kagerouEx_talent1 or {}
-LinkLuaModifier("modifier_ability_thdots_kagerouEx_talent1","scripts/vscripts/abilities/abilitykagerou.lua",LUA_MODIFIER_MOTION_NONE)
-function modifier_ability_thdots_kagerouEx_talent1:IsHidden() return true end
-function modifier_ability_thdots_kagerouEx_talent1:IsPurgable() return false end
-function modifier_ability_thdots_kagerouEx_talent1:RemoveOnDeath() return false end
-function modifier_ability_thdots_kagerouEx_talent1:IsDebuff() return false end
-
 ability_thdots_kagerou01 = {}
 
 function ability_thdots_kagerou01:GetCastRange()
@@ -192,16 +183,16 @@ function A2Hit(k)
 
 	--最小伤害
 	if reduceRatio < reduceMin then reduceRatio = reduceMin end
-	print("----------------")
-	print("reduceMin is :",reduceMin)
-	print("reduceVal is :",reduceVal)
-	print("reduce:GetStackCount() is :",reduce:GetStackCount())
+	-- print("----------------")
+	-- print("reduceMin is :",reduceMin)
+	-- print("reduceVal is :",reduceVal)
+	-- print("reduce:GetStackCount() is :",reduce:GetStackCount())
 
 	damage = reduceRatio * (damage + cs:GetAgility() * ratio)
-	print("reduceRatio is :",reduceRatio)
-	print("cs:GetAgility() is :",cs:GetAgility())
-	print("damage is ",damage)
-	print("ratio is ",ratio)
+	-- print("reduceRatio is :",reduceRatio)
+	-- print("cs:GetAgility() is :",cs:GetAgility())
+	-- print("damage is ",damage)
+	-- print("ratio is ",ratio)
 
 	local damage_table = {
 		victim = tg, attacker = cs, damage = damage, damage_type = getDamageType(), damage_flags = getDamageFlags()
@@ -263,7 +254,7 @@ function A2Passive(k)
 		function ()
 			if GameRules:IsGamePaused() then return 0.03 end
 			if not k.caster:HasModifier("modifier_kagerou_add_damage") and k.caster:FindAbilityByName("ability_thdots_kagerou02"):GetLevel() ~= 0 then
-				print(k.caster:FindAbilityByName("ability_thdots_kagerou02"):GetLevel())
+				-- print(k.caster:FindAbilityByName("ability_thdots_kagerou02"):GetLevel())
 				k.caster:AddNewModifier(k.caster,k.ability,"modifier_kagerou_add_damage",{})
 		    end
 		end
@@ -344,10 +335,10 @@ function A3PassiveTrig(k)
 	local ab = k.ability
 	local t = k.target
 
-	print("do it")
+	-- print("do it")
 	local modifier = cs:FindModifierByName("modifier_ability_thdots_kagerou03")
 	if modifier:GetStackCount() ~= 1 then return end
-	print("2222222222222222")
+	-- print("2222222222222222")
 	modifier:SetStackCount(0)
 
 	local heal = ab:GetSpecialValueFor("health_regen")
@@ -372,20 +363,6 @@ function A4OnInterval(k)
 	local cs =  k.caster
 	local radius = ab:GetSpecialValueFor("trig_radius")
 	local trigTime = ab:GetSpecialValueFor("trig_time")
-	if cs:HasModifier("modifier_ability_thdots_kagerouEx_talent1") then
-		trigTime = trigTime-1.5
-	end
-	-- GetAllModifierName(cs)
-	-- --检测白天黑夜，更换模型
-	-- if not cs:HasModifier("modifier_ability_thdots_kagerou03_wolf") and cs:GetName() == "npc_dota_hero_lycan" then
-	-- 	if GameRules:IsDaytime() then
-	-- 		cs:SetModel("models/kagerou/kagerou.vmdl")
-	-- 		cs:SetOriginalModel("models/kagerou/kagerou.vmdl")
-	-- 	else
-	-- 		cs:SetModel("models/kagerou2/kagerou2.vmdl")
-	-- 		cs:SetOriginalModel("models/kagerou2/kagerou2.vmdl")
-	-- 	end
-	-- end
 
 	--周围的友方单位
 	local units = FindUnitsInRadius(cs:GetTeam(), cs:GetOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY,
@@ -417,10 +394,6 @@ function A4OnInterval(k)
 	--添加/移除 buff
 	if lonely then
 		--天赋强化
-		-- print(FindTelentValue(cs,"special_bonus_unique_kagerou_1"))
-		if cs:HasModifier("modifier_ability_thdots_kagerouEx_talent1") and not cs:HasModifier("modifier_ability_thdots_kagerouEx_up")  then
-			ab:ApplyDataDrivenModifier(cs,cs,"modifier_ability_thdots_kagerouEx_up",{})
-		end
 		if not cs:HasModifier("modifier_kagerou_lonely") then
 			ab:ApplyDataDrivenModifier(cs,cs,"modifier_kagerou_lonely",{})
 		end

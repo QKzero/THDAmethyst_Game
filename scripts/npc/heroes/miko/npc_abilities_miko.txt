@@ -108,8 +108,7 @@
 			"radius"
 			{
 				"value"	"800"
-	        	"LinkedSpecialBonus"  "special_bonus_unique_miko03"
-				"affected_by_aoe_increase"	"1"
+			"affected_by_aoe_increase"	"1"
 			}
 			"have_immortal"
 			{
@@ -178,17 +177,6 @@
 			"duration"			"3"
 		}
 	}
-
-	"special_bonus_unique_miko03"
-    {
-         	"BaseClass"	"special_bonus_undefined"
-         	"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-         	"AbilityType"	"DOTA_ABILITY_TYPE_ATTRIBUTES"
-         	"AbilityValues"
-        	{
-         		"value"	"400"
-        	}
-    }
 
 	"special_bonus_unique_miko04"
     {

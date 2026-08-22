@@ -36,12 +36,15 @@ function ability_thdots_remilia01:OnSpellStart()
         move_speed = move_speed * 2
         length = length * 2
     end
-    print(move_speed)
+    local hasScepter = caster:HasModifier("modifier_item_wanbaochui")
+    if hasScepter then
+        collision_radius = collision_radius + ability:GetSpecialValueFor("wanbaochui_collision_bonus")
+    end
     ProjectileManager:CreateLinearProjectile({
         Source = caster,
         Ability = ability,
         vSpawnOrigin = start_position,
-        bDeleteOnHit = true,
+        bDeleteOnHit = not hasScepter,
         iUnitTargetTeam = ability:GetAbilityTargetTeam(),
         iUnitTargetType = ability:GetAbilityTargetType(),
         EffectName = "particles/heroes/remilia/ability_remilia_01.vpcf",
@@ -54,11 +57,14 @@ function ability_thdots_remilia01:OnSpellStart()
         bProvidesVision = true,
         bHasFrontalCone = false,
         iVisionRadius = 300,
-        iVisionTeamNumber = caster:GetTeamNumber()
+        iVisionTeamNumber = caster:GetTeamNumber(),
+        ExtraData = {
+            hasScepter = hasScepter,
+        }
     })
 end
 
-function ability_thdots_remilia01:OnProjectileHitHandle(hTarget, vLocation, iProjectileHandle)
+function ability_thdots_remilia01:OnProjectileHit_ExtraData(hTarget, vLocation, extraData)
     if not IsServer() then
         return
     end
@@ -87,9 +93,11 @@ function ability_thdots_remilia01:OnProjectileHitHandle(hTarget, vLocation, iPro
     ParticleManager:DestroyParticleSystem(effectIndex, false)
 
     StartSoundEventFromPosition("Hero_Lich.ChainFrostImpact.Hero", vLocation)
-    ProjectileManager:DestroyLinearProjectile(iProjectileHandle)
-
-    UnitDamageTarget(damage_table)
+    print_r(extraData)
+    print(not (extraData.hasScepter ~= nil and extraData.hasScepter == 1))
+    if not (extraData.hasScepter ~= nil and extraData.hasScepter == 1) then
+        return true
+    end
 end
 
 modifier_ability_thdots_remilia_talent_Interval = {}

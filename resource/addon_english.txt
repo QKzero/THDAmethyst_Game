@@ -1460,9 +1460,9 @@
 
 		"DOTA_Tooltip_ability_ability_thdots_remilia01"								"Divine Spear「Spear the Gungnir」"
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_Description"					"Conjure an image of said legendary weapon and throw it at the target. It will explode when it hits an enemy girl, stunning and dealing damage to enemies nearby."
+		"DOTA_Tooltip_ability_ability_thdots_remilia01_scepter_description"			"The spear penetrates all enemies in range; collision radius increase by %wanbaochui_collision_bonus%."
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_move_speed"					"PROJECTILE SPEED: "
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_collision_radius"			"COLLISION RADIUS: "
-		"DOTA_Tooltip_ability_ability_thdots_remilia01_explosion_radius"			"AREA OF EFFECT: "
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_length"						"RANGE: "
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_stun_duration"				"STUN DURATION: "
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_damage"						"Damage: "
@@ -3164,7 +3164,6 @@
 		"DOTA_Tooltip_modifier_kagerou_lonely2_Description"							"Kagerou's next spell is enhanced."
 
 		// Talents
-		"DOTA_Tooltip_ability_special_bonus_unique_kagerou_1"						"-1.5s required to become a Lone Wolf"
 		"DOTA_Tooltip_ability_special_bonus_unique_kagerou_2"						"Roar「Full Moon Return」"
 		"DOTA_Tooltip_ability_special_bonus_unique_kagerou_2_Description"			"Roar「Full Moon Howling」will return to Kagerou after reaching its max distance."
 		// "DOTA_Tooltip_ability_special_bonus_unique_kagerou_3"					"1.1 Base attack time while transformed"

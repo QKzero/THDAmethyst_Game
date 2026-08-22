@@ -1198,12 +1198,12 @@
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_Description"					"蕾米莉亚召唤冈格尼尔之枪，并向前射出，命中一名敌方少女后会引发小型爆炸，造成伤害和眩晕。"
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_move_speed"					"飞行速度："
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_collision_radius"			"碰撞范围："
-		"DOTA_Tooltip_ability_ability_thdots_remilia01_explosion_radius"			"爆炸范围："
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_length"						"最大距离："
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_stun_duration"				"眩晕时间："
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_cast_range"					"施法距离："
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_damage"						"造成伤害："
 		"DOTA_Tooltip_ability_ability_thdots_remilia01_Lore"						"蕾米莉亚将灵气收束成枪状，以超高初速投掷而出。花样繁多的枪状灵气系技能之一。"
+		"DOTA_Tooltip_ability_ability_thdots_remilia01_scepter_description"			"神枪在射程内可无限贯穿，且碰撞范围加%wanbaochui_collision_bonus%"
 
 		"DOTA_Tooltip_ability_ability_thdots_remilia02"								"蝙蝠「Vampire Sweep」"
 		"DOTA_Tooltip_ability_ability_thdots_remilia02_Description"					"蕾米莉亚向前俯身，蓄力X(最大为0.5)秒，向前方最远1500码位置跳跃，抓取落地点130范围内一名少女，然后迅速返回。"
@@ -4872,7 +4872,6 @@
 		"DOTA_Tooltip_modifier_kagerou_add_damage_Description"	"增加敏捷，独狼状态下加成翻倍"
 		"DOTA_Tooltip_ability_special_bonus_unique_kagerou_2"	"咆哮「月返」"
 		"DOTA_Tooltip_ability_special_bonus_unique_kagerou_2_Description"	"咆哮「月的远吠」到达终点后会返回影狼身边"
-		"DOTA_Tooltip_ability_special_bonus_unique_kagerou_1"	"触发孤独所需时间-1.5s"
 
 		// --------------------
 		// 16/2/5

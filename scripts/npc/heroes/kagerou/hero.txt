@@ -19,11 +19,11 @@
     		"Ability10"	"special_bonus_agility_10"
     		"Ability11"	"special_bonus_cooldown_reduction_10"
     		"Ability12"	"special_bonus_magic_resistance_15"
-    		"Ability13"	"special_bonus_unique_kagerou_1"
+    		"Ability13"	"special_bonus_attack_damage_40"
     		"Ability14"	"special_bonus_hp_500"
-    		"Ability15"	"special_bonus_unique_kagerou_2"
-    		"Ability16"	"special_bonus_attack_speed_140"
-    		"Ability17"	"special_bonus_unique_kagerou_4"
+    		"Ability15"	"special_bonus_unique_kagerou_4"
+			"Ability16"	"special_bonus_attack_speed_140"
+			"Ability17"	"special_bonus_unique_kagerou_2"
 
 			"Facets"
 			{

@@ -89,6 +89,7 @@
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_PURE"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"MaxLevel"	"4"
+		"HasScepterUpgrade"	"1"
 		"AbilityCastPoint"	"0.3"
 		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
 		"AbilityCooldown"	"10.0"
@@ -113,13 +114,8 @@
 			"collision_radius"
 			{
 				"value"			"80"
-				"affected_by_aoe_increase"	"1"
 			}
-			"explosion_radius"
-			{
-				"value"			"80"
-				"affected_by_aoe_increase"	"1"
-			}
+			"wanbaochui_collision_bonus"	"70"
 			"length"	"1500"
 			"stun_duration"	"1.5"
 			"damage"	"100 180 260 340"
