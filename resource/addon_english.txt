@@ -6165,7 +6165,7 @@
 		"DOTA_Tooltip_ability_ability_thdots_shizuhaEX_Lore"						"The withering autumn leaves fall and scatter."
 		"DOTA_Tooltip_modifier_thdots_shizuhaEX_check_levelup"						"Wilted Path「Lost Windrow」"
 		"DOTA_Tooltip_modifier_thdots_shizuhaEX_check_levelup_Description"			"Deals damage to all enemy girls when leveling up."
-		"ShizuhaEXMessage"															"{s:player_name}: <font color='#FFA07A'>The Autumn Leaves Wither</font> ({s:value} damage)"
+		"ShizuhaEXMessage"															"{s:player_name}: <font color='#FFA07A'>The Autumn Leaves Withered</font> ({s:value} damage)"
 
 		// Talents
 		"DOTA_Tooltip_ability_special_bonus_unique_shizuha_1"						"+{s:bonus_radius}「Withered Tree Roots」Radius"
