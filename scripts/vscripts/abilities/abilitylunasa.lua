@@ -7,7 +7,8 @@ function lunasa01OnSpellStart(keys)
 	local caster = EntIndexToHScript(keys.caster_entindex)
 	local targetPoint = caster:GetOrigin()
 	local vec = caster:GetForwardVector()
-	local distance = keys.range
+	-- 实际生效距离 = 基础施法距离(KV range) + 施法者的施法距离加成，与施法指示器保持一致
+	local distance = keys.range + caster:GetCastRangeBonus()
 
 	--制作一条爆炸特效, 并附带伤害
 	for i =1, distance/100 do

@@ -3040,11 +3040,9 @@
 		// Nitori01
 		"DOTA_Tooltip_ability_ability_thdots_nitori01"							"Energy「Phantasmal Boosters」"
 		"DOTA_Tooltip_ability_ability_thdots_nitori01_Description"				"The Kappa Combat Mech utilizes the「Phantasmal Boosters」of Kawashiro Corp, allowing it to fly around at high speed across any terrain. Also turns on her radar, granting flying vision during the dash.\n<font color=\"#d9534f\">「Photon Cannon Cucumber.II」cannot be used</font> during the flight, but「Lightsaber Energy Reaction」will deal %attack_bonus% more damage."
-		"DOTA_Tooltip_ability_ability_thdots_nitori01_scepter_description"		"Alter 「Phantasmal Boosters」, and its power will be increased significantly. In this time, the cooldown of user's other abilities will be reduced %wbc_cd_reduce_pct%%% in the period of flying, but the user will be stunned after flying."
+		"DOTA_Tooltip_ability_ability_thdots_nitori01_scepter_description"		"Alter 「Phantasmal Boosters」, and its power will be increased significantly: casting the boosters immediately refreshes the cooldown of「Photon Cannon Cucumber.II」; during the flight,「Photon Cannon Cucumber.II」can be cast with 50%% shorter charge time and no cooldown."
 		"DOTA_Tooltip_ability_ability_thdots_nitori01_duration"					"DURATION: "
 		"DOTA_Tooltip_ability_ability_thdots_nitori01_movement_bonus"			"MOVE SPEED BONUS: "
-		"DOTA_Tooltip_ability_ability_thdots_nitori01_wbc_stun"					"STUN DURATION: "
-		"DOTA_Tooltip_ability_ability_thdots_nitori01_wbc_cd_reduce_pct"		"%COOLDOWN REDUCTION BONUS: "
 
 		"DOTA_Tooltip_modifier_ability_thdots_nitori01"							"「Phantasmal Boosters」"
 		"DOTA_Tooltip_modifier_ability_thdots_nitori01_Description"				"Able to fly anywhere at high speed regardless of terrain and gaining flying vision."

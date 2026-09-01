@@ -2071,6 +2071,9 @@
 		"dota_chatwheel_message_youre_already_dead"					"お前はもう死んでいる"
 		"dota_chatwheel_message_nani"								"なに！？"
 		"dota_chatwheel_message_ayaya"								"あやや、あやや"
+		"dota_chatwheel_message_guanyu"								"*释怀的小曲*"
+		"dota_chatwheel_message_ziwen"								"自刎归天！"
+		"dota_chatwheel_message_guojiang"							"那好啊他过江我也过江"
 
 		"dota_chatwheel_message_void_spirit_laugh"					"Hn ha ha ha ha ha."
 		"dota_chatwheel_label_void_spirit_laugh"					"Laugh"

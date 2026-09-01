@@ -14,7 +14,13 @@ function ability_thdots_nitori01:OnSpellStart()
 	if IsServer() then
 		local caster = self:GetCaster()
 		local duration = self:GetSpecialValueFor("duration") + FindTelentValue(self:GetCaster(),"special_bonus_unique_nitori_3")
-		if caster:HasScepter() then caster.wbc_poweron=1 else caster.wbc_poweron=0 end --仅在施放时判断身上万宝槌状态防止飞一半脱下万宝槌避免眩晕
+		--万宝槌：启动推进器时立刻刷新阳电子炮冷却
+		if caster:HasScepter() then
+			local nitori02 = caster:FindAbilityByName("ability_thdots_nitori02")
+			if nitori02 and nitori02:GetLevel() > 0 then
+				nitori02:EndCooldown()
+			end
+		end
 		-- if FindTelentValue(self:GetCaster(),"special_bonus_unique_nitori_4") ~= 0 then
 		-- 	caster:AddNewModifier(caster, self, "modifier_ability_thdots_nitori01_talent", {duration = duration})
 		-- end
@@ -68,14 +74,9 @@ end
 function modifier_ability_thdots_nitori01:OnDestroy()
 	if IsServer() then
 		local caster = self:GetParent()
-		local duration = 2
 		if caster:GetName() == "npc_dota_hero_spectre" then
 			caster:SetModel("models/nitori/nitori.vmdl")
 			caster:SetOriginalModel("models/nitori/nitori.vmdl")
-		end
-		if caster.wbc_poweron == 1 then 
-			if caster:IsAlive() then UtilStun:UnitStunTarget(caster,caster,duration) end
-			caster.wbc_poweron = 0
 		end
 		StartSoundEvent("Hero_Phoenix.SunRay.Stop",caster)
 		StopSoundEvent("Hero_Phoenix.SunRay.Loop",caster)
@@ -114,7 +115,6 @@ function modifier_ability_thdots_nitori01:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT,
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-		MODIFIER_EVENT_ON_ABILITY_FULLY_CAST,
 		-- MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE,
 		-- MODIFIER_PROPERTY_ATTACK_RANGE_BONUS,
 		-- MODIFIER_PROPERTY_OVERRIDE_ANIMATION,
@@ -129,17 +129,6 @@ function modifier_ability_thdots_nitori01:GetModifierMoveSpeedBonus_Constant()
 end
 function modifier_ability_thdots_nitori01:GetModifierPreAttack_BonusDamage()
 	return self.attack_bonus
-end
-function modifier_ability_thdots_nitori01:OnAbilityFullyCast(keys)
-	if not IsServer() then return end
-	if keys.unit ~= self.caster then return end
-	if keys.ability:IsItem() then return end
-	if self:GetParent().wbc_poweron == 1 and self:GetParent():HasScepter() then
-		if keys.ability:GetName() == "ability_thdots_nitori01" then return end
-		local cd = keys.ability:GetCooldownTimeRemaining()/5
-		keys.ability:EndCooldown()
-		keys.ability:StartCooldown(cd)
-	end
 end
 -- function modifier_ability_thdots_nitori01:GetModifierAttackRangeBonus()
 -- 	return self:GetStackCount()
@@ -181,9 +170,18 @@ end
 ability_thdots_nitori02 = {}
 
 function ability_thdots_nitori02:CastFilterResultLocation(vLocation)
-	if self:GetCaster():HasModifier("modifier_ability_thdots_nitori01") then
+	--万宝槌：推进器飞行期间可以施放阳电子炮
+	if self:GetCaster():HasModifier("modifier_ability_thdots_nitori01") and not self:GetCaster():HasScepter() then
 		return UF_FAIL_CUSTOM
 	end
+end
+
+function ability_thdots_nitori02:GetCooldown(level)
+	--万宝槌：推进器飞行期间阳电子炮无冷却
+	if self:GetCaster():HasModifier("modifier_ability_thdots_nitori01") and self:GetCaster():HasScepter() then
+		return 0
+	end
+	return self.BaseClass.GetCooldown(self, level)
 end
 
 -- function ability_thdots_nitori02:GetOverrideAnimation()
@@ -199,7 +197,12 @@ function ability_thdots_nitori02:OnSpellStart()
 		self.point = self:GetCursorPosition()
 		self.num = 1.1
 		caster:EmitSound("Ability.MKG_AssassinateLoad")
-		caster:AddNewModifier(caster, self, "modifier_ability_thdots_nitori02", {duration = 1.0})
+		--万宝槌：推进器飞行期间蓄力时间缩短50%（蓄力时间不影响伤害）
+		local charge_time = 1.0
+		if caster:HasModifier("modifier_ability_thdots_nitori01") and caster:HasScepter() then
+			charge_time = charge_time * 0.5
+		end
+		caster:AddNewModifier(caster, self, "modifier_ability_thdots_nitori02", {duration = charge_time})
 		-- caster:StartGesture(ACT_DOTA_CAST_ABILITY_2)
 		caster:StartGestureWithPlaybackRate(ACT_DOTA_CAST_ABILITY_2,0.65)
 		self.weapon_particle = ParticleManager:CreateParticle("particles/heroes/nitori/nitori1_1.vpcf", PATTACH_POINT_FOLLOW, caster)

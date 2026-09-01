@@ -490,6 +490,41 @@ function modifier_miko_telent:OnIntervalThink() -- 天赋监听
 			self:GetCaster():AddNewModifier(self:GetCaster(),self:GetAbility(),"modifier_miko_immortal",{})
 		end
 	end
+	-- 将施法距离总加成写入层数（层数会网络同步，客户端指示器直接读层数，否则读取不到）
+	local bonus = 0
+	local miko04 = self:GetCaster():FindAbilityByName("ability_thdots_miko04")
+	if miko04 and miko04:GetLevel() == 3 then
+		bonus = bonus + miko04:GetSpecialValueFor("max_level_cast_range")
+	end
+	local item_modifier = self:GetCaster():FindModifierByName("modifier_item_pomojinlingli_cast_range")
+	if item_modifier and item_modifier:GetAbility() then
+		bonus = bonus + item_modifier:GetAbility():GetSpecialValueFor("bonus_cast_range")
+	end
+	self:SetStackCount(bonus)
+end
+
+function modifier_miko_telent:DeclareFunctions()
+	return {
+		MODIFIER_PROPERTY_CAST_RANGE_BONUS,
+		MODIFIER_EVENT_ON_TAKEDAMAGE,
+	}
+end
+
+-- 双端都读层数（服务端 OnIntervalThink 写入并同步给客户端），保证指示器与实际施法距离一致
+function modifier_miko_telent:GetModifierCastRangeBonus()
+	return self:GetStackCount()
+end
+
+function modifier_miko_telent:OnTakeDamage(keys)
+	if not IsServer() then return end
+	local caster = self:GetCaster()
+    if self:GetCaster():FindAbilityByName("ability_thdots_miko03"):GetLevel() ~= 4 then return end  --这一段是全能吸血 根据造成的伤害进行一个heal
+    if keys.attacker == caster then
+    	if caster:GetHealth() == 0 then return end
+		local heal_ratio = 0.01 * self:GetCaster():FindAbilityByName("ability_thdots_miko03"):GetSpecialValueFor("max_level_heal_ratio")
+        caster:Heal(keys.damage*heal_ratio,caster)
+        SendOverheadEventMessage(nil,OVERHEAD_ALERT_HEAL,caster,keys.damage*heal_ratio,nil)
+    end
 end
 
 modifier_miko_immortal = {}
