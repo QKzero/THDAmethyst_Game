@@ -7244,7 +7244,7 @@
 		"DOTA_Tooltip_ability_item_ghostspoon_Note0"								"If you become spell immune while this is active, the ghost form is cancelled.Ghost Form item effects have no effect while spell immune.<br><br>Dispelled."
 
 		"DOTA_Tooltip_modifier_item_ghost_spoon"									"Ghost Ladle"
-		"DOTA_Tooltip_modifier_item_ghost_spoon_Description"						"Ghost form，cannot attack or be attacked.\nslowed by 35%% and %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%% more vulnerable to magic damage."
+		"DOTA_Tooltip_modifier_item_ghost_spoon_Description"						"Ghost form，cannot attack or be attacked.\nslowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%% more vulnerable to magic damage."
 
 		"DOTA_Tooltip_ability_item_recipe_peach"									"Recipe: Heavenly Peach"
 		"DOTA_Tooltip_ability_item_peach"											"Heavenly Peach"
