@@ -471,7 +471,6 @@
 		// ******************** ITEM MODIFIERS ********************
 
 		//以下物品含有硬编码的数值，需要同时修改addon_schinese和addon_english的数值：
-		//item_frozen_frog_cold			（减少治疗效果为硬编码）
 		//item_darkred_umbrella			（可以忽略，硬编码在被隐藏的光环上）
 		//item_..._lunchbox				（御币系列）
 		//item_hakurei_ticket			（光环为硬编码）
@@ -496,7 +495,7 @@
 		"DOTA_Tooltip_modifier_item_mystia_wings_fly"				"夜雀的小小翅膀"
 		"DOTA_Tooltip_modifier_item_mystia_wings_fly_Description"	"移动速度提升%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%并允许你穿越其他单位。"
 		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff"	"完美冻结"
-		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff_Description"	"你的身体受到霜冻影响，\n移动速度减少%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%，\n攻击速度降低%dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%。治疗效果减少40%%"
+		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff_Description"	"你的身体受到霜冻影响，\n移动速度减少%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%，\n攻击速度降低%dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%。治疗效果减少%dMODIFIER_PROPERTY_TOOLTIP%%%"
 		"DOTA_Tooltip_modifier_item_loneliness_regen_health"	"鬼神之力"
 		"DOTA_Tooltip_modifier_item_loneliness_regen_health_Description"	"你的生命值恢复速度得到了极大的提高。"
 		"DOTA_Tooltip_modifier_item_bagua_regen_mana"		"八卦炉能量"
