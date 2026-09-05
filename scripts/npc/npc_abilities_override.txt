@@ -652,12 +652,12 @@
 			"outgoing_damage"
 			{
 				"value"	"-82 -76 -70 -64"
-				"special_bonus_unique_naga_siren_4" "+29"
+				"special_bonus_unique_flandre_4" "+29"
 			}
 			"outgoing_damage_tooltip"
 			{
 				"value"	"18 24 30 36"
-				"special_bonus_unique_naga_siren_4" "+29"
+				"special_bonus_unique_flandre_4" "+29"
 			}
 			"incoming_damage"			"150"
 			"tooltip_incoming_damage_total_pct"			"150"
@@ -669,8 +669,8 @@
 
 			"AbilityCooldown"
 			{
-				"value"								"30.0 26.0 22.0 18.0"
-				"special_bonus_unique_naga_siren_6"	"-5"
+				"value"							"30.0 26.0 22.0 18.0"
+				"special_bonus_unique_flandre_5"	"-5"
 			}
 		}
 	}
@@ -1516,9 +1516,9 @@
 		"AbilityCastPoint"				"0.4"
 		"AbilityCooldown"				"0.0"
 		"AbilityManaCost"				"50"
-		"AbilityCharges"				"2 3 4 5"
+		"AbilityCharges"				"2 4 6 8"
 		"AbilityChargeRestoreTime"		"45.0"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -1528,7 +1528,7 @@
 				"value"			"900"
 				"affected_by_aoe_increase"	"1"
 			}
-			"count"					"2 3 4 5"
+			"count"					"2 4 6 8"
 			"heath_regen"			"6 8 10 12"
 			"bonus_movespeed"		"25 30 35 40"
 			"max_charges_scepter"

@@ -471,11 +471,13 @@
 		// ******************** ITEM MODIFIERS ********************
 
 		//以下物品含有硬编码的数值，需要同时修改addon_schinese和addon_english的数值：
+		//item_frozen_frog_cold			（减少治疗效果为硬编码）
 		//item_darkred_umbrella			（可以忽略，硬编码在被隐藏的光环上）
 		//item_..._lunchbox				（御币系列）
 		//item_hakurei_ticket			（光环为硬编码）
 		//item_card_good_man			（纯lua，modifier提供的效果不会影响数值面板，只能硬编码）
 		//item_three_dimension			（减速不能引用，原因未知）
+		//item_ghost_spoon				（同样减速不能引用）
 
 		"DOTA_Tooltip_modifier_item_watermelon_debuff"	"削铁如泥"
 		"DOTA_Tooltip_modifier_item_watermelon_debuff_Description"	"你的护甲减少%dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%点，变得脆弱如泥。"
@@ -494,7 +496,7 @@
 		"DOTA_Tooltip_modifier_item_mystia_wings_fly"				"夜雀的小小翅膀"
 		"DOTA_Tooltip_modifier_item_mystia_wings_fly_Description"	"移动速度提升%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%并允许你穿越其他单位。"
 		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff"	"完美冻结"
-		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff_Description"	"你的身体受到霜冻影响，\n移动速度减少%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%，\n攻击速度降低%dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%。治疗效果减少。"
+		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff_Description"	"你的身体受到霜冻影响，\n移动速度减少%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%，\n攻击速度降低%dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%。治疗效果减少40%%"
 		"DOTA_Tooltip_modifier_item_loneliness_regen_health"	"鬼神之力"
 		"DOTA_Tooltip_modifier_item_loneliness_regen_health_Description"	"你的生命值恢复速度得到了极大的提高。"
 		"DOTA_Tooltip_modifier_item_bagua_regen_mana"		"八卦炉能量"
@@ -564,7 +566,7 @@
 		"DOTA_Tooltip_modifier_item_three_dimension_debuff"	"次元突破"
 		"DOTA_Tooltip_modifier_item_three_dimension_debuff_Description"	"不在同一次元，无法攻击或者被攻击\n你受到的魔法伤害增加%dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%%，你的移动速度下降35%%。"
 		"DOTA_Tooltip_modifier_item_ghost_spoon"	"幽灵木勺"
-		"DOTA_Tooltip_modifier_item_ghost_spoon_Description"	"幽灵状态，无法攻击或者被攻击\n你受到的魔法伤害增加%dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%%，你的移动速度下降%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%。"		
+		"DOTA_Tooltip_modifier_item_ghost_spoon_Description"	"幽灵状态，无法攻击或者被攻击\n你受到的魔法伤害增加%dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%%，你的移动速度下降35%%。"		
 		"DOTA_Tooltip_modifier_item_peach_speedup_buff"	"蟠桃之力"
 		"DOTA_Tooltip_modifier_item_peach_speedup_buff_Description"	"每受到一定伤害增加攻击速度加成的层数。"
 		"DOTA_Tooltip_modifier_item_yuri_buff"	"土蜘蛛之丝"
@@ -2146,7 +2148,7 @@
 		"DOTA_Tooltip_ability_item_recipe_dummy_doll1"	"替身人偶制作书"
 		"DOTA_Tooltip_ability_item_dummy_doll1"	"替身人偶"
 		// "DOTA_Tooltip_ability_item_dummy_doll1_Description"	"<h1>主动：替身</h1>在原地制造一个替身，本体进入隐身状态，隐身持续%invisible_duration%秒，直到持续时间结束、攻击或施法。<br><br>替身造成%illusion_outgoing_damage_Tooltip%%%伤害并且受到额外%illusion_incoming_damage%%%伤害，持续%illusions_duration%秒。<br>驱散类型：<span class=\"GameplayValues GameplayVariable\">弱驱散</span>"
-		"DOTA_Tooltip_ability_item_dummy_doll1_Description"	"<h1>主动：替身</h1>在原地制造2个替身，替身造成%illusion_outgoing_damage_Tooltip%%%伤害并且受到额外%illusion_incoming_damage%%%伤害，持续%illusions_duration%秒。<br>驱散类型：<span class=\"GameplayValues GameplayVariable\">弱驱散</span>"
+		"DOTA_Tooltip_ability_item_dummy_doll1_Description"	"<h1>主动：替身</h1>在原地制造1个替身，替身造成%illusion_outgoing_damage_Tooltip%%%伤害并且受到额外%illusion_incoming_damage%%%伤害，持续%illusions_duration%秒。<br>驱散类型：<span class=\"GameplayValues GameplayVariable\">弱驱散</span>"
 		// "DOTA_Tooltip_ability_item_dummy_doll1_bonus_attack_speed"	"+$attack"
 		// "DOTA_Tooltip_ability_item_dummy_doll1_bonus_damage"	"+$damage"
 		"DOTA_Tooltip_ability_item_dummy_doll1_bonus_strength"	"+$str"
@@ -2301,7 +2303,7 @@
 		"DOTA_Tooltip_ability_item_three_dimension_bonus_mana_regen"	"+$mana_regen"
 		"DOTA_Tooltip_ability_item_three_dimension_Note0"			"如果在开启期间进入技能免疫状态，幽灵效果将会中止。如果在技能免疫状态下开启物品将不会拥有幽灵效果。<br><br>效果可以驱散。<br>效果被标记为debuff，故只能被对友军释放的驱散技能驱散。"
 		"DOTA_Tooltip_ability_item_ghostspoon"	"幽灵木勺"
-		"DOTA_Tooltip_ability_item_ghostspoon_Description"	"<h1>主动：幽灵形态</h1> 进入幽灵形态，持续%debuff_duration%秒，期间降低%debuff_slowdown_movespeed_percent%%%移动速度，无法进行普通攻击也不会受到物理伤害，但会受到%debuff_mgical_resistance_decrepify%%%的额外魔法伤害。"
+		"DOTA_Tooltip_ability_item_ghostspoon_Description"	"<h1>主动：幽灵形态</h1> 进入幽灵形态，持续%debuff_duration%秒，期间降低35%%移动速度，无法进行普通攻击也不会受到物理伤害，但会受到%debuff_mgical_resistance_decrepify%%%的额外魔法伤害。"
 		"DOTA_Tooltip_ability_item_ghostspoon_bonus_all_stats"	"+$all"
 		"DOTA_Tooltip_ability_item_ghostspoon_Note0"			"如果在开启期间进入技能免疫状态，幽灵效果将会中止。如果在技能免疫状态下开启物品将不会拥有幽灵效果。<br><br>效果可以驱散。"
 		// ************************
@@ -3305,7 +3307,7 @@
 		"npc_dota_hero_spectre"	"河城荷取"
 		"DOTA_Tooltip_ability_ability_thdots_nitori01"	"动力「幻想推进器」"
 		"DOTA_Tooltip_ability_ability_thdots_nitori01_Description"	"河童战斗机甲配备了河童动力公司出品的「幻想推进器」，能无视地形的高速冲刺同时开启的电子雷达可以让河童视野不受到阻挡物干扰。\n高速移动状态下<font color=\"#d9534f\">不能使用阳电子炮</font>，但光剑附带较大的冲击力，攻击力增加%attack_bonus%"
-		"DOTA_Tooltip_ability_ability_thdots_nitori01_scepter_description"	"改造「幻想推进器」，使其功率大幅提升：启动推进器时立即刷新「阳电子炮Cucumber. II」的冷却时间；飞行期间可以施放「阳电子炮Cucumber. II」，其蓄力时间缩短50%%且无冷却时间。"
+		"DOTA_Tooltip_ability_ability_thdots_nitori01_scepter_description"	"改造「幻想推进器」，使其功率大幅提升：启动推进器时立即刷新「阳电子炮Cucumber. II」的冷却时间；飞行期间可以施放「阳电子炮Cucumber. II」，瞬发且无需蓄力，冷却时间降低至%wanbaochui_flight_cooldown%秒。"
 		"DOTA_Tooltip_ability_ability_thdots_nitori02"	"电子「阳电子炮Cucumber. II」"
 		"DOTA_Tooltip_ability_ability_thdots_nitori02_Description"	"向前方发射阳电子炮造成%damage%法术伤害，每击中一个目标降低%damage_reduce%%%伤害，并震晕敌人，减少敌人%movement_slow%%%移动速度，持续%duration%秒。\n对建筑造成%building_reduce%%%伤害\n智力加成%intellect_bonus%"
 		"DOTA_Tooltip_ability_ability_thdots_nitori03"	"化学「光東剑充能反应」"
@@ -5078,7 +5080,7 @@
 		"ability_margatroid03_doll"													"未来文乐"
 		"ability_margatroidex_doll"													"人形"
 
-		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx_Description"				"每5秒增加一个人偶，最大持有人偶3，主动释放回收人偶，回收后的人偶需要2s重置时间，并回复20点魔法值;alice每升2级，可持有人偶+1，人偶血量+50。"
+		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx_Description"				"每%add_doll_interval%秒增加一个人偶，最大持有人偶%doll_base_num%，主动释放回收人偶，回收后的人偶需要%reset_doll_time%s重置时间，并回复%doll_recover_mana%点魔法值;alice每升到偶数等级，可持有人偶+1，人偶血量+%upgrade_doll_hp%，生成人偶所需时间-%upgrade_doll_interval_reduce%秒，人偶最大距离+%upgrade_doll_max_distance%。"
 		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx"							"操符「操纵人偶」"
 		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx_doll_base_num"			"基础数量："
 		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx_doll_max_distance"		"人偶最大范围："
@@ -6098,8 +6100,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_4" 	"+{s:value} 人偶爆炸伤害"
 		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_3" 	"3倍「未来文乐」血量攻击"
 		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_0" 	"「未来文乐」自由行动"
-		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_1" 	"「操纵人偶」生成人偶速度加倍"
-		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_1_Description" 	"每2.5秒增加一个人偶"
+		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_1" 	"人偶血量+{s:bonus_talent1_doll_hp}，护甲+{s:bonus_talent1_doll_armor}，魔抗+{s:bonus_talent1_doll_magic_resist}%"
 		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_2" 	"+{s:value}人偶数量上限"
 
 		"DOTA_Tooltip_ability_special_bonus_unique_minoriko_3" 	"+1.5秒苹果眩晕时间"

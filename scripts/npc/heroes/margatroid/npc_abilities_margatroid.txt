@@ -556,14 +556,14 @@
 		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
         "AbilityTextureName"       	"ability_thdots_MargatroidEx"
     	"AbilityCastAnimation"     	"Act_DOTA_CAST_ABILITY_2"
-		"MaxLevel"				  	"1"
+		"MaxLevel"				  	"30"
 		
         // Stats 
         //----------------------------------------------------------------
         "AbilityCastPoint"          "0.2"
         "AbilityCooldown"           "1"
 		"AbilityManaCost"			"0"
-		"AOERadius"                 "%doll_max_distance"
+		"AOERadius"                 "1200 1240 1240 1280 1280 1320 1320 1360 1360 1400 1400 1440 1440 1480 1480 1520 1520 1560 1560 1600 1600 1640 1640 1680 1680 1720 1720 1760 1760 1800"
 		
 		"precache"
 		{
@@ -582,10 +582,27 @@
 			"upgrade_doll_hp"		"50"
 			"lvl_to_upgrade"		"2"
 			"add_doll_interval"		"5"
+			"upgrade_doll_interval_reduce"	"0.25"
+			"upgrade_doll_max_distance"	"40"
 			"reset_doll_time"		"2"
+			"doll_recover_mana"		"20"
 			"recover_move_speed"	"1000"
 			"destroy_when_lost"		"10"
-			"add_doll_interval_talent"		"2.5"
+			"talent1_doll_hp"
+			{
+				"value"							"0"
+				"special_bonus_unique_margatroid_1"	"300"
+			}
+			"talent1_doll_armor"
+			{
+				"value"							"0"
+				"special_bonus_unique_margatroid_1"	"8"
+			}
+			"talent1_doll_magic_resist"
+			{
+				"value"							"0"
+				"special_bonus_unique_margatroid_1"	"25"
+			}
 		}
 		
 		"OnSpellStart"
@@ -648,21 +665,6 @@
 					}
 				}
 			}
-			"modifier_thdots_margatroidex_time_to_add_doll_talent"
-			{
-				"RemoveOnDeath"			"0"
-				"Duration"						"%add_doll_interval_talent"
-				"OnDestroy"
-				{
-					"RunScript"
-					{
-						"ScriptFile"			"scripts/vscripts/abilities/abilityMargatroid.lua"
-						"Function"				"MargatroidEx_AddDoll"
-						"UsableDollAmount"		"1"
-						"TotalDollAmount"		"1"
-					}
-				}
-			}
 			"modifier_thdots_margatroidex_doll"
 			{
 				"IsHidden"				"1"
@@ -670,6 +672,11 @@
 				{
 					"MODIFIER_STATE_LOW_ATTACK_PRIORITY"	"MODIFIER_STATE_VALUE_DISABLED"
 					"MODIFIER_STATE_NO_HEALTH_BAR"			"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%talent1_doll_armor"
+					"MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS"	"%talent1_doll_magic_resist"
 				}
 				"ThinkInterval"				"0.1"
 				"OnIntervalThink"

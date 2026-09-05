@@ -15,7 +15,7 @@ function ability_thdots_nitori01:OnSpellStart()
 		local caster = self:GetCaster()
 		local duration = self:GetSpecialValueFor("duration") + FindTelentValue(self:GetCaster(),"special_bonus_unique_nitori_3")
 		--万宝槌：启动推进器时立刻刷新阳电子炮冷却
-		if caster:HasScepter() then
+		if caster:HasScepter() and (self:GetSpecialValueFor("wanbaochui_refresh_cooldown") or 0) > 0 then
 			local nitori02 = caster:FindAbilityByName("ability_thdots_nitori02")
 			if nitori02 and nitori02:GetLevel() > 0 then
 				nitori02:EndCooldown()
@@ -177,9 +177,13 @@ function ability_thdots_nitori02:CastFilterResultLocation(vLocation)
 end
 
 function ability_thdots_nitori02:GetCooldown(level)
-	--万宝槌：推进器飞行期间阳电子炮无冷却
+	--万宝槌：推进器飞行期间阳电子炮冷却缩减至 wanbaochui_flight_cooldown
 	if self:GetCaster():HasModifier("modifier_ability_thdots_nitori01") and self:GetCaster():HasScepter() then
-		return 0
+		local nitori01 = self:GetCaster():FindAbilityByName("ability_thdots_nitori01")
+		local flight_cd = (nitori01 and nitori01:GetSpecialValueFor("wanbaochui_flight_cooldown")) or 0
+		if flight_cd > 0 then
+			return flight_cd
+		end
 	end
 	return self.BaseClass.GetCooldown(self, level)
 end
@@ -191,23 +195,68 @@ end
 function ability_thdots_nitori02:OnSpellStart()
 	if IsServer() then
 		local caster = self:GetCaster()
-		local ability = self
-		local width = self:GetSpecialValueFor("width")
-		local length = self:GetSpecialValueFor("length")
 		self.point = self:GetCursorPosition()
-		self.num = 1.1
+		self.num = 1.0 + self:GetSpecialValueFor("damage_falloff_per_target")
 		caster:EmitSound("Ability.MKG_AssassinateLoad")
-		--万宝槌：推进器飞行期间蓄力时间缩短50%（蓄力时间不影响伤害）
-		local charge_time = 1.0
+		--万宝槌：推进器飞行期间阳电子炮瞬发（无蓄力、无蓄力动画、不眩晕自身）
+		local free_cast = false
 		if caster:HasModifier("modifier_ability_thdots_nitori01") and caster:HasScepter() then
-			charge_time = charge_time * 0.5
+			local nitori01 = caster:FindAbilityByName("ability_thdots_nitori01")
+			free_cast = (nitori01 and nitori01:GetSpecialValueFor("wanbaochui_instant_cast") or 0) > 0
 		end
+		if free_cast then
+			--引擎施法流程可能将机体转向施法点，下一tick还原为飞行朝向，避免带偏飞行轨迹
+			local booster = caster:FindModifierByName("modifier_ability_thdots_nitori01")
+			local forward = booster and booster.forward
+			self:FireCucumberProjectile(caster)
+			if forward then
+				Timers:CreateTimer(0.03, function()
+					if caster:IsAlive() and caster:HasModifier("modifier_ability_thdots_nitori01") then
+						caster:SetForwardVector(forward)
+					end
+				end)
+			end
+			return
+		end
+		local charge_time = self:GetSpecialValueFor("charge_time")
 		caster:AddNewModifier(caster, self, "modifier_ability_thdots_nitori02", {duration = charge_time})
 		-- caster:StartGesture(ACT_DOTA_CAST_ABILITY_2)
-		caster:StartGestureWithPlaybackRate(ACT_DOTA_CAST_ABILITY_2,0.65)
+		local gesture_rate = self:GetSpecialValueFor("gesture_playback_rate")
+		gesture_rate = (gesture_rate and gesture_rate > 0) and gesture_rate or 0.65
+		caster:StartGestureWithPlaybackRate(ACT_DOTA_CAST_ABILITY_2, gesture_rate)
 		self.weapon_particle = ParticleManager:CreateParticle("particles/heroes/nitori/nitori1_1.vpcf", PATTACH_POINT_FOLLOW, caster)
 		ParticleManager:SetParticleControlEnt(self.weapon_particle, 0, caster, PATTACH_POINT_FOLLOW, "attach_weapon", caster:GetAbsOrigin(), true)
 	end
+end
+
+--发射阳电子炮弹道（蓄力结束与瞬发共用入口）
+function ability_thdots_nitori02:FireCucumberProjectile(caster)
+	local ability = self
+	local width = ability:GetSpecialValueFor("width")
+	local length = ability:GetSpecialValueFor("length")
+	local proj_speed = ability:GetSpecialValueFor("projectile_speed") or 7500
+	ProjectileManager:CreateLinearProjectile({
+		Ability = ability,
+		EffectName = "particles/units/heroes/hero_dragon_knight/dragon_knight_breathe_fire.vpcf",
+		vSpawnOrigin = caster:GetAbsOrigin(),
+		fDistance = length,
+		fStartRadius = width,
+		fEndRadius = width,
+		fExpireTime = GameRules:GetGameTime() + 10.0,
+		Source = caster,
+		bHasFrontalCone = false,
+		bReplaceExisting = false,
+		iUnitTargetTeam = ability:GetAbilityTargetTeam(),
+		iUnitTargetType = ability:GetAbilityTargetType(),
+		bDeleteOnHit = false,
+		vVelocity = ((ability.point - caster:GetAbsOrigin()) * Vector(1, 1, 0)):Normalized() * proj_speed,
+		bProvidesVision = false,
+	})
+	if caster:GetName() == "npc_dota_hero_spectre" and RollPercentage(50) then
+		caster:EmitSound("Voice_Thdots_Nitori.AbilityNitori02")
+	end
+	caster:EmitSound("Hero_Tinker.LaserImpact")
+	caster:EmitSound("Hero_Tinker.Laser")
 end
 function ability_thdots_nitori02:OnProjectileHit(target, location)
 			-- local effectIndex = ParticleManager:CreateParticle("particles/heroes/nitori/ability_nitori02.vpcf", PATTACH_CUSTOMORIGIN, caster)
@@ -216,7 +265,8 @@ function ability_thdots_nitori02:OnProjectileHit(target, location)
 			-- ParticleManager:DestroyParticleSystem(effectIndex, true)
 	if IsServer() then
 		if target then
-			self.num = self.num - 0.1
+			local falloff = self:GetSpecialValueFor("damage_falloff_per_target") or 0.1
+			self.num = self.num - falloff
 			if self.num <= 0 then 
 				self.num = 0 
 			end
@@ -269,33 +319,7 @@ end
 function modifier_ability_thdots_nitori02:OnDestroy()
 	if IsServer() then
 		if self.caster:IsAlive() then
-			local caster = self:GetAbility():GetCaster()
-			local ability = self:GetAbility()
-			local width = self:GetAbility():GetSpecialValueFor("width")
-			local length = self:GetAbility():GetSpecialValueFor("length")
-			ability.point = self:GetAbility().point
-			ProjectileManager:CreateLinearProjectile({
-				Ability = ability,
-				EffectName = "particles/units/heroes/hero_dragon_knight/dragon_knight_breathe_fire.vpcf",
-				vSpawnOrigin = caster:GetAbsOrigin(),
-				fDistance = length,
-				fStartRadius = width,
-				fEndRadius = width,
-				fExpireTime = GameRules:GetGameTime() + 10.0,
-				Source = caster,
-				bHasFrontalCone = false,
-				bReplaceExisting = false,
-				iUnitTargetTeam = ability:GetAbilityTargetTeam(),							
-				iUnitTargetType = ability:GetAbilityTargetType(),							
-				bDeleteOnHit = false,
-				vVelocity = ((ability.point - caster:GetAbsOrigin()) * Vector(1, 1, 0)):Normalized() * 7500,
-				bProvidesVision = false,	
-			})
-			if caster:GetName() == "npc_dota_hero_spectre" and RollPercentage(50) then
-				caster:EmitSound("Voice_Thdots_Nitori.AbilityNitori02")
-			end
-			caster:EmitSound("Hero_Tinker.LaserImpact")
-			caster:EmitSound("Hero_Tinker.Laser")
+			self:GetAbility():FireCucumberProjectile(self:GetAbility():GetCaster())
 		end
 	end
 end
@@ -335,7 +359,8 @@ function ability_thdots_nitori03:OnSpellStart()
 		local radius = self:GetSpecialValueFor("radius")
 		local damage = caster:GetAverageTrueAttackDamage(caster) * self:GetSpecialValueFor("attack_bonus") + (caster:GetIntellect(false) + caster:GetIntellectGain()) * self:GetSpecialValueFor("intellect_bonus") + self:GetSpecialValueFor("magical_bonus")
 		caster:EmitSound("Hero_Mars.Spear")
-		caster:StartGestureWithPlaybackRate(ACT_DOTA_CAST_ABILITY_4,2.0)
+		local gesture_rate = self:GetSpecialValueFor("active_gesture_playback_rate") or 2.0
+		caster:StartGestureWithPlaybackRate(ACT_DOTA_CAST_ABILITY_4, gesture_rate)
 		local effectIndex = ParticleManager:CreateParticle("particles/econ/items/axe/axe_weapon_bloodchaser/axe_attack_blur_counterhelix_bloodchaser_b.vpcf", PATTACH_ABSORIGIN_FOLLOW,caster)
 		ParticleManager:DestroyParticleSystem(effectIndex,false)
 		local targets = FindUnitsInRadius(caster:GetTeam(), caster:GetOrigin(), nil, radius,self:GetAbilityTargetTeam(),self:GetAbilityTargetType(),
@@ -402,7 +427,7 @@ function modifier_ability_thdots_nitori03_passive:OnCreated()
 	self.damage_bonus = self:GetAbility():GetSpecialValueFor("damage_bonus")
 	local talent4 = 0
 	if self:GetStackCount() ~= 0 then
-		talent4 = 20
+		talent4 = self:GetAbility():GetSpecialValueFor("talent4_outdamage_bonus") or 20
 	end
 	self.outdamage_bonus = self:GetAbility():GetSpecialValueFor("outdamage_bonus") + talent4
 	self.radius = self:GetAbility():GetSpecialValueFor("radius")
@@ -415,7 +440,7 @@ function modifier_ability_thdots_nitori03_passive:OnRefresh()
 	self.damage_bonus = self:GetAbility():GetSpecialValueFor("damage_bonus")
 	local talent4 = 0
 	if self:GetStackCount() ~= 0 then
-		talent4 = 20
+		talent4 = self:GetAbility():GetSpecialValueFor("talent4_outdamage_bonus") or 20
 	end
 	self.outdamage_bonus = self:GetAbility():GetSpecialValueFor("outdamage_bonus") + talent4
 end
@@ -435,7 +460,10 @@ function modifier_ability_thdots_nitori03_passive:OnAttackLanded(keys)
 		if not self:GetParent():HasModifier("modifier_ability_thdots_nitori03_passive") then return end
 		-- print(keys.attacker:GetName())
 		local deal_damage = keys.damage  * (self:GetAbility():GetSpecialValueFor("damage_percent")/100) * (1 + FindTelentValue(self:GetCaster(),"special_bonus_unique_nitori_7")) -- + self:GetAbility():GetSpecialValueFor("damage_bonus")
-		DoCleaveAttack(keys.attacker,keys.target,self:GetAbility(),deal_damage,150,450,650,"particles/econ/items/kunkka/divine_anchor/hero_kunkka_dafx_weapon/kunkka_spell_tidebringer_fxset.vpcf")
+		local cleave_start = self:GetAbility():GetSpecialValueFor("cleave_start_radius") or 150
+		local cleave_end   = self:GetAbility():GetSpecialValueFor("cleave_end_radius")   or 450
+		local cleave_dist  = self:GetAbility():GetSpecialValueFor("cleave_distance")     or 650
+		DoCleaveAttack(keys.attacker,keys.target,self:GetAbility(),deal_damage,cleave_start,cleave_end,cleave_dist,"particles/econ/items/kunkka/divine_anchor/hero_kunkka_dafx_weapon/kunkka_spell_tidebringer_fxset.vpcf")
 		self:Destroy()
 	end
 end

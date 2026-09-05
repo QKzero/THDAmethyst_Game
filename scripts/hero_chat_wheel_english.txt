@@ -2074,6 +2074,12 @@
 		"dota_chatwheel_message_guanyu"								"*释怀的小曲*"
 		"dota_chatwheel_message_ziwen"								"自刎归天！"
 		"dota_chatwheel_message_guojiang"							"那好啊他过江我也过江"
+		"dota_chatwheel_message_manbo"								"マンボマンボ~お祭リマンボ~"
+		"dota_chatwheel_message_nya"								"Nya！"
+		"dota_chatwheel_message_bukeneng"							"不可能，绝对不可能"
+		"dota_chatwheel_message_long"								"龙，可是帝王之征啊"
+		"dota_chatwheel_message_chishenme"							"是啊，吃什么"
+		"dota_chatwheel_message_nishitazuoshen"						"你拾它作甚！"
 
 		"dota_chatwheel_message_void_spirit_laugh"					"Hn ha ha ha ha ha."
 		"dota_chatwheel_label_void_spirit_laugh"					"Laugh"

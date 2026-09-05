@@ -167,7 +167,7 @@ SelectVO = function(keys)
 				"Sad_Trombone",
 				"Yahoo",
 				--misc
-				"",
+				"long",  --17
 				"Sleighbells",
 				"Sparkling_Celebration",
 				"Greevil_Laughter",
@@ -233,7 +233,7 @@ SelectVO = function(keys)
 			"guanyu",
 			"ziwen",
 			"guojiang",
-			"",
+			"manbo",
 			"",
 			--epic
 				"easiest_money",
@@ -259,8 +259,8 @@ SelectVO = function(keys)
 				"kor_roshan",
 				"kor_yolo",
 				"kor_million_dollar_house",
-				"",
-				"",
+				"chishenme",  --99
+				"nishitazuoshen",  --100
 				--truesight
 				"321_lets_go",
 				"did_we_actually_win",
@@ -275,9 +275,9 @@ SelectVO = function(keys)
 				"stupidest_way_to_die",
 				"such_a_smart_idea",
 				"youre_damn_crazy",
-				"",
-				"",
-				"",
+				--meme2 (113-114, 17, 99, 100)
+				"nya",
+				"bukeneng",
 			}
 			selectedstr = mesarrs[keys.num]
 			selectedid2 = keys.num
@@ -329,7 +329,7 @@ SelectVO = function(keys)
 				"soundboard.sad_bone",
 				"soundboard.yahoo",
 				--misc
-				"",
+				"ChatWheel.long",  --17
 				"soundboard.sleighbells",
 				"soundboard.new_year_celebration",
 				"soundboard.greevil_laughs",
@@ -395,7 +395,7 @@ SelectVO = function(keys)
 			"ChatWheel.guanyu",
 			"ChatWheel.ziwen",
 			"ChatWheel.guojiang",
-			"",
+			"ChatWheel.manbo",
 			"",
 			--epic
 				"soundboard.easiest_money",
@@ -421,8 +421,8 @@ SelectVO = function(keys)
 				"soundboard.ti3.kor_roshan",
 				"soundboard.ti3.kor_yolo",
 				"soundboard.ti3.kor_million_dollar_house",
-				"",
-				"",
+				"ChatWheel.chishenme",  --99
+				"ChatWheel.nishitazuoshen",  --100
 				--truesight
 				"soundboard.ti10_truesight.321_lets_go",
 				"soundboard.ti10_truesight.did_we_actually_win",
@@ -437,9 +437,9 @@ SelectVO = function(keys)
 				"soundboard.ti10_truesight.stupidest_way_to_die",
 				"soundboard.ti10_truesight.such_a_smart_idea",
 				"soundboard.ti10_truesight.youre_damn_crazy",
-				"",
-				"",
-				"",
+				--meme2 (113-114, 17, 99, 100)
+				"ChatWheel.nya",
+				"ChatWheel.bukeneng",
 			},
 			{
 				"abaddon_abad_laugh_03",

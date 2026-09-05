@@ -2259,7 +2259,7 @@
 		"ability_margatroid03_doll" 	"Futuristic Bunraku"
 		"ability_margatroidex_doll" 	"Doll"
 
-        "DOTA_Tooltip_ability_ability_thdots_MargatroidEx_Description"				"Alice stores a doll every 5s, has a base count of 3 dolls. Activation recycles dolls on the field, each recycled doll restores 20 MP for Alice. +1 count of dolls and +50 health of dolls  every 2 levels for Alice."
+        "DOTA_Tooltip_ability_ability_thdots_MargatroidEx_Description"				"Alice stores a doll every %add_doll_interval%s, has a base count of %doll_base_num% dolls. Activation recycles dolls on the field, each recycled doll restores %doll_recover_mana% MP for Alice after a %reset_doll_time%s reset time. Every even level reached, Alice gains +1 doll capacity, +%upgrade_doll_hp% doll health, the time required to spawn a doll is reduced by %upgrade_doll_interval_reduce%s, and the maximum doll range is increased by %upgrade_doll_max_distance%."
 		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx"							"「Doll Placement」"
 		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx_doll_base_num"			"BASE COUNT: "
 		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx_doll_max_distance"		"MAX RANGE FOR MANIPULATION: "
@@ -2318,8 +2318,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_4"					"+{s:value}「Lemmings' Parade」Damage Per Doll"
 		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_3"					"+200%「Futuristic Bunraku」's Health and Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_0"					"「Futuristic Bunraku」Moves Freely"
-		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_1"					"「manipulate puppet」Double Speed of Gaining Dolls"
-		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_1_Description"		"Gains a doll every 2.5s"
+		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_1"					"Dolls gain +{s:bonus_talent1_doll_hp} Health, +{s:bonus_talent1_doll_armor} Armor, and +{s:bonus_talent1_doll_magic_resist}% Magic Resistance"
 		"DOTA_Tooltip_ability_special_bonus_unique_margatroid_2"					"+7 Maximum Number of Dolls"
 
 
@@ -3040,7 +3039,7 @@
 		// Nitori01
 		"DOTA_Tooltip_ability_ability_thdots_nitori01"							"Energy「Phantasmal Boosters」"
 		"DOTA_Tooltip_ability_ability_thdots_nitori01_Description"				"The Kappa Combat Mech utilizes the「Phantasmal Boosters」of Kawashiro Corp, allowing it to fly around at high speed across any terrain. Also turns on her radar, granting flying vision during the dash.\n<font color=\"#d9534f\">「Photon Cannon Cucumber.II」cannot be used</font> during the flight, but「Lightsaber Energy Reaction」will deal %attack_bonus% more damage."
-		"DOTA_Tooltip_ability_ability_thdots_nitori01_scepter_description"		"Alter 「Phantasmal Boosters」, and its power will be increased significantly: casting the boosters immediately refreshes the cooldown of「Photon Cannon Cucumber.II」; during the flight,「Photon Cannon Cucumber.II」can be cast with 50%% shorter charge time and no cooldown."
+		"DOTA_Tooltip_ability_ability_thdots_nitori01_scepter_description"		"Alter 「Phantasmal Boosters」, and its power will be increased significantly: casting the boosters immediately refreshes the cooldown of「Photon Cannon Cucumber.II」; during the flight,「Photon Cannon Cucumber.II」can be cast instantly without charging, and its cooldown is reduced to %wanbaochui_flight_cooldown% seconds."
 		"DOTA_Tooltip_ability_ability_thdots_nitori01_duration"					"DURATION: "
 		"DOTA_Tooltip_ability_ability_thdots_nitori01_movement_bonus"			"MOVE SPEED BONUS: "
 
@@ -6165,7 +6164,7 @@
 		"DOTA_Tooltip_ability_ability_thdots_shizuhaEX_Lore"						"The withering autumn leaves fall and scatter."
 		"DOTA_Tooltip_modifier_thdots_shizuhaEX_check_levelup"						"Wilted Path「Lost Windrow」"
 		"DOTA_Tooltip_modifier_thdots_shizuhaEX_check_levelup_Description"			"Deals damage to all enemy girls when leveling up."
-		"ShizuhaEXMessage"															"{s:player_name}: <font color='#FFA07A'>The Autumn Leaves Withered</font> ({s:value} damage)"
+		"ShizuhaEXMessage"															"{s:player_name}: <font color='#FFA07A'>The Autumn Leaves Wither</font> ({s:value} damage)"
 
 		// Talents
 		"DOTA_Tooltip_ability_special_bonus_unique_shizuha_1"						"+{s:bonus_radius}「Withered Tree Roots」Radius"
@@ -6745,7 +6744,7 @@
 		"DOTA_Tooltip_ability_item_frozen_frog_bonus_all_stats"						"+$all"
 
 		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff"						"Perfect Freeze"
-		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff_Description"			"Your body is affected by frostbite. Movement speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%, attack speed reduced by %dMODIFIER_PROPERTY_HP_REGEN_MULTIPLIER_PRE_AMPLIFICATION%, and all healing received is reduced."
+		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff_Description"			"Your body is affected by frostbite. Movement speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%, attack speed reduced by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%, and all healing received is reduced by 40%%."
 
 		"DOTA_Tooltip_ability_item_recipe_guilty_mask"								"Recipe: Enchanted Cloak"
 		"DOTA_Tooltip_ability_item_guilty_mask"										"Enchanted Cloak"
@@ -7244,7 +7243,7 @@
 		"DOTA_Tooltip_ability_item_ghostspoon_Note0"								"If you become spell immune while this is active, the ghost form is cancelled.Ghost Form item effects have no effect while spell immune.<br><br>Dispelled."
 
 		"DOTA_Tooltip_modifier_item_ghost_spoon"									"Ghost Ladle"
-		"DOTA_Tooltip_modifier_item_ghost_spoon_Description"						"Ghost form，cannot attack or be attacked.\nslowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%% more vulnerable to magic damage."
+		"DOTA_Tooltip_modifier_item_ghost_spoon_Description"						"Ghost form，cannot attack or be attacked.\nslowed by 35%% and %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%% more vulnerable to magic damage."
 
 		"DOTA_Tooltip_ability_item_recipe_peach"									"Recipe: Heavenly Peach"
 		"DOTA_Tooltip_ability_item_peach"											"Heavenly Peach"

@@ -26,6 +26,9 @@
 			"duration"	"3.0 3.5 4.0 4.5"
 			"movement_bonus"	"260"
 			"critical_bonus"	"100"
+			"wanbaochui_refresh_cooldown"	"1"
+			"wanbaochui_instant_cast"	"1"
+			"wanbaochui_flight_cooldown"	"0.5"
 			"wbc_stun"
 			{
 				"value"	"2"
@@ -44,7 +47,7 @@
 		"BaseClass"	"ability_lua"
 		"ScriptFile"	"scripts/vscripts/abilities/abilitynitori.lua"
 		"AbilityTextureName"	"ability_thdots_nitori02"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_BUILDING"
 		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
@@ -71,6 +74,10 @@
 			"intellect_bonus"	"2.0"
 			"duration"	"2"
 			"building_reduce"	"30"
+			"charge_time"	"1.0"
+			"damage_falloff_per_target"	"0.1"
+			"projectile_speed"	"7500"
+			"gesture_playback_rate"	"0.65"
 			"width"
 			{
 				"value"			"200"
@@ -117,6 +124,11 @@
 			"magical_bonus"	"60 100 140 180"
 			"outdamage_bonus"	"20"
 			"damage_percent"	"70"
+			"talent4_outdamage_bonus"	"20"
+			"cleave_start_radius"	"150"
+			"cleave_end_radius"	"450"
+			"cleave_distance"	"650"
+			"active_gesture_playback_rate"	"2.0"
 		}
 	}
 

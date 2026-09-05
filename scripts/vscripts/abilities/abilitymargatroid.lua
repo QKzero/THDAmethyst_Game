@@ -13,6 +13,33 @@ MARGATROID_ABILITY04_MODIFIER_DOLL_EXPLOSION_NAME = "modifier_thdots_margatroid0
 
 g_PlayersTotalDollNum = g_PlayersTotalDollNum or {}
 
+--操符：人偶升级档（每 lvl_to_upgrade 级触发一档，即偶数等级触发）
+function MargatroidEx_GetUpgradeNum(hCaster, AbilityEx)
+    AbilityEx = AbilityEx or hCaster:FindAbilityByName(MARGATROID_ABILITYEX_NAME)
+    if not AbilityEx then return 0 end
+    local lvl_to_upgrade = AbilityEx:GetSpecialValueFor("lvl_to_upgrade")
+    if not lvl_to_upgrade or lvl_to_upgrade <= 0 then return 0 end
+    return math.floor(hCaster:GetLevel() / lvl_to_upgrade)
+end
+
+--操符：人偶持有上限（基础值 + 偶数等级成长 + 上限天赋）
+function MargatroidEx_GetMaxDollNum(hCaster)
+    local AbilityEx = hCaster:FindAbilityByName(MARGATROID_ABILITYEX_NAME)
+    if not AbilityEx then return 0 end
+    return AbilityEx:GetSpecialValueFor("doll_base_num")
+        + MargatroidEx_GetUpgradeNum(hCaster, AbilityEx)
+        + FindTelentValue(hCaster, "special_bonus_unique_margatroid_2")
+end
+
+--操符：人偶最大操纵距离（与AOERadius指示器数组取值一致：基础值 + 偶数等级档×步长）
+function MargatroidEx_GetDollMaxDistance(hCaster)
+    local AbilityEx = hCaster:FindAbilityByName(MARGATROID_ABILITYEX_NAME)
+    if not AbilityEx then return 0 end
+    return AbilityEx:GetSpecialValueFor("doll_max_distance")
+        + MargatroidEx_GetUpgradeNum(hCaster, AbilityEx)
+            * AbilityEx:GetSpecialValueFor("upgrade_doll_max_distance")
+end
+
 function Margatroid_CreateLine(caster, doll)
     local effectIndex = ParticleManager:CreateParticle("particles/heroes/alice/ability_alice_line.vpcf",
         PATTACH_CUSTOMORIGIN, doll)
@@ -27,8 +54,7 @@ function MargatroidEx_ModifyDollCount(caster, count)
     else
         caster.dollcount = 1
     end
-    local max = math.max(3, math.floor((caster:GetLevel() - 1) / 2 + 3)) +
-                    FindTelentValue(caster, "special_bonus_unique_margatroid_2")
+    local max = MargatroidEx_GetMaxDollNum(caster)
     if caster.dollcount > max then
         caster.dollcount = max
     end
@@ -38,11 +64,11 @@ function MargatroidEx_ModifyDollReset(Caster)
     local playerid = Caster:GetEntityIndex()
     Caster:SetContextThink("MargatroidEx_ModifyDollReset", function()
         if Caster.dollcount == 0 then
-            g_PlayersTotalDollNum[playerid] = math.max(0, (Caster:GetLevel() - 1) / 2 + 3)
             local AbilityEx = Caster:FindAbilityByName("ability_thdots_MargatroidEx")
+            local max = MargatroidEx_GetMaxDollNum(Caster)
+            g_PlayersTotalDollNum[playerid] = max
             AbilityEx:ApplyDataDrivenModifier(Caster, Caster, "modifier_thdots_margatroidex_doll_count", {})
-            Caster:SetModifierStackCount("modifier_thdots_margatroidex_doll_count", AbilityEx,
-                math.floor((Caster:GetLevel() - 1) / 2 + 3))
+            Caster:SetModifierStackCount("modifier_thdots_margatroidex_doll_count", AbilityEx, max)
         end
         return 0.03
     end, 0.03)
@@ -80,8 +106,7 @@ function Margatroid_ModifyTotalDollNum(hCaster, iModifyAmount)
 	else
 		g_PlayersTotalDollNum[playerid]=math.max(0,num + iModifyAmount)
 	end]] --
-    local max = math.max(3, math.floor((hCaster:GetLevel() - 1) / 2 + 3)) +
-                    FindTelentValue(hCaster, "special_bonus_unique_margatroid_2")
+    local max = MargatroidEx_GetMaxDollNum(hCaster)
     if g_PlayersTotalDollNum[playerid] > max then
         g_PlayersTotalDollNum[playerid] = max
     end
@@ -95,8 +120,7 @@ function Margatroid_ModifyUsableDollNum(hCaster, iModifyAmount)
     if AbilityEx then
         local stack_count = hCaster:GetModifierStackCount(MARGATROID_ABILITYEX_MODIFIER_DOLL_COUNT_NAME, hCaster) +
                                 iModifyAmount
-        local max = math.max(3, math.floor((hCaster:GetLevel() - 1) / 2 + 3)) +
-                        FindTelentValue(hCaster, "special_bonus_unique_margatroid_2")
+        local max = MargatroidEx_GetMaxDollNum(hCaster)
 
         if stack_count > max then
             stack_count = max
@@ -162,15 +186,13 @@ function Margatroid_CreateDoll(hCaster, vecPos, vecForward, dollname)
         end
         AbilityEx:ApplyDataDrivenModifier(hCaster, doll, MARGATROID_ABILITYEX_MODIFIER_DOLL_NAME, {})
 
-        local lvl_to_upgrade = AbilityEx:GetSpecialValueFor("lvl_to_upgrade")
-        if lvl_to_upgrade and lvl_to_upgrade > 0 then
-            local upgrade_num = math.floor((hCaster:GetLevel() - 1) / AbilityEx:GetSpecialValueFor("lvl_to_upgrade"))
-            local doll_hp = AbilityEx:GetSpecialValueFor("doll_base_hp") + upgrade_num *
-                                AbilityEx:GetSpecialValueFor("upgrade_doll_hp")
-            doll:SetMaxHealth(doll_hp)
-            doll:SetBaseMaxHealth(doll_hp)
-            doll:SetHealth(doll:GetMaxHealth())
-        end
+        local upgrade_num = MargatroidEx_GetUpgradeNum(hCaster, AbilityEx)
+        local doll_hp = AbilityEx:GetSpecialValueFor("doll_base_hp")
+            + upgrade_num * AbilityEx:GetSpecialValueFor("upgrade_doll_hp")
+            + AbilityEx:GetSpecialValueFor("talent1_doll_hp")
+        doll:SetMaxHealth(doll_hp)
+        doll:SetBaseMaxHealth(doll_hp)
+        doll:SetHealth(doll:GetMaxHealth())
         return doll
     end
 end
@@ -217,44 +239,35 @@ function Margatroid_MoveDoll(hDoll, vecTarget, fMoveSpeed, fnOnMoving, fnOnFinsh
 end
 
 function MargatroidEx_OnRespawn(keys)
-    -- local Caster=keys.caster
-    -- local playerid=Caster:GetEntityIndex()
-    -- print("do it")
-    -- g_PlayersTotalDollNum[playerid] = keys.DollBaseNum+math.floor((Caster:GetLevel()-1)/keys.LvlToUpgrade) + FindTelentValue(Caster,"special_bonus_unique_margatroid_2")
 end
 
 function MargatroidEx_IntervalAddDoll(keys)
     local AbilityEx = keys.ability
     local Caster = keys.caster
-    local MaxStoreNum = keys.DollBaseNum + math.floor((Caster:GetLevel() - 1) / keys.LvlToUpgrade) +
+    local upgrade_num = math.floor(Caster:GetLevel() / keys.LvlToUpgrade)
+    local MaxStoreNum = keys.DollBaseNum + upgrade_num +
                             FindTelentValue(Caster, "special_bonus_unique_margatroid_2") -- 人偶上限在这里
-    local Modifier = MARGATROID_ABILITYEX_MODIFIER_TIME_TO_ADD_DOLL_NAME
-    if FindTelentValue(Caster, "special_bonus_unique_margatroid_1") ~= 0 then
-        Modifier = "modifier_thdots_margatroidex_time_to_add_doll_talent"
+    if Margatroid_GetTotalDollNum(Caster) < MaxStoreNum and
+        not Caster:HasModifier(MARGATROID_ABILITYEX_MODIFIER_TIME_TO_ADD_DOLL_NAME) then
+        --人偶生成时间随偶数等级递减（每档 -upgrade_doll_interval_reduce 秒）
+        --注意：修饰符块自带固定 Duration KV，必须在应用后用 SetDuration 权威改写，否则动态持续时间不生效
+        local interval = AbilityEx:GetSpecialValueFor("add_doll_interval")
+            - upgrade_num * AbilityEx:GetSpecialValueFor("upgrade_doll_interval_reduce")
+        if interval < 0 then interval = 0 end
+        AbilityEx:ApplyDataDrivenModifier(Caster, Caster,
+            MARGATROID_ABILITYEX_MODIFIER_TIME_TO_ADD_DOLL_NAME, {})
+        local timer_modifier = Caster:FindModifierByName(MARGATROID_ABILITYEX_MODIFIER_TIME_TO_ADD_DOLL_NAME)
+        if timer_modifier then
+            timer_modifier:SetDuration(interval, true)
+        end
     end
-    -- print(Margatroid_GetTotalDollNum(Caster))
-    -- print(MaxStoreNum)
-    if Margatroid_GetTotalDollNum(Caster) < MaxStoreNum and not Caster:HasModifier(Modifier) then
-        -- if Margatroid_GetUsableDollNum(Caster)<MaxStoreNum and not Caster:HasModifier(Modifier) then
-        -- AbilityEx:ApplyDataDrivenModifier(Caster,Caster,MARGATROID_ABILITYEX_MODIFIER_TIME_TO_ADD_DOLL_NAME,{})
-        AbilityEx:ApplyDataDrivenModifier(Caster, Caster, Modifier, {})
-    end
-    --[[
-	Caster.margatroid_last_level=Caster.margatroid_last_level or Caster:GetLevel()
-	if Caster:GetLevel()-Caster.margatroid_last_level>=keys.LvlToUpgrade then
-		local upgrade_num=math.floor((Caster:GetLevel()-Caster.margatroid_last_level)/keys.LvlToUpgrade)
-		Margatroid_ModifyUsableDollNum(Caster,upgrade_num) 
-		Margatroid_ModifyTotalDollNum(Caster,upgrade_num) 
-		Caster.margatroid_last_level=Caster:GetLevel()+upgrade_num*keys.LvlToUpgrade
-	end
-	]]
 end
 
 function MargatroidEx_OnDollIntervalThink(keys)
     local AbilityEx = keys.ability
     local Caster = keys.caster
     local doll = keys.target
-    if not Caster:IsAlive() or CalcDistanceBetweenEntityOBB(Caster, doll) > keys.DollMaxDistance then
+    if not Caster:IsAlive() or CalcDistanceBetweenEntityOBB(Caster, doll) > MargatroidEx_GetDollMaxDistance(Caster) then
         doll:RemoveModifierByNameAndCaster(MARGATROID_ABILITYEX_MODIFIER_DOLL_NAME, Caster)
         AbilityEx:ApplyDataDrivenModifier(Caster, doll, MARGATROID_ABILITYEX_MODIFIER_DOLL_LOST_NAME, {})
     end
@@ -340,7 +353,7 @@ function MargatroidEx_OnDollRecovering(keys)
                 PATTACH_CUSTOMORIGIN, nil)
             ParticleManager:SetParticleControlEnt(effectIndex, 0, Caster, 5, "attach_line", Vector(0, 0, 0), true)
             doll:EmitSound("Voice_Thdots_Alice.AbilityAliceEx")
-            Caster:SetMana(Caster:GetMana() + 20)
+            Caster:SetMana(Caster:GetMana() + AbilityEx:GetSpecialValueFor("doll_recover_mana"))
             doll:RemoveModifierByNameAndCaster(MARGATROID_ABILITYEX_MODIFIER_DOLL_NAME, Caster)
             doll:RemoveModifierByNameAndCaster(MARGATROID_ABILITYEX_MODIFIER_DOLL_RECOVERING_NAME, Caster)
             MargatroidEx_ModifyDollCount(Caster, -1)
@@ -358,7 +371,7 @@ end
 function MargatroidEx_OnSpellStart(keys)
     local AbilityEx = keys.ability
     local Caster = keys.caster
-    local Radius = keys.Radius
+    local Radius = MargatroidEx_GetDollMaxDistance(Caster)
     local dolls = Margatroid_FindDolls(Caster, Radius)
     for _, doll in pairs(dolls) do
         if doll:GetUnitName() == MARGATROID_ABILITYEX_DOLL_UNITNAME then
@@ -372,9 +385,18 @@ function MargatroidEx_OnUpgrade(keys)
     local AbilityEx = keys.ability
     local Caster = keys.caster
 
+    --操符等级由英雄等级自动同步（见文件底部等级监听），手动加点立即回退并返还技能点
+    local target_level = math.min(Caster:GetLevel(), AbilityEx:GetMaxLevel())
+    if AbilityEx:GetLevel() > target_level then
+        Caster:SetAbilityPoints(Caster:GetAbilityPoints() + 1)
+        AbilityEx:SetLevel(target_level)
+        return
+    end
+
     if AbilityEx:GetLevel() == 1 then
-        Margatroid_ModifyUsableDollNum(Caster, 3)
-        Margatroid_ModifyTotalDollNum(Caster, 3)
+        local base_num = AbilityEx:GetSpecialValueFor("doll_base_num")
+        Margatroid_ModifyUsableDollNum(Caster, base_num)
+        Margatroid_ModifyTotalDollNum(Caster, base_num)
         Caster.isCreatedLine = false
         MargatroidEx_ModifyDollActionTranslate(Caster)
         -- MargatroidEx_ModifyDollReset(Caster)
@@ -1310,11 +1332,30 @@ function modifier_thdots_margatroid_lyz_back_moving:OnIntervalThink()
     local MoveSpeed = self:GetAbility():GetSpecialValueFor("caster_move_speed")
 
     if (self.distance < 0) then
-        caster:SetUnitOnClearGround()
-        caster:RemoveModifierByName("modifier_thdots_margatroid_lyz_back_moving")
-    else
-        self.distance = self.distance - MoveSpeed / 50
-        caster:SetOrigin(vecCaster + ability.caster_direction * MoveSpeed / 50)
-        GridNav:DestroyTreesAroundPoint(caster:GetAbsOrigin(), 80, false)
+            caster:SetUnitOnClearGround()
+            caster:RemoveModifierByName("modifier_thdots_margatroid_lyz_back_moving")
+        else
+            self.distance = self.distance - MoveSpeed / 50
+            caster:SetOrigin(vecCaster + ability.caster_direction * MoveSpeed / 50)
+            GridNav:DestroyTreesAroundPoint(caster:GetAbsOrigin(), 80, false)
+        end
     end
+
+--------------------------------------------------------
+-- 操符[操纵人偶]：技能等级与英雄等级同步
+-- 技能面板属性/施法指示器均按技能当前等级解析KV数组，同步后面板显示的即为实际属性
+--------------------------------------------------------
+if IsServer() and not _G.__margatroidex_level_sync_registered then
+    _G.__margatroidex_level_sync_registered = true
+    ListenToGameEvent("dota_player_gained_level", function(keys)
+        local hero = PlayerResource:GetSelectedHeroEntity(keys.player_id)
+        if not hero then return end
+        local abilityEx = hero:FindAbilityByName(MARGATROID_ABILITYEX_NAME)
+        if abilityEx then
+            local target_level = math.min(hero:GetLevel(), abilityEx:GetMaxLevel())
+            if abilityEx:GetLevel() < target_level then
+                abilityEx:SetLevel(target_level)
+            end
+        end
+    end, nil)
 end
