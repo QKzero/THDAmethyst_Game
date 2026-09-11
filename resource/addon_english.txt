@@ -6744,7 +6744,7 @@
 		"DOTA_Tooltip_ability_item_frozen_frog_bonus_all_stats"						"+$all"
 
 		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff"						"Perfect Freeze"
-		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff_Description"			"Your body is affected by frostbite. Movement speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%, attack speed reduced by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%, and all healing received is reduced by 40%%."
+		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff_Description"			"Your body is affected by frostbite. Movement speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%, attack speed reduced by %dMODIFIER_PROPERTY_HP_REGEN_MULTIPLIER_PRE_AMPLIFICATION%, and all healing received is reduced."
 
 		"DOTA_Tooltip_ability_item_recipe_guilty_mask"								"Recipe: Enchanted Cloak"
 		"DOTA_Tooltip_ability_item_guilty_mask"										"Enchanted Cloak"
@@ -7228,22 +7228,22 @@
 
 		"DOTA_Tooltip_ability_item_recipe_three_dimension"							"Recipe: Voile's Ghost Book"
 		"DOTA_Tooltip_ability_item_three_dimension"									"Voile's Ghost Book"
-		"DOTA_Tooltip_ability_item_three_dimension_Description"						"<h1>Active: Ghost Blast</h1>Converts the target unit to ghost form for %debuff_duration% seconds, rendering them immune to physical damage, but unable to attack, slowed by %debuff_slowdown_movespeed_percent%%% and %debuff_mgical_resistance_decrepify%%% more vulnerable to magic damage.<br><br>Cast Range: %abilitycastrange%"
+		"DOTA_Tooltip_ability_item_three_dimension_Description"						"<h1>Active: Ghost Blast</h1>Converts the target unit to ghost form for %debuff_duration% seconds, rendering them immune to physical damage, but unable to attack and %debuff_mgical_resistance_decrepify%%% more vulnerable to magic damage.<br><br>Cast Range: %abilitycastrange%"
 		"DOTA_Tooltip_ability_item_three_dimension_bonus_strength"					"+$str"
 		"DOTA_Tooltip_ability_item_three_dimension_bonus_intellect"					"+$int"
 		"DOTA_Tooltip_ability_item_three_dimension_bonus_mana_regen"				"+$mana_regen"
 		"DOTA_Tooltip_ability_item_three_dimension_Note0"							"If you become spell immune while this is active, the ghost form is cancelled.Ghost Form item effects have no effect while spell immune.<br><br>Dispellable.<br>This effect is marked as a debuff, and as such can only be dispelled by effects from allies."
 
 		"DOTA_Tooltip_modifier_item_three_dimension_debuff"							"Breaking Through Dimensions"
-		"DOTA_Tooltip_modifier_item_three_dimension_debuff_Description"				"Not in the same dimensions, cannot attack or be attacked. Slowed by 35%% and %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%% more vulnerable to magic damage."
+		"DOTA_Tooltip_modifier_item_three_dimension_debuff_Description"				"Not in the same dimensions, cannot attack or be attacked. %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%% more vulnerable to magic damage."
 
 		"DOTA_Tooltip_ability_item_ghostspoon"										"Ghost Ladle"
-		"DOTA_Tooltip_ability_item_ghostspoon_Description"							"<h1>Active: Ghost Form</h1>You enter ghost form for %debuff_duration% seconds, becoming immune to physical damage, but are unable to attack, slowed by %debuff_slowdown_movespeed_percent%%% and %debuff_mgical_resistance_decrepify%%% more vulnerable to magic damage."
+		"DOTA_Tooltip_ability_item_ghostspoon_Description"							"<h1>Active: Ghost Form</h1>You enter ghost form for %debuff_duration% seconds, becoming immune to physical damage, but are unable to attack and %debuff_mgical_resistance_decrepify%%% more vulnerable to magic damage."
 		"DOTA_Tooltip_ability_item_ghostspoon_bonus_all_stats"						"+$all"
 		"DOTA_Tooltip_ability_item_ghostspoon_Note0"								"If you become spell immune while this is active, the ghost form is cancelled.Ghost Form item effects have no effect while spell immune.<br><br>Dispelled."
 
 		"DOTA_Tooltip_modifier_item_ghost_spoon"									"Ghost Ladle"
-		"DOTA_Tooltip_modifier_item_ghost_spoon_Description"						"Ghost form，cannot attack or be attacked.\nslowed by 35%% and %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%% more vulnerable to magic damage."
+		"DOTA_Tooltip_modifier_item_ghost_spoon_Description"						"Ghost form，cannot attack or be attacked.\n%dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%% more vulnerable to magic damage."
 
 		"DOTA_Tooltip_ability_item_recipe_peach"									"Recipe: Heavenly Peach"
 		"DOTA_Tooltip_ability_item_peach"											"Heavenly Peach"

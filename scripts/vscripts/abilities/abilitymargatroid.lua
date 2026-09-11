@@ -31,13 +31,11 @@ function MargatroidEx_GetMaxDollNum(hCaster)
         + FindTelentValue(hCaster, "special_bonus_unique_margatroid_2")
 end
 
---操符：人偶最大操纵距离（与AOERadius指示器数组取值一致：基础值 + 偶数等级档×步长）
+--操符：人偶最大操纵距离（KV按1-30级数组配置，为AOERadius指示器/面板/本判定的唯一数据源，按技能当前等级解析）
 function MargatroidEx_GetDollMaxDistance(hCaster)
     local AbilityEx = hCaster:FindAbilityByName(MARGATROID_ABILITYEX_NAME)
     if not AbilityEx then return 0 end
     return AbilityEx:GetSpecialValueFor("doll_max_distance")
-        + MargatroidEx_GetUpgradeNum(hCaster, AbilityEx)
-            * AbilityEx:GetSpecialValueFor("upgrade_doll_max_distance")
 end
 
 function Margatroid_CreateLine(caster, doll)
@@ -244,6 +242,12 @@ end
 function MargatroidEx_IntervalAddDoll(keys)
     local AbilityEx = keys.ability
     local Caster = keys.caster
+    --操符等级同步兜底：事件监听可能错过升级（复活/重连等场景），每0.1s对齐一次
+    --技能等级驱动AOERadius指示器与面板数值按等级解析，必须与英雄等级保持一致
+    local target_level = math.min(Caster:GetLevel(), AbilityEx:GetMaxLevel())
+    if AbilityEx:GetLevel() < target_level then
+        AbilityEx:SetLevel(target_level)
+    end
     local upgrade_num = math.floor(Caster:GetLevel() / keys.LvlToUpgrade)
     local MaxStoreNum = keys.DollBaseNum + upgrade_num +
                             FindTelentValue(Caster, "special_bonus_unique_margatroid_2") -- 人偶上限在这里

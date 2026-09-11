@@ -234,7 +234,7 @@ SelectVO = function(keys)
 			"ziwen",
 			"guojiang",
 			"manbo",
-			"",
+			"huiquba",  --77
 			--epic
 				"easiest_money",
 				"echo_slama_jama",
@@ -251,7 +251,7 @@ SelectVO = function(keys)
 				"glados_chat_01",
 				"glados_chat_07",
 				"glados_chat_04",
-				"",
+				"menwaishuzhe",  --92
 				--kor cas
 				"kor_yes_no",
 				"kor_scan",
@@ -396,7 +396,7 @@ SelectVO = function(keys)
 			"ChatWheel.ziwen",
 			"ChatWheel.guojiang",
 			"ChatWheel.manbo",
-			"",
+			"ChatWheel.huiquba",  --77
 			--epic
 				"soundboard.easiest_money",
 				"soundboard.echo_slama_jama",
@@ -413,7 +413,7 @@ SelectVO = function(keys)
 				"soundboard.glados.probability_99",
 				"soundboard.glados.probability_17",
 				"soundboard.glados.probability_1",
-				"",
+				"ChatWheel.menwaishuzhe",  --92
 				--kor cas
 				"soundboard.ti3.kor_yes_no",
 				"soundboard.ti3.kor_scan",

@@ -2794,7 +2794,6 @@ function ItemAbility_three_dimension_OnProjectileHitUnit(keys)
     if target and not target:IsMagicImmune() then
         target:EmitSound("DOTA_Item.EtherealBlade.Target")
         keys.ability:ApplyDataDrivenModifier(caster, target, "modifier_item_three_dimension_debuff", {})
-        keys.ability:ApplyDataDrivenModifier(caster, target, "modifier_item_three_dimension_debuff_movement_slow", {})
         -- if target:GetTeam() ~= caster:GetTeam() then
         -- end
     end

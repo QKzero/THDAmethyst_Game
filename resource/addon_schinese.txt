@@ -476,8 +476,6 @@
 		//item_..._lunchbox				（御币系列）
 		//item_hakurei_ticket			（光环为硬编码）
 		//item_card_good_man			（纯lua，modifier提供的效果不会影响数值面板，只能硬编码）
-		//item_three_dimension			（减速不能引用，原因未知）
-		//item_ghost_spoon				（同样减速不能引用）
 
 		"DOTA_Tooltip_modifier_item_watermelon_debuff"	"削铁如泥"
 		"DOTA_Tooltip_modifier_item_watermelon_debuff_Description"	"你的护甲减少%dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%点，变得脆弱如泥。"
@@ -496,7 +494,7 @@
 		"DOTA_Tooltip_modifier_item_mystia_wings_fly"				"夜雀的小小翅膀"
 		"DOTA_Tooltip_modifier_item_mystia_wings_fly_Description"	"移动速度提升%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%并允许你穿越其他单位。"
 		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff"	"完美冻结"
-		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff_Description"	"你的身体受到霜冻影响，\n移动速度减少%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%，\n攻击速度降低%dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%。治疗效果减少40%%"
+		"DOTA_Tooltip_modifier_item_frozen_frog_cold_debuff_Description"	"你的身体受到霜冻影响，\n移动速度减少%dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%，\n攻击速度降低%dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%。治疗效果减少。"
 		"DOTA_Tooltip_modifier_item_loneliness_regen_health"	"鬼神之力"
 		"DOTA_Tooltip_modifier_item_loneliness_regen_health_Description"	"你的生命值恢复速度得到了极大的提高。"
 		"DOTA_Tooltip_modifier_item_bagua_regen_mana"		"八卦炉能量"
@@ -564,9 +562,9 @@
 		"DOTA_Tooltip_modifier_item_mr_yang_decline_intellect"	"电击治疗"
 		"DOTA_Tooltip_modifier_item_mr_yang_decline_intellect_Description"	"降低%dMODIFIER_PROPERTY_MANA_BONUS%点最大魔法值并减速。"
 		"DOTA_Tooltip_modifier_item_three_dimension_debuff"	"次元突破"
-		"DOTA_Tooltip_modifier_item_three_dimension_debuff_Description"	"不在同一次元，无法攻击或者被攻击\n你受到的魔法伤害增加%dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%%，你的移动速度下降35%%。"
+		"DOTA_Tooltip_modifier_item_three_dimension_debuff_Description"	"不在同一次元，无法攻击或者被攻击\n你受到的魔法伤害增加%dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%%。"
 		"DOTA_Tooltip_modifier_item_ghost_spoon"	"幽灵木勺"
-		"DOTA_Tooltip_modifier_item_ghost_spoon_Description"	"幽灵状态，无法攻击或者被攻击\n你受到的魔法伤害增加%dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%%，你的移动速度下降35%%。"		
+		"DOTA_Tooltip_modifier_item_ghost_spoon_Description"	"幽灵状态，无法攻击或者被攻击\n你受到的魔法伤害增加%dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%%。"		
 		"DOTA_Tooltip_modifier_item_peach_speedup_buff"	"蟠桃之力"
 		"DOTA_Tooltip_modifier_item_peach_speedup_buff_Description"	"每受到一定伤害增加攻击速度加成的层数。"
 		"DOTA_Tooltip_modifier_item_yuri_buff"	"土蜘蛛之丝"
@@ -2297,13 +2295,13 @@
 		"DOTA_Tooltip_ability_item_recipe_three_dimension"	"巴瓦鲁幽魂之书制作书"
 		"DOTA_Tooltip_ability_item_recipe_three_dimension"	"巴瓦鲁幽魂之书制作书"
 		"DOTA_Tooltip_ability_item_three_dimension"	"巴瓦鲁幽魂之书"
-		"DOTA_Tooltip_ability_item_three_dimension_Description"	"<h1>主动：幽魂冲击</h1>使目标进入幽灵形态，持续%debuff_duration%秒，期间降低35%%移动速度，无法进行普通攻击也不会受到物理伤害，但会受到%debuff_mgical_resistance_decrepify%%%的额外魔法伤害。<br><br>施法距离：%abilitycastrange%"
+		"DOTA_Tooltip_ability_item_three_dimension_Description"	"<h1>主动：幽魂冲击</h1>使目标进入幽灵形态，持续%debuff_duration%秒，无法进行普通攻击也不会受到物理伤害，但会受到%debuff_mgical_resistance_decrepify%%%的额外魔法伤害。<br><br>施法距离：%abilitycastrange%"
 		"DOTA_Tooltip_ability_item_three_dimension_bonus_strength"	"+$str"
 		"DOTA_Tooltip_ability_item_three_dimension_bonus_intellect"	"+$int"
 		"DOTA_Tooltip_ability_item_three_dimension_bonus_mana_regen"	"+$mana_regen"
 		"DOTA_Tooltip_ability_item_three_dimension_Note0"			"如果在开启期间进入技能免疫状态，幽灵效果将会中止。如果在技能免疫状态下开启物品将不会拥有幽灵效果。<br><br>效果可以驱散。<br>效果被标记为debuff，故只能被对友军释放的驱散技能驱散。"
 		"DOTA_Tooltip_ability_item_ghostspoon"	"幽灵木勺"
-		"DOTA_Tooltip_ability_item_ghostspoon_Description"	"<h1>主动：幽灵形态</h1> 进入幽灵形态，持续%debuff_duration%秒，期间降低35%%移动速度，无法进行普通攻击也不会受到物理伤害，但会受到%debuff_mgical_resistance_decrepify%%%的额外魔法伤害。"
+		"DOTA_Tooltip_ability_item_ghostspoon_Description"	"<h1>主动：幽灵形态</h1> 进入幽灵形态，持续%debuff_duration%秒，无法进行普通攻击也不会受到物理伤害，但会受到%debuff_mgical_resistance_decrepify%%%的额外魔法伤害。"
 		"DOTA_Tooltip_ability_item_ghostspoon_bonus_all_stats"	"+$all"
 		"DOTA_Tooltip_ability_item_ghostspoon_Note0"			"如果在开启期间进入技能免疫状态，幽灵效果将会中止。如果在技能免疫状态下开启物品将不会拥有幽灵效果。<br><br>效果可以驱散。"
 		// ************************

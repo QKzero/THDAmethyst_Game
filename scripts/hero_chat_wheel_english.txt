@@ -2080,6 +2080,8 @@
 		"dota_chatwheel_message_long"								"龙，可是帝王之征啊"
 		"dota_chatwheel_message_chishenme"							"是啊，吃什么"
 		"dota_chatwheel_message_nishitazuoshen"						"你拾它作甚！"
+		"dota_chatwheel_message_huiquba"							"回去吧，你太老了"
+		"dota_chatwheel_message_menwaishuzhe"						"门外竖着！"
 
 		"dota_chatwheel_message_void_spirit_laugh"					"Hn ha ha ha ha ha."
 		"dota_chatwheel_label_void_spirit_laugh"					"Laugh"
