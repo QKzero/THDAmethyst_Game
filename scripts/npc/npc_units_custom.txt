@@ -607,9 +607,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"170"
+		"AttackDamageMin"	"160"
 		// Damage range max.
-		"AttackDamageMax"	"170"
+		"AttackDamageMax"	"160"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"AttackRate"	"0.9"
@@ -664,7 +664,7 @@
 		// Base health.
 		"StatusHealth"	"3000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"0"
+		"StatusHealthRegen"	"1"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -736,9 +736,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"170"
+		"AttackDamageMin"	"160"
 		// Damage range max.
-		"AttackDamageMax"	"170"
+		"AttackDamageMax"	"160"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"AttackRate"	"0.9"
@@ -793,7 +793,7 @@
 		// Base health.
 		"StatusHealth"	"3000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"0"
+		"StatusHealthRegen"	"1"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -865,9 +865,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"170"
+		"AttackDamageMin"	"160"
 		// Damage range max.
-		"AttackDamageMax"	"170"
+		"AttackDamageMax"	"160"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"AttackRate"	"0.9"
@@ -922,7 +922,7 @@
 		// Base health.
 		"StatusHealth"	"3000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"0"
+		"StatusHealthRegen"	"1"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -994,9 +994,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"220"
+		"AttackDamageMin"	"200"
 		// Damage range max.
-		"AttackDamageMax"	"220"
+		"AttackDamageMax"	"200"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"BaseAttackSpeed"	"130"
@@ -1124,9 +1124,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"220"
+		"AttackDamageMin"	"200"
 		// Damage range max.
-		"AttackDamageMax"	"220"
+		"AttackDamageMax"	"200"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"BaseAttackSpeed"	"130"
@@ -1254,9 +1254,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"220"
+		"AttackDamageMin"	"200"
 		// Damage range max.
-		"AttackDamageMax"	"220"
+		"AttackDamageMax"	"200"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"BaseAttackSpeed"	"130"
@@ -1901,9 +1901,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"170"
+		"AttackDamageMin"	"160"
 		// Damage range max.
-		"AttackDamageMax"	"170"
+		"AttackDamageMax"	"160"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"AttackRate"	"0.9"
@@ -1958,7 +1958,7 @@
 		// Base health.
 		"StatusHealth"	"3000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"0"
+		"StatusHealthRegen"	"1"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -2030,9 +2030,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"170"
+		"AttackDamageMin"	"160"
 		// Damage range max.
-		"AttackDamageMax"	"170"
+		"AttackDamageMax"	"160"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"AttackRate"	"0.9"
@@ -2087,7 +2087,7 @@
 		// Base health.
 		"StatusHealth"	"3000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"0"
+		"StatusHealthRegen"	"1"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -2159,9 +2159,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"170"
+		"AttackDamageMin"	"160"
 		// Damage range max.
-		"AttackDamageMax"	"170"
+		"AttackDamageMax"	"160"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"AttackRate"	"0.9"
@@ -2216,7 +2216,7 @@
 		// Base health.
 		"StatusHealth"	"3000"
 		// Health regeneration rate.
-		"StatusHealthRegen"	"0"
+		"StatusHealthRegen"	"1"
 		// Base mana.
 		"StatusMana"	"0"
 		// Mana regeneration rate.
@@ -2288,9 +2288,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"220"
+		"AttackDamageMin"	"200"
 		// Damage range max.
-		"AttackDamageMax"	"220"
+		"AttackDamageMax"	"200"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"BaseAttackSpeed"	"130"
@@ -2418,9 +2418,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"220"
+		"AttackDamageMin"	"200"
 		// Damage range max.
-		"AttackDamageMax"	"220"
+		"AttackDamageMax"	"200"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"BaseAttackSpeed"	"130"
@@ -2548,9 +2548,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"220"
+		"AttackDamageMin"	"200"
 		// Damage range max.
-		"AttackDamageMax"	"220"
+		"AttackDamageMax"	"200"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"BaseAttackSpeed"	"130"
