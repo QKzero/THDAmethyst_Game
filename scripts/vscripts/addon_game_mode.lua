@@ -81,6 +81,7 @@ require ( "util/stun" )
 require ( "util/pauseunit" )
 require ( "util/silence" )
 require ( "util/magic_immune" )
+local SetupSurrenderGuard = require ( "util/setup_surrender_guard" )
 require ( "util/timers" )
 require ( "util/util" )
 require ( "util/mode_select" )
@@ -728,6 +729,8 @@ end
 
 -- 这个函数是addon_game_mode里面所写的，会在vlua.cpp执行的时候所执行的内容
 function THDOTSGameMode:InitGameMode()
+	-- 专服开局前保护未选队玩家，正式开局后恢复原生断线超时。
+	SetupSurrenderGuard:OnStateChange(GameRules:State_Get())
 	print('[THDOTS] Starting to load THDots gamemode...')
 
 	if PerfDiagnostics ~= nil then
@@ -2669,6 +2672,7 @@ G_Player_randomed = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 
 function THDOTSGameMode:OnGameRulesStateChange(keys)
 	local newState = GameRules:State_Get()
+	SetupSurrenderGuard:OnStateChange(newState)
 	if newState == 2 then -- CUSTOM_GAME_SETUP / shuffle
 		-- WebApi:SetTesting(true)
 		WebApi:BeforeMatch(THD2_Rating_Catcher)
