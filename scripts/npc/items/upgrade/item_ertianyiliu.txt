@@ -27,7 +27,7 @@
 		"AbilityTextureName"	"item_ertianyiliu"	//图标By 橘橘子
 		"ScriptFile"                    "items/item_ertianyiliu"
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityCooldown"	"7"
+		"AbilityCooldown"	"6"
 		"ItemCost"	"14300"
 		"ItemDroppable"	"1"
 		"ItemSellable"	"1"
@@ -43,14 +43,17 @@
 		"AbilityValues"
 		{
 			"bonus_damage"	"155"
-			"crit_mult"	"300"
+			"crit_mult"	"350"
 			"crit_chance"	"30"
-			"corruption_armor_duration"	"5"
-			"corruption_armor"	"-10"
-			"slow_duration"	"0.8"
-			"slow_movespeed"	"-100"
-			"cooldown_crit_mult"	"200"
-			"cooldown"	"5"
+			"corruption_armor_duration"	"7"
+			"corruption_armor"	"15"
+			"slow_duration"	"1.2"
+			"slow_movespeed"	"100"
+			"cooldown_crit_mult"	"250"
+			"cooldown"	"6"
+			"double_attack_attack_speed"	"1000"
+			"maxstack"	"5"
+			"atk_per_stack"	"20"
 		}
 	}
 }

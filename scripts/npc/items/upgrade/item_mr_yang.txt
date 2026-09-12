@@ -182,6 +182,9 @@
 			"slowdown_duration"	"5.0"
 			"slowdown_interval"	"0.4"
 			"physical_damage"	"50"
+			"illusion_damage_percent"	"100"
+			"illusion_damage_duration"	"5"
+			"illusion_damage_interval"	"0.5"
 		}
 	}
 }

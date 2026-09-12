@@ -58,19 +58,9 @@
 					"RunScript"
 					{
 						"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
-						"Function"	"ItemAbility_ModifierTarget"
+						"Function"	"ItemAbility_cirno_claymore_OnAttackLanded"
 						"ModifierName"	"modifier_item_cirno_claymore_debuff"
 					}
-				}
-			}
-			"modifier_item_cirno_claymore_debuff"
-			{
-				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
-				"IsDebuff"	"1"
-				"IsPurgable"	"1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%corruption_armor"
 				}
 			}
 			"modifier_item_cirno_claymore_kill_hero"
@@ -106,7 +96,7 @@
 		"AbilityValues"
 		{
 			"bonus_damage"	"50"
-			"corruption_armor"	"-9"
+			"corruption_armor"	"9"
 			"duration"	"5.0"
 			"maxstack"	"10"
 			"atk_per_stack"	"2"

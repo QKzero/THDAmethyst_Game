@@ -135,3 +135,44 @@ function ItemAbility_Sampan_Crit_Effect(keys)
 		caster:EmitSound("Hero_SkeletonKing.CriticalStrike")
 	end
 end
+
+--楼观剑：暴击时附带减速。攻击开始时记录本次攻击是否暴击，攻击落地时结算减速。
+function ItemAbility_Sampan_Crit_OnAttackStart(keys)
+	local data = GetCritData(keys)
+	ReconsiderCriticalStrike(keys, 0.1)
+	keys.caster["Data_Sampan_CritPending"] = keys.caster:HasModifier(data.CritModifierName)
+end
+
+function ItemAbility_Sampan_Crit_OnAttackLanded(keys)
+	local caster = keys.caster
+	local pending = caster["Data_Sampan_CritPending"]
+	caster["Data_Sampan_CritPending"] = nil
+	ReconsiderCriticalStrike(keys)
+	if not pending then return end
+	local target = keys.target
+	local slow_modifier = keys.SlowModifierName
+	if not target or target:IsNull() or not slow_modifier then return end
+	local ability = keys.ability
+	local slow_duration = ability:GetSpecialValueFor("slow_duration")
+	if slow_duration <= 0 then return end
+	target:AddNewModifier(caster, ability, slow_modifier, {
+		duration = slow_duration * (1 - target:GetStatusResistance())
+	})
+end
+
+modifier_item_sampan_crit_slow = {}
+LinkLuaModifier("modifier_item_sampan_crit_slow", "scripts/vscripts/items/item_crit.lua", LUA_MODIFIER_MOTION_NONE)
+function modifier_item_sampan_crit_slow:IsDebuff() return true end
+function modifier_item_sampan_crit_slow:IsHidden() return false end
+function modifier_item_sampan_crit_slow:IsPurgable() return true end
+function modifier_item_sampan_crit_slow:RemoveOnDeath() return true end
+
+function modifier_item_sampan_crit_slow:DeclareFunctions()
+	return {
+		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
+	}
+end
+
+function modifier_item_sampan_crit_slow:GetModifierMoveSpeedBonus_Percentage()
+	return -self:GetAbility():GetSpecialValueFor("slow_movespeed")
+end

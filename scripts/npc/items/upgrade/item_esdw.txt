@@ -35,10 +35,10 @@
         "ItemAliases" "bafu;falun;sanye"
         "AbilityValues"
         {
-            "bonus_strength" "16"
-            "bonus_intellect" "16"
+            "bonus_strength" "15"
+            "bonus_intellect" "15"
             "bonus_attack_range" "100"
-            "bonus_hp_regen_amplify_percentage" "30"
+            "bonus_hp_regen_amplify_percentage" "25"
             "bonus_spell_amplify_percentage" "12"
             "bonus_mp_regen_amplify_percentage" "50"
             "active_shield_value" "500"

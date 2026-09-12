@@ -2082,6 +2082,9 @@
 		"dota_chatwheel_message_nishitazuoshen"						"你拾它作甚！"
 		"dota_chatwheel_message_huiquba"							"回去吧，你太老了"
 		"dota_chatwheel_message_menwaishuzhe"						"门外竖着！"
+		"dota_chatwheel_message_sibukepa"							"死不可怕"
+		"dota_chatwheel_message_zhanzhizuihouyike"					"战至最后一刻"
+		"dota_chatwheel_message_man"								"Man！"
 
 		"dota_chatwheel_message_void_spirit_laugh"					"Hn ha ha ha ha ha."
 		"dota_chatwheel_label_void_spirit_laugh"					"Laugh"

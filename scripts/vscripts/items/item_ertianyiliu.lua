@@ -50,6 +50,7 @@ function modifier_item_ertianyiliu_passive:DeclareFunctions()
 	return {
 		MODIFIER_EVENT_ON_ATTACK_START,
 		MODIFIER_EVENT_ON_ATTACK_LANDED,
+		MODIFIER_EVENT_ON_DEATH,
 		MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE,
 	}
 end
@@ -95,17 +96,15 @@ end
 function modifier_item_ertianyiliu_passive:OnAttackLanded(keys)
 	if not IsServer() then return end
 	local caster = self:GetParent()
-	local target = keys.target
 	local ability = self:GetAbility()
-	local slow_duration = self:GetAbility():GetSpecialValueFor("slow_duration")
 	if keys.attacker ~= caster then return end
-	local corruption_armor_duration = self:GetAbility():GetSpecialValueFor("corruption_armor_duration")
-	caster:RemoveModifierByName("modifier_item_ertianyiliu_double_attack")
-	--常规减甲
-	if self:GetAbility() and (target and not target:IsOther() and not target:IsBuilding() and target:GetTeamNumber() ~= self:GetParent():GetTeamNumber()) then
-		target:AddNewModifier(caster, self:GetAbility(), "modifier_item_ertianyiliu_decrease_armor", {duration = corruption_armor_duration * (1 - target:GetStatusResistance())})
+	local target = keys.target
+	--常规减甲：每次攻击都会生效，不受连击冷却影响
+	if target and not target:IsNull() and not target:IsOther() and not target:IsBuilding() and target:GetTeamNumber() ~= caster:GetTeamNumber() then
+		target:AddNewModifier(caster, ability, "modifier_item_ertianyiliu_decrease_armor", {duration = ability:GetSpecialValueFor("corruption_armor_duration") * (1 - target:GetStatusResistance())})
 	end
-	--被动生效
+	caster:RemoveModifierByName("modifier_item_ertianyiliu_double_attack")
+	--连击生效
 	if ability:IsCooldownReady() and not caster:IsRangedAttacker() then
 		print("IsCooldownReady")
 		local particle_pact = "particles/units/heroes/hero_monkey_king/monkey_king_attack_01_blur_cud.vpcf"
@@ -114,6 +113,26 @@ function modifier_item_ertianyiliu_passive:OnAttackLanded(keys)
 		caster:AddNewModifier(caster, self:GetAbility(),"modifier_item_ertianyiliu_double_attack", {duration = 1})
 		--target:AddNewModifier(caster, ability, "modifier_item_ertianyiliu_double_attack_debuff", {duration = slow_duration})
 		ability:StartCooldown(ability:GetCooldown(0))
+	end
+end
+
+--击杀其他英雄永久增加攻击力（可与白楼剑的同类效果叠加）
+function modifier_item_ertianyiliu_passive:OnDeath(keys)
+	if not IsServer() then return end
+	local caster = self:GetParent()
+	local unit = keys.unit
+	if not unit or keys.attacker ~= caster or unit == caster or not unit:IsRealHero() then return end
+	local ability = self:GetAbility()
+	local max_stack = ability:GetSpecialValueFor("maxstack")
+	local atkbuff_name = "modifier_item_ertianyiliu_kill_atk_buff"
+	if not caster:HasModifier(atkbuff_name) then
+		caster:AddNewModifier(caster, ability, atkbuff_name, {duration = -1})
+		caster:FindModifierByName(atkbuff_name):SetStackCount(1)
+	else
+		local stackcount = caster:FindModifierByName(atkbuff_name):GetStackCount()
+		if stackcount < max_stack then
+			caster:FindModifierByName(atkbuff_name):IncrementStackCount()
+		end
 	end
 end
 
@@ -152,7 +171,7 @@ function modifier_item_ertianyiliu_decrease_armor:DeclareFunctions()
 end
 
 function modifier_item_ertianyiliu_decrease_armor:GetModifierPhysicalArmorBonus()
-	return self:GetAbility():GetSpecialValueFor("corruption_armor")
+	return -self:GetAbility():GetSpecialValueFor("corruption_armor")
 end
 
 modifier_item_ertianyiliu_double_attack = {}
@@ -171,7 +190,7 @@ function modifier_item_ertianyiliu_double_attack:DeclareFunctions()
 end
 
 function modifier_item_ertianyiliu_double_attack:GetModifierAttackSpeedBonus_Constant()
-	return 1000
+	return self:GetAbility():GetSpecialValueFor("double_attack_attack_speed")
 end
 
 function modifier_item_ertianyiliu_double_attack:OnAttackLanded(keys)
@@ -179,8 +198,9 @@ function modifier_item_ertianyiliu_double_attack:OnAttackLanded(keys)
 	local caster = self:GetParent()
 	local target = keys.target
 	if keys.attacker ~= caster then return end
+	if not target or target:IsNull() then return end
 	local ability = self:GetAbility()
-	local slow_duration = self:GetAbility():GetSpecialValueFor("slow_duration")
+	local slow_duration = ability:GetSpecialValueFor("slow_duration")
 	local particle_pact = "particles/units/heroes/hero_monkey_king/monkey_king_attack_01_blur_cud.vpcf"
 	local particle_pact_fx = ParticleManager:CreateParticle(particle_pact, PATTACH_ABSORIGIN_FOLLOW, caster)
 	ParticleManager:ReleaseParticleIndex(particle_pact_fx)
@@ -202,5 +222,26 @@ function modifier_item_ertianyiliu_double_attack_debuff:DeclareFunctions()
 end
 
 function modifier_item_ertianyiliu_double_attack_debuff:GetModifierMoveSpeedBonus_Percentage()
-	return self:GetAbility():GetSpecialValueFor("slow_movespeed")
+	return -self:GetAbility():GetSpecialValueFor("slow_movespeed")
+end
+
+-----------------杀人加攻双剑「二天一流」-----------
+modifier_item_ertianyiliu_kill_atk_buff = {}
+LinkLuaModifier("modifier_item_ertianyiliu_kill_atk_buff","items/item_ertianyiliu.lua", LUA_MODIFIER_MOTION_NONE)
+function modifier_item_ertianyiliu_kill_atk_buff:IsDebuff() return false end
+function modifier_item_ertianyiliu_kill_atk_buff:IsHidden() return false end
+function modifier_item_ertianyiliu_kill_atk_buff:IsPurgable() return false end
+function modifier_item_ertianyiliu_kill_atk_buff:RemoveOnDeath() return false end
+
+function modifier_item_ertianyiliu_kill_atk_buff:DeclareFunctions()
+	return {
+		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
+	}
+end
+
+function modifier_item_ertianyiliu_kill_atk_buff:GetModifierPreAttack_BonusDamage()
+	if self.atcPerStack == nil then
+		self.atcPerStack = self:GetAbility():GetSpecialValueFor("atk_per_stack")
+	end
+	return self.atcPerStack * self:GetStackCount()
 end

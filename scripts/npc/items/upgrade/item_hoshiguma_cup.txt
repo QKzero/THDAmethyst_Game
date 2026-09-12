@@ -32,9 +32,9 @@
         "ItemShopTags" "stg;attack_range;hp_ragen_amplfy;"
         "AbilityValues"
         {
-            "bonus_strength" "16"
+            "bonus_strength" "15"
             "bonus_attack_range" "75"
-            "bonus_hp_ragen_amplfy_percentage" "30"
+            "bonus_hp_ragen_amplfy_percentage" "25"
         }
     }
 }

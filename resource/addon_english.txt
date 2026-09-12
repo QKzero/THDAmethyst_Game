@@ -2262,7 +2262,7 @@
         "DOTA_Tooltip_ability_ability_thdots_MargatroidEx_Description"				"Alice stores a doll every %add_doll_interval%s, has a base count of %doll_base_num% dolls. Activation recycles dolls on the field, each recycled doll restores %doll_recover_mana% MP for Alice after a %reset_doll_time%s reset time. Every even level reached, Alice gains +1 doll capacity, +%upgrade_doll_hp% doll health, the time required to spawn a doll is reduced by %upgrade_doll_interval_reduce%s, and the maximum doll range is increased by %upgrade_doll_max_distance%."
 		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx"							"「Doll Placement」"
 		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx_doll_base_num"			"BASE COUNT: "
-		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx_doll_max_distance"		"MAX RANGE FOR MANIPULATION: "
+		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx_doll_base_max_distance"	"BASE RANGE FOR MANIPULATION: "
 		"DOTA_Tooltip_ability_ability_thdots_MargatroidEx_doll_base_hp"				"BASE HP OF DOLLS: "
 
 		"DOTA_Tooltip_modifier_thdots_margatroidex_doll_count"						"Doll"
@@ -6422,8 +6422,10 @@
 
 		"DOTA_Tooltip_ability_item_recipe_sampan"									"Recipe: Roukanken"
 		"DOTA_Tooltip_ability_item_sampan"											"Roukanken"
-		"DOTA_Tooltip_ability_item_sampan_Description"								"<h1>Passive: Phantom Cut</h1>Grants each attack a %crit_chance%%% chance to deal %crit_mult%%% damage."
+		"DOTA_Tooltip_ability_item_sampan_Description"								"<h1>Passive: Niten Ichiryu - Phantom Cut</h1>Grants each attack a %crit_chance%%% chance to deal %crit_mult%%% damage and slow the target by %slow_movespeed%%% for %slow_duration% seconds."
 		"DOTA_Tooltip_ability_item_sampan_bonus_damage"								"+$damage"
+		"DOTA_Tooltip_modifier_item_sampan_crit_slow"								"「Niten Ichiryu - Phantom Cut」"
+		"DOTA_Tooltip_modifier_item_sampan_crit_slow_Description"					"Slowed."
 
 		"DOTA_Tooltip_ability_item_aunt_clothes"									"Mithril Ring"
 		"DOTA_Tooltip_ability_item_aunt_clothes_bonus_health"						"+$health"
@@ -6557,7 +6559,7 @@
 
 		"DOTA_Tooltip_ability_item_recipe_cirno_claymore"							"Recipe: Hakurouken"
 		"DOTA_Tooltip_ability_item_cirno_claymore"									"Hakurouken"
-		"DOTA_Tooltip_ability_item_cirno_claymore_Description"						"<h1>Passive: Cut Iron Like Mud+</h1>Your attacks reduce the target's armor by %corruption_armor% for %duration% seconds. Does not affect buildings.\n<h1>Passive: The first technique of Niten Ichiryu</h1>Girl's attack damage is increased permanently by %atk_per_stack% each time she kills other girls, which the maximum time is %maxstack%."
+		"DOTA_Tooltip_ability_item_cirno_claymore_Description"						"<h1>Passive: The Broken Iron of Niten Ichiryu</h1>Your attacks reduce the target's armor by %corruption_armor% for %duration% seconds. Each time you kill another girl, permanently increase your attack damage by %atk_per_stack%, up to %maxstack% times."
 		"DOTA_Tooltip_modifier_item_cirno_claymore_kill_atk_buff"					"Hakurouken"
 		"DOTA_Tooltip_modifier_item_cirno_claymore_kill_atk_buff_Description"		"Increase attack damage permanently with %dMODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE% through killing other girls."
 		"DOTA_Tooltip_ability_item_cirno_claymore_bonus_damage"						"+$damage"
@@ -7216,7 +7218,7 @@
 
 		"DOTA_Tooltip_ability_item_recipe_mr_yang"									"Recipe: Light Dragon's Thundercloud Drill"
 		"DOTA_Tooltip_ability_item_mr_yang"											"Light Dragon's Thundercloud Drill"
-		"DOTA_Tooltip_ability_item_mr_yang_Description"								"<h1>Active: Electroshock Therapy</h1>Shocks the target unit, reducing its maximum mana by %decline_mana% for %decline_intellect_duration% seconds. Also slows the target's base movement speed to the minimum for %slowdown_duration% seconds, recovering slowly.<br>Continuously dispels the target.<br><br>Cast Range: %AbilityCastRange%\n<h1>Passive: Quell</h1>Increases attack damage against non-girl units by %physical_damage%."
+		"DOTA_Tooltip_ability_item_mr_yang_Description"								"<h1>Active: Electroshock Therapy</h1>Shocks the target unit, reducing its maximum mana by %decline_mana% for %decline_intellect_duration% seconds. Also slows the target's base movement speed to the minimum for %slowdown_duration% seconds, recovering slowly.<br>Continuously dispels the target.<br><br>Cast Range: %AbilityCastRange%\n<h1>Passive: Quell</h1>Increases attack damage against non-girl units by %physical_damage%.\nIf the target is an illusion, it takes an additional %illusion_damage_percent%%% of its maximum health as pure damage over %illusion_damage_duration% seconds."
 		"DOTA_Tooltip_ability_item_mr_yang_bonus_strength"							"+$str"
 		"DOTA_Tooltip_ability_item_mr_yang_bonus_agility"							"+$agi"
 		"DOTA_Tooltip_ability_item_mr_yang_bonus_damage"							"+$damage"
@@ -7633,9 +7635,11 @@
 		"DOTA_Tooltip_modifier_item_leiyunzhiyuchuan_lightning_Description"			"On attack, has a chance to release a lightning."
 
 		"DOTA_Tooltip_ability_item_ertianyiliu"										"Dual Swords「Niten Ichiryu」"
-		"DOTA_Tooltip_ability_item_ertianyiliu_Description"							"<h1>Passive: Niten Ichiryu (Melee Only)</h1>Causes melee attacks to attack twice in quick succession. The Double attacks deal %cooldown_crit_mult%%% damage and apply %slow_movespeed%%% movement slow for %slow_duration% seconds on each strike.\n<h1>Passive: Yuumei Gumonji</h1>Your attacks reduce the target's armor by %corruption_armor% for %corruption_armor_duration% seconds. And Grants each attack a %crit_chance%%% chance to deal %crit_mult%%% damage."
+		"DOTA_Tooltip_ability_item_ertianyiliu_Description"							"<h1>Passive: Niten Ichiryu</h1>Your attacks reduce the target's armor by %corruption_armor% for %corruption_armor_duration% seconds. Causes melee attacks to attack twice in quick succession. Each strike deals %cooldown_crit_mult%%% damage and slows the target by %slow_movespeed%%% for %slow_duration% seconds. Each time you kill another girl, permanently increase your attack damage by %atk_per_stack%, up to %maxstack% times.\n<h1>Passive: Yuumei Gumonji</h1>Grants each attack a %crit_chance%%% chance to deal %crit_mult%%% damage."
 		"DOTA_Tooltip_ability_item_ertianyiliu_bonus_damage"						"+$damage"
 		"DOTA_Tooltip_ability_item_ertianyiliu_Lore"								"——These dual swords belong to a swordsmaster of Gensokyo proficient at dual-wielding swords. They are so sharp that they can cut almost anything. One has the power to kill countless phantoms, while the other has the power to dispel the confusion of those it cuts and send them to nirvana."
+		"DOTA_Tooltip_modifier_item_ertianyiliu_kill_atk_buff"						"Dual Swords「Niten Ichiryu」"
+		"DOTA_Tooltip_modifier_item_ertianyiliu_kill_atk_buff_Description"			"Increase attack damage permanently with %dMODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE% through killing other girls."
 
 		"DOTA_Tooltip_modifier_item_ertianyiliu_decrease_armor"						"「Niten ichiryu」"
 		"DOTA_Tooltip_modifier_item_ertianyiliu_decrease_armor_Description"			"Armor reduced."

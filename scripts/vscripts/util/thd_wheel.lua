@@ -127,7 +127,7 @@ SelectVO = function(keys)
 	local selectedid = 1
 	local selectedid2 = nil
 	local selectedstr = nil
-	local startheronums = 123
+	local startheronums = 131
 	if keys.num >= startheronums then
 		local locnum = keys.num - startheronums
 		local mesarrs = {
@@ -278,6 +278,10 @@ SelectVO = function(keys)
 				--meme2 (113-114, 17, 99, 100)
 				"nya",
 				"bukeneng",
+				--meme new (115-117)
+				"sibukepa",
+				"zhanzhizuihouyike",
+				"man",
 			}
 			selectedstr = mesarrs[keys.num]
 			selectedid2 = keys.num
@@ -440,6 +444,10 @@ SelectVO = function(keys)
 				--meme2 (113-114, 17, 99, 100)
 				"ChatWheel.nya",
 				"ChatWheel.bukeneng",
+				--meme new (115-117)
+				"ChatWheel.sibukepa",
+				"ChatWheel.zhanzhizuihouyike",
+				"ChatWheel.man",
 			},
 			{
 				"abaddon_abad_laugh_03",

@@ -33,10 +33,10 @@
         "ItemAliases" "taotie;shaozi;sanye"
         "AbilityValues"
         {
-            "bonus_strength" "16"
-            "bonus_agility" "16"
+            "bonus_strength" "15"
+            "bonus_agility" "15"
             "bonus_attack_range" "100"
-            "bonus_hp_regen_amplify_percentage" "30"
+            "bonus_hp_regen_amplify_percentage" "25"
             "bonus_attack_speed" "25"
             "bonus_move_speed" "12"
             "lifesteal_percent" "2.5"

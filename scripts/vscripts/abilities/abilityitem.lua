@@ -821,6 +821,12 @@ function ItemAbility_MrYang_OnSpellStart(keys)
     end
     ItemAbility:ApplyDataDrivenModifier(Caster, Caster, "modifier_item_mr_yang_attack_not_miss", {})
 
+    if Target:IsIllusion() then
+        Target:AddNewModifier(Caster, ItemAbility, "modifier_item_mr_yang_illusion_burn", {
+            Duration = ItemAbility:GetSpecialValueFor("illusion_damage_duration")
+        })
+    end
+
 end
 
 function ItemAbility_MrYang_OnAttackStart(keys)
@@ -845,6 +851,52 @@ function ItemAbility_MrYang_OnIntervalThink(keys)
     if Target:HasModifier("modifier_item_three_dimension_debuff") then
         Target:RemoveModifierByName("modifier_item_three_dimension_debuff")
     end
+end
+
+-- 光龙雷云钻：对幻象的持续纯粹伤害
+modifier_item_mr_yang_illusion_burn = {}
+LinkLuaModifier("modifier_item_mr_yang_illusion_burn", "scripts/vscripts/abilities/abilityitem.lua",
+    LUA_MODIFIER_MOTION_NONE)
+
+function modifier_item_mr_yang_illusion_burn:IsHidden()
+    return true
+end
+function modifier_item_mr_yang_illusion_burn:IsDebuff()
+    return true
+end
+function modifier_item_mr_yang_illusion_burn:IsPurgable()
+    return true
+end
+function modifier_item_mr_yang_illusion_burn:RemoveOnDeath()
+    return true
+end
+
+function modifier_item_mr_yang_illusion_burn:OnCreated()
+    if not IsServer() then
+        return
+    end
+    self.damage_percent = self:GetAbility():GetSpecialValueFor("illusion_damage_percent")
+    self.damage_duration = self:GetAbility():GetSpecialValueFor("illusion_damage_duration")
+    self.damage_interval = self:GetAbility():GetSpecialValueFor("illusion_damage_interval")
+    self:StartIntervalThink(self.damage_interval)
+end
+
+function modifier_item_mr_yang_illusion_burn:OnIntervalThink()
+    if not IsServer() then
+        return
+    end
+    local parent = self:GetParent()
+    if not parent:IsAlive() then
+        return
+    end
+    local damage_per_tick = parent:GetMaxHealth() * self.damage_percent * 0.01 * self.damage_interval / self.damage_duration
+    ApplyDamage({
+        victim = parent,
+        attacker = self:GetCaster(),
+        ability = self:GetAbility(),
+        damage = damage_per_tick,
+        damage_type = DAMAGE_TYPE_PURE
+    })
 end
 
 function ItemAbility_SmashStick_OnAttack(keys)
@@ -3394,6 +3446,40 @@ end
 
 function modifier_itemability_repentancestick_debuff:GetModifierSpellAmplify_Percentage()
     return -self.down_amplidy
+end
+
+-----------------白楼剑减甲（护甲值以正数配置，实际取负）-----------
+function ItemAbility_cirno_claymore_OnAttackLanded(keys)
+    local ItemAbility = keys.ability
+    local Caster = keys.Caster or keys.caster
+    local Target = keys.Target or keys.target
+    local duration = ItemAbility:GetSpecialValueFor("duration")
+    if Caster and Target and Caster:GetTeam() ~= Target:GetTeam() then
+        if keys.Blockable == 1 and is_spell_blocked(Target, Caster) then
+            return
+        elseif (not keys.ApplyToTower or keys.ApplyToTower == 0) and Target:IsBuilding() then
+            return
+        end
+    end
+    Target:AddNewModifier(Caster, ItemAbility, keys.ModifierName, {
+        duration = duration
+    })
+end
+
+modifier_item_cirno_claymore_debuff = {}
+LinkLuaModifier("modifier_item_cirno_claymore_debuff", "scripts/vscripts/abilities/abilityitem.lua",
+    LUA_MODIFIER_MOTION_NONE)
+function modifier_item_cirno_claymore_debuff:IsDebuff()
+    return true
+end
+function modifier_item_cirno_claymore_debuff:IsPurgable()
+    return true
+end
+function modifier_item_cirno_claymore_debuff:DeclareFunctions()
+    return {MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS}
+end
+function modifier_item_cirno_claymore_debuff:GetModifierPhysicalArmorBonus()
+    return -self:GetAbility():GetSpecialValueFor("corruption_armor")
 end
 
 -----------------杀人加攻白楼剑-----------

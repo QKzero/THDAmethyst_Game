@@ -97,7 +97,7 @@
 					"RunScript"
 					{
 						"ScriptFile"	"scripts/vscripts/items/item_crit.lua"
-						"Function"	"ItemAbility_Crit_OnAttackStart"
+						"Function"	"ItemAbility_Sampan_Crit_OnAttackStart"
 					}
 				}
 				"OnAttackLanded"
@@ -105,7 +105,8 @@
 					"RunScript"
 					{
 						"ScriptFile"	"scripts/vscripts/items/item_crit.lua"
-						"Function"	"ItemAbility_Crit_OnAttackLanded"
+						"Function"	"ItemAbility_Sampan_Crit_OnAttackLanded"
+						"SlowModifierName"	"modifier_item_sampan_crit_slow"
 					}
 				}
 			}
@@ -143,6 +144,8 @@
 			"bonus_damage"	"85"
 			"crit_mult"	"300"
 			"crit_chance"	"30"
+			"slow_movespeed"	"75"
+			"slow_duration"	"0.8"
 		}
 	}
 }

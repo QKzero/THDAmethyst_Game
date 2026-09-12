@@ -27,6 +27,7 @@ function modifier_bot_buff:IsPurgable() return false end
 function modifier_bot_buff:RemoveOnDeath() return false end
 
 function modifier_bot_buff:DeclareFunctions()
+    -- 难度不再通过攻击/移动自晕削弱 Bot，避免无效果事件订阅。
 	return {
 		MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
 		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
@@ -34,8 +35,6 @@ function modifier_bot_buff:DeclareFunctions()
 		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 
-		MODIFIER_EVENT_ON_ATTACK_START,
-		MODIFIER_EVENT_ON_UNIT_MOVED,
 	}
 end
 
@@ -92,10 +91,6 @@ function modifier_bot_buff:OnCreated(params)
     self.giveExpAmount = botDifficultyData.giveExpAmount
     self.giveAttrBonus = botDifficultyData.giveAttrBonus
     
-    self.selfStunChanceOnAttack = botDifficultyData.selfStunChanceOnAttack
-    self.selfStunDurationOnAttack = botDifficultyData.selfStunDurationOnAttack
-    self.selfStunChanceOnMove = botDifficultyData.selfStunChanceOnMove
-    self.selfStunDurationOnMove = botDifficultyData.selfStunDurationOnMove
     
     self.interval = self.ability:GetSpecialValueFor("interval")
     self:StartIntervalThink(self.interval)
@@ -159,30 +154,6 @@ function modifier_bot_buff:OnIntervalThink()
     --     addAgility = addAgility,
     --     addIntelligence = addIntelligence,
     -- })
-end
-
-function modifier_bot_buff:OnAttackStart(event)
-    if not IsServer() then return end
-
-    if event.attacker ~= self.caster then return end
-
-    self:SelfStun(botDifficultyData.selfStunChanceOnAttack, botDifficultyData.selfStunDurationOnAttack)
-end
-
-function modifier_bot_buff:OnUnitMoved(event)
-    if not IsServer() then return end
-
-    if event.unit ~= self.caster then return end
-
-    self:SelfStun(botDifficultyData.selfStunChanceOnMove, botDifficultyData.selfStunDurationOnMove)
-end
-
-function modifier_bot_buff:SelfStun(chance, duration)
-    if chance == 0 then return end
-
-    if RandomFloat(0.0,1.0) > chance then return end
-    
-    UtilStun:UnitStunTarget(self.caster, self.caster, duration * RandomFloat(0.1,1.0) )
 end
 
 -- Bot 收集器

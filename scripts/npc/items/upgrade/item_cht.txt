@@ -32,7 +32,7 @@
         "ItemShopTags" "int;spell_amp"
         "AbilityValues"
         {
-            "bonus_intellect" "16"
+            "bonus_intellect" "15"
             "bonus_spell_amplify_percentage" "6"
             "bonus_mana_regen_percentage" "50"
         }
