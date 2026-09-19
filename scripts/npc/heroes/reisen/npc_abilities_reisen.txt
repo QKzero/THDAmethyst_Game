@@ -1,5 +1,662 @@
 "DOTAAbilities"
 {
+	//=================================================================================================================
+	// Ability: Special Bonus
+	// 2026-09-15：由「+2 秒大招持续时间」改为「+1 大招幻象上限」
+	//=================================================================================================================
+	"special_bonus_unique_reisen_2"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:一技能施法距离 +400（10 级，经 LinkedSpecialBonus 加到 AbilityCastRange）
+	//=================================================================================================================
+	"special_bonus_unique_reisen_3"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"400"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:二技能分身继承攻击力 +10%（15 级）
+	// 注：illusion_damage_out_pct 是「削减百分比」，所以输出 +10% 等价于该数值 +10
+	//=================================================================================================================
+	"special_bonus_unique_reisen_4"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"10"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:「丧心丧意」触发概率 +20%（20 级）
+	//=================================================================================================================
+	"special_bonus_unique_reisen_5"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"20"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus:「胧月花栞」双倍伤害
+	//=================================================================================================================
+	"special_bonus_unique_reisen_1"
+	{
+		"BaseClass"						"special_bonus_undefined"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"value"				"1.5"
+		}
+	}
+
+	"ability_thdots_reisenOldex"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_reisenOldex"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"	"1"
+		"IsBreakable"				"1"
+		"precache"
+		{
+			"particle"	"particles/heroes/reisen/ability_reisen_01.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_reisen_sounds.vsndevts"
+		}
+		"Modifiers"
+		{			
+			"passive_reisenOldex_attack"
+			{
+				"Passive"	"1"
+				"OnAttackLanded"
+				{	
+					"RunScript"
+					{
+						"Target"	"TARGET"
+						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+						"Function"	"OnReisenOldExSpellSuccess"
+						"Chance"	"%ability_chance_base"
+						"Duration"	"%move_slow_duration"
+					}					
+				}
+			}
+			"modifier_reisenexold_slow"
+			{
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_slow"
+					"MODIFIER_PROPERTY_MISS_PERCENTAGE"	"%miss_change"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			// 20 级天赋：+20% 触发概率。LinkedSpecialBonus 只负责面板显示，
+			// 实际生效在 Lua 侧 onReisenOldExSpellSuccess 里用 FindTelentValue 追加
+			"ability_chance_base"
+			{
+				"value"	"20"
+				"LinkedSpecialBonus"	"special_bonus_unique_reisen_5"
+			}
+			"agi_damage_multiplier"	"0.5"
+			"move_slow"	"-20"
+			"move_slow_duration"	"2.0"
+			"miss_change"	"30"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: 幻弾「幻想视差」（原版铃仙一技能，2026-09-15 重做）
+	// 弹道逻辑沿用新版 reisen01；后撤改为「因幡帝二技能」的做法：每 0.03 秒位移 120 单位，总距离 400。
+	// 命中敌方英雄时触发原版被动「丧心丧意」，不再触发新铃仙的幻兔「并行交差」。
+	//=================================================================================================================
+	"ability_thdots_reisenOld01"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"custom/ability_thdots_reisen01"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"	"4"
+		// 1) 施法距离：见下方 AbilityValues 内的 "AbilityCastRange"（800，天赋 +400）
+		//    顶层写 AbilityCastRange 不生效，写法参考姬海棠果 ability_thdots_hatate01
+		// 2) 冷却
+		"AbilityCooldown"	"10 8 6 4"
+		// 3) 蓝耗
+		"AbilityManaCost"	"40"
+		// 施法前摇：已取消
+		"AbilityCastPoint"	"0"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_1"
+		"precache"
+		{
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_reisen_sounds.vsndevts"
+			"particle"	"particles/heroes/reisen/ability_reisen_01.vpcf"
+		}
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Voice_Thdots_Reisen.AbilityReisen01"
+				"Target"	"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityreisen.lua"
+				"Function"	"OnReisenOld01SpellStart"
+				"Caster"	"CASTER"
+				"Target"	"POINT"
+			}
+			"LinearProjectile"
+			{
+				"EffectName"	"particles/heroes/reisen/ability_reisen_01.vpcf"
+				"MoveSpeed"	"%move_speed"
+				"StartRadius"	"%collision_radius"
+				"EndRadius"	"%collision_radius"
+				"FixedDistance"	"%max_lenth"
+				"TargetTeams"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"TargetTypes"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"TargetFlags"	"DOTA_UNIT_TARGET_FLAG_NOT_ANCIENTS"
+				"HasFrontalCone"	"0"
+				"ProvidesVision"	"1"
+				"VisionRadius"	"300"
+			}
+			"DelayedAction"
+			{
+				"Delay"	"0"
+				"Action"
+				{
+					"ApplyModifier"
+					{
+						"Target"	"CASTER"
+						"ModifierName"	"modifier_thdots_reisenOld01_back"
+					}
+				}
+			}
+		}
+		"OnProjectileHitUnit"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityreisen.lua"
+				"Target"	"TARGET"
+				"Function"	"OnReisenOld01SpellHit"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_thdots_reisenOld01_back"
+			{
+				"RemoveOnDeath"	"1"
+				"IsHidden"	"1"
+				"Duration"	"0.3"
+				"ThinkInterval"	"0.03"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityreisen.lua"
+						"Function"	"OnReisenOld01Back"
+						"BackSpeed"	"%back_speed"
+						"BackDistance"	"%back_distance"
+						"TreeDestroyRadius"	"%tree_destroy_radius"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityreisen.lua"
+						"Function"	"OnReisenOld01BackEnd"
+					}
+				}
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+		"AbilityValues"
+		{
+			// 施法距离（参考姬海棠果 ability_thdots_hatate01）：定义在 AbilityValues 内才会生效
+			"AbilityCastRange"
+			{
+				"value"	"800"
+				"special_bonus_unique_reisen_3"	"+400"
+			}
+			// 弹道最大飞行距离同步吃同一天赋，否则射程加了子弹也飞不到
+			"max_lenth"
+			{
+				"value"	"800"
+				"special_bonus_unique_reisen_3"	"+400"
+			}
+			"move_speed"	"1250"
+			// 后撤速度与因幡帝二技能一致：ThinkInterval 0.03 下每次位移 120 单位
+			"back_speed"	"120"
+			"back_distance"	"300"
+			// 后撤途中清除树木的半径
+			"tree_destroy_radius"	"80"
+			"collision_radius"
+			{
+				"value"			"80"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		"AbilityDamage"	"40 80 120 160"
+	}
+
+	"ability_thdots_reisenOld02"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_reisen_02"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"MaxLevel"	"4"
+		"AbilityCooldown"	"16"
+		"AbilityManaCost"	"50"
+		"IsBreakable"				"1"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_phantom_lancer/phantom_lancer_spawn_smoke.vpcf"
+			"soundfile"	"soundevents/thdots_hero_sounds/thdots_reisen_sounds.vsndevts"
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"TARGET"
+				"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+				"Function"	"OnReisenOld02SpellStart"
+				"Illusion_duration"	"%illusion_duration"
+				"Illusion_damage_out_pct"	"%illusion_damage_out_pct"
+				"Illusion_damage_in_pct"	"%illusion_damage_in_pct"
+				"Illusion_bounty_base"		"%illusion_bounty_base"
+				"Illusion_bounty_growth"	"%illusion_bounty_growth"
+			}
+		}
+		// 2026-09-15 重做：不再通过普攻被动产生分身，只保留主动效果。
+		// 主动制造 1 个分身，继承攻击力 25/30/35/40%，持续 24/30/36/42 秒。
+		"AbilityValues"
+		{
+			// 分身持续时间（24 / 30 / 36 / 42 秒）：
+			// 走 AbilityValues，Lua 侧读取 keys.Illusion_duration，描述里用 %illusion_duration% 展示
+			"illusion_duration"
+			{
+				"value"	"24 30 36 42"
+			}
+			// outgoing_damage 是「削减百分比」，故继承 25% 写作 -75。
+			// 15 级天赋 +10% 继承攻击：数值上 +10（-75 -> -65），走 LinkedSpecialBonus 而非 Lua
+			"illusion_damage_out_pct"
+			{
+				"value"					"-75 -70 -65 -60"
+				"LinkedSpecialBonus"	"special_bonus_unique_reisen_4"
+			}
+			// 技能详情中实际展示的「分身继承攻击」数值，同样吃天赋加成（25 -> 35）
+			"tooltip_illusion_damage"
+			{
+				"value"					"25 30 35 40"
+				"LinkedSpecialBonus"	"special_bonus_unique_reisen_4"
+			}
+			"illusion_damage_in_pct"	"250"
+			"illusion_bounty_base"		"5"
+			"illusion_bounty_growth"	"0"
+		}
+	}
+
+	"ability_thdots_reisenOld03"
+	{
+		"BaseClass"				"ability_datadriven"
+		"AbilityTextureName"	"touhoutd/thtd_reisen_01"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"				"4"
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_IDLE"	
+		"AbilityManaCost"		"80 100 120 140"
+		"AbilityChannelTime"	"1.0"
+		"HasScepterUpgrade"		"1"
+		// Stats
+		// ----------------------------------------------------------------
+		// 与下方 AbilityValues 内的 max_lenth 保持一致（原本是 1500~1800，弹道却只飞 1400~1700）
+		"AbilityCastRange"		"1400 1500 1600 1700"
+		"precache"
+		{
+			"particle"			"particles/heroes/reisen/reisennew03.vpcf"
+			"particle"			"particles/heroes/reisen/reisenold03_channel.vpcf"
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
+		}		
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"				"Ability.AssassinateLoad"
+				"Target"					"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"ability_reisenold03_modifier"
+			}			
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_thdots_reisen03_time"
+				"Target"	"CASTER"
+			}
+		}
+		"OnChannelInterrupted"
+		{
+			"FireSound"
+			{
+				"EffectName"				"Ability.Assassinate"
+				"Target"					"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"ability_reisenold03_animation"
+			}	
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_reisen03_time"
+			}		
+			//"LinearProjectile"
+			//{
+			//	"EffectName"		"particles/heroes/reisen/reisennew03.vpcf"
+			//	"MoveSpeed"			"%move_speed"
+			//	"StartRadius"		"%collision_radius"
+			//	"EndRadius"			"%collision_radius"
+			//	"StartPosition"		"attach_attack1"
+			//	"FixedDistance"		"%max_lenth"
+			//	"TargetTeams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+			//	"TargetTypes"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+			//	"TargetFlags"		"0"
+			//	"HasFrontalCone"	"0"
+			//	"ProvidesVision"	"1"
+			//	"VisionRadius"		"0"
+			//}	
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"ability_reisenold03_modifier"
+			}					
+		}
+		"OnChannelFinish"
+		{
+			"FireSound"
+			{
+				"EffectName"				"Ability.Assassinate"
+				"Target"					"CASTER"
+			}	
+			"ApplyModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"ability_reisenold03_animation"
+			}
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"modifier_thdots_reisen03_time"
+			}		
+			//"LinearProjectile"
+			//{
+			//	"EffectName"		"particles/heroes/reisen/reisennew03.vpcf"
+			//	"MoveSpeed"			"%move_speed"
+			//	"StartRadius"		"%collision_radius"
+			//	"EndRadius"			"%collision_radius"
+			//	"StartPosition"		"attach_attack1"
+			//	"FixedDistance"		"%max_lenth"
+			//	"TargetTeams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+			//	"TargetTypes"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+			//	"TargetFlags"		"0"
+			//	"HasFrontalCone"	"0"
+			//	"ProvidesVision"	"1"
+			//	"VisionRadius"		"0"
+			//}
+			"RemoveModifier"
+			{
+				"Target"	"CASTER"
+				"ModifierName"	"ability_reisenold03_modifier"
+			}		
+		}
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"			"false"
+			"RunScript"
+			{
+				"ScriptFile"		"scripts/vscripts/abilities/abilityReisen.lua"
+				"Target"			"TARGET"
+				"Function"			"OnReisenOld03SpellHit"
+				"DamageMulti"		"%damage_multi"
+				"duration"			"%move_slow_duration"
+			}
+		}
+		"Modifiers"
+		{
+
+			"modifier_reisen03_knockback"
+			{
+				"IsHidden"	"1"
+				"IsDebuff"	"1"
+				"IsPurgable"	"1"
+				"Duration"	"0.1"
+				"OnCreated"
+				{
+					"Knockback"
+					{
+						"Center"	"CASTER"
+						"Target"	"TARGET"
+						"Duration"	"0.1"
+						"Distance"	"%block_back"
+						"Height"	"0"
+					}
+				}
+			}
+			"ability_reisenold03_animation"
+			{
+				"IsHidden"	"1"
+				"OverrideAnimation"	"ACT_DOTA_ATTACK2"
+			}
+			"ability_reisenold03_modifier"
+			{
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"EffectName"	"particles/heroes/reisen/ability_reisen02.vpcf"
+				"EffectAttachType"	"attach_hitloc"		
+				"Duration"	"0.7"		
+			}
+			"modifier_thdots_reisen03_time"
+			{
+				"Duration"	"2.0"				
+				"ThinkInterval"	"0.05"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+						"Function"	"OnReisen03ChannellStart"
+						"Caster"	"CASTER"
+					}
+				}
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+						"Function"	"OnReisen03Channelling"
+						"Caster"	"CASTER"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
+						"Function"	"OnReisen03Shoot"
+						"Caster"	"CASTER"
+					}
+					"LinearProjectile"
+					{
+						"EffectName"		"particles/heroes/reisen/reisennew03.vpcf"
+						"MoveSpeed"			"%move_speed"
+						"StartRadius"		"%collision_radius"
+						"EndRadius"			"%collision_radius"
+						"StartPosition"		"attach_attack1"
+						"FixedDistance"		"%max_lenth"
+						"TargetTeams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+						"TargetTypes"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+						"TargetFlags"		"0"
+						"HasFrontalCone"	"0"
+						"ProvidesVision"	"1"
+						"VisionRadius"		"0"
+					}
+				}
+			}
+			"modifier_thdots_reisen03_full"
+			{
+				"IsHidden"	"0"	
+				"IsDebuff"	"1"		
+				"Duration"	"5.0"
+				"IsPurgable"	"0"														
+			}
+		}
+		"AbilityValues"
+		{
+			"move_speed"	"3600"
+			"collision_radius"
+			{
+				"value"			"120"
+				"affected_by_aoe_increase"	"1"
+			}
+			"max_lenth"	"1400 1500 1600 1700"
+			// 与 max_lenth 对齐；同时写在 AbilityValues 里，兼容只从这里读取施法距离的情况
+			"AbilityCastRange"	"1400 1500 1600 1700"
+			"reduce_time"	"-8"
+			"damage_bonus"	"80"
+			"block_back"	"200"
+			"total_damage"
+			{
+				"value"	"120 220 320 420"
+				"LinkedSpecialBonus"	"special_bonus_unique_reisen_1"
+				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_MULTIPLY"
+			}
+			"move_slow_duration"	"2.0"
+			"AbilityCooldown"
+			{
+				"value"	"18"
+				"special_bonus_scepter"	"-8"
+			}
+		}
+		//"AbilityDamage"	"120 220 320 420"
+	}
+
+	//=================================================================================================================
+	// Ability: 原版铃仙大招（2026-09-15 全新重做）
+	// 被动1：增加攻击距离 100 / 200 / 300
+	// 被动2：一技能与三技能命中敌方英雄、或普攻按概率命中时，在敌方英雄附近制造该英雄的倒影幻象
+	//        （无敌、不可选中；继承其攻击力 60/70/80%；持续 5 秒；每个英雄上限 1 个，重复触发刷新）
+	//        分身不继承被动2；敌方英雄死亡或该 debuff 被驱散时幻象消失。
+	//=================================================================================================================
+	"ability_thdots_reisenOld04"
+	{
+		// 改为 ability_lua：没有魔晶时是纯被动；持有魔晶后由 Lua 的 GetBehavior() 切换为主动。
+		// 范式参考 ability_thdots_lyrica03（获得万宝槌后三技能由被动变主动）
+		"BaseClass"	"ability_lua"
+		"ScriptFile"	"scripts/vscripts/abilities/abilityreisen.lua"
+		// 用回原版大招图标
+		"AbilityTextureName"	"touhoutd/thtd_reisen_03"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"	"3"
+		"HasShardUpgrade"	"1"
+		// 顶层字段对 %变量 的引用在部分字段上不生效，这里统一写字面值
+		"AbilityCastPoint"	"0.2"
+		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
+		// 魔晶主动不耗蓝，故不写 AbilityManaCost；冷却正常显示
+		"AbilityCooldown"	"30"
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_phantom_lancer/phantom_lancer_spawn_smoke.vpcf"
+		}
+		"AbilityValues"
+		{
+			"attack_range_bonus"			"100 200 300"
+			// 幻象持续时间随笔大招等级变化：4 / 4.5 / 5 秒
+			"illusion_duration"				"4 4.5 5"
+			// 幻象实际存活 = illusion_duration + buffer，避免先于目标身上的标记到期
+			"illusion_duration_buffer"		"2"
+			// outgoing_damage 是「削减百分比」，故继承 60/70/80% 写作 -40/-30/-20
+			"illusion_damage_out_pct"		"-40 -30 -20"
+			"tooltip_illusion_damage"		"60 70 80"
+			"illusion_damage_in_pct"		"100"
+			"illusion_bounty_base"			"0"
+			"illusion_bounty_growth"		"0"
+			// 倒影外观：深红单色 + 半透明（0~255）。
+			// 预置参考：深红 200/40/40，正红 255/60/60，浅红 255/150/150
+			"illusion_render_color_r"		"200"
+			"illusion_render_color_g"		"40"
+			"illusion_render_color_b"		"40"
+			"illusion_render_alpha"			"150"
+			"attack_chance"					"16 20 24"
+			// 普攻触发对同一敌方英雄的内置冷却（秒）
+			"attack_trigger_cooldown"		"1"
+			// 倒影自动攻击的「重新下达指令」间隔（秒）。
+			// 参考古明地恋大招 modifier_koishi04_bonus 的 ThinkInterval 0.1
+			"illusion_attack_repeat_interval"	"0.1"
+			// 与一技能施法距离、二技能分身持续时间一致，采用 AbilityValues 块形式。
+			// LinkedSpecialBonus 只负责让技能详情显示天赋加成后的数值（1 -> 2），
+			// 实际生效仍由 Lua 侧 FindTelentValue 处理（同 hatate 的做法）
+			"max_illusions"
+			{
+				"value"	"1"
+				"LinkedSpecialBonus"	"special_bonus_unique_reisen_2"
+			}
+			// 魔晶主动（大招强化）相关
+			"shard_cast_point"				"0.2"
+			"shard_cooldown"				"30"
+			"shard_mana_cost"				"75"
+			"shard_window_duration"			"5"
+		}
+	}
+
+	//=================================================================================================================
+	// 注：魔晶主动不单独占用技能栏位，而是由大招本体的 GetBehavior() 在持有魔晶时切换为主动，
+	// 做法与犬走椛 ability_thdots_momiji04、莉莉卡 ability_thdots_lyrica03、
+	// 梅露兰 ability_thdots_Merlin03 一致。
+	//=================================================================================================================
+
+  //=================================================================================================================
+  // 【库存保留】未启用的独立技能组：ability_thdots_reisenEx / reisen01 / reisen02 / reisen03 / reisen04
+  //   现 hero.txt 未启用该技能组（槽位为注释状态）；为保证资产不丢失，原样保留。
+  //   来源：2026-09-19 整合前的工程版本，未做任何修改。
+  //   ⚠ 已知（整合前既有）：本库存 KV 的 OnReisen04Damage 在 Lua 中并无同名函数，启用该技能组前需补齐。
+  //=================================================================================================================
 	"ability_thdots_reisenEx"
 	{
 		"BaseClass"	"ability_datadriven"
@@ -334,499 +991,5 @@
 			}
 		}
 		"AbilityDamage"	"40 80 120"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_reisen_2"
-	{
-		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityValues"
-		{
-			"value"				"2"
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus:「胧月花栞」双倍伤害
-	//=================================================================================================================
-	"special_bonus_unique_reisen_1"
-	{
-		"BaseClass"						"special_bonus_undefined"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityValues"
-		{
-			"value"				"1.5"
-		}
-	}
-
-	"ability_thdots_reisenOldex"
-	{
-		"BaseClass"	"ability_datadriven"
-		"AbilityTextureName"	"custom/ability_thdots_reisenOldex"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
-		"MaxLevel"	"1"
-		"IsBreakable"				"1"
-		"precache"
-		{
-			"particle"	"particles/heroes/reisen/ability_reisen_01.vpcf"
-			"soundfile"	"soundevents/thdots_hero_sounds/thdots_reisen_sounds.vsndevts"
-		}
-		"Modifiers"
-		{			
-			"passive_reisenOldex_attack"
-			{
-				"Passive"	"1"
-				"OnAttackLanded"
-				{	
-					"RunScript"
-					{
-						"Target"	"TARGET"
-						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
-						"Function"	"OnReisenOldExSpellSuccess"
-						"Chance"	"%ability_chance_base"
-						"Duration"	"%move_slow_duration"
-					}					
-				}
-			}
-			"modifier_reisenexold_slow"
-			{
-				"IsDebuff"	"1"
-				"IsPurgable"	"1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_slow"
-					"MODIFIER_PROPERTY_MISS_PERCENTAGE"	"%miss_change"
-				}
-			}
-		}
-		"AbilityValues"
-		{
-			"ability_chance_base"	"20"
-			"agi_damage_multiplier"	"0.5"
-			"move_slow"	"-20"
-			"move_slow_duration"	"2.0"
-			"miss_change"	"30"
-		}
-	}
-
-	"ability_thdots_reisenOld01"
-	{
-		"BaseClass"	"ability_datadriven"
-		"AbilityTextureName"	"custom/ability_thdots_reisenOld01"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"MaxLevel"	"4"
-		"precache"
-		{}
-		"Modifiers"
-		{
-			"ability_reisenold01_modifier"
-			{
-				"Passive"	"1"
-				"IsHidden"	"1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_ATTACK_RANGE_BONUS"	"%bonus_attack_range"
-				}
-			}			
-		}
-		"AbilityValues"
-		{
-			"bonus_attack_range"	"50 90 130 170"
-		}
-	}
-
-	"ability_thdots_reisenOld02"
-	{
-		"BaseClass"	"ability_datadriven"
-		"AbilityTextureName"	"touhoutd/thtd_reisen_02"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"MaxLevel"	"4"
-		"AbilityCooldown"	"16"
-		"AbilityManaCost"	"50"
-		"IsBreakable"				"1"
-		"precache"
-		{
-			"particle"	"particles/units/heroes/hero_phantom_lancer/phantom_lancer_spawn_smoke.vpcf"
-			"soundfile"	"soundevents/thdots_hero_sounds/thdots_reisen_sounds.vsndevts"
-		}
-		"OnSpellStart"
-		{
-			"RunScript"
-			{
-				"Target"	"TARGET"
-				"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
-				"Function"	"OnReisenOld02SpellStart"
-				"Max_illusions"	"%max_illusions"
-				"Illusion_duration"	"%illusion_duration"
-				"Illusion_damage_out_pct"	"%illusion_damage_out_pct"
-				"Illusion_damage_in_pct"	"%illusion_damage_in_pct"
-			}
-		}
-		"Modifiers"
-		{
-			"passive_reisenOld02_attack"
-			{
-				"Passive"	"1"
-				"OnAttackLanded"
-				{
-					"RunScript"
-					{
-						"Target"	"TARGET"
-						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
-						"Function"	"OnReisenOld02SpellSuccess"
-						"Max_illusions"	"%max_illusions"
-						"Illusion_duration"	"%illusion_duration"
-						"Illusion_damage_out_pct"	"%illusion_damage_out_pct"
-						"Illusion_damage_in_pct"	"%illusion_damage_in_pct"
-						"Chance"	"%ability_chance_base"
-						"illusionChance"	"%ability_chance_illusion"
-					}
-				}
-				"OnDestroy"
-				{
-					"RunScript"
-					{
-						"Target"	"TARGET"
-						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
-						"Function"	"OnReisenOld02OnDeath"
-					}
-				}
-			}
-		}
-		"AbilityValues"
-		{
-			"ability_chance_base"	"10"
-			"max_illusions"	"9"
-			"illusion_duration"	"10"
-			"illusion_damage_out_pct"	"-95 -90 -85 -80"
-			"tooltip_illusion_damage"	"5 10 15 20"
-			"illusion_damage_in_pct"	"250"
-			"ability_chance_illusion"	"1.5"
-		}
-	}
-
-	"ability_thdots_reisenOld03"
-	{
-		"BaseClass"				"ability_datadriven"
-		"AbilityTextureName"	"touhoutd/thtd_reisen_01"
-		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
-		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
-		"MaxLevel"				"4"
-		"AbilityCastPoint"		"0.1"
-		"AbilityCastAnimation"		"ACT_DOTA_IDLE"	
-		"AbilityManaCost"		"80 100 120 140"
-		"AbilityChannelTime"	"1.0"
-		"HasScepterUpgrade"		"1"
-		// Stats
-		// ----------------------------------------------------------------
-		"AbilityCastRange"		"1500 1600 1700 1800"
-		"precache"
-		{
-			"particle"			"particles/heroes/reisen/reisennew03.vpcf"
-			"particle"			"particles/heroes/reisen/reisenold03_channel.vpcf"
-			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
-		}		
-		"OnSpellStart"
-		{
-			"FireSound"
-			{
-				"EffectName"				"Ability.AssassinateLoad"
-				"Target"					"CASTER"
-			}
-			"ApplyModifier"
-			{
-				"Target"	"CASTER"
-				"ModifierName"	"ability_reisenold03_modifier"
-			}			
-			"ApplyModifier"
-			{
-				"ModifierName"	"modifier_thdots_reisen03_time"
-				"Target"	"CASTER"
-			}
-		}
-		"OnChannelInterrupted"
-		{
-			"FireSound"
-			{
-				"EffectName"				"Ability.Assassinate"
-				"Target"					"CASTER"
-			}
-			"ApplyModifier"
-			{
-				"Target"	"CASTER"
-				"ModifierName"	"ability_reisenold03_animation"
-			}	
-			"RemoveModifier"
-			{
-				"Target"	"CASTER"
-				"ModifierName"	"modifier_thdots_reisen03_time"
-			}		
-			//"LinearProjectile"
-			//{
-			//	"EffectName"		"particles/heroes/reisen/reisennew03.vpcf"
-			//	"MoveSpeed"			"%move_speed"
-			//	"StartRadius"		"%collision_radius"
-			//	"EndRadius"			"%collision_radius"
-			//	"StartPosition"		"attach_attack1"
-			//	"FixedDistance"		"%max_lenth"
-			//	"TargetTeams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
-			//	"TargetTypes"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			//	"TargetFlags"		"0"
-			//	"HasFrontalCone"	"0"
-			//	"ProvidesVision"	"1"
-			//	"VisionRadius"		"0"
-			//}	
-			"RemoveModifier"
-			{
-				"Target"	"CASTER"
-				"ModifierName"	"ability_reisenold03_modifier"
-			}					
-		}
-		"OnChannelFinish"
-		{
-			"FireSound"
-			{
-				"EffectName"				"Ability.Assassinate"
-				"Target"					"CASTER"
-			}	
-			"ApplyModifier"
-			{
-				"Target"	"CASTER"
-				"ModifierName"	"ability_reisenold03_animation"
-			}
-			"RemoveModifier"
-			{
-				"Target"	"CASTER"
-				"ModifierName"	"modifier_thdots_reisen03_time"
-			}		
-			//"LinearProjectile"
-			//{
-			//	"EffectName"		"particles/heroes/reisen/reisennew03.vpcf"
-			//	"MoveSpeed"			"%move_speed"
-			//	"StartRadius"		"%collision_radius"
-			//	"EndRadius"			"%collision_radius"
-			//	"StartPosition"		"attach_attack1"
-			//	"FixedDistance"		"%max_lenth"
-			//	"TargetTeams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
-			//	"TargetTypes"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			//	"TargetFlags"		"0"
-			//	"HasFrontalCone"	"0"
-			//	"ProvidesVision"	"1"
-			//	"VisionRadius"		"0"
-			//}
-			"RemoveModifier"
-			{
-				"Target"	"CASTER"
-				"ModifierName"	"ability_reisenold03_modifier"
-			}		
-		}
-		"OnProjectileHitUnit"
-		{
-			"DeleteOnHit"			"false"
-			"RunScript"
-			{
-				"ScriptFile"		"scripts/vscripts/abilities/abilityReisen.lua"
-				"Target"			"TARGET"
-				"Function"			"OnReisenOld03SpellHit"
-				"DamageMulti"		"%damage_multi"
-				"duration"			"%move_slow_duration"
-			}
-		}
-		"Modifiers"
-		{
-
-			"modifier_reisen03_knockback"
-			{
-				"IsHidden"	"1"
-				"IsDebuff"	"1"
-				"IsPurgable"	"1"
-				"Duration"	"0.1"
-				"OnCreated"
-				{
-					"Knockback"
-					{
-						"Center"	"CASTER"
-						"Target"	"TARGET"
-						"Duration"	"0.1"
-						"Distance"	"%block_back"
-						"Height"	"0"
-					}
-				}
-			}
-			"ability_reisenold03_animation"
-			{
-				"IsHidden"	"1"
-				"OverrideAnimation"	"ACT_DOTA_ATTACK2"
-			}
-			"ability_reisenold03_modifier"
-			{
-				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
-				"EffectName"	"particles/heroes/reisen/ability_reisen02.vpcf"
-				"EffectAttachType"	"attach_hitloc"		
-				"Duration"	"0.7"		
-			}
-			"modifier_thdots_reisen03_time"
-			{
-				"Duration"	"2.0"				
-				"ThinkInterval"	"0.05"
-				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
-				"OnCreated"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
-						"Function"	"OnReisen03ChannellStart"
-						"Caster"	"CASTER"
-					}
-				}
-				"OnIntervalThink"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
-						"Function"	"OnReisen03Channelling"
-						"Caster"	"CASTER"
-					}
-				}
-				"OnDestroy"
-				{
-					"RunScript"
-					{
-						"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
-						"Function"	"OnReisen03Shoot"
-						"Caster"	"CASTER"
-					}
-					"LinearProjectile"
-					{
-						"EffectName"		"particles/heroes/reisen/reisennew03.vpcf"
-						"MoveSpeed"			"%move_speed"
-						"StartRadius"		"%collision_radius"
-						"EndRadius"			"%collision_radius"
-						"StartPosition"		"attach_attack1"
-						"FixedDistance"		"%max_lenth"
-						"TargetTeams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
-						"TargetTypes"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-						"TargetFlags"		"0"
-						"HasFrontalCone"	"0"
-						"ProvidesVision"	"1"
-						"VisionRadius"		"0"
-					}
-				}
-			}
-			"modifier_thdots_reisen03_full"
-			{
-				"IsHidden"	"0"	
-				"IsDebuff"	"1"		
-				"Duration"	"5.0"
-				"IsPurgable"	"0"														
-			}
-		}
-		"AbilityValues"
-		{
-			"move_speed"	"3600"
-			"collision_radius"
-			{
-				"value"			"120"
-				"affected_by_aoe_increase"	"1"
-			}
-			"max_lenth"	"1400 1500 1600 1700"
-			"reduce_time"	"-8"
-			"damage_bonus"	"80"
-			"block_back"	"200"
-			"total_damage"
-			{
-				"value"	"120 220 320 420"
-				"LinkedSpecialBonus"	"special_bonus_unique_reisen_1"
-				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_MULTIPLY"
-			}
-			"move_slow_duration"	"2.0"
-			"AbilityCooldown"
-			{
-				"value"	"18"
-				"special_bonus_scepter"	"-8"
-			}
-		}
-		//"AbilityDamage"	"120 220 320 420"
-	}
-
-	"ability_thdots_reisenOld04"
-	{
-		"BaseClass"	"ability_datadriven"
-		"AbilityTextureName"	"touhoutd/thtd_reisen_03"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityType"	"DOTA_ABILITY_TYPE_ULTIMATE"
-		"AbilityCastAnimation"	"Act_DOTA_CAST_ABILITY_4"
-		"AbilityCooldown"	"30"
-		// Stats
-		// ----------------------------------------------------------------
-		"AbilityManaCost"	"50"
-		"precache"
-		{
-			"particle"	"particles/heroes/reisen/ability_reisen02.vpcf"
-		}
-		"OnSpellStart"
-		{
-			"RunScript"
-			{
-				"Target"	"TARGET"
-				"ScriptFile"	"scripts/vscripts/abilities/abilityReisen.lua"
-				"Function"	"OnReisenOld04SpellStart"
-				"duration" "%duration"
-			}
-		}
-		"Modifiers"
-		{
-			"ability_reisenold04_modifier"
-			{
-				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
-				"EffectName"	"particles/heroes/reisen/ability_reisen02.vpcf"
-				"EffectAttachType"	"attach_hitloc"
-				"States"
-				{
-					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attack_speed"
-				}
-			}
-			"ability_reisenold04_bouns_attack_speed"
-			{
-				"IsBuff"	"1"
-				//"IsHidden"	"1"
-				"States"
-				{
-					"MODIFIER_STATE_INVISIBLE"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-				"OnAttackLanded"
-				{
-					"RemoveModifier"
-					{
-						"Target"	"CASTER"
-						"ModifierName"	"ability_reisenold04_bouns_attack_speed"
-					}
-				}
-			}
-		}
-		"AbilityValues"
-		{
-			"duration"
-			{
-				"value"	"3.0 4.0 5.0"
-				"LinkedSpecialBonus" "special_bonus_unique_reisen_2"
-			}
-			"chance"	"8 12 16"
-			"attack_speed"	"50 75 100"
-		}
 	}
 }

@@ -14,13 +14,17 @@
 		"Ability3"	"ability_thdots_reisenOld03"
 		//"Ability3"	"sniper_assassinate"	
 		"Ability4"		"ability_thdots_reisenOldex"
-		"Ability5"		"generic_hidden"		
+		// 魔晶主动由大招本体的 GetBehavior() 切换，不占用额外技能栏位
+		"Ability5"		"generic_hidden"
 		"Ability6"		"ability_thdots_reisenOld04"
-		"Ability10"		"special_bonus_agility_10"
+		// 10 级：+400 一技能施法距离 / -15% 冷却
+		"Ability10"		"special_bonus_unique_reisen_3"
 		"Ability11"		"special_bonus_cooldown_reduction_15"
-		"Ability12"		"special_bonus_attack_speed_30"
+		// 15 级：+10% 二技能分身继承攻击力 / +15% 法术增强
+		"Ability12"		"special_bonus_unique_reisen_4"
 		"Ability13"		"special_bonus_spell_amplify_15"
-		"Ability14"		"special_bonus_attack_damage_50"
+		// 20 级：+20%「丧心丧意」触发概率 / 「胧月花栞」伤害
+		"Ability14"		"special_bonus_unique_reisen_5"
 		"Ability15"		"special_bonus_unique_reisen_1"
 		"Ability16"		"special_bonus_attack_range_125"
 		"Ability17"		"special_bonus_unique_reisen_2"

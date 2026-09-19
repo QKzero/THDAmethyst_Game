@@ -27,12 +27,17 @@ Hero_Cloth =
 
 	["npc_dota_hero_lina"] = --红白
 		{
+			-- 默认 = 第三套模型：thd 副本里以 troll_warlord 路径承载的自定义机体（符纸+阴阳玉），已从 thd 同步进本地
+			"models/heroes/troll_warlord/troll_warlord.vmdl",
+			-- -cloth 2 = 原默认（new_touhou 版）
 			"models/new_touhou_model/reimu/reimu.vmdl",
+			-- -cloth 3 = 原 -cloth 2（mmd 版）
 			"models/thd2/hakurei_reimu/hakurei_reimu_mmd.vmdl"
 		},
 
 	["npc_dota_hero_lina_size"] =
 		{
+			1.0,
 			1.2,
 			1.0
 		},

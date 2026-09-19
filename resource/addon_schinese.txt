@@ -1292,18 +1292,18 @@
 		// reisenold
 		// --------------------
 		"DOTA_Tooltip_ability_ability_thdots_reisenOldex"	"弱心「丧心丧意」"
-		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_Description"	"铃仙的攻击有%ability_chance_base%%%的概率发射带有破坏精神的弹丸，造成0.5倍敏捷的伤害并降低敌人的命中和移动速度，持续%move_slow_duration%秒。\n对建筑伤害为30%%。"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_Description"	"铃仙及其幻象攻击有概率发射带有破坏精神的弹丸，造成给予敏捷倍数的额外伤害并降低敌人的命中和移动速度，持续%move_slow_duration%秒。\n对建筑伤害为30%%。"
 		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_agi_damage_multiplier" "敏捷系数："
-		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_move_slow"	"降低移速："
-		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_miss_change"	"降低命中："
+		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_move_slow"	"%降低移速："
+		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_miss_change"	"%降低命中："
 		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_Lore"	"铃仙让敌人承受狂气的视线，令敌人暂时陷入混乱状态。"
 
-		"DOTA_Tooltip_ability_ability_thdots_reisenOld01"	"狂符「幻视调律」"
-		"DOTA_Tooltip_ability_ability_thdots_reisenOld01_Description"	"被动增加铃仙的攻击距离。"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld01"	"幻弾「幻想视差」"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld01_Description"	"铃仙射出一发子弹并快速地向后退，子弹命中敌人时会触发「丧心丧意」。"
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld01_bonus_attack_range"	"攻击距离增加："
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld01_note0"	"无法被破坏。（暂时）"
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld02"	"幻兔「并行交叉」"
-		"DOTA_Tooltip_ability_ability_thdots_reisenOld02_Description"	"铃仙的攻击中有%ability_chance_base%%%概率制造分身。分身也有%ability_chance_illusion%%%概率制造分身。分身受到%illusion_damage_in_pct%%%伤害，持续%illusion_duration%秒。主动使用立即制造两个分身。最多同时存在%max_illusions%个分身。"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld02_Description"	"制造一个铃仙的分身。分身受到%illusion_damage_in_pct%%%伤害。"
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld02_tooltip_illusion_damage"	"%分身继承攻击："
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld02_Lore"	"铃仙展开令敌人认识狂乱的波长。敌人将会看到本身不应该出现的东西。拥有将虚像的射击化作实弹的效果。"
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld03"	"散符「胧月花栞」"
@@ -1312,11 +1312,11 @@
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld03_max_lenth"	"最远距离："
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld03_total_damage"	"伤害："
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld04"	"「幻胧月睨」"
-		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_Description"	"主动：铃仙迅速进入隐身，获得相位移动状态，并在一定时间内本体增加攻速，拥有100%%概率制造分身和触发「丧心丧意」。\n被动：增加「丧心丧意」触发几率。"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_Description"	"提升铃仙的攻击距离。铃仙释放主动技能命中首个敌方少女时，会在其附近制造一个该英雄的倒影。\n铃仙的攻击也有概率触发该效果。"
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_duration"	"持续时间："
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_chance"	"%增加几率："
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_attack_speed"	"增加攻速："
-		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_Lore"	"铃仙广范围释放令敌人陷入疯狂的波长漩涡,威力极其优秀。"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_Lore"	"铃仙让对手幻视「另一个自己」——而那道影子，只会向主人挥刀。"
 		// --------------------
 		// momiji
 		// --------------------
@@ -6058,7 +6058,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_kaguya_6_Description"	"魔法转换生命瞬间完成，每次转化均使蓬莱树海魔力储存增满。"
 
 		"DOTA_Tooltip_ability_special_bonus_unique_reisen_1" 	"「胧月花栞」1.5倍伤害"	
-		"DOTA_Tooltip_ability_special_bonus_unique_reisen_2" 	"+{s:value}秒 幻胧月睨持续时间"
+		"DOTA_Tooltip_ability_special_bonus_unique_reisen_2" 	"+{s:value} 倒影上限"
 		"DOTA_Tooltip_ability_special_bonus_unique_yuyuko_1" 	"-{s:value}秒「反魂蝶」冷却"
 		"DOTA_Tooltip_ability_special_bonus_unique_yuyuko_2" 	"+{s:value}% 「生者必灭の理」生命流失"
 		"DOTA_Tooltip_ability_special_bonus_unique_yuyuko_3" 	"-{s:value}秒「全然墨染之樱」冷却时间"
@@ -6746,5 +6746,24 @@
 		//----------------------------------------------------------------------
 
 		"DOTA_Tooltip_modifier_thdots_anti_bd_stop" "防偷塔已解除"
+		"DOTA_Tooltip_modifier_reisenexold_slow"	"丧失战意"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_attack_chance"	"%普攻触发概率："
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_illusion_duration"	"倒影持续时间："
+		"DOTA_Tooltip_modifier_reisenexold_slow_Description"	"降低移动速度，攻击有概率丢失。"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld01_AbilityCastRange"	"施法距离："
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld02_illusion_duration"	"分身持续时间："
+		"DOTA_Tooltip_ability_special_bonus_unique_reisen_5" 	"+{s:value}%「丧心丧意」触发概率"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_shard_description"	"将所有倒影转变为铃仙倒影并刷新其持续时间，随后%shard_window_duration%秒内新触发的倒影也将是铃仙倒影。"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_attack_trigger_cooldown"	"普攻触发冷却（同一少女）："
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_tooltip_illusion_damage"	"%倒影继承攻击："
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld01_Lore"	"铃仙射出令人产生视差的弹丸，并借着后坐力拉开距离。"
+		"DOTA_Tooltip_ability_special_bonus_unique_reisen_3" 	"+{s:value} 幻弾「幻想视差」施法距离"
+		"DOTA_Tooltip_modifier_thdots_reisen03_full"	"被完全蓄力的「胧月花栞」击中"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_attack_range_bonus"	"攻击距离增加："
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_max_illusions"	"同一少女倒影上限："
+		"DOTA_Tooltip_ability_special_bonus_unique_reisen_4" 	"+{s:value}% 分身继承攻击力"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_ability_chance_base"	"%触发概率："
+		"DOTA_Tooltip_modifier_thdots_reisenOld04_mark"	"「幻胧月睨」"
+		"DOTA_Tooltip_modifier_thdots_reisenOld04_mark_Description"	"被铃仙的倒影锁定。该效果消失或被驱散时，倒影随之消散。"
 	}
 }

@@ -118,7 +118,7 @@ G_BOT_USED =
 	
 	true ,			--黑白
 	false ,			--恋
-	true ,			--兔子
+	true ,			--兔子（铃仙·优昙华院·因幡 / npc_dota_hero_mirana：玩家可选，bot 保持禁选）
 	false ,			--妹红
 	false ,			--红三
 	

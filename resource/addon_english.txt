@@ -1569,33 +1569,33 @@
 		//--------------------
 
 		"DOTA_Tooltip_ability_ability_thdots_reisenOldex"	"Weak Heart「Demotivation」"
-		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_Description"	"Reisen has the chance of %ability_chance_base%%% to shoot demotivated bullets with her attack, slows down the movement speed of the target, makes her attack miss, and deals 0.5*agility damage to her. Debuff lasts for %move_slow_duration%s.\nDeals 30%% damage to buildings."
-		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_move_slow"	"Movement speed reduction: "
-		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_miss_change"	"Attack miss: "
+		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_Description"	"Reisen and her illusions have a chance to fire demotivating bullets with their attacks, dealing bonus damage based on Reisen's agility and reducing the target's attack and movement speed for %move_slow_duration%s.\nDeals 30%% damage to buildings."
+		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_move_slow"	"%Movement speed reduction: "
+		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_miss_change"	"%Attack miss: "
 
-		"DOTA_Tooltip_ability_ability_thdots_reisenOld01"                            	"Lunatic Sign「Visionary Tuning」"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld01"                            	"Illusionary Parallax"
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld01_Note0"                         "Cannot be broken. (Temporary)"
-		"DOTA_Tooltip_ability_ability_thdots_reisenOld01_Description"					"Reisen's attack range increases."
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld01_Description"					"Reisen fires a bullet and quickly backs away. Hitting an enemy with the bullet triggers「Demotivation」."
                		"DOTA_Tooltip_ability_ability_thdots_reisenOld01_bonus_attack_range"	"bonus attack range: "
 
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld02"	"Illusion Rabbit「Parallel Cross」"
-		"DOTA_Tooltip_ability_ability_thdots_reisenOld02_Description"	"<h1>Passive: </h1>Reisen has the chance of %ability_chance_base%%% to create an illusion with her attack. Illusions have a chance of %ability_chance_illusion%%% to create a new illusion with their attacks. Illusions last for %illusion_duration%s and takes %illusion_damage_in_pct%%% damage. There are %max_illusions% illusions at most.\n<h1>Active: </h1>Creates two illusions."
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld02_Description"	"Creates an illusion of Reisen. The illusion takes %illusion_damage_in_pct%%% damage."
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld02_tooltip_illusion_damage"	"%Illusion damage dealt: "
 
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld03"	"Spread Sign「Rocket in Mist」"
-		"DOTA_Tooltip_ability_ability_thdots_reisenOld03_Description"	"Reisen charges for %AbilityChannelTime%s, then shoots a powerful bullet forward, dealing physical damage on its path and triggers「Demotivation」.\n If the shoot is fully channeled, Reisen and her illusions 100%% triggers「Demotivation」with their attacks on enemies shot by「Rocket in Mist」. "
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld03_Description"	"Reisen channels for %AbilityChannelTime%s, then fires a powerful shot that deals physical damage to units in a line and triggers「Demotivation」.\nThe channel time determines the final damage; if fully channeled, units hit will have「Demotivation」triggered guaranteed by the attacks of Reisen and her illusions for 5 seconds."
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld03_scepter_description"	"「Rocket in Mist」deals magical damage instead. Reduces cooldown for %reduce_time%s. Knocks back enemies for %block_back% range. Deals additional %damage_bonus%%% damage when fully channeled."
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld03_max_lenth"	"max distance: "
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld03_total_damage"	"damage: "
 
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld04"	"「Lunatic Red Eyes」"
-		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_Description"	"<h1>Passive: </h1>Increase chance for「Demotivation」.\n<h1>Active: </h1>Reisen turns invisible, gaining unit phasing and increasing her attack speed. Reisen and her illusions 100%% creates new illusions and triggers「Demotivation」with their attacks. "
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_Description"	"Increases Reisen's attack range. When an active ability hits the first enemy maiden, a reflection of that hero is created nearby.\nReisen's attacks also have a chance to trigger this effect."
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_duration"	"Duration: "
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_chance"	"%increase chance: "
 		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_attack_speed"	"bonus attack speed: "
 
 		"DOTA_Tooltip_ability_special_bonus_unique_reisen_1" 	"+50%「Rocket in Mist」damage"
-		"DOTA_Tooltip_ability_special_bonus_unique_reisen_2" 	"+{s:value}s「Lunatic Red Eyes」duration"
+		"DOTA_Tooltip_ability_special_bonus_unique_reisen_2" 	"+{s:value} max ultimate illusion"
 
 		//--------------------
 		//Inubashiri Momiji
@@ -7790,5 +7790,27 @@
 		"npc_dota_hero_obsidian_destroyer"													"Yakumo Yukari"
 		"npc_dota_hero_puck"																"Yakumo Ran"
 
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_attack_chance"	"%attack proc chance: "
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_illusion_duration"	"Reflection duration: "
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld01_AbilityCastRange"	"Cast Range: "
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld02_illusion_duration"	"Illusion duration: "
+		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_Lore"	"Reisen makes her enemies bear the gaze of madness, throwing them into brief confusion."
+		"DOTA_Tooltip_modifier_thdots_reisenOld04_mark"	"「Lunatic Red Eyes」"
+		"DOTA_Tooltip_passive_reisenOldex_attack"                                         "Weak Heart「Demotivation」"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_attack_trigger_cooldown"	"proc cooldown (same maiden): "
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld02_Lore"	"Reisen unfolds a wavelength of madness that makes her enemies perceive what should not exist. Her illusory shots strike as real bullets."
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_tooltip_illusion_damage"	"%Reflection damage dealt: "
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld01_Lore"	"Reisen fires a bullet that births parallax, then lets the recoil pull her away."
+		"DOTA_Tooltip_ability_special_bonus_unique_reisen_5" 	"+{s:value}%「Demotivation」trigger chance"
+		"DOTA_Tooltip_ability_special_bonus_unique_reisen_3" 	"+{s:value}「Illusionary Parallax」cast range"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_attack_range_bonus"	"bonus attack range: "
+		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_agi_damage_multiplier"	"Agility multiplier: "
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_max_illusions"	"max reflections per maiden: "
+		"DOTA_Tooltip_ability_special_bonus_unique_reisen_4" 	"+{s:value}% illusion damage dealt"
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_Lore"	"Reisen makes her opponent see「another self」-- and that shadow only turns its blade on its own master."
+		"DOTA_Tooltip_ability_ability_thdots_reisenOldex_ability_chance_base"	"%Trigger chance: "
+		"DOTA_Tooltip_passive_reisenOldex_attack_Description"                             "Attacks have a chance to reduce the target's movement speed and attack."
+		"DOTA_Tooltip_modifier_thdots_reisenOld04_mark_Description"	"Marked by Reisen's reflection. The reflection vanishes when this expires or is dispelled."
+		"DOTA_Tooltip_ability_ability_thdots_reisenOld04_shard_description"	"Turns all reflections into reflections of Reisen and refreshes their duration; for the next %shard_window_duration%s, newly triggered reflections will also be reflections of Reisen."
 	}
 }

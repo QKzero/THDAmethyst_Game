@@ -2453,6 +2453,9 @@ function THDOTSGameMode:PrecacheHeroResource(hero)
 	elseif(heroName == "npc_dota_hero_sniper")then
 		--hero:EnableMotion()
 	elseif(heroName == "npc_dota_hero_mirana")then
+		-- 铃仙：显式加载本体的 Lua（datadriven 的 OnReisenOld0* 处理器都在该文件里，
+		-- 仅靠 ability_thdots_reisenOld04 的 ScriptFile 兜底有加载时序风险），与红白分支同款
+		require( 'abilities/abilityReisen' )
 		abilityEx = hero:FindAbilityByName("ability_thdots_reisenOldex")
 		abilityEx:SetLevel(1)
 		--hero:EnableMotion()
