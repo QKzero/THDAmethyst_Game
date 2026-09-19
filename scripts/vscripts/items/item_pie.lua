@@ -4,7 +4,8 @@ function item_mushroom_kebab:OnSpellStart()
     if not IsServer() then return end
 
 	local target = self:GetCursorTarget()
-	target:SetBaseStrength(target:GetBaseStrength() + self:GetSpecialValueFor("increase_strength"))
+	-- 用增量语义（Modify*），不用"读改写"（SetBase(GetBase()+n)）：避免与属性实验/换英雄等绝对写入互相覆盖
+	target:ModifyStrength(self:GetSpecialValueFor("increase_strength"))
 	if (self:IsItem()) then
 		UTIL_Remove(self)
 	end
@@ -14,8 +15,8 @@ function item_mushroom_kebab:CastFilterResultTarget(target)
 	local caster = self:GetCaster()
 
 	if target == caster then
-		if GameRules:GetDOTATime(false,false)<300 then
-			-- 无法在游戏前5分钟内使用
+		if GameRules:GetDOTATime(false,false) < self:GetSpecialValueFor("min_game_time") then
+			-- 未到 min_game_time（KV AbilityValues）之前不可使用
 			return UF_FAIL_CUSTOM
 		else
 			return UF_SUCCESS
@@ -30,7 +31,7 @@ function item_mushroom_kebab:GetCustomCastErrorTarget(target)
 	local caster = self:GetCaster()
 
 	if target == caster then
-		if GameRules:GetDOTATime(false,false)<300 then
+		if GameRules:GetDOTATime(false,false) < self:GetSpecialValueFor("min_game_time") then
 			return "#thd_hud_error_cant_be_used_within_5_mins_of_game"
 		end
 	else
@@ -81,14 +82,23 @@ function modifier_item_mushroom_kebab_immediate:GetAttributes() return MODIFIER_
 
 function modifier_item_mushroom_kebab_immediate:OnCreated()
     if not IsServer() then return end
+    if self.applied then return end
+    self.applied = true
 
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
 
 	caster:ModifyStrength(ability:GetSpecialValueFor("increase_strength"))
 
+	-- 延迟一帧再销毁宿主物品：本修改器是宿主物品的 intrinsic modifier，
+	-- 若在其"正在创建"的当帧嵌套销毁宿主，引擎会漏掉回收，导致本修改器永久残留在英雄身上（越用越卡）
 	if (ability:IsItem()) then
-		UTIL_Remove(ability)
+		local item = ability
+		Timers:CreateTimer(0.03, function()
+			if item ~= nil and (item.IsNull == nil or not item:IsNull()) then
+				UTIL_Remove(item)
+			end
+		end)
 	end
 end
 
@@ -99,7 +109,8 @@ function item_mushroom_pie:OnSpellStart()
     if not IsServer() then return end
 
 	local target = self:GetCursorTarget()
-	target:SetBaseAgility(target:GetBaseAgility() + self:GetSpecialValueFor("increase_agility"))
+	-- 用增量语义（Modify*），不用"读改写"（SetBase(GetBase()+n)）：避免与属性实验/换英雄等绝对写入互相覆盖
+	target:ModifyAgility(self:GetSpecialValueFor("increase_agility"))
 	if (self:IsItem()) then
 		UTIL_Remove(self)
 	end
@@ -109,8 +120,8 @@ function item_mushroom_pie:CastFilterResultTarget(target)
 	local caster = self:GetCaster()
 
 	if target == caster then
-		if GameRules:GetDOTATime(false,false)<300 then
-			-- 无法在游戏前5分钟内使用
+		if GameRules:GetDOTATime(false,false) < self:GetSpecialValueFor("min_game_time") then
+			-- 未到 min_game_time（KV AbilityValues）之前不可使用
 			return UF_FAIL_CUSTOM
 		else
 			return UF_SUCCESS
@@ -125,7 +136,7 @@ function item_mushroom_pie:GetCustomCastErrorTarget(target)
 	local caster = self:GetCaster()
 
 	if target == caster then
-		if GameRules:GetDOTATime(false,false)<300 then
+		if GameRules:GetDOTATime(false,false) < self:GetSpecialValueFor("min_game_time") then
 			return "#thd_hud_error_cant_be_used_within_5_mins_of_game"
 		end
 	else
@@ -175,14 +186,22 @@ function modifier_item_mushroom_pie_immediate:GetAttributes() return MODIFIER_AT
 
 function modifier_item_mushroom_pie_immediate:OnCreated()
     if not IsServer() then return end
+    if self.applied then return end
+    self.applied = true
 
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
 
 	caster:ModifyAgility(ability:GetSpecialValueFor("increase_agility"))
 
+	-- 同 kebab：延迟一帧销毁宿主物品，避免本 intrinsic modifier 漏回收而残留
 	if (ability:IsItem()) then
-		UTIL_Remove(ability)
+		local item = ability
+		Timers:CreateTimer(0.03, function()
+			if item ~= nil and (item.IsNull == nil or not item:IsNull()) then
+				UTIL_Remove(item)
+			end
+		end)
 	end
 end
 
@@ -192,7 +211,8 @@ function item_mushroom_soup:OnSpellStart()
     if not IsServer() then return end
 
 	local target = self:GetCursorTarget()
-	target:SetBaseIntellect(target:GetBaseIntellect() + self:GetSpecialValueFor("increase_intellect"))
+	-- 用增量语义（Modify*），不用"读改写"（SetBase(GetBase()+n)）：避免与属性实验/换英雄等绝对写入互相覆盖
+	target:ModifyIntellect(self:GetSpecialValueFor("increase_intellect"))
 	if (self:IsItem()) then
 		UTIL_Remove(self)
 	end
@@ -202,8 +222,8 @@ function item_mushroom_soup:CastFilterResultTarget(target)
 	local caster = self:GetCaster()
 
 	if target == caster then
-		if GameRules:GetDOTATime(false,false)<300 then
-			-- 无法在游戏前5分钟内使用
+		if GameRules:GetDOTATime(false,false) < self:GetSpecialValueFor("min_game_time") then
+			-- 未到 min_game_time（KV AbilityValues）之前不可使用
 			return UF_FAIL_CUSTOM
 		else
 			return UF_SUCCESS
@@ -218,7 +238,7 @@ function item_mushroom_soup:GetCustomCastErrorTarget(target)
 	local caster = self:GetCaster()
 
 	if target == caster then
-		if GameRules:GetDOTATime(false,false)<300 then
+		if GameRules:GetDOTATime(false,false) < self:GetSpecialValueFor("min_game_time") then
 			return "#thd_hud_error_cant_be_used_within_5_mins_of_game"
 		end
 	else
@@ -269,13 +289,21 @@ function modifier_item_mushroom_soup_immediate:GetAttributes() return MODIFIER_A
 
 function modifier_item_mushroom_soup_immediate:OnCreated()
     if not IsServer() then return end
+    if self.applied then return end
+    self.applied = true
 
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
 
 	caster:ModifyIntellect(ability:GetSpecialValueFor("increase_intellect"))
 
+	-- 同 kebab：延迟一帧销毁宿主物品，避免本 intrinsic modifier 漏回收而残留
 	if (ability:IsItem()) then
-		UTIL_Remove(ability)
+		local item = ability
+		Timers:CreateTimer(0.03, function()
+			if item ~= nil and (item.IsNull == nil or not item:IsNull()) then
+				UTIL_Remove(item)
+			end
+		end)
 	end
 end

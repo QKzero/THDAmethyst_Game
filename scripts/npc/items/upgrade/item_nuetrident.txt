@@ -89,14 +89,30 @@
 				"Passive"	"1"
 				"IsHidden"	"1"
 				"RemoveOnDeath"	"0"
-				"OnCreated"	{}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_nuetrident.lua"
+						"Function"		"ItemAbility_Nuetrident_ProjectileSpeed_OnCreated"
+						"ModifierName"	"modifier_item_nuetrident_projectile_speed"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_nuetrident.lua"
+						"Function"		"ItemAbility_Nuetrident_ProjectileSpeed_OnDestroy"
+						"ModifierName"	"modifier_item_nuetrident_projectile_speed"
+					}
+				}
 				
 				"Properties"
 				{
 					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"	"%bonus_intellect"
 					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"		"%bonus_mana_regen"
 					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
-					"MODIFIER_PROPERTY_PROJECTILE_SPEED_BONUS"	"%projectile_speed"
 				}
 			}
 		}
@@ -108,7 +124,7 @@
 			"bonus_intellect"	"40"
 			"bonus_mana_regen"		"2"
 			"bonus_attack_speed"	"50"
-			"projectile_speed"	"300"
+			"projectile_speed"	"800"
 			"damage_bonus_mana_attack"	"6"
 			"decrease"	"20"
 			"int_atk_duration"

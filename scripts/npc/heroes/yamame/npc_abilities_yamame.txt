@@ -63,6 +63,7 @@
 		"AbilityCooldown"	"9 8 7 6"
 		"AbilityManaCost"	"45 60 75 90"
 		"IsBreakable"					"1"
+		"HasShardUpgrade"	"1"
 		"precache"
 		{
 			"particle"	"particles/econ/items/broodmother/bm_lycosidaes/bm_lycosidaes_web_cast.vpcf"
@@ -77,12 +78,14 @@
 				"value"			"600"
 				"affected_by_aoe_increase"	"1"
 			}
+			"radius_shard_bonus"	"200"
 			"passive_damage"	"6 9 12 15"
 			"damage"
 			{
 				"value"	"80 140 200 260"
 				"LinkedSpecialBonus"	"special_bonus_unique_yamame_1"
 			}
+			"projectile_speed"	"1200"
 		}
 	}
 
@@ -102,6 +105,7 @@
 		"AbilityCooldown"	"15 13 11 9"
 		"AbilityManaCost"	"80"
 		"AbilityCastRange"	"500"
+		"HasShardUpgrade"	"1"
 		"precache"
 		{
 			"particle"		"particles/units/heroes/hero_broodmother/broodmother_web_cast.vpcf"
@@ -120,8 +124,15 @@
 				"value"			"450"
 				"affected_by_aoe_increase"	"1"
 			}
-			"num"	"2"
+			"radius_shard_bonus"	"300"
+			"cast_range_shard_bonus"	"300"
+			"num"
+			{
+				"value"	"2"
+				"special_bonus_unique_yamame_3"	"+1"
+			}
 			"regen_reduce"	"-30"
+			"projectile_speed"	"1200"
 		}
 	}
 

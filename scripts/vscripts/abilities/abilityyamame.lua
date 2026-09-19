@@ -141,7 +141,11 @@ end
 ability_thdots_yamame02 = {}
 
 function ability_thdots_yamame02:GetCastRange()
-	return self:GetSpecialValueFor("radius")
+	local radius = self:GetSpecialValueFor("radius")
+	if self:GetCaster():HasModifier("modifier_item_aghanims_shard") then
+		radius = radius + self:GetSpecialValueFor("radius_shard_bonus")
+	end
+	return radius
 end
 
 function ability_thdots_yamame02:GetIntrinsicModifierName()
@@ -192,6 +196,9 @@ function ability_thdots_yamame02:OnSpellStart()
 	if not IsServer() then return end
 	self.caster 				= self:GetCaster()
 	self.radius  				= self:GetSpecialValueFor("radius")
+	if self.caster:HasModifier("modifier_item_aghanims_shard") then
+		self.radius = self.radius + self:GetSpecialValueFor("radius_shard_bonus")
+	end
 	self.duration  				= self:GetSpecialValueFor("duration")
 	self.damage  				= self:GetSpecialValueFor("damage") + FindTelentValue(self.caster,"special_bonus_unique_yamame_1")
 	print("do iti ew qwe")
@@ -206,7 +213,7 @@ function ability_thdots_yamame02:OnSpellStart()
 			Ability = self,
 			bDodgeable = true,
 			EffectName = "particles/econ/items/broodmother/bm_lycosidaes/bm_lycosidaes_web_cast.vpcf",
-			iMoveSpeed = 1200--self:GetSpecialValueFor("projectile_speed"),
+			iMoveSpeed = self:GetSpecialValueFor("projectile_speed"),
 		}
 		if v:HasModifier("modifier_ability_thdots_yamame03_debuff") or v:HasModifier("modifier_ability_thdots_yamameEx_debuff") then
 			ProjectileManager:CreateTrackingProjectile(info)
@@ -280,6 +287,14 @@ end
 --------------------------------------------------------
 ability_thdots_yamame03 = {}
 
+function ability_thdots_yamame03:GetCastRange()
+	local cast_range = self:GetSpecialValueFor("AbilityCastRange") + self:GetCaster():GetCastRangeBonus()
+	if self:GetCaster():HasModifier("modifier_item_aghanims_shard") then
+		cast_range = cast_range + self:GetSpecialValueFor("cast_range_shard_bonus")
+	end
+	return cast_range
+end
+
 function ability_thdots_yamame03:OnSpellStart()
 	self.caster 						= self:GetCaster()
 	if is_spell_blocked(self:GetCursorTarget(),self.caster) then return end
@@ -289,7 +304,7 @@ function ability_thdots_yamame03:OnSpellStart()
 			Ability = self,
 			bDodgeable = true,
 			EffectName = "particles/units/heroes/hero_broodmother/broodmother_web_cast.vpcf",
-			iMoveSpeed = 1200--self:GetSpecialValueFor("projectile_speed"),
+			iMoveSpeed = self:GetSpecialValueFor("projectile_speed"),
 		}
 
 		ProjectileManager:CreateTrackingProjectile(info)
@@ -339,7 +354,11 @@ function modifier_ability_thdots_yamame03_debuff:OnCreated()
 	self.damage							= self.ability:GetSpecialValueFor("damage") + FindTelentValue(self.caster,"special_bonus_unique_yamame_3")
 	self.duration						= self.ability:GetSpecialValueFor("duration")
 	self.radius							= self.ability:GetSpecialValueFor("radius")
+	if self.caster:HasModifier("modifier_item_aghanims_shard") then
+		self.radius = self.radius + self.ability:GetSpecialValueFor("radius_shard_bonus")
+	end
 	self.num							= self.ability:GetSpecialValueFor("num")
+	self.projectile_speed				= self.ability:GetSpecialValueFor("projectile_speed")
 	self:GetParent().Yamame04_IsDoneUnit = false
 	self:StartIntervalThink(1)
 	--音效
@@ -385,7 +404,7 @@ function modifier_ability_thdots_yamame03_debuff:OnDeath(keys)
 				Ability = self.ability,
 				bDodgeable = true,
 				EffectName = "particles/units/heroes/hero_broodmother/broodmother_web_cast.vpcf",
-				iMoveSpeed = 1200,
+				iMoveSpeed = self.projectile_speed,
 			}
 			ProjectileManager:CreateTrackingProjectile(info)
 		print("2")
@@ -408,7 +427,7 @@ function modifier_ability_thdots_yamame03_debuff:OnDeath(keys)
 					Ability = self.ability,
 					bDodgeable = true,
 					EffectName = "particles/units/heroes/hero_broodmother/broodmother_web_cast.vpcf",
-					iMoveSpeed = 1200,
+					iMoveSpeed = self.projectile_speed,
 				}
 				ProjectileManager:CreateTrackingProjectile(info)
 				print("4")

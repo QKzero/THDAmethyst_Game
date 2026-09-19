@@ -59,6 +59,7 @@
 			"bonus_intellect"	"3"
 			"increase_strength"	"3"
 			"bonus_resist"	"9"
+			"min_game_time"	"300"
 		}
 	}
 

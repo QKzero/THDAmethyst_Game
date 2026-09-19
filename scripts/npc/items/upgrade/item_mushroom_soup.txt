@@ -59,6 +59,7 @@
 			"bonus_intellect"	"7"
 			"increase_intellect"	"3"
 			"bonus_cooldown_reduction"	"3"
+			"min_game_time"	"300"
 		}
 	}
 

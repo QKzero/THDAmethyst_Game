@@ -607,9 +607,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"160"
+		"AttackDamageMin"	"150"
 		// Damage range max.
-		"AttackDamageMax"	"160"
+		"AttackDamageMax"	"150"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"AttackRate"	"0.9"
@@ -736,9 +736,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"160"
+		"AttackDamageMin"	"150"
 		// Damage range max.
-		"AttackDamageMax"	"160"
+		"AttackDamageMax"	"150"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"AttackRate"	"0.9"
@@ -865,9 +865,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"160"
+		"AttackDamageMin"	"150"
 		// Damage range max.
-		"AttackDamageMax"	"160"
+		"AttackDamageMax"	"150"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"AttackRate"	"0.9"
@@ -1901,9 +1901,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"160"
+		"AttackDamageMin"	"150"
 		// Damage range max.
-		"AttackDamageMax"	"160"
+		"AttackDamageMax"	"150"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"AttackRate"	"0.9"
@@ -2030,9 +2030,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"160"
+		"AttackDamageMin"	"150"
 		// Damage range max.
-		"AttackDamageMax"	"160"
+		"AttackDamageMax"	"150"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"AttackRate"	"0.9"
@@ -2159,9 +2159,9 @@
 		// ----------------------------------------------------------------
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		// Damage range min.
-		"AttackDamageMin"	"160"
+		"AttackDamageMin"	"150"
 		// Damage range max.
-		"AttackDamageMax"	"160"
+		"AttackDamageMax"	"150"
 		"AttackDamageType"	"DAMAGE_TYPE_ArmorPhysical"
 		// Speed of attack.
 		"AttackRate"	"0.9"

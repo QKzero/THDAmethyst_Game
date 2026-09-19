@@ -59,6 +59,7 @@
 			"bonus_intellect"	"3"
 			"increase_agility"	"3"
 			"bonus_speed"	"3"
+			"min_game_time"	"300"
 		}
 	}
 

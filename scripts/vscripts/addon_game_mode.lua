@@ -81,7 +81,6 @@ require ( "util/stun" )
 require ( "util/pauseunit" )
 require ( "util/silence" )
 require ( "util/magic_immune" )
-local SetupSurrenderGuard = require ( "util/setup_surrender_guard" )
 require ( "util/timers" )
 require ( "util/util" )
 require ( "util/mode_select" )
@@ -729,8 +728,6 @@ end
 
 -- 这个函数是addon_game_mode里面所写的，会在vlua.cpp执行的时候所执行的内容
 function THDOTSGameMode:InitGameMode()
-	-- 专服开局前保护未选队玩家，正式开局后恢复原生断线超时。
-	SetupSurrenderGuard:OnStateChange(GameRules:State_Get())
 	print('[THDOTS] Starting to load THDots gamemode...')
 
 	if PerfDiagnostics ~= nil then
@@ -1305,7 +1302,12 @@ function THDOTSGameMode:OnPlayerSay( keys )
 			HostSay("RespawnTime Set to "..x)
 		end
 
-		if ss[1] == "-test.createunits" and (TestMode == true or IsInToolsMode()) then
+		if ss[1] == "-test.createunits" and TestMode ~= true and not IsInToolsMode() then
+			HostSay("[test.createunits] 未开启测试模式：请先在聊天栏发 -testmode，再重发本指令")
+			return
+		end
+
+		if ss[1] == "-test.createunits" then
 			-- -test.createunits 10 npc_dota_neutral_kobold enemy
 			local num = ss[2]
 			local name = ss[3]
@@ -1326,9 +1328,94 @@ function THDOTSGameMode:OnPlayerSay( keys )
 				team = plyhd:GetTeam()
 			end
 
-			for i=1, num do
-				CreateUnitByName(name, location, true, nil, nil, team)
+			local ok, created = pcall(function()
+				for i=1, num do
+					CreateUnitByName(name, location, true, nil, nil, team)
+				end
+				return num
+			end)
+			if ok then
+				HostSay(string.format("[test.createunits] %s x%s 落在 (%.0f, %.0f)",
+					tostring(name), tostring(created), location.x, location.y))
+			else
+				HostSay("[test.createunits] 生成失败：" .. tostring(created) .. "（单位名可能不存在）")
 			end
+		end
+
+		if ss[1] == "-test.dummies" then
+			-- -test.dummies <单位名> <半径1> [半径2] ... [speed=移速] [passive=on|off]
+			-- 单位名必填；沿"英雄正前方"在每个半径处各放一个敌方木桩。
+			-- speed：基础移速，默认 0。注意引擎对最终移速有硬性下限 100，speed<100 会被 clamp 回 100；
+			-- passive：默认 on —— 关闭索敌/待机索敌/攻击并 Stop()，从根上让它站桩（不受移速下限影响）；
+			--          需要会追击的活动单位时写 passive=off。
+			if TestMode ~= true and not IsInToolsMode() then
+				HostSay("[test.dummies] 未开启测试模式：请先在聊天栏发 -testmode，再重发本指令")
+				return
+			end
+			local dummy_unit_name = ss[2]
+			if dummy_unit_name == nil or dummy_unit_name == "" then
+				HostSay("[test.dummies] 用法：-test.dummies <单位名> <半径1> [半径2] ... [speed=移速] [passive=on|off]")
+				HostSay("[test.dummies] 例：-test.dummies npc_dota_creep_badguys_melee 200 900")
+				return
+			end
+			local test_hero = plyhd:GetAssignedHero()
+			if test_hero == nil then
+				HostSay("[test.dummies] 你当前没有英雄")
+				return
+			end
+			local dummy_move_speed = 0
+			local dummy_passive = true
+			local dummy_radius_list = {}
+			for i = 3, #ss do
+				local speed_arg = string.match(ss[i], "^speed=(.+)$")
+				local passive_arg = string.match(ss[i], "^passive=(.+)$")
+				if speed_arg ~= nil then
+					local parsed_speed = tonumber(speed_arg)
+					if parsed_speed ~= nil then dummy_move_speed = parsed_speed end
+				elseif passive_arg ~= nil then
+					dummy_passive = not (passive_arg == "off" or passive_arg == "0" or passive_arg == "false")
+				else
+					local radius = tonumber(ss[i])
+					if radius ~= nil then table.insert(dummy_radius_list, radius) end
+				end
+			end
+			if #dummy_radius_list == 0 then
+				HostSay("[test.dummies] 至少要给一个半径，例：-test.dummies " .. dummy_unit_name .. " 200 900")
+				return
+			end
+			local dummy_team = 2
+			if test_hero:GetTeamNumber() == 2 then dummy_team = 3 end
+			local origin = test_hero:GetAbsOrigin()
+			local forward = test_hero:GetForwardVector()
+			local direction = Vector(forward.x, forward.y, 0)
+			if direction:Length2D() <= 0.01 then direction = Vector(1, 0, 0) end
+			direction = direction:Normalized()
+			local placed = 0
+			for _, radius in ipairs(dummy_radius_list) do
+				local location = Vector(origin.x + direction.x * radius, origin.y + direction.y * radius, origin.z)
+				local ok, dummy = pcall(function()
+					return CreateUnitByName(dummy_unit_name, location, true, nil, nil, dummy_team)
+				end)
+				if not ok or dummy == nil then
+					HostSay("[test.dummies] 生成失败：" .. tostring(dummy) .. "（单位名可能不存在）")
+				else
+					pcall(function() dummy:SetBaseMoveSpeed(dummy_move_speed) end)
+					if dummy_passive then
+						if dummy.SetAcquisitionRange ~= nil then pcall(function() dummy:SetAcquisitionRange(0) end) end
+						if dummy.SetIdleAcquire ~= nil then pcall(function() dummy:SetIdleAcquire(false) end) end
+						if dummy.SetAttackCapability ~= nil then pcall(function() dummy:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK) end) end
+						if dummy.Stop ~= nil then pcall(function() dummy:Stop() end) end
+					end
+					local read_speed = dummy_move_speed
+					local ok_speed, actual_speed = pcall(function() return dummy:GetBaseMoveSpeed() end)
+					if ok_speed and actual_speed ~= nil then read_speed = actual_speed end
+					local pos = dummy:GetAbsOrigin()
+					HostSay(string.format("[test.dummies] %s 半径 %.0f → 实际 (%.0f, %.0f)，距离 %.0f；基础移速 参数%.0f/实际%.0f；被动站桩 %s",
+						dummy_unit_name, radius, pos.x, pos.y, GetDistanceBetweenTwoVec2D(origin, pos), dummy_move_speed, read_speed, tostring(dummy_passive)))
+					placed = placed + 1
+				end
+			end
+			HostSay(string.format("[test.dummies] 放置 %d 个（方向=英雄正前方）", placed))
 		end
 
 		if GameRules:State_Get() == 2 and text == "-rankdc" and not THD2_GetBotMode() and not RDC_MODE and not BP_MODE then
@@ -2672,7 +2759,6 @@ G_Player_randomed = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 
 function THDOTSGameMode:OnGameRulesStateChange(keys)
 	local newState = GameRules:State_Get()
-	SetupSurrenderGuard:OnStateChange(newState)
 	if newState == 2 then -- CUSTOM_GAME_SETUP / shuffle
 		-- WebApi:SetTesting(true)
 		WebApi:BeforeMatch(THD2_Rating_Catcher)

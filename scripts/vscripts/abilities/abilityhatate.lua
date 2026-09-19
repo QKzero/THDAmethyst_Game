@@ -172,10 +172,23 @@ end
 --]]
 
 function Hatate02OnSpellStart(keys)
+    if not IsServer() then return end
+
     local caster = keys.caster
-    local targetPoint = keys.target_points[1]
+    local ability = keys.ability
+    local targetPoint = keys.target_points ~= nil and keys.target_points[1] or nil
     if targetPoint == nil then
-        targetPoint = keys.ability:GetCursorPosition()
+        targetPoint = ability:GetCursorPosition()
+    end
+    if targetPoint == nil then
+        return
+    end
+    -- 数值兜底：datadriven 的 %token 若解析失败，退化为直接取 AbilityValues，避免 nil 进引擎
+    local radius = keys.radius or ability:GetSpecialValueFor("radius")
+    local duration = keys.duration or ability:GetSpecialValueFor("duration")
+    local base_damage = keys.damage or ability:GetSpecialValueFor("damage")
+    if radius == nil or duration == nil or base_damage == nil then
+        return
     end
     -- ɵ����Ч��������,�����Ŵ��ܷ�Χ�ķ���
     --[[
@@ -184,27 +197,36 @@ function Hatate02OnSpellStart(keys)
 		radius = radius + caster:GetContext("radius_bonus")
 	end
 	]]
-    local max_stack = keys.max_stack
+    local max_stack = keys.max_stack or ability:GetSpecialValueFor("max_stack")
     if caster:GetContext("stack_bonus") ~= nil then
         max_stack = max_stack + caster:GetContext("stack_bonus")
     end
     caster:EmitSound("Voice_Thdots_Hatate.AbilityHatate02")
     local dummy = CreateUnitByName("npc_dummy_unit", targetPoint, false, caster, caster, caster:GetTeam())
-    local ability_dummy_unit = dummy:FindAbilityByName("ability_dummy_unit")
-    ability_dummy_unit:SetLevel(1)
-    local effectIndex = ParticleManager:CreateParticle(
-        "particles/units/heroes/hero_void_spirit/dissimilate/void_spirit_dissimilate_dmg_shock.vpcf",
-        PATTACH_CUSTOMORIGIN_FOLLOW, dummy)
-    ParticleManager:DestroyParticleSystem(effectIndex, false)
-    local effectIndex2 = ParticleManager:CreateParticle(
-        "particles/units/heroes/hero_void_spirit/dissimilate/void_spirit_dissimilate_dmg_shock.vpcf",
-        PATTACH_CUSTOMORIGIN_FOLLOW, dummy)
-    ParticleManager:DestroyParticleSystem(effectIndex2, false)
-    -- local effectIndex3 = ParticleManager:CreateParticle("particles/items_fx/ethereal_blade.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, caster)
-    -- ParticleManager:DestroyParticleSystem(effectIndex3, false)
-    dummy:ForceKill(true)
-    local targets = FindUnitsInRadius(caster:GetTeam(), targetPoint, nil, keys.radius,
-        keys.ability:GetAbilityTargetTeam(), keys.ability:GetAbilityTargetType(), 0, 0, false)
+    if dummy ~= nil then
+        local ability_dummy_unit = dummy:FindAbilityByName("ability_dummy_unit")
+        if ability_dummy_unit ~= nil then
+            ability_dummy_unit:SetLevel(1)
+        end
+        local effectIndex = ParticleManager:CreateParticle(
+            "particles/units/heroes/hero_void_spirit/dissimilate/void_spirit_dissimilate_dmg_shock.vpcf",
+            PATTACH_CUSTOMORIGIN_FOLLOW, dummy)
+        ParticleManager:DestroyParticleSystem(effectIndex, false)
+        local effectIndex2 = ParticleManager:CreateParticle(
+            "particles/units/heroes/hero_void_spirit/dissimilate/void_spirit_dissimilate_dmg_shock.vpcf",
+            PATTACH_CUSTOMORIGIN_FOLLOW, dummy)
+        ParticleManager:DestroyParticleSystem(effectIndex2, false)
+        -- local effectIndex3 = ParticleManager:CreateParticle("particles/items_fx/ethereal_blade.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, caster)
+        -- ParticleManager:DestroyParticleSystem(effectIndex3, false)
+        -- 不在同帧销毁这个"身上挂着粒子"的 dummy：延迟一帧，避免引擎漏回收（与 2026-09-19 即效版道具同源问题）
+        Timers:CreateTimer(0.03, function()
+            if dummy ~= nil and (dummy.IsNull == nil or not dummy:IsNull()) then
+                dummy:ForceKill(true)
+            end
+        end)
+    end
+    local targets = FindUnitsInRadius(caster:GetTeam(), targetPoint, nil, radius,
+        ability:GetAbilityTargetTeam(), ability:GetAbilityTargetType(), 0, 0, false)
     local buff_count = 0
     for _, v in pairs(targets) do
         if v:IsRealHero() then
@@ -212,26 +234,28 @@ function Hatate02OnSpellStart(keys)
         end
     end
     if caster:HasModifier("modifier_ability_thdots_hatate02_buff") then
-        local stack = caster:GetModifierStackCount("modifier_ability_thdots_hatate02_buff", caster)
+        local stack = caster:GetModifierStackCount("modifier_ability_thdots_hatate02_buff", caster) or 0
         caster:SetModifierStackCount("modifier_ability_thdots_hatate02_buff", caster, stack + buff_count)
     end
-    keys.ability:ApplyDataDrivenModifier(caster, caster, "modifier_ability_thdots_hatate02_buff", {
-        Duration = keys.duration
+    ability:ApplyDataDrivenModifier(caster, caster, "modifier_ability_thdots_hatate02_buff", {
+        Duration = duration
     })
-    if caster:GetModifierStackCount("modifier_ability_thdots_hatate02_buff", caster) == 0 then
+    local buff_stack = caster:GetModifierStackCount("modifier_ability_thdots_hatate02_buff", caster) or 0
+    if buff_stack == 0 then
         caster:SetModifierStackCount("modifier_ability_thdots_hatate02_buff", caster, buff_count)
-    elseif caster:GetModifierStackCount("modifier_ability_thdots_hatate02_buff", caster) > max_stack then
+    elseif buff_stack > max_stack then
         caster:SetModifierStackCount("modifier_ability_thdots_hatate02_buff", caster, max_stack)
     end
+    local final_stack = caster:GetModifierStackCount("modifier_ability_thdots_hatate02_buff", caster) or 0
     for _, v in pairs(targets) do
         local attack = 0
-        keys.ability:ApplyDataDrivenModifier(caster, v, "modifier_ability_thdots_hatate02_debuff", {
-            Duration = keys.duration
+        ability:ApplyDataDrivenModifier(caster, v, "modifier_ability_thdots_hatate02_debuff", {
+            Duration = duration
         })
         local effectIndex = ParticleManager:CreateParticle(
             "particles/econ/items/invoker/invoker_ti6/invoker_deafening_blast_ti6_knockback_debuff.vpcf",
             PATTACH_ABSORIGIN_FOLLOW, v)
-        ParticleManager:DestroyParticleSystemTime(effectIndex, keys.duration)
+        ParticleManager:DestroyParticleSystemTime(effectIndex, duration)
         for i = 0, 5 do
             local item = caster:GetItemInSlot(i)
             if (item ~= nil) then
@@ -242,11 +266,11 @@ function Hatate02OnSpellStart(keys)
             end
         end
         local damage_table = {
-            ability = keys.ability,
+            ability = ability,
             victim = v,
             attacker = caster,
-            damage = keys.damage * (1 + caster:GetModifierStackCount("modifier_ability_thdots_hatate02_buff", caster)),
-            damage_type = keys.ability:GetAbilityDamageType(),
+            damage = base_damage * (1 + final_stack),
+            damage_type = ability:GetAbilityDamageType(),
             damage_flags = 0
         }
         UnitDamageTarget(damage_table)
@@ -255,13 +279,18 @@ function Hatate02OnSpellStart(keys)
 end
 
 function Hatate02OnAttackLanded(keys)
+    if not IsServer() then return end
+
     local target = keys.target
-    if keys.target:HasModifier("modifier_ability_thdots_hatate02_debuff") then
+    if target == nil or keys.attacker == nil or keys.ability == nil then
+        return
+    end
+    if target:HasModifier("modifier_ability_thdots_hatate02_debuff") then
         local damage_table = {
             ability = keys.ability,
             victim = target,
             attacker = keys.attacker,
-            damage = keys.damage,
+            damage = keys.damage or keys.ability:GetSpecialValueFor("damage"),
             damage_type = keys.ability:GetAbilityDamageType(),
             damage_flags = 1
         }

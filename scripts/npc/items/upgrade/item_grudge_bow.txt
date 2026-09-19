@@ -140,7 +140,24 @@
 				"Passive"	"1"
 				"IsHidden"	"1"
 				"RemoveOnDeath"	"0"
-				"OnCreated"	{}
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_grudge_bow.lua"
+						"Function"		"ItemAbility_Grudge_Bow_ProjectileSpeed_OnCreated"
+						"ModifierName"	"modifier_item_grudge_bow_projectile_speed"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/items/item_grudge_bow.lua"
+						"Function"		"ItemAbility_Grudge_Bow_ProjectileSpeed_OnDestroy"
+						"ModifierName"	"modifier_item_grudge_bow_projectile_speed"
+					}
+				}
 				
 				"Properties"
 				{
@@ -149,7 +166,6 @@
 					"MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"		"%bonus_mana_regen"
 					// "MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"	"%bonus_damage"
 					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
-					"MODIFIER_PROPERTY_PROJECTILE_SPEED_BONUS"	"%projectile_speed"
 					// "MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%bonus_hp_regen"
 					// "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%bonus_armor"
 				}

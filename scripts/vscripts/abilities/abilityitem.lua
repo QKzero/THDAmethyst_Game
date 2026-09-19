@@ -1652,45 +1652,6 @@ function ItemAbility_DragonStar_Purge(keys)
 
 end
 
-function ItemAbility_mushroom_kebab_OnSpellStart(keys)
-    local ItemAbility = keys.ability
-    local Caster = keys.caster
-    if GameRules:GetDOTATime(false, false) < 300 then
-        return
-    end
-    Caster:SetBaseStrength(Caster:GetBaseStrength() + keys.IncreaseStrength)
-    if (ItemAbility:IsItem()) then
-        UTIL_Remove(ItemAbility)
-        -- ItemAbility:Kill()
-    end
-end
-
-function ItemAbility_mushroom_pie_OnSpellStart(keys)
-    local ItemAbility = keys.ability
-    local Caster = keys.caster
-    if GameRules:GetDOTATime(false, false) < 300 then
-        return
-    end
-    Caster:SetBaseAgility(Caster:GetBaseAgility() + keys.IncreaseAgility)
-    if (ItemAbility:IsItem()) then
-        UTIL_Remove(ItemAbility)
-        -- ItemAbility:Kill()
-    end
-end
-
-function ItemAbility_mushroom_soup_OnSpellStart(keys)
-    local ItemAbility = keys.ability
-    local Caster = keys.caster
-    if GameRules:GetDOTATime(false, false) < 300 then
-        return
-    end
-    Caster:SetBaseIntellect(Caster:GetBaseIntellect() + keys.IncreaseIntellect)
-    if (ItemAbility:IsItem()) then
-        UTIL_Remove(ItemAbility)
-        -- ItemAbility:Kill()
-    end
-end
-
 function ItemAbility_HorseKing_OnOpen_SpendMana(keys)
     local ItemAbility = keys.ability
     local Caster = keys.caster
