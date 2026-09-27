@@ -5396,11 +5396,11 @@
 		"DOTA_Tooltip_modifier_ability_thdots_kokoro01_debuff"		"Roaring Youkai Fox Mask"
 		"DOTA_Tooltip_modifier_ability_thdots_kokoro01_debuff_Description"		"Prevented from using items."
 		"DOTA_Tooltip_modifier_ability_thdots_kokoro01_movespeed_buff"		"Roaring Youkai Fox Mask"
-		"DOTA_Tooltip_modifier_ability_thdots_kokoro01_movespeed_buff_Description"		"Gain move speed bonus."
+		"DOTA_Tooltip_modifier_ability_thdots_kokoro01_movespeed_buff_Description"		"Gain attack damage bonus and lifesteal on attack."
 		"DOTA_Tooltip_modifier_ability_thdots_kokoro02_debuff"		"Enraptured Hyottoko Mask"
 		"DOTA_Tooltip_modifier_ability_thdots_kokoro02_debuff_Description"		"Movement speed slowed."
 		"DOTA_Tooltip_modifier_ability_thdots_kokoro03_movespeed_buff"		"Melancholic Ogress Mask"
-		"DOTA_Tooltip_modifier_ability_thdots_kokoro03_movespeed_buff_Description"		"Gain move speed bonus."
+		"DOTA_Tooltip_modifier_ability_thdots_kokoro03_movespeed_buff_Description"		"Gain move speed and attack speed bonus."
 		"DOTA_Tooltip_modifier_ability_thdots_kokoro03_release"		"Melancholic Ogress Mask"
 		"DOTA_Tooltip_modifier_ability_thdots_kokoro03_release_Description"		"Can be cast again to teleport."
 		"DOTA_Tooltip_modifier_ability_thdots_kokoro04_caster_wanbaochui"		"「Dance of the Empty-Hearted Masks: Noh of Darkness」"
@@ -5409,6 +5409,7 @@
 		// KokoroEX
 		"DOTA_Tooltip_ability_ability_thdots_kokoroEx"								"Possession「Four Humors Possession」"
 		"DOTA_Tooltip_ability_ability_thdots_kokoroEx_Description"					"Possesses enemies girls within %radius% range, converting damage dealt by Kokoro's attacks and spells to pure damage."
+		"DOTA_Tooltip_ability_ability_thdots_kokoroEx_Lore"							"Item damage is not converted to pure damage."
 		"DOTA_Tooltip_ability_ability_thdots_kokoroEx_duration"						"DURATION: "
 
 		// Kokoro01

@@ -29,6 +29,7 @@
 			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_magnataur.vsndevts"
 			"particle"	"particles/units/heroes/hero_magnataur/magnataur_skewer_debuff.vpcf"
 			"particle"	"particles/units/heroes/hero_magnataur/magnataur_skewer.vpcf"
+			"particle"	"particles/heroes/meirin/meirin01_skewer_range_finder.vpcf"
 		}
 		// Special
 		// -------------------------------------------------------------------------------------------------------------
@@ -37,11 +38,8 @@
 			"skewer_speed"	"950"
 			"range"	"887 982 1077 1172"
 			"slow_pct_notuse"	"-25 -30 -35 -40"
-			"skewer_radius"
-			{
-				"value"			"125"
-				"affected_by_aoe_increase"	"1"
-			}
+			// 判定宽度：Lua 侧直线扫描半径使用（保持 75，且不随 AOE 加成变化）
+			"skewer_radius"	"75"
 			"slow_duration"	"0.1"
 			"skewer_damage"	"70 140 210 280"
 			"hero_offset"	"200"

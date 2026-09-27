@@ -14,7 +14,7 @@
 		"AnimationPlaybackRate"	"1.5"
 		"AbilityCooldown"	"18 16 14 12"
 		"AbilityManaCost"	"80"
-		"AbilityCastRange"	"0"
+		"AbilityCastRange"	"500 600 700 800"
 		"precache"
 		{
 			"particle"	"particles/heroes/kokoro/kokoro_ability01_step.vpcf"
@@ -27,7 +27,6 @@
 			"cast_range"	"500 600 700 800"
 			"duration"	"1"
 			"damage"	"50 80 110 140"
-			"movespeed"	"30"
 			"movespeed_duraiton"	"4"
 			"you_duration"	"1"
 			"life_steal"	"30"
@@ -106,6 +105,7 @@
 			"knockback_duration"	"0.5"
 			"knockback_distance"	"300 400 500 600"
 			"knockback_height"	"50 100 150 200"
+			"xi_knockback_multiplier"	"2"
 			"movespeed"	"30"
 			"movespeed_duraiton"	"3"
 			"radius"
@@ -152,10 +152,10 @@
 			"damage"	"0.5 0.7 0.9"
 			"buyback_time"	"20 40 60"
 			"xi_damage"	"100 250 400"
-			"wanbaochui_duraion"	"3 3.75 4.5"
-			"wanbaochui_xi_duration"	"1.5"
-			"life_steal"	"40"
-			"wanbaochui_xi_stun_duration"	"1.5"
+			"dash_extra_distance"	"300"
+			"projectile_radius"	"150"
+			"projectile_speed"	"7500"
+			"projectile_expire_time"	"10"
 		}
 	}
 
@@ -187,6 +187,9 @@
 			"xi_duration"	"1.5"
 			"life_steal"	"40"
 			"stun_duration"	"1.5"
+			"search_radius"	"500"
+			"stun_radius"	"600"
+			"idle_tolerance"	"0.2"
 		}
 	}
 
@@ -204,7 +207,6 @@
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_5"
 		"AnimationPlaybackRate"	"2"
 		"AbilityCooldown"	"160"
-		"AbilityCastRange"	"600"
 		"precache"
 		{
 			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_grimstroke.vsndevts"
@@ -248,24 +250,6 @@
 			"strength_bonus"	"0.2"
 			"agility_bonus"	"0.5"
 			"intellect_bonus"	"0.075"
-		}
-	}
-
-	"ability_thdots_kokoro03_release"
-	{
-		"BaseClass"	"ability_lua"
-		"ScriptFile"	"scripts/vscripts/abilities/abilitykokoro.lua"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
-		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
-		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_BOTH"
-		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
-		"AbilityTextureName"	"custom/ability_thdots_kokoro03_release"
-		"AbilityCastPoint"	"0.2"
-		"MaxLevel"	"1"
-		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_7"
-		"precache"
-		{
-			"particle"	"particles/econ/events/ti9/blink_dagger_ti9_start_lvl2.vpcf"
 		}
 	}
 

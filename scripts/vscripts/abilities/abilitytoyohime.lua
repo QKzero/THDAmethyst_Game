@@ -220,29 +220,43 @@ end
 
 --------------------------------------------------------------------------------
 -- Ability Custom Indicator (using CustomIndicator library, this section is Client Lua only)
-function ability_thdots_toyohime01:CreateCustomIndicator()
+local TOYOHIME01_INDICATOR_PADDING = 100
+function ability_thdots_toyohime01:CreateCustomIndicator(location)
+	--先回收上一次的粒子，避免重复瞄准时叠加残留（END 事件不保证到达）
+	self:DestroyCustomIndicator()
 	local particle_cast = "particles/thd2/heroes/toyohime/hero_snapfire_shotgun_range_finder_aoe.vpcf"
 	self.effect_cast = ParticleManager:CreateParticle(particle_cast, PATTACH_ABSORIGIN_FOLLOW, self:GetCaster())
+	--创建时立即写入控制点：否则粒子按默认控制点(0)绘制，表现为"从英雄指向地图原点的定长矩形"
+	if location ~= nil then
+		self:UpdateCustomIndicator(location)
+	end
 end
 
 function ability_thdots_toyohime01:UpdateCustomIndicator(loc)
-	-- get data
-	local origin = self:GetCaster():GetAbsOrigin()
+	if self.effect_cast == nil or loc == nil then return end
+	local caster = self:GetCaster()
+	if caster == nil or caster:IsNull() then return end
+	local origin = caster:GetAbsOrigin()
 
-	-- get direction
+	-- get direction（鼠标压在脚下时退回朝向，避免零向量归一化）
 	local direction = loc - origin
 	direction.z = 0
+	if direction:Length2D() < 1 then
+		direction = caster:GetForwardVector()
+		direction.z = 0
+	end
 	direction = direction:Normalized()
 
 	ParticleManager:SetParticleControl(self.effect_cast, 0, origin)
-	ParticleManager:SetParticleControl(self.effect_cast, 1, origin + direction * (self:GetCastRange(loc, nil) + 100))
+	ParticleManager:SetParticleControl(self.effect_cast, 1, origin + direction * (self:GetCastRange(loc, nil) + TOYOHIME01_INDICATOR_PADDING))
 	ParticleManager:SetParticleControl(self.effect_cast, 6, origin)
 end
 
 function ability_thdots_toyohime01:DestroyCustomIndicator()
-	print("destroy")
+	if self.effect_cast == nil then return end
 	ParticleManager:DestroyParticle(self.effect_cast, true)
 	ParticleManager:ReleaseParticleIndex(self.effect_cast)
+	self.effect_cast = nil
 end
 
 --------------------------------------------------------------------------------
