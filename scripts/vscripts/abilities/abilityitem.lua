@@ -1689,6 +1689,8 @@ function ItemAbility_DonationBox_OnSpellStart(keys)
     Caster:ModifyGold(keys.BonusGold, true, DOTA_ModifyGold_Death)
     Target:Kill(ItemAbility, Caster)
     SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, Caster, keys.BonusGold, nil)
+    -- 有效使用计数：放在豁免分支（EndCooldown 提前 return）之后，口径 = 实际消耗的充能
+    ItemAbility_DonationBox_AddIncome(Caster, 1)
     Caster:AddExperience(180, DOTA_ModifyXP_CreepKill, false, false)
 
     local effectIndex = ParticleManager:CreateParticle("particles/thd2/items/item_donation_box.vpcf",
@@ -1720,11 +1722,13 @@ function ItemAbility_DonationGem_BounsGold(keys)
         Caster.ItemAbility_DonationGem_TriggerTime = GameRules:GetGameTime()
         Caster:ModifyGold(GoldBountyAmount, false, DOTA_ModifyGold_AbilityGold)
         SendOverheadEventMessage(Caster:GetOwner(), OVERHEAD_ALERT_GOLD, Caster, GoldBountyAmount, nil)
+        ItemAbility_DonationGem_AddIncome(Caster, GoldBountyAmount)
 
         -- Neutral creep
         if Target:IsCreep() and Target:IsNeutralUnitType() then
             Caster:ModifyGold(GoldBountyCreepAmount, false, DOTA_ModifyGold_AbilityGold)
             SendOverheadEventMessage(Caster:GetOwner(), OVERHEAD_ALERT_GOLD, Caster, GoldBountyCreepAmount, nil)
+            ItemAbility_DonationGem_AddIncome(Caster, GoldBountyCreepAmount)
         end
 
         local effectIndex = ParticleManager:CreateParticle(
@@ -1783,13 +1787,41 @@ function ItemAbility_PresentBox_RestoreGold(keys)
     end
 end
 
-function ItemAbility_PresentBox_OnInterval(keys)
-    local ItemAbility = keys.ability
-    local Caster = keys.caster
-    local CasterPlayerID = Caster:GetPlayerOwnerID()
-    -- DebugPrint("now:"..PlayerResource:GetUnreliableGold(CasterPlayerID).."+"..keys.GiveGoldAmount)
-    PlayerResource:SetGold(CasterPlayerID, PlayerResource:GetUnreliableGold(CasterPlayerID) + keys.GiveGoldAmount, false)
-    -- SendOverheadEventMessage(Caster:GetOwner(),OVERHEAD_ALERT_GOLD,Caster,keys.GiveGoldAmount,nil)
+-- 收益统计（仅用于自绘 HUD：服务端只发给本人，不写进物品属性/修正器）
+local INCOME_STAT_PRESENT_BOX = "present_box"
+local INCOME_STAT_LIFU = "lifu"
+local INCOME_STAT_DONATION_GEM = "donation_gem" -- 纳税用阴阳玉：累计额外金钱
+local INCOME_STAT_DONATION_BOX = "donation_box" -- 博丽供奉箱：有效使用次数
+local INCOME_STAT_START_STATE = DOTA_GAMERULES_STATE_GAME_IN_PROGRESS -- 真正开局（0:00 之后）才累计
+local INCOME_STAT_CHARGE_PREFIX = "income_" -- ChargeManager 里的键前缀
+
+function ItemAbility_IncomeStat_Add(caster, statKey, amount)
+    if not IsServer() then return end
+    if caster == nil or caster:IsNull() or amount == nil then return end
+    if not caster:IsRealHero() then return end
+    if GameRules:State_Get() < INCOME_STAT_START_STATE then return end
+    local ChargeKey = INCOME_STAT_CHARGE_PREFIX .. statKey
+    local Total = (ChargeManager:GetCharges(caster, ChargeKey) or 0) + amount
+    ChargeManager:SetCharges(caster, ChargeKey, Total)
+    local Player = PlayerResource:GetPlayer(caster:GetPlayerOwnerID())
+    if Player == nil then return end
+    CustomGameEventManager:Send_ServerToPlayer(Player, "thd_income_stat", { key = statKey, total = Total })
+end
+
+function ItemAbility_PresentBox_AddIncome(caster, amount)
+    ItemAbility_IncomeStat_Add(caster, INCOME_STAT_PRESENT_BOX, amount)
+end
+
+function ItemAbility_Lifu_AddIncome(caster, amount)
+    ItemAbility_IncomeStat_Add(caster, INCOME_STAT_LIFU, amount)
+end
+
+function ItemAbility_DonationGem_AddIncome(caster, amount)
+    ItemAbility_IncomeStat_Add(caster, INCOME_STAT_DONATION_GEM, amount)
+end
+
+function ItemAbility_DonationBox_AddIncome(caster, amount)
+    ItemAbility_IncomeStat_Add(caster, INCOME_STAT_DONATION_BOX, amount)
 end
 
 function ItemAbility_Lifu_RestoreGold(keys)
@@ -1809,8 +1841,12 @@ function ItemAbility_Lifu_OnInterval(keys)
     local Caster = keys.caster
     local CasterPlayerID = Caster:GetPlayerOwnerID()
     -- DebugPrint("now:"..PlayerResource:GetUnreliableGold(CasterPlayerID).."+"..keys.GiveGoldAmount)
-    PlayerResource:SetGold(CasterPlayerID, PlayerResource:GetUnreliableGold(CasterPlayerID) + keys.GiveGoldAmount, false)
-    -- SendOverheadEventMessage(Caster:GetOwner(),OVERHEAD_ALERT_GOLD,Caster,keys.GiveGoldAmount,nil)
+    -- 与计数使用同一门槛：开局（0:00）之前不跳钱，保证"跳钱"与"计数"一一对应、起点一致
+    if GameRules:State_Get() >= INCOME_STAT_START_STATE then
+        PlayerResource:SetGold(CasterPlayerID, PlayerResource:GetUnreliableGold(CasterPlayerID) + keys.GiveGoldAmount, false)
+        -- SendOverheadEventMessage(Caster:GetOwner(),OVERHEAD_ALERT_GOLD,Caster,keys.GiveGoldAmount,nil)
+        ItemAbility_Lifu_AddIncome(Caster, keys.GiveGoldAmount)
+    end
 end
 
 function ItemAbility_PresentBox_OnInterval(keys)
@@ -1818,8 +1854,12 @@ function ItemAbility_PresentBox_OnInterval(keys)
     local Caster = keys.caster
     local CasterPlayerID = Caster:GetPlayerOwnerID()
     -- DebugPrint("now:"..PlayerResource:GetUnreliableGold(CasterPlayerID).."+"..keys.GiveGoldAmount)
-    PlayerResource:SetGold(CasterPlayerID, PlayerResource:GetUnreliableGold(CasterPlayerID) + keys.GiveGoldAmount, false)
-    -- SendOverheadEventMessage(Caster:GetOwner(),OVERHEAD_ALERT_GOLD,Caster,keys.GiveGoldAmount,nil)
+    -- 与计数使用同一门槛：开局（0:00）之前不跳钱，保证"跳钱"与"计数"一一对应、起点一致
+    if GameRules:State_Get() >= INCOME_STAT_START_STATE then
+        PlayerResource:SetGold(CasterPlayerID, PlayerResource:GetUnreliableGold(CasterPlayerID) + keys.GiveGoldAmount, false)
+        -- SendOverheadEventMessage(Caster:GetOwner(),OVERHEAD_ALERT_GOLD,Caster,keys.GiveGoldAmount,nil)
+        ItemAbility_PresentBox_AddIncome(Caster, keys.GiveGoldAmount)
+    end
 end
 
 function ItemAbility_Peach_OnTakeDamage(keys)

@@ -72,7 +72,7 @@
 			{
 				// "Attributes"	"MODIFIER_ATTRIBUTE_PERMANENT"
 				"Passive"	"1"
-				// "IsHidden"	"1"
+				"IsHidden"	"1"
 				"RemoveOnDeath"	"0"
 				"ThinkInterval"	"%give_gold_interval"
 				"AllowIllusionDuplicate" "0"
