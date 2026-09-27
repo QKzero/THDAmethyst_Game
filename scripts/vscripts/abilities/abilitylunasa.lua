@@ -5,8 +5,30 @@ LUNASAEX_BONUS_COUNT = nil --提琴EX层数记录
 function lunasa01OnSpellStart(keys)
 	-- body
 	local caster = EntIndexToHScript(keys.caster_entindex)
-	local targetPoint = caster:GetOrigin()
-	local vec = caster:GetForwardVector()
+	local origin = caster:GetOrigin()
+	local targetPoint = origin
+	--施法方向 = 施法者 → 玩家点击的点。
+	--不能用 caster:GetForwardVector()：前摇（AbilityCastPoint）很短或有施法速度加成时，
+	--施法者来不及转身（朝身后 180° 施法时最明显），会按旧朝向打出去、方向与预期严重不符。
+	--取点用 keys.ability:GetCursorPosition()（本库数据驱动点选技能的通行写法，如水蜜 1 技能）。
+	--注意：**不要用 keys.target_points**——7.39e 下它可能取到零向量/失效，会让方向恒定跑偏。
+	local cast_point = keys.ability:GetCursorPosition()
+	if cast_point == nil or cast_point:Length2D() <= 1 then
+		local ok_order, order_point = pcall(caster.GetOrderTargetPosition, caster)
+		if ok_order and order_point ~= nil then
+			cast_point = order_point
+		end
+	end
+	local vec = nil
+	if cast_point ~= nil and cast_point:Length2D() > 1 then
+		local dir = Vector(cast_point.x - origin.x, cast_point.y - origin.y, 0)
+		if dir:Length2D() > 1 then
+			vec = dir:Normalized()
+		end
+	end
+	if vec == nil then --兜底：取不到有效点（或点落在自身脚下）时退回施法者朝向
+		vec = caster:GetForwardVector()
+	end
 	-- 实际生效距离 = 基础施法距离(KV range) + 施法者的施法距离加成，与施法指示器保持一致
 	local distance = keys.range + caster:GetCastRangeBonus()
 

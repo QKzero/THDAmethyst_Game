@@ -48,6 +48,39 @@ local BEHAVIOR_EVENT_START = 0;
 local BEHAVIOR_EVENT_UPDATE = 1;
 local BEHAVIOR_EVENT_END = 2;
 
+--兜底自检：panorama 侧的 END 事件并非总能到达（例如带自动施法的技能，点击行为会一直停在施法态），
+--失去更新超过该秒数就主动回收指示器，避免"永久残留的指示器"
+local INDICATOR_STALE_TIME = 0.25
+
+local function IndicatorNow()
+	local ok, t = pcall(GameRules.GetGameTime, GameRules)
+	if ok and type(t) == "number" then return t end
+	return 0
+end
+
+local function StartIndicatorWatchdog( ability )
+	if ability.indicator_watchdog then return end
+	local caster = ability:GetCaster()
+	if caster == nil or caster:IsNull() then return end
+	ability.indicator_watchdog = true
+	local ok = pcall(function()
+		caster:SetContextThink("custom_indicator_watchdog_" .. tostring(ability:entindex()), function()
+			if ability.indicator_watchdog ~= true then return nil end
+			if IndicatorNow() - (ability.indicator_last_update or 0) > INDICATOR_STALE_TIME then
+				if ability.DestroyCustomIndicator then
+					ability:DestroyCustomIndicator()
+				end
+				ability.indicator_watchdog = nil
+				return nil
+			end
+			return 0.1
+		end, INDICATOR_STALE_TIME)
+	end)
+	if not ok then
+		ability.indicator_watchdog = nil
+	end
+end
+
 if not CustomIndicator then
 	CustomIndicator = {}
 end
@@ -69,6 +102,14 @@ function CustomIndicator:PanoramaListener( data )
 	local ability = self.listeners[ data.ability ]
 	if ability then
 		local pos = Vector( data.worldX, data.worldY, data.worldZ )
+		--鼠标压在 UI 上时 GetScreenWorldPosition 会返回 (0,0,0)，会把指示器画向地图原点；
+		--此时退回施法者坐标（得到零长度/朝向的指示器，而不是方向错误的残留）
+		if data.worldX == 0 and data.worldY == 0 and data.worldZ == 0 then
+			local caster = ability:GetCaster()
+			if caster ~= nil and caster:IsNull() == false then
+				pos = caster:GetAbsOrigin()
+			end
+		end
 		local unit = nil
 		if data.unit then
 			unit = EntIndexToHScript( data.unit )
@@ -78,14 +119,18 @@ function CustomIndicator:PanoramaListener( data )
 			if ability.CreateCustomIndicator then
 				ability:CreateCustomIndicator( pos, unit, data.behavior )
 			end
+			ability.indicator_last_update = IndicatorNow()
+			StartIndicatorWatchdog( ability )
 		elseif data.event==BEHAVIOR_EVENT_UPDATE then
 			if ability.UpdateCustomIndicator then
 				ability:UpdateCustomIndicator( pos, unit, data.behavior )
 			end
+			ability.indicator_last_update = IndicatorNow()
 		elseif data.event==BEHAVIOR_EVENT_END then
 			if ability.DestroyCustomIndicator then
 				ability:DestroyCustomIndicator( pos, unit, data.behavior )
 			end
+			ability.indicator_watchdog = nil
 		end
 	end
 end

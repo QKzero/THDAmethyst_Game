@@ -68,18 +68,86 @@ end
 
 ability_thdots_meirin01 = {}
 local MEIRIN01_INTERVAL = 0.03
+local MEIRIN01_SCAN_BUFFER = 10
 
 function ability_thdots_meirin01:GetCastRange(location, target)
-    if IsServer() then
+    if not IsClient() then
         return 0
+    end --服务端不设点选上限（真实距离在 OnSpellStart 自算并 clamp）
+    --客户端只返回 KV 基础值：引擎会在本函数返回值之上再叠加一次"施法距离加成池"（实测：
+    --带 +175 施法距离道具时，HUD 显示 1172+175*2，说明叠加对象正是本返回值）。
+    --因此这里自己再加一次会变成双倍；返回值也绝不能是 0（点选技拿到 0 会永远放不出来）
+    return self:GetSpecialValueFor("range")
+end
+
+--自绘施法指示器（客户端 Lua，走本库 CustomIndicator 框架）：马格纳斯同款"带宽度矩形条"，
+--长度=施法距离（含装备/天赋加成），方向随鼠标；参考 ability_thdots_toyohime01 的写法
+function ability_thdots_meirin01:Spawn()
+    if not IsServer() then
+        CustomIndicator:RegisterAbility(self)
+        return
     end
+end
+
+function ability_thdots_meirin01:CreateCustomIndicator(location)
+    local caster = self:GetCaster()
+    if caster == nil or caster:IsNull() then return end
+    --同一技能可能被重复触发 START，先清掉旧粒子，避免叠加残留
+    self:DestroyCustomIndicator()
+    --专用指示器粒子：恒定带宽 75（=判定半径，视觉带宽 150），长度由控制点 0→1 决定
+    local particle = "particles/heroes/meirin/meirin01_skewer_range_finder.vpcf"
+    self.indicator_particle = ParticleManager:CreateParticle(particle, PATTACH_ABSORIGIN_FOLLOW, caster)
+    if location ~= nil then
+        self:UpdateCustomIndicator(location)
+    end
+end
+
+function ability_thdots_meirin01:UpdateCustomIndicator(location)
+    if self.indicator_particle == nil or location == nil then return end
+    local caster = self:GetCaster()
+    if caster == nil or caster:IsNull() then return end
+    local origin = caster:GetAbsOrigin()
+    local direction = location - origin
+    direction.z = 0
+    if direction:Length2D() < 1 then
+        --鼠标压在脚下时退回朝向，避免零向量归一化
+        direction = caster:GetForwardVector()
+        direction.z = 0
+    end
+    direction = direction:Normalized()
+    --长度=当前鼠标距离，上限=极限施法距离（KV 基础值 + 装备/天赋的施法距离加成，与 OnSpellStart 的 clamp 同一口径）
+    local length = (location - origin):Length2D()
+    local max_range = self:GetSpecialValueFor("range")
+    local ok_bonus, bonus = pcall(caster.GetCastRangeBonus, caster)
+    if ok_bonus and type(bonus) == "number" then
+        max_range = max_range + bonus
+    end
+    if length > max_range then
+        length = max_range
+    end
+    ParticleManager:SetParticleControl(self.indicator_particle, 0, origin)
+    ParticleManager:SetParticleControl(self.indicator_particle, 1, origin + direction * length)
+    ParticleManager:SetParticleControl(self.indicator_particle, 6, origin)
+end
+
+function ability_thdots_meirin01:DestroyCustomIndicator()
+    if self.indicator_particle == nil then return end
+    ParticleManager:DestroyParticle(self.indicator_particle, true)
+    ParticleManager:ReleaseParticleIndex(self.indicator_particle)
+    self.indicator_particle = nil
 end
 
 function ability_thdots_meirin01:OnSpellStart()
     local caster = self:GetCaster()
-    local range = self:GetLevelSpecialValueFor("range", self:GetLevel() - 1)
+    --突进上限 = KV 基础值 + 装备/天赋的施法距离加成（与客户端指示器同一口径）；
+    --再尝试用"引擎自身的施法距离"兜底，引擎调用用 pcall 包住，取不到就沿用上面的值（不影响本次施法）
+    local range = self:GetLevelSpecialValueFor("range", self:GetLevel() - 1) + caster:GetCastRangeBonus()
     local skewer_speed = self:GetLevelSpecialValueFor("skewer_speed", self:GetLevel() - 1)
     local targetPoint = self:GetCursorPosition()
+    local ok, engine_range = pcall(self.BaseClass.GetCastRange, self, targetPoint)
+    if ok and type(engine_range) == "number" and engine_range > range then
+        range = engine_range
+    end
 
     caster:EmitSound("Hero_Magnataur.Skewer.Cast")
 
@@ -187,9 +255,9 @@ function modifier_thdots_meirin01_think_interval:OnIntervalThink()
         -- Units to be caught in the skewer
         -- local units = FindUnitsInRadius(caster:GetTeamNumber(), caster:GetAbsOrigin(), nil, skewer_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0, 0, false)
         -- local units = FindUnitsInLine(caster:GetTeamNumber(), caster:GetOrigin(), caster:GetAbsOrigin() + 10*ability.direction, nil, 125 , DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, false)
-        local scan_distance = move_distance + 10
+        local scan_distance = move_distance + MEIRIN01_SCAN_BUFFER
         local units = FindUnitsInLine(caster:GetTeam(), caster:GetAbsOrigin(),
-            caster:GetAbsOrigin() + scan_distance * ability.direction, nil, 75, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0)
+            caster:GetAbsOrigin() + scan_distance * ability.direction, nil, skewer_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0)
         -- Loops through target
         for i, unit in ipairs(units) do
             -- Checks if the target is already affected by skewer
