@@ -81,6 +81,7 @@ require ( "util/stun" )
 require ( "util/pauseunit" )
 require ( "util/silence" )
 require ( "util/magic_immune" )
+local SetupSurrenderGuard = require ( "util/setup_surrender_guard" )
 require ( "util/timers" )
 require ( "util/util" )
 require ( "util/mode_select" )
@@ -462,6 +463,12 @@ function Precache( context )
 	PrecacheResource( "particle", "particles/thd2/environment/death/act_hero_die.vpcf",context )--死亡
 	PrecacheResource( "particle", "particles/environment/thd_rain.vpcf",context )--雨
 	PrecacheResource( "particle", "particles/econ/items/alchemist/alchemist_midas_knuckles/alch_knuckles_lasthit_coins.vpcf",context )--雨
+	-- 八辐法轮 / 三位一体 主动护盾：Lua 里 CreateParticle 的粒子必须预缓存，否则报 invalid particle definition
+	PrecacheResource( "particle", "particles/econ/items/ember_spirit/ember_ti9/ember_ti9_flameguard_shield_outer.vpcf",context )--火盾外环
+	PrecacheResource( "particle", "particles/econ/items/ember_spirit/ember_ti9/ember_ti9_flameguard_shield_core.vpcf",context )--火盾内核
+	PrecacheResource( "particle", "particles/units/heroes/hero_ember_spirit/ember_spirit_flameguard_shield.vpcf",context )--火盾本体
+	PrecacheResource( "particle", "particles/items3_fx/lotus_orb_shell_shield_end.vpcf",context )--护盾结束（替代不存在的 lotus_orb_destroy）
+	PrecacheResource( "model", "models/heroes/marci/sidekick_sigil.vmdl", context )--大妖精 buff 的护卫印记（用 invisiblebox 空模型顶替）
 	PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_visage.vsndevts", context )--灵梦and跳台
 	PrecacheResource( "soundfile", "soundevents/game_sounds_custom.vsndevts", context )--背景音乐，BIU
 	--PrecacheResource( "particle", "particles/thd2/chen_cast_4.vpcf", context )--激光
@@ -691,6 +698,7 @@ function Precache( context )
 	PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_enigma.vsndevts", context)  --kasen
 	PrecacheResource( "soundfile", "soundevents/thdots_hero_sounds/sagume.vsndevts", context)  --sagume
 	PrecacheResource( "soundfile", "soundevents/thdots_hero_sounds/samurai.vsndevts", context)  --sagume
+	PrecacheResource( "soundfile", "soundevents/thdots_hero_sounds/thdots_daiyousei_sounds.vsndevts", context) --八咫镜（伪）反弹音效复用大妖精音效文件，开局预缓存确保任意对局可用
 
 	PrecacheResource( "model", "models/new_touhou_model/aya/aya_with_wing.vmdl", context)
 	PrecacheResource( "model", "models/exrumia/exrumia2.vmdl", context)
@@ -728,6 +736,8 @@ end
 
 -- 这个函数是addon_game_mode里面所写的，会在vlua.cpp执行的时候所执行的内容
 function THDOTSGameMode:InitGameMode()
+	-- 专服开局前保护未选队玩家，正式开局后恢复原生断线超时。
+	SetupSurrenderGuard:OnStateChange(GameRules:State_Get())
 	print('[THDOTS] Starting to load THDots gamemode...')
 
 	if PerfDiagnostics ~= nil then
@@ -2762,6 +2772,7 @@ G_Player_randomed = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 
 function THDOTSGameMode:OnGameRulesStateChange(keys)
 	local newState = GameRules:State_Get()
+	SetupSurrenderGuard:OnStateChange(newState)
 	if newState == 2 then -- CUSTOM_GAME_SETUP / shuffle
 		-- WebApi:SetTesting(true)
 		WebApi:BeforeMatch(THD2_Rating_Catcher)

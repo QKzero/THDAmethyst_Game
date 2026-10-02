@@ -77,12 +77,7 @@ function item_esdw:OnSpellStart()
         }
     )
     
-    -- 视觉特效
-    ParticleManager:CreateParticle(
-        "particles/items/esdw_shield.vpcf",
-        PATTACH_ABSORIGIN_FOLLOW,
-        caster
-    )
+    -- 视觉特效：护盾粒子由 modifier_item_esdw_active_shield 托管，持续时间与 active_shield_duration（15 秒）一致
     EmitSoundOn("DOTA_Item.Pipe.Activate", caster)
 end
 
@@ -108,19 +103,23 @@ function modifier_item_esdw_active_shield:OnCreated(params)
         self.shield_remaining = params.shield_amount
         self:SetStackCount(self.shield_remaining)
         
-        -- 创建护盾特效（使用Dota标准护盾特效）
+        -- 创建护盾特效：灰烬之灵 TI9 火焰护盾（外环）
+        -- 生命周期交给 modifier 托管，与主动持续时间 active_shield_duration（15 秒）一致，不会残留
+        -- CP1 是「位置」不是半径（写成标量会把护盾推到地图原点而消失）。
+        -- 该粒子内部自带 +100 的 Z 偏移，所以 CP1 要挂在单位原点（最低），护盾中心才落在躯干；
+        -- 挂 attach_hitloc（胸口）会变成胸口再 +100，飘到头顶。
         self.particle = ParticleManager:CreateParticle(
-            "particles/items3_fx/lotus_orb_shield.vpcf", -- 标准莲花护盾特效
-            PATTACH_POINT_FOLLOW,
+            "particles/econ/items/ember_spirit/ember_ti9/ember_ti9_flameguard_shield_outer.vpcf",
+            PATTACH_ABSORIGIN_FOLLOW,
             self:GetParent()
         )
         ParticleManager:SetParticleControlEnt(
-            self.particle, 
-            0, 
-            self:GetParent(), 
-            PATTACH_POINT_FOLLOW, 
-            "attach_hitloc", 
-            self:GetParent():GetAbsOrigin(), 
+            self.particle,
+            1,
+            self:GetParent(),
+            PATTACH_ABSORIGIN_FOLLOW,
+            "attach_hitloc",
+            self:GetParent():GetAbsOrigin(),
             true
         )
         self:AddParticle(self.particle, false, false, -1, false, false)
@@ -185,7 +184,7 @@ function modifier_item_esdw_active_shield:OnDestroy()
     if IsServer() then
         -- 播放护盾破碎特效
         ParticleManager:CreateParticle(
-            "particles/items3_fx/lotus_orb_destroy.vpcf", -- 标准护盾破碎特效
+            "particles/items3_fx/lotus_orb_shell_shield_end.vpcf", -- 护盾结束特效（原 lotus_orb_destroy 在本体里不存在）
             PATTACH_ABSORIGIN,
             self:GetParent()
         )

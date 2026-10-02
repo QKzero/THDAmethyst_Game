@@ -164,6 +164,7 @@
 #base "items\upgrade\item_repentancestick.txt"
 #base "items\upgrade\item_nuetrident.txt"
 #base "items\upgrade\item_kusanagi.txt"
+#base "items\upgrade\item_yata_mirror_fake.txt"
 #base "items\upgrade\item_hoshiguma_cup.txt"
 #base "items\upgrade\item_naginata.txt"
 #base "items\upgrade\item_cht.txt"

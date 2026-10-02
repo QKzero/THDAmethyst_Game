@@ -1,0 +1,74 @@
+"DOTAAbilities"
+{
+    // =================================================================================================================
+    // 八咫镜（伪）（item_yata_mirror_fake）
+    // 由清莲宝珠改名而来。原版 item_lotus_orb 仍在 npc_abilities_override.txt 中 REMOVE，
+    // 本物品使用独立内部名，避免与原版条目合并后残留其失效属性。
+    // =================================================================================================================
+    "item_yata_mirror_fake"
+    {
+        "BaseClass"                 "item_lua"
+        "AbilityTextureName"        "item_lotus_orb"
+        "ScriptFile"                "items/item_yata_mirror_fake"
+        // 反弹音效事件定义在大妖精音效文件中，物品出现时预缓存（无大妖精的对局也可发声）
+        "precache"
+        {
+            "soundfile"  "soundevents/thdots_hero_sounds/thdots_daiyousei_sounds.vsndevts"
+        }
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+        "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+        "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO"
+        "AbilityCastRange"          "900"
+        "AbilityCooldown"           "20"
+        "AbilityManaCost"           "0"
+        "ItemCost"                  "5400"
+        "ItemDroppable"             "1"
+        "ItemPurchasable"           "1"
+        "ItemSellable"              "1"
+        "ItemShopTags"              "hard_to_tag"
+        "ItemAliases"               "bazhijing;yata;mirror"
+        "AbilityValues"
+        {
+            // 被动属性
+            "bonus_strength"            "18"
+            "bonus_armor"               "7"
+            "bonus_magic_resistance"    "9"
+            "bonus_mana"                "250"
+            "bonus_health_regen"        "7"
+            "bonus_mana_regen"          "4"
+            // 主动回响护盾
+            "shield_duration"           "6"
+            "reflect_delay"             "0.1"   // 反射技能延迟执行的帧数，避免与原始技能结算冲突
+            "reflect_projectile"        "1"     // 护盾期间投射物反弹率（引擎级）
+            "self_cast_marker_duration" "1"     // 自身施法反弹的防环标记持续时长（秒）
+            // 敌方倒影（反弹执行者）参数
+            "reflect_illusion_duration"             "12"    // 倒影句柄存续时长：够长才能让持续类效果的施法者引用不失效
+            "reflect_illusion_outgoing_damage"      "100"   // 倒影输出伤害百分比
+            "reflect_illusion_incoming_damage"      "0"     // 倒影承伤百分比（倒影无敌，仅占位）
+            "reflect_illusion_hide_delay"           "1.0"   // 施法后多久把倒影移出场上（隐藏 + 传送到地图外），句柄仍存活
+            "reflect_illusion_post_cast_delay"      "11.5"  // 施法后多久彻底移除倒影（须略小于 duration，交给引擎自然消亡更稳）
+            // 倒影外观：灰色高透明度（数值越低越接近隐形；alpha 最低 0 完全不可见）
+            "reflect_illusion_render_r"             "140"
+            "reflect_illusion_render_g"             "140"
+            "reflect_illusion_render_b"             "140"
+            "reflect_illusion_render_alpha"         "18"
+        }
+    }
+
+    // =================================================================================================================
+    // 八咫镜（伪）的合成配方：伊吹瓢 + 丰收之摇篮 + 魔女披风 + 长舌头的伞
+    // =================================================================================================================
+    "item_recipe_yata_mirror_fake"
+    {
+        "BaseClass"                 "item_datadriven"
+        "AbilityTextureName"        "item_recipe_yata_mirror_fake"
+        "ItemCost"                  "0"
+        "ItemRecipe"                "1"
+        "ItemResult"                "item_yata_mirror_fake"
+        "ItemRequirements"
+        {
+            "01"    "item_god_hand;item_harvest_cradle;item_hunting_cap;item_umbrella"
+        }
+        "Model"                     "models/props_gameplay/recipe.vmdl"
+    }
+}

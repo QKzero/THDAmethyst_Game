@@ -123,7 +123,19 @@
 		"AbilityManaCost"	"40 50 60 70"
 		"precache"
 		{
-			"particle"	"particles/items3_fx/lotus_orb_shield.vpcf"
+			"particle"	"particles/units/heroes/hero_marci/marci_sidekick_buff.vpcf"
+			"particle"	"particles/units/heroes/hero_marci/marci_sidekick_self_buff.vpcf"
+			// 子粒子系统不会随父粒子自动预缓存，缺一个就会只显示一半光效并报 invalid particle definition
+			"particle"	"particles/units/heroes/hero_marci/marci_sidekick_buff_hands.vpcf"
+			"particle"	"particles/units/heroes/hero_marci/marci_sidekick_buff_hands_glow.vpcf"
+			"particle"	"particles/units/heroes/hero_marci/marci_sidekick_buff_model.vpcf"
+			"particle"	"particles/units/heroes/hero_marci/marci_sidekick_buff_model_glow1.vpcf"
+			"particle"	"particles/units/heroes/hero_marci/marci_sidekick_buff_model_ripple.vpcf"
+			"particle"	"particles/units/heroes/hero_marci/marci_sidekick_buff_endcap.vpcf"
+			// 本体 VPK 里没有 models/heroes/marci/sidekick_sigil.vmdl，子粒子会渲染成头顶的大 ERROR；
+			// 地图内已放一个 invisiblebox 空模型顶替该路径，模型能加载成功且看不见。
+			"model"	"models/heroes/marci/sidekick_sigil.vmdl"
+			"particle"	"particles/units/heroes/hero_omniknight/omniknight_heavenly_grace_beam.vpcf"
 		}
 		"AbilityValues"
 		{
