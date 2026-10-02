@@ -10,13 +10,18 @@
         "BaseClass"                 "item_lua"
         "AbilityTextureName"        "item_lotus_orb"
         "ScriptFile"                "items/item_yata_mirror_fake"
+        // 反弹音效事件定义在大妖精音效文件中，物品出现时预缓存（无大妖精的对局也可发声）
+        "precache"
+        {
+            "soundfile"  "soundevents/thdots_hero_sounds/thdots_daiyousei_sounds.vsndevts"
+        }
         "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
         "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
         "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO"
         "AbilityCastRange"          "900"
-        "AbilityCooldown"           "40"
-        "AbilityManaCost"           "150"
-        "ItemCost"                  "4050"
+        "AbilityCooldown"           "20"
+        "AbilityManaCost"           "0"
+        "ItemCost"                  "5400"
         "ItemDroppable"             "1"
         "ItemPurchasable"           "1"
         "ItemSellable"              "1"
