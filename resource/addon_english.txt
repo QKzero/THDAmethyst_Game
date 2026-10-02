@@ -2946,6 +2946,22 @@
 		"DOTA_Tooltip_modifier_item_wanbaochui_Description"	"Permanent bonus of Miracle Mallet"
 
 		//--------------------
+		// Yata Mirror (Fake)
+		//--------------------
+		"DOTA_Tooltip_ability_item_yata_mirror_fake"	"Yata Mirror (Fake)"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_bonus_health_regen"	"+Health regeneration"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_bonus_armor"	"+Armor"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_bonus_strength"	"+Strength"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_bonus_magic_resistance"	"+Magic resistance"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_bonus_mana"	"+Mana"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_bonus_mana_regen"	"+Mana regeneration"
+		"DOTA_Tooltip_ability_item_recipe_yata_mirror_fake"	"Recipe: Yata Mirror (Fake)"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_Description"	"<h1>Active: Yata Mirror (Fake)</h1>Summons \"Ishikoridome\" to grant a Yata Mirror to an allied girl for %shield_duration% seconds. While it lasts, point-targeted spells cast by enemies on her are copied and reflected back at the enemy. Dispels one negative effect on cast."
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_note0" "As it is a fake, some spells cannot be reflected, including: Mind Reading\"Terrible Souvenir\" (Koishi), Spring Hymn\"Spring Recital / Spring Roar\" (Lily White), Delirium\"Narcolepsy\" (Medicine), Pipe Organ\"Courtesan of Paradise - 1st Movement\" (Merlin), History\"Historic Wave of Births\" (Keine), Possession Swap\"Absolute Loser\" (Shion), and some spells granted by Aghanim's Scepter or Shard."
+		"DOTA_Tooltip_modifier_item_yata_mirror_fake_active"	"Yata Mirror (Fake)"
+		"DOTA_Tooltip_modifier_item_yata_mirror_fake_active_Description"	"Most point-targeted spells cast on this unit by enemies are reflected back at their caster."
+
+		//--------------------
 		// Tewi Inaba by 上古巨神神奈子 Edited by Nature boy 220202
 		//--------------------
 		// 13-01-2022 - modified by Lasiace
@@ -6718,7 +6734,7 @@
 
 		"DOTA_Tooltip_ability_item_recipe_hakurei_amulet"							"Recipe: Hakurei Shrine Amulet"
 		"DOTA_Tooltip_ability_item_hakurei_amulet"									"Hakurei Shrine Amulet"
-		"DOTA_Tooltip_ability_item_hakurei_amulet_Description"						"<h1>Passive: Shrine Maiden's Blessing</h1>Blocks most targeted spells once every %block_cooldown% seconds."
+		"DOTA_Tooltip_ability_item_hakurei_amulet_Description"						"<h1>Active: Transfer Spellblock</h1>Cast on an allied hero to transfer the amulet's spell block to the target, for a duration equal to its cooldown. The owner loses their own spell block while it is transferred, and regains it once the amulet comes off cooldown.\n<h1>Passive: Shrine Maiden's Blessing</h1>Grants a spell block that can block an enemy spell once the item comes off cooldown."
 		"DOTA_Tooltip_ability_item_hakurei_amulet_bonus_all_stats"					"+$all"
 		"DOTA_Tooltip_ability_item_hakurei_amulet_bonus_health_regen"				"+$hp_regen"
 		"DOTA_Tooltip_ability_item_hakurei_amulet_bonus_mana_regen"					"+$mana_regen"

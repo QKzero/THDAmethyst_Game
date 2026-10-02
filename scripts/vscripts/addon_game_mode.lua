@@ -462,6 +462,12 @@ function Precache( context )
 	PrecacheResource( "particle", "particles/thd2/environment/death/act_hero_die.vpcf",context )--死亡
 	PrecacheResource( "particle", "particles/environment/thd_rain.vpcf",context )--雨
 	PrecacheResource( "particle", "particles/econ/items/alchemist/alchemist_midas_knuckles/alch_knuckles_lasthit_coins.vpcf",context )--雨
+	-- 八辐法轮 / 三位一体 主动护盾：Lua 里 CreateParticle 的粒子必须预缓存，否则报 invalid particle definition
+	PrecacheResource( "particle", "particles/econ/items/ember_spirit/ember_ti9/ember_ti9_flameguard_shield_outer.vpcf",context )--火盾外环
+	PrecacheResource( "particle", "particles/econ/items/ember_spirit/ember_ti9/ember_ti9_flameguard_shield_core.vpcf",context )--火盾内核
+	PrecacheResource( "particle", "particles/units/heroes/hero_ember_spirit/ember_spirit_flameguard_shield.vpcf",context )--火盾本体
+	PrecacheResource( "particle", "particles/items3_fx/lotus_orb_shell_shield_end.vpcf",context )--护盾结束（替代不存在的 lotus_orb_destroy）
+	PrecacheResource( "model", "models/heroes/marci/sidekick_sigil.vmdl", context )--大妖精 buff 的护卫印记（用 invisiblebox 空模型顶替）
 	PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_visage.vsndevts", context )--灵梦and跳台
 	PrecacheResource( "soundfile", "soundevents/game_sounds_custom.vsndevts", context )--背景音乐，BIU
 	--PrecacheResource( "particle", "particles/thd2/chen_cast_4.vpcf", context )--激光

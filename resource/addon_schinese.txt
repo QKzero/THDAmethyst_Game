@@ -1953,7 +1953,7 @@
 		"DOTA_Tooltip_ability_item_cyclone_bonus_movement_speed"					"+$move_speed"
 		"DOTA_Tooltip_ability_item_recipe_hakurei_amulet"	"博丽神社护身符制作书"
 		"DOTA_Tooltip_ability_item_hakurei_amulet"	"博丽神社护身符"
-		"DOTA_Tooltip_ability_item_hakurei_amulet_Description"	"<h1>被动：护符</h1>每隔%block_cooldown%秒可以抵挡一个敌方单位的施法。"
+		"DOTA_Tooltip_ability_item_hakurei_amulet_Description"	"<h1>主动：护符转移</h1>对友方英雄施放，将护符的抵挡效果转移至目标身上，持续时间与冷却时间一致。转移期间持有者自身失去技能抵挡，护符冷却结束后自动恢复。\n<h1>被动：护符</h1>物品冷却时间结束时生成一个可以抵挡敌方技能的护符。"
 		"DOTA_Tooltip_ability_item_hakurei_amulet_bonus_all_stats"	"+$all"
 		"DOTA_Tooltip_ability_item_hakurei_amulet_bonus_health_regen"	"+$hp_regen"
 		"DOTA_Tooltip_ability_item_hakurei_amulet_bonus_mana_regen"	"+$mana_regen"
@@ -6715,6 +6715,23 @@
 		"DOTA_Tooltip_ability_item_esdw_note0" "攻击距离不与同类物品叠加，取最大值。"
 		"DOTA_Tooltip_modifier_item_esdw_active_shield" "秘神结界"
 		"DOTA_Tooltip_modifier_item_esdw_active_shield_Description" "你获得了隐岐奈的加护！"
+
+		//----------------------------------------------------------------------
+		// 八咫镜（伪）
+		//----------------------------------------------------------------------
+
+		"DOTA_Tooltip_ability_item_yata_mirror_fake" "八咫镜（伪）"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_bonus_health_regen" "+生命恢复"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_bonus_armor" "+护甲"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_bonus_strength" "+力量"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_bonus_magic_resistance" "+魔法抗性"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_bonus_mana" "+魔法值"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_bonus_mana_regen" "+魔法恢复"
+		"DOTA_Tooltip_ability_item_recipe_yata_mirror_fake" "八咫镜（伪）制作书"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_Description" "<h1>主动：八咫镜（伪）</h1>唤来「石凝姥命」对友方少女施加八咫镜，持续%shield_duration%秒，期间敌方对该少女施放指向性技能时将复制反弹给敌方。施放时驱散一次负面效果。"
+		"DOTA_Tooltip_ability_item_yata_mirror_fake_note0" "因为是伪品，所以部分技能无法反弹，包括：古明地觉的想起「Terrible Souvenir」、莉莉白的回春「春之奏鸣/春之咆哮」、梅蒂欣的谵妄「陷入疯狂」、梅露兰的管灵「激昂小号曲-第一乐章」、上白泽慧音的产灵「初始的历史鸿流」、依神紫苑的凭依交换「绝对输家」，以及部分通过万宝槌或魔晶新增的技能。"
+		"DOTA_Tooltip_modifier_item_yata_mirror_fake_active" "八咫镜（伪）"
+		"DOTA_Tooltip_modifier_item_yata_mirror_fake_active_Description" "该单位受到来自敌方的大部分指向性技能都会被反弹回施法者。"
 
 		//----------------------------------------------------------------------
 		// 七星剑 （暂定）

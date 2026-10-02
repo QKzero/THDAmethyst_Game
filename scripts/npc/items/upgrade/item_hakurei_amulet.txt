@@ -33,8 +33,14 @@
 	{
 		"BaseClass"	"item_datadriven"
 		"AbilityTextureName"	"item_hakurei_amulet"
-		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetFlags"	"DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
+		"AbilityCastPoint"	"0.0"
 		"AbilityCooldown"	"20"
+		"AbilityManaCost"	"0"
+		"AbilityCastRange"	"900"
 		// General
 		// -------------------------------------------------------------------------------------------------------------
 		// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
@@ -47,6 +53,16 @@
 		"ItemSellable"	"1"
 		"ItemShopTags"	"regen_health;regen_mana;str;agi;int;hard_to_tag"
 		"ItemAliases"	"linken's sphere"
+		// 主动：护符转移 —— 将被动的技能抵挡效果转移至目标友方英雄，转移期间持有者自身失去抵挡
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/abilityItem.lua"
+				"Function"	"ItemAbility_HakureiAmulet_OnSpellStart"
+			}
+		}
+
 		"Modifiers"
 		{
 			"modifier_item_hakurei_amulet"
@@ -103,6 +119,15 @@
 				"Passive"	"0"
 				"IsHidden"	"1"
 			}
+			// 转移标记：主动施放后挂在持有者身上，持续到抵挡转回为止
+			"modifier_item_hakurei_amulet_transferred"
+			{
+				"Passive"	"0"
+				"IsHidden"	"1"
+				"IsPurgable"	"0"
+				"IsPurgeException"	"0"
+				"RemoveOnDeath"	"0"
+			}
 		}
 		// Special
 		// -------------------------------------------------------------------------------------------------------------
@@ -111,7 +136,7 @@
 			"bonus_all_stats"	"16"
 			"bonus_health_regen"	"8.5"
 			"bonus_mana_regen"	"5"
-			"block_cooldown"	"20.0"
+			"transfer_duration"	"20"
 		}
 	}
 }

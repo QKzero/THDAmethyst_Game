@@ -1247,20 +1247,17 @@
 					}
 				}
 			}
-			"modifier_thdots_tower_attacked"
+			"modifier_thdots_anti_bd_active"
 			{
-				"Passive"	"1"	
+				"Passive"	"1"
 				"IsHidden"	"1"
-                "IsBuff"	"1"		
-				"OnTakeDamage"
+				"IsBuff"	"1"
+				"Properties"
 				{
-					"RunScript"
-					{
-						"ScriptFile"			"scripts/vscripts/abilities/abilitytower.lua"
-						"Function"				"OnTowerAttacked"
-						"Caster"				"CASTER"
-						"DamageTaken"			"%attack_damage"
-					}					
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"-100"
+					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL"	"1"
+					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL"	"1"
+					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE"		"1"
 				}
 			}
 			"modifier_thdots_anti_bd_stop"
@@ -1273,7 +1270,7 @@
 		"AbilityValues"
 		{
 			"duration"	"1.0"
-			"radius"	"850"
+			"radius"	"700"
 		}
 	}
 
