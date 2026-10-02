@@ -150,6 +150,7 @@
         "item" "item_bagua"
         "item" "item_jeweled_branch"
         "item" "item_force_boots"
+        "item" "item_yata_mirror_fake"
     }
     "weapons"
     {

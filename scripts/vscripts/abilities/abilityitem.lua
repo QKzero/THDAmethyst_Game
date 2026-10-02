@@ -2260,6 +2260,35 @@ end
 --[[
 	item_hakurei_amulet
 ]]
+-- 登记一次「护符转移」的源物品。转移状态一直持续到该物品的冷却转好，
+-- 因此天然跟随一切冷却缩减，不必关心缩减来自哪个光环或天赋
+local function HakureiAmulet_RegisterTransfer(caster, ability)
+    if caster.hakurei_amulet_transfer_sources == nil then
+        caster.hakurei_amulet_transfer_sources = {}
+    end
+    table.insert(caster.hakurei_amulet_transfer_sources, ability)
+end
+
+-- 持有者是否仍处于「已把抵挡转移出去」的状态（源物品尚未冷却完毕即视为转移中）。
+-- 顺带清理已经冷却好或已不存在的源物品，并同步移除状态标记
+local function HakureiAmulet_IsTransferring(caster)
+    local list = caster.hakurei_amulet_transfer_sources
+    if list == nil then return false end
+    local kept = {}
+    for i = 1, #list do
+        local src = list[i]
+        if src ~= nil and not src:IsNull() and not src:IsCooldownReady() then
+            kept[#kept + 1] = src
+        end
+    end
+    caster.hakurei_amulet_transfer_sources = kept
+    if #kept == 0 then
+        caster:RemoveModifierByName("modifier_item_hakurei_amulet_transferred")
+        return false
+    end
+    return true
+end
+
 function is_spell_blocked_by_hakurei_amulet(target)
     if target:HasModifier("modifier_item_sphere_target") then
         target:RemoveModifierByName("modifier_item_sphere_target") -- The particle effect is played automatically when this modifier is removed (but the sound isn't).
@@ -2270,6 +2299,8 @@ function is_spell_blocked_by_hakurei_amulet(target)
 end
 
 function ItemAbility_HakureiAmulet_OnCreated(keys)
+    -- 转移期间（抵挡已转给队友）不再补持有者自身的抵挡
+    if keys.caster ~= nil and HakureiAmulet_IsTransferring(keys.caster) then return end
     if keys.ability ~= nil and keys.ability:IsCooldownReady() then
         if keys.caster:HasModifier("modifier_item_sphere_target") then -- Remove any potentially temporary version of the modifier and replace it with an indefinite one.
             keys.caster:RemoveModifierByName("modifier_item_sphere_target")
@@ -2284,7 +2315,9 @@ function ItemAbility_HakureiAmulet_OnCreated(keys)
 end
 
 function ItemAbility_HakureiAmulet_OnDestroy(keys)
-    if not keys.caster:HasModifier("modifier_item_hakurei_amulet") then
+    -- 身上残留的抵挡可能是队友转移来的，不能因为自己丢掉/卖掉护身符而一并清掉
+    if not keys.caster:HasModifier("modifier_item_hakurei_amulet")
+        and not keys.caster:HasModifier("modifier_item_hakurei_amulet_transfer_target") then
         keys.caster:RemoveModifierByName("modifier_item_sphere_target")
         keys.caster:RemoveModifierByName("modifier_item_hakurei_amulet_icon")
     end
@@ -2297,11 +2330,13 @@ function ItemAbility_HakureiAmulet_OnIntervalThink(keys)
                 local current_item = keys.caster:GetItemInSlot(i)
                 if current_item ~= nil and current_item:GetName() == "item_hakurei_amulet" then
                     -- current_item:StartCooldown(current_item:GetCooldown(current_item:GetLevel()))
-                    current_item:StartCooldown(GetCurrentCoolDown(current_item, keys.caster))
+                    current_item:StartCooldown(current_item:GetEffectiveCooldown(current_item:GetLevel() - 1))
                 end
             end
             keys.caster:RemoveModifierByName("modifier_item_hakurei_amulet_icon")
         else -- reset modifier
+            -- 转移期间任何一枚护身符都不补抵挡（持有多枚时也不补）
+            if HakureiAmulet_IsTransferring(keys.caster) then return end
             local num_off_cooldown_linkens_spheres_in_inventory = 0
             for i = 0, 5, 1 do
                 local current_item = keys.caster:GetItemInSlot(i)
@@ -2322,6 +2357,70 @@ function ItemAbility_HakureiAmulet_OnIntervalThink(keys)
             end
         end
     end
+end
+
+modifier_item_hakurei_amulet_transfer_target = {}
+LinkLuaModifier("modifier_item_hakurei_amulet_transfer_target", "scripts/vscripts/abilities/abilityitem.lua",
+    LUA_MODIFIER_MOTION_NONE)
+function modifier_item_hakurei_amulet_transfer_target:IsHidden() return true end
+function modifier_item_hakurei_amulet_transfer_target:IsPurgable() return false end
+function modifier_item_hakurei_amulet_transfer_target:IsPurgeException() return false end
+-- 必须留在死亡单位身上才能收到 ON_DEATH，故 RemoveOnDeath 关闭、在 OnDeath 里自行销毁
+function modifier_item_hakurei_amulet_transfer_target:RemoveOnDeath() return false end
+function modifier_item_hakurei_amulet_transfer_target:DeclareFunctions()
+    return { MODIFIER_EVENT_ON_DEATH }
+end
+-- 转移目标死亡：清掉转移来的技能抵挡，避免复活后仍残留
+function modifier_item_hakurei_amulet_transfer_target:OnDeath(keys)
+    if not IsServer() then return end
+    if keys.unit ~= self:GetParent() then return end
+    local parent = self:GetParent()
+    if parent ~= nil and not parent:IsNull() then
+        parent:RemoveModifierByName("modifier_item_sphere_target")
+    end
+    self:Destroy()
+end
+
+function ItemAbility_HakureiAmulet_OnSpellStart(keys)
+    local caster = keys.caster
+    local target = keys.target
+    local ability = keys.ability
+
+    if caster == nil or caster:IsNull() then return end
+    if target == nil or target:IsNull() then return end
+
+    -- 无效目标：自身 / 幻象 / 已带有技能抵挡。item_datadriven 无法做引擎级目标过滤，
+    -- 这里结束冷却（该物品不耗蓝），使「不可施放」在结果上等价于「施放了也不消耗」。
+    if target == caster or target:IsIllusion() or
+        target:HasModifier("modifier_item_sphere_target") then
+        ability:EndCooldown()
+        return
+    end
+
+    -- 持续时间与物品冷却保持一致：取引擎返回的剩余冷却（已含一切冷却缩减），
+    -- 冷却尚未提交时回退到 KV 值
+    local duration = ability:GetCooldownTimeRemaining()
+    if duration == nil or duration <= 0 then
+        duration = ability:GetSpecialValueFor("transfer_duration")
+    end
+
+    -- 转移语义：持有者先失去自身的技能抵挡与冷却标记，再把抵挡效果挂到目标友方英雄身上
+    caster:RemoveModifierByName("modifier_item_sphere_target")
+    caster:RemoveModifierByName("modifier_item_hakurei_amulet_icon")
+    -- 登记源物品并挂上状态标记：转移期间任何一枚护身符都不再给持有者补抵挡，
+    -- 避免持有多枚时「转移」因第二枚立刻补上而退化成「复制」
+    HakureiAmulet_RegisterTransfer(caster, ability)
+    ability:ApplyDataDrivenModifier(caster, caster, "modifier_item_hakurei_amulet_transferred", {
+        duration = -1
+    })
+    target:AddNewModifier(caster, ability, "modifier_item_sphere_target", {
+        duration = duration
+    })
+    -- 伴随标记：目标死亡时清掉转移来的抵挡
+    target:AddNewModifier(caster, ability, "modifier_item_hakurei_amulet_transfer_target", {
+        duration = duration
+    })
+    target:EmitSound("DOTA_Item.LinkensSphere.Target")
 end
 
 function ItemAbility_Qijizhixing_OnSpellStart(keys)

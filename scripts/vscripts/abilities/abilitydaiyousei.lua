@@ -300,12 +300,21 @@ end
 modifier_ability_thdots_daiyousei03 = {}
 LinkLuaModifier("modifier_ability_thdots_daiyousei03","scripts/vscripts/abilities/abilitydaiyousei.lua",LUA_MODIFIER_MOTION_NONE)
 
-function modifier_ability_thdots_daiyousei03:GetEffectName()
-	return "particles/items3_fx/lotus_orb_shield.vpcf"
-end
-
-function modifier_ability_thdots_daiyousei03:GetEffectAttachType()
-	return PATTACH_CUSTOMORIGIN_FOLLOW
+-- 两个特效都在 OnCreated 里手动创建，生命周期交给 modifier 托管，与技能持续时间（duration = 6 秒）一致
+function modifier_ability_thdots_daiyousei03:OnCreated()
+	if not IsServer() then return end
+	local target = self:GetParent()
+	if not target or target:IsNull() then return end
+	-- buff：该粒子内部有以 CP1 为变换输入的环形/丝带运算，必须同时给 CP0 与 CP1。
+	-- 用 GetEffectName() 只会绑 CP0，摆动旋转的丝带部分就会缺失。
+	local buff_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_marci/marci_sidekick_self_buff.vpcf", PATTACH_ABSORIGIN_FOLLOW, target)
+	ParticleManager:SetParticleControlEnt(buff_particle, 0, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
+	ParticleManager:SetParticleControlEnt(buff_particle, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
+	self:AddParticle(buff_particle, false, false, -1, false, false)
+	-- 足底光柱：CP0 由 PATTACH_ABSORIGIN_FOLLOW 自动绑到目标原点（足底），CP1 挂胸口（RenderRopes 需要两端点）
+	local beam_particle = ParticleManager:CreateParticle("particles/units/heroes/hero_omniknight/omniknight_heavenly_grace_beam.vpcf", PATTACH_ABSORIGIN_FOLLOW, target)
+	ParticleManager:SetParticleControlEnt(beam_particle, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
+	self:AddParticle(beam_particle, false, false, -1, false, false)
 end
 
 function modifier_ability_thdots_daiyousei03:IsHidden() 		return false end
