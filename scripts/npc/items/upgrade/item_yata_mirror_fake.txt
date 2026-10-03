@@ -4,26 +4,27 @@
     // 八咫镜（伪）（item_yata_mirror_fake）
     // 由清莲宝珠改名而来。原版 item_lotus_orb 仍在 npc_abilities_override.txt 中 REMOVE，
     // 本物品使用独立内部名，避免与原版条目合并后残留其失效属性。
-    // 主动：回响护盾（反弹敌方指向性技能 / 投射物，不限距离、护盾期内无上限）
-    // 被动：+18 力量 / +7 护甲 / +9% 魔法抗性 / +250 魔法值 / +7 生命恢复 / +4 魔法恢复
-    // 配方：伊吹瓢 + 丰收之摇篮 + 魔女披风 + 长舌头的伞
     // =================================================================================================================
     "item_yata_mirror_fake"
     {
         "BaseClass"                 "item_lua"
         "AbilityTextureName"        "item_lotus_orb"
         "ScriptFile"                "items/item_yata_mirror_fake"
+        // 反弹音效事件定义在大妖精音效文件中，物品出现时预缓存（无大妖精的对局也可发声）
+        "precache"
+        {
+            "soundfile"  "soundevents/thdots_hero_sounds/thdots_daiyousei_sounds.vsndevts"
+        }
         "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
         "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
         "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO"
         "AbilityCastRange"          "900"
-        "AbilityCooldown"           "40"
-        "AbilityManaCost"           "150"
-        "ItemCost"                  "4050"
+        "AbilityCooldown"           "20"
+        "AbilityManaCost"           "0"
+        "ItemCost"                  "5400"
         "ItemDroppable"             "1"
         "ItemPurchasable"           "1"
         "ItemSellable"              "1"
-        // hard_to_tag 对应商店「升级物品 - 法器」分类（见 scripts/shop_tags.txt 的 Abilities 分类）
         "ItemShopTags"              "hard_to_tag"
         "ItemAliases"               "bazhijing;yata;mirror"
         "AbilityValues"
@@ -56,7 +57,6 @@
 
     // =================================================================================================================
     // 八咫镜（伪）的合成配方：伊吹瓢 + 丰收之摇篮 + 魔女披风 + 长舌头的伞
-    // （配方物品不需要加入 shops.txt：持有配件时引擎会在商店合成区自动亮起）
     // =================================================================================================================
     "item_recipe_yata_mirror_fake"
     {
