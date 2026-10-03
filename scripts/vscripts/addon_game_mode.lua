@@ -476,6 +476,9 @@ function Precache( context )
 	-- 轮盘
 	PrecacheResource( "soundfile", "soundevents/chat_wheel_sounds.vsndevts", context )
 	PrecacheResource( "soundfile", "soundevents/thdots_hero_sounds/thdots_yugi_sounds.vsndevts", context ) --星熊勇仪
+	PrecacheResource( "soundfile", "soundevents/stickers/soundevents_stickers_season10.vsndevts", context ) --Season10(2023)解说轮盘音效
+	PrecacheResource( "soundfile", "soundevents/stickers/soundevents_stickers_season11.vsndevts", context ) --Season11(2024)解说轮盘音效（自建页复用）
+	PrecacheResource( "soundfile", "soundevents/stickers/soundevents_stickers_season6.vsndevts", context ) --Season6解说贴纸轮盘音效（自建页复用）
 
 	-- 语音
 	local hReAssocVO = 	{

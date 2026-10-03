@@ -188,7 +188,7 @@
 		"HasScepterUpgrade"	"1"
 		// Stats
 		// ----------------------------------------------------------------
-		"AbilityCastRange"	"950"
+		"AbilityCastRange"	"1000"
 		"AbilityChannelTime"	"2.0"
 		"ID"	"2006"
 		"precache"
@@ -197,6 +197,7 @@
 			"particle"	"particles/thd2/heroes/marisa/marisa_04_spark.vpcf"
 			"particle"	"particles/thd2/heroes/marisa/marisa_04_spark_wind_b.vpcf"
 			"particle"	"particles/heroes/marisa/marisa_04_spark_circle.vpcf"
+			"particle"	"particles/indicators/rect_range_finder.vpcf"
 			"soundfile"	"soundevents/thdots_hero_sounds/thdots_marisa_sounds.vsndevts"
 			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_puck.vsndevts"
 		}
@@ -211,7 +212,7 @@
 			}
 			"damage_lenth"
 			{
-				"value"	"1060"
+				"value"	"1000"
 				"CalculateSpellDamageTooltip"	"0"
 				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
 				"affected_by_aoe_increase"	"1"
@@ -224,8 +225,8 @@
 			"duration"	"2.1"
 		}
 		"AbilityDamage"	"360 540 720"
-		"AbilityCastRange" "1000"
 	}
+}
 
 	//=================================================================================================================
 	// Ability: Special Bonus

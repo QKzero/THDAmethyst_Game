@@ -553,9 +553,43 @@ end
 
 ability_thdots_marisa04 = {}
 
+-- 魔炮每跳间隔与总跳数：总跳数 × 每跳(AbilityDamage/总跳数) = AbilityDamage，保证总伤与描述一致
+local MARISA04_TICK_INTERVAL = 0.1
+local MARISA04_TICK_COUNT = 20
+-- 双倍伤害判定带的宽度（OnIntervalThink 第二次 IsRadInRect 用；宽 200 ⇒ ±100），
+-- 同时作为客户端施法指示器"内圈高亮"的口径来源
+local MARISA04_DOUBLE_WIDTH = 200
+
+--施法距离：服务端不设点选上限（真实判定见 OnSpellStart/OnIntervalThink）；
+--客户端返回 KV 基值以驱动 HUD 范围圈（引擎会在此之上再叠加一次"施法距离加成池"，故此处不要再自己加）
 function ability_thdots_marisa04:GetCastRange(location, target)
-    if IsServer() then
+    if not IsClient() then
         return 0
+    end
+    return self.BaseClass.GetCastRange(self, location, target)
+end
+
+--自绘施法指示器（客户端）：长宽恒定（魔炮范围与鼠标距离无关，区别于美铃01）——
+--外圈 = 判定矩形 damage_lenth × damage_width；内圈 = 双倍伤害区 × MARISA04_DOUBLE_WIDTH；
+--两条带叠加（粒子为 ADD 混合）⇒ 内圈自然更亮，即"双倍伤害范围额外高亮"
+function ability_thdots_marisa04:Spawn()
+    if not IsServer() then
+        CustomIndicator:RegisterAbility(self)
+        RectIndicator:Attach(self, {
+            bands = {
+                --外圈：全矩形（宽 = damage_width）
+                { particle = "particles/indicators/rect_range_finder.vpcf",
+                  half_width = self:GetSpecialValueFor("damage_width") / 2 },
+                --内圈：双倍伤害区（宽 = MARISA04_DOUBLE_WIDTH）
+                { particle = "particles/indicators/rect_range_finder.vpcf",
+                  half_width = MARISA04_DOUBLE_WIDTH / 2 },
+            },
+            --长度恒定，与判定口径一致（= damage_lenth），不随鼠标距离变化
+            get_length = function(ability, location)
+                return ability:GetSpecialValueFor("damage_lenth")
+            end,
+        })
+        return
     end
 end
 
@@ -581,7 +615,7 @@ function ability_thdots_marisa04:OnSpellStart()
     self.point = self:GetCursorPosition()
     self.duration = self:GetSpecialValueFor("duration")
     self.damage_width = self:GetSpecialValueFor("damage_width")
-    self.damage_length = self:GetSpecialValueFor("damage_lenth") - 100
+    self.damage_length = self:GetSpecialValueFor("damage_lenth")
 
     self.caster:EmitSound("Voice_Thdots_Marisa.AbilityMarisa04")
 
@@ -645,13 +679,22 @@ function modifier_thdots_marisa04_think_interval:OnCreated()
         return
     end
     EmitSoundOnLocationWithCaster(self:GetAbility().point, "Voice_Thdots_Marisa.AbilityMarisa04_Cast", self:GetCaster())
-    self:StartIntervalThink(0.1)
+    -- 光束特效在 OnSpellStart 当帧就出现；这里立刻补第一跳，让"特效出现"与"伤害/眩晕生效"同帧
+    self.ticks_done = 0
+    self:OnIntervalThink()
+    self:StartIntervalThink(MARISA04_TICK_INTERVAL)
 end
 
 function modifier_thdots_marisa04_think_interval:OnIntervalThink()
     if not IsServer() then
         return
     end
+
+    -- 跳数封顶（已含 OnCreated 里手动补的第一跳），总跳数保持 MARISA04_TICK_COUNT
+    if (self.ticks_done or 0) >= MARISA04_TICK_COUNT then
+        return
+    end
+    self.ticks_done = (self.ticks_done or 0) + 1
 
     local ability = self:GetAbility()
     local caster = self:GetCaster()
@@ -676,8 +719,8 @@ function modifier_thdots_marisa04_think_interval:OnIntervalThink()
         local vecV = v:GetOrigin()
         -- print(vecV, vecCaster, ability.damage_width, ability.damage_length, sparkRad)
         if IsRadInRect(vecV, vecCaster, ability.damage_width, ability.damage_length, sparkRad) then
-            local deal_damage = ability:GetAbilityDamage() / 20
-            if IsRadInRect(vecV, vecCaster, 200, ability.damage_length, sparkRad) then
+            local deal_damage = ability:GetAbilityDamage() / MARISA04_TICK_COUNT
+            if IsRadInRect(vecV, vecCaster, MARISA04_DOUBLE_WIDTH, ability.damage_length, sparkRad) then
                 deal_damage = deal_damage * 2
             end
             local damage_table = {

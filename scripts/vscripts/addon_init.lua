@@ -1,6 +1,7 @@
 print("Addon Init",IsServer())
 
 require( "scripts/vscripts/util/custom_indicator" )
+require( "scripts/vscripts/util/rect_indicator" )
 -- Override from addon_init.lua (paste this code into it) and ensure that this code called at client side only via IsClient()
 if(IsClient() == false) then
   return

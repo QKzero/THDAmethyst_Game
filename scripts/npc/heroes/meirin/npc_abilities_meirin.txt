@@ -29,7 +29,7 @@
 			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_magnataur.vsndevts"
 			"particle"	"particles/units/heroes/hero_magnataur/magnataur_skewer_debuff.vpcf"
 			"particle"	"particles/units/heroes/hero_magnataur/magnataur_skewer.vpcf"
-			"particle"	"particles/heroes/meirin/meirin01_skewer_range_finder.vpcf"
+			"particle"	"particles/indicators/rect_range_finder.vpcf"
 		}
 		// Special
 		// -------------------------------------------------------------------------------------------------------------
@@ -90,6 +90,7 @@
 				"ScriptFile"	"scripts/vscripts/abilities/abilityMeirin.lua"
 				"Function"	"OnMeirin02Talent"
 				"Caster"	"CASTER"
+				"TalentBonusDuration"	"%talent_bonus_duration"
 			}
 		}
 		"Modifiers"
@@ -130,8 +131,10 @@
 		}
 		"AbilityValues"
 		{
-			"buff_duration"	"2 3 4 5"
+			"buff_duration"	"2.25 3.5 4.75 6"
 			"reduce_damage"	"-30"
+			// 25 级天赋：额外增加持续时间
+			"talent_bonus_duration"	"2"
 		}
 	}
 

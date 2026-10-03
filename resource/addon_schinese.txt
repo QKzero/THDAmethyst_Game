@@ -3,6 +3,16 @@
 	"Language"	"schinese"
 	"Tokens"
 	{
+		// 中文解说 · TI2023（模组自制轮盘页）
+		"chineseannouncer3"		"#chineseannouncer3"
+		"ti2023_back"			"返回"
+		"ti2023_1"				"我哪里菜了呀，不要睁着眼睛乱说好吗？"
+		"ti2023_2"				"你又送啦，尊嘟假嘟？"
+		"ti2023_3"				"能帮我打个魔晶吗？"
+		"ti2023_4"				"你在说什么呀，听不懂耶"
+		"ti2023_5"				"好呀，好呀好呀没问题的呀，好的呀没问题"
+		"xingbuxing"			"你到底行不行啊"
+		"xiaofeigun"			"宝子们，小飞棍来咯"
 		"dota_ability_variable_health"				"生命值"					// $health
 		"dota_ability_variable_mana"				"魔法值"						// $mana
 		"dota_ability_variable_armor"				"护甲"						// $armor
@@ -552,7 +562,7 @@
 		"DOTA_Tooltip_aura_item_god_lunchbox_charge"	"退魔"
 		"DOTA_Tooltip_aura_item_god_lunchbox_charge_Description"	"当半径1500范围内看到其他少女释放技能，少女会自动收集一份能量。"
 		"DOTA_Tooltip_modifier_item_dragon_star_buff"	"龙行天下"
-		"DOTA_Tooltip_modifier_item_dragon_star_buff_Description"	"使负面效果的持续时间变成极短。"
+		"DOTA_Tooltip_modifier_item_dragon_star_buff_Description"	"持续驱散负面状态并减少受到的伤害"
 		"DOTA_Tooltip_modifier_item_present_box_give_gold"	"收礼"
 		"DOTA_Tooltip_modifier_item_present_box_give_gold_Description"	"每隔10秒获得6点金钱。"
 		"DOTA_Tooltip_modifier_item_pocket_watch_pause"	"时间停止"
@@ -2258,10 +2268,10 @@
 		"DOTA_Tooltip_ability_item_god_lunchbox_note0"	"当装备不同等级的御币时，只有最高级御币的收集效果有效。<br>收集成功时，若存在多个对应等级的御币，排序靠后的那个将获得收集数，即使它在背包内。<br><br>油库里状态会禁止使用物品，故无法使用退魔御币。<br><br>击飞效果是由位移和晕眩构成的，强驱散可以全部解除，例如在被星熊3技能击飞过程中使用本物品进行强驱散，将直接落地，解除晕眩。"
 		"DOTA_Tooltip_ability_item_recipe_dragon_star"	"龙星制作书"
 		"DOTA_Tooltip_ability_item_dragon_star"	"龙星"
-		"DOTA_Tooltip_ability_item_dragon_star_Description"	"<h1>主动：龙行天下</h1>在%buff_duration%秒内持续驱散自身受到的任何负面效果。"
+		"DOTA_Tooltip_ability_item_dragon_star_Description"	"<h1>主动：龙行天下</h1>在%buff_duration%秒内持续驱散自身受到的任何负面效果并获得5%全伤害减免，每成功驱散一次负面状态，龙行天下的持续时间会增加0.5秒，最多增加2秒。"
 		"DOTA_Tooltip_ability_item_dragon_star_bonus_all_stats"	"+$all"
 		"DOTA_Tooltip_ability_item_dragon_star_bonus_damage"	"+$damage"
-		"DOTA_Tooltip_ability_item_dragon_star_note0""龙行天下效果无法驱散。<br><br>龙行天下效果每0.01秒会移除自身的负面效果。<br><br>驱散类型：<span class=\"GameplayValues GameplayVariable\">强驱散</span>"
+		"DOTA_Tooltip_ability_item_dragon_star_note0""龙行天下效果无法驱散。<br><br>龙行天下效果每0.06秒会移除自身的负面效果。<br><br>驱散类型：<span class=\"GameplayValues GameplayVariable\">强驱散</span>"
 		"DOTA_Tooltip_ability_item_recipe_present_box"	"很值钱的礼物制作书"
 		"DOTA_Tooltip_ability_item_present_box"	"很值钱的礼物"
 		"DOTA_Tooltip_ability_item_present_box_Description"	"<h1>使用：出售</h1>返还礼物购买价格的%restore_gold_percent%%%金钱，使用后物品将会消失。\n<h1>被动：收礼</h1>每隔%give_gold_interval%秒获得%give_gold_amount%金钱。\n获得的金钱是不可靠金钱。"
@@ -4484,7 +4494,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_meirin_3" 	"+{s:value} 反击伤害"
 		"DOTA_Tooltip_ability_special_bonus_unique_meirin_2" "+{s:value} 格挡伤害"
 		"DOTA_Tooltip_ability_special_bonus_unique_meirin_1" "「猛虎内劲」额外继承{s:bonus_damage_pct}%攻击力"
-		"DOTA_Tooltip_ability_special_bonus_unique_meirin_4" "+30% 「彩光风铃」减伤"
+		"DOTA_Tooltip_ability_special_bonus_unique_meirin_4"	"「彩光风铃」持续时间+2秒，减伤+30%"
 
 		//2020.03.26 发电车车人
 		"npc_dota_hero_night_stalker"	"米斯蒂娅·萝蕾拉"

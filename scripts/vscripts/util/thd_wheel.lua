@@ -1,8 +1,41 @@
 chat_cooldown = 5	--发语音冷却
 votimer = {}
 vousedcol = {}
+-- 中文解说 · TI2023（Season10）音效事件，与轮盘页 num 118-122 一一对应
+-- 末尾两条为新增内置语音：118-122 之后顺延到 123/124（你到底行不行啊 / 宝子们，小飞棍来咯）
+TI2023_VO = {
+	"talent.season10.92607797.1",
+	"talent.season10.92607797.2",
+	"talent.season10.139186922.1",
+	"talent.season10.125210835.1",
+	"talent.season10.125210835.2",
+	"talent.season11.139186922.1",
+	"stickers.season6.92607797",
+}
+-- 中文解说 · TI2023 聊天文本，与上面的音效一一对应
+TI2023_TEXT = {
+	"我哪里菜了呀，不要睁着眼睛乱说好吗？",
+	"你又送啦，尊嘟假嘟？",
+	"能帮我打个魔晶吗？",
+	"你在说什么呀，听不懂耶",
+	"好呀，好呀好呀没问题的呀，好的呀没问题",
+	"你到底行不行啊",
+	"宝子们，小飞棍来咯",
+}
 SelectVO = function(keys)
 	print(keys.num)
+	-- 中文解说 · TI2023 + 新增内置语音（num 118-124）：独立通道，不依赖 hero_chat_wheel 数据文件
+	if keys.num >= 118 and keys.num <= 124 then
+		local idx = keys.num - 117
+		if votimer[keys.PlayerID] ~= nil and Time() - votimer[keys.PlayerID] <= chat_cooldown then
+			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(keys.PlayerID), "display_custom_error", { message = "#wheel_cooldown" })
+			return
+		end
+		ChatSound(TI2023_VO[idx], keys.PlayerID)
+		Say(PlayerResource:GetPlayer(keys.PlayerID), TI2023_TEXT[idx], false)
+		votimer[keys.PlayerID] = Time()
+		return
+	end
 	local heroes = {
 		"abaddon",
 		"alchemist",
@@ -127,7 +160,7 @@ SelectVO = function(keys)
 	local selectedid = 1
 	local selectedid2 = nil
 	local selectedstr = nil
-	local startheronums = 131
+	local startheronums = 133
 	if keys.num >= startheronums then
 		local locnum = keys.num - startheronums
 		local mesarrs = {

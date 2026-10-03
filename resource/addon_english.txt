@@ -3,6 +3,16 @@
 	"Language"		"English"
 	"Tokens"
 	{
+		// Chinese Commentary · TI2023 (custom chat wheel page)
+		"chineseannouncer3"		"#chineseannouncer3"
+		"ti2023_back"			"Back"
+		"ti2023_1"				"Where was I bad? Don't talk nonsense with your eyes wide open, alright?"
+		"ti2023_2"				"You fed again, really?"
+		"ti2023_3"				"Can you help me kill the Magic Crystal?"
+		"ti2023_4"				"What are you saying? I don't get it."
+		"ti2023_5"				"Sure, sure sure, no problem, okay, no problem."
+		"xingbuxing"			"Are you up to it or not?"
+		"xiaofeigun"			"Hey fellas, here comes the little flying stick!"
 		"game_mode_15"				"Touhou Dots · Amethyst"
 		"addon_game_name"			"Touhou Dots · Amethyst"
 
@@ -3343,7 +3353,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_meirin_1"					"+50%「Fierce Tiger Energy Release」Damage Scaling"
 		"DOTA_Tooltip_ability_special_bonus_unique_meirin_2"					"+{s:value}「Rainbow Taijiquan」Damage Block"
 		"DOTA_Tooltip_ability_special_bonus_unique_meirin_3"					"+{s:value}「Rainbow Taijiquan」Counter Damage"
-		"DOTA_Tooltip_ability_special_bonus_unique_meirin_4"					"+{s:bonus_damage_pct}%「Colorful Light Wind Chime」Damage Reduction"
+		"DOTA_Tooltip_ability_special_bonus_unique_meirin_4"					"「Colorful Light Wind Chime」Duration +2s, Damage Reduction +{s:bonus_damage_pct}%"
 
 		//--------------------
 		//clown  by 「水色绒毯」
@@ -7194,13 +7204,13 @@
 
 		"DOTA_Tooltip_ability_item_recipe_dragon_star"								"Recipe: Dragon Star"
 		"DOTA_Tooltip_ability_item_dragon_star"										"Dragon Star"
-		"DOTA_Tooltip_ability_item_dragon_star_Description"							"<h1>Active: Dragon's Descent</h1>Continuously dispels all negative effects from yourself for %buff_duration% seconds."
+		"DOTA_Tooltip_ability_item_dragon_star_Description"							"<h1>Active: Dragon's Descent</h1>Continuously dispels all negative effects from yourself for %buff_duration% seconds and grants 5% incoming damage reduction. Each successful dispel extends the duration of Dragon's Descent by 0.5 seconds, up to a maximum of 2 seconds."
 		"DOTA_Tooltip_ability_item_dragon_star_bonus_all_stats"						"+$all"
 		"DOTA_Tooltip_ability_item_dragon_star_bonus_damage"						"+$damage"
-		"DOTA_Tooltip_ability_item_dragon_star_note0"								"Cannot be dispelled.<br><br>Dragon's Descent dispels negative effects every 0.01 seconds.<br><br>Dispel Type: <span class=\"GameplayValues GameplayVariable\">Strong Dispel</span>"
+		"DOTA_Tooltip_ability_item_dragon_star_note0"								"Cannot be dispelled.<br><br>Dragon's Descent dispels negative effects every 0.06 seconds.<br><br>Dispel Type: <span class=\"GameplayValues GameplayVariable\">Strong Dispel</span>"
 
 		"DOTA_Tooltip_modifier_item_dragon_star_buff"								"Dragon's Descent"
-		"DOTA_Tooltip_modifier_item_dragon_star_buff_Description"					"Continuously dispels all negative effects from yourself."
+		"DOTA_Tooltip_modifier_item_dragon_star_buff_Description"					"Continuously dispels negative effects and reduces incoming damage."
 
 		"DOTA_Tooltip_ability_item_recipe_present_box"								"Recipe: Precious Present"
 		"DOTA_Tooltip_ability_item_present_box"										"Precious Present"

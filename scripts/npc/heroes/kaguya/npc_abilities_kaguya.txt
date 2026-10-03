@@ -425,6 +425,9 @@
 		{
 			"soundfile"	"soundevents/thdots_hero_sounds/thdots_kaguya_sounds.vsndevts"
 			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts"
+			// 本技能靠假单位施放 thd_darkness（夜魔大招 Darkness），其施法音效定义在夜魔音效文件内。
+			// 夜魔在本模组被米斯蒂娅占用，该文件只有米斯蒂娅在场时才会被加载，故此处显式预缓存。
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_nightstalker.vsndevts"
 		}
 		"OnSpellStart"
 		{

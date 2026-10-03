@@ -1633,6 +1633,7 @@ function ItemAbility_God_Lunchbox_OnSpellStart(keys)
 end
 
 function ItemAbility_DragonStar_Stack_Permanent(keys) -- 永久增加龙星冷却时间
+    keys.caster.ItemAbility_DragonStar_Extended = 0 -- 重置"每成功驱散一次延长"的计数（每次施放龙星重置）
     if not keys.caster:HasModifier("modifier_item_dragon_star_stacks") then
         keys.ability:ApplyDataDrivenModifier(keys.caster, keys.caster, "modifier_item_dragon_star_stacks", {})
     end
@@ -1646,10 +1647,35 @@ end
 function ItemAbility_DragonStar_Purge(keys)
     local ItemAbility = keys.ability
     local Caster = keys.caster
-    -- DebugPrint("ItemAbility_Dragon_Star_Purge")
-    -- Purge(bool RemovePositiveBuffs, bool RemoveDebuffs, bool BuffsCreatedThisFrameOnly, bool RemoveStuns, bool RemoveExceptions) 
+    local buff = Caster:FindModifierByName("modifier_item_dragon_star_buff")
+    if buff == nil then return end
+
+    -- 统计口径：本次"被成功驱散的任何负面状态"。
+    -- 做法 = 驱散前记录自身全部负面（句柄为键），Purge 之后仍留在身上的剔除，剩下的差集就是被驱散掉的。
+    -- Purge(bool RemovePositiveBuffs, bool RemoveDebuffs, bool BuffsCreatedThisFrameOnly, bool RemoveStuns, bool RemoveExceptions)
+    local debuffs = {}
+    for _, modifier in pairs(Caster:FindAllModifiers()) do
+        if modifier:IsDebuff() then debuffs[modifier] = true end
+    end
+
     Caster:Purge(false, true, false, true, false)
 
+    for _, modifier in pairs(Caster:FindAllModifiers()) do
+        if modifier:IsDebuff() then debuffs[modifier] = nil end
+    end
+
+    local dispelled = 0
+    for _ in pairs(debuffs) do dispelled = dispelled + 1 end
+    if dispelled <= 0 then return end
+
+    local extendMax = keys.DispelExtendMax or 4
+    local extended = Caster.ItemAbility_DragonStar_Extended or 0
+    if extended >= extendMax then return end
+
+    local extendPer = keys.DispelExtendPer or 0.5
+    local add = math.min(dispelled, extendMax - extended)
+    Caster.ItemAbility_DragonStar_Extended = extended + add
+    buff:SetDuration(buff:GetRemainingTime() + extendPer * add, true)
 end
 
 function ItemAbility_HorseKing_OnOpen_SpendMana(keys)

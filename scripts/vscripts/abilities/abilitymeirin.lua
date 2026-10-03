@@ -81,60 +81,32 @@ function ability_thdots_meirin01:GetCastRange(location, target)
 end
 
 --自绘施法指示器（客户端 Lua，走本库 CustomIndicator 框架）：马格纳斯同款"带宽度矩形条"，
---长度=施法距离（含装备/天赋加成），方向随鼠标；参考 ability_thdots_toyohime01 的写法
+--长度=施法距离（含装备/天赋加成），方向随鼠标；实现见通用模块 util/rect_indicator.lua
 function ability_thdots_meirin01:Spawn()
     if not IsServer() then
         CustomIndicator:RegisterAbility(self)
+        RectIndicator:Attach(self, {
+            particle = "particles/indicators/rect_range_finder.vpcf",
+            --半宽 = 判定走廊半宽（KV skewer_radius）；视觉带宽 = 2×半宽
+            half_width = self:GetSpecialValueFor("skewer_radius"),
+            --长度=当前鼠标距离，上限=极限施法距离（KV 基础值 + 装备/天赋的施法距离加成，与 OnSpellStart 的 clamp 同一口径）
+            get_length = function(ability, location)
+                local caster = ability:GetCaster()
+                if caster == nil or caster:IsNull() then return 0 end
+                local length = (location - caster:GetAbsOrigin()):Length2D()
+                local max_range = ability:GetSpecialValueFor("range")
+                local ok_bonus, bonus = pcall(caster.GetCastRangeBonus, caster)
+                if ok_bonus and type(bonus) == "number" then
+                    max_range = max_range + bonus
+                end
+                if length > max_range then
+                    length = max_range
+                end
+                return length
+            end,
+        })
         return
     end
-end
-
-function ability_thdots_meirin01:CreateCustomIndicator(location)
-    local caster = self:GetCaster()
-    if caster == nil or caster:IsNull() then return end
-    --同一技能可能被重复触发 START，先清掉旧粒子，避免叠加残留
-    self:DestroyCustomIndicator()
-    --专用指示器粒子：恒定带宽 75（=判定半径，视觉带宽 150），长度由控制点 0→1 决定
-    local particle = "particles/heroes/meirin/meirin01_skewer_range_finder.vpcf"
-    self.indicator_particle = ParticleManager:CreateParticle(particle, PATTACH_ABSORIGIN_FOLLOW, caster)
-    if location ~= nil then
-        self:UpdateCustomIndicator(location)
-    end
-end
-
-function ability_thdots_meirin01:UpdateCustomIndicator(location)
-    if self.indicator_particle == nil or location == nil then return end
-    local caster = self:GetCaster()
-    if caster == nil or caster:IsNull() then return end
-    local origin = caster:GetAbsOrigin()
-    local direction = location - origin
-    direction.z = 0
-    if direction:Length2D() < 1 then
-        --鼠标压在脚下时退回朝向，避免零向量归一化
-        direction = caster:GetForwardVector()
-        direction.z = 0
-    end
-    direction = direction:Normalized()
-    --长度=当前鼠标距离，上限=极限施法距离（KV 基础值 + 装备/天赋的施法距离加成，与 OnSpellStart 的 clamp 同一口径）
-    local length = (location - origin):Length2D()
-    local max_range = self:GetSpecialValueFor("range")
-    local ok_bonus, bonus = pcall(caster.GetCastRangeBonus, caster)
-    if ok_bonus and type(bonus) == "number" then
-        max_range = max_range + bonus
-    end
-    if length > max_range then
-        length = max_range
-    end
-    ParticleManager:SetParticleControl(self.indicator_particle, 0, origin)
-    ParticleManager:SetParticleControl(self.indicator_particle, 1, origin + direction * length)
-    ParticleManager:SetParticleControl(self.indicator_particle, 6, origin)
-end
-
-function ability_thdots_meirin01:DestroyCustomIndicator()
-    if self.indicator_particle == nil then return end
-    ParticleManager:DestroyParticle(self.indicator_particle, true)
-    ParticleManager:ReleaseParticleIndex(self.indicator_particle)
-    self.indicator_particle = nil
 end
 
 function ability_thdots_meirin01:OnSpellStart()
@@ -399,6 +371,15 @@ function OnMeirin02Talent(keys)
 
     if FindTelentValue(caster, "special_bonus_unique_meirin_4") == 1 then
         ability:ApplyDataDrivenModifier(caster, caster, "modifier_meirin02_buff_ex", {})
+        -- 天赋额外增加持续时间（数值来自 KV 的 talent_bonus_duration）；主 buff 与天赋追加的 buff 需同步延长，否则减伤会提前结束
+        if keys.TalentBonusDuration ~= nil then
+            for _, name in pairs({ "modifier_meirin02_buff", "modifier_meirin02_buff_ex" }) do
+                local buff = caster:FindModifierByName(name)
+                if buff ~= nil then
+                    buff:SetDuration(buff:GetRemainingTime() + keys.TalentBonusDuration, true)
+                end
+            end
+        end
     end
     if caster:HasModifier("modifier_item_wanbaochui") then
         caster:RemoveModifierByName("modifier_meirin03_damage")
