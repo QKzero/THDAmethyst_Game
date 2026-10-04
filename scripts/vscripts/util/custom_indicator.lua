@@ -48,36 +48,45 @@ local BEHAVIOR_EVENT_START = 0;
 local BEHAVIOR_EVENT_UPDATE = 1;
 local BEHAVIOR_EVENT_END = 2;
 
---兜底自检：panorama 侧的 END 事件并非总能到达（例如带自动施法的技能，点击行为会一直停在施法态），
---失去更新超过该秒数就主动回收指示器，避免"永久残留的指示器"
-local INDICATOR_STALE_TIME = 0.25
-
-local function IndicatorNow()
-	local ok, t = pcall(GameRules.GetGameTime, GameRules)
-	if ok and type(t) == "number" then return t end
-	return 0
-end
+--兜底自检：panorama 侧的 END 事件并非总能到达（高频点击/被打断/带自动施法的技能会把点击行为一直停在施法态）。
+--判据用"事件是否还在流动"而不是"时间差"：panorama 以 ~100fps 持续发 UPDATE，只要连着若干次检查都没有看到新的
+--START/UPDATE，就认为瞄准已结束、主动回收，避免"永久残留的指示器"。
+--（刻意不依赖 GameRules:GetGameTime —— 本库其余 SetContextThink 全在服务端，客户端该接口与时钟均未经验证）
+local INDICATOR_STALE_CHECKS = 3   -- 检查次数 × 0.1s ≈ 0.3s 无事件即回收
+local INDICATOR_CHECK_INTERVAL = 0.1
 
 local function StartIndicatorWatchdog( ability )
 	if ability.indicator_watchdog then return end
+	if ability.indicator_watchdog_unavailable then return end
 	local caster = ability:GetCaster()
 	if caster == nil or caster:IsNull() then return end
 	ability.indicator_watchdog = true
 	local ok = pcall(function()
+		local last_seen = ability.indicator_events or 0
+		local idle = 0
 		caster:SetContextThink("custom_indicator_watchdog_" .. tostring(ability:entindex()), function()
 			if ability.indicator_watchdog ~= true then return nil end
-			if IndicatorNow() - (ability.indicator_last_update or 0) > INDICATOR_STALE_TIME then
-				if ability.DestroyCustomIndicator then
-					ability:DestroyCustomIndicator()
+			local seen = ability.indicator_events or 0
+			if seen == last_seen then
+				idle = idle + 1
+				if idle >= INDICATOR_STALE_CHECKS then
+					if ability.DestroyCustomIndicator then
+						ability:DestroyCustomIndicator()
+					end
+					ability.indicator_watchdog = nil
+					return nil
 				end
-				ability.indicator_watchdog = nil
-				return nil
+			else
+				last_seen = seen
+				idle = 0
 			end
-			return 0.1
-		end, INDICATOR_STALE_TIME)
+			return INDICATOR_CHECK_INTERVAL
+		end, INDICATOR_CHECK_INTERVAL)
 	end)
 	if not ok then
+		--客户端不支持 SetContextThink：不再重试（另有 JS 侧补齐 END 与模块侧自愈重建兜底）
 		ability.indicator_watchdog = nil
+		ability.indicator_watchdog_unavailable = true
 	end
 end
 
@@ -119,13 +128,15 @@ function CustomIndicator:PanoramaListener( data )
 			if ability.CreateCustomIndicator then
 				ability:CreateCustomIndicator( pos, unit, data.behavior )
 			end
-			ability.indicator_last_update = IndicatorNow()
+			ability.indicator_events = (ability.indicator_events or 0) + 1
 			StartIndicatorWatchdog( ability )
 		elseif data.event==BEHAVIOR_EVENT_UPDATE then
 			if ability.UpdateCustomIndicator then
 				ability:UpdateCustomIndicator( pos, unit, data.behavior )
 			end
-			ability.indicator_last_update = IndicatorNow()
+			ability.indicator_events = (ability.indicator_events or 0) + 1
+			--START 事件若丢失过，这里补挂看门狗（已挂/客户端不支持时会直接返回）
+			StartIndicatorWatchdog( ability )
 		elseif data.event==BEHAVIOR_EVENT_END then
 			if ability.DestroyCustomIndicator then
 				ability:DestroyCustomIndicator( pos, unit, data.behavior )

@@ -209,55 +209,30 @@ end
 ability_thdots_toyohime01 = {}
 
 --------------------------------------------------------------------------------
+-- Custom Indicator 长度余量：指示器画到"施法距离 + 该值"
+local TOYOHIME01_INDICATOR_PADDING = 100
+
+--------------------------------------------------------------------------------
 -- Init Abilities
 function ability_thdots_toyohime01:Spawn()
-	-- register custom indicator
 	if not IsServer() then
+		-- register custom indicator
 		CustomIndicator:RegisterAbility( self )
+		-- 统一走通用矩形指示器模块（行为与原先手写实现等价：同样的控制点 0/1/6、同样的长度算法）
+		RectIndicator:Attach( self, {
+			particle = "particles/thd2/heroes/toyohime/hero_snapfire_shotgun_range_finder_aoe.vpcf",
+			-- 不传 half_width ⇒ 不写控制点 2，宽度仍由粒子自身决定
+			get_length = function( ability, loc )
+				return ability:GetCastRange( loc, nil ) + TOYOHIME01_INDICATOR_PADDING
+			end,
+		} )
 		return
 	end
 end
 
 --------------------------------------------------------------------------------
--- Ability Custom Indicator (using CustomIndicator library, this section is Client Lua only)
-local TOYOHIME01_INDICATOR_PADDING = 100
-function ability_thdots_toyohime01:CreateCustomIndicator(location)
-	--先回收上一次的粒子，避免重复瞄准时叠加残留（END 事件不保证到达）
-	self:DestroyCustomIndicator()
-	local particle_cast = "particles/thd2/heroes/toyohime/hero_snapfire_shotgun_range_finder_aoe.vpcf"
-	self.effect_cast = ParticleManager:CreateParticle(particle_cast, PATTACH_ABSORIGIN_FOLLOW, self:GetCaster())
-	--创建时立即写入控制点：否则粒子按默认控制点(0)绘制，表现为"从英雄指向地图原点的定长矩形"
-	if location ~= nil then
-		self:UpdateCustomIndicator(location)
-	end
-end
-
-function ability_thdots_toyohime01:UpdateCustomIndicator(loc)
-	if self.effect_cast == nil or loc == nil then return end
-	local caster = self:GetCaster()
-	if caster == nil or caster:IsNull() then return end
-	local origin = caster:GetAbsOrigin()
-
-	-- get direction（鼠标压在脚下时退回朝向，避免零向量归一化）
-	local direction = loc - origin
-	direction.z = 0
-	if direction:Length2D() < 1 then
-		direction = caster:GetForwardVector()
-		direction.z = 0
-	end
-	direction = direction:Normalized()
-
-	ParticleManager:SetParticleControl(self.effect_cast, 0, origin)
-	ParticleManager:SetParticleControl(self.effect_cast, 1, origin + direction * (self:GetCastRange(loc, nil) + TOYOHIME01_INDICATOR_PADDING))
-	ParticleManager:SetParticleControl(self.effect_cast, 6, origin)
-end
-
-function ability_thdots_toyohime01:DestroyCustomIndicator()
-	if self.effect_cast == nil then return end
-	ParticleManager:DestroyParticle(self.effect_cast, true)
-	ParticleManager:ReleaseParticleIndex(self.effect_cast)
-	self.effect_cast = nil
-end
+-- Ability Custom Indicator：建/刷/毁现由通用模块提供（util/rect_indicator.lua），
+-- 统一获得"同施法者单例回收 / 重复创建回收 / 失去实例自愈重建"三重残留防护。
 
 --------------------------------------------------------------------------------
 function ability_thdots_toyohime01:OnSpellStart()
