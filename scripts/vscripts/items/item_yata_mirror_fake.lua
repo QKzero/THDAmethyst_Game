@@ -3,11 +3,15 @@
 -- 由清莲宝珠改名而来；原版 item_lotus_orb 仍在 npc_abilities_override.txt 中 REMOVE。
 -- 通用指向技能反弹引擎：不做技能白名单，运行时按技能行为位判定。
 -- 主动：回响护盾——反弹敌方以护盾者为目标的指向性技能与投射物（不限距离、护盾期内无上限次数）。
+<<<<<<< HEAD
 -- 被动：生命回复 / 护甲。
+=======
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 --
 -- 反弹执行（敌方倒影架构）：
 --   以 CreateIllusions 复制敌方施法者本体，造一个「敌方倒影」幻象（无敌 / 不可选中 / 零赏金，
 --   由 MODIFIER_PROPERTY_SUPER_ILLUSION 驱动可施法、SUPER_ILLUSION_WITH_ULTIMATE 驱动可施放大招），
+<<<<<<< HEAD
 --   按原施法者的万宝槌 / 魔晶状态对幻象做状态镜像后，由幻象把技能原样施回敌方本体。
 --   好处：反弹出的技能版本（强化分支、伤害属性）完全跟随原施法者，不受护盾者自身出装影响。
 --
@@ -15,15 +19,22 @@
 --   必须用 CastAbilityOnTarget 而非 CastAbilityImmediately——后者只对「物品 / IMMEDIATE 类」生效，
 --   普通英雄技能走不通（表现为物品能反弹、技能不能反弹）。
 --   施法前还需 EndCooldown 并把法力补到足够，否则倒影（法力近乎为零）会被法力检查拒绝。
+=======
+--   按原施法者的万宝槌 / 魔晶状态对幻象做状态镜像后，由幻象把技能原样施回敌方本体。反弹出的技能版本（强化分支、伤害属性）完全跟随原施法者，不受护盾者自身出装影响。
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 --====================================================================================================================
 
 
 -- 音效事件名（想换音效改这三行即可，改完重启对局生效）
 -- 2026-10-02 复原：这三个 Voice_Thdots_* 事件定义在 soundevents/thdots_hero_sounds/
+<<<<<<< HEAD
 -- thdots_daiyousei_sounds.vsndevts_c（addon 自带，且大妖精三技能本身就在用），音源指向
 -- sounds/items/lotus_*.vsnd_c，是可正常发声的组合。
 -- 之前换成 DOTA_Item.LotusOrb.* 后整件物品没声：addon 自带一份 soundevents/game_sounds_items.vsndevts_c，
 -- 会覆盖本体同名文件，而这份里并没有定义 LotusOrb 事件 → EmitSoundOn 静默失败。
+=======
+-- thdots_daiyousei_sounds.vsndevts_c（addon 自带，且大妖精三技能本身就在用），音源指向sounds/items/lotus_*.vsnd_c，是可正常发声的组合。
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 local YATA_SOUND_CAST    = "Voice_Thdots_daiyousei.Abilitydaiyousei03_Target"   -- 施放护盾（音源 lotus_activate）
 local YATA_SOUND_REFLECT = "Voice_Thdots_Daiyousei03.AbilityDaiyousei03_1"      -- 触发反弹（音源 lotus_cast）
 local YATA_SOUND_END     = "Voice_Thdots_daiyousei.Abilitydaiyousei03_End"      -- 护盾结束（音源 lotus_end）
@@ -38,16 +49,26 @@ item_yata_mirror_fake = {}
 local REFLECT_BLACKLIST = {
     ["ability_thdots_satori01"] = true, -- 偷技能：偷取记录表挂在技能实例上，倒影/副本新实例为 nil，OnSpellStart 直接空指针报错；且对施法者技能栏做 Swap/Remove 手术
     ["ability_thdots_lily01"]   = true, -- 黑白形态标记复制不确定，反弹可能走白形态给敌方加治疗（资敌）；lily02/kasen2_3 目标类型为 CREEP 无法对英雄施法，已移出
+<<<<<<< HEAD
     ["ability_thdots_medicine04"] = true, -- 梅蒂欣大招 谵妄「陷入疯狂」：反弹走支配反转（SetTeam），演出与阵营处理复杂，按需求登记为不反弹
     ["ability_thdots_Merlin04"]   = true, -- 梅露兰大招 管灵「激昂小号曲」：按需求登记为不反弹
     ["ability_thdots_keine01"]    = true, -- 慧音 产灵「初始的历史鸿流」：按需求登记为不反弹
     ["ability_thdots_shion_04"]   = true, -- 依神紫苑大招 凭依交换「绝对输家」：按需求登记为不反弹
+=======
+    ["ability_thdots_medicine04"] = true, -- 梅蒂欣大招 谵妄「陷入疯狂」
+    ["ability_thdots_Merlin04"]   = true, -- 梅露兰大招 管灵「激昂小号曲」
+    ["ability_thdots_keine01"]    = true, -- 慧音 产灵「初始的历史鸿流」
+    ["ability_thdots_shion_04"]   = true, -- 依神紫苑大招 凭依交换「绝对输家」
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 }
 
 --====================================================================================================================
 -- 自身施法反弹清单（按技能内部名精确匹配）—— 参与分流，命中即由护盾者亲自施法
+<<<<<<< HEAD
 -- 收录标准：技能效果挂在敌方身上的 modifier/think 会持续引用「施法者」句柄，
 -- 或属于万宝槌/魔晶授予型（倒影上的等级复制不可靠），或实测在倒影路径下表现异常。
+=======
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 -- 副作用：反弹数值按护盾者属性结算；且每个清单技能会在护盾者身上留一份隐藏技能副本。
 -- 注意：不要把大技能无节制塞进这张表——副本数会占用单单位技能上限（32）。
 -- 未入清单的技能一律走敌方倒影施法：倒影句柄现在存活 12 秒（仅前 1 秒在场，其余时间神隐），
@@ -68,6 +89,7 @@ local SELF_CAST_REFLECT = {
     ["ability_thdots_yuuka02"]              = true, -- 幽香 二技能：追踪花命中回调偶发引用失效（观察名单），自身施法规避
 }
 
+<<<<<<< HEAD
 -- ↑ 已按 2026-09-26 需求移出清单（改走倒影施法，倒影句柄存活 12 秒足够其效果结算）：
 --   satori02 / yuyuko02 / parsee01 / nitori04 / yamame03 / patchouli_fire_water /
 --   patchouli_wood_earth / patchouli_metal_metal / Nazrin04 / Utsuho01 / seiga03 / star02 / yugi04
@@ -75,6 +97,11 @@ local SELF_CAST_REFLECT = {
 
 --====================================================================================================================
 -- 主动：施放回响护盾
+=======
+
+--====================================================================================================================
+-- 主动：施放反弹护盾
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 --====================================================================================================================
 function item_yata_mirror_fake:GetIntrinsicModifierName()
     return "modifier_item_yata_mirror_fake_passive"
@@ -137,14 +164,21 @@ function item_yata_mirror_fake:OnSpellStart()
     -- 施放瞬间净化目标身上的负面效果（与原版一致，弱驱散）
     target:Purge(false, true, false, false, false)
 
+<<<<<<< HEAD
     -- 挂回响护盾
+=======
+    -- 挂反弹护盾
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
     local duration = self:GetSpecialValueFor("shield_duration")
     target:AddNewModifier(caster, self, "modifier_item_yata_mirror_fake_active", { duration = duration })
 
     -- 音效：施放护盾（本体原版清莲宝珠事件 DOTA_Item.LotusOrb.Activate，无需额外资源文件）
     EmitSoundOn(YATA_SOUND_CAST, caster)
     -- 护盾持续特效由 modifier 的 OnCreated 创建（挂 attach_hitloc 躯干骨骼），生命周期由 OnDestroy 回收
+<<<<<<< HEAD
     -- （写法参考大妖精三技能 modifier_ability_thdots_daiyousei03）
+=======
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 end
 
 --====================================================================================================================
@@ -195,7 +229,11 @@ function modifier_item_yata_mirror_fake_passive:GetModifierConstantManaRegen()
 end
 
 --====================================================================================================================
+<<<<<<< HEAD
 -- 回响护盾 modifier：护盾期内反弹指向技能与投射物
+=======
+-- 反弹护盾 modifier：护盾期内反弹指向技能与投射物
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 --====================================================================================================================
 modifier_item_yata_mirror_fake_active = {}
 LinkLuaModifier("modifier_item_yata_mirror_fake_active", "items/item_yata_mirror_fake.lua", LUA_MODIFIER_MOTION_NONE)
@@ -218,8 +256,11 @@ function modifier_item_yata_mirror_fake_active:GetModifierProjectileReflection()
 end
 
 -- 护盾持续特效：手动创建并挂到 attach_hitloc 骨骼（人物躯干），跟随移动。
+<<<<<<< HEAD
 -- 之前用 GetEffectName + PATTACH_CUSTOMORIGIN_FOLLOW 托管，粒子中心在单位原点（脚部），
 -- 视觉上护盾位置偏低；改为挂骨骼后中心上移到躯干，并在 OnDestroy 手动销毁防残影。
+=======
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 function modifier_item_yata_mirror_fake_active:OnCreated()
     if not IsServer() then return end
     local parent = self:GetParent()
@@ -282,10 +323,13 @@ function modifier_item_yata_mirror_fake_active:OnAbilityExecuted(keys)
     if not YataMirrorReflectableAbility(ability) then return end
 
     -- ============ 反弹触发：音效与特效 ============
+<<<<<<< HEAD
     -- 音效：参考花之领主阳伞（item_umbrella.lua）的主动触发音效 Hero_TemplarAssassin.Refraction
     --      （圣堂刺客折射音，游戏内已验证有声；Voice_ 系语音受玩家设置影响，勿用）
     -- 特效：原版清莲宝珠的反弹特效 lotus_orb_reflect.vpcf（已提取到 THI particles/items3_fx/，
     --      含子粒子 lotus_orb_reflect_embers；旧 shield_hit 粒子在 7.38 本体已不存在）
+=======
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
     EmitSoundOn(YATA_SOUND_REFLECT, shield)
     local hReflectFx = ParticleManager:CreateParticle(
         "particles/items3_fx/lotus_orb_reflect.vpcf", PATTACH_CUSTOMORIGIN_FOLLOW, shield)
@@ -294,7 +338,11 @@ function modifier_item_yata_mirror_fake_active:OnAbilityExecuted(keys)
 
     -- 分流（2026-09-26 回退为清单模式 + NOT_LEARNABLE 规则）：
     --   1) NOT_LEARNABLE 且 UNIT_TARGET 的技能（万宝槌/魔晶授予型，如 ability_thdots_tensiex）
+<<<<<<< HEAD
     --      → 强制自身施法：幻象上这类技能等级复制/SetLevel 不可靠，真身上已验证可行
+=======
+    --      → 强制自身施法：幻象上这类技能等级复制/SetLevel 不可靠
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
     --   2) 清单内技能 → 自身施法（效果会持续引用施法者句柄，倒影消亡会报错）
     --   3) 其余技能 / 物品 → 敌方倒影施法（保留原施法者的数值与强化状态，不占护盾者技能槽）
     local abilityName = ability:GetAbilityName()
@@ -309,10 +357,13 @@ end
 -- 反弹引擎：运行时按技能行为位判断是否为可指向技能（无白名单，新技能自动兼容）
 --====================================================================================================================
 -- 取技能行为位的数值形式。
+<<<<<<< HEAD
 -- 关键：GetBehavior() 对 ability_lua 技能返回的是 int64(userdata)，
 -- 直接 bit.band 会抛 "bad argument #1 to 'band' (number expected, got userdata)"，
 -- 整个 OnAbilityExecuted 会中断（表现为「技能完全不反弹，连幻象都不造」）。
 -- 必须用 GetBehaviorInt()（abilitykasen.lua 里同类注释：GetBehavior 对 lua_base 技能有问题）。
+=======
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 function YataMirrorGetBehaviorInt(ability)
     if ability.GetBehaviorInt ~= nil then
         local ok, v = pcall(function() return ability:GetBehaviorInt() end)
@@ -324,10 +375,14 @@ function YataMirrorGetBehaviorInt(ability)
 end
 
 -- NOT_LEARNABLE 且 UNIT_TARGET 的技能（万宝槌/魔晶授予型，KV 预置槽位 + Lua SetLevel(1/0) 切换，
+<<<<<<< HEAD
 -- 如 ability_thdots_tensiex）→ 强制走自身施法路径。
 -- 原因：引擎复制幻象时这类技能的等级可能不被继承（保持 0）、SetLevel 可能被忽略，
 -- 且隐藏状态可能随复制带入导致引擎拒绝施法；而真身上 AddAbility + SetLevel
 -- 已被 tensi/yukari 自己的实现验证可行。
+=======
+-- 引擎复制幻象时这类技能的等级可能不被继承（保持 0）、SetLevel 可能被忽略，且隐藏状态可能随复制带入导致引擎拒绝施法；
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 function YataMirrorNeedsSelfCast(ability)
     if ability == nil or ability:IsNull() then return false end
     local okItem, isItem = pcall(function() return ability:IsItem() end)
@@ -393,8 +448,11 @@ end
 
 --====================================================================================================================
 -- 反弹施法：清冷却 + 补法力，再用标准指令施放到目标
+<<<<<<< HEAD
 -- 2026-09-25 实测：CastAbilityImmediately 只对物品 / IMMEDIATE 行为位生效，
 -- 普通英雄技能会静默失败；倒影的法力近乎为零也会让施法被拒，因此施法前必须补蓝。
+=======
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 --====================================================================================================================
 local function YataMirrorForceCast(unit, castAbility, target, playerId)
     if unit == nil or unit:IsNull() or castAbility == nil or castAbility:IsNull() then return end
@@ -425,9 +483,12 @@ local function YataMirrorForceCast(unit, castAbility, target, playerId)
         (target:GetAbsOrigin() - unit:GetAbsOrigin()):Length2D(), tostring(range)))
 
     -- 主方案：SetCursorCastTarget + CastAbilityImmediately。
+<<<<<<< HEAD
     -- 实测（log.txt）：幻象不能用 ExecuteOrderFromTable 的 DOTA_UNIT_ORDER_CAST_TARGET，
     -- 引擎直接报 "invalid order (40). Order not allowed for illusions."；
     -- 而 CastAbilityImmediately 走的是另一条通路，幻象可以执行。
+=======
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
     unit:SetCursorCastTarget(target)
     local ok, err = pcall(function()
         unit:CastAbilityImmediately(castAbility, playerId)
@@ -449,12 +510,17 @@ local function YataMirrorForceCast(unit, castAbility, target, playerId)
 end
 
 --====================================================================================================================
+<<<<<<< HEAD
 -- 倒影退场：把倒影从场上「神隐」掉，但保留句柄。
 -- 这是解决「持续类效果需要施法者长期存活」与「倒影长时间占场很碍眼」这对矛盾的关键：
 -- 倒影的实体句柄继续存活到 duration 结束，被反弹技能挂载的 modifier/think 引用它不会失效；
 -- 但视觉与场上占用在 hide_delay 后就消失。
 -- 范式取自八云紫的隙间收纳 abilityyukari.lua: Yukari_StoreCreepInGap
 --   AddNoDraw = 完全不渲染；modifier_out_of_world = 脱离世界、防碰撞；SetAbsOrigin = 挪到地图外
+=======
+-- 倒影退场：把倒影从场上「神隐」掉，但保留句柄。倒影的实体句柄继续存活到 duration 结束，被反弹技能挂载的 modifier/think 引用它不会失效；但视觉与场上占用在 hide_delay 后就消失。
+-- 范式取自八云紫的隙间收纳 abilityyukari.lua: Yukari_StoreCreepInGap
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 --====================================================================================================================
 local function YataMirrorBanishIllusion(illusion)
     if illusion == nil or illusion:IsNull() then return end
@@ -483,8 +549,12 @@ end
 --====================================================================================================================
 -- 倒影保护修饰器：无敌 + 不可选中 + 免疫三系伤害 + 零赏金不可击杀 + 禁止攻击，
 -- 由 SUPER_ILLUSION 特性驱动可施法、SUPER_ILLUSION_WITH_ULTIMATE 驱动可施放大招
+<<<<<<< HEAD
 -- （可施法幻象写法先例：abilitykasen2.lua modifier_kasenIllusion；
 --   单色半透明外观先例：abilityreisen.lua 铃仙倒影）
+=======
+-- （可施法幻象写法先例：abilitykasen2.lua modifier_kasenIllusion）
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 modifier_item_yata_mirror_fake_reflect_illusion = {}
 LinkLuaModifier("modifier_item_yata_mirror_fake_reflect_illusion", "items/item_yata_mirror_fake.lua", LUA_MODIFIER_MOTION_NONE)
 
@@ -494,9 +564,13 @@ function modifier_item_yata_mirror_fake_reflect_illusion:IsPurgable() return fal
 function modifier_item_yata_mirror_fake_reflect_illusion:RemoveOnDeath() return true end
 
 -- 倒影外观：灰色高透明度（r/g/b 与 alpha 都在 KV 里可调）。
+<<<<<<< HEAD
 -- 注意：幻象的蓝色是引擎 illusion 系统自带的着色，SetRenderColor 未必能完全盖过去，
 -- 主要靠 SetRenderAlpha 压到极低实现「几乎看不到」；alpha 调到 0 即完全不可见。
 -- 刻意不叠 GetEffectName 粒子层——任何粒子都会让倒影更显眼。
+=======
+-- 主要靠 SetRenderAlpha 压到极低实现「几乎看不到」；alpha 调到 0 即完全不可见。
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 function modifier_item_yata_mirror_fake_reflect_illusion:OnCreated()
     if not IsServer() then return end
     local parent = self:GetParent()
@@ -513,8 +587,11 @@ function modifier_item_yata_mirror_fake_reflect_illusion:OnCreated()
         end
     end
     -- 倒影只负责施放被反弹的技能：禁止普攻、禁止自动索敌，避免施法后追着人打
+<<<<<<< HEAD
     -- 注：这里刻意不动 SetAttackCapability——改攻击能力可能影响部分技能的施法判定，
     --     禁攻交给 MODIFIER_STATE_DISARMED 即可
+=======
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
     pcall(function() parent:SetAcquisitionRange(0) end)
     pcall(function() parent:SetIdleAcquire(false) end)
     pcall(function() parent:Stop() end)
@@ -596,12 +673,18 @@ function modifier_item_yata_mirror_fake_self_cast:RemoveOnDeath() return false e
 
 --====================================================================================================================
 -- 自身施法反弹：护盾持有者亲自作为施法者，把技能施回敌方本体
+<<<<<<< HEAD
 -- 适用于「效果挂在敌方身上的 modifier/think 持续引用施法者句柄」的技能——
 -- 护盾者持续存活，引用永远有效（倒影会消亡导致句柄失效报错）。
 -- 副作用：反弹数值按护盾者属性结算（与倒影模式「按原施法者结算」不同）。
 -- 返回 false 表示这条路走不通（物品技能 / 拿不到或加不上技能副本）。
 -- 清单模式下调用方目前不使用该返回值；保留它是为了将来若要启用「自身施法失败自动回退倒影」
 -- 时无需再改函数内部。
+=======
+-- 适用于「效果挂在敌方身上的 modifier/think 持续引用施法者句柄」的技能，护盾者持续存活，引用永远有效（倒影会消亡导致句柄失效报错）。
+-- 副作用：反弹数值按护盾者属性结算（与倒影模式「按原施法者结算」不同）。
+-- 返回 false 表示这条路走不通（物品技能 / 拿不到或加不上技能副本）。清单模式下调用方目前不使用该返回值；保留它是为了将来若要启用「自身施法失败自动回退倒影」时无需再改函数内部。
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
 --====================================================================================================================
 function YataMirrorSelfCastReflect(shield, attacker, originAbility, modifier)
     local ability = modifier:GetAbility()
@@ -612,7 +695,11 @@ function YataMirrorSelfCastReflect(shield, attacker, originAbility, modifier)
     local playerId = shield:GetPlayerOwnerID()
 
     -- 物品技能不走自身施法：AddAbility 对物品名不可靠，交给倒影路径
+<<<<<<< HEAD
     -- （倒影会复制敌方物品栏，FindItemCopyOnIllusion 取同名物品副本，这条路已实测可行）
+=======
+    -- （倒影会复制敌方物品栏，FindItemCopyOnIllusion 取同名物品副本）
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
     if originAbility:IsItem() then return false end
 
     -- 护盾者已拥有同名技能（如镜像对局）则复用，否则新建一份隐藏副本
@@ -628,7 +715,10 @@ function YataMirrorSelfCastReflect(shield, attacker, originAbility, modifier)
     end
 
     -- 临时副本保留不删除：部分技能延迟访问技能实例字段
+<<<<<<< HEAD
     -- （如神绮大招 0.03s 后才创建幻象、浮游炮 think 读实例 target 字段），
+=======
+>>>>>>> bd8d967521be11a280b208068756990666c4a8dc
     -- 立即删除会让这些句柄失效；隐藏图标避免污染护盾者技能栏。
     -- 复用护盾者已有技能时不动其显示，只做等级/冷却的保存与恢复。
     if isTempCopy and reflectAbility.SetHidden ~= nil then
