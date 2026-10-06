@@ -6,7 +6,7 @@
 		"Ability2"	"ability_thdots_ellen02"
 		"Ability3"	"ability_thdots_ellen03"
 		"Ability4"	"void_spirit_aether_remnant"
-		"Ability5"	"generic_hidden"
+		"Ability5"	"ability_thdots_ellen_shard"
 		"Ability6"	"ability_thdots_ellen04"
 		"Ability7"	"ability_thdots_ellen03_end"
 		"Ability8"	"generic_hidden"

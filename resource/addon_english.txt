@@ -4611,44 +4611,38 @@
 		// --------------------
 		"npc_dota_hero_arc_warden" "Ellen"
 		"DOTA_Tooltip_ability_ability_thdots_ellen01"	"「Self Have」"
-		"DOTA_Tooltip_ability_ability_thdots_ellen01_Description"	"Set an imprint at the targeted location. The imprint will disappear when an emeny approach it, then leave a wraith aiming at the enemy, dealing magical damage and blind when the wraith touchs her.The missing probability of blind can be superposed, and the duration can be refreshed if the enemy is touched by wraiths in the duration again."
-		"DOTA_Tooltip_ability_ability_thdots_ellen01_Lore"	"Lose because of confusion."
+		"DOTA_Tooltip_ability_ability_thdots_ellen01_Description"	"Set a trap at the targeted location. When an enemy passes by, the trap turns into a wraith that chases the enemy, dealing damage and blinding it. Multiple hits stack the blindness and refresh its duration."
+		"DOTA_Tooltip_ability_ability_thdots_ellen01_Lore"	"If possible, I'd prefer a cuter one."
 		"DOTA_Tooltip_ability_ability_thdots_ellen01_cast_range"	"Cast range:"
 		"DOTA_Tooltip_ability_ability_thdots_ellen01_Note0"	"Wraiths cannot be avoided."
-		"DOTA_Tooltip_ability_ability_thdots_ellen01_radius"	"Trigger range:"
+		"DOTA_Tooltip_ability_ability_thdots_ellen01_radius"	"Trap range:"
 		"DOTA_Tooltip_ability_ability_thdots_ellen01_activation_delay"	"Activation delay:"
 		"DOTA_Tooltip_ability_ability_thdots_ellen01_duration"	"Imprints duration:"
 		"DOTA_Tooltip_ability_ability_thdots_ellen01_wraith_speed"	"Movement speed of wraiths:"
 		"DOTA_Tooltip_ability_ability_thdots_ellen01_spark_damage"	"Damage:"
 		"DOTA_Tooltip_ability_ability_thdots_ellen01_miss_duration"	"Blind duration:"
-		"DOTA_Tooltip_ability_ability_thdots_ellen01_miss"	"Missing probability:"
-
+		"DOTA_Tooltip_ability_ability_thdots_ellen01_miss"	"%Blind chance per stack:"
 		"DOTA_Tooltip_modifier_ability_thdots_ellen01_purge" "「Self Have」"
-		"DOTA_Tooltip_modifier_ability_thdots_ellen01_purge_Description"	"Blind."
-
+		"DOTA_Tooltip_modifier_ability_thdots_ellen01_purge_Description"	"Blinded..."
 		"DOTA_Tooltip_ability_ability_thdots_ellen02"	"「Empty Starlight」"
-		"DOTA_Tooltip_ability_ability_thdots_ellen02_Description"	"Summon lights around Ellen. Enemies who touch the light will be bounced, suffering magical damage and losing mana. The light can be destroyed by several times of physical attack, and the health of lights reduces by 1 every triggered as well."
-		"DOTA_Tooltip_ability_ability_thdots_ellen02_cast_range"	"Cast range:"
-		"DOTA_Tooltip_ability_ability_thdots_ellen02_Lore"	"No way to home, and no shelter for me, either."
+		"DOTA_Tooltip_ability_ability_thdots_ellen02_Description"	"Summon lights around Ellen. When an enemy comes close, the light bounces them away, dealing damage and draining mana, and loses 1 of the hits required to destroy it."
+		"DOTA_Tooltip_ability_ability_thdots_ellen02_Lore"	"Is it something dangerous? Hey~!"
 		"DOTA_Tooltip_ability_ability_thdots_ellen02_Note0"	"Can bounce invisible enemies."
 		"DOTA_Tooltip_ability_ability_thdots_ellen02_cogs_num"	"The number of lights:"
 		"DOTA_Tooltip_ability_ability_thdots_ellen02_duration"	"Lights duration:"
 		"DOTA_Tooltip_ability_ability_thdots_ellen02_attacks_to_destroy"	"Times of attack needed for destory:"
 		"DOTA_Tooltip_ability_ability_thdots_ellen02_damage"	"Damage:"
 		"DOTA_Tooltip_ability_ability_thdots_ellen02_mana_burn"	"Mana lost:"
-
 		"DOTA_Tooltip_modifier_ability_thdots_ellen02" "「Empty Starlight」"
-		"DOTA_Tooltip_modifier_ability_thdots_ellen02_Description"	"This unit can't act temporarily."
-
+		"DOTA_Tooltip_modifier_ability_thdots_ellen02_Description"	"Can't act temporarily."
 		"DOTA_Tooltip_ability_ability_thdots_ellen03"	"「Vacant Sphere」"
 		"DOTA_Tooltip_ability_ability_thdots_ellen03_Note0"	"Cannot work with「Knock Out In Three Steps」."
-        "DOTA_Tooltip_ability_ability_thdots_ellen03_Description"	"Shoot a light wave towards the targeted direction, silencing and damaging enemies touched.This skill will be replaced by 「Vacant Pulse」when the light wave is on the way."
+        "DOTA_Tooltip_ability_ability_thdots_ellen03_Description"	"Fire a light sphere forwards, silencing and damaging enemies it touches. While the skill is active, you can cast again to make the light sphere deal damage and knock back enemies once more."
         "DOTA_Tooltip_ability_ability_thdots_ellen03_max_distance"	"Cast range:"
-        "DOTA_Tooltip_ability_ability_thdots_ellen03_damage"	"Wave damage: "
-        "DOTA_Tooltip_ability_ability_thdots_ellen03_duration"	"Silence duration: "
-        "DOTA_Tooltip_ability_ability_thdots_ellen03_Lore"	"What will happen tomorrow is impossible to know forever."
+        "DOTA_Tooltip_ability_ability_thdots_ellen03_damage"	"sphere damage: "
+        "DOTA_Tooltip_ability_ability_thdots_ellen03_Lore"	"Using magic today made my fluffy hair sticky again."
         "DOTA_Tooltip_ability_ability_thdots_ellen03_end"	"「Vacant Pulse」"
-        "DOTA_Tooltip_ability_ability_thdots_ellen03_end_Description"	"Make the light wave shines to bounce enemies."
+        "DOTA_Tooltip_ability_ability_thdots_ellen03_end_Description"	"Make the light sphere shines to bounce enemies."
         "DOTA_Tooltip_ability_ability_thdots_ellen03_end_Lore"	"It cannot be called a 'dream' if it's too easy to achieve."
         "DOTA_Tooltip_ability_ability_thdots_ellen03_end_radius"	"Effect radius: "
         "DOTA_Tooltip_ability_ability_thdots_ellen03_end_knockback_duration"	"Knockback duration: "
@@ -4656,43 +4650,70 @@
         "DOTA_Tooltip_ability_ability_thdots_ellen03_end_knockback_distance"	"Knockback distance: "
 
 		"DOTA_Tooltip_modifier_ability_thdots_ellen03_orb_controller" "「Vacant Sphere」"
-		"DOTA_Tooltip_modifier_ability_thdots_ellen03_orb_controller_Description"	"The light wave is on the way, so you can spell「Vacant Pulse」now."
+		"DOTA_Tooltip_modifier_ability_thdots_ellen03_orb_controller_Description"	"Makes the light sphere deal damage and knock enemies back again."
         "DOTA_Tooltip_modifier_ability_thdots_ellen03_orb_silenced" "「Vacant Sphere」"
         "DOTA_Tooltip_modifier_ability_thdots_ellen03_orb_silenced_Description"	"Silenced"
         "DOTA_Tooltip_modifier_ability_thdots_ellen03_knockback" "「Vacant Pulse」"
         "DOTA_Tooltip_modifier_ability_thdots_ellen03_knockback_Description"	"Suffering a knockback."
 
 
-
         "DOTA_Tooltip_ability_ability_thdots_ellen04"	"「Tabula Rasa」"
-        "DOTA_Tooltip_ability_ability_thdots_ellen04_Description"	"Release negative energy amassed towards a straight line, dealing magical damage to enemies touched. The negative energy will attach to enemies effected, and burst in %stack_duration% seconds.Every negative energy stacked will double the burst damage."
-        "DOTA_Tooltip_ability_ability_thdots_ellen04_Lore"	"It's an annoyance for me to have a excessively strong memory."
-        "DOTA_Tooltip_ability_ability_thdots_ellen04_efficient_upwards_limit"	"Limit of stack: "
-        "DOTA_Tooltip_ability_ability_thdots_ellen04_hit_damage"	"Hit damage: "
-        "DOTA_Tooltip_ability_ability_thdots_ellen04_stack_damage"	"Burst damage: "
-        "DOTA_Tooltip_ability_ability_thdots_ellen04_cast_range"	"Cast range: "
+        "DOTA_Tooltip_ability_ability_thdots_ellen04_Description"	"Ellen erases everything from her memory for %duration% seconds: she, all allied heroes and the units under their control gain a hidden health bar, vanish from the minimap for enemies, and gradually fade into invisibility over %fade_time% seconds.\nWhile fully invisible, move speed is increased by %movespeed_bonus%%%. Attacks from enemy heroes during the fade reset the fading; when invisibility is broken, the fading starts over."
+        "DOTA_Tooltip_ability_ability_thdots_ellen04_Lore"	"I've lived so long, yet my memory is poor - I keep forgetting things one after another."
+        "DOTA_Tooltip_ability_ability_thdots_ellen04_Note0"	"Attacking or casting breaks invisibility, then the fading starts over."
 
-        "DOTA_Tooltip_modifier_ability_thdots_ellen04_debuff" "「Tabula Rasa」"
-        "DOTA_Tooltip_modifier_ability_thdots_ellen04_debuff_Description"	"Will suffer burst damage at the end of the duration for accumulating negative energy."
+        "DOTA_Tooltip_ability_ability_thdots_ellen04_duration"	"Duration: "
+
+        "DOTA_Tooltip_ability_ability_thdots_ellen04_fade_time"	"Fade time: "
+
+        "DOTA_Tooltip_ability_ability_thdots_ellen04_movespeed_bonus"	"%Move speed bonus: "
+
+        "DOTA_Tooltip_ability_ability_thdots_ellen04_scepter_description"	"Scepter Upgrade: On cast, and every %scepter_purge_interval% seconds during the duration, applies a strong dispel to all affected allied units."
+
+        "DOTA_Tooltip_modifier_ability_thdots_ellen04_blank" "「Tabula Rasa」"
+
+        "DOTA_Tooltip_modifier_ability_thdots_ellen04_blank_Description"	"Health bar hidden and off the enemy minimap, gradually turning invisible."
+
+		"DOTA_Tooltip_modifier_ability_thdots_ellen04_invis"	"Blank (Fully Faded)"
+
+		"DOTA_Tooltip_modifier_ability_thdots_ellen04_invis_Description"	"Fully invisible: unselectable and unattackable by enemies, with bonus movement speed."
 
 
+        "DOTA_Tooltip_ability_ability_thdots_ellen_shard"	"「Blank Girl」"
 
-		"DOTA_Tooltip_ability_void_spirit_aether_remnant"	"「Missing Pages」"
+        "DOTA_Tooltip_ability_ability_thdots_ellen_shard_Description"	"Passive: +%stats_bonus% primary attribute.\nActive: Becomes invulnerable for a short time (%invuln_duration% s), then randomly redistributes her base strength, agility and intellect (bonuses from items and other external sources are not affected). The highest attribute after redistribution becomes the primary attribute, and this persists after reincarnation."
+
+        "DOTA_Tooltip_ability_ability_thdots_ellen_shard_Lore"	"What is science?"
+
+        "DOTA_Tooltip_ability_ability_thdots_ellen_shard_stats_bonus"	"Primary attribute bonus: "
+
+        "DOTA_Tooltip_ability_ability_thdots_ellen_shard_invuln_duration"	"Invulnerability duration: "
+
+        "DOTA_Tooltip_modifier_thdots_ellen_shard_invuln"	"「Blank Girl」"
+
+        "DOTA_Tooltip_modifier_thdots_ellen_shard_invuln_Description"	"Attributes are being redistributed."
+
+        "DOTA_Tooltip_modifier_thdots_ellen_shard_shuffle"	"「Blank Girl」"
+
+        "DOTA_Tooltip_modifier_thdots_ellen_shard_shuffle_Description"	"Base attributes have been redistributed."
+
+		"DOTA_Tooltip_ability_void_spirit_aether_remnant"	"「Phantasmagoria」"
 		"DOTA_Tooltip_ability_void_spirit_aether_remnant_Note0"	"Cannot work with「Knock Out In Three Steps」."
-		"DOTA_Tooltip_ability_void_spirit_aether_remnant_Description"	"Vector targeted. Dispatch a remnant of Ellen to the target location. The remnant stands watch over the region, facing the direction of her vector. When an enemy crosses its gaze, the remnant pulls her in and damages her. The pull duration is longer when pulling girls."
-		"DOTA_Tooltip_ability_void_spirit_aether_remnant_Lore"	"I will pass you one day."
+		"DOTA_Tooltip_ability_void_spirit_aether_remnant_Description"	"Summon a remnant of Ellen to the target location. The remnant keeps watching the direction it faces, and when an enemy enters its watch range it pulls the enemy in briefly. The pull duration is longer when pulling girls."
+		"DOTA_Tooltip_ability_void_spirit_aether_remnant_Lore"	"In other words, you want to test my power, don't you?"
 		"DOTA_Tooltip_ability_void_spirit_aether_remnant_pull_duration"	"Pull duration(for girls): "
 		"DOTA_Tooltip_ability_void_spirit_aether_remnant_duration"	"Remnant duration: "
 		"DOTA_Tooltip_ability_void_spirit_aether_remnant_activation_delay"	"Activation delay: "
 		"DOTA_Tooltip_ability_void_spirit_aether_remnant_AbilityCastRange"	"Cast range: "
-		"DOTA_Tooltip_modifier_void_spirit_aether_remnant_pull"	"「Missing Pages」"
+		"DOTA_Tooltip_ability_void_spirit_aether_remnant_shard_Description"	"Increases the remnant's watch range and makes it only pull girls."
+		"DOTA_Tooltip_modifier_void_spirit_aether_remnant_pull"	"「Phantasmagoria」"
 		"DOTA_Tooltip_modifier_void_spirit_aether_remnant_pull_Description"	"Being pulled."
 
 
-        "DOTA_Tooltip_ability_special_bonus_unique_void_spirit_7"	"475「Missing Pages」true sight"
+        "DOTA_Tooltip_ability_special_bonus_unique_void_spirit_7"	"475「Phantasmagoria」true sight"
         "DOTA_Tooltip_ability_special_bonus_unique_ellen_1"	 "+2「Empty Starlight」lights"
         "DOTA_Tooltip_ability_special_bonus_unique_ellen_2"	 "+90 seconds「Self Have」imprints' duration"
-        "DOTA_Tooltip_ability_special_bonus_unique_ellen_3"	 "+0.2「Tabula Rasa」burst magnification"
+        "DOTA_Tooltip_ability_special_bonus_unique_ellen_3"	 "+20%「Tabula Rasa」damage reduction"
         "DOTA_Tooltip_ability_special_bonus_unique_ellen_4"	 "+100 strength"
 		"DOTA_Tooltip_ability_special_bonus_strength_100"	 "+{s:value} Strength"
 

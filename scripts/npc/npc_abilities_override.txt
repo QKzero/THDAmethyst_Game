@@ -1561,7 +1561,7 @@
      "AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
      "AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"
      "MaxLevel"						"1"
-     "AbilityTextureName"			    "lich\lich_ti10_immortal_ability_icon/lich_ti10_immortal_sinister_gaze"
+     "AbilityTextureName"			    "custom/ability_thdots_ellenex"
      "SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
      "SpellDispellableType"			"SPELL_DISPELLABLE_YES"
      "FightRecapLevel"				"1"
@@ -1578,7 +1578,9 @@
 	 }
      // Time
      //-------------------------------------------------------------------------------------------------------------
-     "AbilityCooldown"				"10"
+     // 注意：本 build（7.38）里 AbilityCooldown 已经移进 AbilityValues 内部，
+     // 写在顶层的 "AbilityCooldown" "10" 不会被读取（实测 GetSpecialValueFor 仍返回本体值），
+     // 因此冷却时间改到下面的 AbilityValues 里去覆盖。
      // Cost
      //-------------------------------------------------------------------------------------------------------------
      "AbilityManaCost"				"100"
@@ -1603,7 +1605,6 @@
 			"affected_by_aoe_increase"	"1"
 		}
     	"projectile_speed"			"900"
-    	"remnant_watch_distance"	"525"
     	"remnant_watch_radius"		
 		{
 			"value"		"130"
@@ -1620,6 +1621,34 @@
     	"pull_destination"		"50"
     	"duration"				"20.0"
     	"think_interval"		"0.1"
+		// ---- 魔晶强化取舍（本体的 shard 数值用 special_bonus_shard 声明，override 里置 +0 即等于去除）----
+		// 保留：观察距离 +150、只牵引敌方英雄单位
+		// 去除：其他单位受到伤害（damage_tick_rate / creep_damage_pct）、冷却时间降低
+    	"remnant_watch_distance"
+		{
+			"value"						"525"
+			"special_bonus_shard"		"+150"	// 保留：魔晶提升观察距离
+		}
+    	"pierces_creeps"
+		{
+			"value"						"0"
+			"special_bonus_shard"		"+1"	// 保留：魔晶使其只牵引敌方英雄单位
+		}
+    	"damage_tick_rate"
+		{
+			"value"						"0"
+			"special_bonus_shard"		"+0"	// 去除：魔晶「其他单位持续受伤」
+		}
+    	"creep_damage_pct"
+		{
+			"value"						"0"
+			"special_bonus_shard"		"+0"	// 去除：魔晶伤害百分比
+		}
+    	"AbilityCooldown"
+		{
+			"value"						"17.0"
+			"special_bonus_shard"		"+0"	// 去除：魔晶冷却降低（想改成 10 秒把 value 改成 "10"）
+		}
      }
      "AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
      "AbilityCastGestureSlot"		"DEFAULT"
