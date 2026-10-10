@@ -27,8 +27,8 @@ CreateModifierThinker(self:GetCaster(), self, "ability_thdots_ellen01_thinker", 
     			Source		= self:GetCaster(),
     			vSpawnOrigin	= self:GetCaster():GetAbsOrigin(),
     			vVelocity	= ((self:GetCursorPosition() - self:GetCaster():GetAbsOrigin()) * Vector(1, 1, 0)):Normalized() * self:GetSpecialValueFor("wraith_speed"),
-    			vAcceleration	= nil, --hmm...
-    			fMaxSpeed	= nil, -- What's the default on this thing?
+    			vAcceleration	= nil, 
+    			fMaxSpeed	= nil,
     			fDistance	= self.BaseClass.GetCastRange(self, self:GetCursorPosition(), self:GetCaster()) + self:GetCaster():GetCastRangeBonus(),
     			fStartRadius	= 100,
     			fEndRadius		= 100,
@@ -946,7 +946,6 @@ end
 
 function modifier_ability_thdots_ellen04_blank:CheckState()
 	return {
-		[MODIFIER_STATE_NO_HEALTH_BAR]				= true,
 		[MODIFIER_STATE_NOT_ON_MINIMAP_FOR_ENEMIES]	= true,
 	}
 end
